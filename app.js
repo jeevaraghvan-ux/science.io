@@ -1286,7 +1286,7 @@ class VaultController {
     }
 
     // Automatically publish to Cloud Database across all devices
-    await this.app.publishAllNotes(true);
+    await this.app.publishAllNotes(true, `🎉 Unit "${newNote.title}" added and published live across all your devices!`);
 
     if (saveBtn) {
       saveBtn.disabled = false;
