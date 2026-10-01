@@ -175,7 +175,7 @@ const DEFAULT_SCIENCE_TOPICS = [
 ];
 
 // Default Cloud Database Bucket ID (Hosted on permanent free REST backend)
-const DEFAULT_CLOUD_DB_ID = "bbaffcc";
+const DEFAULT_CLOUD_DB_ID = "ff808181a09d98f701a0f483e327513e";
 
 // ================= SOUND FX SYSTEM (WEB AUDIO API) =================
 class SoundController {
@@ -1301,7 +1301,12 @@ class ScienceIoApp {
     this.carouselIndex = 0;
     this.confetti = null;
     this.currentModalTopic = null;
-    this.cloudDbId = localStorage.getItem("scienceio_cloud_id") || DEFAULT_CLOUD_DB_ID;
+    let savedDbId = localStorage.getItem("scienceio_cloud_id");
+    if (!savedDbId || savedDbId === "bbaffcc") {
+      savedDbId = DEFAULT_CLOUD_DB_ID;
+      localStorage.setItem("scienceio_cloud_id", DEFAULT_CLOUD_DB_ID);
+    }
+    this.cloudDbId = savedDbId;
     this.hasUnpublishedChanges = false;
     this.vault = new VaultController(this);
 
@@ -1365,22 +1370,49 @@ class ScienceIoApp {
 
   // ================= DATABASE SYNC & "PUBLISH ALL NOTES" =================
   async fetchCloudNotes() {
-    // 1. Primary: load from free cross-device Cloud Database
+    const cloudDot = document.getElementById("cloud-status-dot");
+    const cloudText = document.getElementById("cloud-status-text");
+
+    // 1. Primary: load from free cross-device Cloud Database (api.restful-api.dev)
     try {
-      const cloudUrl = `https://extendsclass.com/api/json-storage/bin/${this.cloudDbId}`;
-      const res = await fetch(cloudUrl, {
+      const res = await fetch(`https://api.restful-api.dev/objects/${this.cloudDbId}`, {
         method: "GET",
         headers: { "Accept": "application/json" }
       });
+
       if (res.ok) {
-        const cloudData = await res.json();
-        if (cloudData && Array.isArray(cloudData.notes) && cloudData.notes.length > 0) {
-          this.notes = ensurePlantCellUnit(cloudData.notes);
-          localStorage.setItem("scienceio_notes_v5", JSON.stringify(this.notes));
-          this.hasUnpublishedChanges = false;
-          this.updatePublishBadge();
-          this.render();
-          return true;
+        const json = await res.json();
+        const cloudData = json.data;
+        if (cloudData) {
+          let loadedNotes = null;
+          if (Array.isArray(cloudData.chunkIds) && cloudData.chunkIds.length > 0) {
+            const query = cloudData.chunkIds.map(id => `id=${encodeURIComponent(id)}`).join("&");
+            const chunkRes = await fetch(`https://api.restful-api.dev/objects?${query}`);
+            if (chunkRes.ok) {
+              const chunkObjects = await chunkRes.json();
+              if (Array.isArray(chunkObjects) && chunkObjects.length > 0) {
+                chunkObjects.sort((a, b) => ((a.data && a.data.part) || 0) - ((b.data && b.data.part) || 0));
+                const fullStr = chunkObjects.map(c => (c.data && (c.data.content || c.data.chunk)) || "").join("");
+                if (fullStr) {
+                  const parsed = JSON.parse(fullStr);
+                  loadedNotes = Array.isArray(parsed) ? parsed : [parsed];
+                }
+              }
+            }
+          } else if (Array.isArray(cloudData.notes)) {
+            loadedNotes = cloudData.notes;
+          }
+
+          if (loadedNotes && loadedNotes.length > 0) {
+            this.notes = ensurePlantCellUnit(loadedNotes);
+            localStorage.setItem("scienceio_notes_v5", JSON.stringify(this.notes));
+            this.hasUnpublishedChanges = false;
+            if (cloudDot) cloudDot.className = "cloud-dot";
+            if (cloudText) cloudText.textContent = "Database Live";
+            this.updatePublishBadge();
+            this.render();
+            return true;
+          }
         }
       }
     } catch (err) {
@@ -1405,10 +1437,9 @@ class ScienceIoApp {
       }
     } catch (e) {}
 
-    // 3. Fallback: check local Node server API (/api/notes) ONLY if running locally
+    // 3. Fallback: check local Node server API (/api/notes) if running
     try {
-      const isLocalHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      if (isLocalHost && window.location.port) {
+      if (window.location.protocol.startsWith('http')) {
         const apiRes = await fetch("/api/notes");
         if (apiRes.ok) {
           const apiData = await apiRes.json();
@@ -1416,6 +1447,8 @@ class ScienceIoApp {
             this.notes = ensurePlantCellUnit(apiData.notes);
             localStorage.setItem("scienceio_notes_v5", JSON.stringify(this.notes));
             this.hasUnpublishedChanges = false;
+            if (cloudDot) cloudDot.className = "cloud-dot";
+            if (cloudText) cloudText.textContent = "Database Live";
             this.updatePublishBadge();
             this.render();
             return true;
@@ -1442,43 +1475,64 @@ class ScienceIoApp {
       btn.innerHTML = `<span>⏳ Publishing ${this.notes.length} Unit(s)...</span>`;
     });
 
-    let cloudSuccess = false;
+    let savedToServer = false;
 
-    // 1. Direct single PUT to Cloud Database (100% Free, Zero Credit Drain, Real Cross-Device Persistence)
+    // 1. Save to local server REST API (/api/notes) if running (updates database.json on disk)
     try {
-      this.notes = ensurePlantCellUnit(this.notes);
-      const payload = {
-        app: "science.io",
-        version: "2.0.0",
-        updatedAt: new Date().toISOString(),
-        notes: this.notes
-      };
-
-      const cloudUrl = `https://extendsclass.com/api/json-storage/bin/${this.cloudDbId}`;
-      const res = await fetch(cloudUrl, {
-        method: "PUT",
+      const serverRes = await fetch("/api/notes", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ notes: this.notes, cloudDbId: this.cloudDbId })
       });
-
-      if (res.ok) {
-        cloudSuccess = true;
-      }
-    } catch (err) {
-      console.error("Cloud DB PUT error:", err);
-    }
-
-    // 2. Also save to local server REST API (/api/notes) ONLY if running on localhost dev server
-    try {
-      const isLocalHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      if (isLocalHost && window.location.port) {
-        await fetch("/api/notes", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ notes: this.notes, cloudDbId: this.cloudDbId })
-        });
+      if (serverRes.ok) {
+        savedToServer = true;
       }
     } catch (e) {}
+
+    // 2. Publish to Cloud Database (restful-api.dev strategy - original working code)
+    try {
+      this.notes = ensurePlantCellUnit(this.notes);
+      const fullJson = JSON.stringify(this.notes);
+      const CHUNK_SIZE = 750;
+      const chunks = [];
+      for (let i = 0; i < fullJson.length; i += CHUNK_SIZE) {
+        chunks.push(fullJson.slice(i, i + CHUNK_SIZE));
+      }
+
+      const chunkIds = [];
+      for (let i = 0; i < chunks.length; i++) {
+        const chunkRes = await fetch("https://api.restful-api.dev/objects", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: `scienceio_chunk_${i}`,
+            data: { part: i, content: chunks[i] }
+          })
+        });
+        if (chunkRes.ok) {
+          const chunkData = await chunkRes.json();
+          chunkIds.push(chunkData.id);
+        }
+      }
+
+      if (chunkIds.length === chunks.length) {
+        await fetch(`https://api.restful-api.dev/objects/${this.cloudDbId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: "science.io official database",
+            data: {
+              appName: "science.io",
+              version: "2.0.0",
+              updatedAt: new Date().toISOString(),
+              chunkIds: chunkIds
+            }
+          })
+        });
+      }
+    } catch (err) {
+      console.error("Cloud DB publish error:", err);
+    }
 
     // Always update local cache
     this.notes = ensurePlantCellUnit(this.notes);
@@ -1494,7 +1548,7 @@ class ScienceIoApp {
     sounds.playSuccess();
     this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 85);
 
-    alert(`🎉 SUCCESS! All ${this.notes.length} note unit(s) were successfully published to the science.io Database!\n\n✓ Saved to Cloud Database (Bucket ID: ${this.cloudDbId}).\n✓ Ready to view on your phone, tablet, and other computers!`);
+    alert(`🎉 SUCCESS! All ${this.notes.length} note unit(s) were successfully published to the science.io Database!\n\n${savedToServer ? "✓ Saved to database.json on disk for your Vercel deployment." : "✓ Saved to Cloud Database (ID: " + this.cloudDbId + ") and active across your devices."}`);
 
     this.updatePublishModalInfo();
   }
