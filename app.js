@@ -914,8 +914,8 @@ class VaultController {
     this.renderSquares();
   }
 
-  handleSaveNote(e) {
-    e.preventDefault();
+  async handleSaveNote(e) {
+    if (e && e.preventDefault) e.preventDefault();
     const title = document.getElementById("vnote-title").value.trim();
     const category = document.getElementById("vnote-category").value;
     const color = document.getElementById("vnote-color").value;
@@ -966,11 +966,6 @@ class VaultController {
         this.app.notes[idx] = newNote;
       }
       this.editingNoteId = null;
-      const saveBtn = document.getElementById("btn-save-vault-note");
-      if (saveBtn) {
-        saveBtn.innerHTML = "<span>✦ Save Unit & Squares to science.io</span>";
-        saveBtn.style.background = "";
-      }
     } else {
       this.app.notes.push(newNote);
     }
@@ -978,19 +973,30 @@ class VaultController {
     this.app.saveNotes();
     this.app.render();
 
+    const saveBtn = document.getElementById("btn-save-vault-note");
+    if (saveBtn) {
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = "<span>⏳ Publishing Unit to Cloud...</span>";
+    }
+
+    // Automatically publish to Cloud Database across all devices
+    await this.app.publishAllNotes(true);
+
+    if (saveBtn) {
+      saveBtn.disabled = false;
+      saveBtn.innerHTML = "<span>✦ Save Unit & Squares to science.io</span>";
+      saveBtn.style.background = "";
+    }
+
     // Close vault and celebrate
     this.close();
-    sounds.playSuccess();
-    this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 80);
 
-    // Prompt user to publish or auto-sync
     const filtered = this.app.getFilteredNotes();
     const newIdx = filtered.findIndex((n) => n.id === newNote.id);
     if (newIdx !== -1) {
       this.app.carouselIndex = newIdx;
       this.app.updateCarouselPositions();
     }
-
   }
 
   setupAdminCommands() {
@@ -1000,7 +1006,7 @@ class VaultController {
     });
 
     // Preset: States of Matter
-    document.getElementById("cmd-btn-preset-matter")?.addEventListener("click", () => {
+    document.getElementById("cmd-btn-preset-matter")?.addEventListener("click", async () => {
       const matterNote = {
         id: `science-matter-${Date.now()}`,
         title: "STATES OF MATTER & PHASE CHANGES",
@@ -1043,13 +1049,13 @@ class VaultController {
       this.app.render();
       sounds.playSuccess();
       this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 60);
-      alert("🧪 Science Unit Injected: States of Matter!");
       this.updateManagerTable();
       this.updateTelemetry();
+      await this.app.publishAllNotes(true);
     });
 
     // Preset: Photosynthesis
-    document.getElementById("cmd-btn-preset-photo")?.addEventListener("click", () => {
+    document.getElementById("cmd-btn-preset-photo")?.addEventListener("click", async () => {
       const photoNote = {
         id: `science-photo-${Date.now()}`,
         title: "PHOTOSYNTHESIS & ECOSYSTEM ENERGY",
@@ -1092,9 +1098,9 @@ class VaultController {
       this.app.render();
       sounds.playSuccess();
       this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 60);
-      alert("🌱 Science Unit Injected: Photosynthesis & Energy!");
       this.updateManagerTable();
       this.updateTelemetry();
+      await this.app.publishAllNotes(true);
     });
 
     // Confetti
@@ -1136,7 +1142,7 @@ class VaultController {
         const file = e.target.files[0];
         if (!file) return;
         const reader = new FileReader();
-        reader.onload = (event) => {
+        reader.onload = async (event) => {
           try {
             const parsed = JSON.parse(event.target.result);
             const notesArr = Array.isArray(parsed) ? parsed : (Array.isArray(parsed.notes) ? parsed.notes : null);
@@ -1145,9 +1151,9 @@ class VaultController {
               this.app.saveNotes();
               this.app.render();
               sounds.playSuccess();
-              alert(`Successfully imported ${notesArr.length} units into science.io!`);
               this.updateManagerTable();
               this.updateTelemetry();
+              await this.app.publishAllNotes(true);
             } else {
               alert("Invalid JSON format: expected an array of science units.");
             }
@@ -1160,15 +1166,15 @@ class VaultController {
     }
 
     // Clear All Notes
-    document.getElementById("cmd-btn-clear-custom")?.addEventListener("click", () => {
+    document.getElementById("cmd-btn-clear-custom")?.addEventListener("click", async () => {
       if (!confirm("Are you sure you want to clear all notes? Your notebook will be completely empty.")) return;
       this.app.notes = [];
       this.app.saveNotes();
       this.app.render();
       sounds.playClick();
-      alert("All science notes cleared. Notebook is fresh and empty.");
       this.updateManagerTable();
       this.updateTelemetry();
+      await this.app.publishAllNotes(true);
     });
   }
 
@@ -1209,7 +1215,7 @@ class VaultController {
         this.editNoteInArchitect(topic.id);
       });
 
-      tr.querySelector(".delete")?.addEventListener("click", () => {
+      tr.querySelector(".delete")?.addEventListener("click", async () => {
         if (confirm(`Delete unit "${topic.title}"?`)) {
           this.app.notes = this.app.notes.filter(n => n.id !== topic.id);
           this.app.saveNotes();
@@ -1217,6 +1223,7 @@ class VaultController {
           this.updateManagerTable();
           this.updateTelemetry();
           sounds.playClick();
+          await this.app.publishAllNotes(true);
         }
       });
 
@@ -1302,7 +1309,7 @@ class ScienceIoApp {
     this.confetti = null;
     this.currentModalTopic = null;
     let savedDbId = localStorage.getItem("scienceio_cloud_id");
-    if (!savedDbId || savedDbId === "bbaffcc") {
+    if (!savedDbId || savedDbId === "bbaffcc" || savedDbId.length !== 32) {
       savedDbId = DEFAULT_CLOUD_DB_ID;
       localStorage.setItem("scienceio_cloud_id", DEFAULT_CLOUD_DB_ID);
     }
@@ -1373,94 +1380,110 @@ class ScienceIoApp {
     const cloudDot = document.getElementById("cloud-status-dot");
     const cloudText = document.getElementById("cloud-status-text");
 
-    // 1. Primary: load from free cross-device Cloud Database (api.restful-api.dev)
+    let loadedNotes = null;
+
+    // 1. Primary: load from high-speed cross-device Cloud Database (extendsclass.com)
     try {
-      const res = await fetch(`https://api.restful-api.dev/objects/${this.cloudDbId}`, {
+      const res = await fetch("https://extendsclass.com/api/json-storage/bin/bbaffcc", {
         method: "GET",
         headers: { "Accept": "application/json" }
       });
-
       if (res.ok) {
-        const json = await res.json();
-        const cloudData = json.data;
-        if (cloudData) {
-          let loadedNotes = null;
-          if (Array.isArray(cloudData.chunkIds) && cloudData.chunkIds.length > 0) {
-            const query = cloudData.chunkIds.map(id => `id=${encodeURIComponent(id)}`).join("&");
-            const chunkRes = await fetch(`https://api.restful-api.dev/objects?${query}`);
-            if (chunkRes.ok) {
-              const chunkObjects = await chunkRes.json();
-              if (Array.isArray(chunkObjects) && chunkObjects.length > 0) {
-                chunkObjects.sort((a, b) => ((a.data && a.data.part) || 0) - ((b.data && b.data.part) || 0));
-                const fullStr = chunkObjects.map(c => (c.data && (c.data.content || c.data.chunk)) || "").join("");
-                if (fullStr) {
-                  const parsed = JSON.parse(fullStr);
-                  loadedNotes = Array.isArray(parsed) ? parsed : [parsed];
+        const cloudData = await res.json();
+        if (cloudData && Array.isArray(cloudData.notes) && cloudData.notes.length > 0) {
+          loadedNotes = cloudData.notes;
+        }
+      }
+    } catch (err) {}
+
+    // 2. Secondary: load from restful-api.dev if primary was empty
+    if (!loadedNotes) {
+      try {
+        const res = await fetch(`https://api.restful-api.dev/objects/${this.cloudDbId}`, {
+          method: "GET",
+          headers: { "Accept": "application/json" }
+        });
+        if (res.ok) {
+          const json = await res.json();
+          const cloudData = json.data;
+          if (cloudData) {
+            if (Array.isArray(cloudData.chunkIds) && cloudData.chunkIds.length > 0) {
+              const query = cloudData.chunkIds.map(id => `id=${encodeURIComponent(id)}`).join("&");
+              const chunkRes = await fetch(`https://api.restful-api.dev/objects?${query}`);
+              if (chunkRes.ok) {
+                const chunkObjects = await chunkRes.json();
+                if (Array.isArray(chunkObjects) && chunkObjects.length > 0) {
+                  chunkObjects.sort((a, b) => ((a.data && a.data.part) || 0) - ((b.data && b.data.part) || 0));
+                  const fullStr = chunkObjects.map(c => (c.data && (c.data.content || c.data.chunk)) || "").join("");
+                  if (fullStr) {
+                    const parsed = JSON.parse(fullStr);
+                    loadedNotes = Array.isArray(parsed) ? parsed : [parsed];
+                  }
                 }
               }
+            } else if (Array.isArray(cloudData.notes)) {
+              loadedNotes = cloudData.notes;
             }
-          } else if (Array.isArray(cloudData.notes)) {
-            loadedNotes = cloudData.notes;
-          }
-
-          if (loadedNotes && loadedNotes.length > 0) {
-            this.notes = ensurePlantCellUnit(loadedNotes);
-            localStorage.setItem("scienceio_notes_v5", JSON.stringify(this.notes));
-            this.hasUnpublishedChanges = false;
-            if (cloudDot) cloudDot.className = "cloud-dot";
-            if (cloudText) cloudText.textContent = "Database Live";
-            this.updatePublishBadge();
-            this.render();
-            return true;
           }
         }
-      }
-    } catch (err) {
-      console.warn("Cloud DB fetch offline, checking local database.json...", err);
+      } catch (err) {}
     }
 
-    // 2. Fallback: check ./database.json (works on static hosting & Vercel)
-    try {
-      if (window.location.protocol.startsWith('http')) {
-        const localRes = await fetch("./database.json");
-        if (localRes.ok) {
-          const localData = await localRes.json();
-          if (Array.isArray(localData.notes) && localData.notes.length > 0) {
-            const cached = localStorage.getItem("scienceio_notes_v5");
-            if (!cached) {
-              this.notes = ensurePlantCellUnit(localData.notes);
-              localStorage.setItem("scienceio_notes_v5", JSON.stringify(this.notes));
-              this.render();
+    // 3. Fallback: check ./database.json (works on static hosting & Vercel)
+    if (!loadedNotes) {
+      try {
+        if (window.location.protocol.startsWith('http')) {
+          const localRes = await fetch("./database.json?v=" + Date.now(), { cache: "no-store" });
+          if (localRes.ok) {
+            const localData = await localRes.json();
+            if (Array.isArray(localData.notes) && localData.notes.length > 0) {
+              loadedNotes = localData.notes;
             }
           }
         }
-      }
-    } catch (e) {}
+      } catch (e) {}
+    }
 
-    // 3. Fallback: check local Node server API (/api/notes) if running
-    try {
-      if (window.location.protocol.startsWith('http')) {
-        const apiRes = await fetch("/api/notes");
-        if (apiRes.ok) {
-          const apiData = await apiRes.json();
-          if (apiData && Array.isArray(apiData.notes) && apiData.notes.length > 0) {
-            this.notes = ensurePlantCellUnit(apiData.notes);
-            localStorage.setItem("scienceio_notes_v5", JSON.stringify(this.notes));
-            this.hasUnpublishedChanges = false;
-            if (cloudDot) cloudDot.className = "cloud-dot";
-            if (cloudText) cloudText.textContent = "Database Live";
-            this.updatePublishBadge();
-            this.render();
-            return true;
+    // 4. Fallback: check local Node server API (/api/notes) if running
+    if (!loadedNotes) {
+      try {
+        if (window.location.protocol.startsWith('http')) {
+          const apiRes = await fetch("/api/notes");
+          if (apiRes.ok) {
+            const apiData = await apiRes.json();
+            if (apiData && Array.isArray(apiData.notes) && apiData.notes.length > 0) {
+              loadedNotes = apiData.notes;
+            }
           }
         }
+      } catch (e) {}
+    }
+
+    if (loadedNotes && loadedNotes.length > 0) {
+      // PRESERVE ANY LOCAL CUSTOM NOTES SO USER'S WORK IS NEVER OVERWRITTEN!
+      if (Array.isArray(this.notes)) {
+        const cloudIds = new Set(loadedNotes.map(n => n.id));
+        const localCustom = this.notes.filter(n => n.isCustom && !cloudIds.has(n.id));
+        if (localCustom.length > 0) {
+          loadedNotes = [...loadedNotes, ...localCustom];
+        }
       }
-    } catch (e) {}
+
+      this.notes = ensurePlantCellUnit(loadedNotes);
+      localStorage.setItem("scienceio_notes_v5", JSON.stringify(this.notes));
+      if (!this.hasUnpublishedChanges) {
+        if (cloudDot) cloudDot.className = "cloud-dot";
+        if (cloudText) cloudText.textContent = "Database Live";
+      }
+      this.updatePublishBadge();
+      this.render();
+      return true;
+    }
 
     return true;
   }
 
-  async publishAllNotes() {
+  async publishAllNotes(fromVault = false) {
     const publishBtns = [
       document.getElementById("btn-vault-publish-cloud"),
       document.getElementById("btn-architect-publish-cloud"),
@@ -1479,41 +1502,60 @@ class ScienceIoApp {
 
     // 1. Save to local server REST API (/api/notes) if running (updates database.json on disk)
     try {
-      const serverRes = await fetch("/api/notes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ notes: this.notes, cloudDbId: this.cloudDbId })
-      });
-      if (serverRes.ok) {
-        savedToServer = true;
+      if (window.location.protocol.startsWith('http')) {
+        const serverRes = await fetch("/api/notes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ notes: this.notes, cloudDbId: this.cloudDbId })
+        });
+        if (serverRes.ok) {
+          savedToServer = true;
+        }
       }
     } catch (e) {}
 
-    // 2. Publish to Cloud Database (restful-api.dev strategy - original working code)
+    // 2. Primary Fast Cloud Storage: extendsclass.com (100% Free, Zero Credit Drain, High Capacity, No 50 req/day limit)
     try {
       this.notes = ensurePlantCellUnit(this.notes);
+      const cloudPayload = {
+        app: "science.io",
+        version: "2.0.0",
+        updatedAt: new Date().toISOString(),
+        notes: this.notes
+      };
+
+      await fetch("https://extendsclass.com/api/json-storage/bin/bbaffcc", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cloudPayload)
+      });
+    } catch (err) {
+      console.warn("Primary cloud storage notice:", err);
+    }
+
+    // 3. Secondary Cloud Storage: restful-api.dev (original object ff808181a09d98f701a0f483e327513e)
+    try {
       const fullJson = JSON.stringify(this.notes);
-      const CHUNK_SIZE = 750;
+      const CHUNK_SIZE = 700;
       const chunks = [];
       for (let i = 0; i < fullJson.length; i += CHUNK_SIZE) {
         chunks.push(fullJson.slice(i, i + CHUNK_SIZE));
       }
 
-      const chunkIds = [];
-      for (let i = 0; i < chunks.length; i++) {
-        const chunkRes = await fetch("https://api.restful-api.dev/objects", {
+      // Parallel chunk upload
+      const chunkPromises = chunks.map((chunk, i) =>
+        fetch("https://api.restful-api.dev/objects", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name: `scienceio_chunk_${i}`,
-            data: { part: i, content: chunks[i] }
+            data: { part: i, content: chunk }
           })
-        });
-        if (chunkRes.ok) {
-          const chunkData = await chunkRes.json();
-          chunkIds.push(chunkData.id);
-        }
-      }
+        }).then(r => r.ok ? r.json() : null).catch(() => null)
+      );
+
+      const chunkResults = await Promise.all(chunkPromises);
+      const chunkIds = chunkResults.filter(Boolean).map(c => c.id);
 
       if (chunkIds.length === chunks.length) {
         await fetch(`https://api.restful-api.dev/objects/${this.cloudDbId}`, {
@@ -1531,7 +1573,7 @@ class ScienceIoApp {
         });
       }
     } catch (err) {
-      console.error("Cloud DB publish error:", err);
+      console.warn("Secondary restful-api notice:", err);
     }
 
     // Always update local cache
@@ -1551,6 +1593,7 @@ class ScienceIoApp {
     alert(`🎉 SUCCESS! All ${this.notes.length} note unit(s) were successfully published to the science.io Database!\n\n${savedToServer ? "✓ Saved to database.json on disk for your Vercel deployment." : "✓ Saved to Cloud Database (ID: " + this.cloudDbId + ") and active across your devices."}`);
 
     this.updatePublishModalInfo();
+    return true;
   }
 
   updatePublishBadge() {
@@ -1580,10 +1623,15 @@ class ScienceIoApp {
       this.publishAllNotes();
     });
 
-    // Vault Architect Footer Publish Button
-    document.getElementById("btn-architect-publish-cloud")?.addEventListener("click", () => {
+    // Vault Architect Footer Publish Button - auto-save if architect has form inputs!
+    document.getElementById("btn-architect-publish-cloud")?.addEventListener("click", async () => {
       sounds.playClick();
-      this.publishAllNotes();
+      const titleInput = document.getElementById("vnote-title");
+      if (titleInput && titleInput.value.trim() && this.vault && this.vault.architectSquares.length > 0) {
+        await this.vault.handleSaveNote(new Event("submit"));
+      } else {
+        await this.publishAllNotes();
+      }
     });
 
     // Manager tab publish button
