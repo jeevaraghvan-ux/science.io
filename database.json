@@ -1,0 +1,163 @@
+{
+  "appName": "science.io",
+  "version": "2.0.0",
+  "updatedAt": "2026-09-30T19:15:00.000Z",
+  "cloudDbId": "bbaffcc",
+  "notes": [
+    {
+      "id": "science-plant-cell",
+      "title": "PLANT CELL",
+      "category": "life",
+      "color": "emerald",
+      "grade": "5th Grade",
+      "badge": "10 Concept Squares • Plant Biology",
+      "coreFormula": "Cells are the basic building blocks of all living things!",
+      "description": "A complete breakdown of plant cell anatomy, specialized organelles (Cell Wall, Chloroplast, Central Vacuole), and cellular machinery.",
+      "isCustom": false,
+      "properties": [
+        {
+          "num": 1,
+          "name": "Cell Membrane",
+          "formula": "Semi-Permeable Boundary Layer",
+          "explanation": "Thin layer that surrounds the cell. It provides structure and protection and it is semi-permeable.",
+          "example": "Controls what materials enter and exit the plant cell, keeping harmful substances out.",
+          "trick": "Memory Trick: The security gatekeeper of the cell!"
+        },
+        {
+          "num": 2,
+          "name": "Cytoplasm",
+          "formula": "Gel-Like Organelle Suspension",
+          "explanation": "The fluid in which organelles are suspended. It maintains the pressure inside of the cell.",
+          "example": "Jelly-like fluid providing turgor pressure so the plant cell does not collapse.",
+          "trick": "Memory Trick: Cyto = Cell, Plasm = Fluid matrix!"
+        },
+        {
+          "num": 3,
+          "name": "Mitochondria",
+          "formula": "Cellular Respiration: Glucose + O₂ → ATP Energy",
+          "explanation": "Nicknamed the powerhouse of the cell because they provide energy for the cell. The site of cellular respiration.",
+          "example": "Converts chemical energy from sugars into ATP fuel for cellular work.",
+          "trick": "Memory Trick: Mighty Mitochondria = Powerhouse!"
+        },
+        {
+          "num": 4,
+          "name": "Endoplasmic Reticulum",
+          "formula": "Smooth ER: Lipid Synthesis & Transport",
+          "explanation": "Smooth endoplasmic reticulum makes lipids (fats), modifies proteins and transports them throughout the cell.",
+          "example": "Produces essential cellular fats and delivers them through internal membrane tubules.",
+          "trick": "Memory Trick: Smooth ER makes smooth lipids and highways!"
+        },
+        {
+          "num": 5,
+          "name": "Golgi Body",
+          "formula": "Cellular Packaging & Shipping Center",
+          "explanation": "Packages proteins and carbohydrates into vesicles for transport outside of the cell.",
+          "example": "Acts like the cell's post office, tagging packages to be delivered outside.",
+          "trick": "Memory Trick: Golgi = 'Go' deliver the packages!"
+        },
+        {
+          "num": 6,
+          "name": "Nucleus & Nucleolus",
+          "formula": "Command Center • Genetic DNA Storage",
+          "explanation": "The control center of the cell that directs functions and contains DNA. The nucleolus aids in the production of ribosomes.",
+          "example": "Contains hereditary chromosomes instructing the cell how to grow, divide, and function.",
+          "trick": "Memory Trick: Nucleus = Brain / Boss of the cell!"
+        },
+        {
+          "num": 7,
+          "name": "Rough ER & Ribosomes",
+          "formula": "Protein Synthesis Factory",
+          "explanation": "Rough endoplasmic reticulum has ribosomes bound to its membranes. Ribosomes are the site of protein synthesis.",
+          "example": "Reads genetic messenger codes to assemble amino acids into strong proteins.",
+          "trick": "Memory Trick: Ribosomes make Ribs (Proteins)!"
+        },
+        {
+          "num": 8,
+          "name": "Cell Wall",
+          "formula": "Rigid Cellulose Outer Shield (Plant Only)",
+          "explanation": "Found only in plant cells, cell walls provide extra structure and protection for the cell's internal structures.",
+          "example": "Rigid exterior wall that lets tall plants and trees stand upright against gravity.",
+          "trick": "Memory Trick: Like a fortress wall outside a castle!"
+        },
+        {
+          "num": 9,
+          "name": "Central Vacuole",
+          "formula": "Water & Nutrient Storage Sac",
+          "explanation": "Vacuoles provide storage for materials such as water. A plant cell's vacuole is larger than in an animal cell.",
+          "example": "When full of water, it exerts turgor pressure keeping plant stems crisp and upright.",
+          "trick": "Memory Trick: Vacuole is like a giant water reservoir!"
+        },
+        {
+          "num": 10,
+          "name": "Chloroplast",
+          "formula": "Photosynthesis: 6CO₂ + 6H₂O + Sunlight → C₆H₁₂O₆ + 6O₂",
+          "explanation": "Convert light energy from the sun into sugars that can be used for energy in a process called photosynthesis.",
+          "example": "Contains green chlorophyll pigments capturing solar photons to make plant food.",
+          "trick": "Memory Trick: Solar panels of the plant world!"
+        }
+      ],
+      "quiz": [
+        {
+          "q": "According to the teacher notes, which organelle is a thin, semi-permeable layer that surrounds the cell, providing structure and protection?",
+          "options": ["Cell Membrane", "Cell Wall", "Cytoplasm", "Endoplasmic Reticulum"],
+          "ans": 0,
+          "why": "Teacher note: 'Thin layer that surrounds the cell. It provides structure and protection and it is semi-permeable.'"
+        },
+        {
+          "q": "In the worksheet explanation, what is the fluid in which organelles are suspended that maintains pressure inside the cell?",
+          "options": ["Cytoplasm", "Central Vacuole", "Nucleoplasm", "Mitochondria"],
+          "ans": 0,
+          "why": "Teacher note: 'The fluid in which organelles are suspended. It maintains the pressure inside of the cell.'"
+        },
+        {
+          "q": "Why are Mitochondria nicknamed the 'powerhouse of the cell' in the teacher notes?",
+          "options": ["Because they provide energy for the cell and are the site of cellular respiration", "Because they store water and minerals", "Because they package proteins into vesicles", "Because they make the cell look green"],
+          "ans": 0,
+          "why": "Teacher note: 'Nicknamed the powerhouse of the cell because they provide energy for the cell. The site of cellular respiration.'"
+        },
+        {
+          "q": "What does the Smooth Endoplasmic Reticulum do according to the teacher explanation?",
+          "options": ["Makes lipids (fats), modifies proteins and transports them throughout the cell", "Performs photosynthesis using light photons", "Synthesizes DNA in the control center", "Builds the rigid outer cell wall"],
+          "ans": 0,
+          "why": "Teacher note: 'Smooth endoplasmic reticulum makes lipids (fats), modifies proteins and transports them throughout the cell.'"
+        },
+        {
+          "q": "According to the notes, what is the exact function of the Golgi Body?",
+          "options": ["Packages proteins and carbohydrates into vesicles for transport outside of the cell", "Directs cell division and stores chromosomes", "Stores water to keep plant stems upright", "Absorbs solar energy to make glucose"],
+          "ans": 0,
+          "why": "Teacher note: 'Packages proteins and carbohydrates into vesicles for transport outside of the cell.'"
+        },
+        {
+          "q": "What is described as the control center of the cell that directs functions, contains DNA, and has a nucleolus that aids in making ribosomes?",
+          "options": ["Nucleus & Nucleolus", "Central Vacuole", "Golgi Body", "Rough ER"],
+          "ans": 0,
+          "why": "Teacher note: 'The control center of the cell that directs functions and contains DNA. The nucleolus aids in the production of ribosomes.'"
+        },
+        {
+          "q": "According to the teacher notes, what makes Rough ER 'rough' and what is its role?",
+          "options": ["It has ribosomes bound to its membranes, which are the site of protein synthesis", "It has coarse cellulose crystals that protect the nucleus", "It has jagged edges to tear up waste materials", "It is rough from storing sharp mineral crystals"],
+          "ans": 0,
+          "why": "Teacher note: 'Rough endoplasmic reticulum has ribosomes bound to its membranes. Ribosomes are the site of protein synthesis.'"
+        },
+        {
+          "q": "Which protective structure is found ONLY in plant cells to provide extra structure and protection for internal structures?",
+          "options": ["Cell Wall", "Cell Membrane", "Cytoplasm", "Mitochondria"],
+          "ans": 0,
+          "why": "Teacher note: 'Found only in plant cells, cell walls provide extra structure and protection for the cell\\'s internal structures.'"
+        },
+        {
+          "q": "In the teacher notes, how does a plant cell's vacuole compare to an animal cell's vacuole?",
+          "options": ["A plant cell's vacuole is larger and provides storage for materials like water", "Plant cells do not have vacuoles at all", "Plant vacuoles only store air, while animal vacuoles store water", "They are identical in size and function"],
+          "ans": 0,
+          "why": "Teacher note: 'Vacuoles provide storage for materials such as water. A plant cell\\'s vacuole is larger than in an animal cell.'"
+        },
+        {
+          "q": "According to the worksheet notes, what do Chloroplasts convert and what process do they use?",
+          "options": ["Convert light energy from the sun into sugars for energy in photosynthesis", "Convert water into oxygen gas through respiration", "Convert proteins into lipids through active transport", "Convert sound waves into chemical signals"],
+          "ans": 0,
+          "why": "Teacher note: 'Convert light energy from the sun into sugars that can be used for energy in a process called photosynthesis.'"
+        }
+      ]
+    }
+  ]
+}

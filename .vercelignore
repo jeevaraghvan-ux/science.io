@@ -1,0 +1,8 @@
+ConsoleApp1/
+*.sln
+server.js
+.vs/
+bin/
+obj/
+*.user
+*.suo
