@@ -14,7 +14,12 @@
  * - Interactive science.io AI Assistant
  */
 
+// ================= CLOUD SYNC CONFIGURATION =================
+// 100% Free Forever • Zero Credit Drain • Cross-Device Live Sync
+const CLOUD_SYNC_URL = "https://scienceio-best.vercel.app/api/sync";
+
 // ================= INITIAL SCIENCE NOTES DATABASE =================
+
 // Pre-populated with the user's Plant Cell unit (10 Concept Squares from worksheet)
 const DEFAULT_SCIENCE_TOPICS = [
   {
@@ -1748,7 +1753,7 @@ class VaultController {
           this.updateManagerTable();
           this.updateTelemetry();
           sounds.playClick();
-          await this.app.publishAllNotes(true);
+          await this.app.publishAllNotes(true, `🗑️ Unit "${topic.title}" deleted and changes synced live to all devices!`);
         }
       });
 
@@ -1865,12 +1870,12 @@ class ScienceIoApp {
       this.fetchCloudNotes(true);
     });
 
-    // 5. Quiet background sync every 12s so other devices (e.g. phone) stay live in real-time
+    // 5. Quiet background sync every 8s so other devices (e.g. phone) stay live in real-time
     setInterval(() => {
       if (!this.hasUnpublishedChanges && document.visibilityState === "visible") {
         this.fetchCloudNotes(true);
       }
-    }, 12000);
+    }, 8000);
   }
 
   // Persistent storage via localStorage & cloud fallback
@@ -1879,7 +1884,7 @@ class ScienceIoApp {
       ? window.SCIENCE_IO_PUBLISHED_NOTES
       : DEFAULT_SCIENCE_TOPICS;
 
-    const saved = localStorage.getItem("scienceio_notes_v6") || localStorage.getItem("scienceio_notes_v5");
+    const saved = localStorage.getItem("scienceio_notes_v6");
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -1899,7 +1904,6 @@ class ScienceIoApp {
   saveNotes() {
     this.notes = ensurePlantCellUnit(this.notes);
     localStorage.setItem("scienceio_notes_v6", JSON.stringify(this.notes));
-    localStorage.setItem("scienceio_notes_v5", JSON.stringify(this.notes));
     this.hasUnpublishedChanges = true;
     this.updatePublishBadge();
   }
@@ -1911,21 +1915,18 @@ class ScienceIoApp {
 
     let loadedNotes = null;
 
-    // 1. Primary: load from same-origin Vercel Serverless Sync API (/api/sync)
-    // 100% Free Forever • Zero Token Drain • Zero CORS Issues across all devices
+    // 1. Primary: load from live Vercel Cloud Sync API (works on localhost, 127.0.0.1, file://, and web)
     try {
-      if (window.location.protocol.startsWith('http')) {
-        const syncRes = await fetch("/api/sync?t=" + Date.now(), {
-          cache: "no-store",
-          headers: { "Accept": "application/json" }
-        });
-        if (syncRes.ok) {
-          const syncData = await syncRes.json();
-          if (syncData && Array.isArray(syncData.notes) && syncData.notes.length > 0) {
-            loadedNotes = syncData.notes;
-          } else if (Array.isArray(syncData) && syncData.length > 0) {
-            loadedNotes = syncData;
-          }
+      const syncRes = await fetch(CLOUD_SYNC_URL + "?t=" + Date.now(), {
+        cache: "no-store",
+        headers: { "Accept": "application/json" }
+      });
+      if (syncRes.ok) {
+        const syncData = await syncRes.json();
+        if (syncData && Array.isArray(syncData.notes) && syncData.notes.length > 0) {
+          loadedNotes = syncData.notes;
+        } else if (Array.isArray(syncData) && syncData.length > 0) {
+          loadedNotes = syncData;
         }
       }
     } catch (err) {}
@@ -1962,36 +1963,6 @@ class ScienceIoApp {
       } catch (err) {}
     }
 
-    // 4. Quaternary fallback: check ./database.json (works on static hosting & Vercel)
-    if (!loadedNotes) {
-      try {
-        if (window.location.protocol.startsWith('http')) {
-          const localRes = await fetch("./database.json?v=" + Date.now(), { cache: "no-store" });
-          if (localRes.ok) {
-            const localData = await localRes.json();
-            if (Array.isArray(localData.notes) && localData.notes.length > 0) {
-              loadedNotes = localData.notes;
-            }
-          }
-        }
-      } catch (e) {}
-    }
-
-    // 5. Quinary fallback: check local Node server API (/api/notes) if running
-    if (!loadedNotes) {
-      try {
-        if (window.location.protocol.startsWith('http')) {
-          const apiRes = await fetch("/api/notes");
-          if (apiRes.ok) {
-            const apiData = await apiRes.json();
-            if (apiData && Array.isArray(apiData.notes) && apiData.notes.length > 0) {
-              loadedNotes = apiData.notes;
-            }
-          }
-        }
-      } catch (e) {}
-    }
-
     if (loadedNotes && loadedNotes.length > 0) {
       // If user is actively typing / modifying on THIS device without having published, don't overwrite local work
       if (this.hasUnpublishedChanges) {
@@ -2004,7 +1975,6 @@ class ScienceIoApp {
       if (incomingJson !== currentJson) {
         this.notes = ensurePlantCellUnit(loadedNotes);
         localStorage.setItem("scienceio_notes_v6", incomingJson);
-        localStorage.setItem("scienceio_notes_v5", incomingJson);
         this.render();
         if (this.vault && typeof this.vault.updateManagerTable === "function") {
           this.vault.updateManagerTable();
@@ -2023,7 +1993,7 @@ class ScienceIoApp {
     return true;
   }
 
-  async publishAllNotes(fromVault = false) {
+  async publishAllNotes(fromVault = false, customMessage = "") {
     const publishBtns = [
       document.getElementById("btn-vault-publish-cloud"),
       document.getElementById("btn-architect-publish-cloud"),
@@ -2039,24 +2009,29 @@ class ScienceIoApp {
     });
 
     let publishedSuccessfully = false;
+    let publishError = null;
 
-    // 1. Primary: Serverless Sync API (/api/sync) - 100% Free Forever • Zero Credit Drain • No CORS Issues
+    // 1. Primary: Serverless Cloud Sync API (works across ALL environments: localhost, live web, mobile)
     try {
-      if (window.location.protocol.startsWith('http')) {
-        const syncRes = await fetch("/api/sync", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ notes: this.notes })
-        });
-        if (syncRes.ok) {
+      const syncRes = await fetch(CLOUD_SYNC_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ notes: this.notes })
+      });
+      if (syncRes.ok) {
+        const json = await syncRes.json();
+        if (json && json.success) {
           publishedSuccessfully = true;
         }
+      } else {
+        publishError = `HTTP ${syncRes.status}`;
       }
     } catch (e) {
-      console.warn("Primary Serverless sync warning:", e);
+      publishError = e.message;
+      console.warn("Primary Serverless sync notice:", e);
     }
 
-    // 2. Secondary fallback: Direct cloud PUT to extendsclass if running locally without /api/sync
+    // 2. Secondary fallback: Direct cloud PUT to extendsclass if cloud sync is unreachable
     if (!publishedSuccessfully) {
       try {
         const cloudPayload = {
@@ -2074,26 +2049,14 @@ class ScienceIoApp {
           publishedSuccessfully = true;
         }
       } catch (e) {
-        console.warn("Extendsclass fallback warning:", e);
+        console.warn("Extendsclass fallback notice:", e);
       }
     }
-
-    // 3. Tertiary fallback: Local dev server REST API (/api/notes) if running node server.js
-    try {
-      if (window.location.protocol.startsWith('http')) {
-        await fetch("/api/notes", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ notes: this.notes, cloudDbId: this.cloudDbId })
-        });
-      }
-    } catch (e) {}
 
     // Always update local cache
     this.notes = ensurePlantCellUnit(this.notes);
     const currentNotesJson = JSON.stringify(this.notes);
     localStorage.setItem("scienceio_notes_v6", currentNotesJson);
-    localStorage.setItem("scienceio_notes_v5", currentNotesJson);
     this.hasUnpublishedChanges = false;
     this.updatePublishBadge();
 
@@ -2104,18 +2067,23 @@ class ScienceIoApp {
 
     const cloudDot = document.getElementById("cloud-status-dot");
     const cloudText = document.getElementById("cloud-status-text");
-    if (cloudDot) cloudDot.className = "cloud-dot";
-    if (cloudText) cloudText.textContent = "Database Live";
 
-    sounds.playSuccess();
-    this.confetti?.burst(window.innerWidth / 2, window.innerHeight / 2, 85);
+    if (publishedSuccessfully) {
+      if (cloudDot) cloudDot.className = "cloud-dot";
+      if (cloudText) cloudText.textContent = "Database Live";
+      sounds.playSuccess();
+      this.confetti?.burst(window.innerWidth / 2, window.innerHeight / 2, 85);
 
-    if (!fromVault) {
-      alert(`🎉 SUCCESS! All ${this.notes.length} note unit(s) were published live!\n\n✓ Live across all devices (Desktop, Mobile, Tablet).\n✓ 100% Free Forever • Zero API Token Usage.`);
+      const msg = customMessage || `🎉 SUCCESS! All ${this.notes.length} note unit(s) were published live!\n\n✓ Live across all devices (Desktop, Mobile, Tablet).\n✓ 100% Free Forever • Zero API Token Usage.`;
+      alert(msg);
+    } else {
+      if (cloudDot) cloudDot.className = "cloud-dot error";
+      if (cloudText) cloudText.textContent = "Sync Offline";
+      alert(`⚠️ Could not sync to live Cloud Database (${publishError || "Network Offline"}).\nChanges saved locally on this device.`);
     }
 
     this.updatePublishModalInfo();
-    return true;
+    return publishedSuccessfully;
   }
 
   updatePublishBadge() {

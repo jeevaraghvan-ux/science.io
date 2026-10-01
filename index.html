@@ -25,17 +25,18 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
   <script>
-    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+    // Force unregister service workers & clear stale caches so all devices always load the live version
+    if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(regs => {
         for (let reg of regs) {
-          reg.update();
+          reg.unregister();
         }
       });
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=8.1').then(reg => {
-          console.log('science.io Service Worker Registered!', reg);
+      if ('caches' in window) {
+        caches.keys().then(keys => {
+          keys.forEach(k => caches.delete(k));
         });
-      });
+      }
     }
   </script>
 </head>
@@ -864,7 +865,7 @@
     </button>
   </div>
 
-  <script src="published_notes.js?v=9.1"></script>
-  <script src="app.js?v=9.1"></script>
+  <script src="published_notes.js?v=11.0"></script>
+  <script src="app.js?v=11.0"></script>
 </body>
 </html>
