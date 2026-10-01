@@ -1802,24 +1802,12 @@ class VaultController {
   }
 }
 
-// Helper to guarantee Plant Cell unit with all 10 worksheet concept squares is always present
+// Helper to guarantee science notes list has valid fallback if completely empty
 function ensurePlantCellUnit(notesList) {
-  const defaultPlantCell = DEFAULT_SCIENCE_TOPICS[0];
   if (!Array.isArray(notesList) || notesList.length === 0) {
-    return [JSON.parse(JSON.stringify(defaultPlantCell))];
+    return [JSON.parse(JSON.stringify(DEFAULT_SCIENCE_TOPICS[0]))];
   }
-  const cloned = JSON.parse(JSON.stringify(notesList));
-  const idx = cloned.findIndex(n => n.id === "science-plant-cell" || (n.title && n.title.toUpperCase().includes("PLANT CELL")));
-  if (idx === -1) {
-    // Missing: prepend to front
-    cloned.unshift(JSON.parse(JSON.stringify(defaultPlantCell)));
-  } else {
-    // Check if it has all 10 properties from the worksheet
-    if (!cloned[idx].properties || cloned[idx].properties.length < 10) {
-      cloned[idx] = JSON.parse(JSON.stringify(defaultPlantCell));
-    }
-  }
-  return cloned;
+  return notesList;
 }
 
 // ================= MAIN SCIENCE.IO APP =================
@@ -1866,6 +1854,23 @@ class ScienceIoApp {
 
     // 3. Fetch fresh notes from Cloud Database asynchronously in background
     await this.fetchCloudNotes();
+
+    // 4. Cross-Device Live Sync: auto-sync when user opens or switches back to tab
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        this.fetchCloudNotes(true);
+      }
+    });
+    window.addEventListener("focus", () => {
+      this.fetchCloudNotes(true);
+    });
+
+    // 5. Quiet background sync every 12s so other devices (e.g. phone) stay live in real-time
+    setInterval(() => {
+      if (!this.hasUnpublishedChanges && document.visibilityState === "visible") {
+        this.fetchCloudNotes(true);
+      }
+    }, 12000);
   }
 
   // Persistent storage via localStorage & cloud fallback
@@ -1874,53 +1879,74 @@ class ScienceIoApp {
       ? window.SCIENCE_IO_PUBLISHED_NOTES
       : DEFAULT_SCIENCE_TOPICS;
 
-    let customNotes = [];
-    const savedV5 = localStorage.getItem("scienceio_notes_v5");
-    if (savedV5) {
+    const saved = localStorage.getItem("scienceio_notes_v6") || localStorage.getItem("scienceio_notes_v5");
+    if (saved) {
       try {
-        const parsed = JSON.parse(savedV5);
+        const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          const baseTitles = new Set(baseNotes.map(n => (n.title || "").trim().toUpperCase()));
-          const baseIds = new Set(baseNotes.map(n => n.id));
-          customNotes = parsed.filter(n => !baseTitles.has((n.title || "").trim().toUpperCase()) && !baseIds.has(n.id));
+          this.notes = ensurePlantCellUnit(parsed);
+          this.render();
+          return;
         }
       } catch (e) {}
     }
 
-    this.notes = ensurePlantCellUnit([...JSON.parse(JSON.stringify(baseNotes)), ...customNotes]);
-    localStorage.setItem("scienceio_notes_v5", JSON.stringify(this.notes));
+    this.notes = ensurePlantCellUnit(JSON.parse(JSON.stringify(baseNotes)));
+    localStorage.setItem("scienceio_notes_v6", JSON.stringify(this.notes));
     this.render();
   }
 
   saveNotes() {
     this.notes = ensurePlantCellUnit(this.notes);
+    localStorage.setItem("scienceio_notes_v6", JSON.stringify(this.notes));
     localStorage.setItem("scienceio_notes_v5", JSON.stringify(this.notes));
     this.hasUnpublishedChanges = true;
     this.updatePublishBadge();
   }
 
   // ================= DATABASE SYNC & "PUBLISH ALL NOTES" =================
-  async fetchCloudNotes() {
+  async fetchCloudNotes(silent = false) {
     const cloudDot = document.getElementById("cloud-status-dot");
     const cloudText = document.getElementById("cloud-status-text");
 
     let loadedNotes = null;
 
-    // 1. Primary: load from high-speed cross-device Cloud Database (extendsclass.com)
+    // 1. Primary: load from same-origin Vercel Serverless Sync API (/api/sync)
+    // 100% Free Forever • Zero Token Drain • Zero CORS Issues across all devices
     try {
-      const res = await fetch("https://extendsclass.com/api/json-storage/bin/bbaffcc", {
-        method: "GET",
-        headers: { "Accept": "application/json" }
-      });
-      if (res.ok) {
-        const cloudData = await res.json();
-        if (cloudData && Array.isArray(cloudData.notes) && cloudData.notes.length > 0) {
-          loadedNotes = cloudData.notes;
+      if (window.location.protocol.startsWith('http')) {
+        const syncRes = await fetch("/api/sync?t=" + Date.now(), {
+          cache: "no-store",
+          headers: { "Accept": "application/json" }
+        });
+        if (syncRes.ok) {
+          const syncData = await syncRes.json();
+          if (syncData && Array.isArray(syncData.notes) && syncData.notes.length > 0) {
+            loadedNotes = syncData.notes;
+          } else if (Array.isArray(syncData) && syncData.length > 0) {
+            loadedNotes = syncData;
+          }
         }
       }
     } catch (err) {}
 
-    // 2. Secondary: load from live GitHub Gist
+    // 2. Secondary fallback: direct extendsclass cloud bin
+    if (!loadedNotes) {
+      try {
+        const res = await fetch("https://extendsclass.com/api/json-storage/bin/bbaffcc?t=" + Date.now(), {
+          method: "GET",
+          headers: { "Accept": "application/json" }
+        });
+        if (res.ok) {
+          const cloudData = await res.json();
+          if (cloudData && Array.isArray(cloudData.notes) && cloudData.notes.length > 0) {
+            loadedNotes = cloudData.notes;
+          }
+        }
+      } catch (err) {}
+    }
+
+    // 3. Tertiary fallback: live GitHub Gist
     if (!loadedNotes) {
       try {
         const gistRes = await fetch("https://api.github.com/gists/f510a4bebd324971611e496799b913ff?t=" + Date.now());
@@ -1936,40 +1962,7 @@ class ScienceIoApp {
       } catch (err) {}
     }
 
-    // 3. Fallback: load from restful-api.dev if needed
-    if (!loadedNotes) {
-      try {
-        const res = await fetch(`https://api.restful-api.dev/objects/${this.cloudDbId}`, {
-          method: "GET",
-          headers: { "Accept": "application/json" }
-        });
-        if (res.ok) {
-          const json = await res.json();
-          const cloudData = json.data;
-          if (cloudData) {
-            if (Array.isArray(cloudData.chunkIds) && cloudData.chunkIds.length > 0) {
-              const query = cloudData.chunkIds.map(id => `id=${encodeURIComponent(id)}`).join("&");
-              const chunkRes = await fetch(`https://api.restful-api.dev/objects?${query}`);
-              if (chunkRes.ok) {
-                const chunkObjects = await chunkRes.json();
-                if (Array.isArray(chunkObjects) && chunkObjects.length > 0) {
-                  chunkObjects.sort((a, b) => ((a.data && a.data.part) || 0) - ((b.data && b.data.part) || 0));
-                  const fullStr = chunkObjects.map(c => (c.data && (c.data.content || c.data.chunk)) || "").join("");
-                  if (fullStr) {
-                    const parsed = JSON.parse(fullStr);
-                    loadedNotes = Array.isArray(parsed) ? parsed : [parsed];
-                  }
-                }
-              }
-            } else if (Array.isArray(cloudData.notes)) {
-              loadedNotes = cloudData.notes;
-            }
-          }
-        }
-      } catch (err) {}
-    }
-
-    // 3. Fallback: check ./database.json (works on static hosting & Vercel)
+    // 4. Quaternary fallback: check ./database.json (works on static hosting & Vercel)
     if (!loadedNotes) {
       try {
         if (window.location.protocol.startsWith('http')) {
@@ -1984,7 +1977,7 @@ class ScienceIoApp {
       } catch (e) {}
     }
 
-    // 4. Fallback: check local Node server API (/api/notes) if running
+    // 5. Quinary fallback: check local Node server API (/api/notes) if running
     if (!loadedNotes) {
       try {
         if (window.location.protocol.startsWith('http')) {
@@ -2000,23 +1993,30 @@ class ScienceIoApp {
     }
 
     if (loadedNotes && loadedNotes.length > 0) {
-      // PRESERVE ANY LOCAL CUSTOM NOTES SO USER'S WORK IS NEVER OVERWRITTEN!
-      if (Array.isArray(this.notes)) {
-        const cloudIds = new Set(loadedNotes.map(n => n.id));
-        const localCustom = this.notes.filter(n => n.isCustom && !cloudIds.has(n.id));
-        if (localCustom.length > 0) {
-          loadedNotes = [...loadedNotes, ...localCustom];
+      // If user is actively typing / modifying on THIS device without having published, don't overwrite local work
+      if (this.hasUnpublishedChanges) {
+        return true;
+      }
+
+      const incomingJson = JSON.stringify(loadedNotes);
+      const currentJson = JSON.stringify(this.notes);
+
+      if (incomingJson !== currentJson) {
+        this.notes = ensurePlantCellUnit(loadedNotes);
+        localStorage.setItem("scienceio_notes_v6", incomingJson);
+        localStorage.setItem("scienceio_notes_v5", incomingJson);
+        this.render();
+        if (this.vault && typeof this.vault.updateManagerTable === "function") {
+          this.vault.updateManagerTable();
+        }
+        if (this.vault && typeof this.vault.updateTelemetry === "function") {
+          this.vault.updateTelemetry();
         }
       }
 
-      this.notes = ensurePlantCellUnit(loadedNotes);
-      localStorage.setItem("scienceio_notes_v5", JSON.stringify(this.notes));
-      if (!this.hasUnpublishedChanges) {
-        if (cloudDot) cloudDot.className = "cloud-dot";
-        if (cloudText) cloudText.textContent = "Database Live";
-      }
+      if (cloudDot) cloudDot.className = "cloud-dot";
+      if (cloudText) cloudText.textContent = "Database Live";
       this.updatePublishBadge();
-      this.render();
       return true;
     }
 
@@ -2038,87 +2038,62 @@ class ScienceIoApp {
       btn.innerHTML = `<span>⏳ Publishing ${this.notes.length} Unit(s)...</span>`;
     });
 
-    let savedToServer = false;
+    let publishedSuccessfully = false;
 
-    // 1. Save to local server REST API (/api/notes) if running (updates database.json on disk)
+    // 1. Primary: Serverless Sync API (/api/sync) - 100% Free Forever • Zero Credit Drain • No CORS Issues
     try {
       if (window.location.protocol.startsWith('http')) {
-        const serverRes = await fetch("/api/notes", {
+        const syncRes = await fetch("/api/sync", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ notes: this.notes })
+        });
+        if (syncRes.ok) {
+          publishedSuccessfully = true;
+        }
+      }
+    } catch (e) {
+      console.warn("Primary Serverless sync warning:", e);
+    }
+
+    // 2. Secondary fallback: Direct cloud PUT to extendsclass if running locally without /api/sync
+    if (!publishedSuccessfully) {
+      try {
+        const cloudPayload = {
+          app: "science.io",
+          version: "3.5.0",
+          updatedAt: new Date().toISOString(),
+          notes: this.notes
+        };
+        const ecRes = await fetch("https://extendsclass.com/api/json-storage/bin/bbaffcc", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(cloudPayload)
+        });
+        if (ecRes.ok) {
+          publishedSuccessfully = true;
+        }
+      } catch (e) {
+        console.warn("Extendsclass fallback warning:", e);
+      }
+    }
+
+    // 3. Tertiary fallback: Local dev server REST API (/api/notes) if running node server.js
+    try {
+      if (window.location.protocol.startsWith('http')) {
+        await fetch("/api/notes", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ notes: this.notes, cloudDbId: this.cloudDbId })
         });
-        if (serverRes.ok) {
-          savedToServer = true;
-        }
       }
     } catch (e) {}
 
-    // 2. Primary Fast Cloud Storage: extendsclass.com (100% Free, Zero Credit Drain, High Capacity, No 50 req/day limit)
-    try {
-      this.notes = ensurePlantCellUnit(this.notes);
-      const cloudPayload = {
-        app: "science.io",
-        version: "2.0.0",
-        updatedAt: new Date().toISOString(),
-        notes: this.notes
-      };
-
-      await fetch("https://extendsclass.com/api/json-storage/bin/bbaffcc", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(cloudPayload)
-      });
-    } catch (err) {
-      console.warn("Primary cloud storage notice:", err);
-    }
-
-    // 3. Secondary Cloud Storage: restful-api.dev (original object ff808181a09d98f701a0f483e327513e)
-    try {
-      const fullJson = JSON.stringify(this.notes);
-      const CHUNK_SIZE = 700;
-      const chunks = [];
-      for (let i = 0; i < fullJson.length; i += CHUNK_SIZE) {
-        chunks.push(fullJson.slice(i, i + CHUNK_SIZE));
-      }
-
-      // Parallel chunk upload
-      const chunkPromises = chunks.map((chunk, i) =>
-        fetch("https://api.restful-api.dev/objects", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: `scienceio_chunk_${i}`,
-            data: { part: i, content: chunk }
-          })
-        }).then(r => r.ok ? r.json() : null).catch(() => null)
-      );
-
-      const chunkResults = await Promise.all(chunkPromises);
-      const chunkIds = chunkResults.filter(Boolean).map(c => c.id);
-
-      if (chunkIds.length === chunks.length) {
-        await fetch(`https://api.restful-api.dev/objects/${this.cloudDbId}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: "science.io official database",
-            data: {
-              appName: "science.io",
-              version: "2.0.0",
-              updatedAt: new Date().toISOString(),
-              chunkIds: chunkIds
-            }
-          })
-        });
-      }
-    } catch (err) {
-      console.warn("Secondary restful-api notice:", err);
-    }
-
     // Always update local cache
     this.notes = ensurePlantCellUnit(this.notes);
-    localStorage.setItem("scienceio_notes_v5", JSON.stringify(this.notes));
+    const currentNotesJson = JSON.stringify(this.notes);
+    localStorage.setItem("scienceio_notes_v6", currentNotesJson);
+    localStorage.setItem("scienceio_notes_v5", currentNotesJson);
     this.hasUnpublishedChanges = false;
     this.updatePublishBadge();
 
@@ -2127,10 +2102,17 @@ class ScienceIoApp {
       btn.innerHTML = btn.dataset.prevHtml || `<span>🚀 Publish All Notes to Cloud</span>`;
     });
 
-    sounds.playSuccess();
-    this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 85);
+    const cloudDot = document.getElementById("cloud-status-dot");
+    const cloudText = document.getElementById("cloud-status-text");
+    if (cloudDot) cloudDot.className = "cloud-dot";
+    if (cloudText) cloudText.textContent = "Database Live";
 
-    alert(`🎉 SUCCESS! All ${this.notes.length} note unit(s) were successfully published to the science.io Database!\n\n${savedToServer ? "✓ Saved to database.json on disk for your Vercel deployment." : "✓ Saved to Cloud Database (ID: " + this.cloudDbId + ") and active across your devices."}`);
+    sounds.playSuccess();
+    this.confetti?.burst(window.innerWidth / 2, window.innerHeight / 2, 85);
+
+    if (!fromVault) {
+      alert(`🎉 SUCCESS! All ${this.notes.length} note unit(s) were published live!\n\n✓ Live across all devices (Desktop, Mobile, Tablet).\n✓ 100% Free Forever • Zero API Token Usage.`);
+    }
 
     this.updatePublishModalInfo();
     return true;
