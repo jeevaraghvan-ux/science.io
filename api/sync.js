@@ -1,5 +1,7 @@
 // science.io Cloud Sync Serverless API for Vercel
 // 100% Free Forever • Zero Credit Drain • Cross-Device Live Sync
+const SUPABASE_URL = "https://nidkkbsmptiyixvealum.supabase.co";
+const SUPABASE_KEY = "sb_publishable_VIbgYVwvFU2bcPJNLWg4Qg_Be4paQ_6";
 const BIN_URL = "https://extendsclass.com/api/json-storage/bin/bbaffcc";
 
 module.exports = async (req, res) => {
@@ -12,8 +14,24 @@ module.exports = async (req, res) => {
     return res.status(200).end();
   }
 
-  // GET: Fetch the live notes from cloud storage
+  // GET: Fetch the live notes from Supabase (or fallback cloud storage)
   if (req.method === "GET") {
+    try {
+      const supaRes = await fetch(`${SUPABASE_URL}/rest/v1/science_notes?id=eq.curriculum&select=notes,updated_at`, {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`
+        }
+      });
+      if (supaRes.ok) {
+        const rows = await supaRes.json();
+        if (Array.isArray(rows) && rows.length > 0 && Array.isArray(rows[0].notes)) {
+          return res.status(200).json({ notes: rows[0].notes, updatedAt: rows[0].updated_at });
+        }
+      }
+    } catch (err) {}
+
+    // Fallback: bin storage
     try {
       const cloudRes = await fetch(BIN_URL + "?t=" + Date.now(), {
         headers: { "Accept": "application/json" }
@@ -28,7 +46,7 @@ module.exports = async (req, res) => {
     }
   }
 
-  // POST or PUT: Update the live notes in cloud storage
+  // POST or PUT: Update the live notes in Supabase (and backup to bin)
   if (req.method === "POST" || req.method === "PUT") {
     try {
       let bodyData = req.body;
@@ -53,29 +71,48 @@ module.exports = async (req, res) => {
         return res.status(400).json({ error: "Missing notes array in request body" });
       }
 
-      const payload = {
-        app: "science.io",
-        version: "3.5.0",
-        updatedAt: new Date().toISOString(),
-        notes: notes
-      };
+      const updatedAt = new Date().toISOString();
 
-      const putRes = await fetch(BIN_URL, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-
-      if (putRes.ok) {
-        return res.status(200).json({
-          success: true,
-          count: notes.length,
-          updatedAt: payload.updatedAt
+      // Write to Supabase primary
+      let supaOk = false;
+      try {
+        const sRes = await fetch(`${SUPABASE_URL}/rest/v1/science_notes`, {
+          method: "POST",
+          headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`,
+            "Content-Type": "application/json",
+            "Prefer": "resolution=merge-duplicates"
+          },
+          body: JSON.stringify({
+            id: "curriculum",
+            notes: notes,
+            updated_at: updatedAt
+          })
         });
-      } else {
-        const text = await putRes.text();
-        return res.status(putRes.status).json({ error: text });
-      }
+        supaOk = sRes.ok;
+      } catch (err) {}
+
+      // Write to backup cloud bin
+      try {
+        await fetch(BIN_URL, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            app: "science.io",
+            version: "3.5.0",
+            updatedAt: updatedAt,
+            notes: notes
+          })
+        });
+      } catch (err) {}
+
+      return res.status(200).json({
+        success: true,
+        count: notes.length,
+        updatedAt: updatedAt,
+        supabase: supaOk
+      });
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }

@@ -17,6 +17,8 @@
 // ================= CLOUD SYNC CONFIGURATION =================
 // 100% Free Forever • Zero Credit Drain • Cross-Device Live Sync
 const CLOUD_SYNC_URL = "https://scienceio-best.vercel.app/api/sync";
+const DEFAULT_SUPABASE_URL = "https://nidkkbsmptiyixvealum.supabase.co";
+const DEFAULT_SUPABASE_KEY = "sb_publishable_VIbgYVwvFU2bcPJNLWg4Qg_Be4paQ_6";
 
 // ================= INITIAL SCIENCE NOTES DATABASE =================
 
@@ -1613,8 +1615,10 @@ class ScienceIoApp {
     }
     this.cloudDbId = savedDbId;
     this.hasUnpublishedChanges = false;
-    this.supabaseUrl = localStorage.getItem("scienceio_supabase_url") || "";
-    this.supabaseKey = localStorage.getItem("scienceio_supabase_key") || "";
+    const savedSupaUrl = localStorage.getItem("scienceio_supabase_url");
+    const savedSupaKey = localStorage.getItem("scienceio_supabase_key");
+    this.supabaseUrl = (savedSupaUrl && savedSupaUrl.trim()) ? savedSupaUrl.trim() : DEFAULT_SUPABASE_URL;
+    this.supabaseKey = (savedSupaKey && savedSupaKey.trim()) ? savedSupaKey.trim() : DEFAULT_SUPABASE_KEY;
     this.supabase = null;
     this.supabaseChannel = null;
     this.vault = new VaultController(this);
@@ -1623,8 +1627,10 @@ class ScienceIoApp {
   }
 
   initSupabase() {
-    this.supabaseUrl = localStorage.getItem("scienceio_supabase_url") || "";
-    this.supabaseKey = localStorage.getItem("scienceio_supabase_key") || "";
+    const savedSupaUrl = localStorage.getItem("scienceio_supabase_url");
+    const savedSupaKey = localStorage.getItem("scienceio_supabase_key");
+    this.supabaseUrl = (savedSupaUrl && savedSupaUrl.trim()) ? savedSupaUrl.trim() : DEFAULT_SUPABASE_URL;
+    this.supabaseKey = (savedSupaKey && savedSupaKey.trim()) ? savedSupaKey.trim() : DEFAULT_SUPABASE_KEY;
     if (window.supabase && this.supabaseUrl && this.supabaseKey) {
       try {
         this.supabase = window.supabase.createClient(this.supabaseUrl, this.supabaseKey);
@@ -1637,6 +1643,27 @@ class ScienceIoApp {
     return false;
   }
 
+  handleRemoteNotesUpdate(incomingNotes) {
+    if (!Array.isArray(incomingNotes) || incomingNotes.length === 0) return;
+    const incomingJson = JSON.stringify(incomingNotes);
+    const currentJson = JSON.stringify(this.notes);
+    if (incomingJson !== currentJson) {
+      this.notes = ensurePlantCellUnit(incomingNotes);
+      localStorage.setItem("scienceio_notes_v6", incomingJson);
+      this.render();
+      if (this.vault && typeof this.vault.updateManagerTable === "function") {
+        this.vault.updateManagerTable();
+      }
+      if (this.vault && typeof this.vault.updateTelemetry === "function") {
+        this.vault.updateTelemetry();
+      }
+      const cloudDot = document.getElementById("cloud-status-dot");
+      const cloudText = document.getElementById("cloud-status-text");
+      if (cloudDot) cloudDot.style.background = "#10b981";
+      if (cloudText) cloudText.textContent = "Supabase Live";
+    }
+  }
+
   setupSupabaseRealtime() {
     if (!this.supabase) return;
     try {
@@ -1647,22 +1674,17 @@ class ScienceIoApp {
         .channel('public:science_notes')
         .on('postgres_changes', { event: '*', schema: 'public', table: 'science_notes' }, (payload) => {
           if (payload.new && Array.isArray(payload.new.notes)) {
-            const incomingJson = JSON.stringify(payload.new.notes);
-            const currentJson = JSON.stringify(this.notes);
-            if (incomingJson !== currentJson) {
-              this.notes = ensurePlantCellUnit(payload.new.notes);
-              localStorage.setItem("scienceio_notes_v6", incomingJson);
-              this.render();
-              if (this.vault && typeof this.vault.updateManagerTable === "function") {
-                this.vault.updateManagerTable();
-              }
-              if (this.vault && typeof this.vault.updateTelemetry === "function") {
-                this.vault.updateTelemetry();
-              }
-            }
+            this.handleRemoteNotesUpdate(payload.new.notes);
           }
         })
-        .subscribe();
+        .on('broadcast', { event: 'sync' }, (payload) => {
+          if (payload.payload && Array.isArray(payload.payload.notes)) {
+            this.handleRemoteNotesUpdate(payload.payload.notes);
+          }
+        })
+        .subscribe((status) => {
+          console.log("Supabase Realtime status:", status);
+        });
     } catch (e) {
       console.warn("Supabase Realtime notice:", e);
     }
@@ -1870,6 +1892,17 @@ class ScienceIoApp {
           });
         if (!error) {
           publishedSuccessfully = true;
+          try {
+            if (this.supabaseChannel) {
+              this.supabaseChannel.send({
+                type: 'broadcast',
+                event: 'sync',
+                payload: { notes: this.notes }
+              });
+            }
+          } catch (bErr) {
+            console.warn("Supabase broadcast notice:", bErr);
+          }
         } else {
           publishError = error.message;
         }
@@ -2038,8 +2071,8 @@ class ScienceIoApp {
     const supaKeyInput = document.getElementById("supabase-key-input");
     const supaBadge = document.getElementById("supabase-status-badge");
 
-    if (supaUrlInput) supaUrlInput.value = this.supabaseUrl || "";
-    if (supaKeyInput) supaKeyInput.value = this.supabaseKey || "";
+    if (supaUrlInput) supaUrlInput.value = this.supabaseUrl || DEFAULT_SUPABASE_URL;
+    if (supaKeyInput) supaKeyInput.value = this.supabaseKey || DEFAULT_SUPABASE_KEY;
     if (supaBadge) {
       if (this.supabase) {
         supaBadge.textContent = "Connected & Live";
