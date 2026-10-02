@@ -3645,3 +3645,139 @@ html, body {
   text-decoration-color: rgba(56, 189, 248, 0.5);
   text-underline-offset: 3px;
 }
+
+/* ================= BULLET POINT TOOLBAR & DISPLAY STYLES ================= */
+.field-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+.field-label-row label {
+  margin: 0;
+}
+
+.btn-field-bullet {
+  background: rgba(0, 212, 255, 0.14);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  color: #64d2ff;
+  border-radius: 6px;
+  padding: 2px 9px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  user-select: none;
+}
+
+.btn-field-bullet:hover {
+  background: rgba(0, 212, 255, 0.3);
+  border-color: #64d2ff;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-field-bullet:active {
+  transform: scale(0.96);
+}
+
+/* Bullet list display in cards, modals, and notes */
+.notes-bullet-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 6px 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.notes-bullet-list.numbered {
+  counter-reset: custom-counter;
+}
+
+.bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.95em;
+  line-height: 1.45;
+  color: inherit;
+}
+
+.bullet-dot {
+  color: var(--neon-cyan, #00d4ff);
+  font-weight: 900;
+  font-size: 1.15em;
+  line-height: 1;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.7);
+  flex-shrink: 0;
+  user-select: none;
+  display: inline-block;
+}
+
+.bullet-num {
+  color: var(--neon-amber, #ffb703);
+  font-weight: 700;
+  font-size: 0.9em;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.bullet-text {
+  flex: 1;
+}
+
+.bullet-line {
+  margin: 3px 0;
+}
+
+.bullet-spacer {
+  height: 6px;
+}
+
+.inline-bullet-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 3px 0;
+}
+
+.inline-bullet-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.card-preview-formula.has-bullets {
+  white-space: normal !important;
+  max-height: 96px;
+  overflow-y: auto;
+  text-align: left;
+  line-height: 1.35;
+}
+
+.card-preview-formula.has-bullets .notes-bullet-list {
+  margin: 0 !important;
+  gap: 4px;
+}
+
+.card-preview-formula.has-bullets .bullet-item {
+  font-size: 0.82rem;
+}
+
+.card-topic-title .notes-bullet-list {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 4px 0 !important;
+  text-transform: none;
+}
+

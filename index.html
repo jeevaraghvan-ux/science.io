@@ -23,8 +23,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=13.0">
-  <link rel="stylesheet" href="ios27.css?v=13.0">
+  <link rel="stylesheet" href="styles.css?v=14.0">
+  <link rel="stylesheet" href="ios27.css?v=14.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
   <script>
@@ -596,13 +596,17 @@
               <div class="architect-quick-templates">
                 <button type="button" class="btn-template-pill" id="btn-template-science-props">⚡ Scientific Method Template</button>
                 <button type="button" class="btn-template-pill" id="btn-template-steps">🔬 Structure & Function Template</button>
+                <button type="button" class="btn-template-pill" id="btn-architect-insert-bullet" style="border-color: var(--neon-cyan); color: var(--neon-cyan);" title="Insert bullet point into active field">• Add Bullet Anywhere</button>
               </div>
             </div>
 
             <form id="vault-note-form" class="vault-note-form">
               <div class="form-row-2">
                 <div class="form-group">
-                  <label for="vnote-title">Unit / Topic Title <span class="req">*</span></label>
+                  <div class="field-label-row">
+                    <label for="vnote-title">Unit / Topic Title <span class="req">*</span></label>
+                    <button type="button" class="btn-field-bullet" data-for="vnote-title" title="Insert a bullet point at cursor">+ • Bullet</button>
+                  </div>
                   <input type="text" id="vnote-title" required placeholder="e.g. STATES OF MATTER & PHASE CHANGES" />
                 </div>
                 <div class="form-group">
@@ -619,7 +623,10 @@
 
               <div class="form-row-2">
                 <div class="form-group">
-                  <label for="vnote-formula">Core Formula / Scientific Law</label>
+                  <div class="field-label-row">
+                    <label for="vnote-formula">Core Formula / Scientific Law</label>
+                    <button type="button" class="btn-field-bullet" data-for="vnote-formula" title="Insert a bullet point at cursor">+ • Bullet</button>
+                  </div>
                   <input type="text" id="vnote-formula" placeholder="e.g. Conservation of Mass: Mass cannot be created or destroyed" />
                 </div>
                 <div class="form-group">
@@ -636,7 +643,10 @@
               </div>
 
               <div class="form-group">
-                <label for="vnote-desc">Unit Summary & Teacher Notes <span class="req">*</span></label>
+                <div class="field-label-row">
+                  <label for="vnote-desc">Unit Summary & Teacher Notes <span class="req">*</span></label>
+                  <button type="button" class="btn-field-bullet" data-for="vnote-desc" title="Insert a bullet point at cursor">+ • Bullet</button>
+                </div>
                 <textarea id="vnote-desc" rows="2" required placeholder="Provide an overview of the unit and what 5th graders will explore..."></textarea>
               </div>
 
@@ -873,7 +883,7 @@
     </button>
   </div>
 
-  <script src="published_notes.js?v=13.0"></script>
-  <script src="app.js?v=13.0"></script>
+  <script src="published_notes.js?v=14.0"></script>
+  <script src="app.js?v=14.0"></script>
 </body>
 </html>

@@ -485,6 +485,192 @@ const DEFAULT_SCIENCE_TOPICS = [
 // Default Cloud Database Bucket ID (Hosted on permanent free REST backend)
 const DEFAULT_CLOUD_DB_ID = "ff808181a09d98f701a0f483e327513e";
 
+// ================= UNIVERSAL BULLET POINT FORMATTERS & HELPERS =================
+function formatBulletText(str) {
+  if (!str && str !== 0) return "";
+  const raw = String(str);
+  if (!raw.trim()) return "";
+
+  const hasBullets = raw.includes("•") || /(?:^|\n)\s*[-*]\s+/.test(raw) || /(?:^|\n)\s*\d+[\.\)]\s+/.test(raw);
+  const hasLines = raw.includes("\n");
+
+  if (!hasBullets && !hasLines) {
+    return raw;
+  }
+
+  // Single line with inline bullets (e.g. "• A • B • C")
+  if (!hasLines && raw.includes("•")) {
+    const parts = raw.split("•").map(p => p.trim()).filter(Boolean);
+    if (parts.length > 1 || raw.trim().startsWith("•")) {
+      const items = parts.map(p => `<li class="bullet-item"><span class="bullet-dot">•</span><span class="bullet-text">${p}</span></li>`).join("");
+      return `<ul class="notes-bullet-list">${items}</ul>`;
+    }
+  }
+
+  // Multi-line list & paragraph parsing
+  const lines = raw.split(/\r?\n/);
+  let html = "";
+  let inList = false;
+  let listType = "ul";
+
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      if (inList) {
+        html += `</${listType}>`;
+        inList = false;
+      }
+      html += `<div class="bullet-spacer"></div>`;
+      return;
+    }
+
+    const isBulletDot = trimmed.startsWith("•");
+    const isDash = /^[-*]\s+/.test(trimmed);
+    const isNum = /^(\d+)[\.\)]\s+/.test(trimmed);
+
+    if (isBulletDot || isDash) {
+      let content = isBulletDot ? trimmed.replace(/^•\s*/, "") : trimmed.replace(/^[-*]\s+/, "");
+      if (!inList || listType !== "ul") {
+        if (inList) html += `</${listType}>`;
+        html += `<ul class="notes-bullet-list">`;
+        inList = true;
+        listType = "ul";
+      }
+      html += `<li class="bullet-item"><span class="bullet-dot">•</span><span class="bullet-text">${content}</span></li>`;
+    } else if (isNum) {
+      const numMatch = trimmed.match(/^(\d+)[\.\)]\s+(.*)/);
+      const numVal = numMatch ? numMatch[1] : "";
+      const content = numMatch ? numMatch[2] : trimmed;
+      if (!inList || listType !== "ol") {
+        if (inList) html += `</${listType}>`;
+        html += `<ol class="notes-bullet-list numbered">`;
+        inList = true;
+        listType = "ol";
+      }
+      html += `<li class="bullet-item"><span class="bullet-num">${numVal}.</span><span class="bullet-text">${content}</span></li>`;
+    } else {
+      if (inList) {
+        html += `</${listType}>`;
+        inList = false;
+      }
+      html += `<div class="bullet-line">${trimmed}</div>`;
+    }
+  });
+
+  if (inList) {
+    html += `</${listType}>`;
+  }
+
+  return html;
+}
+
+function insertTextAtCursor(inputEl, text) {
+  if (!inputEl) return;
+  inputEl.focus();
+  const start = inputEl.selectionStart !== undefined ? inputEl.selectionStart : inputEl.value.length;
+  const end = inputEl.selectionEnd !== undefined ? inputEl.selectionEnd : inputEl.value.length;
+  const val = inputEl.value;
+
+  inputEl.value = val.substring(0, start) + text + val.substring(end);
+  const newPos = start + text.length;
+  inputEl.setSelectionRange(newPos, newPos);
+  inputEl.dispatchEvent(new Event("input", { bubbles: true }));
+  inputEl.dispatchEvent(new Event("change", { bubbles: true }));
+}
+
+function insertBulletAtCursor(inputEl) {
+  if (!inputEl) return;
+  inputEl.focus();
+  const val = inputEl.value;
+  const start = inputEl.selectionStart !== undefined ? inputEl.selectionStart : val.length;
+  const end = inputEl.selectionEnd !== undefined ? inputEl.selectionEnd : val.length;
+
+  const lastNewline = val.lastIndexOf("\n", start - 1);
+  const lineStart = lastNewline === -1 ? 0 : lastNewline + 1;
+  const currentLinePrefix = val.substring(lineStart, start);
+
+  let toInsert = "• ";
+  if (currentLinePrefix.trim().length > 0) {
+    toInsert = "\n• ";
+  }
+
+  if (start !== end) {
+    const selectedText = val.substring(start, end);
+    const bulletedSelection = selectedText
+      .split("\n")
+      .map(line => line.trim().startsWith("•") ? line : `• ${line}`)
+      .join("\n");
+    inputEl.value = val.substring(0, start) + bulletedSelection + val.substring(end);
+    const newEnd = start + bulletedSelection.length;
+    inputEl.setSelectionRange(newEnd, newEnd);
+  } else {
+    inputEl.value = val.substring(0, start) + toInsert + val.substring(end);
+    const newPos = start + toInsert.length;
+    inputEl.setSelectionRange(newPos, newPos);
+  }
+
+  inputEl.dispatchEvent(new Event("input", { bubbles: true }));
+  inputEl.dispatchEvent(new Event("change", { bubbles: true }));
+}
+
+function enableSmartBulletInput(el) {
+  if (!el || el._smartBulletAttached) return;
+  el._smartBulletAttached = true;
+
+  el.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      if (el.tagName === "TEXTAREA") {
+        const val = el.value;
+        const selStart = el.selectionStart;
+        const lastNewline = val.lastIndexOf("\n", selStart - 1);
+        const lineStart = lastNewline === -1 ? 0 : lastNewline + 1;
+        const currentLine = val.substring(lineStart, selStart);
+
+        const bulletMatch = currentLine.match(/^(\s*)([•\-\*])\s+/);
+        if (bulletMatch) {
+          e.preventDefault();
+          const indent = bulletMatch[1];
+          const afterBullet = currentLine.substring(bulletMatch[0].length).trim();
+
+          if (afterBullet.length === 0) {
+            const nextNewline = val.indexOf("\n", selStart);
+            const lineEnd = nextNewline === -1 ? val.length : nextNewline;
+            el.value = val.substring(0, lineStart) + val.substring(lineEnd);
+            el.setSelectionRange(lineStart, lineStart);
+          } else {
+            const insertion = `\n${indent}• `;
+            const before = val.substring(0, selStart);
+            const after = val.substring(selStart);
+            el.value = before + insertion + after;
+            const newPos = selStart + insertion.length;
+            el.setSelectionRange(newPos, newPos);
+          }
+          el.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+      }
+    }
+  });
+
+  el.addEventListener("input", (e) => {
+    if (e.inputType === "insertText" && (e.data === " " || e.data === "\u00A0")) {
+      const val = el.value;
+      const selStart = el.selectionStart;
+      const lastNewline = val.lastIndexOf("\n", selStart - 2);
+      const lineStart = lastNewline === -1 ? 0 : lastNewline + 1;
+      const lineBeforeCursor = val.substring(lineStart, selStart);
+
+      if (/^[-*]\s$/.test(lineBeforeCursor)) {
+        const before = val.substring(0, lineStart);
+        const after = val.substring(selStart);
+        el.value = before + "• " + after;
+        const newPos = lineStart + 2;
+        el.setSelectionRange(newPos, newPos);
+        el.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+    }
+  });
+}
+
 // ================= SOUND FX SYSTEM (WEB AUDIO API) =================
 class SoundController {
   constructor() {
@@ -1001,6 +1187,38 @@ class VaultController {
     const form = document.getElementById("vault-note-form");
     if (!form) return;
 
+    // Attach smart bullet auto-continuation to top-level fields
+    const titleInp = document.getElementById("vnote-title");
+    const formulaInp = document.getElementById("vnote-formula");
+    const descInp = document.getElementById("vnote-desc");
+
+    if (titleInp) enableSmartBulletInput(titleInp);
+    if (formulaInp) enableSmartBulletInput(formulaInp);
+    if (descInp) enableSmartBulletInput(descInp);
+
+    // Wire top-level field bullet buttons (+ • Bullet)
+    document.querySelectorAll(".btn-field-bullet[data-for]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.getAttribute("data-for");
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          insertBulletAtCursor(targetEl);
+          sounds.playClick();
+        }
+      });
+    });
+
+    // Wire universal bullet template button
+    document.getElementById("btn-architect-insert-bullet")?.addEventListener("click", () => {
+      const active = document.activeElement;
+      if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA")) {
+        insertBulletAtCursor(active);
+      } else {
+        if (descInp) insertBulletAtCursor(descInp);
+      }
+      sounds.playClick();
+    });
+
     document.getElementById("btn-add-square")?.addEventListener("click", () => this.addBlankSquare());
     document.getElementById("btn-add-square-bottom")?.addEventListener("click", () => this.addBlankSquare());
 
@@ -1089,27 +1307,42 @@ class VaultController {
 
         <div class="form-row-2">
           <div class="form-group">
-            <label>Square Title / Principle <span class="req">*</span></label>
+            <div class="field-label-row">
+              <label>Square Title / Principle <span class="req">*</span></label>
+              <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="name" title="Insert a bullet point at cursor">+ • Bullet</button>
+            </div>
             <input type="text" class="sq-input-name" value="${sq.name || ""}" placeholder="e.g. Solid: Definite Shape & Volume" />
           </div>
           <div class="form-group">
-            <label>Scientific Formula / Rule</label>
+            <div class="field-label-row">
+              <label>Scientific Formula / Rule</label>
+              <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="formula" title="Insert a bullet point at cursor">+ • Bullet</button>
+            </div>
             <input type="text" class="sq-input-formula" value="${sq.formula || ""}" placeholder="e.g. Molecular motion: Tightly packed vibration" />
           </div>
         </div>
 
         <div class="form-group">
-          <label>Scientific Explanation <span class="req">*</span></label>
+          <div class="field-label-row">
+            <label>Scientific Explanation <span class="req">*</span></label>
+            <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="explanation" title="Insert a bullet point at cursor">+ • Bullet</button>
+          </div>
           <textarea class="sq-input-explanation" rows="2" placeholder="Describe the mechanism, behavior, or core science idea...">${sq.explanation || ""}</textarea>
         </div>
 
         <div class="form-row-2">
           <div class="form-group">
-            <label>Real-World Example / Experiment</label>
+            <div class="field-label-row">
+              <label>Real-World Example / Experiment</label>
+              <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="example" title="Insert a bullet point at cursor">+ • Bullet</button>
+            </div>
             <input type="text" class="sq-input-example" value="${sq.example || ""}" placeholder="e.g. Ice cube in a glass holding its geometric shape" />
           </div>
           <div class="form-group">
-            <label>Lab Tip / Memory Trick</label>
+            <div class="field-label-row">
+              <label>Lab Tip / Memory Trick</label>
+              <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="trick" title="Insert a bullet point at cursor">+ • Bullet</button>
+            </div>
             <input type="text" class="sq-input-trick" value="${sq.trick || ""}" placeholder="e.g. Solids hold their ground; liquids flow around!" />
           </div>
         </div>
@@ -1119,20 +1352,46 @@ class VaultController {
         this.removeSquare(idx);
       });
 
-      card.querySelector(".sq-input-name")?.addEventListener("input", (e) => {
+      const nameInp = card.querySelector(".sq-input-name");
+      const formInp = card.querySelector(".sq-input-formula");
+      const explInp = card.querySelector(".sq-input-explanation");
+      const exInp = card.querySelector(".sq-input-example");
+      const trkInp = card.querySelector(".sq-input-trick");
+
+      nameInp?.addEventListener("input", (e) => {
         this.architectSquares[idx].name = e.target.value;
       });
-      card.querySelector(".sq-input-formula")?.addEventListener("input", (e) => {
+      formInp?.addEventListener("input", (e) => {
         this.architectSquares[idx].formula = e.target.value;
       });
-      card.querySelector(".sq-input-explanation")?.addEventListener("input", (e) => {
+      explInp?.addEventListener("input", (e) => {
         this.architectSquares[idx].explanation = e.target.value;
       });
-      card.querySelector(".sq-input-example")?.addEventListener("input", (e) => {
+      exInp?.addEventListener("input", (e) => {
         this.architectSquares[idx].example = e.target.value;
       });
-      card.querySelector(".sq-input-trick")?.addEventListener("input", (e) => {
+      trkInp?.addEventListener("input", (e) => {
         this.architectSquares[idx].trick = e.target.value;
+      });
+
+      // Enable smart bullet auto-continuation on all square inputs
+      if (nameInp) enableSmartBulletInput(nameInp);
+      if (formInp) enableSmartBulletInput(formInp);
+      if (explInp) enableSmartBulletInput(explInp);
+      if (exInp) enableSmartBulletInput(exInp);
+      if (trkInp) enableSmartBulletInput(trkInp);
+
+      // Wire bullet buttons for each field on this concept square
+      card.querySelectorAll(".sq-bullet-btn").forEach((bBtn) => {
+        bBtn.addEventListener("click", () => {
+          const field = bBtn.dataset.field;
+          const targetInp = card.querySelector(`.sq-input-${field}`);
+          if (targetInp) {
+            insertBulletAtCursor(targetInp);
+            this.architectSquares[idx][field] = targetInp.value;
+            sounds.playClick();
+          }
+        });
       });
 
       list.appendChild(card);
@@ -1255,7 +1514,7 @@ class VaultController {
 
     const newNote = {
       id: this.editingNoteId ? this.editingNoteId : `science-unit-${Date.now()}`,
-      title: title.toUpperCase(),
+      title: (title.includes("\n") || title.includes("•")) ? title : title.toUpperCase(),
       category: category,
       color: color,
       grade: "5th Grade",
@@ -2313,17 +2572,18 @@ class ScienceIoApp {
 
       const glowClass = `glow-${topic.color || "cyan"}`;
       const sqCount = topic.properties ? topic.properties.length : 1;
+      const hasBulletsOrLines = topic.coreFormula && (topic.coreFormula.includes('•') || topic.coreFormula.includes('\n'));
 
       card.innerHTML = `
         <div class="card-glow-layer ${glowClass}"></div>
         
         <div class="card-header-meta">
           <span class="card-cat-pill">${topic.grade || "5th Grade"} • ${(topic.category || "Science").toUpperCase()} • ${sqCount} SQUARES</span>
-          <h3 class="card-topic-title">${topic.title}</h3>
+          <h3 class="card-topic-title">${formatBulletText(topic.title)}</h3>
         </div>
 
-        <div class="card-preview-formula" title="${topic.coreFormula}">
-          ${topic.coreFormula}
+        <div class="card-preview-formula ${hasBulletsOrLines ? 'has-bullets' : ''}" title="${(topic.coreFormula || '').replace(/"/g, '&quot;')}">
+          ${formatBulletText(topic.coreFormula)}
         </div>
 
         ${topic.properties && topic.properties.length > 0 ? `
@@ -2572,9 +2832,9 @@ class ScienceIoApp {
       const sqCount = topic.properties ? topic.properties.length : 1;
 
       tr.innerHTML = `
-        <td><strong>${topic.title}</strong></td>
+        <td><strong>${formatBulletText(topic.title)}</strong></td>
         <td><span class="card-cat-pill">${(topic.category || "Science").toUpperCase()}</span></td>
-        <td><code class="table-formula-code">${topic.coreFormula}</code></td>
+        <td><code class="table-formula-code">${formatBulletText(topic.coreFormula)}</code></td>
         <td>${sqCount} Concept Squares</td>
         <td><span class="table-type-pill">User Unit</span></td>
         <td>
@@ -2608,8 +2868,20 @@ class ScienceIoApp {
     const descEl = document.getElementById("modal-topic-desc");
     const catBadge = document.getElementById("modal-cat-badge");
 
-    if (titleEl) titleEl.textContent = topic.title;
-    if (descEl) descEl.textContent = topic.description;
+    if (titleEl) {
+      if (topic.title && (topic.title.includes('•') || topic.title.includes('\n'))) {
+        titleEl.innerHTML = formatBulletText(topic.title);
+      } else {
+        titleEl.textContent = topic.title;
+      }
+    }
+    if (descEl) {
+      if (topic.description && (topic.description.includes('•') || topic.description.includes('\n'))) {
+        descEl.innerHTML = formatBulletText(topic.description);
+      } else {
+        descEl.textContent = topic.description;
+      }
+    }
     if (catBadge) catBadge.textContent = `5TH GRADE ${(topic.category || "SCIENCE").toUpperCase()}`;
 
     this.renderModalProperties(topic);
@@ -2639,10 +2911,10 @@ class ScienceIoApp {
       container.innerHTML = `
         <div class="property-detail-card">
           <div class="prop-card-header">
-            <h4 class="prop-card-title">${topic.title}</h4>
-            <span class="prop-formula-box">${topic.coreFormula}</span>
+            <h4 class="prop-card-title">${formatBulletText(topic.title)}</h4>
+            <span class="prop-formula-box">${formatBulletText(topic.coreFormula)}</span>
           </div>
-          <p class="prop-explanation">${topic.description}</p>
+          <div class="prop-explanation">${formatBulletText(topic.description)}</div>
         </div>
       `;
       return;
@@ -2676,20 +2948,20 @@ class ScienceIoApp {
         <div class="prop-card-header">
           <div>
             <span class="prop-number-tag">CONCEPT SQUARE #${prop.num}</span>
-            <h4 class="prop-card-title">${prop.name}</h4>
+            <h4 class="prop-card-title">${formatBulletText(prop.name)}</h4>
           </div>
-          <div class="prop-formula-box">${prop.formula}</div>
+          <div class="prop-formula-box">${formatBulletText(prop.formula)}</div>
         </div>
 
-        <p class="prop-explanation">${highlightedExplanation}</p>
+        <div class="prop-explanation">${formatBulletText(highlightedExplanation)}</div>
 
         <div class="prop-example-box">
           <div class="prop-example-title">5th Grade Scientific Observation / Demonstration</div>
-          <div class="prop-example-text">${(prop.example || "").replace(/\n/g, "<br>")}</div>
+          <div class="prop-example-text">${formatBulletText(prop.example || "")}</div>
         </div>
 
         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
-          ${prop.trick ? `<span class="prop-trick-badge">💡 ${prop.trick}</span>` : ""}
+          ${prop.trick ? `<span class="prop-trick-badge">💡 ${formatBulletText(prop.trick)}</span>` : ""}
           <span class="prop-trick-badge" style="background: rgba(0, 240, 255, 0.15); border-color: rgba(0, 240, 255, 0.3); color: #a5f3fc;">🔬 Verified 5th Grade Science</span>
         </div>
       `;
@@ -3078,9 +3350,9 @@ class ScienceIoApp {
 
     let html = `
       <div style="margin-bottom: 24px;">
-        <h2 style="color: #0284c7; border-bottom: 2px solid #bae6fd; padding-bottom: 6px;">${topic.title}</h2>
-        <p style="font-size: 1.1rem; font-style: italic; margin-top: 6px;">${topic.description}</p>
-        <p style="font-weight: bold; margin-top: 8px;">Scientific Principle: ${topic.coreFormula}</p>
+        <h2 style="color: #0284c7; border-bottom: 2px solid #bae6fd; padding-bottom: 6px;">${formatBulletText(topic.title)}</h2>
+        <div style="font-size: 1.1rem; font-style: italic; margin-top: 6px;">${formatBulletText(topic.description)}</div>
+        <div style="font-weight: bold; margin-top: 8px;">Scientific Principle: ${formatBulletText(topic.coreFormula)}</div>
       </div>
     `;
 
@@ -3088,11 +3360,11 @@ class ScienceIoApp {
       topic.properties.forEach((p) => {
         html += `
           <div style="margin-bottom: 16px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;">
-            <h3 style="font-size: 1.05rem; margin-bottom: 4px;">#${p.num} — ${p.name}</h3>
-            <p style="font-weight: bold; color: #1e293b;">Formula / Rule: ${p.formula}</p>
-            <p style="margin: 4px 0;">${p.explanation}</p>
-            <p style="color: #475569; font-size: 0.95rem;">Observation: ${p.example}</p>
-            ${p.trick ? `<p style="color: #d97706; font-size: 0.9rem;">💡 ${p.trick}</p>` : ""}
+            <h3 style="font-size: 1.05rem; margin-bottom: 4px;">#${p.num} — ${formatBulletText(p.name)}</h3>
+            <div style="font-weight: bold; color: #1e293b;">Formula / Rule: ${formatBulletText(p.formula)}</div>
+            <div style="margin: 4px 0;">${formatBulletText(p.explanation)}</div>
+            <div style="color: #475569; font-size: 0.95rem;">Observation: ${formatBulletText(p.example)}</div>
+            ${p.trick ? `<div style="color: #d97706; font-size: 0.9rem;">💡 ${formatBulletText(p.trick)}</div>` : ""}
           </div>
         `;
       });
@@ -3540,6 +3812,7 @@ document.addEventListener("DOMContentLoaded", () => {
   mk.id = "science-keyboard";
   mk.className = "hidden";
   mk.innerHTML = `
+    <button class="mk-btn mk-bullet-btn" style="color: #64d2ff; font-weight: 800; border-color: rgba(0,212,255,0.4);" title="Insert Bullet Point">• Bullet</button>
     <button class="mk-btn">H₂O</button>
     <button class="mk-btn">CO₂</button>
     <button class="mk-btn">O₂</button>
@@ -3571,7 +3844,11 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
       if (activeInput) {
-        activeInput.value += btn.textContent;
+        if (btn.classList.contains("mk-bullet-btn")) {
+          insertBulletAtCursor(activeInput);
+        } else {
+          insertTextAtCursor(activeInput, btn.textContent);
+        }
         activeInput.focus();
         sounds.playClick();
       }
