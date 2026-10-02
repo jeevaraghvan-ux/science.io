@@ -3901,3 +3901,804 @@ html, body {
   text-transform: none;
 }
 
+/* =========================================================================
+   INTERACTIVE LABS SUITE: MATTER STATES (#6) & MOON PHASES ORBIT (#3)
+   ========================================================================= */
+
+/* Top Laboratory Navigation Bar in Notes Viewer */
+.interactive-lab-nav {
+  width: 100%;
+  max-width: 680px;
+  background: rgba(18, 24, 38, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.lab-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.lab-nav-badge {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 3px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.lab-nav-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.lab-switcher-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.lab-pill-btn {
+  flex: 1;
+  min-width: 170px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #cbd5e1;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.lab-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.lab-pill-btn.active {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.25), rgba(126, 34, 206, 0.3));
+  border-color: #00f0ff;
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.35);
+}
+
+.interactive-lab-stage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ================= FEATURE #6: MATTER STATE CHANGES SANDBOX ================= */
+.matter-sandbox-wrap {
+  width: 100%;
+  max-width: 680px;
+  background: linear-gradient(155deg, rgba(20, 26, 42, 0.8) 0%, rgba(10, 14, 26, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.matter-hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.matter-hud-title-col {
+  flex: 1;
+  min-width: 240px;
+}
+
+.matter-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.01em;
+}
+
+.matter-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.matter-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1.5px solid #34d399;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+/* Mercury Thermometer and Chamber Layout */
+.matter-viewport-row {
+  display: flex;
+  align-items: stretch;
+  gap: 18px;
+  width: 100%;
+}
+
+.thermometer-glass-tube {
+  width: 74px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 12px 6px 14px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.thermometer-stem {
+  width: 14px;
+  height: 180px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  position: relative;
+  overflow: visible;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.thermometer-mercury-bar {
+  width: 100%;
+  background: #34d399;
+  border-radius: 999px;
+  transition: height 0.15s ease, background 0.3s ease;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.thermo-ticks {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  height: 100%;
+  width: 48px;
+  pointer-events: none;
+}
+
+.thermo-tick {
+  position: absolute;
+  left: 0;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #94a3b8;
+  white-space: nowrap;
+  transform: translateY(-50%);
+  font-family: monospace;
+}
+
+.thermometer-bulb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #34d399;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 12px currentColor;
+  transition: background 0.3s ease;
+  margin-top: 6px;
+}
+
+.matter-chamber-card {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chamber-glass-rim {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  background: #030712;
+  overflow: hidden;
+}
+
+#matter-physics-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.chamber-footer-metrics {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 14px;
+  background: rgba(15, 23, 42, 0.85);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.metric-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+}
+
+.metric-label {
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.metric-val {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.metric-sub {
+  color: #94a3b8;
+  font-size: 0.72rem;
+}
+
+.ke-meter-bar-track {
+  width: 80px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.ke-meter-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8, #f59e0b, #ef4444);
+  border-radius: 999px;
+  transition: width 0.15s ease;
+}
+
+/* Matter Controls & Sliders */
+.matter-controls-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  padding: 14px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.slider-control-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.slider-label-cold {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #38bdf8;
+  flex-shrink: 0;
+}
+
+.slider-label-hot {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+.slider-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.neon-temp-slider {
+  width: 100%;
+  accent-color: #00f0ff;
+  cursor: pointer;
+  height: 6px;
+  border-radius: 999px;
+}
+
+.slider-milestones {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  margin-top: 4px;
+}
+
+.slider-milestones span {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.matter-presets-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.presets-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+
+.preset-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.preset-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.matter-edu-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 16px;
+  padding: 12px 16px;
+}
+
+.callout-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.callout-body {
+  flex: 1;
+}
+
+.callout-heading {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #38bdf8;
+  margin: 0 0 3px 0;
+}
+
+.callout-text {
+  font-size: 0.82rem;
+  color: #e2e8f0;
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* ================= FEATURE #3: MOON PHASES & SOLAR SYSTEM ORBIT ================= */
+.moon-orbit-wrap {
+  width: 100%;
+  max-width: 680px;
+  background: linear-gradient(155deg, rgba(16, 22, 40, 0.85) 0%, rgba(6, 10, 22, 0.98) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(139, 92, 246, 0.4);
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.moon-hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.moon-hud-title-col {
+  flex: 1;
+  min-width: 240px;
+}
+
+.moon-scope-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #a78bfa;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+
+.moon-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.01em;
+}
+
+.moon-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.moon-phase-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1.5px solid #8b5cf6;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.35);
+}
+
+/* Dual Viewport */
+.moon-dual-viewport {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.moon-view-card {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.view-header-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.view-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: 0.04em;
+}
+
+.view-tip {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.orbit-canvas-box {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #020617;
+}
+
+#moon-orbit-canvas {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  aspect-ratio: 340 / 300;
+  display: block;
+  cursor: grab;
+}
+
+#moon-orbit-canvas:active {
+  cursor: grabbing;
+}
+
+.sunbeam-label-flag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 183, 3, 0.2);
+  border: 1px solid rgba(255, 183, 3, 0.5);
+  color: #fde047;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.telescope-viewport {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.telescope-lens {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  border: 4px solid #334155;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(0, 0, 0, 0.8), 0 0 12px rgba(139, 92, 246, 0.3);
+  overflow: hidden;
+  background: #02040a;
+}
+
+#moon-telescope-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.telescope-crosshair {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, transparent 49.5%, rgba(0, 240, 255, 0.15) 50%, transparent 50.5%),
+    linear-gradient(to bottom, transparent 49.5%, rgba(0, 240, 255, 0.15) 50%, transparent 50.5%);
+}
+
+.telescope-glare {
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 140%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.view-caption {
+  font-size: 0.72rem;
+  color: #cbd5e1;
+  text-align: center;
+  margin-top: 8px;
+  line-height: 1.35;
+}
+
+/* Moon Controls Panel */
+.moon-controls-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 16px;
+  padding: 14px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.moon-scrubber-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.btn-orbit-play {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  color: #ffffff;
+  padding: 8px 14px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-orbit-play.playing {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+}
+
+.btn-orbit-play:hover {
+  transform: scale(1.04);
+}
+
+.moon-slider-track-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.slider-meta-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.orbit-angle-deg {
+  color: #a78bfa;
+  font-weight: 800;
+}
+
+.neon-orbit-slider {
+  width: 100%;
+  accent-color: #8b5cf6;
+  cursor: pointer;
+  height: 6px;
+}
+
+.btn-orbit-speed {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: #cbd5e1;
+  padding: 7px 11px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.moon-phases-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.phase-jump-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 6px 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.phase-jump-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.phase-jump-btn.active {
+  background: rgba(139, 92, 246, 0.35);
+  border-color: #8b5cf6;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+}
+
+.moon-edu-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 16px;
+  padding: 14px 18px;
+}
+
+.moon-mnemonic-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: #fde047;
+  flex-wrap: wrap;
+}
+
+.moon-explanation-text {
+  font-size: 0.82rem;
+  color: #e2e8f0;
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* Responsive Breakpoints for Labs */
+@media (max-width: 640px) {
+  .matter-viewport-row {
+    flex-direction: column-reverse;
+  }
+  .thermometer-glass-tube {
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    padding: 10px 16px;
+  }
+  .thermometer-stem {
+    width: 160px;
+    height: 12px;
+    flex-direction: row;
+  }
+  .thermometer-mercury-bar {
+    width: 35%;
+    height: 100%;
+  }
+  .thermo-ticks {
+    display: none;
+  }
+  .moon-dual-viewport {
+    grid-template-columns: 1fr;
+  }
+  .moon-phases-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+

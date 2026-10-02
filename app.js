@@ -479,6 +479,250 @@ const DEFAULT_SCIENCE_TOPICS = [
       }
     ],
     "badge": "4 Concept Squares • Microscopic Life"
+  },
+  {
+    "id": "states-of-matter-01",
+    "title": "STATES OF MATTER & KINETIC THEORY",
+    "category": "physical",
+    "color": "cyan",
+    "grade": "5th Grade",
+    "coreFormula": "Thermal Energy (Heat) = Kinetic Molecular Motion (Ek ∝ T)",
+    "description": "Matter exists as solids, liquids, or gases! Adding heat causes molecules to speed up, vibrate rapidly, and undergo phase changes.",
+    "isCustom": false,
+    "properties": [
+      {
+        "num": 1,
+        "name": "Solid State (Ice / Rigid Lattice)",
+        "formula": "Definite Shape & Definite Volume",
+        "explanation": "Molecules are tightly locked in a fixed crystalline lattice. They do not slide past one another, but vibrate in place with low kinetic energy.",
+        "example": "An ice cube or iron block maintains its own rigid shape without expanding or flowing.",
+        "trick": "Memory Trick: Solids are Solid as a Rock—tightly packed!"
+      },
+      {
+        "num": 2,
+        "name": "Liquid State (Water / Fluid Motion)",
+        "formula": "Definite Volume, Indefinite Shape",
+        "explanation": "Thermal heat breaks the rigid lattice! Molecules have enough kinetic energy to flow and slide past each other while remaining grouped together.",
+        "example": "Pouring 100 mL of water from a beaker into a cylinder keeps the same volume but conforms to the container.",
+        "trick": "Memory Trick: Liquids Flow like a River—sliding particles!"
+      },
+      {
+        "num": 3,
+        "name": "Gas State (Steam / Vapor Expansion)",
+        "formula": "Indefinite Shape & Indefinite Volume",
+        "explanation": "High thermal kinetic energy overcomes all intermolecular attraction. Molecules zoom around at high speed, bouncing off walls and filling the entire space.",
+        "example": "Water vapor or helium expands outward to completely fill any balloon or closed room.",
+        "trick": "Memory Trick: Gas Zooming Fast—far apart and flying free!"
+      },
+      {
+        "num": 4,
+        "name": "Melting & Freezing Transitions (0°C / 32°F)",
+        "formula": "Solid ⇌ Liquid (Latent Heat of Fusion)",
+        "explanation": "Melting occurs when heat is absorbed at 0°C, breaking crystal bonds. Freezing occurs when heat is removed, locking liquid particles back into a solid.",
+        "example": "Ice cubes melting into liquid water on a warm table or water freezing into ice in a freezer.",
+        "trick": "Memory Trick: 0°C (32°F) is the Zero-Line for Ice and Water!"
+      },
+      {
+        "num": 5,
+        "name": "Boiling & Condensation Transitions (100°C / 212°F)",
+        "formula": "Liquid ⇌ Gas (Latent Heat of Vaporization)",
+        "explanation": "Boiling occurs when liquid is heated to 100°C, causing vapor bubbles to form rapidly. Condensation occurs when steam cools down and turns back into liquid droplets.",
+        "example": "A kettle boiling water into steam, or water droplets condensing on a cold glass of lemonade.",
+        "trick": "Memory Trick: 100°C (212°F) is Boiling Hot Steam!"
+      }
+    ],
+    "quiz": [
+      {
+        "q": "What happens to the molecules of a substance when thermal heat is added?",
+        "options": [
+          "They gain kinetic energy and move/vibrate faster and spread apart",
+          "They lose energy and stop moving completely",
+          "They destroy each other and disappear",
+          "They freeze into rigid crystals instantly"
+        ],
+        "ans": 0,
+        "why": "Thermal heat increases the kinetic energy of molecules, making them vibrate faster!"
+      },
+      {
+        "q": "Which state of matter has a definite volume but takes the shape of whatever container it is poured into?",
+        "options": [
+          "Liquid",
+          "Solid",
+          "Gas",
+          "Plasma"
+        ],
+        "ans": 0,
+        "why": "Liquids have a definite volume because intermolecular forces keep them grouped, but particles slide freely!"
+      },
+      {
+        "q": "At what temperature does water boil and transform into water vapor (gas)?",
+        "options": [
+          "100°C (212°F)",
+          "0°C (32°F)",
+          "50°C (122°F)",
+          "200°C (392°F)"
+        ],
+        "ans": 0,
+        "why": "The normal boiling point of pure water at sea level is 100°C (212°F)!"
+      },
+      {
+        "q": "What is the term for the phase transition where water vapor (gas) cools down and turns back into liquid droplets?",
+        "options": [
+          "Condensation",
+          "Evaporation",
+          "Melting",
+          "Sublimation"
+        ],
+        "ans": 0,
+        "why": "Condensation is when gas particles lose heat energy and group together into a liquid!"
+      },
+      {
+        "q": "In which state of matter are molecules held in a rigid crystalline structure vibrating in fixed positions?",
+        "options": [
+          "Solid",
+          "Liquid",
+          "Gas",
+          "Vapor"
+        ],
+        "ans": 0,
+        "why": "In a solid, strong intermolecular forces hold molecules in a fixed lattice structure!"
+      }
+    ],
+    "badge": "5 Concept Squares • Physical Science"
+  },
+  {
+    "id": "moon-phases-01",
+    "title": "MOON PHASES & SOLAR SYSTEM ORBIT",
+    "category": "earth",
+    "color": "indigo",
+    "grade": "5th Grade",
+    "coreFormula": "29.5-Day Lunar Cycle • Light on Right = Waxing, Light on Left = Waning",
+    "description": "Understand why the Moon's appearance changes throughout the month! Half of the Moon is always lit by the Sun, but our Earth viewpoint changes as the Moon orbits counterclockwise.",
+    "isCustom": false,
+    "properties": [
+      {
+        "num": 1,
+        "name": "New Moon (Day 0)",
+        "formula": "Moon between Earth and Sun (0° Orbit)",
+        "explanation": "The Moon is positioned directly between Earth and the Sun. The sunlit hemisphere faces away into space, while the dark shadowed side faces Earth, making the Moon invisible.",
+        "example": "Looking up at night and seeing a completely dark sky with no visible Moon.",
+        "trick": "Memory Trick: New Moon = No Moon visible to us!"
+      },
+      {
+        "num": 2,
+        "name": "Waxing Crescent (Day 3.7)",
+        "formula": "Growing Silver Sliver on the Right (45° Orbit)",
+        "explanation": "As the Moon travels counterclockwise in its orbit, a thin sliver of the sunlit hemisphere becomes visible from Earth on the right side.",
+        "example": "A delicate curved silver crescent visible in the western evening sky after sunset.",
+        "trick": "Memory Trick: Waxing = Growing! Light on the Right means growing bright!"
+      },
+      {
+        "num": 3,
+        "name": "First Quarter (Day 7.4)",
+        "formula": "Right Half Illuminated (90° Orbit)",
+        "explanation": "One quarter of the way through the lunar orbit. From Earth, we see exactly half of the Moon's visible disc illuminated on the right side (looks like a half-moon).",
+        "example": "High in the southern sky at sunset, with the right side glowing bright white.",
+        "trick": "Memory Trick: First Quarter = 1/4 of cycle, Right Half glowing!"
+      },
+      {
+        "num": 4,
+        "name": "Waxing Gibbous (Day 11.1)",
+        "formula": "Humpbacked Light Growing on the Right (135° Orbit)",
+        "explanation": "'Gibbous' means swollen or humped. More than half of the visible disc is lit on the right side, continuing to swell larger as it approaches Full Moon.",
+        "example": "An oval, mostly-lit Moon visible in the late afternoon and rising into the night.",
+        "trick": "Memory Trick: Gibbous sounds like Great Big—almost full!"
+      },
+      {
+        "num": 5,
+        "name": "Full Moon (Day 14.8)",
+        "formula": "Earth between Sun and Moon (180° Orbit)",
+        "explanation": "Earth is positioned roughly between the Sun and Moon. The entire illuminated hemisphere faces directly toward Earth, presenting a brilliant 100% lit circle.",
+        "example": "Rising at sunset and lighting up the entire night landscape with silver moonbeams.",
+        "trick": "Memory Trick: Full Moon = Fully lit disc 100%!"
+      },
+      {
+        "num": 6,
+        "name": "Waning Gibbous (Day 18.5)",
+        "formula": "Light Shrinking, Now on the Left (225° Orbit)",
+        "explanation": "'Waning' means shrinking or decreasing. After Full Moon, the light begins to decrease, now showing on the left side while the right side enters darkness.",
+        "example": "Rises late at night with a shadowed slice on the right edge.",
+        "trick": "Memory Trick: Waning = Weakening/Shrinking! Light is on the Left!"
+      },
+      {
+        "num": 7,
+        "name": "Third / Last Quarter (Day 22.1)",
+        "formula": "Left Half Illuminated (270° Orbit)",
+        "explanation": "Three quarters through the 29.5-day cycle. From Earth, we see exactly half of the visible disc illuminated, but this time on the left side.",
+        "example": "Rises around midnight and visible in the early morning sky.",
+        "trick": "Memory Trick: Third Quarter = Left half lit before sunrise!"
+      },
+      {
+        "num": 8,
+        "name": "Waning Crescent (Day 25.8)",
+        "formula": "Final Sliver on the Left (315° Orbit)",
+        "explanation": "The final phase before New Moon. Only a tiny crescent remains illuminated on the left side, visible in the eastern sky just before dawn.",
+        "example": "A thin curved crescent smiling in the dawn sky right before sunrise.",
+        "trick": "Memory Trick: Waning Crescent = Goodbye crescent before the cycle resets!"
+      }
+    ],
+    "quiz": [
+      {
+        "q": "Why does the Moon appear to change shape throughout the month?",
+        "options": [
+          "As the Moon orbits Earth, we see different amounts of its sunlit half from our vantage point",
+          "Earth's shadow covers the Moon every single night",
+          "The Moon expands and shrinks like a balloon",
+          "The Sun turns on and off on different sides of the Moon"
+        ],
+        "ans": 0,
+        "why": "Half of the Moon is always lit by the Sun, but as it revolves around Earth, our viewing angle changes!"
+      },
+      {
+        "q": "What does the word 'Waxing' mean when describing the Moon?",
+        "options": [
+          "Growing or increasing in illuminated size (light on the right)",
+          "Shrinking or decreasing in illuminated size",
+          "Covered in space dust",
+          "Passing through Earth's shadow"
+        ],
+        "ans": 0,
+        "why": "Waxing means growing! During waxing phases, the illuminated portion grows larger and is on the right side."
+      },
+      {
+        "q": "In which phase is the Moon positioned between Earth and the Sun, making the lit side face away from Earth?",
+        "options": [
+          "New Moon",
+          "Full Moon",
+          "First Quarter",
+          "Waxing Gibbous"
+        ],
+        "ans": 0,
+        "why": "During a New Moon, the Moon is between the Sun and Earth, so the sunlit hemisphere faces away into space."
+      },
+      {
+        "q": "If the Moon is half-illuminated with the light visible on the LEFT side, which phase is it?",
+        "options": [
+          "Third / Last Quarter",
+          "First Quarter",
+          "Waxing Crescent",
+          "Full Moon"
+        ],
+        "ans": 0,
+        "why": "Light on the Left = Waning! The half-illuminated waning phase is the Third / Last Quarter."
+      },
+      {
+        "q": "How long does one complete cycle of lunar phases (from New Moon back to New Moon) take?",
+        "options": [
+          "About 29.5 days (one synodic month)",
+          "Exactly 365 days",
+          "24 hours",
+          "7 days"
+        ],
+        "ans": 0,
+        "why": "One synodic lunar cycle takes approximately 29.5 days to complete."
+      }
+    ],
+    "badge": "8 Lunar Phases • Earth & Space Science"
   }
 ];
 
@@ -1844,11 +2088,17 @@ class VaultController {
   }
 }
 
-// Helper to guarantee science notes list has valid fallback if completely empty
+// Helper to guarantee science notes list has valid fallback if completely empty and includes core units
 function ensurePlantCellUnit(notesList) {
   if (!Array.isArray(notesList) || notesList.length === 0) {
-    return [JSON.parse(JSON.stringify(DEFAULT_SCIENCE_TOPICS[0]))];
+    return JSON.parse(JSON.stringify(DEFAULT_SCIENCE_TOPICS));
   }
+  const existingIds = new Set(notesList.map(n => n.id));
+  DEFAULT_SCIENCE_TOPICS.forEach(defTopic => {
+    if (!existingIds.has(defTopic.id)) {
+      notesList.push(JSON.parse(JSON.stringify(defTopic)));
+    }
+  });
   return notesList;
 }
 
@@ -1880,6 +2130,9 @@ class ScienceIoApp {
     this.supabaseKey = (savedSupaKey && savedSupaKey.trim()) ? savedSupaKey.trim() : DEFAULT_SUPABASE_KEY;
     this.supabase = null;
     this.supabaseChannel = null;
+    this.activeSimAnimId = null;
+    this.moonOrbitAnimId = null;
+    this.currentLabType = null;
     this.vault = new VaultController(this);
 
     this.init();
@@ -2900,6 +3153,29 @@ class ScienceIoApp {
       if (btn) btn.classList.toggle("active", tab === tabName);
       if (pane) pane.classList.toggle("hidden", tab !== tabName);
     });
+
+    if (tabName !== "interactive") {
+      this.cleanupInteractiveSimulators();
+    } else {
+      this.resumeInteractiveSimulator();
+    }
+  }
+
+  cleanupInteractiveSimulators() {
+    if (this.activeSimAnimId) {
+      cancelAnimationFrame(this.activeSimAnimId);
+      this.activeSimAnimId = null;
+    }
+    if (this.moonOrbitAnimId) {
+      cancelAnimationFrame(this.moonOrbitAnimId);
+      this.moonOrbitAnimId = null;
+    }
+  }
+
+  resumeInteractiveSimulator() {
+    if (this._resumeSimFn && typeof this._resumeSimFn === "function") {
+      this._resumeSimFn();
+    }
   }
 
   renderModalProperties(topic) {
@@ -2970,275 +3246,1238 @@ class ScienceIoApp {
     });
   }
 
-  // Interactive Science Visualizer
+  // Interactive Science Visualizers (Matter States #6, Moon Phases Orbit #3, Plant Cell Biology)
   renderModalInteractive(topic) {
     const container = document.getElementById("interactive-sandbox-container");
     if (!container) return;
+    this.cleanupInteractiveSimulators();
     container.innerHTML = "";
 
-    // 1. Interactive Plant Cell Diagram
-    if (topic.id === "science-plant-cell" || topic.title.includes("CELL")) {
-      container.innerHTML = `
-        <div class="plant-cell-interactive-wrap">
-          <div class="cell-diagram-svg-container">
-            <svg class="cell-svg-canvas" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="cellWallGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#15803d" />
-                  <stop offset="100%" stop-color="#166534" />
-                </linearGradient>
-                <linearGradient id="cytoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#064e3b" stop-opacity="0.85" />
-                  <stop offset="100%" stop-color="#022c22" stop-opacity="0.95" />
-                </linearGradient>
-                <linearGradient id="vacuoleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8" />
-                  <stop offset="50%" stop-color="#0284c7" stop-opacity="0.7" />
-                  <stop offset="100%" stop-color="#0369a1" stop-opacity="0.88" />
-                </linearGradient>
-                <radialGradient id="nucleusGrad" cx="40%" cy="40%" r="50%">
-                  <stop offset="0%" stop-color="#c084fc" />
-                  <stop offset="70%" stop-color="#7e22ce" />
-                  <stop offset="100%" stop-color="#581c87" />
-                </radialGradient>
-                <radialGradient id="chloroGrad" cx="40%" cy="40%" r="50%">
-                  <stop offset="0%" stop-color="#4ade80" />
-                  <stop offset="100%" stop-color="#15803d" />
-                </radialGradient>
-                <linearGradient id="mitoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#fb923c" />
-                  <stop offset="100%" stop-color="#c2410c" />
-                </linearGradient>
-              </defs>
+    // Determine initial active lab based on topic
+    let defaultLab = "cell";
+    const topicTitle = (topic.title || "").toUpperCase();
+    const topicCategory = (topic.category || "").toLowerCase();
+    const topicId = topic.id || "";
 
-              <!-- 8. CELL WALL -->
-              <polygon id="path-org-8" class="cell-organelle-path" points="40,25 560,25 580,70 580,330 560,375 40,375 20,330 20,70" fill="url(#cellWallGrad)" stroke="#4ade80" stroke-width="5" />
+    if (topicCategory === "earth" || topicTitle.includes("MOON") || topicTitle.includes("SPACE") || topicTitle.includes("ORBIT") || topicTitle.includes("SOLAR") || topicId === "moon-phases-01") {
+      defaultLab = "moon";
+    } else if (topicCategory === "physical" || topicTitle.includes("MATTER") || topicTitle.includes("HEAT") || topicTitle.includes("SOLID") || topicTitle.includes("GAS") || topicId === "states-of-matter-01") {
+      defaultLab = "matter";
+    } else {
+      defaultLab = "cell";
+    }
 
-              <!-- 1. CELL MEMBRANE & CYTOPLASM -->
-              <polygon id="path-org-1" class="cell-organelle-path" points="52,38 548,38 565,78 565,322 548,362 52,362 35,322 35,78" fill="url(#cytoGrad)" stroke="#22c55e" stroke-width="3" stroke-dasharray="8 4" />
+    container.innerHTML = `
+      <div class="interactive-lab-nav">
+        <div class="lab-nav-header">
+          <span class="lab-nav-badge">🧪 INTERACTIVE VIRTUAL LABS</span>
+          <span class="lab-nav-sub">Inside Notes Exclusive Sandbox</span>
+        </div>
+        <div class="lab-switcher-pills">
+          <button class="lab-pill-btn ${defaultLab === 'matter' ? 'active' : ''}" id="lab-btn-matter" data-lab="matter">
+            <span>❄️ Matter State Changes (#6)</span>
+          </button>
+          <button class="lab-pill-btn ${defaultLab === 'moon' ? 'active' : ''}" id="lab-btn-moon" data-lab="moon">
+            <span>🪐 Moon Phases & Orbit (#3)</span>
+          </button>
+          <button class="lab-pill-btn ${defaultLab === 'cell' ? 'active' : ''}" id="lab-btn-cell" data-lab="cell">
+            <span>🔬 Plant Cell Biology</span>
+          </button>
+        </div>
+      </div>
+      <div id="interactive-lab-stage" class="interactive-lab-stage"></div>
+    `;
 
-              <!-- 9. CENTRAL VACUOLE -->
-              <path id="path-org-9" class="cell-organelle-path" d="M 170,140 C 130,160 120,240 150,290 C 180,340 320,340 370,310 C 420,280 430,220 400,180 C 370,140 280,120 220,130 Z" fill="url(#vacuoleGrad)" stroke="#7dd3fc" stroke-width="2" />
-              <text x="220" y="240" fill="#e0f2fe" font-size="12" font-weight="bold" opacity="0.6">Central Vacuole (Water Storage)</text>
+    const stage = document.getElementById("interactive-lab-stage");
+    const labButtons = container.querySelectorAll(".lab-pill-btn");
+    labButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        sounds.playClick();
+        const targetLab = btn.dataset.lab;
+        labButtons.forEach((b) => b.classList.toggle("active", b.dataset.lab === targetLab));
+        this.loadInteractiveLab(targetLab, topic, stage);
+      });
+    });
 
-              <!-- 6. NUCLEUS & NUCLEOLUS -->
-              <g id="path-org-6" class="cell-organelle-path">
-                <circle cx="340" cy="110" r="48" fill="url(#nucleusGrad)" stroke="#e9d5ff" stroke-width="2.5" />
-                <circle cx="330" cy="115" r="18" fill="#3b0764" stroke="#a855f7" stroke-width="2" />
-                <circle cx="350" cy="100" r="10" fill="#581c87" opacity="0.8" />
-              </g>
+    this.loadInteractiveLab(defaultLab, topic, stage);
+  }
 
-              <!-- 4. SMOOTH ER -->
-              <g id="path-org-4" class="cell-organelle-path">
-                <path d="M 395,95 Q 430,75 465,100 Q 435,115 400,120" fill="none" stroke="#c084fc" stroke-width="5" stroke-linecap="round" />
-                <path d="M 405,80 Q 445,60 480,85 Q 445,100 410,105" fill="none" stroke="#c084fc" stroke-width="4" stroke-linecap="round" />
-              </g>
+  loadInteractiveLab(labName, topic, stage) {
+    if (!stage) stage = document.getElementById("interactive-lab-stage");
+    if (!stage) return;
+    this.cleanupInteractiveSimulators();
+    this.currentLabType = labName;
 
-              <!-- 7. ROUGH ER & RIBOSOMES -->
-              <g id="path-org-7" class="cell-organelle-path">
-                <path d="M 285,100 Q 250,75 220,95 Q 255,110 290,115" fill="none" stroke="#a855f7" stroke-width="6" stroke-linecap="round" />
-                <circle cx="270" cy="90" r="2.5" fill="#fde047" />
-                <circle cx="250" cy="85" r="2.5" fill="#fde047" />
-                <circle cx="235" cy="95" r="2.5" fill="#fde047" />
-                <circle cx="260" cy="102" r="2.5" fill="#fde047" />
-                <circle cx="275" cy="108" r="2.5" fill="#fde047" />
-              </g>
+    if (labName === "matter") {
+      this.loadMatterStateLab(stage, topic);
+    } else if (labName === "moon") {
+      this.loadMoonPhasesLab(stage, topic);
+    } else {
+      this.loadPlantCellLab(stage, topic);
+    }
+  }
 
-              <!-- 10. CHLOROPLASTS -->
-              <g id="path-org-10" class="cell-organelle-path">
-                <ellipse cx="110" cy="90" rx="34" ry="20" transform="rotate(-15 110 90)" fill="url(#chloroGrad)" stroke="#86efac" stroke-width="2" />
-                <line x1="90" y1="90" x2="130" y2="90" stroke="#166534" stroke-width="2" />
-                <ellipse cx="105" cy="315" rx="32" ry="18" transform="rotate(20 105 315)" fill="url(#chloroGrad)" stroke="#86efac" stroke-width="2" />
-                <ellipse cx="480" cy="320" rx="32" ry="18" transform="rotate(-10 480 320)" fill="url(#chloroGrad)" stroke="#86efac" stroke-width="2" />
-              </g>
+  // ================= LAB #6: MATTER STATE CHANGES & MOLECULAR MOTION =================
+  loadMatterStateLab(stage, topic) {
+    stage.innerHTML = `
+      <div class="matter-sandbox-wrap">
+        <div class="matter-hud-header">
+          <div class="matter-hud-title-col">
+            <h3 class="matter-title">Kinetic Molecular Heat Simulator</h3>
+            <p class="matter-desc">Control thermal energy from -50°C to 150°C to observe molecular spacing, vibration, and phase transitions in real time.</p>
+          </div>
+          <div class="matter-status-badge" id="matter-status-pill">
+            <span id="matter-status-icon">💧</span>
+            <span id="matter-status-label">LIQUID (WATER)</span>
+          </div>
+        </div>
 
-              <!-- 3. MITOCHONDRIA -->
-              <g id="path-org-3" class="cell-organelle-path">
-                <rect x="75" y="180" width="46" height="24" rx="12" transform="rotate(-40 98 192)" fill="url(#mitoGrad)" stroke="#fdba74" stroke-width="2" />
-                <path d="M 85,188 Q 98,182 110,195" fill="none" stroke="#7c2d12" stroke-width="2" />
-                <rect x="470" y="160" width="46" height="24" rx="12" transform="rotate(35 493 172)" fill="url(#mitoGrad)" stroke="#fdba74" stroke-width="2" />
-              </g>
-
-              <!-- 5. GOLGI BODY -->
-              <g id="path-org-5" class="cell-organelle-path">
-                <path d="M 450,225 Q 480,215 510,230" fill="none" stroke="#f43f5e" stroke-width="5" stroke-linecap="round" />
-                <path d="M 455,238 Q 485,228 515,243" fill="none" stroke="#f43f5e" stroke-width="5" stroke-linecap="round" />
-                <circle cx="530" cy="235" r="4" fill="#fda4af" />
-                <circle cx="525" cy="255" r="5" fill="#fda4af" />
-              </g>
-
-              <!-- 10 NUMBERED PINS (Matching the 10 worksheet callouts) -->
-              <g class="cell-pins-group">
-                <g class="cell-pin-marker" data-num="1" transform="translate(48, 55)"><circle cx="0" cy="0" r="14" fill="#10b981" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">1</text></g>
-                <g class="cell-pin-marker" data-num="2" transform="translate(170, 75)"><circle cx="0" cy="0" r="14" fill="#059669" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">2</text></g>
-                <g class="cell-pin-marker" data-num="3" transform="translate(98, 192)"><circle cx="0" cy="0" r="14" fill="#ea580c" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">3</text></g>
-                <g class="cell-pin-marker" data-num="4" transform="translate(440, 85)"><circle cx="0" cy="0" r="14" fill="#8b5cf6" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">4</text></g>
-                <g class="cell-pin-marker" data-num="5" transform="translate(485, 238)"><circle cx="0" cy="0" r="14" fill="#e11d48" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">5</text></g>
-                <g class="cell-pin-marker" data-num="6" transform="translate(340, 110)"><circle cx="0" cy="0" r="14" fill="#6d28d9" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">6</text></g>
-                <g class="cell-pin-marker" data-num="7" transform="translate(255, 95)"><circle cx="0" cy="0" r="14" fill="#9333ea" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">7</text></g>
-                <g class="cell-pin-marker" data-num="8" transform="translate(26, 260)"><circle cx="0" cy="0" r="14" fill="#15803d" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">8</text></g>
-                <g class="cell-pin-marker" data-num="9" transform="translate(270, 260)"><circle cx="0" cy="0" r="14" fill="#0284c7" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">9</text></g>
-                <g class="cell-pin-marker" data-num="10" transform="translate(110, 90)"><circle cx="0" cy="0" r="14" fill="#16a34a" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">10</text></g>
-              </g>
-            </svg>
+        <div class="matter-viewport-row">
+          <!-- MERCURY THERMOMETER -->
+          <div class="thermometer-glass-tube" title="Liquid Mercury Thermometer">
+            <div class="thermometer-stem">
+              <div class="thermometer-mercury-bar" id="thermo-mercury-bar" style="height: 35%;"></div>
+              <div class="thermo-ticks">
+                <span class="thermo-tick" style="top: 0%;">150°C</span>
+                <span class="thermo-tick" style="top: 25%;">100°C ♨️</span>
+                <span class="thermo-tick" style="top: 56.5%;">37°C 🌡️</span>
+                <span class="thermo-tick" style="top: 75%;">0°C 🧊</span>
+                <span class="thermo-tick" style="top: 100%;">-50°C ❄️</span>
+              </div>
+            </div>
+            <div class="thermometer-bulb" id="thermo-bulb"></div>
           </div>
 
-          <!-- Interactive Organelle Inspect HUD Card -->
-          <div class="plant-cell-hud-card" id="plant-cell-hud">
-            <div class="hud-organelle-header">
-              <span class="hud-organelle-title" id="hud-title">Click Any Organelle (1–10)</span>
-              <span class="hud-organelle-formula" id="hud-formula">Interactive Plant Biology</span>
+          <!-- CHAMBER CANVAS -->
+          <div class="matter-chamber-card">
+            <div class="chamber-glass-rim">
+              <canvas id="matter-physics-canvas" width="480" height="260"></canvas>
             </div>
-            <p class="hud-organelle-desc" id="hud-desc">
-              Explore the 10 essential structures of the plant cell from your worksheet! Click or hover any numbered pin on the diagram above to inspect its scientific explanation.
-            </p>
-            <div class="hud-actions-row">
-              <span style="font-size: 0.75rem; color: var(--text-muted);">Source: 5th Grade Plant Cell Worksheet</span>
-              <button class="btn-jump-square" id="hud-jump-btn" style="display: none;">
-                <span>🔍 Jump to Square Notes</span>
-              </button>
+            <div class="chamber-footer-metrics">
+              <div class="metric-chip">
+                <span class="metric-label">TEMP:</span>
+                <strong class="metric-val" id="metric-temp-c">20°C</strong>
+                <span class="metric-sub" id="metric-temp-f">/ 68°F</span>
+              </div>
+              <div class="metric-chip">
+                <span class="metric-label">KINETIC ENERGY ($E_k$):</span>
+                <div class="ke-meter-bar-track">
+                  <div class="ke-meter-bar-fill" id="metric-ke-bar" style="width: 35%;"></div>
+                </div>
+              </div>
+              <div class="metric-chip">
+                <span class="metric-label">BONDS:</span>
+                <strong class="metric-val" id="metric-bonds-val">Fluid Hydrogen Bonds</strong>
+              </div>
             </div>
           </div>
         </div>
-      `;
 
-      // Wire up pins and organelle interactions
-      const hudTitle = document.getElementById("hud-title");
-      const hudFormula = document.getElementById("hud-formula");
-      const hudDesc = document.getElementById("hud-desc");
-      const hudJumpBtn = document.getElementById("hud-jump-btn");
-      let activeSqNum = null;
+        <!-- CONTROLS & PRESETS -->
+        <div class="matter-controls-panel">
+          <div class="slider-control-row">
+            <span class="slider-label-cold">❄️ -50°C</span>
+            <div class="slider-wrapper">
+              <input type="range" id="matter-temp-slider" min="-50" max="150" step="1" value="20" class="neon-temp-slider" />
+              <div class="slider-milestones">
+                <span style="left: 0%;">Deep Freeze</span>
+                <span style="left: 25%;">0°C Melt/Freeze</span>
+                <span style="left: 36%;">Room</span>
+                <span style="left: 75%;">100°C Boil/Cond</span>
+                <span style="left: 100%;">Steam</span>
+              </div>
+            </div>
+            <span class="slider-label-hot">🔥 150°C</span>
+          </div>
 
-      const selectOrganelle = (num) => {
-        const sq = topic.properties?.find((p) => p.num === num);
-        if (!sq) return;
-        activeSqNum = num;
+          <div class="matter-presets-row">
+            <span class="presets-title">Presets:</span>
+            <button class="preset-btn" data-temp="-30">❄️ Deep Freeze (-30°C)</button>
+            <button class="preset-btn" data-temp="0">🧊 Freezing Point (0°C)</button>
+            <button class="preset-btn" data-temp="22">💧 Room Temp (22°C)</button>
+            <button class="preset-btn" data-temp="75">☕ Hot Water (75°C)</button>
+            <button class="preset-btn" data-temp="125">💨 Superheated Vapor (125°C)</button>
+          </div>
+        </div>
 
-        sounds.playClick();
+        <!-- 5TH GRADE TEACHING CALLOUT -->
+        <div class="matter-edu-callout" id="matter-edu-callout">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <h4 class="callout-heading" id="matter-callout-heading">Liquid Phase: Fluid Cohesion</h4>
+            <p class="callout-text" id="matter-callout-text">
+              Molecules have enough kinetic energy to break out of rigid crystal lattice positions and slide past one another. They take the shape of the container while maintaining a definite volume!
+            </p>
+          </div>
+        </div>
+      </div>
+    `;
 
-        if (hudTitle) hudTitle.textContent = `${sq.num}. ${sq.name.replace(/^\d+\.\s*/, '')}`;
-        if (hudFormula) hudFormula.textContent = sq.formula;
-        if (hudDesc) hudDesc.textContent = sq.explanation;
-        if (hudJumpBtn) {
-          hudJumpBtn.style.display = "inline-flex";
-          hudJumpBtn.innerHTML = `<span>🔍 Jump to Square #${sq.num}</span>`;
-        }
+    const canvas = document.getElementById("matter-physics-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const slider = document.getElementById("matter-temp-slider");
+    const statusPill = document.getElementById("matter-status-pill");
+    const statusIcon = document.getElementById("matter-status-icon");
+    const statusLabel = document.getElementById("matter-status-label");
+    const tempCEl = document.getElementById("metric-temp-c");
+    const tempFEl = document.getElementById("metric-temp-f");
+    const keBar = document.getElementById("metric-ke-bar");
+    const bondsEl = document.getElementById("metric-bonds-val");
+    const mercuryBar = document.getElementById("thermo-mercury-bar");
+    const bulb = document.getElementById("thermo-bulb");
+    const calloutHeading = document.getElementById("matter-callout-heading");
+    const calloutText = document.getElementById("matter-callout-text");
 
-        // Highlight marker
-        document.querySelectorAll(".cell-pin-marker").forEach((pin) => {
-          pin.classList.toggle("active", parseInt(pin.dataset.num, 10) === num);
-        });
+    let temp = parseInt(slider.value, 10);
 
-        // Highlight SVG path
-        document.querySelectorAll(".cell-organelle-path").forEach((p) => p.classList.remove("highlighted"));
-        const targetPath = document.getElementById(`path-org-${num}`);
-        if (targetPath) targetPath.classList.add("highlighted");
-      };
+    // Particle Simulation setup: 64 molecules
+    const COLS = 8;
+    const ROWS = 8;
+    const NUM_PARTICLES = COLS * ROWS;
+    const particles = [];
+    const width = canvas.width;
+    const height = canvas.height;
 
-      document.querySelectorAll(".cell-pin-marker").forEach((pin) => {
-        pin.addEventListener("click", () => {
-          const num = parseInt(pin.dataset.num, 10);
-          selectOrganelle(num);
-        });
-      });
-
-      if (hudJumpBtn) {
-        hudJumpBtn.addEventListener("click", () => {
-          if (!activeSqNum) return;
-          this.switchModalTab("notes");
-          setTimeout(() => {
-            const card = document.getElementById(`concept-square-${activeSqNum}`);
-            if (card) {
-              card.scrollIntoView({ behavior: "smooth", block: "center" });
-              card.classList.add("highlighted");
-              setTimeout(() => card.classList.remove("highlighted"), 1500);
-            }
-          }, 150);
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        const baseX = 80 + c * 45;
+        const baseY = 115 + r * 17;
+        particles.push({
+          baseX: baseX,
+          baseY: baseY,
+          x: baseX + (Math.random() - 0.5) * 10,
+          y: baseY + (Math.random() - 0.5) * 10,
+          vx: (Math.random() - 0.5) * 2,
+          vy: (Math.random() - 0.5) * 2,
+          phase: Math.random() * Math.PI * 2,
+          row: r,
+          col: c,
+          history: []
         });
       }
-
-      // Auto-select first organelle on open
-      setTimeout(() => selectOrganelle(1), 300);
-      return;
     }
 
-    // 2. States of matter phase simulator
-    if (topic.title.includes("MATTER") || (topic.category === "physical")) {
-      container.innerHTML = `
-        <div class="interactive-demo-card">
-          <h4 class="demo-title">Kinetic Molecular Heat Simulator</h4>
-          <p class="demo-subtitle">Adjust thermal energy to observe molecular spacing and state transitions!</p>
-          
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; margin: 20px 0;">
-            <div id="matter-canvas-box" style="width: 260px; height: 160px; background: rgba(0,0,0,0.6); border: 2px solid var(--neon-cyan); border-radius: 16px; position: relative; overflow: hidden; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; padding: 10px;">
-            </div>
+    const updateHUD = (t) => {
+      temp = t;
+      const degF = Math.round(t * (9 / 5) + 32);
+      const kelvin = (t + 273.15).toFixed(1);
 
-            <div style="display: flex; align-items: center; gap: 12px; width: 80%; max-width: 320px;">
-              <span style="font-size: 0.9rem; color: #38bdf8;">❄️ Cold</span>
-              <input type="range" id="heat-slider" min="1" max="3" value="1" style="flex: 1; accent-color: var(--neon-cyan);" />
-              <span style="font-size: 0.9rem; color: #f87171;">🔥 Heat</span>
-            </div>
+      if (tempCEl) tempCEl.textContent = `${t}°C`;
+      if (tempFEl) tempFEl.textContent = `/ ${degF}°F (${kelvin} K)`;
 
-            <div id="matter-state-text" style="font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; color: var(--neon-cyan);">
-              STATE: SOLID (Tightly Packed Vibration)
-            </div>
-          </div>
-        </div>
-      `;
+      // Mercury level calculation: -50°C to 150°C
+      const pct = Math.max(0, Math.min(100, ((t - -50) / 200) * 100));
+      if (mercuryBar) mercuryBar.style.height = `${pct}%`;
+      if (keBar) keBar.style.width = `${Math.max(6, pct)}%`;
 
-      const box = document.getElementById("matter-canvas-box");
-      const slider = document.getElementById("heat-slider");
-      const text = document.getElementById("matter-state-text");
+      // Color and state thresholds
+      let color = "#34d399";
+      let stateName = "LIQUID (WATER)";
+      let stateIcon = "💧";
+      let bonds = "Fluid Hydrogen Bonds";
+      let heading = "Liquid Phase: Fluid Cohesion";
+      let desc = "Molecules have enough kinetic energy to break out of rigid crystal positions and slide past one another. They take the shape of the container while maintaining a definite volume!";
 
-      const updateMolecules = () => {
-        if (!box || !slider || !text) return;
-        const val = parseInt(slider.value, 10);
-        box.innerHTML = "";
+      if (t < 0) {
+        color = "#38bdf8";
+        stateName = "SOLID (ICE)";
+        stateIcon = "❄️";
+        bonds = "Rigid Crystal Lattice";
+        heading = "Solid Phase: Rigid Crystalline Lattice";
+        desc = "Molecules are locked tightly in a fixed hexagonal lattice. With low kinetic energy, they cannot slide past each other and only vibrate in fixed positions, maintaining definite shape and volume.";
+      } else if (t === 0) {
+        color = "#f59e0b";
+        stateName = "MELTING / FREEZING POINT (0°C / 32°F)";
+        stateIcon = "🧊";
+        bonds = "Phase Equilibrium (Latent Heat of Fusion)";
+        heading = "Phase Transition: Melting & Freezing (0°C / 32°F)";
+        desc = "At 0°C, thermal energy is absorbed to break the rigid crystalline bonds without changing temperature until all solid ice melts into liquid water!";
+      } else if (t > 0 && t < 100) {
+        color = "#34d399";
+        stateName = "LIQUID (WATER)";
+        stateIcon = "💧";
+        bonds = "Dynamic Hydrogen Bonds";
+        heading = "Liquid Phase: Fluid Flow & Surface Tension";
+        desc = "Thermal heat gives molecules kinetic energy to slide past one another. Gravity pools them at the bottom while intermolecular forces hold them in a fluid volume.";
+      } else if (t === 100) {
+        color = "#f97316";
+        stateName = "BOILING POINT (100°C / 212°F)";
+        stateIcon = "♨️";
+        bonds = "Vaporization (Latent Heat of Vaporization)";
+        heading = "Phase Transition: Boiling & Vaporization (100°C / 212°F)";
+        desc = "Molecules gain enough kinetic energy to overcome atmospheric pressure completely! Rapid vapor bubbles form at the bottom and escape into the air.";
+      } else {
+        color = "#ef4444";
+        stateName = "GAS (STEAM / WATER VAPOR)";
+        stateIcon = "💨";
+        bonds = "Negligible / Free Particles";
+        heading = "Gas Phase: High-Speed Molecular Diffusion";
+        desc = "High thermal kinetic energy overcomes all intermolecular attraction. Molecules zoom around at high speeds, colliding elastically with container walls and expanding to fill all available volume.";
+      }
 
-        if (val === 1) {
-          text.textContent = "STATE: SOLID (Tightly Packed Vibration)";
-          text.style.color = "#38bdf8";
-          for (let i = 0; i < 28; i++) {
-            const m = document.createElement("div");
-            m.style.cssText = "width: 14px; height: 14px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 6px #38bdf8;";
-            box.appendChild(m);
-          }
-        } else if (val === 2) {
-          text.textContent = "STATE: LIQUID (Flowing Particle Motion)";
-          text.style.color = "#34d399";
-          for (let i = 0; i < 18; i++) {
-            const m = document.createElement("div");
-            m.style.cssText = "width: 16px; height: 16px; border-radius: 50%; background: #34d399; box-shadow: 0 0 8px #34d399; margin: 4px;";
-            box.appendChild(m);
-          }
-        } else {
-          text.textContent = "STATE: GAS (High-Speed Rapid Diffusion)";
-          text.style.color = "#f87171";
-          for (let i = 0; i < 8; i++) {
-            const m = document.createElement("div");
-            m.style.cssText = "width: 18px; height: 18px; border-radius: 50%; background: #f87171; box-shadow: 0 0 10px #f87171; margin: 12px; animation: subtleNeonFlicker 0.2s infinite;";
-            box.appendChild(m);
+      if (statusIcon) statusIcon.textContent = stateIcon;
+      if (statusLabel) statusLabel.textContent = stateName;
+      if (statusPill) {
+        statusPill.style.borderColor = color;
+        statusPill.style.boxShadow = `0 0 15px ${color}40`;
+      }
+      if (bondsEl) bondsEl.textContent = bonds;
+      if (mercuryBar) mercuryBar.style.background = color;
+      if (bulb) bulb.style.background = color;
+      if (calloutHeading) calloutHeading.textContent = heading;
+      if (calloutText) calloutText.textContent = desc;
+    };
+
+    updateHUD(temp);
+
+    slider.addEventListener("input", (e) => {
+      const val = parseInt(e.target.value, 10);
+      updateHUD(val);
+    });
+
+    stage.querySelectorAll(".preset-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        sounds.playClick();
+        const pTemp = parseInt(btn.dataset.temp, 10);
+        slider.value = pTemp;
+        updateHUD(pTemp);
+      });
+    });
+
+    // Physics Animation Loop
+    let lastTime = performance.now();
+    let tickCount = 0;
+
+    const animatePhysics = (time) => {
+      tickCount++;
+      const dt = Math.min((time - lastTime) / 1000, 0.05);
+      lastTime = time;
+
+      ctx.clearRect(0, 0, width, height);
+
+      // Background subtle gradient
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, height);
+      if (temp <= 0) {
+        bgGrad.addColorStop(0, "rgba(8, 20, 36, 0.85)");
+        bgGrad.addColorStop(1, "rgba(4, 12, 24, 0.95)");
+      } else if (temp < 100) {
+        bgGrad.addColorStop(0, "rgba(6, 26, 22, 0.85)");
+        bgGrad.addColorStop(1, "rgba(3, 16, 14, 0.95)");
+      } else {
+        bgGrad.addColorStop(0, "rgba(32, 12, 10, 0.85)");
+        bgGrad.addColorStop(1, "rgba(20, 6, 6, 0.95)");
+      }
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, width, height);
+
+      // If Solid (T <= 0): Draw crystalline lattice lines between neighbors
+      if (temp <= 0) {
+        const bondAlpha = Math.max(0.15, 0.45 * (1 - (temp / -50) * 0.4));
+        ctx.strokeStyle = `rgba(56, 189, 248, ${bondAlpha})`;
+        ctx.lineWidth = 1.2;
+
+        for (let i = 0; i < NUM_PARTICLES; i++) {
+          const p1 = particles[i];
+          for (let j = i + 1; j < NUM_PARTICLES; j++) {
+            const p2 = particles[j];
+            const dist = Math.hypot(p1.baseX - p2.baseX, p1.baseY - p2.baseY);
+            if (dist < 48) {
+              ctx.beginPath();
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
           }
         }
-      };
+      }
 
-      updateMolecules();
-      slider.addEventListener("input", () => {
-        sounds.playClick();
-        updateMolecules();
+      // If Liquid (0 < T < 100): Draw fluid surface glow line
+      if (temp > 0 && temp < 100) {
+        const fluidSurfaceY = 110;
+        ctx.strokeStyle = "rgba(52, 211, 153, 0.25)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(15, fluidSurfaceY + Math.sin(time * 0.003) * 3);
+        for (let x = 15; x <= width - 15; x += 30) {
+          ctx.lineTo(x, fluidSurfaceY + Math.sin(x * 0.02 + time * 0.004) * 4);
+        }
+        ctx.stroke();
+      }
+
+      // Update & Render each particle
+      particles.forEach((p) => {
+        if (temp <= 0) {
+          // SOLID: Anchor vibration about base lattice position
+          const vibAmp = Math.max(0.4, (temp + 50) / 25);
+          p.x = p.baseX + Math.sin(time * 0.09 + p.phase) * vibAmp;
+          p.y = p.baseY + Math.cos(time * 0.09 + p.phase * 1.3) * vibAmp;
+
+          // Render Frost Crystal Atom
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 6.5, 0, Math.PI * 2);
+          ctx.fillStyle = "#38bdf8";
+          ctx.shadowColor = "#38bdf8";
+          ctx.shadowBlur = 8;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+
+          // Shiny nucleus dot
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = "#ffffff";
+          ctx.fill();
+        } else if (temp < 100) {
+          // LIQUID: Fluid particle motion with pooling and surface tension
+          const speedScale = 1.0 + (temp / 100) * 2.8;
+          p.vx += (Math.random() - 0.5) * 0.4 * speedScale;
+          p.vy += (Math.random() - 0.5) * 0.4 * speedScale + 0.12; // gentle gravity
+
+          // Cap speed
+          const currentSpeed = Math.hypot(p.vx, p.vy);
+          if (currentSpeed > speedScale * 2.2) {
+            p.vx = (p.vx / currentSpeed) * speedScale * 2.2;
+            p.vy = (p.vy / currentSpeed) * speedScale * 2.2;
+          }
+
+          p.x += p.vx;
+          p.y += p.vy;
+
+          // Fluid bounding box
+          const padding = 16;
+          const surfaceY = 110;
+          if (p.x < padding) { p.x = padding; p.vx = Math.abs(p.vx); }
+          if (p.x > width - padding) { p.x = width - padding; p.vx = -Math.abs(p.vx); }
+          if (p.y > height - padding) { p.y = height - padding; p.vy = -Math.abs(p.vy) * 0.8; }
+          if (p.y < surfaceY) { p.y = surfaceY; p.vy = Math.abs(p.vy) * 0.6; }
+
+          // Render Fluid Droplet Atom
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 7, 0, Math.PI * 2);
+          ctx.fillStyle = "#34d399";
+          ctx.shadowColor = "#34d399";
+          ctx.shadowBlur = 10;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x - 2, p.y - 2, 2.2, 0, Math.PI * 2);
+          ctx.fillStyle = "#a7f3d0";
+          ctx.fill();
+        } else {
+          // GAS: High-speed elastic collisions with velocity trails
+          const gasSpeed = 3.8 + ((temp - 100) / 50) * 3.5;
+          const curSpeed = Math.hypot(p.vx, p.vy);
+          if (curSpeed < gasSpeed * 0.8 || curSpeed > gasSpeed * 1.3) {
+            const angle = Math.atan2(p.vy, p.vx) || Math.random() * Math.PI * 2;
+            p.vx = Math.cos(angle) * gasSpeed;
+            p.vy = Math.sin(angle) * gasSpeed;
+          }
+
+          p.x += p.vx;
+          p.y += p.vy;
+
+          const pad = 14;
+          if (p.x < pad) { p.x = pad; p.vx = Math.abs(p.vx); }
+          if (p.x > width - pad) { p.x = width - pad; p.vx = -Math.abs(p.vx); }
+          if (p.y < pad) { p.y = pad; p.vy = Math.abs(p.vy); }
+          if (p.y > height - pad) { p.y = height - pad; p.vy = -Math.abs(p.vy); }
+
+          // Store trail history
+          p.history.push({ x: p.x, y: p.y });
+          if (p.history.length > 4) p.history.shift();
+
+          // Render motion trail
+          if (p.history.length > 1) {
+            ctx.beginPath();
+            ctx.moveTo(p.history[0].x, p.history[0].y);
+            for (let h = 1; h < p.history.length; h++) {
+              ctx.lineTo(p.history[h].x, p.history[h].y);
+            }
+            ctx.strokeStyle = "rgba(249, 115, 22, 0.4)";
+            ctx.lineWidth = 3;
+            ctx.stroke();
+          }
+
+          // Render High-Energy Vapor Atom
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 7.5, 0, Math.PI * 2);
+          ctx.fillStyle = "#f97316";
+          ctx.shadowColor = "#ef4444";
+          ctx.shadowBlur = 14;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+          ctx.fillStyle = "#fef08a";
+          ctx.fill();
+        }
       });
-    } else {
-      // General Science Playground
-      container.innerHTML = `
-        <div class="interactive-demo-card">
-          <h4 class="demo-title">${topic.title} Exploration Sandbox</h4>
-          <p class="demo-subtitle">Core scientific principle and formula verified for 5th grade inquiry.</p>
-          <div class="array-formula-live" style="color: var(--neon-cyan); margin-top: 14px; font-size: 1.2rem;">
-            ⚛️ ${topic.coreFormula}
+
+      this.activeSimAnimId = requestAnimationFrame(animatePhysics);
+    };
+
+    this.activeSimAnimId = requestAnimationFrame(animatePhysics);
+    this._resumeSimFn = () => {
+      if (!this.activeSimAnimId && this.currentLabType === "matter") {
+        this.activeSimAnimId = requestAnimationFrame(animatePhysics);
+      }
+    };
+  }
+
+  // ================= LAB #3: INTERACTIVE 3D SOLAR SYSTEM & MOON PHASES ORBIT =================
+  // Constrained exclusively inside Notes Viewer Modal
+  loadMoonPhasesLab(stage, topic) {
+    stage.innerHTML = `
+      <div class="moon-orbit-wrap">
+        <div class="moon-hud-header">
+          <div class="moon-hud-title-col">
+            <div class="moon-scope-tag">EARTH & SPACE SCIENCE • IN-NOTES INTERACTIVE LAB</div>
+            <h3 class="moon-title">Moon Phases & Solar System Orbit Simulator</h3>
+            <p class="moon-desc">Drag the Moon around Earth or scrub the orbit to see why lunar phases appear from Earth's vantage point!</p>
+          </div>
+          <div class="moon-phase-pill" id="moon-phase-pill">
+            <span id="moon-phase-pill-icon">🌓</span>
+            <span id="moon-phase-pill-name">FIRST QUARTER</span>
           </div>
         </div>
-      `;
+
+        <div class="moon-dual-viewport">
+          <!-- VIEW 1: TOP-DOWN SPACE ORBIT -->
+          <div class="moon-view-card orbit-view-card">
+            <div class="view-header-strip">
+              <span class="view-tag">VIEW 1: TOP-DOWN SPACE ORBIT</span>
+              <span class="view-tip">Drag Moon or click orbital nodes!</span>
+            </div>
+            <div class="orbit-canvas-box">
+              <canvas id="moon-orbit-canvas" width="340" height="300"></canvas>
+              <div class="sunbeam-label-flag">☀️ Sunlight from Sun (Left)</div>
+            </div>
+            <div class="view-caption">
+              <strong>Space Truth:</strong> The left 50% of the Moon is <em>always</em> illuminated by the Sun in space.
+            </div>
+          </div>
+
+          <!-- VIEW 2: TELESCOPE VIEW (FROM EARTH) -->
+          <div class="moon-view-card telescope-view-card">
+            <div class="view-header-strip">
+              <span class="view-tag">VIEW 2: EARTH VIEW (TELESCOPE)</span>
+              <span class="view-tip" id="moon-illum-percent">50% Illuminated</span>
+            </div>
+            <div class="telescope-viewport">
+              <div class="telescope-lens">
+                <canvas id="moon-telescope-canvas" width="220" height="220"></canvas>
+                <div class="telescope-crosshair"></div>
+                <div class="telescope-glare"></div>
+              </div>
+            </div>
+            <div class="view-caption">
+              <strong>What Earth Sees:</strong> As the Moon revolves around us, our line-of-sight angle reveals different amounts of the sunlit hemisphere!
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTROLS & 8 PHASES QUICK-JUMP -->
+        <div class="moon-controls-panel">
+          <div class="moon-scrubber-row">
+            <button class="btn-orbit-play" id="btn-orbit-auto" title="Auto Orbit Animation">
+              <span id="orbit-play-icon">▶</span>
+              <span id="orbit-play-text">Auto Orbit</span>
+            </button>
+            <div class="moon-slider-track-wrap">
+              <div class="slider-meta-row">
+                <span>🌑 New Moon (0°)</span>
+                <span id="orbit-angle-deg" class="orbit-angle-deg">Angle: 90° • Day 7.4 of 29.5</span>
+                <span>🌑 End (360°)</span>
+              </div>
+              <input type="range" id="moon-orbit-slider" min="0" max="360" step="1" value="90" class="neon-orbit-slider" />
+            </div>
+            <button class="btn-orbit-speed" id="btn-orbit-speed">1x Speed</button>
+          </div>
+
+          <!-- 8 PHASES QUICK-JUMP GRID -->
+          <div class="moon-phases-grid">
+            <button class="phase-jump-btn" data-angle="0" title="Day 0">🌑 1. New Moon (0°)</button>
+            <button class="phase-jump-btn" data-angle="45" title="Day 3.7">🌒 2. Waxing Crescent (45°)</button>
+            <button class="phase-jump-btn active" data-angle="90" title="Day 7.4">🌓 3. First Quarter (90°)</button>
+            <button class="phase-jump-btn" data-angle="135" title="Day 11.1">🌔 4. Waxing Gibbous (135°)</button>
+            <button class="phase-jump-btn" data-angle="180" title="Day 14.8">🌕 5. Full Moon (180°)</button>
+            <button class="phase-jump-btn" data-angle="225" title="Day 18.5">🌖 6. Waning Gibbous (225°)</button>
+            <button class="phase-jump-btn" data-angle="270" title="Day 22.1">🌗 7. Third Quarter (270°)</button>
+            <button class="phase-jump-btn" data-angle="315" title="Day 25.8">🌘 8. Waning Crescent (315°)</button>
+          </div>
+        </div>
+
+        <!-- 5TH GRADE MNEMONIC & DEEP DIVE HUD -->
+        <div class="moon-edu-card" id="moon-edu-card">
+          <div class="moon-mnemonic-badge" id="moon-mnemonic-badge">
+            <span>🧠 5th Grade Memory Rule:</span>
+            <strong id="moon-mnemonic-text">Light on the RIGHT = WAXING (growing bright)!</strong>
+          </div>
+          <p class="moon-explanation-text" id="moon-explanation-text">
+            At First Quarter (Day 7.4), the Moon is 90° along its orbit around Earth. Looking at the Moon from Earth, exactly half of the visible disc is illuminated on the right side.
+          </p>
+        </div>
+      </div>
+    `;
+
+    const orbitCanvas = document.getElementById("moon-orbit-canvas");
+    const telCanvas = document.getElementById("moon-telescope-canvas");
+    if (!orbitCanvas || !telCanvas) return;
+
+    const oCtx = orbitCanvas.getContext("2d");
+    const tCtx = telCanvas.getContext("2d");
+
+    const slider = document.getElementById("moon-orbit-slider");
+    const autoBtn = document.getElementById("btn-orbit-auto");
+    const playIcon = document.getElementById("orbit-play-icon");
+    const playText = document.getElementById("orbit-play-text");
+    const speedBtn = document.getElementById("btn-orbit-speed");
+    const angleText = document.getElementById("orbit-angle-deg");
+    const pillIcon = document.getElementById("moon-phase-pill-icon");
+    const pillName = document.getElementById("moon-phase-pill-name");
+    const illumText = document.getElementById("moon-illum-percent");
+    const mnemonicText = document.getElementById("moon-mnemonic-text");
+    const explanationText = document.getElementById("moon-explanation-text");
+
+    let currentAngle = 90; // degrees, 0 to 360
+    let isAutoPlaying = false;
+    let orbitSpeedMultiplier = 1;
+    let earthSpinAngle = 0;
+
+    const PHASE_DEFINITIONS = [
+      { name: "New Moon", icon: "🌑", minAngle: 355, maxAngle: 5, target: 0, day: 0.0, rule: "Moon is between Earth & Sun! The sunlit side faces away from Earth.", desc: "The Moon is directly between Earth and the Sun. The sunlit hemisphere faces away into space, while the dark shadowed side faces Earth, making the Moon invisible at night." },
+      { name: "Waxing Crescent", icon: "🌒", minAngle: 5, maxAngle: 85, target: 45, day: 3.7, rule: "Light on the RIGHT = WAXING! The crescent grows larger each night.", desc: "As the Moon travels counterclockwise, a curved silver crescent becomes visible on the right side in the western evening sky after sunset." },
+      { name: "First Quarter", icon: "🌓", minAngle: 85, maxAngle: 95, target: 90, day: 7.4, rule: "Right Half Illuminated! One-quarter through the 29.5-day cycle.", desc: "One quarter through the lunar orbit. From Earth, we see exactly half of the Moon's visible disc illuminated on the right side (looks like a half-moon)." },
+      { name: "Waxing Gibbous", icon: "🌔", minAngle: 95, maxAngle: 175, target: 135, day: 11.1, rule: "Gibbous = Great Big! More than half lit on the right and growing.", desc: "'Gibbous' means swollen or humped. More than half of the visible disc is lit on the right side, continuing to swell larger as it approaches Full Moon." },
+      { name: "Full Moon", icon: "🌕", minAngle: 175, maxAngle: 185, target: 180, day: 14.8, rule: "Earth is between Sun and Moon! 100% of the sunlit face is visible.", desc: "Earth is between the Sun and Moon. The entire illuminated hemisphere faces directly toward Earth, presenting a brilliant 100% fully lit circle in the night sky." },
+      { name: "Waning Gibbous", icon: "🌖", minAngle: 185, maxAngle: 265, target: 225, day: 18.5, rule: "Light on the LEFT = WANING! The illuminated portion is shrinking.", desc: "'Waning' means shrinking or decreasing. After Full Moon, the light begins to decrease, now showing on the left side while the right side enters shadow." },
+      { name: "Third / Last Quarter", icon: "🌗", minAngle: 265, maxAngle: 275, target: 270, day: 22.1, rule: "Left Half Illuminated! Three-quarters through the lunar cycle.", desc: "Three quarters through the 29.5-day cycle. From Earth, we see exactly half of the visible disc illuminated, but this time on the left side before sunrise." },
+      { name: "Waning Crescent", icon: "🌘", minAngle: 275, maxAngle: 355, target: 315, day: 25.8, rule: "Light on the LEFT = WANING! Final silver sliver before New Moon.", desc: "The final phase before New Moon. Only a tiny crescent remains illuminated on the left side, visible in the eastern sky right before dawn." }
+    ];
+
+    const getPhaseForAngle = (angle) => {
+      const a = ((angle % 360) + 360) % 360;
+      if (a >= 355 || a <= 5) return PHASE_DEFINITIONS[0]; // New Moon
+      if (a > 5 && a < 85) return PHASE_DEFINITIONS[1]; // Waxing Crescent
+      if (a >= 85 && a <= 95) return PHASE_DEFINITIONS[2]; // First Quarter
+      if (a > 95 && a < 175) return PHASE_DEFINITIONS[3]; // Waxing Gibbous
+      if (a >= 175 && a <= 185) return PHASE_DEFINITIONS[4]; // Full Moon
+      if (a > 185 && a < 265) return PHASE_DEFINITIONS[5]; // Waning Gibbous
+      if (a >= 265 && a <= 275) return PHASE_DEFINITIONS[6]; // Third Quarter
+      return PHASE_DEFINITIONS[7]; // Waning Crescent
+    };
+
+    const updatePhaseHUD = (deg) => {
+      const phase = getPhaseForAngle(deg);
+      const day = ((deg / 360) * 29.53).toFixed(1);
+      const alphaRad = deg * (Math.PI / 180);
+      const illumPct = Math.round(((1 - Math.cos(alphaRad)) / 2) * 100);
+
+      if (pillIcon) pillIcon.textContent = phase.icon;
+      if (pillName) pillName.textContent = phase.name.toUpperCase();
+      if (angleText) angleText.textContent = `Angle: ${Math.round(deg)}° • Day ${day} of 29.5`;
+      if (illumText) illumText.textContent = `${illumPct}% Illuminated from Earth`;
+      if (mnemonicText) mnemonicText.textContent = phase.rule;
+      if (explanationText) explanationText.textContent = phase.desc;
+
+      // Update active phase jump button
+      stage.querySelectorAll(".phase-jump-btn").forEach((btn) => {
+        const btnAngle = parseInt(btn.dataset.angle, 10);
+        const isActive = Math.abs(btnAngle - deg) < 22.5 || (btnAngle === 0 && deg > 337.5);
+        btn.classList.toggle("active", isActive);
+      });
+    };
+
+    // ================= RENDER TOP-DOWN SPACE ORBIT =================
+    const renderSpaceOrbit = () => {
+      const w = orbitCanvas.width;
+      const h = orbitCanvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+      const orbitRadius = 100;
+
+      oCtx.clearRect(0, 0, w, h);
+
+      // Deep space starry canvas background
+      const spaceGrad = oCtx.createRadialGradient(cx, cy, 20, cx, cy, 180);
+      spaceGrad.addColorStop(0, "rgba(10, 16, 32, 0.95)");
+      spaceGrad.addColorStop(1, "rgba(2, 6, 16, 1)");
+      oCtx.fillStyle = spaceGrad;
+      oCtx.fillRect(0, 0, w, h);
+
+      // Distant stars
+      oCtx.fillStyle = "rgba(255, 255, 255, 0.4)";
+      for (let s = 0; s < 25; s++) {
+        const sx = (s * 47) % w;
+        const sy = (s * 31) % h;
+        oCtx.fillRect(sx, sy, (s % 3 === 0 ? 1.5 : 1), (s % 3 === 0 ? 1.5 : 1));
+      }
+
+      // Golden parallel sunlight rays coming from the left
+      oCtx.save();
+      oCtx.strokeStyle = "rgba(255, 183, 3, 0.22)";
+      oCtx.lineWidth = 1.5;
+      oCtx.setLineDash([8, 8]);
+      for (let y = 30; y <= h - 30; y += 40) {
+        oCtx.beginPath();
+        oCtx.moveTo(10, y);
+        oCtx.lineTo(cx - 35, y);
+        oCtx.stroke();
+
+        // Arrow head
+        oCtx.fillStyle = "rgba(255, 183, 3, 0.5)";
+        oCtx.beginPath();
+        oCtx.moveTo(cx - 35, y);
+        oCtx.lineTo(cx - 43, y - 4);
+        oCtx.lineTo(cx - 43, y + 4);
+        oCtx.closePath();
+        oCtx.fill();
+      }
+      oCtx.restore();
+
+      // Moon orbital track circle (dashed neon)
+      oCtx.save();
+      oCtx.strokeStyle = "rgba(0, 212, 255, 0.25)";
+      oCtx.lineWidth = 1.5;
+      oCtx.setLineDash([4, 4]);
+      oCtx.beginPath();
+      oCtx.arc(cx, cy, orbitRadius, 0, Math.PI * 2);
+      oCtx.stroke();
+      oCtx.restore();
+
+      // 8 orbital phase anchor markers
+      const angles = [0, 45, 90, 135, 180, 225, 270, 315];
+      angles.forEach((ang) => {
+        const rad = ang * (Math.PI / 180);
+        const px = cx - orbitRadius * Math.cos(rad);
+        const py = cy + orbitRadius * Math.sin(rad);
+
+        oCtx.beginPath();
+        oCtx.arc(px, py, 3, 0, Math.PI * 2);
+        oCtx.fillStyle = (Math.abs(ang - currentAngle) < 15 || (ang === 0 && currentAngle > 345)) ? "#00f0ff" : "rgba(255, 255, 255, 0.3)";
+        oCtx.fill();
+      });
+
+      // Calculate Moon's coordinates on orbit:
+      // At angle = 0° (New Moon), Moon is to the left of Earth between Earth and Sun: (cx - orbitRadius, cy)
+      // At angle = 90° (First Qtr), Moon is below Earth: (cx, cy + orbitRadius)
+      // At angle = 180° (Full Moon), Moon is to the right of Earth: (cx + orbitRadius, cy)
+      // At angle = 270° (Third Qtr), Moon is above Earth: (cx, cy - orbitRadius)
+      const curRad = currentAngle * (Math.PI / 180);
+      const moonX = cx - orbitRadius * Math.cos(curRad);
+      const moonY = cy + orbitRadius * Math.sin(curRad);
+
+      // Line of Sight from Earth to Moon with observer eye
+      oCtx.save();
+      oCtx.strokeStyle = "rgba(255, 255, 255, 0.35)";
+      oCtx.lineWidth = 1.2;
+      oCtx.setLineDash([3, 3]);
+      oCtx.beginPath();
+      oCtx.moveTo(cx, cy);
+      oCtx.lineTo(moonX, moonY);
+      oCtx.stroke();
+      oCtx.restore();
+
+      // Center Earth Sphere (Radius 22px)
+      const earthRadius = 22;
+      oCtx.save();
+      oCtx.shadowColor = "rgba(0, 212, 255, 0.5)";
+      oCtx.shadowBlur = 15;
+
+      // Base ocean
+      oCtx.fillStyle = "#0284c7";
+      oCtx.beginPath();
+      oCtx.arc(cx, cy, earthRadius, 0, Math.PI * 2);
+      oCtx.fill();
+      oCtx.shadowBlur = 0;
+
+      // Earth rotation continents
+      earthSpinAngle += 0.005;
+      oCtx.save();
+      oCtx.beginPath();
+      oCtx.arc(cx, cy, earthRadius, 0, Math.PI * 2);
+      oCtx.clip();
+
+      oCtx.fillStyle = "#10b981"; // green continents
+      oCtx.beginPath();
+      oCtx.arc(cx - 6 + Math.sin(earthSpinAngle) * 6, cy - 4, 8, 0, Math.PI * 2);
+      oCtx.arc(cx + 8 + Math.sin(earthSpinAngle) * 6, cy + 6, 9, 0, Math.PI * 2);
+      oCtx.fill();
+
+      // Earth Day/Night Terminator (Left half lit by sun, Right half dark)
+      oCtx.fillStyle = "rgba(8, 12, 24, 0.82)"; // dark night shadow on right half
+      oCtx.beginPath();
+      oCtx.rect(cx, cy - earthRadius, earthRadius + 2, earthRadius * 2);
+      oCtx.fill();
+
+      // Night city lights on the dark half
+      oCtx.fillStyle = "#fde047";
+      oCtx.fillRect(cx + 6, cy - 4, 1.5, 1.5);
+      oCtx.fillRect(cx + 10, cy + 3, 1.5, 1.5);
+      oCtx.fillRect(cx + 4, cy + 8, 1.5, 1.5);
+
+      oCtx.restore(); // restore Earth clip
+
+      // Earth label
+      oCtx.fillStyle = "#ffffff";
+      oCtx.font = "bold 10px monospace";
+      oCtx.textAlign = "center";
+      oCtx.fillText("EARTH", cx, cy + earthRadius + 14);
+      oCtx.restore();
+
+      // THE MOON (Radius 12px)
+      // CRITICAL 5TH GRADE TEACHING TRUTH:
+      // In Space Orbit View, THE LEFT HALF IS ALWAYS 100% ILLUMINATED BY SUNLIGHT,
+      // and THE RIGHT HALF IS ALWAYS DARK SHADOW!
+      const moonR = 12;
+      oCtx.save();
+
+      // Subtle orbital glow
+      oCtx.shadowColor = "rgba(255, 255, 255, 0.6)";
+      oCtx.shadowBlur = 10;
+
+      // Illuminated left semi-circle (facing Sun)
+      oCtx.fillStyle = "#f8fafc";
+      oCtx.beginPath();
+      oCtx.arc(moonX, moonY, moonR, Math.PI / 2, (3 * Math.PI) / 2); // left half
+      oCtx.closePath();
+      oCtx.fill();
+
+      // Dark shadow right semi-circle (facing away from Sun)
+      oCtx.shadowBlur = 0;
+      oCtx.fillStyle = "#1e293b";
+      oCtx.beginPath();
+      oCtx.arc(moonX, moonY, moonR, (3 * Math.PI) / 2, Math.PI / 2); // right half
+      oCtx.closePath();
+      oCtx.fill();
+
+      // Moon outer outline ring
+      oCtx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+      oCtx.lineWidth = 1;
+      oCtx.beginPath();
+      oCtx.arc(moonX, moonY, moonR, 0, Math.PI * 2);
+      oCtx.stroke();
+
+      // Draggable handle highlight
+      oCtx.strokeStyle = "#00f0ff";
+      oCtx.lineWidth = 2;
+      oCtx.setLineDash([2, 2]);
+      oCtx.beginPath();
+      oCtx.arc(moonX, moonY, moonR + 4, 0, Math.PI * 2);
+      oCtx.stroke();
+
+      // Moon label
+      oCtx.fillStyle = "#00f0ff";
+      oCtx.font = "bold 9px monospace";
+      oCtx.textAlign = "center";
+      oCtx.fillText("MOON", moonX, moonY - moonR - 6);
+
+      oCtx.restore();
+    };
+
+    // ================= RENDER TELESCOPE VIEW (FROM EARTH) =================
+    const renderTelescopeView = () => {
+      const w = telCanvas.width;
+      const h = telCanvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+      const R = 75; // Moon disc radius
+
+      tCtx.clearRect(0, 0, w, h);
+
+      // Deep space circular background with starry sky
+      tCtx.save();
+      tCtx.beginPath();
+      tCtx.arc(cx, cy, cx, 0, Math.PI * 2);
+      tCtx.clip();
+
+      const bgGrad = tCtx.createRadialGradient(cx, cy, 20, cx, cy, cx);
+      bgGrad.addColorStop(0, "#080c18");
+      bgGrad.addColorStop(1, "#02040a");
+      tCtx.fillStyle = bgGrad;
+      tCtx.fillRect(0, 0, w, h);
+
+      // Background stars
+      tCtx.fillStyle = "rgba(255, 255, 255, 0.6)";
+      for (let i = 0; i < 30; i++) {
+        const sx = (i * 37) % w;
+        const sy = (i * 59) % h;
+        tCtx.fillRect(sx, sy, (i % 4 === 0 ? 1.5 : 1), (i % 4 === 0 ? 1.5 : 1));
+      }
+
+      // Base dark disc of the Moon (nightside with subtle Earthshine)
+      tCtx.save();
+      tCtx.fillStyle = "#1e293b";
+      tCtx.beginPath();
+      tCtx.arc(cx, cy, R, 0, Math.PI * 2);
+      tCtx.fill();
+
+      // Dark basalt maria patches (Sea of Tranquility, etc.)
+      tCtx.fillStyle = "#141c2b";
+      tCtx.beginPath();
+      tCtx.arc(cx - 20, cy - 15, 22, 0, Math.PI * 2);
+      tCtx.arc(cx + 15, cy - 25, 18, 0, Math.PI * 2);
+      tCtx.arc(cx - 10, cy + 20, 24, 0, Math.PI * 2);
+      tCtx.arc(cx + 25, cy + 15, 16, 0, Math.PI * 2);
+      tCtx.fill();
+
+      // Atmospheric/illuminated lunar phase mask calculated mathematically from currentAngle:
+      // Angle: 0° = New Moon (completely dark)
+      // Angle: 90° = First Quarter (right 50% lit)
+      // Angle: 180° = Full Moon (100% lit)
+      // Angle: 270° = Third Quarter (left 50% lit)
+      // Angle: 360° = New Moon
+      const rad = currentAngle * (Math.PI / 180);
+
+      // Draw lit portion using standard lunar phase geometry
+      tCtx.save();
+      tCtx.beginPath();
+
+      if (currentAngle >= 0 && currentAngle <= 180) {
+        // WAXING: Illuminated portion is on the RIGHT side
+        // Right semi-circle: arc from -PI/2 to PI/2 with radius R
+        tCtx.arc(cx, cy, R, -Math.PI / 2, Math.PI / 2, false);
+        // Terminator ellipse: goes from PI/2 back to -PI/2 with x-radius R * cos(rad)
+        const cosVal = Math.cos(rad);
+        tCtx.ellipse(cx, cy, Math.abs(R * cosVal), R, 0, Math.PI / 2, -Math.PI / 2, cosVal > 0);
+      } else {
+        // WANING: Illuminated portion is on the LEFT side
+        // Left semi-circle: arc from PI/2 to 3PI/2 with radius R
+        tCtx.arc(cx, cy, R, Math.PI / 2, (3 * Math.PI) / 2, false);
+        // Terminator ellipse: goes from 3PI/2 back to PI/2 with x-radius R * cos(rad)
+        const cosVal = Math.cos(rad);
+        tCtx.ellipse(cx, cy, Math.abs(R * cosVal), R, 0, (3 * Math.PI) / 2, Math.PI / 2, cosVal < 0);
+      }
+
+      tCtx.closePath();
+      tCtx.clip(); // clip to the illuminated phase shape
+
+      // Brilliant pearlescent lunar light gradient
+      const litGrad = tCtx.createRadialGradient(cx - 15, cy - 15, 10, cx, cy, R);
+      litGrad.addColorStop(0, "#ffffff");
+      litGrad.addColorStop(0.7, "#f1f5f9");
+      litGrad.addColorStop(1, "#cbd5e1");
+      tCtx.fillStyle = litGrad;
+      tCtx.fillRect(cx - R, cy - R, R * 2, R * 2);
+
+      // Illuminated craters and surface texture
+      tCtx.fillStyle = "#94a3b8";
+      tCtx.beginPath();
+      tCtx.arc(cx - 20, cy - 15, 20, 0, Math.PI * 2);
+      tCtx.arc(cx + 15, cy - 25, 16, 0, Math.PI * 2);
+      tCtx.arc(cx - 10, cy + 20, 22, 0, Math.PI * 2);
+      tCtx.arc(cx + 25, cy + 15, 15, 0, Math.PI * 2);
+      tCtx.fill();
+
+      // Bright crater impact rings (e.g. Tycho with bright rays)
+      tCtx.strokeStyle = "rgba(255, 255, 255, 0.7)";
+      tCtx.lineWidth = 1.2;
+      tCtx.beginPath();
+      tCtx.arc(cx + 10, cy + 38, 5, 0, Math.PI * 2);
+      tCtx.stroke();
+
+      tCtx.restore(); // restore phase clip
+      tCtx.restore(); // restore telescope circle clip
+    };
+
+    // Synchronized Render
+    const renderAll = () => {
+      renderSpaceOrbit();
+      renderTelescopeView();
+    };
+
+    renderAll();
+    updatePhaseHUD(currentAngle);
+
+    // Interactive Slider Listener
+    slider.addEventListener("input", (e) => {
+      currentAngle = parseInt(e.target.value, 10);
+      updatePhaseHUD(currentAngle);
+      renderAll();
+    });
+
+    // 8 Quick Jump Buttons
+    stage.querySelectorAll(".phase-jump-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        sounds.playClick();
+        const targetAng = parseInt(btn.dataset.angle, 10);
+        currentAngle = targetAng;
+        slider.value = targetAng;
+        updatePhaseHUD(targetAng);
+        renderAll();
+      });
+    });
+
+    // Auto Orbit Animation Loop
+    const orbitTick = () => {
+      if (isAutoPlaying) {
+        currentAngle = (currentAngle + 0.4 * orbitSpeedMultiplier) % 360;
+        slider.value = Math.round(currentAngle);
+        updatePhaseHUD(currentAngle);
+        renderAll();
+      }
+      this.moonOrbitAnimId = requestAnimationFrame(orbitTick);
+    };
+
+    autoBtn.addEventListener("click", () => {
+      sounds.playClick();
+      isAutoPlaying = !isAutoPlaying;
+      if (isAutoPlaying) {
+        playIcon.textContent = "⏸";
+        playText.textContent = "Pause";
+        autoBtn.classList.add("playing");
+      } else {
+        playIcon.textContent = "▶";
+        playText.textContent = "Auto Orbit";
+        autoBtn.classList.remove("playing");
+      }
+    });
+
+    speedBtn.addEventListener("click", () => {
+      sounds.playClick();
+      orbitSpeedMultiplier = orbitSpeedMultiplier === 1 ? 2 : 1;
+      speedBtn.textContent = `${orbitSpeedMultiplier}x Speed`;
+    });
+
+    // Draggable Moon directly on Orbit Canvas
+    let isDraggingMoon = false;
+    const handlePointerDown = (e) => {
+      const rect = orbitCanvas.getBoundingClientRect();
+      const px = e.clientX - rect.left;
+      const py = e.clientY - rect.top;
+      const cx = orbitCanvas.width / 2;
+      const cy = orbitCanvas.height / 2;
+      const distFromCenter = Math.hypot(px - cx, py - cy);
+
+      // If clicked near the orbital ring (between 70 and 130 px from center)
+      if (distFromCenter >= 60 && distFromCenter <= 140) {
+        isDraggingMoon = true;
+        // Calculate angle: in our coordinate system, angle = 0 is left (-1, 0)
+        const dx = px - cx;
+        const dy = py - cy;
+        const angDeg = (Math.round((Math.atan2(dy, -dx) * 180) / Math.PI) + 360) % 360;
+        currentAngle = angDeg;
+        slider.value = angDeg;
+        updatePhaseHUD(angDeg);
+        renderAll();
+      }
+    };
+
+    const handlePointerMove = (e) => {
+      if (!isDraggingMoon) return;
+      const rect = orbitCanvas.getBoundingClientRect();
+      const px = e.clientX - rect.left;
+      const py = e.clientY - rect.top;
+      const cx = orbitCanvas.width / 2;
+      const cy = orbitCanvas.height / 2;
+      const dx = px - cx;
+      const dy = py - cy;
+      const angDeg = (Math.round((Math.atan2(dy, -dx) * 180) / Math.PI) + 360) % 360;
+      currentAngle = angDeg;
+      slider.value = angDeg;
+      updatePhaseHUD(angDeg);
+      renderAll();
+    };
+
+    const handlePointerUp = () => {
+      isDraggingMoon = false;
+    };
+
+    orbitCanvas.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", handlePointerUp);
+
+    this.moonOrbitAnimId = requestAnimationFrame(orbitTick);
+    this._resumeSimFn = () => {
+      if (!this.moonOrbitAnimId && this.currentLabType === "moon") {
+        this.moonOrbitAnimId = requestAnimationFrame(orbitTick);
+      }
+    };
+  }
+
+  // ================= LAB: PLANT CELL BIOLOGY =================
+  loadPlantCellLab(stage, topic) {
+    stage.innerHTML = `
+      <div class="plant-cell-interactive-wrap">
+        <div class="cell-diagram-svg-container">
+          <svg class="cell-svg-canvas" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="cellWallGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#15803d" />
+                <stop offset="100%" stop-color="#166534" />
+              </linearGradient>
+              <linearGradient id="cytoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#064e3b" stop-opacity="0.85" />
+                <stop offset="100%" stop-color="#022c22" stop-opacity="0.95" />
+              </linearGradient>
+              <linearGradient id="vacuoleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8" />
+                <stop offset="50%" stop-color="#0284c7" stop-opacity="0.7" />
+                <stop offset="100%" stop-color="#0369a1" stop-opacity="0.88" />
+              </linearGradient>
+              <radialGradient id="nucleusGrad" cx="40%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="#c084fc" />
+                <stop offset="70%" stop-color="#7e22ce" />
+                <stop offset="100%" stop-color="#581c87" />
+              </radialGradient>
+              <radialGradient id="chloroGrad" cx="40%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="#4ade80" />
+                <stop offset="100%" stop-color="#15803d" />
+              </radialGradient>
+              <linearGradient id="mitoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fb923c" />
+                <stop offset="100%" stop-color="#c2410c" />
+              </linearGradient>
+            </defs>
+
+            <!-- 8. CELL WALL -->
+            <polygon id="path-org-8" class="cell-organelle-path" points="40,25 560,25 580,70 580,330 560,375 40,375 20,330 20,70" fill="url(#cellWallGrad)" stroke="#4ade80" stroke-width="5" />
+
+            <!-- 1. CELL MEMBRANE & CYTOPLASM -->
+            <polygon id="path-org-1" class="cell-organelle-path" points="52,38 548,38 565,78 565,322 548,362 52,362 35,322 35,78" fill="url(#cytoGrad)" stroke="#22c55e" stroke-width="3" stroke-dasharray="8 4" />
+
+            <!-- 9. CENTRAL VACUOLE -->
+            <path id="path-org-9" class="cell-organelle-path" d="M 170,140 C 130,160 120,240 150,290 C 180,340 320,340 370,310 C 420,280 430,220 400,180 C 370,140 280,120 220,130 Z" fill="url(#vacuoleGrad)" stroke="#7dd3fc" stroke-width="2" />
+            <text x="220" y="240" fill="#e0f2fe" font-size="12" font-weight="bold" opacity="0.6">Central Vacuole (Water Storage)</text>
+
+            <!-- 6. NUCLEUS & NUCLEOLUS -->
+            <g id="path-org-6" class="cell-organelle-path">
+              <circle cx="340" cy="110" r="48" fill="url(#nucleusGrad)" stroke="#e9d5ff" stroke-width="2.5" />
+              <circle cx="330" cy="115" r="18" fill="#3b0764" stroke="#a855f7" stroke-width="2" />
+              <circle cx="350" cy="100" r="10" fill="#581c87" opacity="0.8" />
+            </g>
+
+            <!-- 4. SMOOTH ER -->
+            <g id="path-org-4" class="cell-organelle-path">
+              <path d="M 395,95 Q 430,75 465,100 Q 435,115 400,120" fill="none" stroke="#c084fc" stroke-width="5" stroke-linecap="round" />
+              <path d="M 405,80 Q 445,60 480,85 Q 445,100 410,105" fill="none" stroke="#c084fc" stroke-width="4" stroke-linecap="round" />
+            </g>
+
+            <!-- 7. ROUGH ER & RIBOSOMES -->
+            <g id="path-org-7" class="cell-organelle-path">
+              <path d="M 285,100 Q 250,75 220,95 Q 255,110 290,115" fill="none" stroke="#a855f7" stroke-width="6" stroke-linecap="round" />
+              <circle cx="270" cy="90" r="2.5" fill="#fde047" />
+              <circle cx="250" cy="85" r="2.5" fill="#fde047" />
+              <circle cx="235" cy="95" r="2.5" fill="#fde047" />
+              <circle cx="260" cy="102" r="2.5" fill="#fde047" />
+              <circle cx="275" cy="108" r="2.5" fill="#fde047" />
+            </g>
+
+            <!-- 10. CHLOROPLASTS -->
+            <g id="path-org-10" class="cell-organelle-path">
+              <ellipse cx="110" cy="90" rx="34" ry="20" transform="rotate(-15 110 90)" fill="url(#chloroGrad)" stroke="#86efac" stroke-width="2" />
+              <line x1="90" y1="90" x2="130" y2="90" stroke="#166534" stroke-width="2" />
+              <ellipse cx="105" cy="315" rx="32" ry="18" transform="rotate(20 105 315)" fill="url(#chloroGrad)" stroke="#86efac" stroke-width="2" />
+              <ellipse cx="480" cy="320" rx="32" ry="18" transform="rotate(-10 480 320)" fill="url(#chloroGrad)" stroke="#86efac" stroke-width="2" />
+            </g>
+
+            <!-- 3. MITOCHONDRIA -->
+            <g id="path-org-3" class="cell-organelle-path">
+              <rect x="75" y="180" width="46" height="24" rx="12" transform="rotate(-40 98 192)" fill="url(#mitoGrad)" stroke="#fdba74" stroke-width="2" />
+              <path d="M 85,188 Q 98,182 110,195" fill="none" stroke="#7c2d12" stroke-width="2" />
+              <rect x="470" y="160" width="46" height="24" rx="12" transform="rotate(35 493 172)" fill="url(#mitoGrad)" stroke="#fdba74" stroke-width="2" />
+            </g>
+
+            <!-- 5. GOLGI BODY -->
+            <g id="path-org-5" class="cell-organelle-path">
+              <path d="M 450,225 Q 480,215 510,230" fill="none" stroke="#f43f5e" stroke-width="5" stroke-linecap="round" />
+              <path d="M 455,238 Q 485,228 515,243" fill="none" stroke="#f43f5e" stroke-width="5" stroke-linecap="round" />
+              <circle cx="530" cy="235" r="4" fill="#fda4af" />
+              <circle cx="525" cy="255" r="5" fill="#fda4af" />
+            </g>
+
+            <!-- 10 NUMBERED PINS -->
+            <g class="cell-pins-group">
+              <g class="cell-pin-marker" data-num="1" transform="translate(48, 55)"><circle cx="0" cy="0" r="14" fill="#10b981" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">1</text></g>
+              <g class="cell-pin-marker" data-num="2" transform="translate(170, 75)"><circle cx="0" cy="0" r="14" fill="#059669" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">2</text></g>
+              <g class="cell-pin-marker" data-num="3" transform="translate(98, 192)"><circle cx="0" cy="0" r="14" fill="#ea580c" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">3</text></g>
+              <g class="cell-pin-marker" data-num="4" transform="translate(440, 85)"><circle cx="0" cy="0" r="14" fill="#8b5cf6" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">4</text></g>
+              <g class="cell-pin-marker" data-num="5" transform="translate(485, 238)"><circle cx="0" cy="0" r="14" fill="#e11d48" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">5</text></g>
+              <g class="cell-pin-marker" data-num="6" transform="translate(340, 110)"><circle cx="0" cy="0" r="14" fill="#6d28d9" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">6</text></g>
+              <g class="cell-pin-marker" data-num="7" transform="translate(255, 95)"><circle cx="0" cy="0" r="14" fill="#9333ea" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">7</text></g>
+              <g class="cell-pin-marker" data-num="8" transform="translate(26, 260)"><circle cx="0" cy="0" r="14" fill="#15803d" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">8</text></g>
+              <g class="cell-pin-marker" data-num="9" transform="translate(270, 260)"><circle cx="0" cy="0" r="14" fill="#0284c7" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">9</text></g>
+              <g class="cell-pin-marker" data-num="10" transform="translate(110, 90)"><circle cx="0" cy="0" r="14" fill="#16a34a" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">10</text></g>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Organelle Inspect HUD Card -->
+        <div class="plant-cell-hud-card" id="plant-cell-hud">
+          <div class="hud-organelle-header">
+            <span class="hud-organelle-title" id="hud-title">Click Any Organelle (1–10)</span>
+            <span class="hud-organelle-formula" id="hud-formula">Interactive Plant Biology</span>
+          </div>
+          <p class="hud-organelle-desc" id="hud-desc">
+            Explore the 10 essential structures of the plant cell from your worksheet! Click or hover any numbered pin on the diagram above to inspect its scientific explanation.
+          </p>
+          <div class="hud-actions-row">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Source: 5th Grade Plant Cell Worksheet</span>
+            <button class="btn-jump-square" id="hud-jump-btn" style="display: none;">
+              <span>🔍 Jump to Square Notes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const hudTitle = document.getElementById("hud-title");
+    const hudFormula = document.getElementById("hud-formula");
+    const hudDesc = document.getElementById("hud-desc");
+    const hudJumpBtn = document.getElementById("hud-jump-btn");
+    let activeSqNum = null;
+
+    const selectOrganelle = (num) => {
+      // Look up organelle info from plant cell topic or current topic
+      const plantTopic = this.notes.find((n) => n.id === "science-plant-cell") || topic;
+      const sq = plantTopic.properties?.find((p) => p.num === num);
+      if (!sq) return;
+      activeSqNum = num;
+
+      sounds.playClick();
+
+      if (hudTitle) hudTitle.textContent = `${sq.num}. ${sq.name.replace(/^\d+\.\s*/, "")}`;
+      if (hudFormula) hudFormula.textContent = sq.formula;
+      if (hudDesc) hudDesc.textContent = sq.explanation;
+      if (hudJumpBtn) {
+        hudJumpBtn.style.display = "inline-flex";
+        hudJumpBtn.innerHTML = `<span>🔍 Jump to Square #${sq.num}</span>`;
+      }
+
+      document.querySelectorAll(".cell-pin-marker").forEach((pin) => {
+        pin.classList.toggle("active", parseInt(pin.dataset.num, 10) === num);
+      });
+
+      document.querySelectorAll(".cell-organelle-path").forEach((p) => p.classList.remove("highlighted"));
+      const targetPath = document.getElementById(`path-org-${num}`);
+      if (targetPath) targetPath.classList.add("highlighted");
+    };
+
+    stage.querySelectorAll(".cell-pin-marker").forEach((pin) => {
+      pin.addEventListener("click", () => {
+        const num = parseInt(pin.dataset.num, 10);
+        selectOrganelle(num);
+      });
+    });
+
+    if (hudJumpBtn) {
+      hudJumpBtn.addEventListener("click", () => {
+        if (!activeSqNum) return;
+        this.switchModalTab("notes");
+        setTimeout(() => {
+          const card = document.getElementById(`concept-square-${activeSqNum}`);
+          if (card) {
+            card.scrollIntoView({ behavior: "smooth", block: "center" });
+            card.classList.add("highlighted");
+            setTimeout(() => card.classList.remove("highlighted"), 1500);
+          }
+        }, 150);
+      });
     }
+
+    setTimeout(() => selectOrganelle(1), 250);
   }
 
   // Practice Quiz
@@ -3428,9 +4667,11 @@ class ScienceIoApp {
 
     // Modals
     document.getElementById("modal-notes-close")?.addEventListener("click", () => {
+      this.cleanupInteractiveSimulators();
       document.getElementById("notes-viewer-modal")?.classList.add("hidden");
     });
     document.getElementById("modal-done-btn")?.addEventListener("click", () => {
+      this.cleanupInteractiveSimulators();
       document.getElementById("notes-viewer-modal")?.classList.add("hidden");
     });
     document.getElementById("modal-print-btn")?.addEventListener("click", () => {
