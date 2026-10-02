@@ -2398,14 +2398,14 @@ class ScienceIoApp {
       startX = e.clientX;
       isDragging = true;
       this._hasDragged = false;
-    });
+    }, { passive: true });
 
     window.addEventListener("pointermove", (e) => {
       if (!isDragging) return;
       if (Math.abs(e.clientX - startX) > 10) {
         this._hasDragged = true;
       }
-    });
+    }, { passive: true });
 
     window.addEventListener("pointerup", (e) => {
       if (!isDragging) return;
@@ -2419,12 +2419,12 @@ class ScienceIoApp {
       setTimeout(() => {
         this._hasDragged = false;
       }, 100);
-    });
+    }, { passive: true });
 
     window.addEventListener("pointercancel", () => {
       isDragging = false;
       this._hasDragged = false;
-    });
+    }, { passive: true });
   }
 
   slideNext() {
@@ -3116,19 +3116,27 @@ class ScienceIoApp {
       });
     });
 
-    // Scroll spy
+    // Scroll spy (RAF throttled to eliminate layout thrashing)
+    let scrollRafPending = false;
+    const notesSec = document.getElementById("notes-section");
+    const homeBtn = document.getElementById("nav-btn-home");
+    const notesBtn = document.getElementById("nav-btn-notes");
     window.addEventListener("scroll", () => {
-      const notesSec = document.getElementById("notes-section");
-      const homeBtn = document.getElementById("nav-btn-home");
-      const notesBtn = document.getElementById("nav-btn-notes");
-      if (!notesSec || !homeBtn || !notesBtn) return;
-      const rect = notesSec.getBoundingClientRect();
-      if (rect.top <= 200) {
-        notesBtn.classList.add("active");
-        homeBtn.classList.remove("active");
-      } else {
-        homeBtn.classList.add("active");
-        notesBtn.classList.remove("active");
+      if (!scrollRafPending) {
+        scrollRafPending = true;
+        requestAnimationFrame(() => {
+          if (notesSec && homeBtn && notesBtn) {
+            const rect = notesSec.getBoundingClientRect();
+            if (rect.top <= 200) {
+              notesBtn.classList.add("active");
+              homeBtn.classList.remove("active");
+            } else {
+              homeBtn.classList.add("active");
+              notesBtn.classList.remove("active");
+            }
+          }
+          scrollRafPending = false;
+        });
       }
     }, { passive: true });
 
@@ -3231,15 +3239,19 @@ class ScienceIoApp {
       }
     });
 
-    // Search input
+    // Search input (debounced to prevent UI stutter while typing)
     const searchInput = document.getElementById("notes-search-input");
     const searchClear = document.getElementById("search-clear-btn");
+    let searchDebounce = null;
     if (searchInput) {
       searchInput.addEventListener("input", (e) => {
         this.searchQuery = e.target.value;
         if (searchClear) searchClear.classList.toggle("hidden", !this.searchQuery);
-        this.carouselIndex = 0;
-        this.render();
+        clearTimeout(searchDebounce);
+        searchDebounce = setTimeout(() => {
+          this.carouselIndex = 0;
+          this.render();
+        }, 120);
       });
     }
 
@@ -3493,15 +3505,24 @@ class Chatbot {
   }
 }
 
-// Mouse Spotlight Logic
+// Mouse Spotlight Logic (Hardware-accelerated with requestAnimationFrame)
 document.addEventListener("DOMContentLoaded", () => {
   const spotlight = document.getElementById("mouse-spotlight");
   if (spotlight) {
+    let mouseX = -9999, mouseY = -9999;
+    let rafPending = false;
     document.addEventListener("mousemove", (e) => {
-      spotlight.style.opacity = "1";
-      spotlight.style.left = e.clientX + "px";
-      spotlight.style.top = e.clientY + "px";
-    });
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!rafPending) {
+        rafPending = true;
+        requestAnimationFrame(() => {
+          spotlight.style.opacity = "1";
+          spotlight.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+          rafPending = false;
+        });
+      }
+    }, { passive: true });
     document.addEventListener("mouseleave", () => {
       spotlight.style.opacity = "0";
     });

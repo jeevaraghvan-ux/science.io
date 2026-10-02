@@ -436,10 +436,12 @@ html, body {
 .fluid-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(85px);
-  opacity: 0.88;
+  filter: blur(40px);
+  opacity: 0.85;
   mix-blend-mode: screen;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .blob-1 {
@@ -487,26 +489,26 @@ html, body {
 }
 
 @keyframes morphBlobOne {
-  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  50% { transform: translate(80px, 60px) scale(1.15) rotate(90deg); }
-  100% { transform: translate(-40px, 120px) scale(0.9) rotate(180deg); }
+  0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate3d(80px, 60px, 0) scale(1.15) rotate(90deg); }
+  100% { transform: translate3d(-40px, 120px, 0) scale(0.9) rotate(180deg); }
 }
 
 @keyframes morphBlobTwo {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-90px, -40px) scale(1.2); }
-  100% { transform: translate(50px, 80px) scale(0.85); }
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-90px, -40px, 0) scale(1.2); }
+  100% { transform: translate3d(50px, 80px, 0) scale(0.85); }
 }
 
 @keyframes morphBlobThree {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(60px, -90px) scale(1.12); }
-  100% { transform: translate(-80px, -30px) scale(0.95); }
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(60px, -90px, 0) scale(1.12); }
+  100% { transform: translate3d(-80px, -30px, 0) scale(0.95); }
 }
 
 @keyframes morphBlobFour {
-  0% { transform: translate(0, 0) scale(0.85); opacity: 0.5; }
-  100% { transform: translate(-50px, 70px) scale(1.25); opacity: 0.85; }
+  0% { transform: translate3d(0, 0, 0) scale(0.85); opacity: 0.5; }
+  100% { transform: translate3d(-50px, 70px, 0) scale(1.25); opacity: 0.85; }
 }
 
 .ambient-noise-layer {
@@ -551,6 +553,8 @@ html, body {
   border: 1.5px solid rgba(255, 183, 3, 0.45);
   border-radius: 9999px;
   box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.75), 0 0 30px rgba(255, 122, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  transform: translate3d(0, 0, 0);
+  contain: layout;
   transition: all 0.3s ease;
 }
 
@@ -1156,14 +1160,12 @@ html, body {
   text-align: center;
   user-select: none;
   cursor: pointer;
-  /* ASMR Silky Physics Transition */
-  transition: transform 0.72s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.35s ease,
-              box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  /* ASMR Silky Physics Transition (GPU Compositor Optimized) */
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.45s ease;
   overflow: hidden;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
+  contain: layout style;
 }
 
 /* Card Radial Ember Glow (screenshot 2 warm orange or colorful glow) */
@@ -1237,8 +1239,8 @@ html, body {
 .deck-card.pos-left-2 {
   transform: translate3d(-540px, 0, -140px) rotateY(32deg) scale(0.72);
   z-index: 10;
-  opacity: 0.22;
-  filter: blur(2px) grayscale(50%);
+  opacity: 0.25;
+  filter: grayscale(40%);
 }
 
 .deck-card.pos-right-1 {
@@ -1257,8 +1259,8 @@ html, body {
 .deck-card.pos-right-2 {
   transform: translate3d(540px, 0, -140px) rotateY(-32deg) scale(0.72);
   z-index: 10;
-  opacity: 0.22;
-  filter: blur(2px) grayscale(50%);
+  opacity: 0.25;
+  filter: grayscale(40%);
 }
 
 .deck-card.pos-hidden {
@@ -1266,6 +1268,7 @@ html, body {
   opacity: 0;
   pointer-events: none;
   z-index: 0;
+  visibility: hidden;
 }
 
 @media (max-width: 768px) {

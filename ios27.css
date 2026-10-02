@@ -38,28 +38,34 @@ body {
 /* 1. Liquid Wallpaper / Animated Mesh Background with Warm & Vivid Sunset Radiant Nodes */
 .ambient-fluid-canvas-wrap {
   background: #000;
+  contain: strict;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .ambient-fluid-canvas-wrap::before {
   content: "";
   position: absolute;
-  inset: -20%;
+  inset: -15%;
   background: 
-    radial-gradient(circle at 15% 20%, rgba(255, 65, 108, 0.85) 0%, transparent 45%),
-    radial-gradient(circle at 85% 15%, rgba(255, 122, 0, 0.85) 0%, transparent 45%),
-    radial-gradient(circle at 50% 85%, rgba(255, 183, 3, 0.8) 0%, transparent 45%),
-    radial-gradient(circle at 15% 80%, rgba(168, 85, 247, 0.8) 0%, transparent 45%),
-    radial-gradient(circle at 85% 85%, rgba(10, 132, 255, 0.75) 0%, transparent 50%),
-    radial-gradient(circle at 50% 45%, rgba(255, 0, 127, 0.7) 0%, transparent 55%);
-  filter: blur(100px) contrast(150%);
-  animation: liquidMesh 22s infinite alternate ease-in-out;
+    radial-gradient(circle at 15% 20%, rgba(255, 65, 108, 0.85) 0%, rgba(255, 65, 108, 0.35) 25%, transparent 50%),
+    radial-gradient(circle at 85% 15%, rgba(255, 122, 0, 0.85) 0%, rgba(255, 122, 0, 0.35) 25%, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(255, 183, 3, 0.8) 0%, rgba(255, 183, 3, 0.3) 25%, transparent 50%),
+    radial-gradient(circle at 15% 80%, rgba(168, 85, 247, 0.8) 0%, rgba(168, 85, 247, 0.3) 25%, transparent 50%),
+    radial-gradient(circle at 85% 85%, rgba(10, 132, 255, 0.75) 0%, rgba(10, 132, 255, 0.3) 25%, transparent 55%),
+    radial-gradient(circle at 50% 45%, rgba(255, 0, 127, 0.7) 0%, rgba(255, 0, 127, 0.3) 25%, transparent 55%);
+  filter: blur(35px) contrast(125%);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  will-change: transform;
+  animation: liquidMesh 26s infinite alternate ease-in-out;
   z-index: -2;
 }
 
 @keyframes liquidMesh {
-  0% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.1) rotate(15deg) translate(-5%, 5%); }
-  100% { transform: scale(0.9) rotate(-15deg) translate(5%, -5%); }
+  0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate3d(-3%, 3%, 0) scale(1.06) rotate(10deg); }
+  100% { transform: translate3d(3%, -3%, 0) scale(0.95) rotate(-10deg); }
 }
 
 /* Remove cyber grid to let warm fluid blobs and liquid mesh radiate */
@@ -512,7 +518,6 @@ STYLES
 
 .deck-card:hover .card-glow-layer {
   opacity: 1;
-  filter: blur(28px);
 }
 
 .hero-cta-btn, .btn-modal-action.primary, .admin-save-btn {
@@ -589,7 +594,7 @@ STYLES
   transform: translateY(-2px);
 }
 
-/* Mouse Spotlight */
+/* Mouse Spotlight (Hardware-Accelerated) */
 #mouse-spotlight {
   position: fixed;
   top: 0; left: 0;
@@ -599,9 +604,10 @@ STYLES
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-9999px, -9999px, 0);
   transition: opacity 0.3s ease;
   opacity: 0;
+  will-change: transform;
 }
 
 /* ================= CINEMATIC MODE (#74) ================= */
