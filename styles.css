@@ -1152,7 +1152,7 @@ html, body {
 .carousel-stage-viewport {
   position: relative;
   width: 100%;
-  height: 480px;
+  height: 530px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1172,8 +1172,8 @@ html, body {
 /* INDIVIDUAL CAROUSEL CARD — ASMR SMOOTH TRANSITIONS */
 .deck-card {
   position: absolute;
-  width: 330px;
-  height: 430px;
+  width: 335px;
+  height: 480px;
   border-radius: 28px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.04) 30%, rgba(18, 10, 36, 0.15) 70%, rgba(255, 122, 0, 0.08) 100%);
   backdrop-filter: blur(14px) saturate(190%);
@@ -1304,12 +1304,12 @@ html, body {
 
 @media (max-width: 768px) {
   .carousel-stage-viewport {
-    height: 470px;
+    height: 500px;
   }
   .deck-card {
-    width: 295px;
-    height: 430px;
-    padding: 26px 18px 22px;
+    width: 300px;
+    height: 460px;
+    padding: 24px 18px 20px;
   }
   .deck-card.pos-left-1 {
     transform: translate3d(-190px, 0, -40px) rotateY(18deg) scale(0.82);
@@ -1325,10 +1325,13 @@ html, body {
 }
 
 @media (max-width: 480px) {
+  .carousel-stage-viewport {
+    height: 490px;
+  }
   .deck-card {
-    width: 280px;
-    height: 420px;
-    padding: 24px 16px 20px;
+    width: 290px;
+    height: 450px;
+    padding: 22px 14px 18px;
   }
   .deck-card.pos-left-1 {
     transform: translate3d(-155px, 0, -50px) rotateY(18deg) scale(0.78);
@@ -1387,20 +1390,27 @@ html, body {
   text-overflow: ellipsis;
 }
 
-/* Card Buttons (Matching Screenshot 2: VIEW NOTES, PDF LINK, QUIZLET) */
+/* Card Buttons (VIEW NOTES Hero + Side-by-Side Sheet & Practice Quiz) */
 .card-buttons-stack {
   position: relative;
   z-index: 2;
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   margin-top: auto;
+}
+
+.card-dual-actions-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
 }
 
 .card-action-btn {
   width: 100%;
-  padding: 13px 18px;
+  padding: 12px 14px;
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.35);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(32, 18, 52, 0.35) 100%);
@@ -1408,13 +1418,25 @@ html, body {
   -webkit-backdrop-filter: blur(18px) saturate(220%);
   color: #ffffff;
   font-family: var(--font-display);
-  font-size: 0.86rem;
+  font-size: 0.82rem;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.22s var(--ease-spring);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.card-dual-actions-row .card-action-btn {
+  padding: 10px 8px;
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  border-radius: 12px;
 }
 
 .card-action-btn:hover {
@@ -3488,14 +3510,20 @@ html, body {
   .squares-builder-section {
     padding: 14px;
   }
+}
 
 /* ================= READING ENHANCEMENT SUITE (BIONIC, TTS, FLASHCARDS, HIGHLIGHTER, ZEN) ================= */
 .reading-controls-bar {
-  background: rgba(14, 10, 24, 0.75);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 10px 24px 12px;
+  padding: 8px 20px 10px;
   position: relative;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
@@ -3505,7 +3533,7 @@ html, body {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 999px;
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
 
 .reading-progress-fill {
@@ -3521,48 +3549,57 @@ html, body {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
-.reading-tool-group {
-  display: flex;
+/* Sleek Segmented Capsules */
+.reading-tool-capsule {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 3px 8px;
+  backdrop-filter: blur(10px);
 }
 
 .reading-pill-btn {
+  appearance: none;
+  -webkit-appearance: none;
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   color: #f1f5f9;
   font-family: var(--font-sans);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
-  padding: 5px 12px;
+  padding: 5px 11px;
   border-radius: 999px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   transition: all 0.2s ease;
   user-select: none;
+  outline: none;
 }
 
 .reading-pill-btn:hover {
   background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
   transform: translateY(-1px);
 }
 
 .reading-pill-btn.active {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.35), rgba(168, 85, 247, 0.35));
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.4), rgba(168, 85, 247, 0.4));
   border-color: #06b6d4;
   color: #38bdf8;
-  box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.35);
 }
 
 .tts-main-btn.playing {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.35), rgba(249, 115, 22, 0.35)) !important;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.4), rgba(249, 115, 22, 0.4)) !important;
   border-color: #ef4444 !important;
   color: #fca5a5 !important;
   animation: subtlePulse 1.5s infinite;
@@ -3575,50 +3612,68 @@ html, body {
 }
 
 .reading-select {
-  background: rgba(12, 8, 20, 0.85);
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgba(15, 23, 42, 0.9) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%2394a3b8' d='M0 0l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 8px center;
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #e2e8f0;
   font-family: var(--font-sans);
-  font-size: 0.76rem;
-  padding: 5px 8px;
-  border-radius: 10px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 5px 22px 5px 9px;
+  border-radius: 999px;
   outline: none;
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .reading-select:focus, .reading-select:hover {
   border-color: #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+}
+
+.reading-select option {
+  background: #0f172a;
+  color: #f1f5f9;
 }
 
 .tts-voice-select {
-  max-width: 170px;
+  max-width: 140px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
+.tts-speed-select {
+  max-width: 65px;
+  padding-right: 18px;
+}
+
 .font-stepper {
   display: inline-flex;
+  align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .reading-step-btn {
+  appearance: none;
+  -webkit-appearance: none;
   background: none;
   border: none;
   color: #f1f5f9;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 8px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, color 0.15s;
 }
 
 .reading-step-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   color: #38bdf8;
 }
 
@@ -3626,15 +3681,17 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 3px 8px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 2px 7px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
 }
 
 .hl-color-btn {
-  width: 16px;
-  height: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   border: 1.5px solid rgba(255, 255, 255, 0.5);
   cursor: pointer;
@@ -3656,60 +3713,89 @@ html, body {
 .hl-emerald { background: #10b981; color: #10b981; }
 
 .hl-clear-btn {
+  appearance: none;
+  -webkit-appearance: none;
   background: none;
   border: none;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   cursor: pointer;
   padding: 0 2px;
   opacity: 0.7;
   transition: opacity 0.15s;
+  color: #cbd5e1;
 }
-.hl-clear-btn:hover { opacity: 1; transform: scale(1.1); }
+.hl-clear-btn:hover { opacity: 1; transform: scale(1.15); }
 
 .reading-time-pill {
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   color: #94a3b8;
-  font-weight: 600;
-  padding: 4px 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 700;
+  padding: 3px 8px;
   display: inline-flex;
   align-items: center;
   gap: 4px;
 }
 
-/* Sticky TOC Mini Jump Bar */
+/* Sticky TOC Mini Jump Bar with Explicit Glass UI (Zero White Spots!) */
+.toc-strip-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 2px;
+}
+
+.toc-strip-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #38bdf8;
+  white-space: nowrap;
+  flex-shrink: 0;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
 .notes-toc-strip {
   display: flex;
   align-items: center;
   gap: 6px;
   overflow-x: auto;
-  padding: 8px 0 2px;
-  margin-top: 6px;
+  padding: 2px 0;
+  flex: 1;
   scrollbar-width: none;
 }
 .notes-toc-strip::-webkit-scrollbar { display: none; }
 
 .toc-pill {
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #cbd5e1;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  user-select: none;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  padding: 4px 12px !important;
+  border-radius: 999px !important;
+  background: rgba(30, 41, 59, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: #cbd5e1 !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  user-select: none !important;
+  outline: none !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+  display: inline-flex !important;
+  align-items: center !important;
 }
 
 .toc-pill:hover, .toc-pill.active {
-  background: rgba(6, 182, 212, 0.22);
-  border-color: #06b6d4;
-  color: #38bdf8;
-  transform: translateY(-1px);
+  background: rgba(6, 182, 212, 0.35) !important;
+  border-color: #06b6d4 !important;
+  color: #38bdf8 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.4) !important;
 }
 
 /* Bionic Fixation */

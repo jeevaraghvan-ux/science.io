@@ -1905,13 +1905,20 @@ function ensurePlantCellUnit(notesList) {
   if (!Array.isArray(notesList) || notesList.length === 0) {
     return JSON.parse(JSON.stringify(DEFAULT_SCIENCE_TOPICS));
   }
+  const defaultPlant = DEFAULT_SCIENCE_TOPICS.find(t => t.id === "science-plant-cell") || DEFAULT_SCIENCE_TOPICS[0];
   // Strip out any added notes the user explicitly does not want
-  return notesList.filter(n => n && 
+  const list = notesList.filter(n => n && 
     n.id !== "states-of-matter-01" && 
     n.id !== "moon-phases-01" &&
     !n.id.startsWith("science-matter-") &&
     !n.id.startsWith("science-photo-")
   );
+  list.forEach(n => {
+    if (n.id === "science-plant-cell" && (!n.quiz || !Array.isArray(n.quiz) || n.quiz.length === 0)) {
+      n.quiz = JSON.parse(JSON.stringify(defaultPlant.quiz || []));
+    }
+  });
+  return list;
 }
 
 // ================= 5TH GRADE SCIENCE VOCABULARY GLOSSARY =================
@@ -2343,9 +2350,12 @@ class ReadingEnhancementSuite {
 
     topic.properties.forEach((prop) => {
       const pill = document.createElement("button");
+      pill.type = "button";
       pill.className = "toc-pill";
-      pill.textContent = `#${prop.num} ${prop.name}`;
-      pill.title = `Jump directly to Concept Square #${prop.num}`;
+      const cleanName = (prop.name || "").replace(/^\d+\.\s*/, "");
+      pill.textContent = `#${prop.num} ${cleanName}`;
+      pill.title = `Jump directly to Concept Square #${prop.num}: ${cleanName}`;
+      pill.setAttribute("style", "appearance: none; -webkit-appearance: none; background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(255,255,255,0.22); color: #e2e8f0; border-radius: 999px; padding: 4px 12px; font-size: 0.72rem; font-weight: 700; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center;");
       pill.addEventListener("click", () => {
         if (window.sounds) window.sounds.playClick();
         const target = document.getElementById(`concept-square-${prop.num}`);
@@ -2444,7 +2454,7 @@ class ReadingEnhancementSuite {
     const playLabel = document.getElementById("tts-label");
     if (playBtn) playBtn.classList.add("playing");
     if (playIcon) playIcon.textContent = "⏹";
-    if (playLabel) playLabel.textContent = "Stop Audio";
+    if (playLabel) playLabel.textContent = "Stop";
 
     // Build speech queue
     this.ttsQueue = [
@@ -2535,7 +2545,7 @@ class ReadingEnhancementSuite {
     const playLabel = document.getElementById("tts-label");
     if (playBtn) playBtn.classList.remove("playing");
     if (playIcon) playIcon.textContent = "▶";
-    if (playLabel) playLabel.textContent = "Read Aloud";
+    if (playLabel) playLabel.textContent = "Listen";
     document.querySelectorAll(".speaking-card-active").forEach(el => el.classList.remove("speaking-card-active"));
   }
 
@@ -3360,16 +3370,18 @@ class ScienceIoApp {
           <button class="card-action-btn primary-action btn-card-view" data-id="${topic.id}">
             VIEW NOTES (${sqCount} SQUARES)
           </button>
+          <div class="card-dual-actions-row">
+            <button class="card-action-btn btn-card-pdf" data-id="${topic.id}">
+              📄 SCIENCE SHEET
+            </button>
+            <button class="card-action-btn btn-card-quiz" data-id="${topic.id}">
+              ⚡ PRACTICE QUIZ
+            </button>
+          </div>
           ${topic.redirectUrl ? `
           <button class="card-action-btn btn-card-redirect" style="background: rgba(10, 132, 255, 0.4);" onclick="window.open('${topic.redirectUrl}', '_blank')">
             🔗 EXTERNAL LINK
           </button>` : ""}
-          <button class="card-action-btn btn-card-pdf" data-id="${topic.id}">
-            SCIENCE SHEET
-          </button>
-          <button class="card-action-btn btn-card-quiz" data-id="${topic.id}">
-            PRACTICE QUIZ
-          </button>
         </div>
       `;
 
