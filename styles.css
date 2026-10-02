@@ -1222,31 +1222,43 @@ html, body {
 }
 
 .deck-card.pos-left-1 {
-  transform: translate3d(-300px, 0, -40px) rotateY(20deg) scale(0.88);
+  transform: translate3d(-310px, 0, -40px) rotateY(20deg) scale(0.88);
   z-index: 25;
-  opacity: 0.38;
-  filter: blur(1.2px) grayscale(25%);
+  opacity: 0.65;
+  filter: brightness(0.92);
+  cursor: pointer;
+}
+
+.deck-card.pos-left-1:hover {
+  opacity: 0.85;
+  transform: translate3d(-310px, -4px, -30px) rotateY(16deg) scale(0.91);
 }
 
 .deck-card.pos-left-2 {
-  transform: translate3d(-530px, 0, -140px) rotateY(32deg) scale(0.72);
+  transform: translate3d(-540px, 0, -140px) rotateY(32deg) scale(0.72);
   z-index: 10;
-  opacity: 0.18;
-  filter: blur(2.5px) grayscale(65%);
+  opacity: 0.22;
+  filter: blur(2px) grayscale(50%);
 }
 
 .deck-card.pos-right-1 {
-  transform: translate3d(300px, 0, -40px) rotateY(-20deg) scale(0.88);
+  transform: translate3d(310px, 0, -40px) rotateY(-20deg) scale(0.88);
   z-index: 25;
-  opacity: 0.38;
-  filter: blur(1.2px) grayscale(25%);
+  opacity: 0.65;
+  filter: brightness(0.92);
+  cursor: pointer;
+}
+
+.deck-card.pos-right-1:hover {
+  opacity: 0.85;
+  transform: translate3d(310px, -4px, -30px) rotateY(-16deg) scale(0.91);
 }
 
 .deck-card.pos-right-2 {
-  transform: translate3d(530px, 0, -140px) rotateY(-32deg) scale(0.72);
+  transform: translate3d(540px, 0, -140px) rotateY(-32deg) scale(0.72);
   z-index: 10;
-  opacity: 0.18;
-  filter: blur(2.5px) grayscale(65%);
+  opacity: 0.22;
+  filter: blur(2px) grayscale(50%);
 }
 
 .deck-card.pos-hidden {
@@ -1254,6 +1266,44 @@ html, body {
   opacity: 0;
   pointer-events: none;
   z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .carousel-stage-viewport {
+    height: 470px;
+  }
+  .deck-card {
+    width: 295px;
+    height: 430px;
+    padding: 26px 18px 22px;
+  }
+  .deck-card.pos-left-1 {
+    transform: translate3d(-190px, 0, -40px) rotateY(18deg) scale(0.82);
+    opacity: 0.4;
+  }
+  .deck-card.pos-right-1 {
+    transform: translate3d(190px, 0, -40px) rotateY(-18deg) scale(0.82);
+    opacity: 0.4;
+  }
+  .deck-card.pos-left-2, .deck-card.pos-right-2 {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .deck-card {
+    width: 280px;
+    height: 420px;
+    padding: 24px 16px 20px;
+  }
+  .deck-card.pos-left-1 {
+    transform: translate3d(-155px, 0, -50px) rotateY(18deg) scale(0.78);
+    opacity: 0.3;
+  }
+  .deck-card.pos-right-1 {
+    transform: translate3d(155px, 0, -50px) rotateY(-18deg) scale(0.78);
+    opacity: 0.3;
+  }
 }
 
 /* Card Details */

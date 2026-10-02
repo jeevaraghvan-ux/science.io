@@ -2351,9 +2351,6 @@ class ScienceIoApp {
           <button class="card-action-btn primary-action btn-card-view" data-id="${topic.id}">
             VIEW NOTES (${sqCount} SQUARES)
           </button>
-          <button class="card-action-btn btn-card-interactive" data-id="${topic.id}" style="background: rgba(52, 211, 153, 0.2); border-color: rgba(52, 211, 153, 0.45); color: #6ee7b7;">
-            🔬 INTERACTIVE VISUALIZER
-          </button>
           ${topic.redirectUrl ? `
           <button class="card-action-btn btn-card-redirect" style="background: rgba(10, 132, 255, 0.4);" onclick="window.open('${topic.redirectUrl}', '_blank')">
             🔗 EXTERNAL LINK
@@ -2368,11 +2365,13 @@ class ScienceIoApp {
       `;
 
       card.addEventListener("click", (e) => {
-        if (e.target.closest("button") || e.target.closest(".organelle-chip")) return;
+        if (this._hasDragged) return;
         if (idx !== this.carouselIndex) {
+          e.stopPropagation();
           this.carouselIndex = idx;
           sounds.playAsmrSlide();
           this.updateCarouselPositions();
+          return;
         }
       });
 
@@ -2403,22 +2402,39 @@ class ScienceIoApp {
     if (!stage) return;
     let startX = 0;
     let isDragging = false;
+    this._hasDragged = false;
 
     stage.addEventListener("pointerdown", (e) => {
       if (e.target.closest("button") || e.target.closest(".organelle-chip")) return;
       startX = e.clientX;
       isDragging = true;
+      this._hasDragged = false;
+    });
+
+    window.addEventListener("pointermove", (e) => {
+      if (!isDragging) return;
+      if (Math.abs(e.clientX - startX) > 10) {
+        this._hasDragged = true;
+      }
     });
 
     window.addEventListener("pointerup", (e) => {
       if (!isDragging) return;
       isDragging = false;
       const diffX = e.clientX - startX;
-      if (diffX > 45) {
+      if (diffX > 40) {
         this.slidePrev();
-      } else if (diffX < -45) {
+      } else if (diffX < -40) {
         this.slideNext();
       }
+      setTimeout(() => {
+        this._hasDragged = false;
+      }, 100);
+    });
+
+    window.addEventListener("pointercancel", () => {
+      isDragging = false;
+      this._hasDragged = false;
     });
   }
 
@@ -2441,34 +2457,43 @@ class ScienceIoApp {
   updateCarouselPositions() {
     const cards = document.querySelectorAll(".deck-card");
     const dots = document.querySelectorAll(".dot-indicator");
+    const n = cards.length;
+    if (n === 0) return;
 
-    cards.forEach((card, idx) => {
-      const offset = idx - this.carouselIndex;
-      card.className = "deck-card";
+    cards.forEach((card) => {
+      const idx = parseInt(card.dataset.index, 10);
+      card.classList.remove(
+        "pos-center",
+        "pos-left-1",
+        "pos-left-2",
+        "pos-right-1",
+        "pos-right-2",
+        "pos-hidden",
+        "active-center",
+        "left-card",
+        "right-card"
+      );
+      card.style.transform = "";
+      card.style.opacity = "";
+      card.style.zIndex = "";
+
+      let offset = idx - this.carouselIndex;
+      // Seamless circular wrapping for infinite coverflow
+      while (offset > n / 2) offset -= n;
+      while (offset < -n / 2) offset += n;
 
       if (offset === 0) {
-        card.classList.add("active-center");
-        card.style.transform = "translateX(0) translateZ(0) rotateY(0) scale(1)";
-        card.style.opacity = "1";
-        card.style.zIndex = "10";
+        card.classList.add("pos-center");
       } else if (offset === -1) {
-        card.classList.add("left-card");
-        card.style.transform = "translateX(-280px) translateZ(-150px) rotateY(25deg) scale(0.85)";
-        card.style.opacity = "0.65";
-        card.style.zIndex = "5";
+        card.classList.add("pos-left-1");
       } else if (offset === 1) {
-        card.classList.add("right-card");
-        card.style.transform = "translateX(280px) translateZ(-150px) rotateY(-25deg) scale(0.85)";
-        card.style.opacity = "0.65";
-        card.style.zIndex = "5";
-      } else if (offset < -1) {
-        card.style.transform = "translateX(-500px) translateZ(-300px) scale(0.7)";
-        card.style.opacity = "0";
-        card.style.zIndex = "1";
+        card.classList.add("pos-right-1");
+      } else if (offset === -2) {
+        card.classList.add("pos-left-2");
+      } else if (offset === 2) {
+        card.classList.add("pos-right-2");
       } else {
-        card.style.transform = "translateX(500px) translateZ(-300px) scale(0.7)";
-        card.style.opacity = "0";
-        card.style.zIndex = "1";
+        card.classList.add("pos-hidden");
       }
     });
 
@@ -2480,22 +2505,18 @@ class ScienceIoApp {
   attachCardButtonListeners() {
     document.querySelectorAll(".btn-card-view").forEach((btn) => {
       btn.addEventListener("click", (e) => {
+        const card = btn.closest(".deck-card");
+        if (card && !card.classList.contains("pos-center")) return;
         e.stopPropagation();
         sounds.playClick();
         this.openNotesViewer(btn.dataset.id, "notes");
       });
     });
 
-    document.querySelectorAll(".btn-card-interactive").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        sounds.playClick();
-        this.openNotesViewer(btn.dataset.id, "interactive");
-      });
-    });
-
     document.querySelectorAll(".organelle-chip").forEach((chip) => {
       chip.addEventListener("click", (e) => {
+        const card = chip.closest(".deck-card");
+        if (card && !card.classList.contains("pos-center")) return;
         e.stopPropagation();
         sounds.playClick();
         const topicId = chip.dataset.id;
@@ -2514,6 +2535,8 @@ class ScienceIoApp {
 
     document.querySelectorAll(".btn-card-pdf").forEach((btn) => {
       btn.addEventListener("click", (e) => {
+        const card = btn.closest(".deck-card");
+        if (card && !card.classList.contains("pos-center")) return;
         e.stopPropagation();
         sounds.playClick();
         this.printCheatSheet(btn.dataset.id);
@@ -2522,6 +2545,8 @@ class ScienceIoApp {
 
     document.querySelectorAll(".btn-card-quiz").forEach((btn) => {
       btn.addEventListener("click", (e) => {
+        const card = btn.closest(".deck-card");
+        if (card && !card.classList.contains("pos-center")) return;
         e.stopPropagation();
         sounds.playClick();
         this.openNotesViewer(btn.dataset.id, "practice");
@@ -3180,6 +3205,42 @@ class ScienceIoApp {
     // Carousel arrows
     document.getElementById("carousel-prev-btn")?.addEventListener("click", () => this.slidePrev());
     document.getElementById("carousel-next-btn")?.addEventListener("click", () => this.slideNext());
+
+    // Keyboard arrow keys navigation for carousel (Left / Right)
+    window.addEventListener("keydown", (e) => {
+      // 1. Never intercept if user is typing in input/textarea/select/editable
+      const tag = document.activeElement?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || document.activeElement?.isContentEditable) {
+        return;
+      }
+
+      // 2. Never intercept if any modal is visible
+      const openModal = document.querySelector(`
+        #notes-viewer-modal:not(.hidden),
+        #practice-quiz-modal:not(.hidden),
+        #vault-modal:not(.hidden),
+        #publish-modal:not(.hidden),
+        #asst-modal:not(.hidden),
+        #feedback-modal:not(.hidden),
+        #curriculum-builder-modal:not(.hidden)
+      `);
+      if (openModal) {
+        return;
+      }
+
+      // 3. Only active when viewing the carousel
+      if (this.activeView !== "carousel") {
+        return;
+      }
+
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        this.slidePrev();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        this.slideNext();
+      }
+    });
 
     // Search input
     const searchInput = document.getElementById("notes-search-input");
