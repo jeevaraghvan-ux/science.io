@@ -46,32 +46,32 @@ body {
 .ambient-fluid-canvas-wrap::before {
   content: "";
   position: absolute;
-  inset: -15%;
+  inset: -10%;
   background: 
-    radial-gradient(circle at 12% 18%, rgba(255, 65, 108, 0.90) 0%, rgba(255, 65, 108, 0.40) 25%, transparent 52%),
-    radial-gradient(circle at 88% 12%, rgba(255, 122, 0, 0.90) 0%, rgba(255, 122, 0, 0.40) 25%, transparent 52%),
-    radial-gradient(circle at 50% 90%, rgba(255, 183, 3, 0.85) 0%, rgba(255, 183, 3, 0.35) 25%, transparent 50%),
-    radial-gradient(circle at 10% 82%, rgba(168, 85, 247, 0.90) 0%, rgba(168, 85, 247, 0.40) 28%, transparent 52%),
-    radial-gradient(circle at 90% 85%, rgba(10, 132, 255, 0.88) 0%, rgba(10, 132, 255, 0.38) 28%, transparent 55%),
-    radial-gradient(circle at 50% 45%, rgba(255, 0, 127, 0.80) 0%, rgba(255, 0, 127, 0.35) 25%, transparent 55%),
-    radial-gradient(circle at 82% 48%, rgba(0, 240, 255, 0.90) 0%, rgba(14, 165, 233, 0.45) 28%, transparent 58%),
-    radial-gradient(circle at 18% 50%, rgba(16, 185, 129, 0.90) 0%, rgba(5, 150, 105, 0.40) 28%, transparent 58%),
-    radial-gradient(circle at 50% 15%, rgba(191, 90, 242, 0.85) 0%, rgba(138, 43, 226, 0.35) 28%, transparent 55%);
-  filter: blur(40px) contrast(140%) brightness(115%);
+    radial-gradient(circle at 12% 18%, rgba(255, 65, 108, 0.75) 0%, rgba(255, 65, 108, 0.35) 25%, rgba(255, 65, 108, 0.12) 45%, transparent 65%),
+    radial-gradient(circle at 88% 12%, rgba(255, 122, 0, 0.75) 0%, rgba(255, 122, 0, 0.35) 25%, rgba(255, 122, 0, 0.12) 45%, transparent 65%),
+    radial-gradient(circle at 50% 90%, rgba(255, 183, 3, 0.70) 0%, rgba(255, 183, 3, 0.30) 25%, rgba(255, 183, 3, 0.10) 45%, transparent 65%),
+    radial-gradient(circle at 10% 82%, rgba(168, 85, 247, 0.75) 0%, rgba(168, 85, 247, 0.35) 28%, rgba(168, 85, 247, 0.12) 48%, transparent 68%),
+    radial-gradient(circle at 90% 85%, rgba(10, 132, 255, 0.75) 0%, rgba(10, 132, 255, 0.35) 28%, rgba(10, 132, 255, 0.12) 48%, transparent 68%),
+    radial-gradient(circle at 50% 45%, rgba(255, 0, 127, 0.65) 0%, rgba(255, 0, 127, 0.30) 25%, rgba(255, 0, 127, 0.10) 45%, transparent 65%),
+    radial-gradient(circle at 82% 48%, rgba(0, 240, 255, 0.75) 0%, rgba(14, 165, 233, 0.35) 28%, rgba(14, 165, 233, 0.12) 48%, transparent 68%),
+    radial-gradient(circle at 18% 50%, rgba(16, 185, 129, 0.75) 0%, rgba(5, 150, 105, 0.35) 28%, rgba(5, 150, 105, 0.12) 48%, transparent 68%),
+    radial-gradient(circle at 50% 15%, rgba(191, 90, 242, 0.70) 0%, rgba(138, 43, 226, 0.30) 28%, rgba(138, 43, 226, 0.10) 48%, transparent 65%);
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   will-change: transform;
-  animation: liquidMesh 26s infinite alternate ease-in-out;
+  animation: liquidMesh 32s infinite alternate ease-in-out;
   z-index: -2;
 }
 
 @keyframes liquidMesh {
-  0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
-  50% { transform: translate3d(-3%, 3%, 0) scale(1.08) rotate(10deg); }
-  100% { transform: translate3d(3%, -3%, 0) scale(0.95) rotate(-10deg); }
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-2%, 2%, 0) scale(1.04); }
+  100% { transform: translate3d(2%, -2%, 0) scale(0.98); }
 }
 
-/* Remove cyber grid to let warm fluid blobs and liquid mesh radiate */
+/* Eliminate expensive duplicate fluid blobs and noise to ensure silky smooth 60fps */
+.fluid-blob,
 .loader-cyber-grid,
 .ambient-noise-layer {
   display: none !important;
