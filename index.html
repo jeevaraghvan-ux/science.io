@@ -23,8 +23,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20.0">
-  <link rel="stylesheet" href="ios27.css?v=20.0">
+  <link rel="stylesheet" href="styles.css?v=21.0">
+  <link rel="stylesheet" href="ios27.css?v=21.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
   <script>
@@ -336,6 +336,78 @@
         <button class="modal-tab-btn active" id="modal-tab-notes">Structured Notes</button>
         <button class="modal-tab-btn" id="modal-tab-interactive">Interactive Visualizer</button>
         <button class="modal-tab-btn" id="modal-tab-practice">Quick Self-Check</button>
+      </div>
+
+      <!-- READING ENHANCEMENT SUITE (Bionic, TTS with Voice Choice, Flashcards, Highlighter, Zen) -->
+      <div class="reading-controls-bar" id="reading-controls-bar">
+        <!-- Top Reading Progress Indicator -->
+        <div class="reading-progress-track">
+          <div class="reading-progress-fill" id="reading-progress-fill"></div>
+        </div>
+
+        <div class="reading-toolbar-row">
+          <!-- Voice Narration & Voice Choice -->
+          <div class="reading-tool-group tts-group">
+            <button class="reading-pill-btn tts-main-btn" id="btn-tts-play" title="Listen to audio narration">
+              <span id="tts-icon">▶</span>
+              <span id="tts-label">Read Aloud</span>
+            </button>
+            <div class="tts-voice-wrapper" title="Choose Voice Accent / Narrator">
+              <select class="reading-select tts-voice-select" id="tts-voice-select">
+                <option value="">Default System Voice</option>
+              </select>
+            </div>
+            <select class="reading-select tts-speed-select" id="tts-speed-select" title="Narration Speed">
+              <option value="1">1.0x</option>
+              <option value="0.85">0.85x</option>
+              <option value="1.2">1.2x</option>
+            </select>
+          </div>
+
+          <!-- Study Modes & Bionic Speed-Reading -->
+          <div class="reading-tool-group modes-group">
+            <button class="reading-pill-btn" id="btn-toggle-bionic" title="Bionic Speed Reading: Bolds initial word letters for faster focus">
+              <span>⚡</span> Bionic
+            </button>
+            <button class="reading-pill-btn" id="btn-toggle-flashcards" title="Switch between Full Notes and 3D Interactive Flashcards">
+              <span id="flashcard-btn-icon">🃏</span> Flashcards
+            </button>
+            <button class="reading-pill-btn" id="btn-zen-mode" title="Distraction-Free Zen Fullscreen Reading">
+              <span>⛶</span> Zen
+            </button>
+          </div>
+
+          <!-- Typography & Highlighter -->
+          <div class="reading-tool-group comfort-group">
+            <div class="font-stepper" title="Adjust text size">
+              <button class="reading-step-btn" id="btn-font-dec" title="Smaller text">A-</button>
+              <button class="reading-step-btn" id="btn-font-inc" title="Larger text">A+</button>
+            </div>
+            <button class="reading-pill-btn" id="btn-dyslexia-font" title="High-Legibility Dyslexia Friendly Font">
+              <span>🔤</span> Font
+            </button>
+            <div class="highlighter-palette" title="Highlighter: Click color then select note text">
+              <button class="hl-color-btn hl-cyan active" data-color="cyan" title="Neon Cyan Highlight"></button>
+              <button class="hl-color-btn hl-amber" data-color="amber" title="Neon Amber Highlight"></button>
+              <button class="hl-color-btn hl-emerald" data-color="emerald" title="Neon Emerald Highlight"></button>
+              <button class="hl-clear-btn" id="btn-clear-highlights" title="Clear all personal highlights on this note">🧹</button>
+            </div>
+            <span class="reading-time-pill" id="reading-time-pill">⏱️ 2 min read</span>
+          </div>
+        </div>
+
+        <!-- Sticky Table of Contents Mini Jump Bar -->
+        <div class="notes-toc-strip" id="notes-toc-strip"></div>
+      </div>
+
+      <!-- Floating Vocab Popover Tooltip -->
+      <div class="vocab-popover hidden" id="vocab-popover">
+        <div class="vocab-pop-header">
+          <span class="vocab-pop-word" id="vocab-pop-word">Term</span>
+          <span class="vocab-pop-pron" id="vocab-pop-pron">pronunciation</span>
+          <button class="vocab-pop-speak-btn" id="vocab-pop-speak-btn" title="Hear Pronunciation">🔊</button>
+        </div>
+        <div class="vocab-pop-def" id="vocab-pop-def">Definition</div>
       </div>
 
       <div class="modal-body-scrollable">
@@ -869,7 +941,7 @@
     </button>
   </div>
 
-  <script src="published_notes.js?v=20.0"></script>
-  <script src="app.js?v=20.0"></script>
+  <script src="published_notes.js?v=21.0"></script>
+  <script src="app.js?v=21.0"></script>
 </body>
 </html>

@@ -1914,9 +1914,705 @@ function ensurePlantCellUnit(notesList) {
   );
 }
 
+// ================= 5TH GRADE SCIENCE VOCABULARY GLOSSARY =================
+const SCIENCE_VOCAB_GLOSSARY = {
+  "chloroplast": { pron: "KLOR-uh-plast", def: "A green plant organelle holding chlorophyll where photosynthesis creates food from sunlight." },
+  "chloroplasts": { pron: "KLOR-uh-plasts", def: "Green plant organelles holding chlorophyll where photosynthesis creates food from sunlight." },
+  "photosynthesis": { pron: "foh-toh-SIN-thuh-sis", def: "Process where green plants convert carbon dioxide, water, and solar energy into glucose and oxygen." },
+  "mitochondria": { pron: "my-toe-KON-dree-uh", def: "The powerhouses of the cell that generate cellular energy (ATP) through respiration." },
+  "cytoplasm": { pron: "SY-toe-plaz-um", def: "Jelly-like fluid that fills the cell interior, cushioning and supporting all organelles." },
+  "nucleus": { pron: "NOO-klee-us", def: "The command center of a cell holding genetic DNA instructions and directing cell activities." },
+  "vacuole": { pron: "VAK-yoo-ohl", def: "Storage sac inside cells for water, nutrients, and waste (extra-large in plant cells for structural turgor pressure)." },
+  "vacuoles": { pron: "VAK-yoo-ohls", def: "Storage sacs inside cells for water, nutrients, and cellular waste." },
+  "cell wall": { pron: "sel wawl", def: "Rigid outer cellulose layer providing physical support, protection, and rectangular shape to plant cells." },
+  "cell membrane": { pron: "sel MEM-brayn", def: "Flexible semi-permeable boundary controlling which molecules enter and exit the cell." },
+  "endoplasmic reticulum": { pron: "en-doh-PLAZ-mik reh-TIK-yuh-lum", def: "Intracellular membrane network synthesizing and transporting essential proteins and lipids." },
+  "golgi body": { pron: "GOHL-jee BAH-dee", def: "The cellular shipping department that modifies, packages, and sorts proteins into vesicles." },
+  "ribosome": { pron: "RY-buh-sohm", def: "Microscopic molecular factory that translates genetic code to assemble amino acids into proteins." },
+  "ribosomes": { pron: "RY-buh-sohms", def: "Microscopic molecular factories that assemble amino acids into essential proteins." },
+  "diffusion": { pron: "dih-FYOO-zhun", def: "Movement of particles from an area of higher concentration to lower concentration until balanced." },
+  "osmosis": { pron: "oz-MOH-sis", def: "The spontaneous diffusion of water molecules through a selectively permeable membrane." },
+  "organism": { pron: "OR-guh-niz-um", def: "Any individual living thing (animal, plant, fungus, or microbe) capable of life processes." },
+  "unicellular": { pron: "yoo-nih-SEL-yoo-ler", def: "An organism made of only one single independent cell (e.g., amoeba, paramecium, bacterium)." },
+  "multicellular": { pron: "mul-tee-SEL-yoo-ler", def: "An organism made of many specialized cells organized into tissues, organs, and systems." },
+  "hypothesis": { pron: "hy-POTH-uh-sis", def: "A testable prediction or explanation for an observation, often framed as 'If... then...'." },
+  "variable": { pron: "VAIR-ee-uh-bul", def: "Any factor or condition in an experiment that can be changed, controlled, or measured." },
+  "ecosystem": { pron: "EE-koh-sis-tum", def: "A community of living organisms interacting with non-living environmental factors." },
+  "density": { pron: "DEN-sih-tee", def: "Mass per unit volume of a substance (how tightly matter particles are packed together)." },
+  "evaporation": { pron: "ee-vap-uh-RAY-shun", def: "Phase change where liquid absorbs heat energy and turns into gaseous water vapor." },
+  "condensation": { pron: "kon-den-SAY-shun", def: "Phase change where gaseous vapor cools down and turns back into liquid droplets." }
+};
+
+function bionicWord(word) {
+  if (word.length <= 1) return `<b>${word}</b>`;
+  if (word.length <= 3) return `<b class="bionic-fix">${word.slice(0, 1)}</b>${word.slice(1)}`;
+  const mid = Math.ceil(word.length * 0.45);
+  return `<b class="bionic-fix">${word.slice(0, mid)}</b>${word.slice(mid)}`;
+}
+
+function applyBionicReading(html) {
+  return html.replace(/(<[^>]+>)|([A-Za-z0-9]+)/g, (match, tag, word) => {
+    if (tag) return tag;
+    return bionicWord(word);
+  });
+}
+
+function annotateVocabTerms(html) {
+  const terms = Object.keys(SCIENCE_VOCAB_GLOSSARY).sort((a, b) => b.length - a.length);
+  const regex = new RegExp(`(?![^<]*>)(\\b(?:${terms.join('|')})\\b)`, 'gi');
+  return html.replace(regex, (match) => {
+    const key = match.toLowerCase();
+    return `<span class="vocab-term" data-term="${key}">${match}</span>`;
+  });
+}
+
+// ================= READING ENHANCEMENT SUITE CONTROLLER =================
+class ReadingEnhancementSuite {
+  constructor(app) {
+    this.app = app;
+    this.currentTopic = null;
+    this.isBionic = false;
+    this.isFlashcard = false;
+    this.isZen = false;
+    this.isDyslexia = false;
+    this.fontSize = 16;
+    this.activeColor = "cyan";
+    this.ttsPlaying = false;
+    this.ttsQueue = [];
+    this.ttsIndex = 0;
+    this.selectedVoice = null;
+    this.ttsSpeed = 1.0;
+    this.voices = [];
+    this.masteredCards = new Set();
+    this.currentVocabTerm = null;
+  }
+
+  init() {
+    this.initVoices();
+    this.initToolbarEvents();
+    this.initVocabEvents();
+    this.initScrollProgress();
+    this.initHighlighter();
+  }
+
+  initVoices() {
+    const populateVoiceDropdown = () => {
+      if (typeof window === "undefined" || !window.speechSynthesis) return;
+      this.voices = window.speechSynthesis.getVoices();
+      const select = document.getElementById("tts-voice-select");
+      if (!select) return;
+
+      select.innerHTML = "";
+      if (this.voices.length === 0) {
+        select.innerHTML = `<option value="">System Default Voice</option>`;
+        return;
+      }
+
+      // Group and sort voices: English first, then others
+      const sortedVoices = [...this.voices].sort((a, b) => {
+        const aEng = a.lang.startsWith("en");
+        const bEng = b.lang.startsWith("en");
+        if (aEng && !bEng) return -1;
+        if (!aEng && bEng) return 1;
+        return a.name.localeCompare(b.name);
+      });
+
+      const savedVoiceName = localStorage.getItem("scienceio_tts_voice");
+
+      sortedVoices.forEach((v) => {
+        const opt = document.createElement("option");
+        opt.value = v.name;
+        const cleanLang = v.lang.replace('_', '-');
+        opt.textContent = `${v.name} (${cleanLang})`;
+        if (savedVoiceName && v.name === savedVoiceName) {
+          opt.selected = true;
+          this.selectedVoice = v;
+        }
+        select.appendChild(opt);
+      });
+
+      if (!this.selectedVoice && sortedVoices.length > 0) {
+        const preferred = sortedVoices.find(v => v.lang.startsWith("en") && (v.name.includes("Natural") || v.name.includes("Google") || v.name.includes("Samantha") || v.name.includes("Zira"))) || sortedVoices[0];
+        if (preferred) {
+          this.selectedVoice = preferred;
+          select.value = preferred.name;
+        }
+      }
+    };
+
+    populateVoiceDropdown();
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.onvoiceschanged = populateVoiceDropdown;
+    }
+  }
+
+  initToolbarEvents() {
+    // 1. TTS Play / Stop
+    document.getElementById("btn-tts-play")?.addEventListener("click", () => {
+      this.toggleAudio();
+    });
+
+    // 2. TTS Voice Selection
+    document.getElementById("tts-voice-select")?.addEventListener("change", (e) => {
+      const voiceName = e.target.value;
+      this.selectedVoice = this.voices.find(v => v.name === voiceName) || null;
+      if (voiceName) {
+        localStorage.setItem("scienceio_tts_voice", voiceName);
+      }
+      if (this.ttsPlaying) {
+        this.stopAudio();
+        this.startSequentialAudio();
+      }
+    });
+
+    // 3. TTS Speed Selection
+    document.getElementById("tts-speed-select")?.addEventListener("change", (e) => {
+      this.ttsSpeed = parseFloat(e.target.value) || 1.0;
+      if (this.ttsPlaying) {
+        this.stopAudio();
+        this.startSequentialAudio();
+      }
+    });
+
+    // 4. Bionic Reading Toggle
+    document.getElementById("btn-toggle-bionic")?.addEventListener("click", () => {
+      this.toggleBionic();
+    });
+
+    // 5. 3D Flashcards Mode Toggle
+    document.getElementById("btn-toggle-flashcards")?.addEventListener("click", () => {
+      this.toggleFlashcards();
+    });
+
+    // 6. Zen Focus Mode Toggle
+    document.getElementById("btn-zen-mode")?.addEventListener("click", () => {
+      this.toggleZen();
+    });
+
+    // 7. Typography: Font sizing
+    document.getElementById("btn-font-dec")?.addEventListener("click", () => {
+      this.adjustFontSize(-1);
+    });
+    document.getElementById("btn-font-inc")?.addEventListener("click", () => {
+      this.adjustFontSize(1);
+    });
+
+    // 8. Dyslexia-Friendly Font Toggle
+    document.getElementById("btn-dyslexia-font")?.addEventListener("click", () => {
+      this.toggleDyslexia();
+    });
+
+    // 9. Highlighter Color Selection
+    document.querySelectorAll(".hl-color-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".hl-color-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        this.activeColor = btn.dataset.color || "cyan";
+      });
+    });
+
+    // 10. Clear Highlights Button
+    document.getElementById("btn-clear-highlights")?.addEventListener("click", () => {
+      if (!this.currentTopic) return;
+      if (confirm("Clear all your personal highlights on this unit?")) {
+        localStorage.removeItem("scienceio_highlights_" + this.currentTopic.id);
+        if (this.app) this.app.renderModalProperties(this.currentTopic);
+        if (window.sounds) window.sounds.playClick();
+      }
+    });
+
+    // 11. Popover Pronounce Speaker Button
+    document.getElementById("vocab-pop-speak-btn")?.addEventListener("click", () => {
+      if (this.currentVocabTerm && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(this.currentVocabTerm);
+        if (this.selectedVoice) utter.voice = this.selectedVoice;
+        utter.rate = 0.9;
+        window.speechSynthesis.speak(utter);
+      }
+    });
+
+    // Event delegation on container for card speaker buttons & flashcard interactions
+    const container = document.getElementById("modal-sections-container");
+    if (container) {
+      container.addEventListener("click", (e) => {
+        // Individual Card Speaker Button
+        const ttsBtn = e.target.closest(".prop-tts-btn");
+        if (ttsBtn) {
+          e.stopPropagation();
+          const sq = parseInt(ttsBtn.dataset.sq, 10);
+          this.playSingleSquare(sq);
+          return;
+        }
+
+        // Flashcard Rating Buttons
+        const fcReviewBtn = e.target.closest(".fc-btn.review");
+        if (fcReviewBtn) {
+          e.stopPropagation();
+          const card = fcReviewBtn.closest(".flashcard-card");
+          if (card) {
+            const num = card.dataset.sq;
+            this.masteredCards.delete(num);
+            card.style.borderColor = "#ef4444";
+            this.updateFlashcardProgress();
+            if (window.sounds) window.sounds.playClick();
+          }
+          return;
+        }
+
+        const fcMasteredBtn = e.target.closest(".fc-btn.mastered");
+        if (fcMasteredBtn) {
+          e.stopPropagation();
+          const card = fcMasteredBtn.closest(".flashcard-card");
+          if (card) {
+            const num = card.dataset.sq;
+            this.masteredCards.add(num);
+            card.style.borderColor = "#10b981";
+            this.updateFlashcardProgress();
+            if (window.sounds) window.sounds.playSuccess();
+          }
+          return;
+        }
+
+        // Flashcard Flip
+        const flashCard = e.target.closest(".flashcard-card");
+        if (flashCard && !e.target.closest(".flashcard-review-bar")) {
+          flashCard.classList.toggle("flipped");
+          if (window.sounds) window.sounds.playClick();
+          return;
+        }
+      });
+    }
+  }
+
+  initVocabEvents() {
+    const container = document.getElementById("modal-sections-container");
+    const popover = document.getElementById("vocab-popover");
+    if (!container || !popover) return;
+
+    container.addEventListener("click", (e) => {
+      const vocabSpan = e.target.closest(".vocab-term");
+      if (vocabSpan) {
+        e.stopPropagation();
+        const term = vocabSpan.dataset.term;
+        this.showVocabPopover(term, vocabSpan);
+      }
+    });
+
+    container.addEventListener("mouseover", (e) => {
+      const vocabSpan = e.target.closest(".vocab-term");
+      if (vocabSpan) {
+        const term = vocabSpan.dataset.term;
+        this.showVocabPopover(term, vocabSpan);
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".vocab-popover") && !e.target.closest(".vocab-term")) {
+        this.hideVocabPopover();
+      }
+    });
+  }
+
+  showVocabPopover(termKey, targetEl) {
+    const popover = document.getElementById("vocab-popover");
+    if (!popover || !termKey) return;
+    const entry = SCIENCE_VOCAB_GLOSSARY[termKey.toLowerCase()];
+    if (!entry) return;
+
+    this.currentVocabTerm = termKey;
+    const wordEl = document.getElementById("vocab-pop-word");
+    const pronEl = document.getElementById("vocab-pop-pron");
+    const defEl = document.getElementById("vocab-pop-def");
+
+    if (wordEl) wordEl.textContent = termKey;
+    if (pronEl) pronEl.textContent = entry.pron ? `/${entry.pron}/` : "";
+    if (defEl) defEl.textContent = entry.def;
+
+    const modalWindow = document.querySelector(".notes-detail-window");
+    const modalRect = modalWindow ? modalWindow.getBoundingClientRect() : { top: 0, left: 0 };
+    const rect = targetEl.getBoundingClientRect();
+
+    popover.classList.remove("hidden");
+    const popWidth = 300;
+    let leftPos = rect.left - modalRect.left;
+    if (leftPos + popWidth > (modalRect.width - 20)) {
+      leftPos = modalRect.width - popWidth - 20;
+    }
+    if (leftPos < 15) leftPos = 15;
+
+    let topPos = rect.top - modalRect.top - 110;
+    if (topPos < 10) {
+      topPos = rect.bottom - modalRect.top + 10;
+    }
+
+    popover.style.left = `${leftPos}px`;
+    popover.style.top = `${topPos}px`;
+  }
+
+  hideVocabPopover() {
+    const popover = document.getElementById("vocab-popover");
+    if (popover) popover.classList.add("hidden");
+  }
+
+  initScrollProgress() {
+    const scrollContainer = document.querySelector(".modal-body-scrollable");
+    const fill = document.getElementById("reading-progress-fill");
+    if (!scrollContainer || !fill) return;
+
+    scrollContainer.addEventListener("scroll", () => {
+      const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+      if (scrollHeight > 0) {
+        const pct = Math.min(100, Math.max(0, (scrollContainer.scrollTop / scrollHeight) * 100));
+        fill.style.width = `${pct}%`;
+      }
+    }, { passive: true });
+  }
+
+  initHighlighter() {
+    const container = document.getElementById("modal-sections-container");
+    if (!container) return;
+
+    const applySelectionHighlight = () => {
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount === 0) return;
+      const text = selection.toString().trim();
+      if (text.length < 2) return;
+
+      const range = selection.getRangeAt(0);
+      const containerElem = range.commonAncestorContainer;
+      const parentCard = (containerElem.nodeType === 3 ? containerElem.parentNode : containerElem).closest(".property-detail-card");
+      if (!parentCard) return;
+
+      try {
+        const mark = document.createElement("mark");
+        mark.className = `neon-highlight hl-${this.activeColor}`;
+        range.surroundContents(mark);
+        selection.removeAllRanges();
+        this.saveHighlights();
+      } catch (err) {
+        // Selection crosses node boundaries, handled gracefully
+      }
+    };
+
+    container.addEventListener("mouseup", applySelectionHighlight);
+    container.addEventListener("touchend", () => {
+      setTimeout(applySelectionHighlight, 120);
+    });
+  }
+
+  saveHighlights() {
+    if (!this.currentTopic) return;
+    const container = document.getElementById("modal-sections-container");
+    if (!container) return;
+    localStorage.setItem("scienceio_highlights_" + this.currentTopic.id, container.innerHTML);
+  }
+
+  onOpenTopic(topic) {
+    this.currentTopic = topic;
+    this.masteredCards.clear();
+    this.hideVocabPopover();
+    this.stopAudio();
+
+    // 1. Calculate reading time
+    let totalWords = (topic.title || "").split(/\s+/).length + (topic.description || "").split(/\s+/).length;
+    if (topic.properties) {
+      topic.properties.forEach(p => {
+        totalWords += (p.name || "").split(/\s+/).length;
+        totalWords += (p.explanation || "").split(/\s+/).length;
+        totalWords += (p.example || "").split(/\s+/).length;
+      });
+    }
+    const mins = Math.max(1, Math.ceil(totalWords / 175));
+    const timeEl = document.getElementById("reading-time-pill");
+    if (timeEl) timeEl.textContent = `⏱️ ${mins} min read`;
+
+    // 2. Render Sticky Jump Bar (TOC)
+    this.renderTOC(topic);
+
+    // 3. Reset progress bar
+    const fill = document.getElementById("reading-progress-fill");
+    if (fill) fill.style.width = "0%";
+  }
+
+  renderTOC(topic) {
+    const strip = document.getElementById("notes-toc-strip");
+    if (!strip) return;
+    strip.innerHTML = "";
+    if (!topic || !topic.properties || topic.properties.length === 0) return;
+
+    topic.properties.forEach((prop) => {
+      const pill = document.createElement("button");
+      pill.className = "toc-pill";
+      pill.textContent = `#${prop.num} ${prop.name}`;
+      pill.title = `Jump directly to Concept Square #${prop.num}`;
+      pill.addEventListener("click", () => {
+        if (window.sounds) window.sounds.playClick();
+        const target = document.getElementById(`concept-square-${prop.num}`);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "center" });
+          target.classList.add("speaking-card-active");
+          setTimeout(() => target.classList.remove("speaking-card-active"), 1200);
+        }
+      });
+      strip.appendChild(pill);
+    });
+  }
+
+  toggleBionic() {
+    this.isBionic = !this.isBionic;
+    const btn = document.getElementById("btn-toggle-bionic");
+    if (btn) btn.classList.toggle("active", this.isBionic);
+    if (window.sounds) window.sounds.playClick();
+    if (this.app && this.currentTopic) {
+      this.app.renderModalProperties(this.currentTopic);
+    }
+  }
+
+  toggleFlashcards() {
+    this.isFlashcard = !this.isFlashcard;
+    const btn = document.getElementById("btn-toggle-flashcards");
+    if (btn) {
+      btn.classList.toggle("active", this.isFlashcard);
+      btn.innerHTML = this.isFlashcard ? `<span>📄</span> Full Notes` : `<span>🃏</span> Flashcards`;
+    }
+    if (window.sounds) window.sounds.playClick();
+    if (this.app && this.currentTopic) {
+      this.app.renderModalProperties(this.currentTopic);
+    }
+  }
+
+  toggleZen() {
+    this.isZen = !this.isZen;
+    const modal = document.getElementById("notes-viewer-modal");
+    const btn = document.getElementById("btn-zen-mode");
+    if (modal) modal.classList.toggle("zen-mode-active", this.isZen);
+    if (btn) {
+      btn.classList.toggle("active", this.isZen);
+      btn.innerHTML = this.isZen ? `<span>✕</span> Exit Zen` : `<span>⛶</span> Zen`;
+    }
+    if (window.sounds) window.sounds.playClick();
+  }
+
+  exitZenMode() {
+    this.isZen = false;
+    const modal = document.getElementById("notes-viewer-modal");
+    const btn = document.getElementById("btn-zen-mode");
+    if (modal) modal.classList.remove("zen-mode-active");
+    if (btn) {
+      btn.classList.remove("active");
+      btn.innerHTML = `<span>⛶</span> Zen`;
+    }
+  }
+
+  adjustFontSize(delta) {
+    this.fontSize = Math.max(13, Math.min(22, this.fontSize + delta));
+    const pane = document.getElementById("pane-structured-notes");
+    if (pane) {
+      pane.style.fontSize = `${this.fontSize}px`;
+    }
+    if (window.sounds) window.sounds.playClick();
+  }
+
+  toggleDyslexia() {
+    this.isDyslexia = !this.isDyslexia;
+    const pane = document.getElementById("pane-structured-notes");
+    const btn = document.getElementById("btn-dyslexia-font");
+    if (pane) pane.classList.toggle("dyslexia-font-mode", this.isDyslexia);
+    if (btn) btn.classList.toggle("active", this.isDyslexia);
+    if (window.sounds) window.sounds.playClick();
+  }
+
+  toggleAudio() {
+    if (this.ttsPlaying) {
+      this.stopAudio();
+    } else {
+      this.startSequentialAudio();
+    }
+  }
+
+  startSequentialAudio() {
+    if (!this.currentTopic || typeof window.speechSynthesis === "undefined") {
+      alert("Text-to-speech is not supported in this browser.");
+      return;
+    }
+
+    this.stopAudio();
+    this.ttsPlaying = true;
+    const playBtn = document.getElementById("btn-tts-play");
+    const playIcon = document.getElementById("tts-icon");
+    const playLabel = document.getElementById("tts-label");
+    if (playBtn) playBtn.classList.add("playing");
+    if (playIcon) playIcon.textContent = "⏹";
+    if (playLabel) playLabel.textContent = "Stop Audio";
+
+    // Build speech queue
+    this.ttsQueue = [
+      { text: `${this.currentTopic.title}. ${this.currentTopic.description || ''}`, cardId: null }
+    ];
+
+    if (this.currentTopic.properties) {
+      this.currentTopic.properties.forEach(prop => {
+        const text = `Concept Square ${prop.num}: ${prop.name}. ${prop.explanation}. Scientific Observation: ${prop.example || ''}`;
+        this.ttsQueue.push({ text, cardId: `concept-square-${prop.num}` });
+      });
+    }
+
+    this.ttsIndex = 0;
+    this.speakNextQueueItem();
+  }
+
+  speakNextQueueItem() {
+    if (!this.ttsPlaying || this.ttsIndex >= this.ttsQueue.length) {
+      this.stopAudio();
+      return;
+    }
+
+    const item = this.ttsQueue[this.ttsIndex];
+    const utter = new SpeechSynthesisUtterance(item.text);
+    if (this.selectedVoice) utter.voice = this.selectedVoice;
+    utter.rate = this.ttsSpeed;
+    utter.pitch = 1.0;
+
+    utter.onstart = () => {
+      document.querySelectorAll(".speaking-card-active").forEach(el => el.classList.remove("speaking-card-active"));
+      if (item.cardId) {
+        const target = document.getElementById(item.cardId);
+        if (target) {
+          target.classList.add("speaking-card-active");
+          target.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }
+    };
+
+    utter.onend = () => {
+      if (item.cardId) {
+        document.getElementById(item.cardId)?.classList.remove("speaking-card-active");
+      }
+      this.ttsIndex++;
+      this.speakNextQueueItem();
+    };
+
+    utter.onerror = () => {
+      this.stopAudio();
+    };
+
+    window.speechSynthesis.speak(utter);
+  }
+
+  playSingleSquare(squareNum) {
+    if (!this.currentTopic || !this.currentTopic.properties || typeof window.speechSynthesis === "undefined") return;
+    const prop = this.currentTopic.properties.find(p => p.num === squareNum);
+    if (!prop) return;
+
+    this.stopAudio();
+    const text = `Concept Square ${prop.num}: ${prop.name}. ${prop.explanation}. Scientific Observation: ${prop.example || ''}`;
+    const utter = new SpeechSynthesisUtterance(text);
+    if (this.selectedVoice) utter.voice = this.selectedVoice;
+    utter.rate = this.ttsSpeed;
+
+    const card = document.getElementById(`concept-square-${prop.num}`);
+    utter.onstart = () => {
+      card?.classList.add("speaking-card-active");
+    };
+    utter.onend = () => {
+      card?.classList.remove("speaking-card-active");
+    };
+    utter.onerror = () => {
+      card?.classList.remove("speaking-card-active");
+    };
+
+    window.speechSynthesis.speak(utter);
+  }
+
+  stopAudio() {
+    this.ttsPlaying = false;
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+    const playBtn = document.getElementById("btn-tts-play");
+    const playIcon = document.getElementById("tts-icon");
+    const playLabel = document.getElementById("tts-label");
+    if (playBtn) playBtn.classList.remove("playing");
+    if (playIcon) playIcon.textContent = "▶";
+    if (playLabel) playLabel.textContent = "Read Aloud";
+    document.querySelectorAll(".speaking-card-active").forEach(el => el.classList.remove("speaking-card-active"));
+  }
+
+  updateFlashcardProgress() {
+    if (!this.currentTopic || !this.currentTopic.properties) return;
+    const total = this.currentTopic.properties.length;
+    const mastered = this.masteredCards.size;
+    const pill = document.getElementById("flashcard-progress-pill");
+    if (pill) {
+      pill.textContent = `Mastered: ${mastered} / ${total}`;
+    }
+  }
+
+  renderFlashcards(topic, container) {
+    container.innerHTML = "";
+    const grid = document.createElement("div");
+    grid.className = "flashcards-mode-grid";
+
+    const headerStrip = document.createElement("div");
+    headerStrip.style.cssText = "grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; padding: 6px 4px 12px;";
+    headerStrip.innerHTML = `
+      <span style="font-size: 0.88rem; font-weight: 700; color: #a5f3fc;">🃏 Interactive 3D Study Flashcards (Tap card to flip)</span>
+      <span id="flashcard-progress-pill" style="font-size: 0.78rem; font-weight: 800; padding: 4px 12px; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; border-radius: 999px; color: #6ee7b7;">
+        Mastered: ${this.masteredCards.size} / ${(topic.properties || []).length}
+      </span>
+    `;
+    container.appendChild(headerStrip);
+
+    topic.properties.forEach(prop => {
+      const card = document.createElement("div");
+      card.className = "flashcard-card";
+      card.id = `concept-square-${prop.num}`;
+      card.dataset.sq = prop.num;
+
+      const isMastered = this.masteredCards.has(String(prop.num));
+      if (isMastered) card.style.borderColor = "#10b981";
+
+      card.innerHTML = `
+        <div class="flashcard-inner">
+          <!-- FRONT OF FLASHCARD -->
+          <div class="flashcard-front">
+            <span class="prop-number-tag">CONCEPT SQUARE #${prop.num}</span>
+            <div style="font-size: 2.5rem; margin: 16px 0;">🔬</div>
+            <h3 style="font-size: 1.35rem; color: #fff; font-weight: 800; font-family: var(--font-display);">${prop.name}</h3>
+            <span class="prop-formula-box" style="margin: 10px 0;">${prop.formula}</span>
+            <span style="font-size: 0.76rem; color: rgba(255, 255, 255, 0.6); margin-top: auto;">🔄 Tap card to flip definition</span>
+          </div>
+
+          <!-- BACK OF FLASHCARD -->
+          <div class="flashcard-back">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span class="prop-number-tag">#${prop.num} DEFINITION</span>
+                <button class="prop-tts-btn" data-sq="${prop.num}" title="Hear definition">🔊</button>
+              </div>
+              <h4 style="font-size: 1.1rem; color: #38bdf8; margin-bottom: 8px;">${prop.name}</h4>
+              <p style="font-size: 0.88rem; line-height: 1.5; color: #e2e8f0; margin-bottom: 12px;">${prop.explanation}</p>
+              ${prop.example ? `<div style="font-size: 0.82rem; background: rgba(6, 182, 212, 0.15); padding: 8px 12px; border-radius: 8px; border-left: 2px solid #06b6d4; margin-bottom: 8px;"><strong>Observation:</strong> ${prop.example}</div>` : ""}
+            </div>
+            <div class="flashcard-review-bar">
+              <button class="fc-btn review">🔄 Review Later</button>
+              <button class="fc-btn mastered">✅ Mastered</button>
+            </div>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    container.appendChild(grid);
+  }
+}
+
 // ================= MAIN SCIENCE.IO APP =================
 class ScienceIoApp {
   constructor() {
+    this.readingSuite = new ReadingEnhancementSuite(this);
     // 1. Initialize with published notes from published_notes.js if available, or DEFAULT_SCIENCE_TOPICS
     let initialNotes = DEFAULT_SCIENCE_TOPICS;
     if (window.SCIENCE_IO_PUBLISHED_NOTES && Array.isArray(window.SCIENCE_IO_PUBLISHED_NOTES) && window.SCIENCE_IO_PUBLISHED_NOTES.length > 0) {
@@ -2031,6 +2727,7 @@ class ScienceIoApp {
     this.vault.init();
     this.setupEventListeners();
     this.setupPublishSystem();
+    this.readingSuite.init();
 
     // 3. Fetch fresh notes from Cloud Database asynchronously in background
     await this.fetchCloudNotes();
@@ -2947,12 +3644,27 @@ class ScienceIoApp {
     }
     if (catBadge) catBadge.textContent = `5TH GRADE ${(topic.category || "SCIENCE").toUpperCase()}`;
 
+    if (this.readingSuite) {
+      this.readingSuite.onOpenTopic(topic);
+    }
+
     this.renderModalProperties(topic);
     this.renderModalInteractive(topic);
     this.renderModalQuiz(topic);
     this.switchModalTab(defaultTab);
 
     if (modal) modal.classList.remove("hidden");
+  }
+
+  closeNotesViewer() {
+    this.cleanupInteractiveSimulators();
+    if (this.readingSuite) {
+      this.readingSuite.stopAudio();
+      this.readingSuite.exitZenMode();
+      this.readingSuite.hideVocabPopover();
+    }
+    const modal = document.getElementById("notes-viewer-modal");
+    if (modal) modal.classList.add("hidden");
   }
 
   switchModalTab(tabName) {
@@ -2963,6 +3675,16 @@ class ScienceIoApp {
       if (btn) btn.classList.toggle("active", tab === tabName);
       if (pane) pane.classList.toggle("hidden", tab !== tabName);
     });
+
+    const readingControls = document.getElementById("reading-controls-bar");
+    if (readingControls) {
+      readingControls.style.display = tabName === "notes" ? "flex" : "none";
+    }
+
+    if (tabName !== "notes" && this.readingSuite) {
+      this.readingSuite.stopAudio();
+      this.readingSuite.hideVocabPopover();
+    }
 
     if (tabName !== "interactive") {
       this.cleanupInteractiveSimulators();
@@ -2993,14 +3715,36 @@ class ScienceIoApp {
     if (!container) return;
     container.innerHTML = "";
 
+    // If 3D Flashcards mode is active, render flashcards!
+    if (this.readingSuite && this.readingSuite.isFlashcard) {
+      this.readingSuite.renderFlashcards(topic, container);
+      return;
+    }
+
+    // Check if user has saved personal highlights for this topic AND we are not in bionic mode
+    const savedHighlights = localStorage.getItem("scienceio_highlights_" + topic.id);
+    if (savedHighlights && (!this.readingSuite || !this.readingSuite.isBionic)) {
+      container.innerHTML = savedHighlights;
+      return;
+    }
+
     if (!topic.properties || topic.properties.length === 0) {
+      let titleHtml = formatBulletText(topic.title);
+      let formulaHtml = formatBulletText(topic.coreFormula);
+      let descHtml = formatBulletText(topic.description);
+      descHtml = annotateVocabTerms(descHtml);
+      if (this.readingSuite && this.readingSuite.isBionic) {
+        titleHtml = applyBionicReading(titleHtml);
+        formulaHtml = applyBionicReading(formulaHtml);
+        descHtml = applyBionicReading(descHtml);
+      }
       container.innerHTML = `
         <div class="property-detail-card">
           <div class="prop-card-header">
-            <h4 class="prop-card-title">${formatBulletText(topic.title)}</h4>
-            <span class="prop-formula-box">${formatBulletText(topic.coreFormula)}</span>
+            <h4 class="prop-card-title">${titleHtml}</h4>
+            <span class="prop-formula-box">${formulaHtml}</span>
           </div>
-          <div class="prop-explanation">${formatBulletText(topic.description)}</div>
+          <div class="prop-explanation">${descHtml}</div>
         </div>
       `;
       return;
@@ -3030,24 +3774,46 @@ class ScienceIoApp {
         highlightedExplanation = highlightedExplanation.replace(regex, `<span class="key-term">$1</span>`);
       });
 
+      let nameHtml = formatBulletText(prop.name);
+      let formulaHtml = formatBulletText(prop.formula);
+      let expHtml = formatBulletText(highlightedExplanation);
+      let exampleHtml = formatBulletText(prop.example || "");
+      let trickHtml = prop.trick ? formatBulletText(prop.trick) : "";
+
+      // Annotate vocabulary terms
+      expHtml = annotateVocabTerms(expHtml);
+      exampleHtml = annotateVocabTerms(exampleHtml);
+
+      // Apply Bionic Reading if enabled
+      if (this.readingSuite && this.readingSuite.isBionic) {
+        nameHtml = applyBionicReading(nameHtml);
+        formulaHtml = applyBionicReading(formulaHtml);
+        expHtml = applyBionicReading(expHtml);
+        exampleHtml = applyBionicReading(exampleHtml);
+        if (trickHtml) trickHtml = applyBionicReading(trickHtml);
+      }
+
       card.innerHTML = `
         <div class="prop-card-header">
           <div>
             <span class="prop-number-tag">CONCEPT SQUARE #${prop.num}</span>
-            <h4 class="prop-card-title">${formatBulletText(prop.name)}</h4>
+            <h4 class="prop-card-title">${nameHtml}</h4>
           </div>
-          <div class="prop-formula-box">${formatBulletText(prop.formula)}</div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="prop-tts-btn" data-sq="${prop.num}" title="Listen to Concept #${prop.num}">🔊</button>
+            <div class="prop-formula-box">${formulaHtml}</div>
+          </div>
         </div>
 
-        <div class="prop-explanation">${formatBulletText(highlightedExplanation)}</div>
+        <div class="prop-explanation">${expHtml}</div>
 
         <div class="prop-example-box">
           <div class="prop-example-title">5th Grade Scientific Observation / Demonstration</div>
-          <div class="prop-example-text">${formatBulletText(prop.example || "")}</div>
+          <div class="prop-example-text">${exampleHtml}</div>
         </div>
 
         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
-          ${prop.trick ? `<span class="prop-trick-badge">💡 ${formatBulletText(prop.trick)}</span>` : ""}
+          ${trickHtml ? `<span class="prop-trick-badge">💡 ${trickHtml}</span>` : ""}
           <span class="prop-trick-badge" style="background: rgba(0, 240, 255, 0.15); border-color: rgba(0, 240, 255, 0.3); color: #a5f3fc;">🔬 Verified 5th Grade Science</span>
         </div>
       `;
@@ -4479,12 +5245,10 @@ class ScienceIoApp {
 
     // Modals
     document.getElementById("modal-notes-close")?.addEventListener("click", () => {
-      this.cleanupInteractiveSimulators();
-      document.getElementById("notes-viewer-modal")?.classList.add("hidden");
+      this.closeNotesViewer();
     });
     document.getElementById("modal-done-btn")?.addEventListener("click", () => {
-      this.cleanupInteractiveSimulators();
-      document.getElementById("notes-viewer-modal")?.classList.add("hidden");
+      this.closeNotesViewer();
     });
     document.getElementById("modal-print-btn")?.addEventListener("click", () => {
       if (this.currentModalTopic) this.printCheatSheet(this.currentModalTopic.id);
@@ -4663,8 +5427,26 @@ class ScienceIoApp {
     // Close on clicking backdrop
     document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
       backdrop.addEventListener("click", (e) => {
-        if (e.target === backdrop) backdrop.classList.add("hidden");
+        if (e.target === backdrop) {
+          if (backdrop.id === "notes-viewer-modal") {
+            this.closeNotesViewer();
+          } else {
+            backdrop.classList.add("hidden");
+          }
+        }
       });
+    });
+
+    // Escape key closes modals safely
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        const notesModal = document.getElementById("notes-viewer-modal");
+        if (notesModal && !notesModal.classList.contains("hidden")) {
+          this.closeNotesViewer();
+          return;
+        }
+        document.querySelectorAll(".modal-backdrop:not(.hidden)").forEach((m) => m.classList.add("hidden"));
+      }
     });
 
     // Daily Riddle

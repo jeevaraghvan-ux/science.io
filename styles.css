@@ -3488,10 +3488,488 @@ html, body {
   .squares-builder-section {
     padding: 14px;
   }
+
+/* ================= READING ENHANCEMENT SUITE (BIONIC, TTS, FLASHCARDS, HIGHLIGHTER, ZEN) ================= */
+.reading-controls-bar {
+  background: rgba(14, 10, 24, 0.75);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px 24px 12px;
+  position: relative;
+  z-index: 10;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
+.reading-progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
 
+.reading-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #00f0ff, #a855f7, #ffd166);
+  border-radius: 999px;
+  transition: width 0.15s ease-out;
+}
 
+.reading-toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.reading-tool-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.reading-pill-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f1f5f9;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.reading-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.reading-pill-btn.active {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.35), rgba(168, 85, 247, 0.35));
+  border-color: #06b6d4;
+  color: #38bdf8;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+}
+
+.tts-main-btn.playing {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.35), rgba(249, 115, 22, 0.35)) !important;
+  border-color: #ef4444 !important;
+  color: #fca5a5 !important;
+  animation: subtlePulse 1.5s infinite;
+}
+
+@keyframes subtlePulse {
+  0% { box-shadow: 0 0 0 rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 14px rgba(239, 68, 68, 0.6); }
+  100% { box-shadow: 0 0 0 rgba(239, 68, 68, 0.4); }
+}
+
+.reading-select {
+  background: rgba(12, 8, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e2e8f0;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  padding: 5px 8px;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.reading-select:focus, .reading-select:hover {
+  border-color: #38bdf8;
+}
+
+.tts-voice-select {
+  max-width: 170px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.font-stepper {
+  display: inline-flex;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.reading-step-btn {
+  background: none;
+  border: none;
+  color: #f1f5f9;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.reading-step-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #38bdf8;
+}
+
+.highlighter-palette {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+
+.hl-color-btn {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.hl-color-btn:hover {
+  transform: scale(1.2);
+}
+
+.hl-color-btn.active {
+  transform: scale(1.25);
+  box-shadow: 0 0 8px currentColor;
+  border-color: #fff;
+}
+
+.hl-cyan { background: #00f0ff; color: #00f0ff; }
+.hl-amber { background: #ffd166; color: #ffd166; }
+.hl-emerald { background: #10b981; color: #10b981; }
+
+.hl-clear-btn {
+  background: none;
+  border: none;
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 0 2px;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+.hl-clear-btn:hover { opacity: 1; transform: scale(1.1); }
+
+.reading-time-pill {
+  font-size: 0.74rem;
+  color: #94a3b8;
+  font-weight: 600;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Sticky TOC Mini Jump Bar */
+.notes-toc-strip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 8px 0 2px;
+  margin-top: 6px;
+  scrollbar-width: none;
+}
+.notes-toc-strip::-webkit-scrollbar { display: none; }
+
+.toc-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.toc-pill:hover, .toc-pill.active {
+  background: rgba(6, 182, 212, 0.22);
+  border-color: #06b6d4;
+  color: #38bdf8;
+  transform: translateY(-1px);
+}
+
+/* Bionic Fixation */
+.bionic-fix {
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+/* Neon Highlights */
+.neon-highlight {
+  border-radius: 3px;
+  padding: 1px 3px;
+  color: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+}
+.neon-highlight.hl-cyan {
+  background: rgba(0, 240, 255, 0.32);
+  border-bottom: 2px solid #00f0ff;
+  color: #f0fdfa;
+}
+.neon-highlight.hl-amber {
+  background: rgba(255, 183, 3, 0.32);
+  border-bottom: 2px solid #ffd166;
+  color: #fffbeb;
+}
+.neon-highlight.hl-emerald {
+  background: rgba(16, 185, 129, 0.32);
+  border-bottom: 2px solid #10b981;
+  color: #ecfdf5;
+}
+
+/* Vocab Term & Popover */
+.vocab-term {
+  border-bottom: 1.5px dotted #38bdf8;
+  cursor: pointer;
+  color: #bae6fd;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  position: relative;
+}
+.vocab-term:hover {
+  color: #38bdf8;
+  border-bottom-style: solid;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+}
+
+.vocab-popover {
+  position: absolute;
+  z-index: 9999;
+  background: rgba(12, 8, 22, 0.94);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(6, 182, 212, 0.3);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 16px;
+  padding: 14px 18px;
+  max-width: 320px;
+  animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+.vocab-pop-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.vocab-pop-word {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #38bdf8;
+  text-transform: capitalize;
+}
+
+.vocab-pop-pron {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: #ffd166;
+}
+
+.vocab-pop-speak-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  transition: transform 0.15s;
+}
+.vocab-pop-speak-btn:hover {
+  transform: scale(1.15);
+  background: #06b6d4;
+}
+
+.vocab-pop-def {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: #e2e8f0;
+}
+
+/* 3D Flashcards Flip Mode */
+.flashcards-mode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.flashcard-card {
+  perspective: 1200px;
+  min-height: 320px;
+  cursor: pointer;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+.flashcard-card.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+
+.flashcard-front {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(20, 10, 36, 0.65) 60%, rgba(6, 182, 212, 0.15) 100%);
+  text-align: center;
+  align-items: center;
+}
+
+.flashcard-back {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(18, 10, 32, 0.85) 60%, rgba(168, 85, 247, 0.2) 100%);
+  transform: rotateY(180deg);
+}
+
+.flashcard-review-bar {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.fc-btn {
+  flex: 1;
+  padding: 7px 12px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.15s;
+}
+
+.fc-btn.review {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+.fc-btn.review:hover {
+  background: rgba(239, 68, 68, 0.4);
+}
+
+.fc-btn.mastered {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: #10b981;
+  color: #6ee7b7;
+}
+.fc-btn.mastered:hover {
+  background: rgba(16, 185, 129, 0.4);
+}
+
+/* Card Speaker Button */
+.prop-tts-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 0.82rem;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.prop-tts-btn:hover {
+  background: #06b6d4;
+  border-color: #06b6d4;
+  transform: scale(1.15);
+}
+
+/* Speaking Now Glow */
+.speaking-card-active {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.45) !important;
+  transform: translateY(-3px) scale(1.01) !important;
+}
+
+/* Zen Focus Fullscreen Reading Mode */
+.zen-mode-active .notes-detail-window {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  background: rgba(5, 3, 10, 0.98) !important;
+  z-index: 999999 !important;
+}
+
+.zen-mode-active .modal-body-scrollable {
+  max-height: calc(100vh - 160px) !important;
+  max-width: 780px !important;
+  margin: 0 auto !important;
+  padding: 30px 20px !important;
+}
+
+/* Dyslexia High-Legibility Font Mode */
+.dyslexia-font-mode {
+  letter-spacing: 0.05em !important;
+  word-spacing: 0.15em !important;
+  line-height: 1.85 !important;
+}
+.dyslexia-font-mode .prop-card-title,
+.dyslexia-font-mode .prop-explanation,
+.dyslexia-font-mode .prop-example-text {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-weight: 500 !important;
+}
 /* ================= CLOUD SYNC & PUBLISH SYSTEM STYLES ================= */
 .nav-publish-btn {
   display: inline-flex;
