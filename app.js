@@ -1613,14 +1613,67 @@ class ScienceIoApp {
     }
     this.cloudDbId = savedDbId;
     this.hasUnpublishedChanges = false;
+    this.supabaseUrl = localStorage.getItem("scienceio_supabase_url") || "";
+    this.supabaseKey = localStorage.getItem("scienceio_supabase_key") || "";
+    this.supabase = null;
+    this.supabaseChannel = null;
     this.vault = new VaultController(this);
 
     this.init();
   }
 
+  initSupabase() {
+    this.supabaseUrl = localStorage.getItem("scienceio_supabase_url") || "";
+    this.supabaseKey = localStorage.getItem("scienceio_supabase_key") || "";
+    if (window.supabase && this.supabaseUrl && this.supabaseKey) {
+      try {
+        this.supabase = window.supabase.createClient(this.supabaseUrl, this.supabaseKey);
+        this.setupSupabaseRealtime();
+        return true;
+      } catch (err) {
+        console.warn("Supabase initialization notice:", err);
+      }
+    }
+    return false;
+  }
+
+  setupSupabaseRealtime() {
+    if (!this.supabase) return;
+    try {
+      if (this.supabaseChannel) {
+        this.supabase.removeChannel(this.supabaseChannel);
+      }
+      this.supabaseChannel = this.supabase
+        .channel('public:science_notes')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'science_notes' }, (payload) => {
+          if (payload.new && Array.isArray(payload.new.notes)) {
+            const incomingJson = JSON.stringify(payload.new.notes);
+            const currentJson = JSON.stringify(this.notes);
+            if (incomingJson !== currentJson) {
+              this.notes = ensurePlantCellUnit(payload.new.notes);
+              localStorage.setItem("scienceio_notes_v6", incomingJson);
+              this.render();
+              if (this.vault && typeof this.vault.updateManagerTable === "function") {
+                this.vault.updateManagerTable();
+              }
+              if (this.vault && typeof this.vault.updateTelemetry === "function") {
+                this.vault.updateTelemetry();
+              }
+            }
+          }
+        })
+        .subscribe();
+    } catch (e) {
+      console.warn("Supabase Realtime notice:", e);
+    }
+  }
+
   async init() {
     this.setupConfetti();
     this.setupLoadingScreen();
+
+    // 0. Initialize Supabase Client & Realtime WebSocket if credentials exist
+    this.initSupabase();
 
     // 1. Load cached notes from localStorage FIRST so notes are ready before rendering UI
     this.loadCachedNotes();
@@ -1691,23 +1744,41 @@ class ScienceIoApp {
 
     let loadedNotes = null;
 
-    // 1. Primary: load from live Vercel Cloud Sync API (works on localhost, 127.0.0.1, file://, and web)
-    try {
-      const syncRes = await fetch(CLOUD_SYNC_URL + "?t=" + Date.now(), {
-        cache: "no-store",
-        headers: { "Accept": "application/json" }
-      });
-      if (syncRes.ok) {
-        const syncData = await syncRes.json();
-        if (syncData && Array.isArray(syncData.notes) && syncData.notes.length > 0) {
-          loadedNotes = syncData.notes;
-        } else if (Array.isArray(syncData) && syncData.length > 0) {
-          loadedNotes = syncData;
+    // 0. Primary: Supabase Real-Time Client Fetch (100% Free Forever • Zero Node Server • Zero Token Drain)
+    if (this.supabase) {
+      try {
+        const { data, error } = await this.supabase
+          .from('science_notes')
+          .select('notes')
+          .eq('id', 'curriculum')
+          .single();
+        if (data && Array.isArray(data.notes) && data.notes.length > 0) {
+          loadedNotes = data.notes;
         }
+      } catch (err) {
+        console.warn("Supabase fetch notice:", err);
       }
-    } catch (err) {}
+    }
 
-    // 2. Secondary fallback: direct extendsclass cloud bin
+    // 1. Secondary: load from live Vercel Cloud Sync API (works on localhost, 127.0.0.1, file://, and web)
+    if (!loadedNotes) {
+      try {
+        const syncRes = await fetch(CLOUD_SYNC_URL + "?t=" + Date.now(), {
+          cache: "no-store",
+          headers: { "Accept": "application/json" }
+        });
+        if (syncRes.ok) {
+          const syncData = await syncRes.json();
+          if (syncData && Array.isArray(syncData.notes) && syncData.notes.length > 0) {
+            loadedNotes = syncData.notes;
+          } else if (Array.isArray(syncData) && syncData.length > 0) {
+            loadedNotes = syncData;
+          }
+        }
+      } catch (err) {}
+    }
+
+    // 2. Tertiary fallback: direct extendsclass cloud bin
     if (!loadedNotes) {
       try {
         const res = await fetch("https://extendsclass.com/api/json-storage/bin/bbaffcc?t=" + Date.now(), {
@@ -1723,7 +1794,7 @@ class ScienceIoApp {
       } catch (err) {}
     }
 
-    // 3. Tertiary fallback: live GitHub Gist
+    // 3. Quaternary fallback: live GitHub Gist
     if (!loadedNotes) {
       try {
         const gistRes = await fetch("https://api.github.com/gists/f510a4bebd324971611e496799b913ff?t=" + Date.now());
@@ -1787,24 +1858,47 @@ class ScienceIoApp {
     let publishedSuccessfully = false;
     let publishError = null;
 
-    // 1. Primary: Serverless Cloud Sync API (works across ALL environments: localhost, live web, mobile)
-    try {
-      const syncRes = await fetch(CLOUD_SYNC_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ notes: this.notes })
-      });
-      if (syncRes.ok) {
-        const json = await syncRes.json();
-        if (json && json.success) {
+    // 0. Primary: Supabase Real-Time Client Upsert (100% Free Forever • Zero Node Server • Zero Token Drain)
+    if (this.supabase) {
+      try {
+        const { error } = await this.supabase
+          .from('science_notes')
+          .upsert({
+            id: 'curriculum',
+            notes: this.notes,
+            updated_at: new Date().toISOString()
+          });
+        if (!error) {
           publishedSuccessfully = true;
+        } else {
+          publishError = error.message;
         }
-      } else {
-        publishError = `HTTP ${syncRes.status}`;
+      } catch (err) {
+        publishError = err.message;
+        console.warn("Supabase upsert notice:", err);
       }
-    } catch (e) {
-      publishError = e.message;
-      console.warn("Primary Serverless sync notice:", e);
+    }
+
+    // 1. Secondary: Serverless Cloud Sync API (works across ALL environments: localhost, live web, mobile)
+    if (!publishedSuccessfully) {
+      try {
+        const syncRes = await fetch(CLOUD_SYNC_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ notes: this.notes })
+        });
+        if (syncRes.ok) {
+          const json = await syncRes.json();
+          if (json && json.success) {
+            publishedSuccessfully = true;
+          }
+        } else {
+          publishError = `HTTP ${syncRes.status}`;
+        }
+      } catch (e) {
+        publishError = e.message;
+        console.warn("Primary Serverless sync notice:", e);
+      }
     }
 
     // 2. Secondary fallback: Direct cloud PUT to extendsclass if cloud sync is unreachable
@@ -1936,6 +2030,52 @@ class ScienceIoApp {
         sounds.playSuccess();
         alert(`Cloud Database ID updated to: ${this.cloudDbId}`);
         this.fetchCloudNotes();
+      }
+    });
+
+    // Supabase Configuration UI
+    const supaUrlInput = document.getElementById("supabase-url-input");
+    const supaKeyInput = document.getElementById("supabase-key-input");
+    const supaBadge = document.getElementById("supabase-status-badge");
+
+    if (supaUrlInput) supaUrlInput.value = this.supabaseUrl || "";
+    if (supaKeyInput) supaKeyInput.value = this.supabaseKey || "";
+    if (supaBadge) {
+      if (this.supabase) {
+        supaBadge.textContent = "Connected & Live";
+        supaBadge.style.background = "rgba(16, 185, 129, 0.25)";
+        supaBadge.style.color = "#6ee7b7";
+      } else {
+        supaBadge.textContent = "Not Configured";
+        supaBadge.style.background = "rgba(255,255,255,0.1)";
+        supaBadge.style.color = "#aaa";
+      }
+    }
+
+    document.getElementById("btn-save-supabase-config")?.addEventListener("click", async () => {
+      const url = supaUrlInput ? supaUrlInput.value.trim() : "";
+      const key = supaKeyInput ? supaKeyInput.value.trim() : "";
+      if (!url || !key) {
+        alert("Please enter both your Supabase Project URL and Anon Key.");
+        return;
+      }
+      this.supabaseUrl = url;
+      this.supabaseKey = key;
+      localStorage.setItem("scienceio_supabase_url", url);
+      localStorage.setItem("scienceio_supabase_key", key);
+
+      const success = this.initSupabase();
+      if (success) {
+        if (supaBadge) {
+          supaBadge.textContent = "Connected & Live";
+          supaBadge.style.background = "rgba(16, 185, 129, 0.25)";
+          supaBadge.style.color = "#6ee7b7";
+        }
+        sounds.playSuccess();
+        alert("⚡ Supabase successfully connected! Syncing current notes now...");
+        await this.publishAllNotes(true, "🎉 All notes synced to Supabase database in real-time!");
+      } else {
+        alert("⚠️ Failed to initialize Supabase. Please check your URL and Key.");
       }
     });
 

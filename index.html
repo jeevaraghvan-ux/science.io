@@ -39,6 +39,8 @@
       }
     }
   </script>
+  <!-- Supabase Official JavaScript Client (Free Realtime Database Sync) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <div id="mouse-spotlight"></div>
@@ -440,10 +442,16 @@
 
 
 
-      <div class="publish-db-id-row">
-        <span style="color: var(--text-muted); font-weight: bold;">Cloud DB ID:</span>
-        <input type="text" id="publish-cloud-id-input" value="ff808181a09d98f701a0f483e327513e" title="Cloud Database Bucket Key" />
-        <button class="btn-modal-action secondary" id="btn-update-cloud-id" style="padding: 4px 10px; font-size: 0.75rem;">Save ID</button>
+      <div class="publish-db-id-row" style="flex-direction: column; align-items: stretch; gap: 8px; margin-top: 10px; background: rgba(16, 185, 129, 0.08); padding: 12px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.25);">
+        <div style="font-weight: bold; color: #6ee7b7; font-size: 0.85rem; display: flex; align-items: center; justify-content: space-between;">
+          <span>⚡ Supabase Real-Time Cloud Sync</span>
+          <span id="supabase-status-badge" style="font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.1); color: #aaa;">Not Configured</span>
+        </div>
+        <input type="text" id="supabase-url-input" placeholder="Supabase URL (https://xyz.supabase.co)" style="font-size: 0.8rem; padding: 6px 10px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff;" />
+        <input type="password" id="supabase-key-input" placeholder="Supabase Anon Public Key (eyJ...)" style="font-size: 0.8rem; padding: 6px 10px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff;" />
+        <button class="btn-modal-action secondary" id="btn-save-supabase-config" style="padding: 6px 14px; font-size: 0.8rem; background: rgba(16, 185, 129, 0.3); border-color: rgba(16, 185, 129, 0.6); color: #fff; font-weight: bold;">
+          💾 Connect Supabase & Sync
+        </button>
       </div>
 
       <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
