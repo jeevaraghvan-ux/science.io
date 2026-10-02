@@ -1015,7 +1015,7 @@ class VaultController {
         this.renderSquares();
         const saveBtn = document.getElementById("btn-save-vault-note");
         if (saveBtn) {
-          saveBtn.innerHTML = "<span>✦ Save Unit & Squares to science.io</span>";
+          saveBtn.innerHTML = "<span>🚀 Publish to Website & Cloud</span>";
           saveBtn.style.background = "";
         }
       }
@@ -1284,15 +1284,15 @@ class VaultController {
     const saveBtn = document.getElementById("btn-save-vault-note");
     if (saveBtn) {
       saveBtn.disabled = true;
-      saveBtn.innerHTML = "<span>⏳ Publishing Unit to Cloud...</span>";
+      saveBtn.innerHTML = "<span>⏳ Publishing to Website & Cloud...</span>";
     }
 
     // Automatically publish to Cloud Database across all devices
-    await this.app.publishAllNotes(true, `🎉 Unit "${newNote.title}" added and published live across all your devices!`);
+    await this.app.publishAllNotes(true, `🎉 Unit "${newNote.title}" published live to website & cloud database!`);
 
     if (saveBtn) {
       saveBtn.disabled = false;
-      saveBtn.innerHTML = "<span>✦ Save Unit & Squares to science.io</span>";
+      saveBtn.innerHTML = "<span>🚀 Publish to Website & Cloud</span>";
       saveBtn.style.background = "";
     }
 
@@ -1566,7 +1566,7 @@ class VaultController {
 
     const saveBtn = document.getElementById("btn-save-vault-note");
     if (saveBtn) {
-      saveBtn.innerHTML = "<span>✦ Update Unit & Squares</span>";
+      saveBtn.innerHTML = "<span>🚀 Update & Publish to Website & Cloud</span>";
       saveBtn.style.background = "linear-gradient(135deg, #30D158, #34C759)";
     }
 
@@ -1865,7 +1865,6 @@ class ScienceIoApp {
   async publishAllNotes(fromVault = false, customMessage = "") {
     const publishBtns = [
       document.getElementById("btn-vault-publish-cloud"),
-      document.getElementById("btn-architect-publish-cloud"),
       document.getElementById("btn-manager-publish"),
       document.getElementById("cmd-btn-quick-publish"),
       document.getElementById("btn-do-publish-now")
@@ -2016,16 +2015,6 @@ class ScienceIoApp {
       this.publishAllNotes();
     });
 
-    // Vault Architect Footer Publish Button - auto-save if architect has form inputs!
-    document.getElementById("btn-architect-publish-cloud")?.addEventListener("click", async () => {
-      sounds.playClick();
-      const titleInput = document.getElementById("vnote-title");
-      if (titleInput && titleInput.value.trim() && this.vault && this.vault.architectSquares.length > 0) {
-        await this.vault.handleSaveNote(new Event("submit"));
-      } else {
-        await this.publishAllNotes();
-      }
-    });
 
     // Manager tab publish button
     document.getElementById("btn-manager-publish")?.addEventListener("click", () => {
