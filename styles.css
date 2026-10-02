@@ -35,11 +35,11 @@
   --grad-warm-gold: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
 
   /* Ultra-Transparent Crystal Liquid Glass Bases */
-  --glass-bg: rgba(16, 11, 32, 0.38);
-  --glass-bg-hover: rgba(28, 18, 56, 0.48);
-  --glass-card: rgba(18, 12, 34, 0.42);
-  --glass-card-border: rgba(255, 255, 255, 0.22);
-  --glass-blur: blur(28px) saturate(210%);
+  --glass-bg: rgba(18, 10, 36, 0.16);
+  --glass-bg-hover: rgba(30, 14, 52, 0.26);
+  --glass-card: rgba(18, 10, 36, 0.14);
+  --glass-card-border: rgba(255, 255, 255, 0.32);
+  --glass-blur: blur(24px) saturate(240%) brightness(110%);
 
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
@@ -451,7 +451,7 @@ html, body {
   max-height: 850px;
   top: -10%;
   left: -10%;
-  background: radial-gradient(circle, #ff007f 20%, #ff416c 48%, #ff7a00 75%, transparent 85%);
+  background: radial-gradient(circle, #00d4ff 15%, #3b82f6 40%, #a855f7 65%, #ff007f 82%, transparent 90%);
   animation: morphBlobOne 16s ease-in-out infinite alternate;
 }
 
@@ -462,7 +462,7 @@ html, body {
   max-height: 800px;
   top: 15%;
   right: -8%;
-  background: radial-gradient(circle, #ffd166 22%, #ff9e00 50%, #ff3366 75%, transparent 85%);
+  background: radial-gradient(circle, #ffd166 18%, #ff7a00 45%, #ff375f 70%, transparent 85%);
   animation: morphBlobTwo 18s ease-in-out infinite alternate;
 }
 
@@ -473,7 +473,7 @@ html, body {
   max-height: 750px;
   bottom: 0%;
   left: 15%;
-  background: radial-gradient(circle, #ff5757 25%, #f72585 55%, #7928ca 78%, transparent 85%);
+  background: radial-gradient(circle, #10b981 18%, #06b6d4 45%, #6366f1 72%, #a855f7 85%, transparent 90%);
   animation: morphBlobThree 22s ease-in-out infinite alternate;
 }
 
@@ -484,7 +484,7 @@ html, body {
   max-height: 650px;
   top: 25%;
   left: 30%;
-  background: radial-gradient(circle, rgba(255, 183, 3, 0.7) 0%, rgba(255, 122, 0, 0.55) 45%, rgba(255, 0, 127, 0.35) 70%, transparent 80%);
+  background: radial-gradient(circle, rgba(191, 90, 242, 0.85) 0%, rgba(255, 65, 108, 0.7) 35%, rgba(255, 183, 3, 0.5) 65%, transparent 80%);
   animation: morphBlobFour 14s ease-in-out infinite alternate;
 }
 
@@ -991,27 +991,59 @@ html, body {
 }
 
 .cat-pill {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.76rem;
-  font-weight: 600;
-  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 7px 16px;
   border-radius: 9999px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s var(--ease-spring);
+  user-select: none;
 }
 
 .cat-pill:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.18);
   color: #fff;
+  transform: translateY(-1px);
 }
 
 .cat-pill.active {
-  background: linear-gradient(135deg, rgba(255, 122, 0, 0.28), rgba(255, 65, 108, 0.28));
-  border-color: #ffb703;
-  color: #ffd166;
-  box-shadow: 0 0 14px rgba(255, 122, 0, 0.45);
+  color: #ffffff !important;
+  font-weight: 800;
+  transform: translateY(-2px) scale(1.05);
+}
+
+.cat-pill[data-filter="all"].active {
+  background: linear-gradient(135deg, #ff416c, #ff7a00) !important;
+  border-color: #ffd166 !important;
+  box-shadow: 0 4px 20px rgba(255, 122, 0, 0.6) !important;
+}
+
+.cat-pill[data-filter="physical"].active {
+  background: linear-gradient(135deg, #00d4ff, #0a84ff) !important;
+  border-color: #64d2ff !important;
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.6) !important;
+}
+
+.cat-pill[data-filter="life"].active {
+  background: linear-gradient(135deg, #10b981, #30d158) !important;
+  border-color: #6ee7b7 !important;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.6) !important;
+}
+
+.cat-pill[data-filter="earth"].active {
+  background: linear-gradient(135deg, #bf5af2, #8b5cf6) !important;
+  border-color: #d8b4fe !important;
+  box-shadow: 0 4px 20px rgba(191, 90, 242, 0.6) !important;
+}
+
+.cat-pill[data-filter="method"].active {
+  background: linear-gradient(135deg, #ff9f0a, #ffd166) !important;
+  border-color: #fef08a !important;
+  box-shadow: 0 4px 20px rgba(255, 159, 10, 0.6) !important;
 }
 
 /* ================= 3D COVERFLOW CAROUSEL WITH BRACKET (SCREENSHOT 2) ================= */
@@ -1147,11 +1179,11 @@ html, body {
   width: 330px;
   height: 430px;
   border-radius: 28px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(18, 12, 34, 0.26) 55%, rgba(255, 122, 0, 0.10) 100%);
-  backdrop-filter: blur(24px) saturate(230%);
-  -webkit-backdrop-filter: blur(24px) saturate(230%);
-  border: 1.5px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), inset 0 1px 2px rgba(255, 255, 255, 0.45);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.04) 30%, rgba(18, 10, 36, 0.15) 70%, rgba(255, 122, 0, 0.08) 100%);
+  backdrop-filter: blur(20px) saturate(240%) brightness(110%);
+  -webkit-backdrop-filter: blur(20px) saturate(240%) brightness(110%);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45), inset 0 1.5px 2px rgba(255, 255, 255, 0.6), inset 0 -1px 2px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1179,31 +1211,31 @@ html, body {
 }
 
 .glow-orange {
-  background: radial-gradient(circle at 50% 60%, rgba(255, 122, 0, 0.75) 0%, rgba(255, 65, 108, 0.45) 45%, transparent 75%);
+  background: radial-gradient(circle at 50% 60%, rgba(255, 122, 0, 0.85) 0%, rgba(255, 65, 108, 0.55) 45%, transparent 75%);
 }
 .glow-amber {
-  background: radial-gradient(circle at 50% 60%, rgba(255, 183, 3, 0.75) 0%, rgba(245, 158, 11, 0.45) 45%, transparent 75%);
+  background: radial-gradient(circle at 50% 60%, rgba(255, 183, 3, 0.85) 0%, rgba(245, 158, 11, 0.55) 45%, transparent 75%);
 }
 .glow-coral {
-  background: radial-gradient(circle at 50% 60%, rgba(255, 87, 87, 0.75) 0%, rgba(255, 0, 127, 0.45) 45%, transparent 75%);
+  background: radial-gradient(circle at 50% 60%, rgba(255, 87, 87, 0.85) 0%, rgba(255, 0, 127, 0.55) 45%, transparent 75%);
 }
 .glow-emerald {
-  background: radial-gradient(circle at 50% 60%, rgba(16, 185, 129, 0.7) 0%, rgba(255, 183, 3, 0.35) 45%, transparent 75%);
+  background: radial-gradient(circle at 50% 60%, rgba(16, 185, 129, 0.85) 0%, rgba(6, 182, 212, 0.5) 45%, transparent 75%);
 }
 .glow-ruby {
-  background: radial-gradient(circle at 50% 60%, rgba(255, 0, 127, 0.75) 0%, rgba(244, 63, 94, 0.45) 45%, transparent 75%);
+  background: radial-gradient(circle at 50% 60%, rgba(255, 0, 127, 0.85) 0%, rgba(244, 63, 94, 0.55) 45%, transparent 75%);
 }
 .glow-blue {
-  background: radial-gradient(circle at 50% 60%, rgba(0, 212, 255, 0.55) 0%, rgba(37, 99, 235, 0.3) 45%, transparent 75%);
+  background: radial-gradient(circle at 50% 60%, rgba(0, 212, 255, 0.75) 0%, rgba(37, 99, 235, 0.45) 45%, transparent 75%);
 }
 .glow-purple {
-  background: radial-gradient(circle at 50% 60%, rgba(168, 85, 247, 0.65) 0%, rgba(126, 34, 206, 0.32) 45%, transparent 75%);
+  background: radial-gradient(circle at 50% 60%, rgba(168, 85, 247, 0.8) 0%, rgba(126, 34, 206, 0.45) 45%, transparent 75%);
 }
 .glow-cyan {
-  background: radial-gradient(circle at 50% 60%, rgba(56, 189, 248, 0.55) 0%, rgba(14, 165, 233, 0.3) 45%, transparent 75%);
+  background: radial-gradient(circle at 50% 60%, rgba(56, 189, 248, 0.75) 0%, rgba(14, 165, 233, 0.45) 45%, transparent 75%);
 }
 .glow-indigo {
-  background: radial-gradient(circle at 50% 60%, rgba(99, 102, 241, 0.65) 0%, rgba(79, 70, 229, 0.32) 45%, transparent 75%);
+  background: radial-gradient(circle at 50% 60%, rgba(99, 102, 241, 0.8) 0%, rgba(79, 70, 229, 0.45) 45%, transparent 75%);
 }
 
 /* 3D Positions in Carousel — ASMR Fluid Elevation & Soft Lighting */
@@ -1212,15 +1244,16 @@ html, body {
   z-index: 40;
   opacity: 1;
   filter: none;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.16) 0%, rgba(26, 16, 42, 0.30) 55%, rgba(255, 122, 0, 0.16) 100%);
-  border-color: rgba(255, 183, 3, 0.75);
-  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.85), 0 0 55px rgba(255, 122, 0, 0.55), 0 0 85px rgba(255, 65, 108, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.45);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.06) 30%, rgba(24, 12, 45, 0.18) 70%, rgba(255, 122, 0, 0.12) 100%);
+  border-color: rgba(255, 255, 255, 0.6);
+  border-top-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.65), 0 0 50px rgba(0, 212, 255, 0.45), 0 0 80px rgba(255, 65, 108, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.7);
 }
 
 .deck-card.pos-center:hover {
   transform: translate3d(0, -6px, 92px) scale(1.06);
-  border-color: rgba(255, 215, 0, 0.85);
-  box-shadow: 0 45px 95px rgba(0, 0, 0, 0.95), 0 0 65px rgba(255, 122, 0, 0.75), 0 0 95px rgba(255, 65, 108, 0.55), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 45px 95px rgba(0, 0, 0, 0.75), 0 0 65px rgba(0, 212, 255, 0.65), 0 0 95px rgba(255, 122, 0, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.85);
 }
 
 .deck-card.pos-left-1 {
@@ -1371,10 +1404,10 @@ html, body {
   width: 100%;
   padding: 13px 18px;
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(32, 18, 52, 0.35) 100%);
-  backdrop-filter: blur(18px) saturate(200%);
-  -webkit-backdrop-filter: blur(18px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(32, 18, 52, 0.35) 100%);
+  backdrop-filter: blur(18px) saturate(220%);
+  -webkit-backdrop-filter: blur(18px) saturate(220%);
   color: #ffffff;
   font-family: var(--font-display);
   font-size: 0.86rem;
@@ -1383,27 +1416,69 @@ html, body {
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.22s var(--ease-spring);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.4);
 }
 
 .card-action-btn:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(45, 24, 75, 0.45) 100%);
-  border-color: rgba(255, 183, 3, 0.6);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 122, 0, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px) scale(1.02);
 }
 
+/* 1. VIEW NOTES BUTTON (Neon Electric Blue / Cyan) */
+.card-action-btn.btn-card-view,
 .card-action-btn.primary-action {
-  background: linear-gradient(135deg, rgba(255, 65, 108, 0.75), rgba(255, 122, 0, 0.82));
-  border-color: rgba(255, 215, 0, 0.85);
-  color: #ffffff;
-  box-shadow: 0 0 24px rgba(255, 122, 0, 0.55), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  background: linear-gradient(135deg, #00d4ff 0%, #0a84ff 100%) !important;
+  border-color: rgba(255, 255, 255, 0.7) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.55), inset 0 1px 2px rgba(255, 255, 255, 0.7) !important;
 }
 
+.card-action-btn.btn-card-view:hover,
 .card-action-btn.primary-action:hover {
-  background: linear-gradient(135deg, #ff416c, #ff7a00, #ffb703);
-  border-color: #ffd166;
-  box-shadow: 0 0 32px rgba(255, 122, 0, 0.85), 0 0 50px rgba(255, 65, 108, 0.65), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+  background: linear-gradient(135deg, #38bdf8 0%, #00d4ff 50%, #3b82f6 100%) !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.85), 0 0 45px rgba(10, 132, 255, 0.65), inset 0 1.5px 3px rgba(255, 255, 255, 0.9) !important;
+}
+
+/* 2. SCIENCE SHEET BUTTON (Cosmic Purple & Violet) */
+.card-action-btn.btn-card-pdf {
+  background: linear-gradient(135deg, #bf5af2 0%, #8b5cf6 100%) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(191, 90, 242, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+}
+
+.card-action-btn.btn-card-pdf:hover {
+  background: linear-gradient(135deg, #d946ef 0%, #bf5af2 50%, #a855f7 100%) !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 10px 30px rgba(191, 90, 242, 0.8), 0 0 40px rgba(138, 43, 226, 0.6), inset 0 1.5px 3px rgba(255, 255, 255, 0.9) !important;
+}
+
+/* 3. PRACTICE QUIZ BUTTON (Solar Amber & Fire Coral) */
+.card-action-btn.btn-card-quiz {
+  background: linear-gradient(135deg, #ff7a00 0%, #ff416c 100%) !important;
+  border-color: rgba(255, 215, 0, 0.7) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(255, 122, 0, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+}
+
+.card-action-btn.btn-card-quiz:hover {
+  background: linear-gradient(135deg, #ff9e00 0%, #ff7a00 50%, #ff3366 100%) !important;
+  border-color: #ffd166 !important;
+  box-shadow: 0 10px 30px rgba(255, 122, 0, 0.8), 0 0 45px rgba(255, 65, 108, 0.65), inset 0 1.5px 3px rgba(255, 255, 255, 0.9) !important;
+}
+
+/* 4. EXTERNAL LINK BUTTON (Emerald Bio Green & Cyan) */
+.card-action-btn.btn-card-redirect {
+  background: linear-gradient(135deg, #10b981 0%, #00d4ff 100%) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+}
+
+.card-action-btn.btn-card-redirect:hover {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #06b6d4 100%) !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.75), 0 0 40px rgba(0, 212, 255, 0.6), inset 0 1.5px 3px rgba(255, 255, 255, 0.9) !important;
 }
 
 /* CAROUSEL CONTROLS */
@@ -1480,12 +1555,14 @@ html, body {
 }
 
 .table-card-glass {
-  background: var(--glass-card);
-  backdrop-filter: blur(28px);
-  border: 1px solid var(--glass-card-border);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(18, 10, 36, 0.24) 45%, rgba(255, 65, 108, 0.10) 100%);
+  backdrop-filter: blur(26px) saturate(240%) brightness(108%);
+  -webkit-backdrop-filter: blur(26px) saturate(240%) brightness(108%);
+  border: 1.5px solid rgba(255, 255, 255, 0.32);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.55);
   border-radius: 24px;
   padding: 28px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), inset 0 1.5px 2px rgba(255, 255, 255, 0.5);
 }
 
 .table-header-info {
@@ -1793,12 +1870,14 @@ html, body {
 }
 
 .glass-modal {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(18, 12, 30, 0.62) 40%, rgba(28, 14, 44, 0.70) 100%);
-  backdrop-filter: blur(40px) saturate(220%);
-  -webkit-backdrop-filter: blur(40px) saturate(220%);
-  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(18, 10, 32, 0.32) 40%, rgba(28, 12, 45, 0.38) 100%);
+  backdrop-filter: blur(36px) saturate(240%) brightness(108%);
+  -webkit-backdrop-filter: blur(36px) saturate(240%) brightness(108%);
+  border: 1.5px solid rgba(255, 255, 255, 0.32);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-left: 1.5px solid rgba(255, 255, 255, 0.42);
   border-radius: 28px;
-  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.85), 0 0 60px rgba(255, 122, 0, 0.25), 0 0 90px rgba(255, 65, 108, 0.18), inset 0 1px 2px rgba(255, 255, 255, 0.35);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.70), 0 0 60px rgba(168, 85, 247, 0.25), 0 0 90px rgba(255, 65, 108, 0.22), inset 0 1.5px 2px rgba(255, 255, 255, 0.55);
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -1949,22 +2028,23 @@ html, body {
 }
 
 .property-detail-card {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(32, 18, 48, 0.38) 60%, rgba(20, 12, 34, 0.48) 100%);
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
-  border: 1.5px solid rgba(255, 183, 3, 0.35);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.03) 25%, rgba(22, 10, 42, 0.18) 70%, rgba(255, 122, 0, 0.08) 100%);
+  backdrop-filter: blur(20px) saturate(240%) brightness(110%);
+  -webkit-backdrop-filter: blur(20px) saturate(240%) brightness(110%);
+  border: 1.5px solid rgba(255, 255, 255, 0.32);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.55);
   border-radius: 20px;
-  padding: 20px;
+  padding: 22px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 1.5px rgba(255, 255, 255, 0.25);
-  transition: all 0.25s ease;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), inset 0 1.5px 2px rgba(255, 255, 255, 0.45);
+  transition: all 0.25s var(--ease-spring);
 }
 
 .property-detail-card:hover {
-  border-color: rgba(255, 183, 3, 0.8);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.14) 0%, rgba(42, 24, 62, 0.48) 60%, rgba(28, 16, 44, 0.55) 100%);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55), 0 0 30px rgba(255, 122, 0, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 215, 0, 0.85);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.22) 0%, rgba(35, 16, 60, 0.25) 60%, rgba(255, 122, 0, 0.15) 100%);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55), 0 0 35px rgba(255, 122, 0, 0.35), inset 0 1.5px 2px rgba(255, 255, 255, 0.6);
   transform: translateY(-2px);
 }
 
@@ -1978,11 +2058,17 @@ html, body {
 }
 
 .prop-number-tag {
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: #ff9e00;
-  text-shadow: 0 0 8px rgba(255, 158, 0, 0.4);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #ffd166;
+  text-shadow: 0 0 10px rgba(255, 183, 3, 0.6);
+  background: linear-gradient(135deg, rgba(255, 65, 108, 0.25), rgba(255, 122, 0, 0.25));
+  border: 1px solid rgba(255, 183, 3, 0.5);
+  padding: 3px 10px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 6px;
 }
 
 .prop-card-title {
@@ -1993,11 +2079,14 @@ html, body {
 }
 
 .prop-formula-box {
-  background: rgba(255, 183, 3, 0.12);
-  border: 1px solid rgba(255, 183, 3, 0.45);
-  padding: 6px 14px;
-  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.18), rgba(168, 85, 247, 0.18));
+  border: 1px solid rgba(0, 212, 255, 0.5);
+  padding: 7px 16px;
+  border-radius: 12px;
   font-family: var(--font-display);
+  color: #64d2ff;
+  font-weight: 700;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3), inset 0 1px 1.5px rgba(255, 255, 255, 0.4);
   font-size: 0.95rem;
   font-weight: 800;
   color: #ffd166;
@@ -3068,11 +3157,14 @@ html, body {
 
 /* Squares Builder Section */
 .squares-builder-section {
-  background: rgba(20, 14, 34, 0.85);
-  border: 1.5px solid rgba(255, 183, 3, 0.35);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(20, 10, 36, 0.28) 50%, rgba(28, 12, 45, 0.35) 100%);
+  backdrop-filter: blur(24px) saturate(220%);
+  -webkit-backdrop-filter: blur(24px) saturate(220%);
+  border: 1.5px solid rgba(255, 183, 3, 0.45);
   border-radius: 20px;
   padding: 22px;
   margin: 24px 0;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45), inset 0 1.5px 2px rgba(255, 255, 255, 0.4);
 }
 
 .squares-builder-header {
@@ -3140,22 +3232,25 @@ html, body {
 }
 
 /* Individual Square Builder Card */
-.square-builder-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(28, 20, 48, 0.42) 100%);
-  backdrop-filter: blur(20px) saturate(190%);
-  -webkit-backdrop-filter: blur(20px) saturate(190%);
-  border: 1.5px solid rgba(255, 255, 255, 0.18);
-  border-radius: 16px;
-  padding: 18px;
-  position: relative;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.25);
-  transition: all 0.2s ease;
+.square-builder-card,
+.architect-square-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 25%, rgba(24, 12, 44, 0.22) 70%, rgba(0, 212, 255, 0.08) 100%) !important;
+  backdrop-filter: blur(22px) saturate(220%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(220%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.5) !important;
+  border-radius: 18px !important;
+  padding: 18px !important;
+  position: relative !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.35) !important;
+  transition: all 0.2s var(--ease-spring) !important;
 }
 
-.square-builder-card:hover {
-  border-color: rgba(0, 212, 255, 0.65);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(36, 24, 60, 0.52) 100%);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 212, 255, 0.25);
+.square-builder-card:hover,
+.architect-square-card:hover {
+  border-color: rgba(0, 212, 255, 0.75) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.20) 0%, rgba(32, 16, 56, 0.28) 60%, rgba(0, 212, 255, 0.15) 100%) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 212, 255, 0.35), inset 0 1.5px 2px rgba(255, 255, 255, 0.5) !important;
 }
 
 .square-card-top-bar {
