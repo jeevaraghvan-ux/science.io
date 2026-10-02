@@ -23,8 +23,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=17.0">
-  <link rel="stylesheet" href="ios27.css?v=17.0">
+  <link rel="stylesheet" href="styles.css?v=18.0">
+  <link rel="stylesheet" href="ios27.css?v=18.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
   <script>
@@ -390,6 +390,9 @@
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
           Print Science Sheet
         </button>
+        <span class="modal-copyright-protected-badge" style="font-size: 0.82rem; font-weight: 500; color: rgba(255, 255, 255, 0.7); display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; background: rgba(255, 255, 255, 0.08); border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.15);">
+          <span style="color: #06b6d4;">©</span> Copyright Protected
+        </span>
         <button class="btn-modal-action primary" id="modal-done-btn">Got It!</button>
       </div>
     </div>
@@ -617,6 +620,7 @@
                   <select id="vnote-category">
                     <option value="physical" selected>Physical Science (Matter, Energy, Force)</option>
                     <option value="life">Life Science (Cells, Ecosystems, Plants)</option>
+                    <option value="biology">Biology & Living Systems</option>
                     <option value="earth">Earth & Space (Planets, Weather, Rocks)</option>
                     <option value="method">Scientific Method & Experiments</option>
                     <option value="custom">Custom Science Unit</option>
@@ -637,10 +641,13 @@
                   <select id="vnote-color">
                     <option value="blue" selected>Electric Blue</option>
                     <option value="cyan">Neon Cyan</option>
+                    <option value="teal">Tertiary Teal</option>
+                    <option value="indigo">Tertiary Indigo / Blue-Violet</option>
                     <option value="purple">Cosmic Purple</option>
-                    <option value="indigo">Deep Indigo</option>
-                    <option value="orange">Solar Amber</option>
+                    <option value="plum">Tertiary Plum / Red-Violet</option>
                     <option value="emerald">Emerald Bio</option>
+                    <option value="amber">Solar Amber</option>
+                    <option value="orange">Solar Orange</option>
                   </select>
                 </div>
               </div>
@@ -886,7 +893,7 @@
     </button>
   </div>
 
-  <script src="published_notes.js?v=17.0"></script>
-  <script src="app.js?v=17.0"></script>
+  <script src="published_notes.js?v=18.0"></script>
+  <script src="app.js?v=18.0"></script>
 </body>
 </html>

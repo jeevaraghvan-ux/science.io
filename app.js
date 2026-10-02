@@ -479,250 +479,6 @@ const DEFAULT_SCIENCE_TOPICS = [
       }
     ],
     "badge": "4 Concept Squares • Microscopic Life"
-  },
-  {
-    "id": "states-of-matter-01",
-    "title": "STATES OF MATTER & KINETIC THEORY",
-    "category": "physical",
-    "color": "cyan",
-    "grade": "5th Grade",
-    "coreFormula": "Thermal Energy (Heat) = Kinetic Molecular Motion (Ek ∝ T)",
-    "description": "Matter exists as solids, liquids, or gases! Adding heat causes molecules to speed up, vibrate rapidly, and undergo phase changes.",
-    "isCustom": false,
-    "properties": [
-      {
-        "num": 1,
-        "name": "Solid State (Ice / Rigid Lattice)",
-        "formula": "Definite Shape & Definite Volume",
-        "explanation": "Molecules are tightly locked in a fixed crystalline lattice. They do not slide past one another, but vibrate in place with low kinetic energy.",
-        "example": "An ice cube or iron block maintains its own rigid shape without expanding or flowing.",
-        "trick": "Memory Trick: Solids are Solid as a Rock—tightly packed!"
-      },
-      {
-        "num": 2,
-        "name": "Liquid State (Water / Fluid Motion)",
-        "formula": "Definite Volume, Indefinite Shape",
-        "explanation": "Thermal heat breaks the rigid lattice! Molecules have enough kinetic energy to flow and slide past each other while remaining grouped together.",
-        "example": "Pouring 100 mL of water from a beaker into a cylinder keeps the same volume but conforms to the container.",
-        "trick": "Memory Trick: Liquids Flow like a River—sliding particles!"
-      },
-      {
-        "num": 3,
-        "name": "Gas State (Steam / Vapor Expansion)",
-        "formula": "Indefinite Shape & Indefinite Volume",
-        "explanation": "High thermal kinetic energy overcomes all intermolecular attraction. Molecules zoom around at high speed, bouncing off walls and filling the entire space.",
-        "example": "Water vapor or helium expands outward to completely fill any balloon or closed room.",
-        "trick": "Memory Trick: Gas Zooming Fast—far apart and flying free!"
-      },
-      {
-        "num": 4,
-        "name": "Melting & Freezing Transitions (0°C / 32°F)",
-        "formula": "Solid ⇌ Liquid (Latent Heat of Fusion)",
-        "explanation": "Melting occurs when heat is absorbed at 0°C, breaking crystal bonds. Freezing occurs when heat is removed, locking liquid particles back into a solid.",
-        "example": "Ice cubes melting into liquid water on a warm table or water freezing into ice in a freezer.",
-        "trick": "Memory Trick: 0°C (32°F) is the Zero-Line for Ice and Water!"
-      },
-      {
-        "num": 5,
-        "name": "Boiling & Condensation Transitions (100°C / 212°F)",
-        "formula": "Liquid ⇌ Gas (Latent Heat of Vaporization)",
-        "explanation": "Boiling occurs when liquid is heated to 100°C, causing vapor bubbles to form rapidly. Condensation occurs when steam cools down and turns back into liquid droplets.",
-        "example": "A kettle boiling water into steam, or water droplets condensing on a cold glass of lemonade.",
-        "trick": "Memory Trick: 100°C (212°F) is Boiling Hot Steam!"
-      }
-    ],
-    "quiz": [
-      {
-        "q": "What happens to the molecules of a substance when thermal heat is added?",
-        "options": [
-          "They gain kinetic energy and move/vibrate faster and spread apart",
-          "They lose energy and stop moving completely",
-          "They destroy each other and disappear",
-          "They freeze into rigid crystals instantly"
-        ],
-        "ans": 0,
-        "why": "Thermal heat increases the kinetic energy of molecules, making them vibrate faster!"
-      },
-      {
-        "q": "Which state of matter has a definite volume but takes the shape of whatever container it is poured into?",
-        "options": [
-          "Liquid",
-          "Solid",
-          "Gas",
-          "Plasma"
-        ],
-        "ans": 0,
-        "why": "Liquids have a definite volume because intermolecular forces keep them grouped, but particles slide freely!"
-      },
-      {
-        "q": "At what temperature does water boil and transform into water vapor (gas)?",
-        "options": [
-          "100°C (212°F)",
-          "0°C (32°F)",
-          "50°C (122°F)",
-          "200°C (392°F)"
-        ],
-        "ans": 0,
-        "why": "The normal boiling point of pure water at sea level is 100°C (212°F)!"
-      },
-      {
-        "q": "What is the term for the phase transition where water vapor (gas) cools down and turns back into liquid droplets?",
-        "options": [
-          "Condensation",
-          "Evaporation",
-          "Melting",
-          "Sublimation"
-        ],
-        "ans": 0,
-        "why": "Condensation is when gas particles lose heat energy and group together into a liquid!"
-      },
-      {
-        "q": "In which state of matter are molecules held in a rigid crystalline structure vibrating in fixed positions?",
-        "options": [
-          "Solid",
-          "Liquid",
-          "Gas",
-          "Vapor"
-        ],
-        "ans": 0,
-        "why": "In a solid, strong intermolecular forces hold molecules in a fixed lattice structure!"
-      }
-    ],
-    "badge": "5 Concept Squares • Physical Science"
-  },
-  {
-    "id": "moon-phases-01",
-    "title": "MOON PHASES & SOLAR SYSTEM ORBIT",
-    "category": "earth",
-    "color": "indigo",
-    "grade": "5th Grade",
-    "coreFormula": "29.5-Day Lunar Cycle • Light on Right = Waxing, Light on Left = Waning",
-    "description": "Understand why the Moon's appearance changes throughout the month! Half of the Moon is always lit by the Sun, but our Earth viewpoint changes as the Moon orbits counterclockwise.",
-    "isCustom": false,
-    "properties": [
-      {
-        "num": 1,
-        "name": "New Moon (Day 0)",
-        "formula": "Moon between Earth and Sun (0° Orbit)",
-        "explanation": "The Moon is positioned directly between Earth and the Sun. The sunlit hemisphere faces away into space, while the dark shadowed side faces Earth, making the Moon invisible.",
-        "example": "Looking up at night and seeing a completely dark sky with no visible Moon.",
-        "trick": "Memory Trick: New Moon = No Moon visible to us!"
-      },
-      {
-        "num": 2,
-        "name": "Waxing Crescent (Day 3.7)",
-        "formula": "Growing Silver Sliver on the Right (45° Orbit)",
-        "explanation": "As the Moon travels counterclockwise in its orbit, a thin sliver of the sunlit hemisphere becomes visible from Earth on the right side.",
-        "example": "A delicate curved silver crescent visible in the western evening sky after sunset.",
-        "trick": "Memory Trick: Waxing = Growing! Light on the Right means growing bright!"
-      },
-      {
-        "num": 3,
-        "name": "First Quarter (Day 7.4)",
-        "formula": "Right Half Illuminated (90° Orbit)",
-        "explanation": "One quarter of the way through the lunar orbit. From Earth, we see exactly half of the Moon's visible disc illuminated on the right side (looks like a half-moon).",
-        "example": "High in the southern sky at sunset, with the right side glowing bright white.",
-        "trick": "Memory Trick: First Quarter = 1/4 of cycle, Right Half glowing!"
-      },
-      {
-        "num": 4,
-        "name": "Waxing Gibbous (Day 11.1)",
-        "formula": "Humpbacked Light Growing on the Right (135° Orbit)",
-        "explanation": "'Gibbous' means swollen or humped. More than half of the visible disc is lit on the right side, continuing to swell larger as it approaches Full Moon.",
-        "example": "An oval, mostly-lit Moon visible in the late afternoon and rising into the night.",
-        "trick": "Memory Trick: Gibbous sounds like Great Big—almost full!"
-      },
-      {
-        "num": 5,
-        "name": "Full Moon (Day 14.8)",
-        "formula": "Earth between Sun and Moon (180° Orbit)",
-        "explanation": "Earth is positioned roughly between the Sun and Moon. The entire illuminated hemisphere faces directly toward Earth, presenting a brilliant 100% lit circle.",
-        "example": "Rising at sunset and lighting up the entire night landscape with silver moonbeams.",
-        "trick": "Memory Trick: Full Moon = Fully lit disc 100%!"
-      },
-      {
-        "num": 6,
-        "name": "Waning Gibbous (Day 18.5)",
-        "formula": "Light Shrinking, Now on the Left (225° Orbit)",
-        "explanation": "'Waning' means shrinking or decreasing. After Full Moon, the light begins to decrease, now showing on the left side while the right side enters darkness.",
-        "example": "Rises late at night with a shadowed slice on the right edge.",
-        "trick": "Memory Trick: Waning = Weakening/Shrinking! Light is on the Left!"
-      },
-      {
-        "num": 7,
-        "name": "Third / Last Quarter (Day 22.1)",
-        "formula": "Left Half Illuminated (270° Orbit)",
-        "explanation": "Three quarters through the 29.5-day cycle. From Earth, we see exactly half of the visible disc illuminated, but this time on the left side.",
-        "example": "Rises around midnight and visible in the early morning sky.",
-        "trick": "Memory Trick: Third Quarter = Left half lit before sunrise!"
-      },
-      {
-        "num": 8,
-        "name": "Waning Crescent (Day 25.8)",
-        "formula": "Final Sliver on the Left (315° Orbit)",
-        "explanation": "The final phase before New Moon. Only a tiny crescent remains illuminated on the left side, visible in the eastern sky just before dawn.",
-        "example": "A thin curved crescent smiling in the dawn sky right before sunrise.",
-        "trick": "Memory Trick: Waning Crescent = Goodbye crescent before the cycle resets!"
-      }
-    ],
-    "quiz": [
-      {
-        "q": "Why does the Moon appear to change shape throughout the month?",
-        "options": [
-          "As the Moon orbits Earth, we see different amounts of its sunlit half from our vantage point",
-          "Earth's shadow covers the Moon every single night",
-          "The Moon expands and shrinks like a balloon",
-          "The Sun turns on and off on different sides of the Moon"
-        ],
-        "ans": 0,
-        "why": "Half of the Moon is always lit by the Sun, but as it revolves around Earth, our viewing angle changes!"
-      },
-      {
-        "q": "What does the word 'Waxing' mean when describing the Moon?",
-        "options": [
-          "Growing or increasing in illuminated size (light on the right)",
-          "Shrinking or decreasing in illuminated size",
-          "Covered in space dust",
-          "Passing through Earth's shadow"
-        ],
-        "ans": 0,
-        "why": "Waxing means growing! During waxing phases, the illuminated portion grows larger and is on the right side."
-      },
-      {
-        "q": "In which phase is the Moon positioned between Earth and the Sun, making the lit side face away from Earth?",
-        "options": [
-          "New Moon",
-          "Full Moon",
-          "First Quarter",
-          "Waxing Gibbous"
-        ],
-        "ans": 0,
-        "why": "During a New Moon, the Moon is between the Sun and Earth, so the sunlit hemisphere faces away into space."
-      },
-      {
-        "q": "If the Moon is half-illuminated with the light visible on the LEFT side, which phase is it?",
-        "options": [
-          "Third / Last Quarter",
-          "First Quarter",
-          "Waxing Crescent",
-          "Full Moon"
-        ],
-        "ans": 0,
-        "why": "Light on the Left = Waning! The half-illuminated waning phase is the Third / Last Quarter."
-      },
-      {
-        "q": "How long does one complete cycle of lunar phases (from New Moon back to New Moon) take?",
-        "options": [
-          "About 29.5 days (one synodic month)",
-          "Exactly 365 days",
-          "24 hours",
-          "7 days"
-        ],
-        "ans": 0,
-        "why": "One synodic lunar cycle takes approximately 29.5 days to complete."
-      }
-    ],
-    "badge": "8 Lunar Phases • Earth & Space Science"
   }
 ];
 
@@ -1747,6 +1503,18 @@ class VaultController {
       return;
     }
 
+    // Synchronize current values directly from rendered square inputs to ensure latest user edits are captured
+    const squareCards = document.querySelectorAll("#vault-squares-list .architect-square-card");
+    if (squareCards.length > 0) {
+      this.architectSquares = Array.from(squareCards).map((card, idx) => ({
+        name: card.querySelector(".sq-input-name")?.value || this.architectSquares[idx]?.name || `Square #${idx + 1}`,
+        formula: card.querySelector(".sq-input-formula")?.value || this.architectSquares[idx]?.formula || "",
+        explanation: card.querySelector(".sq-input-explanation")?.value || this.architectSquares[idx]?.explanation || "",
+        example: card.querySelector(".sq-input-example")?.value || this.architectSquares[idx]?.example || "",
+        trick: card.querySelector(".sq-input-trick")?.value || this.architectSquares[idx]?.trick || ""
+      }));
+    }
+
     const properties = this.architectSquares.map((sq, idx) => ({
       num: idx + 1,
       name: sq.name || `Square #${idx + 1}`,
@@ -1772,6 +1540,10 @@ class VaultController {
     };
 
     if (this.editingNoteId) {
+      const existingNote = this.app.notes.find(n => n.id === this.editingNoteId);
+      if (existingNote && existingNote.quiz) {
+        newNote.quiz = existingNote.quiz;
+      }
       const idx = this.app.notes.findIndex(n => n.id === this.editingNoteId);
       if (idx !== -1) {
         this.app.notes[idx] = newNote;
@@ -1783,6 +1555,8 @@ class VaultController {
 
     this.app.saveNotes();
     this.app.render();
+    this.updateManagerTable();
+    this.updateTelemetry();
 
     const saveBtn = document.getElementById("btn-save-vault-note");
     if (saveBtn) {
@@ -2011,22 +1785,28 @@ class VaultController {
         <td><span style="color: #6ee7b7;">User Unit</span></td>
         <td>
           <div style="display: flex; gap: 8px;">
-            <button class="btn-table-action preview" data-id="${topic.id}">Preview</button>
-            <button class="btn-table-action edit" data-id="${topic.id}">Edit</button>
-            <button class="btn-table-action delete" data-id="${topic.id}">Delete</button>
+            <button type="button" class="btn-table-action preview" data-id="${topic.id}">Preview</button>
+            <button type="button" class="btn-table-action edit" data-id="${topic.id}">Edit</button>
+            <button type="button" class="btn-table-action delete" data-id="${topic.id}">Delete</button>
           </div>
         </td>
       `;
 
-      tr.querySelector(".preview")?.addEventListener("click", () => {
+      tr.querySelector(".preview")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         this.app.openNotesViewer(topic.id);
       });
 
-      tr.querySelector(".edit")?.addEventListener("click", () => {
+      tr.querySelector(".edit")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         this.editNoteInArchitect(topic.id);
       });
 
-      tr.querySelector(".delete")?.addEventListener("click", async () => {
+      tr.querySelector(".delete")?.addEventListener("click", async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         if (confirm(`Delete unit "${topic.title}"?`)) {
           this.app.notes = this.app.notes.filter(n => n.id !== topic.id);
           this.app.saveNotes();
@@ -2047,30 +1827,71 @@ class VaultController {
     if (!note) return;
 
     this.editingNoteId = note.id;
-    document.getElementById("vnote-title").value = note.title;
-    document.getElementById("vnote-category").value = note.category || "physical";
-    document.getElementById("vnote-color").value = note.color || "blue";
-    document.getElementById("vnote-formula").value = note.coreFormula || "";
-    document.getElementById("vnote-desc").value = note.description || "";
-    if (document.getElementById("vnote-redirect")) {
-      document.getElementById("vnote-redirect").value = note.redirectUrl || "";
+    const titleInput = document.getElementById("vnote-title");
+    const catSelect = document.getElementById("vnote-category");
+    const colorSelect = document.getElementById("vnote-color");
+    const formulaInput = document.getElementById("vnote-formula");
+    const descInput = document.getElementById("vnote-desc");
+    const redirectInput = document.getElementById("vnote-redirect");
+
+    if (titleInput) titleInput.value = note.title || "";
+    
+    // Category mapping
+    if (catSelect) {
+      const catVal = note.category || "life";
+      if (catSelect.querySelector(`option[value="${catVal}"]`)) {
+        catSelect.value = catVal;
+      } else if (catVal === "biology") {
+        catSelect.value = "life";
+      } else {
+        catSelect.value = "physical";
+      }
     }
 
+    // Color mapping
+    if (colorSelect) {
+      const colorVal = note.color || "blue";
+      if (colorSelect.querySelector(`option[value="${colorVal}"]`)) {
+        colorSelect.value = colorVal;
+      } else if (colorVal === "amber") {
+        colorSelect.value = "orange";
+      } else {
+        colorSelect.value = "blue";
+      }
+    }
+
+    if (formulaInput) formulaInput.value = note.coreFormula || "";
+    if (descInput) descInput.value = note.description || "";
+    if (redirectInput) redirectInput.value = note.redirectUrl || "";
+
     this.architectSquares = (note.properties || []).map(p => ({
-      name: p.name,
-      formula: p.formula,
-      explanation: p.explanation,
-      example: p.example,
-      trick: p.trick
+      name: p.name || "",
+      formula: p.formula || "",
+      explanation: p.explanation || "",
+      example: p.example || "",
+      trick: p.trick || ""
     }));
 
     this.renderSquares();
     this.switchTab("architect");
 
+    // Scroll to top of architect form and focus title input
+    const deckBody = document.querySelector(".admin-deck-content-body");
+    if (deckBody) deckBody.scrollTop = 0;
+    const vaultModal = document.getElementById("vault-modal");
+    if (vaultModal) {
+      const scrollable = vaultModal.querySelector(".admin-vault-container") || vaultModal;
+      scrollable.scrollTop = 0;
+    }
+    if (titleInput) {
+      titleInput.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => titleInput.focus(), 80);
+    }
+
     const saveBtn = document.getElementById("btn-save-vault-note");
     if (saveBtn) {
       saveBtn.innerHTML = "<span>🚀 Update & Publish to Website & Cloud</span>";
-      saveBtn.style.background = "linear-gradient(135deg, #30D158, #34C759)";
+      saveBtn.style.background = "linear-gradient(135deg, #10b981, #06b6d4)";
     }
 
     sounds.playClick();
@@ -2088,18 +1909,18 @@ class VaultController {
   }
 }
 
-// Helper to guarantee science notes list has valid fallback if completely empty and includes core units
+// Helper to guarantee science notes list has valid fallback if completely empty and filters out unwanted notes
 function ensurePlantCellUnit(notesList) {
   if (!Array.isArray(notesList) || notesList.length === 0) {
     return JSON.parse(JSON.stringify(DEFAULT_SCIENCE_TOPICS));
   }
-  const existingIds = new Set(notesList.map(n => n.id));
-  DEFAULT_SCIENCE_TOPICS.forEach(defTopic => {
-    if (!existingIds.has(defTopic.id)) {
-      notesList.push(JSON.parse(JSON.stringify(defTopic)));
-    }
-  });
-  return notesList;
+  // Strip out any added notes the user explicitly does not want
+  return notesList.filter(n => n && 
+    n.id !== "states-of-matter-01" && 
+    n.id !== "moon-phases-01" &&
+    !n.id.startsWith("science-matter-") &&
+    !n.id.startsWith("science-photo-")
+  );
 }
 
 // ================= MAIN SCIENCE.IO APP =================
@@ -2253,6 +2074,7 @@ class ScienceIoApp {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
           this.notes = ensurePlantCellUnit(parsed);
+          localStorage.setItem("scienceio_notes_v6", JSON.stringify(this.notes));
           this.render();
           return;
         }
@@ -3244,6 +3066,12 @@ class ScienceIoApp {
 
       container.appendChild(card);
     });
+
+    const copyrightFooter = document.createElement("div");
+    copyrightFooter.className = "modal-notes-copyright-footer";
+    copyrightFooter.style.cssText = "grid-column: 1 / -1; text-align: center; padding: 18px 12px; margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.65); font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px;";
+    copyrightFooter.innerHTML = `<span>© Copyright Protected • 5th Grade Science Curriculum by Jeeva R.</span>`;
+    container.appendChild(copyrightFooter);
   }
 
   // Interactive Science Visualizers (Matter States #6, Moon Phases Orbit #3, Plant Cell Biology)
