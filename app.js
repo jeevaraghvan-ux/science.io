@@ -1080,13 +1080,6 @@ class VaultController {
   }
 
   setupVaultTriggers() {
-    const vaultBubble = document.getElementById("vault-bubble-btn");
-    if (vaultBubble) {
-      vaultBubble.addEventListener("click", () => {
-        this.open();
-      });
-    }
-
     document.getElementById("vault-lock-close")?.addEventListener("click", () => this.close());
     document.getElementById("vault-admin-close")?.addEventListener("click", () => this.close());
 
@@ -1104,9 +1097,6 @@ class VaultController {
         titleInput.focus();
         titleInput.scrollIntoView({ behavior: "smooth" });
       }
-    } else {
-      this.openCreatorAfterUnlock = true;
-      this.open("redirect");
     }
   }
 
@@ -1138,6 +1128,7 @@ class VaultController {
   }
 
   close() {
+    this.isUnlocked = false;
     document.getElementById("vault-modal")?.classList.add("hidden");
     this.currentPin = "";
     this.updatePinDisplay();
@@ -2054,12 +2045,12 @@ class ScienceIoApp {
       this.fetchCloudNotes(true);
     });
 
-    // 5. Quiet background sync every 8s so other devices (e.g. phone) stay live in real-time
+    // 5. Quiet background sync fallback (Supabase Realtime WebSocket handles instant live pushes)
     setInterval(() => {
       if (!this.hasUnpublishedChanges && document.visibilityState === "visible") {
         this.fetchCloudNotes(true);
       }
-    }, 8000);
+    }, 30000);
   }
 
   // Persistent storage via localStorage & cloud fallback
@@ -2172,11 +2163,12 @@ class ScienceIoApp {
         return true;
       }
 
-      const incomingJson = JSON.stringify(loadedNotes);
+      const incomingNotes = ensurePlantCellUnit(loadedNotes);
+      const incomingJson = JSON.stringify(incomingNotes);
       const currentJson = JSON.stringify(this.notes);
 
       if (incomingJson !== currentJson) {
-        this.notes = ensurePlantCellUnit(loadedNotes);
+        this.notes = incomingNotes;
         localStorage.setItem("scienceio_notes_v6", incomingJson);
         this.render();
         if (this.vault && typeof this.vault.updateManagerTable === "function") {
@@ -2522,7 +2514,12 @@ class ScienceIoApp {
       if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> System Operational. Welcome Jeeva R.`;
       sounds.playSuccess();
       setTimeout(() => {
-        if (loader) loader.classList.add("fade-out");
+        if (loader) {
+          loader.classList.add("fade-out");
+          setTimeout(() => {
+            loader.style.display = "none";
+          }, 800);
+        }
       }, 350);
     };
 
@@ -2556,6 +2553,7 @@ class ScienceIoApp {
   replayLoader() {
     const loader = document.getElementById("loader-screen");
     if (!loader) return;
+    loader.style.display = "";
     loader.classList.remove("fade-out");
     this.setupLoadingScreen();
   }
@@ -2597,20 +2595,10 @@ class ScienceIoApp {
             <div class="empty-notebook-icon">🔬</div>
             <h3 class="empty-notebook-title">Your Science Notebook is Ready!</h3>
             <p class="empty-notebook-desc">
-              No notes have been added yet. Click <strong>ADD MY NOTES</strong> below (or enter the Admin Vault) to architect your first science unit and concept squares.<br><br>
-              Once created, unlock the Vault to publish them across your phone, tablet, and other computers!
+              No notes have been published yet. Science units and concept squares will appear here once published from the Vault.
             </p>
-            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-              <button class="hero-cta-btn" id="empty-add-note-btn" style="padding: 12px 24px; font-size: 0.9rem;">
-                ✦ ADD MY FIRST NOTE
-              </button>
-            </div>
           </div>
         `;
-
-        document.getElementById("empty-add-note-btn")?.addEventListener("click", () => {
-          this.vault.requestCreateNote();
-        });
       } else {
         // Search returned no results
         track.innerHTML = `
@@ -4485,10 +4473,6 @@ class ScienceIoApp {
       document.getElementById("notes-section")?.scrollIntoView({ behavior: "smooth" });
     });
 
-    document.getElementById("hero-create-btn")?.addEventListener("click", () => {
-      this.vault.requestCreateNote();
-    });
-
     document.getElementById("hero-scroll-cue")?.addEventListener("click", () => {
       document.getElementById("notes-section")?.scrollIntoView({ behavior: "smooth" });
     });
@@ -4761,21 +4745,21 @@ class Chatbot {
           this.messagesContainer.lastChild.remove();
         }
 
-        const t = text.toLowerCase();
+        const cleanT = text.trim().toLowerCase().replace(/\s+/g, ' ');
         let replyHTML = "";
 
-        // Secret Admin Passcode
-        if (t === "access j33v4") {
-          replyHTML = `<div class="msg-bubble" style="background: rgba(48, 209, 88, 0.2); border-color: #30D158; color: #30D158; font-weight: bold;">Authentication Accepted. Welcome back, Jeeva. Opening Vault...</div>`;
+        // Secret Admin Passcode Clearance: ONLY way to open Vault Passcode Entry Area
+        if (cleanT === "access j33v4") {
+          replyHTML = `<div class="msg-bubble" style="background: rgba(6, 182, 212, 0.2); border-color: #06b6d4; color: #38bdf8; font-weight: bold;">Security Clearance Verified. Opening Vault Passcode Entry Area...</div>`;
           setTimeout(() => {
             if (window.app && window.app.vault) {
-              window.app.vault.isUnlocked = true;
+              window.app.vault.isUnlocked = false;
               window.app.vault.open();
             }
             const chatWin = document.getElementById("ai-chat-window");
             if (chatWin) chatWin.classList.add("hidden");
             sounds.playSuccess();
-          }, 1000);
+          }, 800);
         }
         // Save / Publish question
         else if (t.includes("save") || t.includes("publish") || t.includes("phone") || t.includes("database") || t.includes("different device")) {
@@ -4846,29 +4830,7 @@ class Chatbot {
   }
 }
 
-// Mouse Spotlight Logic (Hardware-accelerated with requestAnimationFrame)
-document.addEventListener("DOMContentLoaded", () => {
-  const spotlight = document.getElementById("mouse-spotlight");
-  if (spotlight) {
-    let mouseX = -9999, mouseY = -9999;
-    let rafPending = false;
-    document.addEventListener("mousemove", (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      if (!rafPending) {
-        rafPending = true;
-        requestAnimationFrame(() => {
-          spotlight.style.opacity = "1";
-          spotlight.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-          rafPending = false;
-        });
-      }
-    }, { passive: true });
-    document.addEventListener("mouseleave", () => {
-      spotlight.style.opacity = "0";
-    });
-  }
-});
+// Mouse spotlight disabled to eliminate continuous GPU invalidation of glass cards
 
 // Initialize on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
