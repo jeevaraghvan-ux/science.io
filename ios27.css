@@ -713,3 +713,506 @@ body.cinematic-mode .app-main {
   box-shadow: 0 0 12px rgba(0, 240, 255, 0.4) !important;
 }
 
+/* ================= VAULT AI COPILOT (LIQUID GLASS + MULTIMODAL) ================= */
+.vault-ai-tab-pill {
+  position: relative;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(99, 102, 241, 0.25)) !important;
+  border-color: rgba(6, 182, 212, 0.5) !important;
+  color: #38bdf8 !important;
+}
+
+.vault-ai-tab-pill.active {
+  background: linear-gradient(135deg, #06b6d4, #6366f1) !important;
+  color: #fff !important;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.6) !important;
+}
+
+.vault-ai-dashboard-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  max-height: calc(88vh - 180px);
+  min-height: 480px;
+  background: rgba(14, 9, 24, 0.65);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1.5px solid rgba(6, 182, 212, 0.35);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+.vault-ai-info-bar {
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.vault-ai-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vault-ai-status-pulse {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #00f5d4;
+  box-shadow: 0 0 12px #00f5d4;
+  animation: pulseAiLive 2s infinite;
+}
+
+@keyframes pulseAiLive {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+}
+
+.vault-ai-title-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.vault-ai-title {
+  margin: 0;
+  font-family: var(--font-display, inherit);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+
+.vault-ai-subtitle {
+  font-size: 0.72rem;
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.vault-ai-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vault-chip-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vault-chip-btn:hover {
+  background: rgba(6, 182, 212, 0.25);
+  border-color: #38bdf8;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+}
+
+.vault-ai-messages-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-behavior: smooth;
+}
+
+.vault-ai-messages-container::-webkit-scrollbar {
+  width: 6px;
+}
+.vault-ai-messages-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #06b6d4, #6366f1);
+  border-radius: 3px;
+}
+
+.vault-ai-msg-row {
+  display: flex;
+  width: 100%;
+}
+
+.vault-ai-msg-row.user {
+  justify-content: flex-end;
+}
+
+.vault-ai-msg-row.assistant {
+  justify-content: flex-start;
+}
+
+.vault-ai-bubble {
+  max-width: 84%;
+  padding: 14px 18px;
+  border-radius: 20px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  word-break: break-word;
+}
+
+.vault-ai-msg-row.user .vault-ai-bubble {
+  background: linear-gradient(135deg, #06b6d4, #6366f1);
+  border-bottom-right-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.vault-ai-msg-row.assistant .vault-ai-bubble {
+  background: rgba(255, 255, 255, 0.08);
+  border-bottom-left-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.vault-ai-bubble-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #38bdf8;
+}
+
+.vault-ai-unit-preview-card {
+  margin-top: 12px;
+  background: rgba(18, 12, 28, 0.85);
+  border: 1.5px solid rgba(0, 245, 212, 0.4);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.vault-ai-unit-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+
+.vault-ai-unit-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+}
+
+.vault-ai-unit-cat-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  background: rgba(6, 182, 212, 0.2);
+  border: 1px solid #06b6d4;
+  color: #38bdf8;
+  text-transform: uppercase;
+}
+
+.vault-ai-unit-formula-row {
+  font-size: 0.82rem;
+  color: #ffd166;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.vault-ai-squares-mini-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.vault-ai-square-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+}
+
+.vault-ai-square-item strong {
+  color: #38bdf8;
+}
+
+.vault-ai-card-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn-vault-ai-action {
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-vault-ai-action.primary {
+  background: linear-gradient(135deg, #06b6d4, #6366f1);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+}
+
+.btn-vault-ai-action.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.6);
+}
+
+.btn-vault-ai-action.success {
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.btn-vault-ai-action.success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+}
+
+.btn-vault-ai-action.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.btn-vault-ai-action.secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Staged Attachment Bar */
+.vault-ai-attachment-bar {
+  padding: 10px 18px;
+  background: rgba(6, 182, 212, 0.12);
+  border-top: 1px solid rgba(6, 182, 212, 0.35);
+  border-bottom: 1px solid rgba(6, 182, 212, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.vault-ai-preview-thumb-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vault-ai-preview-img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1.5px solid #06b6d4;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+.vault-ai-preview-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.vault-ai-preview-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.vault-ai-preview-size {
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+.vault-ai-attachment-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vault-ai-ocr-badge {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #00f5d4;
+  background: rgba(0, 245, 212, 0.15);
+  border: 1px solid rgba(0, 245, 212, 0.4);
+  padding: 4px 10px;
+  border-radius: 9999px;
+}
+
+.vault-ai-btn-remove-img {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.vault-ai-btn-remove-img:hover {
+  background: rgba(239, 68, 68, 0.4);
+  color: #fff;
+}
+
+/* Input toolbar */
+.vault-ai-input-toolbar {
+  padding: 14px 18px;
+  background: rgba(10, 6, 18, 0.8);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vault-ai-drop-hint {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.vault-ai-drop-hint strong {
+  color: #38bdf8;
+}
+
+.vault-ai-input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vault-ai-icon-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 9px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.vault-ai-icon-btn:hover {
+  background: rgba(6, 182, 212, 0.2);
+  border-color: #06b6d4;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.vault-ai-icon-btn.paste {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.4);
+  color: #a5b4fc;
+}
+
+.vault-ai-icon-btn.paste:hover {
+  background: rgba(99, 102, 241, 0.3);
+  color: #fff;
+}
+
+.vault-ai-textarea {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 10px 16px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: none;
+  line-height: 1.4;
+  min-height: 42px;
+  max-height: 100px;
+  transition: all 0.25s;
+}
+
+.vault-ai-textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #38bdf8;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.35);
+}
+
+.vault-ai-send-button {
+  background: linear-gradient(135deg, #06b6d4, #6366f1);
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 10px 20px;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.vault-ai-send-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(6, 182, 212, 0.6);
+}
+
+/* Scanning Indicator */
+.vault-ai-scanning-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(6, 182, 212, 0.15);
+  border: 1px solid #06b6d4;
+  border-radius: 14px;
+  color: #38bdf8;
+  font-size: 0.85rem;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+.scanning-beam {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 245, 212, 0.4), transparent);
+  animation: scanBeam 1.5s infinite linear;
+}
+
+@keyframes scanBeam {
+  0% { left: -50%; }
+  100% { left: 150%; }
+}
+
+
