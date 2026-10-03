@@ -501,11 +501,12 @@ STYLES
 
 /* ================= HOLOGRAPHIC & NEON GLOW UPGRADES ================= */
 .nav-brand-cursive {
-  font-family: var(--font-cursive) !important;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 38px !important;
+  text-decoration: none !important;
   background: none !important;
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.45)) !important;
 }
 
 .deck-card:hover .card-glow-layer {

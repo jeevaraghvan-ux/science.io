@@ -3237,7 +3237,10 @@ class ScienceIoApp {
           loader.classList.add("fade-out");
           setTimeout(() => {
             loader.style.display = "none";
+            this.playCursiveHandwriting();
           }, 800);
+        } else {
+          this.playCursiveHandwriting();
         }
       }, 350);
     };
@@ -3275,6 +3278,103 @@ class ScienceIoApp {
     loader.style.display = "";
     loader.classList.remove("fade-out");
     this.setupLoadingScreen();
+  }
+
+  // ================= DIGITAL CURSIVE HANDWRITING ANIMATOR =================
+  playCursiveHandwriting() {
+    const svg = document.getElementById("cursive-logo-svg");
+    if (!svg) return;
+    const strokes = Array.from(svg.querySelectorAll(".cursive-stroke"));
+    const dots = Array.from(svg.querySelectorAll(".cursive-dot"));
+    const spark = document.getElementById("cursive-spark");
+
+    if (this._cursiveAnimId) {
+      cancelAnimationFrame(this._cursiveAnimId);
+      this._cursiveAnimId = null;
+    }
+
+    svg.classList.remove("cursive-complete");
+
+    // Measure each stroke and initialize dasharray
+    const strokeData = strokes.map((s) => {
+      const len = s.getTotalLength ? s.getTotalLength() : 30;
+      s.style.strokeDasharray = `${len} ${len}`;
+      s.style.strokeDashoffset = `${len}`;
+      return { el: s, len: len };
+    });
+
+    // Reset dots to scale 0
+    dots.forEach((d) => {
+      d.style.transform = "scale(0)";
+      d.style.opacity = "0";
+    });
+
+    if (spark) {
+      spark.style.opacity = "1";
+    }
+
+    const totalLen = strokeData.reduce((acc, curr) => acc + curr.len, 0);
+    const duration = 2100;
+    const startTime = performance.now();
+
+    const frame = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      // Silky easeInOutQuad
+      const eased = progress < 0.5 ? 2 * progress * progress : -1 + (4 - 2 * progress) * progress;
+
+      const targetDistance = eased * totalLen;
+      let accumulated = 0;
+      let currentSparkPoint = null;
+
+      strokeData.forEach(({ el, len }) => {
+        if (targetDistance <= accumulated) {
+          el.style.strokeDashoffset = `${len}`;
+        } else if (targetDistance >= accumulated + len) {
+          el.style.strokeDashoffset = "0";
+        } else {
+          const segProgress = (targetDistance - accumulated) / len;
+          el.style.strokeDashoffset = `${len * (1 - segProgress)}`;
+          try {
+            if (el.getPointAtLength) {
+              currentSparkPoint = el.getPointAtLength(len * segProgress);
+            }
+          } catch (e) {}
+        }
+        accumulated += len;
+      });
+
+      // Animate dots based on progress
+      dots.forEach((dot, idx) => {
+        const threshold = idx === 0 ? 0.25 : idx === 1 ? 0.70 : 0.82;
+        if (eased >= threshold) {
+          dot.style.transform = "scale(1)";
+          dot.style.opacity = "1";
+        } else {
+          dot.style.transform = "scale(0)";
+          dot.style.opacity = "0";
+        }
+      });
+
+      // Move glowing pen-tip spark
+      if (spark && currentSparkPoint) {
+        spark.setAttribute("cx", currentSparkPoint.x.toFixed(2));
+        spark.setAttribute("cy", currentSparkPoint.y.toFixed(2));
+        spark.style.opacity = "1";
+      }
+
+      if (progress < 1) {
+        this._cursiveAnimId = requestAnimationFrame(frame);
+      } else {
+        if (spark) {
+          spark.style.opacity = "0";
+        }
+        svg.classList.add("cursive-complete");
+        this._cursiveAnimId = null;
+      }
+    };
+
+    this._cursiveAnimId = requestAnimationFrame(frame);
   }
 
   // ================= FILTERED NOTES =================
@@ -3343,14 +3443,25 @@ class ScienceIoApp {
       return;
     }
 
-    if (this.carouselIndex >= filtered.length) {
+    // Build 3D cylinder ring cards (if filtered has < 8 items, repeat so the 3D cylinder has cards on all sides including the other side!)
+    const targetRingCount = filtered.length >= 8 ? filtered.length : (filtered.length * Math.ceil(8 / filtered.length));
+    const ringItems = [];
+    for (let i = 0; i < targetRingCount; i++) {
+      const origIdx = i % filtered.length;
+      ringItems.push({ topic: filtered[origIdx], origIdx, virtualIdx: i });
+    }
+
+    if (this.carouselIndex >= ringItems.length) {
       this.carouselIndex = 0;
     }
 
-    filtered.forEach((topic, idx) => {
+    ringItems.forEach((item) => {
+      const { topic, origIdx, virtualIdx } = item;
       const card = document.createElement("div");
       card.className = "deck-card";
-      card.dataset.index = idx;
+      card.dataset.index = virtualIdx;
+      card.dataset.origIndex = origIdx;
+      card.dataset.id = topic.id;
 
       const glowClass = `glow-${topic.color || "cyan"}`;
       const sqCount = topic.properties ? topic.properties.length : 1;
@@ -3399,9 +3510,9 @@ class ScienceIoApp {
 
       card.addEventListener("click", (e) => {
         if (this._hasDragged) return;
-        if (idx !== this.carouselIndex) {
+        if (virtualIdx !== this.carouselIndex) {
           e.stopPropagation();
-          this.carouselIndex = idx;
+          this.carouselIndex = virtualIdx;
           sounds.playAsmrSlide();
           this.updateCarouselPositions();
           return;
@@ -3411,14 +3522,29 @@ class ScienceIoApp {
       track.appendChild(card);
     });
 
-    // Populate Dots
+    // Populate Dots (1 per real note topic)
     if (dotsContainer) {
       dotsContainer.innerHTML = "";
-      filtered.forEach((_, idx) => {
+      filtered.forEach((_, noteIdx) => {
         const dot = document.createElement("div");
-        dot.className = `dot-indicator ${idx === this.carouselIndex ? "active" : ""}`;
+        dot.className = `dot-indicator ${noteIdx === (this.carouselIndex % filtered.length) ? "active" : ""}`;
         dot.addEventListener("click", () => {
-          this.carouselIndex = idx;
+          // Find closest virtual card matching this noteIdx
+          const cards = document.querySelectorAll(".deck-card");
+          let bestIdx = noteIdx;
+          let minDiff = Infinity;
+          cards.forEach((c) => {
+            const vIdx = parseInt(c.dataset.index, 10);
+            const oIdx = parseInt(c.dataset.origIndex, 10);
+            if (oIdx === noteIdx) {
+              const diff = Math.abs(vIdx - this.carouselIndex);
+              if (diff < minDiff) {
+                minDiff = diff;
+                bestIdx = vIdx;
+              }
+            }
+          });
+          this.carouselIndex = bestIdx;
           sounds.playAsmrSlide();
           this.updateCarouselPositions();
         });
@@ -3472,17 +3598,19 @@ class ScienceIoApp {
   }
 
   slideNext() {
-    const filtered = this.getFilteredNotes();
-    if (filtered.length <= 1) return;
-    this.carouselIndex = (this.carouselIndex + 1) % filtered.length;
+    const cards = document.querySelectorAll(".deck-card");
+    const n = cards.length;
+    if (n <= 1) return;
+    this.carouselIndex = (this.carouselIndex + 1) % n;
     sounds.playAsmrSlide();
     this.updateCarouselPositions();
   }
 
   slidePrev() {
-    const filtered = this.getFilteredNotes();
-    if (filtered.length <= 1) return;
-    this.carouselIndex = (this.carouselIndex - 1 + filtered.length) % filtered.length;
+    const cards = document.querySelectorAll(".deck-card");
+    const n = cards.length;
+    if (n <= 1) return;
+    this.carouselIndex = (this.carouselIndex - 1 + n) % n;
     sounds.playAsmrSlide();
     this.updateCarouselPositions();
   }
@@ -3493,6 +3621,9 @@ class ScienceIoApp {
     const n = cards.length;
     if (n === 0) return;
 
+    const filtered = this.getFilteredNotes();
+    const origCount = filtered.length;
+
     cards.forEach((card) => {
       const idx = parseInt(card.dataset.index, 10);
       card.classList.remove(
@@ -3501,6 +3632,11 @@ class ScienceIoApp {
         "pos-left-2",
         "pos-right-1",
         "pos-right-2",
+        "pos-back-center",
+        "pos-back-left-1",
+        "pos-back-right-1",
+        "pos-back-left-2",
+        "pos-back-right-2",
         "pos-hidden",
         "active-center",
         "left-card",
@@ -3517,21 +3653,32 @@ class ScienceIoApp {
 
       if (offset === 0) {
         card.classList.add("pos-center");
-      } else if (offset === -1) {
-        card.classList.add("pos-left-1");
       } else if (offset === 1) {
         card.classList.add("pos-right-1");
-      } else if (offset === -2) {
-        card.classList.add("pos-left-2");
+      } else if (offset === -1) {
+        card.classList.add("pos-left-1");
       } else if (offset === 2) {
         card.classList.add("pos-right-2");
+      } else if (offset === -2) {
+        card.classList.add("pos-left-2");
+      } else if (offset === 3) {
+        card.classList.add("pos-back-right-1");
+      } else if (offset === -3) {
+        card.classList.add("pos-back-left-1");
+      } else if (offset === 4 || offset === -4) {
+        card.classList.add("pos-back-center");
+      } else if (offset === 5) {
+        card.classList.add("pos-back-right-2");
+      } else if (offset === -5) {
+        card.classList.add("pos-back-left-2");
       } else {
         card.classList.add("pos-hidden");
       }
     });
 
+    const activeNoteIdx = origCount > 0 ? (this.carouselIndex % origCount) : 0;
     dots.forEach((dot, idx) => {
-      dot.classList.toggle("active", idx === this.carouselIndex);
+      dot.classList.toggle("active", idx === activeNoteIdx);
     });
   }
 
@@ -5232,6 +5379,14 @@ class ScienceIoApp {
         if (target) target.scrollIntoView({ behavior: "smooth" });
       });
     });
+
+    // Digital Cursive Logo hover replay
+    const brandLogo = document.getElementById("nav-brand-logo");
+    if (brandLogo) {
+      brandLogo.addEventListener("mouseenter", () => {
+        this.playCursiveHandwriting();
+      });
+    }
 
     // Scroll spy (RAF throttled to eliminate layout thrashing)
     let scrollRafPending = false;
