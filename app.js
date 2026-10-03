@@ -1912,6 +1912,521 @@ class VaultController {
   }
 }
 
+// ================= LIQUID GLASS SCIENTIFIC FORMULA CALCULATOR CONTROLLER =================
+class LiquidGlassCalculator {
+  constructor(app) {
+    this.app = app;
+    this.currentFormula = "density";
+    this.degMode = true; // true = degrees, false = radians
+    this.currentExpression = "";
+    this.ans = 0;
+    this.history = [];
+
+    this.formulas = {
+      density: {
+        id: "density",
+        name: "Density of Matter",
+        code: "D = m ÷ V",
+        principle: "Physical Skience • States & Mass",
+        unit: "g/cm³",
+        desc: "Density is the amount of mass packed into a given unit volume of matter.",
+        inputs: [
+          { id: "mass", label: "Mass (m)", unit: "grams (g)", default: 120, min: 0.001 },
+          { id: "vol", label: "Volume (V)", unit: "cm³ or mL", default: 24, min: 0.001 }
+        ],
+        solve: (vals) => {
+          const m = parseFloat(vals.mass) || 0;
+          const v = parseFloat(vals.vol) || 1;
+          const d = m / v;
+          const floatStatus = d > 1.0 ? "SINKS in liquid water (> 1.0 g/cm³)" : "FLOATS in liquid water (≤ 1.0 g/cm³)";
+          return {
+            result: Number(d.toFixed(3)),
+            unit: "g/cm³",
+            step: `${m}g ÷ ${v}cm³`,
+            insight: `Density = ${d.toFixed(2)} g/cm³. Pure liquid water has a density of 1.0 g/cm³. Result: This substance ${floatStatus}!`
+          };
+        }
+      },
+      speed: {
+        id: "speed",
+        name: "Speed & Velocity",
+        code: "s = d ÷ t",
+        principle: "Forces & Motion",
+        unit: "m/s",
+        desc: "Speed describes how quickly an object travels over a distance in a period of time.",
+        inputs: [
+          { id: "dist", label: "Distance (d)", unit: "meters (m)", default: 100, min: 0 },
+          { id: "time", label: "Time (t)", unit: "seconds (s)", default: 9.58, min: 0.001 }
+        ],
+        solve: (vals) => {
+          const d = parseFloat(vals.dist) || 0;
+          const t = parseFloat(vals.time) || 1;
+          const s = d / t;
+          const kmh = (s * 3.6).toFixed(1);
+          const mph = (s * 2.237).toFixed(1);
+          return {
+            result: Number(s.toFixed(2)),
+            unit: "m/s",
+            step: `${d}m ÷ ${t}s`,
+            insight: `Speed = ${s.toFixed(2)} m/s (${kmh} km/h or ${mph} mph). The speed of sound in air is ~343 m/s!`
+          };
+        }
+      },
+      force: {
+        id: "force",
+        name: "Force (Newton's 2nd Law)",
+        code: "F = m × a",
+        principle: "Newtonian Physics & Force",
+        unit: "N (Newtons)",
+        desc: "An unbalanced force causes a mass to accelerate proportionally.",
+        inputs: [
+          { id: "mass", label: "Mass (m)", unit: "kilograms (kg)", default: 25, min: 0 },
+          { id: "accel", label: "Acceleration (a)", unit: "m/s²", default: 9.8, min: 0 }
+        ],
+        solve: (vals) => {
+          const m = parseFloat(vals.mass) || 0;
+          const a = parseFloat(vals.accel) || 0;
+          const f = m * a;
+          return {
+            result: Number(f.toFixed(2)),
+            unit: "N",
+            step: `${m}kg × ${a}m/s²`,
+            insight: `Force = ${f.toFixed(2)} Newtons (kg·m/s²). Earth's gravitational acceleration is roughly 9.8 m/s²!`
+          };
+        }
+      },
+      work: {
+        id: "work",
+        name: "Work & Mechanical Energy",
+        code: "W = F × d",
+        principle: "Energy & Simple Machines",
+        unit: "J (Joules)",
+        desc: "Work is done when a force causes an object to move in the direction of the force.",
+        inputs: [
+          { id: "force", label: "Force (F)", unit: "Newtons (N)", default: 50, min: 0 },
+          { id: "dist", label: "Distance (d)", unit: "meters (m)", default: 12, min: 0 }
+        ],
+        solve: (vals) => {
+          const f = parseFloat(vals.force) || 0;
+          const d = parseFloat(vals.dist) || 0;
+          const w = f * d;
+          return {
+            result: Number(w.toFixed(2)),
+            unit: "J (Joules)",
+            step: `${f}N × ${d}m`,
+            insight: `Work = ${w.toFixed(2)} Joules. In physics, if an object doesn't move (d = 0), zero work is done regardless of the effort!`
+          };
+        }
+      },
+      ke: {
+        id: "ke",
+        name: "Kinetic Energy",
+        code: "KE = ½ · m · v²",
+        principle: "Forms of Energy",
+        unit: "J (Joules)",
+        desc: "Kinetic energy is the energy of motion possessed by any moving mass.",
+        inputs: [
+          { id: "mass", label: "Mass (m)", unit: "kilograms (kg)", default: 1200, min: 0 },
+          { id: "vel", label: "Velocity (v)", unit: "m/s", default: 20, min: 0 }
+        ],
+        solve: (vals) => {
+          const m = parseFloat(vals.mass) || 0;
+          const v = parseFloat(vals.vel) || 0;
+          const ke = 0.5 * m * Math.pow(v, 2);
+          return {
+            result: Number(ke.toFixed(1)),
+            unit: "J (Joules)",
+            step: `0.5 × ${m}kg × (${v}m/s)²`,
+            insight: `Kinetic Energy = ${ke.toLocaleString()} Joules. Velocity is squared (v²), meaning doubling speed quadruples energy!`
+          };
+        }
+      },
+      temp: {
+        id: "temp",
+        name: "Thermal Temperature Scale",
+        code: "°F = (1.8 × °C) + 32",
+        principle: "Thermal Energy & Phases",
+        unit: "°F / °C",
+        desc: "Convert thermal kinetic molecular activity between Celsius and Fahrenheit.",
+        inputs: [
+          { id: "tempVal", label: "Degrees Input", unit: "Value", default: 25 },
+          { id: "mode", label: "Conversion Mode (1: C → F, 2: F → C)", unit: "1 or 2", default: 1 }
+        ],
+        solve: (vals) => {
+          const t = parseFloat(vals.tempVal) || 0;
+          const mode = parseInt(vals.mode, 10) === 2 ? 2 : 1;
+          if (mode === 2) {
+            const c = (t - 32) / 1.8;
+            return {
+              result: Number(c.toFixed(1)),
+              unit: "°C",
+              step: `(${t}°F - 32) ÷ 1.8`,
+              insight: `${t}°F is ${c.toFixed(1)}°C. Liquid water freezes at 0°C (32°F) and boils at 100°C (212°F).`
+            };
+          } else {
+            const f = (t * 1.8) + 32;
+            return {
+              result: Number(f.toFixed(1)),
+              unit: "°F",
+              step: `(${t}°C × 1.8) + 32`,
+              insight: `${t}°C is ${f.toFixed(1)}°F. Average healthy human body temperature is 37°C (98.6°F).`
+            };
+          }
+        }
+      },
+      photo: {
+        id: "photo",
+        name: "Photosynthesis Stoichiometric Yield",
+        code: "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂",
+        principle: "Life Skience • Cellular Plant Energy",
+        unit: "g Glucose",
+        desc: "Calculates the mass of glucose plant food and oxygen produced from carbon dioxide input.",
+        inputs: [
+          { id: "co2", label: "Carbon Dioxide (CO₂) Moles", unit: "moles", default: 6, min: 0.1 }
+        ],
+        solve: (vals) => {
+          const moles = parseFloat(vals.co2) || 6;
+          const glucoseMoles = moles / 6;
+          const glucoseGrams = glucoseMoles * 180.16;
+          const o2Grams = moles * 32.0;
+          return {
+            result: Number(glucoseGrams.toFixed(1)),
+            unit: "g Glucose",
+            step: `${moles} mol CO₂ produces ${glucoseMoles.toFixed(2)} mol Glucose & ${o2Grams.toFixed(1)}g O₂`,
+            insight: `Chloroplasts convert ${moles} mol of CO₂ into ${glucoseGrams.toFixed(1)} grams of glucose plant food and release ${o2Grams.toFixed(1)}g of oxygen!`
+          };
+        }
+      }
+    };
+  }
+
+  init() {
+    this.bindDomElements();
+    this.setupPresetPills();
+    this.setupSolverActions();
+    this.setupKeypad();
+    this.switchFormula("density");
+  }
+
+  bindDomElements() {
+    this.pillsContainer = document.getElementById("calc-formula-pills");
+    this.solverPanel = document.getElementById("calc-solver-panel");
+    this.solverInputsGrid = document.getElementById("solver-inputs-grid");
+    this.formulaCode = document.getElementById("solver-formula-code");
+    this.formulaName = document.getElementById("solver-formula-name");
+    this.principleBadge = document.getElementById("solver-principle-badge");
+    this.solveBtn = document.getElementById("btn-calc-solve-formula");
+    this.resetBtn = document.getElementById("btn-calc-reset-formula");
+
+    this.modeText = document.getElementById("calc-mode-text");
+    this.degRadIndicator = document.getElementById("calc-deg-rad-indicator");
+    this.historyText = document.getElementById("calc-history-text");
+    this.resultValue = document.getElementById("calc-result-value");
+    this.unitTag = document.getElementById("calc-unit-tag");
+    this.insightText = document.getElementById("calc-insight-text");
+    this.historyTags = document.getElementById("calc-history-tags");
+  }
+
+  setupPresetPills() {
+    if (!this.pillsContainer) return;
+    const pills = this.pillsContainer.querySelectorAll(".calc-pill");
+    pills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        sounds.playClick();
+        pills.forEach((p) => p.classList.remove("active"));
+        pill.classList.add("active");
+        const formulaKey = pill.dataset.formula;
+        this.switchFormula(formulaKey);
+      });
+    });
+  }
+
+  switchFormula(key) {
+    this.currentFormula = key;
+    if (key === "freeform") {
+      if (this.solverPanel) this.solverPanel.classList.add("hidden-panel");
+      if (this.modeText) this.modeText.textContent = "DIRECT SCIENTIFIC EVALUATOR";
+      if (this.unitTag) this.unitTag.textContent = "";
+      if (this.historyText) this.historyText.textContent = "Ready for expression";
+      if (this.insightText) this.insightText.textContent = "Type numbers, operators (+, -, ×, ÷), or scientific functions (sin, cos, √, x²) on the keypad.";
+      this.currentExpression = "";
+      this.updateDisplay("0");
+    } else {
+      const f = this.formulas[key];
+      if (!f) return;
+      if (this.solverPanel) this.solverPanel.classList.remove("hidden-panel");
+      if (this.formulaCode) this.formulaCode.textContent = f.code;
+      if (this.formulaName) this.formulaName.textContent = f.name;
+      if (this.principleBadge) this.principleBadge.textContent = f.principle;
+      if (this.modeText) this.modeText.textContent = `FORMULA SOLVER • ${f.id.toUpperCase()}`;
+      if (this.unitTag) this.unitTag.textContent = f.unit;
+      this.renderInputs(f);
+      this.solveCurrentFormula(false);
+    }
+  }
+
+  renderInputs(formula) {
+    if (!this.solverInputsGrid) return;
+    this.solverInputsGrid.innerHTML = "";
+    formula.inputs.forEach((inp) => {
+      const group = document.createElement("div");
+      group.className = "solver-input-group";
+      group.innerHTML = `
+        <label class="solver-input-label" for="calc-inp-${inp.id}">
+          <span>${inp.label}</span>
+          <span class="solver-input-unit">[${inp.unit}]</span>
+        </label>
+        <div class="solver-field-wrap">
+          <input type="number" step="any" class="solver-input-box" id="calc-inp-${inp.id}" value="${inp.default}">
+        </div>
+      `;
+      this.solverInputsGrid.appendChild(group);
+
+      const inputEl = group.querySelector("input");
+      inputEl.addEventListener("input", () => {
+        this.solveCurrentFormula(false);
+      });
+      inputEl.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          this.solveCurrentFormula(true);
+        }
+      });
+    });
+  }
+
+  setupSolverActions() {
+    this.solveBtn?.addEventListener("click", () => {
+      this.solveCurrentFormula(true);
+    });
+
+    this.resetBtn?.addEventListener("click", () => {
+      sounds.playClick();
+      const f = this.formulas[this.currentFormula];
+      if (f) {
+        this.renderInputs(f);
+        this.solveCurrentFormula(false);
+      }
+    });
+  }
+
+  solveCurrentFormula(triggerFeedback = true) {
+    const f = this.formulas[this.currentFormula];
+    if (!f) return;
+
+    const values = {};
+    f.inputs.forEach((inp) => {
+      const el = document.getElementById(`calc-inp-${inp.id}`);
+      values[inp.id] = el ? parseFloat(el.value) || 0 : inp.default;
+    });
+
+    try {
+      const outcome = f.solve(values);
+      this.ans = outcome.result;
+      this.updateDisplay(outcome.result.toLocaleString());
+      if (this.unitTag) this.unitTag.textContent = outcome.unit;
+      if (this.historyText) this.historyText.textContent = `${f.code}  ➔  ${outcome.step}`;
+      if (this.insightText) this.insightText.textContent = outcome.insight;
+
+      if (triggerFeedback) {
+        sounds.playSuccess();
+        this.addHistoryTag(`${f.name}: ${outcome.result} ${outcome.unit}`, outcome.result);
+      }
+    } catch (e) {
+      if (this.historyText) this.historyText.textContent = "Error in formula parameters";
+    }
+  }
+
+  setupKeypad() {
+    const keys = document.querySelectorAll(".lkey");
+    keys.forEach((key) => {
+      key.addEventListener("click", () => {
+        sounds.playKeypadTap();
+        this.handleKeyClick(key);
+      });
+    });
+  }
+
+  handleKeyClick(btn) {
+    const val = btn.dataset.val;
+    const op = btn.dataset.op;
+    const action = btn.dataset.action;
+
+    if (action === "all_clear") {
+      this.currentExpression = "";
+      this.updateDisplay("0");
+      if (this.historyText) this.historyText.textContent = "Cleared";
+      return;
+    }
+
+    if (action === "backspace") {
+      this.currentExpression = this.currentExpression.slice(0, -1);
+      this.updateDisplay(this.currentExpression || "0");
+      return;
+    }
+
+    if (action === "ans") {
+      this.currentExpression += this.ans.toString();
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (action === "equals") {
+      this.evaluateExpression();
+      return;
+    }
+
+    if (op === "deg_rad") {
+      this.degMode = !this.degMode;
+      if (this.degRadIndicator) {
+        this.degRadIndicator.textContent = this.degMode ? "DEG" : "RAD";
+      }
+      return;
+    }
+
+    if (op === "sq") {
+      this.currentExpression += "^2";
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (op === "pow") {
+      this.currentExpression += "^";
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (op === "sqrt") {
+      this.currentExpression += "√(";
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (op === "cbrt") {
+      this.currentExpression += "∛(";
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (op === "sin" || op === "cos" || op === "tan") {
+      this.currentExpression += `${op}(`;
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (val === "PI") {
+      this.currentExpression += "π";
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (val === "E") {
+      this.currentExpression += "e";
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (val) {
+      this.currentExpression += val;
+      this.updateDisplay(this.currentExpression);
+    }
+  }
+
+  evaluateExpression() {
+    if (!this.currentExpression.trim()) return;
+
+    let expr = this.currentExpression;
+    const originalExpr = expr;
+
+    try {
+      // Replace display symbols with JavaScript equivalents
+      expr = expr.replace(/×/g, "*").replace(/÷/g, "/").replace(/−/g, "-");
+      expr = expr.replace(/π/g, "Math.PI").replace(/\be\b/g, "Math.E");
+      expr = expr.replace(/\^/g, "**");
+
+      // Replace square roots and cube roots
+      expr = expr.replace(/√\(([^)]+)\)/g, "Math.sqrt($1)");
+      expr = expr.replace(/∛\(([^)]+)\)/g, "Math.cbrt($1)");
+
+      // Replace trig functions with degree / radian conversion
+      if (this.degMode) {
+        expr = expr.replace(/sin\(([^)]+)\)/g, "Math.sin(($1) * Math.PI / 180)");
+        expr = expr.replace(/cos\(([^)]+)\)/g, "Math.cos(($1) * Math.PI / 180)");
+        expr = expr.replace(/tan\(([^)]+)\)/g, "Math.tan(($1) * Math.PI / 180)");
+      } else {
+        expr = expr.replace(/sin\(/g, "Math.sin(");
+        expr = expr.replace(/cos\(/g, "Math.cos(");
+        expr = expr.replace(/tan\(/g, "Math.tan(");
+      }
+
+      // Safe evaluation
+      // Allow only digits, basic operators, Math calls, parentheses, decimals
+      const cleanExpr = expr.replace(/Math\.(PI|E|sqrt|cbrt|sin|cos|tan)/g, "");
+      if (/[^0-9+\-*/%().\s*]/g.test(cleanExpr)) {
+        throw new Error("Invalid characters");
+      }
+
+      const evalFn = new Function(`return (${expr});`);
+      let result = evalFn();
+
+      if (typeof result === "number") {
+        if (!isFinite(result)) {
+          this.updateDisplay("Undefined");
+          if (this.historyText) this.historyText.textContent = `${originalExpr} = Undefined`;
+          return;
+        }
+        // Round to reasonable precision to remove floating point anomalies
+        result = Math.round(result * 100000000) / 100000000;
+        this.ans = result;
+        this.updateDisplay(result.toLocaleString());
+        if (this.historyText) this.historyText.textContent = `${originalExpr} =`;
+        if (this.insightText) this.insightText.textContent = `Evaluated: ${originalExpr} = ${result}`;
+
+        sounds.playSuccess();
+        this.addHistoryTag(`${originalExpr} = ${result}`, result);
+        this.currentExpression = result.toString();
+      }
+    } catch (err) {
+      this.updateDisplay("Error");
+      if (this.historyText) this.historyText.textContent = `Syntax Error in: ${originalExpr}`;
+      sounds.playVaultError();
+    }
+  }
+
+  updateDisplay(val) {
+    if (this.resultValue) {
+      this.resultValue.textContent = val;
+      const len = val.toString().length;
+      if (len > 12) {
+        this.resultValue.style.fontSize = "1.8rem";
+      } else if (len > 8) {
+        this.resultValue.style.fontSize = "2.4rem";
+      } else {
+        this.resultValue.style.fontSize = "";
+      }
+    }
+  }
+
+  addHistoryTag(label, val) {
+    this.history.unshift({ label, val });
+    if (this.history.length > 8) this.history.pop();
+    if (!this.historyTags) return;
+
+    this.historyTags.innerHTML = "";
+    this.history.forEach((h) => {
+      const tag = document.createElement("span");
+      tag.className = "calc-history-tag";
+      tag.textContent = h.label;
+      tag.title = "Click to load value into calculator";
+      tag.addEventListener("click", () => {
+        sounds.playClick();
+        this.currentExpression = h.val.toString();
+        this.updateDisplay(h.val.toString());
+      });
+      this.historyTags.appendChild(tag);
+    });
+  }
+}
+
 // Helper to guarantee science notes list has valid fallback if completely empty and filters out unwanted notes
 function ensurePlantCellUnit(notesList) {
   if (!Array.isArray(notesList) || notesList.length === 0) {
@@ -2664,6 +3179,7 @@ class ScienceIoApp {
     this.moonOrbitAnimId = null;
     this.currentLabType = null;
     this.vault = new VaultController(this);
+    this.calculator = new LiquidGlassCalculator(this);
 
     this.init();
   }
@@ -2750,6 +3266,7 @@ class ScienceIoApp {
     this.setupEventListeners();
     this.setupPublishSystem();
     this.readingSuite.init();
+    if (this.calculator) this.calculator.init();
 
     // 3. Fetch fresh notes from Cloud Database asynchronously in background
     await this.fetchCloudNotes();
@@ -5356,21 +5873,26 @@ class ScienceIoApp {
     // Scroll spy (RAF throttled to eliminate layout thrashing)
     let scrollRafPending = false;
     const notesSec = document.getElementById("notes-section");
+    const calcSec = document.getElementById("calculator-section");
     const homeBtn = document.getElementById("nav-btn-home");
     const notesBtn = document.getElementById("nav-btn-notes");
+    const calcBtn = document.getElementById("nav-btn-calc");
     window.addEventListener("scroll", () => {
       if (!scrollRafPending) {
         scrollRafPending = true;
         requestAnimationFrame(() => {
-          if (notesSec && homeBtn && notesBtn) {
-            const rect = notesSec.getBoundingClientRect();
-            if (rect.top <= 200) {
-              notesBtn.classList.add("active");
-              homeBtn.classList.remove("active");
-            } else {
-              homeBtn.classList.add("active");
-              notesBtn.classList.remove("active");
-            }
+          if (calcSec && calcBtn && calcSec.getBoundingClientRect().top <= 250) {
+            calcBtn.classList.add("active");
+            if (notesBtn) notesBtn.classList.remove("active");
+            if (homeBtn) homeBtn.classList.remove("active");
+          } else if (notesSec && notesBtn && notesSec.getBoundingClientRect().top <= 250) {
+            notesBtn.classList.add("active");
+            if (calcBtn) calcBtn.classList.remove("active");
+            if (homeBtn) homeBtn.classList.remove("active");
+          } else {
+            if (homeBtn) homeBtn.classList.add("active");
+            if (notesBtn) notesBtn.classList.remove("active");
+            if (calcBtn) calcBtn.classList.remove("active");
           }
           scrollRafPending = false;
         });
@@ -5700,6 +6222,16 @@ class Chatbot {
           replyHTML = `<div class="msg-bubble">Taking you directly to the <strong>5th Grade Skience Notes & 3D Coverflow Carousel</strong>! 🔬✨</div>`;
           setTimeout(() => {
             const target = document.getElementById("notes-section");
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 400);
+        }
+        // Navigation: Calculator / Scientific Formula Calculator
+        else if (t.includes("calc") || t.includes("formula") || t.includes("density") || t.includes("speed") || t.includes("math") || t.includes("equation") || t.includes("kinetic")) {
+          replyHTML = `<div class="msg-bubble">Taking you directly to the <strong>Liquid Glass Scientific Formula Calculator</strong>! 🧪⚡ Compute density, force, speed, kinetic energy, or evaluate scientific expressions.</div>`;
+          setTimeout(() => {
+            const target = document.getElementById("calculator-section");
             if (target) {
               target.scrollIntoView({ behavior: "smooth" });
             }

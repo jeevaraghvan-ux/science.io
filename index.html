@@ -23,8 +23,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=29.0">
-  <link rel="stylesheet" href="ios27.css?v=29.0">
+  <link rel="stylesheet" href="styles.css?v=30.0">
+  <link rel="stylesheet" href="ios27.css?v=30.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
   <script>
@@ -152,6 +152,7 @@
         <div class="nav-center">
           <button class="nav-link active" id="nav-btn-home" data-scroll="hero">HOME</button>
           <button class="nav-link" id="nav-btn-notes" data-scroll="notes-section">NOTES</button>
+          <button class="nav-link" id="nav-btn-calc" data-scroll="calculator-section">CALCULATOR</button>
         </div>
 
         <div class="nav-right" style="gap: 10px;">
@@ -313,6 +314,174 @@
                 <!-- Dynamically populated rows -->
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LIQUID GLASS SCIENTIFIC FORMULA CALCULATOR ================= -->
+    <section id="calculator-section" class="calculator-section">
+      <div class="calculator-section-header">
+        <div class="calc-badge-row">
+          <span class="calc-badge-glow">🔬 LIQUID GLASS COMPUTATION ENGINE</span>
+          <span class="calc-grade-tag">5TH GRADE & ADVANCED SKIENCE</span>
+        </div>
+        <h2 class="calc-main-title">Scientific Formula Calculator</h2>
+        <p class="calc-main-subtitle">
+          Solve core physical science formulas (Density, Speed, Force, Work, Kinetic Energy, Photosynthesis) or evaluate custom mathematical expressions in an ultra-refractive liquid glass interface.
+        </p>
+
+        <!-- Liquid Glass Formula Preset Selector -->
+        <div class="calc-formula-pills-wrap" id="calc-formula-pills">
+          <button type="button" class="calc-pill active" data-formula="density">
+            <span class="pill-icon">🧪</span>
+            <span class="pill-label">Density (D = m/V)</span>
+          </button>
+          <button type="button" class="calc-pill" data-formula="speed">
+            <span class="pill-icon">⚡</span>
+            <span class="pill-label">Speed (s = d/t)</span>
+          </button>
+          <button type="button" class="calc-pill" data-formula="force">
+            <span class="pill-icon">🚀</span>
+            <span class="pill-label">Force (F = m × a)</span>
+          </button>
+          <button type="button" class="calc-pill" data-formula="work">
+            <span class="pill-icon">🔋</span>
+            <span class="pill-label">Work (W = F × d)</span>
+          </button>
+          <button type="button" class="calc-pill" data-formula="ke">
+            <span class="pill-icon">⚛️</span>
+            <span class="pill-label">Kinetic Energy (½mv²)</span>
+          </button>
+          <button type="button" class="calc-pill" data-formula="temp">
+            <span class="pill-icon">🌡️</span>
+            <span class="pill-label">Temp (°C ↔ °F)</span>
+          </button>
+          <button type="button" class="calc-pill" data-formula="photo">
+            <span class="pill-icon">🌱</span>
+            <span class="pill-label">Photosynthesis</span>
+          </button>
+          <button type="button" class="calc-pill" data-formula="freeform">
+            <span class="pill-icon">📐</span>
+            <span class="pill-label">Scientific Keypad</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- The Liquid Glass Calculator Machine -->
+      <div class="liquid-calc-container" id="liquid-calc-container">
+        <!-- Liquid Glass Specular Sheen Overlays -->
+        <div class="liquid-glass-specular-sheen"></div>
+        <div class="liquid-glass-ambient-aura"></div>
+
+        <!-- Upper Deck: Formula Parameters & Variable Solver -->
+        <div class="calc-solver-panel" id="calc-solver-panel">
+          <div class="solver-header-bar">
+            <div class="solver-info-col">
+              <span class="solver-formula-code" id="solver-formula-code">D = m ÷ V</span>
+              <span class="solver-formula-name" id="solver-formula-name">Density of Matter</span>
+            </div>
+            <span class="solver-principle-badge" id="solver-principle-badge">Physical Skience • States & Mass</span>
+          </div>
+
+          <!-- Dynamic Variable Inputs -->
+          <div class="solver-inputs-grid" id="solver-inputs-grid">
+            <!-- Dynamically populated -->
+          </div>
+
+          <div class="solver-action-row">
+            <button type="button" class="solver-exec-btn" id="btn-calc-solve-formula">
+              <span class="exec-btn-icon">⚡</span>
+              <span>Calculate Formula</span>
+            </button>
+            <button type="button" class="solver-reset-btn" id="btn-calc-reset-formula" title="Reset variables">
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Middle Deck: Liquid Glass Holographic Screen -->
+        <div class="calc-glass-screen" id="calc-glass-screen">
+          <div class="screen-top-meta">
+            <div class="screen-mode-pill">
+              <span class="screen-mode-led"></span>
+              <span id="calc-mode-text">FORMULA SOLVER • DENSITY</span>
+            </div>
+            <div class="screen-deg-rad" id="calc-deg-rad-indicator">DEG</div>
+          </div>
+
+          <div class="screen-expression-row" id="calc-expression-row">
+            <span class="screen-calc-history" id="calc-history-text">Formula: D = m ÷ V</span>
+          </div>
+
+          <div class="screen-main-display">
+            <span class="screen-result-value" id="calc-result-value">0</span>
+            <span class="screen-unit-tag" id="calc-unit-tag">g/cm³</span>
+          </div>
+
+          <!-- Scientific Insight / Explanation strip -->
+          <div class="screen-insight-bar" id="calc-insight-bar">
+            <span class="insight-icon">💡</span>
+            <span class="insight-text" id="calc-insight-text">Enter Mass (g) and Volume (cm³) to compute density. Water density = 1.0 g/cm³.</span>
+          </div>
+        </div>
+
+        <!-- Lower Deck: Liquid Glass Scientific Keypad -->
+        <div class="calc-glass-keypad">
+          <!-- Scientific Functions Row 1 -->
+          <div class="keypad-scientific-row">
+            <button type="button" class="lkey lkey-fn" data-op="deg_rad" title="Toggle Degrees/Radians">RAD/DEG</button>
+            <button type="button" class="lkey lkey-fn" data-op="sin">sin</button>
+            <button type="button" class="lkey lkey-fn" data-op="cos">cos</button>
+            <button type="button" class="lkey lkey-fn" data-op="tan">tan</button>
+            <button type="button" class="lkey lkey-const" data-val="PI">π</button>
+            <button type="button" class="lkey lkey-const" data-val="E">e</button>
+          </div>
+
+          <!-- Scientific Functions Row 2 -->
+          <div class="keypad-scientific-row">
+            <button type="button" class="lkey lkey-fn" data-op="sq">x²</button>
+            <button type="button" class="lkey lkey-fn" data-op="pow">xʸ</button>
+            <button type="button" class="lkey lkey-fn" data-op="sqrt">√</button>
+            <button type="button" class="lkey lkey-fn" data-op="cbrt">∛</button>
+            <button type="button" class="lkey lkey-fn" data-val="(">(</button>
+            <button type="button" class="lkey lkey-fn" data-val=")">)</button>
+          </div>
+
+          <!-- Standard 4x5 Keypad Grid -->
+          <div class="keypad-main-grid">
+            <button type="button" class="lkey lkey-clear" data-action="all_clear">AC</button>
+            <button type="button" class="lkey lkey-action" data-action="backspace">⌫</button>
+            <button type="button" class="lkey lkey-op" data-val="%">%</button>
+            <button type="button" class="lkey lkey-op lkey-op-div" data-val="÷">÷</button>
+
+            <button type="button" class="lkey lkey-num" data-val="7">7</button>
+            <button type="button" class="lkey lkey-num" data-val="8">8</button>
+            <button type="button" class="lkey lkey-num" data-val="9">9</button>
+            <button type="button" class="lkey lkey-op lkey-op-mul" data-val="×">×</button>
+
+            <button type="button" class="lkey lkey-num" data-val="4">4</button>
+            <button type="button" class="lkey lkey-num" data-val="5">5</button>
+            <button type="button" class="lkey lkey-num" data-val="6">6</button>
+            <button type="button" class="lkey lkey-op lkey-op-sub" data-val="-">−</button>
+
+            <button type="button" class="lkey lkey-num" data-val="1">1</button>
+            <button type="button" class="lkey lkey-num" data-val="2">2</button>
+            <button type="button" class="lkey lkey-num" data-val="3">3</button>
+            <button type="button" class="lkey lkey-op lkey-op-add" data-val="+">+</button>
+
+            <button type="button" class="lkey lkey-num lkey-zero" data-val="0">0</button>
+            <button type="button" class="lkey lkey-num" data-val=".">.</button>
+            <button type="button" class="lkey lkey-fn" data-action="ans">ANS</button>
+            <button type="button" class="lkey lkey-equals" data-action="equals">=</button>
+          </div>
+        </div>
+
+        <!-- History ticker strip -->
+        <div class="calc-history-strip" id="calc-history-strip">
+          <div class="history-label">⚡ Recent Computations:</div>
+          <div class="history-tags-scroll" id="calc-history-tags">
+            <span class="history-pill-placeholder">Perform calculations or solve formulas to see history</span>
           </div>
         </div>
       </div>
@@ -988,7 +1157,7 @@
     </button>
   </div>
 
-  <script src="published_notes.js?v=29.0"></script>
-  <script src="app.js?v=29.0"></script>
+  <script src="published_notes.js?v=30.0"></script>
+  <script src="app.js?v=30.0"></script>
 </body>
 </html>

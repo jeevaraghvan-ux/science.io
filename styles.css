@@ -5372,4 +5372,678 @@ html, body {
   }
 }
 
+/* ================= LIQUID GLASS SCIENTIFIC FORMULA CALCULATOR ================= */
+.calculator-section {
+  padding: 60px 24px 120px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.calculator-section-header {
+  text-align: center;
+  margin-bottom: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.calc-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.calc-badge-glow {
+  background: rgba(6, 182, 212, 0.14);
+  border: 1.5px solid rgba(6, 182, 212, 0.45);
+  color: #38bdf8;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+}
+
+.calc-grade-tag {
+  background: rgba(168, 85, 247, 0.14);
+  border: 1.5px solid rgba(168, 85, 247, 0.45);
+  color: #d8b4fe;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+  text-transform: uppercase;
+}
+
+.calc-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 14px;
+  background: linear-gradient(135deg, #ffffff 0%, #38bdf8 45%, #c084fc 80%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 30px rgba(56, 189, 248, 0.3);
+}
+
+.calc-main-subtitle {
+  color: rgba(235, 235, 245, 0.75);
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  max-width: 680px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+}
+
+/* Formula Preset Selector Chips */
+.calc-formula-pills-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.calc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  padding: 8px 18px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.calc-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(56, 189, 248, 0.5);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 16px rgba(56, 189, 248, 0.3);
+}
+
+.calc-pill.active {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.28) 0%, rgba(168, 85, 247, 0.24) 100%);
+  border-color: #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+.calc-pill .pill-icon {
+  font-size: 1.05rem;
+}
+
+/* ================= LIQUID GLASS MACHINE CHASSIS ================= */
+.liquid-calc-container {
+  position: relative;
+  max-width: 780px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 35%, rgba(14, 165, 233, 0.08) 70%, rgba(168, 85, 247, 0.08) 100%), rgba(10, 6, 24, 0.72);
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(28px) saturate(220%) brightness(1.1);
+  -webkit-backdrop-filter: blur(28px) saturate(220%) brightness(1.1);
+  box-shadow: 
+    0 30px 80px -20px rgba(0, 0, 0, 0.85),
+    0 0 60px rgba(56, 189, 248, 0.22),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.5),
+    inset 0 -1.5px 2px rgba(0, 0, 0, 0.4);
+  padding: 30px;
+  overflow: hidden;
+}
+
+/* Liquid Specular Light Sheen */
+.liquid-glass-specular-sheen {
+  position: absolute;
+  top: -60%;
+  right: -30%;
+  width: 120%;
+  height: 140%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.18) 0%, rgba(56, 189, 248, 0.08) 35%, transparent 70%);
+  transform: rotate(-25deg);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.liquid-glass-ambient-aura {
+  position: absolute;
+  bottom: -40%;
+  left: -20%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Upper Deck: Solver Panel */
+.calc-solver-panel {
+  position: relative;
+  z-index: 2;
+  background: rgba(18, 12, 38, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 10px 25px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.calc-solver-panel.hidden-panel {
+  display: none;
+}
+
+.solver-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.solver-info-col {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.solver-formula-code {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #38bdf8;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+}
+
+.solver-formula-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.solver-principle-badge {
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #6ee7b7;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.solver-inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.solver-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.solver-input-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.04em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.solver-input-unit {
+  color: #38bdf8;
+  font-weight: 800;
+}
+
+.solver-field-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.solver-input-box {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: all 0.2s;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.solver-input-box:focus {
+  border-color: #38bdf8;
+  background: rgba(0, 0, 0, 0.65);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.35), inset 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.solver-action-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.solver-exec-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #0284c7 0%, #06b6d4 50%, #10b981 100%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  padding: 12px 20px;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  transition: all 0.2s;
+}
+
+.solver-exec-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(6, 182, 212, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+.solver-exec-btn:active {
+  transform: translateY(1px);
+}
+
+.solver-reset-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 12px 18px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.solver-reset-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* ================= MIDDLE DECK: HOLOGRAPHIC LIQUID SCREEN ================= */
+.calc-glass-screen {
+  position: relative;
+  z-index: 2;
+  background: rgba(3, 1, 12, 0.82);
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  border-radius: 20px;
+  padding: 20px 24px;
+  margin-bottom: 22px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 
+    inset 0 2px 12px rgba(0, 0, 0, 0.85),
+    0 0 30px rgba(6, 182, 212, 0.18),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.screen-top-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.screen-mode-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #38bdf8;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.screen-mode-led {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00f5d4;
+  box-shadow: 0 0 10px #00f5d4;
+  animation: pulseLed 1.8s infinite alternate;
+}
+
+@keyframes pulseLed {
+  0% { opacity: 0.4; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.1); }
+}
+
+.screen-deg-rad {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #e2e8f0;
+}
+
+.screen-expression-row {
+  min-height: 24px;
+  margin-bottom: 6px;
+  text-align: right;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.screen-calc-history {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.95rem;
+  font-family: "Space Grotesk", monospace;
+  letter-spacing: 0.04em;
+}
+
+.screen-main-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+}
+
+.screen-result-value {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 3.8rem);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+  white-space: nowrap;
+}
+
+.screen-unit-tag {
+  color: #38bdf8;
+  font-size: 1.15rem;
+  font-weight: 800;
+  font-family: var(--font-sans);
+  white-space: nowrap;
+}
+
+.screen-insight-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #bae6fd;
+}
+
+.insight-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.insight-text {
+  flex: 1;
+}
+
+/* ================= LOWER DECK: LIQUID GLASS KEYPAD ================= */
+.calc-glass-keypad {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.keypad-scientific-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.keypad-main-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* Crystal Liquid Glass Buttons */
+.lkey {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  border-radius: 14px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.35),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.lkey:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.38);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 14px rgba(56, 189, 248, 0.35);
+}
+
+.lkey:active {
+  transform: translateY(1px) scale(0.97);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Number keys */
+.lkey-num {
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 1.25rem;
+}
+
+/* Function keys */
+.lkey-fn, .lkey-const {
+  height: 42px;
+  font-size: 0.86rem;
+  background: rgba(168, 85, 247, 0.14);
+  border-color: rgba(168, 85, 247, 0.32);
+  color: #e9d5ff;
+}
+
+.lkey-fn:hover, .lkey-const:hover {
+  background: rgba(168, 85, 247, 0.25);
+  border-color: #c084fc;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3), 0 0 14px rgba(168, 85, 247, 0.4);
+}
+
+/* Clear & Backspace keys */
+.lkey-clear, .lkey-action {
+  background: rgba(244, 63, 94, 0.16);
+  border-color: rgba(244, 63, 94, 0.35);
+  color: #fda4af;
+  font-weight: 800;
+}
+
+.lkey-clear:hover, .lkey-action:hover {
+  background: rgba(244, 63, 94, 0.3);
+  border-color: #fb7185;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3), 0 0 14px rgba(244, 63, 94, 0.45);
+}
+
+/* Operator keys */
+.lkey-op {
+  background: rgba(14, 165, 233, 0.18);
+  border-color: rgba(14, 165, 233, 0.35);
+  color: #38bdf8;
+  font-size: 1.35rem;
+}
+
+.lkey-op:hover {
+  background: rgba(14, 165, 233, 0.32);
+  border-color: #38bdf8;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 0 16px rgba(56, 189, 248, 0.45);
+}
+
+/* Equals Key (Hero Glowing Liquid Glass Button) */
+.lkey-equals {
+  background: linear-gradient(135deg, #059669 0%, #06b6d4 100%);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #ffffff;
+  font-size: 1.45rem;
+  font-weight: 900;
+  box-shadow: 
+    0 4px 22px rgba(6, 182, 212, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.65);
+}
+
+.lkey-equals:hover {
+  background: linear-gradient(135deg, #10b981 0%, #22d3ee 100%);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 30px rgba(6, 182, 212, 0.7),
+    0 0 20px rgba(16, 185, 129, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* History Strip */
+.calc-history-strip {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 10px 16px;
+  overflow: hidden;
+}
+
+.history-label {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.history-tags-scroll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  width: 100%;
+}
+
+.history-tags-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.history-pill-placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.78rem;
+  font-style: italic;
+}
+
+.calc-history-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: #e2e8f0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.calc-history-tag:hover {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Responsive Scaling for Calculator */
+@media (max-width: 680px) {
+  .liquid-calc-container {
+    padding: 20px 16px;
+    border-radius: 22px;
+  }
+  .keypad-scientific-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .lkey {
+    height: 46px;
+    font-size: 1.05rem;
+  }
+  .screen-result-value {
+    font-size: 2.2rem;
+  }
+  .solver-inputs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
