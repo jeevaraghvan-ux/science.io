@@ -1132,6 +1132,12 @@ class VaultController {
     document.getElementById("vault-modal")?.classList.add("hidden");
     this.currentPin = "";
     this.updatePinDisplay();
+    // Guarantee AI Chatbot bubble is visible and ready for re-entry
+    const bubble = document.getElementById("ai-chat-bubble");
+    if (bubble) {
+      bubble.style.display = "flex";
+      bubble.style.transform = "scale(1) rotate(0deg)";
+    }
   }
 
   relock() {
@@ -1140,6 +1146,12 @@ class VaultController {
     document.getElementById("vault-admin-view")?.classList.add("hidden");
     document.getElementById("vault-lock-view")?.classList.remove("hidden");
     this.updatePinDisplay();
+    // Guarantee AI Chatbot bubble is visible and ready for re-entry
+    const bubble = document.getElementById("ai-chat-bubble");
+    if (bubble) {
+      bubble.style.display = "flex";
+      bubble.style.transform = "scale(1) rotate(0deg)";
+    }
     sounds.playClick();
     alert("Vault session ended. Security lock re-engaged.");
   }
@@ -5510,17 +5522,25 @@ class Chatbot {
 
   toggleChat() {
     if (this.window.classList.contains("hidden")) {
-      this.window.classList.remove("hidden");
-      this.bubble.style.transform = "scale(0) rotate(-90deg)";
-      setTimeout(() => { this.bubble.style.display = "none"; }, 300);
-      sounds.playClick();
-      this.input.focus();
+      this.openChat();
     } else {
-      this.window.classList.add("hidden");
-      this.bubble.style.display = "flex";
-      setTimeout(() => { this.bubble.style.transform = "scale(1) rotate(0deg)"; }, 10);
-      sounds.playClick();
+      this.closeChat();
     }
+  }
+
+  openChat() {
+    this.window.classList.remove("hidden");
+    this.bubble.style.transform = "scale(0) rotate(-90deg)";
+    setTimeout(() => { this.bubble.style.display = "none"; }, 300);
+    sounds.playClick();
+    this.input.focus();
+  }
+
+  closeChat() {
+    this.window.classList.add("hidden");
+    this.bubble.style.display = "flex";
+    setTimeout(() => { this.bubble.style.transform = "scale(1) rotate(0deg)"; }, 10);
+    sounds.playClick();
   }
 
   handleSend() {
@@ -5539,7 +5559,8 @@ class Chatbot {
           this.messagesContainer.lastChild.remove();
         }
 
-        const cleanT = text.trim().toLowerCase().replace(/\s+/g, ' ');
+        const t = text.trim().toLowerCase();
+        const cleanT = t.replace(/\s+/g, ' ');
         let replyHTML = "";
 
         // Secret Admin Passcode Clearance: ONLY way to open Vault Passcode Entry Area
@@ -5550,10 +5571,19 @@ class Chatbot {
               window.app.vault.isUnlocked = false;
               window.app.vault.open();
             }
-            const chatWin = document.getElementById("ai-chat-window");
-            if (chatWin) chatWin.classList.add("hidden");
+            this.closeChat();
             sounds.playSuccess();
           }, 800);
+        }
+        // Navigation: Take me to notes / notes area / scroll to notes
+        else if (t.includes("note") || t.includes("take me") || t.includes("go to") || t.includes("show me") || t.includes("navigate") || t.includes("area") || t.includes("scroll") || t.includes("carousel") || t.includes("table")) {
+          replyHTML = `<div class="msg-bubble">Taking you directly to the <strong>5th Grade Science Notes & 3D Coverflow Carousel</strong>! 🔬✨</div>`;
+          setTimeout(() => {
+            const target = document.getElementById("notes-section");
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 400);
         }
         // Save / Publish question
         else if (t.includes("save") || t.includes("publish") || t.includes("phone") || t.includes("database") || t.includes("different device")) {
@@ -5571,7 +5601,7 @@ class Chatbot {
         else if (t.includes("matter") || t.includes("solid") || t.includes("liquid") || t.includes("gas") || t.includes("atom")) {
           replyHTML = `<div class="msg-bubble">In 5th grade science, matter exists in 3 primary states: <strong>Solid</strong> (definite shape & volume), <strong>Liquid</strong> (flows to take container shape), and <strong>Gas</strong> (expands rapidly). Atoms are the fundamental building blocks of all matter!</div>`;
         }
-        // Photosynthesis / Life science
+        // Photosynthesis / Life science / Cells
         else if (t.includes("photosynthesis") || t.includes("plant") || t.includes("cell") || t.includes("ecosystem")) {
           replyHTML = `<div class="msg-bubble"><strong>Photosynthesis Equation:</strong><br><code>6CO₂ + 6H₂O + Sunlight → C₆H₁₂O₆ (Glucose) + 6O₂ (Oxygen)</code><br>Plants use solar energy in chloroplasts to create food for themselves and oxygen for animals!</div>`;
         }
@@ -5579,11 +5609,15 @@ class Chatbot {
         else if (t.includes("scientific method") || t.includes("hypothesis") || t.includes("experiment") || t.includes("variable")) {
           replyHTML = `<div class="msg-bubble">The 5 steps of the <strong>Scientific Method</strong> are:<br>1. Ask a Question<br>2. Form a Hypothesis (If... then...)<br>3. Conduct a Controlled Experiment (change only 1 variable!)<br>4. Collect & Analyze Data<br>5. Draw Conclusions!</div>`;
         }
+        // Practice quiz
+        else if (t.includes("quiz") || t.includes("test") || t.includes("practice")) {
+          replyHTML = `<div class="msg-bubble">Every science topic has an interactive <strong>⚡ Practice Quiz</strong> directly on its carousel card and inside the notes viewer! Test your mastery with instant scoring and feedback.</div>`;
+        }
         // Creator Bio
-        else if (t.includes("who created") || t.includes("developer") || t.includes("creator") || t.includes("who made")) {
+        else if (t.includes("who created") || t.includes("developer") || t.includes("creator") || t.includes("who made") || t.includes("jeeva")) {
           replyHTML = `
             <div class="creator-plaque">
-              <div class="plaque-title">Jeeva Raghavan Developer</div>
+              <div class="plaque-title">Jeeva Raghavan • Developer</div>
               I built science.io to make 5th-grade science vibrant, tactile, and accessible across every computer and mobile device. Crafted with clean code and high-tech neon aesthetics!
             </div>
           `;
@@ -5592,15 +5626,19 @@ class Chatbot {
         else if (t.includes("passcode") || t.includes("password") || t.includes("vault code") || t.includes("pin")) {
           replyHTML = `<div class="msg-bubble" style="background: rgba(255, 55, 95, 0.2); border-color: #FF375F; color: #FF375F; font-weight: bold;">The Admin Vault requires confidential passcode clearance authorized by the site administrator. Passcodes are strictly classified!</div>`;
         }
+        // Greeting
+        else if (t.includes("hi") || t.includes("hello") || t.includes("hey") || t.includes("help")) {
+          replyHTML = `<div class="msg-bubble">Hello! 👋 I'm the science.io assistant. I can help explain 5th grade science concepts (Cells, Matter, Ecosystems, Forces), help you navigate the notes, or answer questions about your study sheets!</div>`;
+        }
         // Fallback
         else {
-          replyHTML = `<div class="msg-bubble">I am the science.io assistant! Ask me about 5th grade science concepts (Matter, Ecosystems, the Scientific Method), or how to publish your notes across all your devices!</div>`;
+          replyHTML = `<div class="msg-bubble">I am the science.io assistant! Ask me about 5th grade science concepts (Matter, Ecosystems, the Scientific Method), navigation ("take me to notes"), or how to publish your notes across all your devices!</div>`;
         }
 
         this.appendRawHTML(replyHTML, "ai-msg");
         sounds.playSuccess();
-      }, 1000);
-    }, 300);
+      }, 700);
+    }, 250);
   }
 
   appendRawHTML(html, className) {
@@ -5630,7 +5668,7 @@ class Chatbot {
 document.addEventListener("DOMContentLoaded", () => {
   window.app = new ScienceIoApp();
   window.scienceApp = window.app;
-  new Chatbot();
+  window.chatbot = new Chatbot();
 
   // Science Keyboard
   const mk = document.createElement("div");
