@@ -6083,11 +6083,30 @@ class ScienceIoApp {
       this.replayLoader();
     });
 
-    // Easter egg on "Made with ❤️ from Jeeva R."
-    document.getElementById("author-credit-trigger")?.addEventListener("click", () => {
+    // Developer Projects Showcase Modal trigger on "Made with ❤️ by Jeeva R."
+    const openProjectsModal = () => {
       sounds.playSuccess();
-      const rect = document.getElementById("author-credit-trigger")?.getBoundingClientRect();
-      if (rect) this.confetti.burst(rect.left + rect.width / 2, rect.top, 50);
+      const trigger = document.getElementById("author-credit-trigger");
+      const rect = trigger ? trigger.getBoundingClientRect() : null;
+      if (rect) this.confetti.burst(rect.left + rect.width / 2, rect.top, 60);
+      const projModal = document.getElementById("projects-modal");
+      if (projModal) projModal.classList.remove("hidden");
+    };
+
+    document.getElementById("author-credit-trigger")?.addEventListener("click", openProjectsModal);
+    document.querySelector(".loader-author")?.addEventListener("click", openProjectsModal);
+
+    document.getElementById("modal-projects-close")?.addEventListener("click", () => {
+      sounds.playClick();
+      document.getElementById("projects-modal")?.classList.add("hidden");
+    });
+
+    document.getElementById("project-link-skience")?.addEventListener("click", () => {
+      sounds.playSuccess();
+    });
+
+    document.getElementById("project-link-wprints")?.addEventListener("click", () => {
+      sounds.playSuccess();
     });
 
     // Close on clicking backdrop
@@ -6265,14 +6284,24 @@ class Chatbot {
         else if (t.includes("quiz") || t.includes("test") || t.includes("practice")) {
           replyHTML = `<div class="msg-bubble">Every skience topic has an interactive <strong>⚡ Practice Quiz</strong> directly on its carousel card and inside the notes viewer! Test your mastery with instant scoring and feedback.</div>`;
         }
-        // Creator Bio
-        else if (t.includes("who created") || t.includes("developer") || t.includes("creator") || t.includes("who made") || t.includes("jeeva")) {
+        // Creator Bio & Projects
+        else if (t.includes("who created") || t.includes("developer") || t.includes("creator") || t.includes("who made") || t.includes("jeeva") || t.includes("project")) {
           replyHTML = `
             <div class="creator-plaque">
               <div class="plaque-title">Jeeva Raghavan • Developer</div>
-              I built skience.io to make 5th-grade skience vibrant, tactile, and accessible across every computer and mobile device. Crafted with clean code and high-tech neon aesthetics!
+              I built <strong>skience.io</strong> and <strong>W PRINTS</strong>. Click "made with love by Jeeva R." in the footer or click below to explore my projects!
+              <div style="margin-top: 10px;">
+                <button type="button" class="hero-cta-btn" id="chat-view-projects-btn" style="padding: 6px 14px; font-size: 0.78rem;">🚀 Explore Jeeva's Projects</button>
+              </div>
             </div>
           `;
+          setTimeout(() => {
+            document.getElementById("chat-view-projects-btn")?.addEventListener("click", () => {
+              this.closeChat();
+              document.getElementById("projects-modal")?.classList.remove("hidden");
+              sounds.playSuccess();
+            });
+          }, 60);
         }
         // Passcode Protection
         else if (t.includes("passcode") || t.includes("password") || t.includes("vault code") || t.includes("pin")) {
