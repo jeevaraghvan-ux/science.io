@@ -342,10 +342,10 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
       {
         "q": "In the kingdom Animalia, what does 'heterotrophic' mean?",
         "options": [
-          "Heterotrophic - other feeder, organisms that eat other organisms.",
-          "Autotroph - self feeders",
-          "an organism made of only 1 cell.",
-          "organisms that move by cillia (hair like)"
+          "Other feeder (organisms that eat other organisms)",
+          "Self feeders (organisms that make their own food)",
+          "An organism made of only 1 cell.",
+          "Organisms that move by cillia (hair like)"
         ],
         "ans": 0,
         "why": "In the kingdom Animalia, animals are heterotrophic and eat other organisms!"
@@ -411,9 +411,9 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
       {
         "q": "How does a Euglena move?",
         "options": [
-          "Move by using  a flagellum (thread like structures that whip around).",
-          "A paramecium moves by cillia (hair like)",
-          "An amoeba moves by projecting out its cytoplasm. These projections are called pseudopodia (false feet).",
+          "Moves by using a flagellum (thread-like whip structure)",
+          "Moves by using cilia (tiny hair-like oars)",
+          "Moves by projecting out cytoplasm into pseudopodia",
           "It uses roots to anchor itself"
         ],
         "ans": 0,
@@ -422,9 +422,9 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
       {
         "q": "How does a Paramecium move?",
         "options": [
-          "A paramecium moves by cillia (hair like)",
-          "Move by using  a flagellum (thread like structures that whip around).",
-          "An amoeba moves by projecting out its cytoplasm. These projections are called pseudopodia (false feet).",
+          "Moves by using cilia (tiny hair-like structures)",
+          "Moves by using a whip-like flagellum",
+          "Moves by projecting out cytoplasm into false feet",
           "It floats without any moving structures"
         ],
         "ans": 0,
@@ -433,9 +433,9 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
       {
         "q": "How does an Amoeba move?",
         "options": [
-          "An amoeba moves by projecting out its cytoplasm. These projections are called pseudopodia (false feet).",
-          "Move by using  a flagellum (thread like structures that whip around).",
-          "A paramecium moves by cillia (hair like)",
+          "Moves by projecting out cytoplasm in false feet (pseudopodia)",
+          "Moves by whipping a flagellum propeller",
+          "Moves by beating tiny cilia hairs",
           "It swims with fins"
         ],
         "ans": 0,
@@ -444,9 +444,9 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
       {
         "q": "How does a Volvox move?",
         "options": [
-          "They move by using a flagellum ( thread like structures that whip around).",
-          "A paramecium moves by cillia (hair like)",
-          "An amoeba moves by projecting out its cytoplasm. These projections are called pseudopodia (false feet).",
+          "Moves by rolling using coordinated flagella",
+          "Moves by beating tiny cilia hairs",
+          "Moves by extending cytoplasmic false feet",
           "It does not move at all"
         ],
         "ans": 0,

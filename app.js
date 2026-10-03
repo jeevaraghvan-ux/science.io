@@ -367,10 +367,10 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "q": "In the kingdom Animalia, what does 'heterotrophic' mean?",
         "options": [
-          "Heterotrophic - other feeder, organisms that eat other organisms.",
-          "Autotroph - self feeders",
-          "an organism made of only 1 cell.",
-          "organisms that move by cillia (hair like)"
+          "Other feeder (organisms that eat other organisms)",
+          "Self feeders (organisms that make their own food)",
+          "An organism made of only 1 cell.",
+          "Organisms that move by cillia (hair like)"
         ],
         "ans": 0,
         "why": "In the kingdom Animalia, animals are heterotrophic and eat other organisms!"
@@ -436,9 +436,9 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "q": "How does a Euglena move?",
         "options": [
-          "Move by using  a flagellum (thread like structures that whip around).",
-          "A paramecium moves by cillia (hair like)",
-          "An amoeba moves by projecting out its cytoplasm. These projections are called pseudopodia (false feet).",
+          "Moves by using a flagellum (thread-like whip structure)",
+          "Moves by using cilia (tiny hair-like oars)",
+          "Moves by projecting out cytoplasm into pseudopodia",
           "It uses roots to anchor itself"
         ],
         "ans": 0,
@@ -447,9 +447,9 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "q": "How does a Paramecium move?",
         "options": [
-          "A paramecium moves by cillia (hair like)",
-          "Move by using  a flagellum (thread like structures that whip around).",
-          "An amoeba moves by projecting out its cytoplasm. These projections are called pseudopodia (false feet).",
+          "Moves by using cilia (tiny hair-like structures)",
+          "Moves by using a whip-like flagellum",
+          "Moves by projecting out cytoplasm into false feet",
           "It floats without any moving structures"
         ],
         "ans": 0,
@@ -458,9 +458,9 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "q": "How does an Amoeba move?",
         "options": [
-          "An amoeba moves by projecting out its cytoplasm. These projections are called pseudopodia (false feet).",
-          "Move by using  a flagellum (thread like structures that whip around).",
-          "A paramecium moves by cillia (hair like)",
+          "Moves by projecting out cytoplasm in false feet (pseudopodia)",
+          "Moves by whipping a flagellum propeller",
+          "Moves by beating tiny cilia hairs",
           "It swims with fins"
         ],
         "ans": 0,
@@ -469,9 +469,9 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "q": "How does a Volvox move?",
         "options": [
-          "They move by using a flagellum ( thread like structures that whip around).",
-          "A paramecium moves by cillia (hair like)",
-          "An amoeba moves by projecting out its cytoplasm. These projections are called pseudopodia (false feet).",
+          "Moves by rolling using coordinated flagella",
+          "Moves by beating tiny cilia hairs",
+          "Moves by extending cytoplasmic false feet",
           "It does not move at all"
         ],
         "ans": 0,
@@ -5715,7 +5715,209 @@ class ScienceIoApp {
     setTimeout(() => selectOrganelle(1), 250);
   }
 
-  // Practice Quiz
+  // ================= PRACTICE QUIZ =================
+  cleanQuizName(raw) {
+    return (raw || '').replace(/^(\d+[\.\-\)]\s*|#\d+\s*)/, '').trim();
+  }
+
+  escapeRegex(s) {
+    return (s || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  /**
+   * Rephrases a definition into a clean question if the answer is present in the definition.
+   * Ex: "Earwax helps protect your ear canal." -> "What helps protect your ear canal?"
+   */
+  rephraseDefinitionToQuestion(rawExplanation, rawName) {
+    if (!rawExplanation || !rawExplanation.trim()) {
+      return 'Which scientific part or concept is this?';
+    }
+
+    const name = this.cleanQuizName(rawName);
+    let text = rawExplanation.trim().replace(/^[•\-\*\s]+/, '');
+
+    // Extract first coherent sentence or line
+    const lines = text.split(/\r?\n|\\n/).map(l => l.replace(/^[•\-\*\s]+/, '').trim()).filter(Boolean);
+    let sentence = lines[0] || text;
+    
+    // Strip leading numbering e.g. "1. " or "#1 "
+    sentence = sentence.replace(/^(\d+[\.\-\)]\s*|#\d+\s*)/, '').trim();
+
+    // Clean trailing period and whitespace
+    sentence = sentence.replace(/[\.\s]+$/, '');
+
+    // Build name tokens and variations
+    const nameVariants = new Set();
+    if (name) {
+      nameVariants.add(name);
+      // Subparts: e.g. "Nucleus & Nucleolus" -> "Nucleus", "Nucleolus"
+      const subParts = name.split(/\s*(?:&|and|\/|\(|\))\s*/i).map(s => s.trim()).filter(s => s.length > 2);
+      subParts.forEach(p => nameVariants.add(p));
+
+      // Also individual significant words if multi-word: e.g. "Central Vacuole" -> "Vacuole"
+      const words = name.split(/\s+/).map(w => w.replace(/[^a-zA-Z]/g, '')).filter(w => w.length > 3);
+      const stopWords = new Set(['cell', 'body', 'system', 'plant', 'animal', 'rough', 'smooth', 'unit', 'life', 'part', 'type']);
+      words.forEach(w => {
+        if (!stopWords.has(w.toLowerCase())) {
+          nameVariants.add(w);
+        }
+      });
+    }
+
+    // Build regex patterns
+    const patternList = [];
+    nameVariants.forEach(v => {
+      const esc = this.escapeRegex(v);
+      patternList.push(esc + '(?:s|es|ies)?');
+      const parts = v.split(/\s+/).map(w => this.escapeRegex(w));
+      if (parts.length > 1) {
+        patternList.push(parts.slice(0, -1).join('\\s+') + '\\s+' + parts[parts.length - 1] + '(?:s|es)?');
+      }
+    });
+
+    patternList.sort((a, b) => b.length - a.length);
+    const anyNameRegex = new RegExp('\\b(?:' + patternList.join('|') + ')(?:\'s)?\\b', 'gi');
+
+    // Check if answer appears at the beginning of sentence (with optional article / adjective)
+    const startRegex = new RegExp('^(?:(?:a|an|the|these|this|some)\\s+)?(?:smooth\\s+|rough\\s+)?(?:' + patternList.join('|') + ')(?:\'s)?\\b\\s*', 'i');
+    
+    if (startRegex.test(sentence)) {
+      let remainder = sentence.replace(startRegex, '').trim();
+
+      // Conjugate common plural verbs to 3rd person singular after 'What'
+      remainder = remainder.replace(/^provide\b/i, 'provides')
+        .replace(/^convert\b/i, 'converts')
+        .replace(/^make\b/i, 'makes')
+        .replace(/^package\b/i, 'packages')
+        .replace(/^transport\b/i, 'transports')
+        .replace(/^store\b/i, 'stores')
+        .replace(/^help\b/i, 'helps')
+        .replace(/^contain\b/i, 'contains')
+        .replace(/^produce\b/i, 'produces')
+        .replace(/^are\b/i, 'is')
+        .replace(/^have\b/i, 'has');
+
+      // Also sanitize any remaining occurrences of the answer inside remainder
+      remainder = remainder.replace(anyNameRegex, 'this structure');
+
+      // Ensure first character of verb is lowercase
+      remainder = remainder.replace(/^([A-Z])/, (m, c) => c.toLowerCase());
+
+      return 'What ' + remainder + '?';
+    }
+
+    // Check if answer appears in the middle of sentence
+    if (anyNameRegex.test(sentence)) {
+      // Replace the answer occurrence with 'what'
+      let replaced = sentence.replace(anyNameRegex, 'what');
+      // Clean up 'a what', 'the what', 'these what'
+      replaced = replaced.replace(/\b(?:a|an|the|these|this)\s+what\b/gi, 'what');
+      // Fix verb if needed: 'what provide' -> 'what provides'
+      replaced = replaced.replace(/\bwhat\s+provide\b/gi, 'what provides')
+        .replace(/\bwhat\s+make\b/gi, 'what makes')
+        .replace(/\bwhat\s+convert\b/gi, 'what converts')
+        .replace(/\bwhat\s+help\b/gi, 'what helps');
+
+      // Capitalize first letter
+      replaced = replaced.replace(/^([a-z])/, (m, c) => c.toUpperCase());
+      return replaced + '?';
+    }
+
+    // If answer is NOT in the sentence, but sentence starts with a verb or description
+    if (/^(?:convert|converts|packages|package|makes|make|produces|produce|provides|provide|stores|store|controls|directs|protects|protect|helps|help|moves|move)\b/i.test(sentence)) {
+      let remainder = sentence
+        .replace(/^convert\b/i, 'converts')
+        .replace(/^package\b/i, 'packages')
+        .replace(/^make\b/i, 'makes')
+        .replace(/^produce\b/i, 'produces')
+        .replace(/^provide\b/i, 'provides')
+        .replace(/^store\b/i, 'stores')
+        .replace(/^protect\b/i, 'protects')
+        .replace(/^help\b/i, 'helps')
+        .replace(/^move\b/i, 'moves');
+      
+      remainder = remainder.replace(/^([A-Z])/, (m, c) => c.toLowerCase());
+      return 'What ' + remainder + '?';
+    }
+
+    if (/^(?:nicknamed|found only in|located in|known as|described as)\b/i.test(sentence)) {
+      return 'What is ' + sentence + '?';
+    }
+
+    if (/^(?:the\s+fluid|fluid\s+in|the\s+control\s+center|control\s+center)\b/i.test(sentence)) {
+      const cleanDesc = sentence.replace(/^(?:the)\s+/i, '');
+      return 'What is the ' + cleanDesc + '?';
+    }
+
+    if (/^(?:the\s+thin|a\s+thin|thin\s+layer)\b/i.test(sentence)) {
+      const cleanDesc = sentence.replace(/^(?:the|a)\s+/i, '');
+      return 'What is a ' + cleanDesc + '?';
+    }
+
+    // Fallback if not matched
+    return 'According to the teacher notes: "' + sentence + '" - What part is this?';
+  }
+
+  doesTextContainAnswer(text, answerName) {
+    if (!text || !answerName) return false;
+    const name = this.cleanQuizName(answerName);
+    const nameVariants = new Set();
+    nameVariants.add(name);
+    const subParts = name.split(/\s*(?:&|and|\/|\(|\))\s*/i).map(s => s.trim()).filter(s => s.length > 2);
+    subParts.forEach(p => nameVariants.add(p));
+    const words = name.split(/\s+/).map(w => w.replace(/[^a-zA-Z]/g, '')).filter(w => w.length > 3);
+    const stopWords = new Set(['cell', 'body', 'system', 'plant', 'animal', 'rough', 'smooth', 'unit', 'life', 'part', 'type']);
+    words.forEach(w => {
+      if (!stopWords.has(w.toLowerCase())) nameVariants.add(w);
+    });
+
+    const patternList = [];
+    nameVariants.forEach(v => {
+      const esc = this.escapeRegex(v);
+      patternList.push(esc + '(?:s|es|ies)?');
+      const parts = v.split(/\s+/).map(w => this.escapeRegex(w));
+      if (parts.length > 1) {
+        patternList.push(parts.slice(0, -1).join('\\s+') + '\\s+' + parts[parts.length - 1] + '(?:s|es)?');
+      }
+    });
+    patternList.sort((a, b) => b.length - a.length);
+    const regex = new RegExp('\\b(?:' + patternList.join('|') + ')(?:\'s)?\\b', 'gi');
+    return regex.test(text);
+  }
+
+  sanitizeQuizOption(opt, subjectName) {
+    if (!opt || typeof opt !== 'string') return opt;
+    let clean = opt.trim();
+
+    clean = clean.replace(/^[\d\.\-\*•]+\s*/, '');
+    clean = clean.replace(/^(?:a|an|the)?\s*(?:paramecium|amoeba|euglena|volvox)\s+moves?\s+by\s+/i, 'Moves by ');
+    clean = clean.replace(/^(?:they|it)\s+moves?\s+by\s+/i, 'Moves by ');
+    clean = clean.replace(/^(?:they|it)\s+move\s+by\s+using\s+/i, 'Moves by using ');
+    clean = clean.replace(/^move\s+by\s+using\s+/i, 'Moves by using ');
+    clean = clean.replace(/^(?:heterotrophic|autotroph)\s*[-–:]\s*/i, '');
+    clean = clean.replace(/^([a-z])/, (m, c) => c.toUpperCase());
+
+    return clean;
+  }
+
+  sanitizeQuizQuestion(item) {
+    if (!item || !item.q || !Array.isArray(item.options)) return item;
+    const answerName = item.options[item.ans] || '';
+    let qText = item.q;
+
+    if (this.doesTextContainAnswer(qText, answerName)) {
+      const quoteMatch = qText.match(/["'“]([^"'”]+)["'”]/);
+      if (quoteMatch) {
+        item.q = this.rephraseDefinitionToQuestion(quoteMatch[1], answerName);
+      } else {
+        item.q = this.rephraseDefinitionToQuestion(qText, answerName);
+      }
+    }
+
+    item.options = item.options.map(opt => this.sanitizeQuizOption(opt, answerName));
+    return item;
+  }
+
   renderModalQuiz(topic) {
     const container = document.getElementById("modal-quiz-container");
     if (!container) return;
@@ -5725,23 +5927,27 @@ class ScienceIoApp {
 
     // 1. If topic has predefined quiz (like our 10 Plant Cell worksheet questions), use them
     if (Array.isArray(topic.quiz) && topic.quiz.length > 0) {
-      questions = [...topic.quiz];
+      questions = JSON.parse(JSON.stringify(topic.quiz));
     } 
     // 2. Otherwise generate questions based directly on the teacher explanation notes
     else if (topic.properties && topic.properties.length > 0) {
       questions = topic.properties.map((p, idx) => {
-        const correctName = p.name.replace(/^\d+\.\s*/, '');
+        const correctName = this.cleanQuizName(p.name);
         const otherNames = topic.properties
           .filter((_, i) => i !== idx)
-          .map(o => o.name.replace(/^\d+\.\s*/, ''));
+          .map(o => this.cleanQuizName(o.name));
         const distractors = otherNames.slice(0, 3);
-        while (distractors.length < 3) distractors.push("Cell Component");
+        while (distractors.length < 3) distractors.push("Scientific Principle");
         const options = [correctName, ...distractors].sort(() => Math.random() - 0.5);
+
+        // Rephrase question so if the answer is in the definition, it is never added
+        const questionText = this.rephraseDefinitionToQuestion(p.explanation, correctName);
+
         return {
-          q: `According to the teacher explanation: "${p.explanation}" Which part is this?`,
+          q: questionText,
           options: options,
           ans: options.indexOf(correctName),
-          why: `${correctName} definition: "${p.explanation}"`
+          why: `${correctName}: "${p.explanation}"`
         };
       });
     }
@@ -5756,6 +5962,9 @@ class ScienceIoApp {
         }
       ];
     }
+
+    // Apply sanitization to ensure no question gives away the answer in the definition
+    questions = questions.map(item => this.sanitizeQuizQuestion(item));
 
     questions.forEach((item, qIdx) => {
       const card = document.createElement("div");
