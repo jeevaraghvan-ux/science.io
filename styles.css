@@ -1219,18 +1219,18 @@ html, body {
   transform-style: preserve-3d;
 }
 
-/* INDIVIDUAL CAROUSEL CARD — ULTRA-TRANSPARENT LIQUID GLASS & ASMR SMOOTH TRANSITIONS */
+/* INDIVIDUAL CAROUSEL CARD — SOLID SLEEK DARK GLASS & ASMR SMOOTH TRANSITIONS */
 .deck-card {
   position: absolute;
   width: 335px;
   height: 480px;
   border-radius: 28px;
-  background: rgba(10, 15, 30, 0.16);
-  backdrop-filter: blur(4px) saturate(160%) brightness(105%);
-  -webkit-backdrop-filter: blur(4px) saturate(160%) brightness(105%);
+  background: rgba(14, 20, 38, 0.88);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-top: 1.5px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.6), inset 0 1.5px 1.5px rgba(255, 255, 255, 0.25), inset 0 0 20px rgba(255, 255, 255, 0.02);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2);
   transform: translateZ(0);
   backface-visibility: hidden;
   display: flex;
@@ -1262,13 +1262,13 @@ html, body {
   z-index: 1;
 }
 
-/* Card Radial Atmospheric Glow (ultra-low alpha for maximum glass see-through) */
+/* Card Radial Atmospheric Glow */
 .card-glow-layer {
   position: absolute;
   inset: 0;
   border-radius: 28px;
   pointer-events: none;
-  opacity: 0.18;
+  opacity: 0.35;
   transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1300,160 +1300,86 @@ html, body {
   background: radial-gradient(ellipse at 50% 65%, rgba(99, 102, 241, 0.35) 0%, rgba(168, 85, 247, 0.18) 45%, transparent 75%);
 }
 
-/* 3D Positions in Carousel — FRONT ARC (Crystal Clear Liquid Glass) */
+/* 3D Positions in Carousel — Front Coverflow */
 .deck-card.pos-center {
   transform: translate3d(0, 0, 85px) scale(1.04);
   z-index: 40;
   opacity: 1;
   filter: none;
-  background: rgba(10, 15, 30, 0.16) !important;
-  backdrop-filter: blur(2px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(2px) saturate(140%) !important;
-  border-color: rgba(255, 255, 255, 0.22) !important;
-  border-top-color: rgba(255, 255, 255, 0.7) !important;
-  box-shadow: 0 35px 85px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.18), inset 0 1.5px 2px rgba(255, 255, 255, 0.35) !important;
+  background: rgba(16, 23, 44, 0.94) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  border-top-color: rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 35px 85px -10px rgba(0, 0, 0, 0.85), 0 0 35px rgba(56, 189, 248, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.4) !important;
 }
 
 .deck-card.pos-center:hover {
   transform: translate3d(0, -6px, 98px) scale(1.055);
-  border-color: rgba(255, 255, 255, 0.6) !important;
-  box-shadow: 0 40px 95px rgba(0, 0, 0, 0.75), 0 0 45px rgba(56, 189, 248, 0.3), inset 0 2px 3px rgba(255, 255, 255, 0.55) !important;
+  border-color: rgba(255, 255, 255, 0.65) !important;
+  box-shadow: 0 40px 95px rgba(0, 0, 0, 0.85), 0 0 50px rgba(56, 189, 248, 0.38), inset 0 2px 3px rgba(255, 255, 255, 0.65) !important;
 }
 
 .deck-card.pos-left-1 {
-  transform: translate3d(-310px, 0, 10px) rotateY(20deg) scale(0.88);
+  transform: translate3d(-310px, 0, -30px) rotateY(20deg) scale(0.88);
   z-index: 25;
-  opacity: 0.65;
+  opacity: 0.6;
   filter: brightness(0.92);
   cursor: pointer;
-  background: rgba(10, 14, 28, 0.16) !important;
-  backdrop-filter: blur(2px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(2px) saturate(140%) !important;
+  background: rgba(12, 17, 34, 0.88) !important;
+  backdrop-filter: blur(14px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
 }
 
 .deck-card.pos-left-1:hover {
   opacity: 0.85;
-  transform: translate3d(-310px, -4px, 20px) rotateY(16deg) scale(0.91);
+  transform: translate3d(-310px, -4px, -20px) rotateY(16deg) scale(0.91);
 }
 
 .deck-card.pos-left-2 {
-  transform: translate3d(-530px, 0, -80px) rotateY(32deg) scale(0.74);
+  transform: translate3d(-530px, 0, -100px) rotateY(32deg) scale(0.74);
   z-index: 15;
-  opacity: 0.38;
+  opacity: 0.35;
   filter: grayscale(30%);
-  background: rgba(10, 14, 28, 0.14) !important;
-  backdrop-filter: blur(1.5px) !important;
-  -webkit-backdrop-filter: blur(1.5px) !important;
+  background: rgba(10, 14, 28, 0.85) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .deck-card.pos-right-1 {
-  transform: translate3d(310px, 0, 10px) rotateY(-20deg) scale(0.88);
+  transform: translate3d(310px, 0, -30px) rotateY(-20deg) scale(0.88);
   z-index: 25;
-  opacity: 0.65;
+  opacity: 0.6;
   filter: brightness(0.92);
   cursor: pointer;
-  background: rgba(10, 14, 28, 0.16) !important;
-  backdrop-filter: blur(2px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(2px) saturate(140%) !important;
+  background: rgba(12, 17, 34, 0.88) !important;
+  backdrop-filter: blur(14px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
 }
 
 .deck-card.pos-right-1:hover {
   opacity: 0.85;
-  transform: translate3d(310px, -4px, 20px) rotateY(-16deg) scale(0.91);
+  transform: translate3d(310px, -4px, -20px) rotateY(-16deg) scale(0.91);
 }
 
 .deck-card.pos-right-2 {
-  transform: translate3d(530px, 0, -80px) rotateY(-32deg) scale(0.74);
+  transform: translate3d(530px, 0, -100px) rotateY(-32deg) scale(0.74);
   z-index: 15;
-  opacity: 0.38;
+  opacity: 0.35;
   filter: grayscale(30%);
-  background: rgba(10, 14, 28, 0.14) !important;
-  backdrop-filter: blur(1.5px) !important;
-  -webkit-backdrop-filter: blur(1.5px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-/* ================= 3D CYLINDER: THE OTHER SIDE OF THE CAROUSEL ================= */
-/* Visible directly behind the front cards through the transparent liquid glass */
-.deck-card.pos-back-center {
-  transform: translate3d(0, 0, -310px) rotateZ(180deg) scale(0.88);
-  z-index: 5;
-  opacity: 0.6;
-  filter: brightness(0.9) contrast(1.15);
-  pointer-events: auto;
-  cursor: pointer;
-  background: rgba(10, 14, 28, 0.15) !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
-}
-
-.deck-card.pos-back-center:hover {
-  opacity: 0.85;
-  filter: brightness(1.05);
-  transform: translate3d(0, -6px, -290px) rotateZ(180deg) scale(0.92);
-}
-
-.deck-card.pos-back-left-1 {
-  transform: translate3d(-300px, 0, -330px) rotateY(-18deg) rotateZ(180deg) scale(0.78);
-  z-index: 6;
-  opacity: 0.48;
-  filter: brightness(0.8);
-  pointer-events: auto;
-  cursor: pointer;
-  background: rgba(10, 14, 28, 0.14) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-}
-
-.deck-card.pos-back-left-1:hover {
-  opacity: 0.72;
-  transform: translate3d(-300px, -4px, -300px) rotateY(-14deg) rotateZ(180deg) scale(0.82);
-}
-
-.deck-card.pos-back-right-1 {
-  transform: translate3d(300px, 0, -330px) rotateY(18deg) rotateZ(180deg) scale(0.78);
-  z-index: 6;
-  opacity: 0.48;
-  filter: brightness(0.8);
-  pointer-events: auto;
-  cursor: pointer;
-  background: rgba(10, 14, 28, 0.14) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-}
-
-.deck-card.pos-back-right-1:hover {
-  opacity: 0.72;
-  transform: translate3d(300px, -4px, -300px) rotateY(14deg) rotateZ(180deg) scale(0.82);
-}
-
-.deck-card.pos-back-left-2 {
-  transform: translate3d(-520px, 0, -360px) rotateY(-28deg) rotateZ(180deg) scale(0.68);
-  z-index: 4;
-  opacity: 0.35;
-  filter: brightness(0.65) grayscale(20%);
-  pointer-events: auto;
-  cursor: pointer;
-  background: rgba(10, 14, 28, 0.12) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-.deck-card.pos-back-right-2 {
-  transform: translate3d(520px, 0, -360px) rotateY(28deg) rotateZ(180deg) scale(0.68);
-  z-index: 4;
-  opacity: 0.35;
-  filter: brightness(0.65) grayscale(20%);
-  pointer-events: auto;
-  cursor: pointer;
-  background: rgba(10, 14, 28, 0.12) !important;
+  background: rgba(10, 14, 28, 0.85) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .deck-card.pos-hidden {
-  transform: translate3d(0, 0, -420px) scale(0.4);
+  transform: translate3d(0, 0, -320px) scale(0.48);
   opacity: 0;
   pointer-events: none;
   z-index: 0;

@@ -3314,14 +3314,25 @@ class ScienceIoApp {
     }
 
     const totalLen = strokeData.reduce((acc, curr) => acc + curr.len, 0);
-    const duration = 2100;
+    // Deliberate, relaxed human pace (takes time for each curve and letter)
+    const duration = 5800;
     const startTime = performance.now();
+
+    // Exact cumulative thresholds for dotting the letters
+    let cum = 0;
+    const strokeCumFractions = strokeData.map(({ len }) => {
+      cum += len;
+      return cum / totalLen;
+    });
+    const dot1Threshold = strokeCumFractions[4] || 0.32; // after first 'i'
+    const dot2Threshold = strokeCumFractions[10] || 0.78; // after 'science' (period '.')
+    const dot3Threshold = strokeCumFractions[11] || 0.86; // after second 'i' in '.io'
 
     const frame = (now) => {
       const elapsed = now - startTime;
       const progress = Math.min(1, elapsed / duration);
-      // Silky easeInOutQuad
-      const eased = progress < 0.5 ? 2 * progress * progress : -1 + (4 - 2 * progress) * progress;
+      // Natural human ease: smooth start, steady writing, gentle finish
+      const eased = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
 
       const targetDistance = eased * totalLen;
       let accumulated = 0;
@@ -3344,9 +3355,9 @@ class ScienceIoApp {
         accumulated += len;
       });
 
-      // Animate dots based on progress
+      // Animate dots based on exact progress
       dots.forEach((dot, idx) => {
-        const threshold = idx === 0 ? 0.25 : idx === 1 ? 0.70 : 0.82;
+        const threshold = idx === 0 ? dot1Threshold : idx === 1 ? dot2Threshold : dot3Threshold;
         if (eased >= threshold) {
           dot.style.transform = "scale(1)";
           dot.style.opacity = "1";
@@ -3443,24 +3454,14 @@ class ScienceIoApp {
       return;
     }
 
-    // Build 3D cylinder ring cards (if filtered has < 8 items, repeat so the 3D cylinder has cards on all sides including the other side!)
-    const targetRingCount = filtered.length >= 8 ? filtered.length : (filtered.length * Math.ceil(8 / filtered.length));
-    const ringItems = [];
-    for (let i = 0; i < targetRingCount; i++) {
-      const origIdx = i % filtered.length;
-      ringItems.push({ topic: filtered[origIdx], origIdx, virtualIdx: i });
-    }
-
-    if (this.carouselIndex >= ringItems.length) {
+    if (this.carouselIndex >= filtered.length) {
       this.carouselIndex = 0;
     }
 
-    ringItems.forEach((item) => {
-      const { topic, origIdx, virtualIdx } = item;
+    filtered.forEach((topic, idx) => {
       const card = document.createElement("div");
       card.className = "deck-card";
-      card.dataset.index = virtualIdx;
-      card.dataset.origIndex = origIdx;
+      card.dataset.index = idx;
       card.dataset.id = topic.id;
 
       const glowClass = `glow-${topic.color || "cyan"}`;
@@ -3510,9 +3511,9 @@ class ScienceIoApp {
 
       card.addEventListener("click", (e) => {
         if (this._hasDragged) return;
-        if (virtualIdx !== this.carouselIndex) {
+        if (idx !== this.carouselIndex) {
           e.stopPropagation();
-          this.carouselIndex = virtualIdx;
+          this.carouselIndex = idx;
           sounds.playAsmrSlide();
           this.updateCarouselPositions();
           return;
@@ -3522,29 +3523,14 @@ class ScienceIoApp {
       track.appendChild(card);
     });
 
-    // Populate Dots (1 per real note topic)
+    // Populate Dots
     if (dotsContainer) {
       dotsContainer.innerHTML = "";
-      filtered.forEach((_, noteIdx) => {
+      filtered.forEach((_, idx) => {
         const dot = document.createElement("div");
-        dot.className = `dot-indicator ${noteIdx === (this.carouselIndex % filtered.length) ? "active" : ""}`;
+        dot.className = `dot-indicator ${idx === this.carouselIndex ? "active" : ""}`;
         dot.addEventListener("click", () => {
-          // Find closest virtual card matching this noteIdx
-          const cards = document.querySelectorAll(".deck-card");
-          let bestIdx = noteIdx;
-          let minDiff = Infinity;
-          cards.forEach((c) => {
-            const vIdx = parseInt(c.dataset.index, 10);
-            const oIdx = parseInt(c.dataset.origIndex, 10);
-            if (oIdx === noteIdx) {
-              const diff = Math.abs(vIdx - this.carouselIndex);
-              if (diff < minDiff) {
-                minDiff = diff;
-                bestIdx = vIdx;
-              }
-            }
-          });
-          this.carouselIndex = bestIdx;
+          this.carouselIndex = idx;
           sounds.playAsmrSlide();
           this.updateCarouselPositions();
         });
@@ -3598,19 +3584,17 @@ class ScienceIoApp {
   }
 
   slideNext() {
-    const cards = document.querySelectorAll(".deck-card");
-    const n = cards.length;
-    if (n <= 1) return;
-    this.carouselIndex = (this.carouselIndex + 1) % n;
+    const filtered = this.getFilteredNotes();
+    if (filtered.length <= 1) return;
+    this.carouselIndex = (this.carouselIndex + 1) % filtered.length;
     sounds.playAsmrSlide();
     this.updateCarouselPositions();
   }
 
   slidePrev() {
-    const cards = document.querySelectorAll(".deck-card");
-    const n = cards.length;
-    if (n <= 1) return;
-    this.carouselIndex = (this.carouselIndex - 1 + n) % n;
+    const filtered = this.getFilteredNotes();
+    if (filtered.length <= 1) return;
+    this.carouselIndex = (this.carouselIndex - 1 + filtered.length) % filtered.length;
     sounds.playAsmrSlide();
     this.updateCarouselPositions();
   }
@@ -3621,9 +3605,6 @@ class ScienceIoApp {
     const n = cards.length;
     if (n === 0) return;
 
-    const filtered = this.getFilteredNotes();
-    const origCount = filtered.length;
-
     cards.forEach((card) => {
       const idx = parseInt(card.dataset.index, 10);
       card.classList.remove(
@@ -3632,11 +3613,6 @@ class ScienceIoApp {
         "pos-left-2",
         "pos-right-1",
         "pos-right-2",
-        "pos-back-center",
-        "pos-back-left-1",
-        "pos-back-right-1",
-        "pos-back-left-2",
-        "pos-back-right-2",
         "pos-hidden",
         "active-center",
         "left-card",
@@ -3661,24 +3637,13 @@ class ScienceIoApp {
         card.classList.add("pos-right-2");
       } else if (offset === -2) {
         card.classList.add("pos-left-2");
-      } else if (offset === 3) {
-        card.classList.add("pos-back-right-1");
-      } else if (offset === -3) {
-        card.classList.add("pos-back-left-1");
-      } else if (offset === 4 || offset === -4) {
-        card.classList.add("pos-back-center");
-      } else if (offset === 5) {
-        card.classList.add("pos-back-right-2");
-      } else if (offset === -5) {
-        card.classList.add("pos-back-left-2");
       } else {
         card.classList.add("pos-hidden");
       }
     });
 
-    const activeNoteIdx = origCount > 0 ? (this.carouselIndex % origCount) : 0;
     dots.forEach((dot, idx) => {
-      dot.classList.toggle("active", idx === activeNoteIdx);
+      dot.classList.toggle("active", idx === this.carouselIndex);
     });
   }
 
