@@ -954,7 +954,7 @@ class ConfettiEngine {
 class VaultController {
   constructor(app) {
     this.app = app;
-    this.code = atob("NzQ1Mw==");
+    this.code = atob("MTU5MzU3");
     this.currentPin = "";
     this.isUnlocked = false;
     this.openCreatorAfterUnlock = false;
@@ -982,13 +982,13 @@ class VaultController {
           this.currentPin = "";
         } else if (key === "back") {
           this.currentPin = this.currentPin.slice(0, -1);
-        } else if (this.currentPin.length < 4) {
+        } else if (this.currentPin.length < 6) {
           this.currentPin += key;
         }
 
         this.updatePinDisplay();
 
-        if (this.currentPin.length === 4) {
+        if (this.currentPin.length === 6) {
           this.verifyPin();
         }
       });
@@ -1000,11 +1000,11 @@ class VaultController {
       if (this.isUnlocked) return;
 
       if (e.key >= "0" && e.key <= "9") {
-        if (this.currentPin.length < 4) {
+        if (this.currentPin.length < 6) {
           sounds.playKeypadTap();
           this.currentPin += e.key;
           this.updatePinDisplay();
-          if (this.currentPin.length === 4) {
+          if (this.currentPin.length === 6) {
             this.verifyPin();
           }
         }
@@ -1027,10 +1027,10 @@ class VaultController {
     const feedback = document.getElementById("vault-pin-feedback");
     if (feedback) {
       if (this.currentPin.length === 0) {
-        feedback.textContent = "ENTER 4-DIGIT CODE";
+        feedback.textContent = "ENTER 6-DIGIT CODE";
         feedback.className = "vault-pin-feedback";
       } else {
-        feedback.textContent = `AUTHENTICATING [${this.currentPin.length}/4]`;
+        feedback.textContent = `AUTHENTICATING [${this.currentPin.length}/6]`;
         feedback.className = "vault-pin-feedback checking";
       }
     }

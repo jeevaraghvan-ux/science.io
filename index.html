@@ -23,8 +23,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=28.0">
-  <link rel="stylesheet" href="ios27.css?v=28.0">
+  <link rel="stylesheet" href="styles.css?v=29.0">
+  <link rel="stylesheet" href="ios27.css?v=29.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
   <script>
@@ -568,7 +568,7 @@
   <div id="vault-modal" class="modal-backdrop hidden">
     <div class="modal-window glass-modal vault-window" id="vault-window">
       
-      <!-- VIEW 1: VAULT LOCK SCREEN (4-DIGIT PIN AUTHENTICATION) -->
+      <!-- VIEW 1: VAULT LOCK SCREEN (6-DIGIT PIN AUTHENTICATION) -->
       <div id="vault-lock-view" class="vault-view-panel">
         <div class="vault-door-header">
           <div class="vault-badge-secure">
@@ -601,24 +601,26 @@
 
           <div class="vault-lock-credentials">
             <h2 class="vault-lock-title">ADMIN SECURITY VAULT</h2>
-            <p class="vault-lock-subtitle" id="vault-lock-status-msg">Enter 4-Digit Passcode to Access Web Administration & Note Architect</p>
+            <p class="vault-lock-subtitle" id="vault-lock-status-msg">Enter 6-Digit Passcode to Access Web Administration & Note Architect</p>
 
             <div class="vault-redirect-warning hidden" id="vault-redirect-warning">
               <span class="warning-icon">🔒</span>
               <div class="warning-text">
-                <strong>Access Restricted:</strong> Notes can <em>ONLY</em> be created inside the Vault. Authenticate with your 4-digit admin passcode to open the Note Architect.
+                <strong>Access Restricted:</strong> Notes can <em>ONLY</em> be created inside the Vault. Authenticate with your 6-digit admin passcode to open the Note Architect.
               </div>
             </div>
 
-            <!-- 4-Digit PIN Slots -->
+            <!-- 6-Digit PIN Slots -->
             <div class="vault-pin-display" id="vault-pin-display">
               <div class="pin-slot" data-slot="0"><span class="pin-dot"></span></div>
               <div class="pin-slot" data-slot="1"><span class="pin-dot"></span></div>
               <div class="pin-slot" data-slot="2"><span class="pin-dot"></span></div>
               <div class="pin-slot" data-slot="3"><span class="pin-dot"></span></div>
+              <div class="pin-slot" data-slot="4"><span class="pin-dot"></span></div>
+              <div class="pin-slot" data-slot="5"><span class="pin-dot"></span></div>
             </div>
 
-            <div class="vault-pin-feedback" id="vault-pin-feedback">ENTER 4-DIGIT CODE</div>
+            <div class="vault-pin-feedback" id="vault-pin-feedback">ENTER 6-DIGIT CODE</div>
 
             <!-- Cyber Keypad -->
             <div class="vault-keypad-grid">
@@ -986,7 +988,7 @@
     </button>
   </div>
 
-  <script src="published_notes.js?v=28.0"></script>
-  <script src="app.js?v=28.0"></script>
+  <script src="published_notes.js?v=29.0"></script>
+  <script src="app.js?v=29.0"></script>
 </body>
 </html>

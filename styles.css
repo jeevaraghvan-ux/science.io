@@ -2951,16 +2951,18 @@ html, body {
   line-height: 1.4;
 }
 
-/* 4-Digit PIN Slot Display */
+/* 6-Digit PIN Slot Display */
 .vault-pin-display {
   display: flex;
-  gap: 16px;
+  gap: 10px;
   margin-bottom: 12px;
+  justify-content: center;
+  max-width: 100%;
 }
 
 .pin-slot {
-  width: 48px;
-  height: 56px;
+  width: 44px;
+  height: 52px;
   border-radius: 12px;
   background: rgba(0, 0, 0, 0.5);
   border: 2px solid rgba(255, 255, 255, 0.18);
@@ -2968,6 +2970,16 @@ html, body {
   align-items: center;
   justify-content: center;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 400px) {
+  .vault-pin-display {
+    gap: 6px;
+  }
+  .pin-slot {
+    width: 38px;
+    height: 48px;
+  }
 }
 
 .pin-slot.filled {
