@@ -3331,10 +3331,8 @@ class ScienceIoApp {
     const frame = (now) => {
       const elapsed = now - startTime;
       const progress = Math.min(1, elapsed / duration);
-      // Natural human ease: smooth start, steady writing, gentle finish
-      const eased = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-
-      const targetDistance = eased * totalLen;
+      // Uniform constant pace throughout the entire word: strictly linear velocity (no speed up or slow down)
+      const targetDistance = progress * totalLen;
       let accumulated = 0;
       let currentSparkPoint = null;
 
@@ -3355,10 +3353,10 @@ class ScienceIoApp {
         accumulated += len;
       });
 
-      // Animate dots based on exact progress
+      // Animate dots based on exact linear progress
       dots.forEach((dot, idx) => {
         const threshold = idx === 0 ? dot1Threshold : idx === 1 ? dot2Threshold : dot3Threshold;
-        if (eased >= threshold) {
+        if (progress >= threshold) {
           dot.style.transform = "scale(1)";
           dot.style.opacity = "1";
         } else {
