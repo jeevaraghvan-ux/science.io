@@ -1542,11 +1542,10 @@ class VaultController {
       updatedAt: new Date().toISOString()
     };
 
+    // Generate practice quiz matching the exact same layout & rephrased questions
+    newNote.quiz = this.app.generateQuizForTopic(newNote);
+
     if (this.editingNoteId) {
-      const existingNote = this.app.notes.find(n => n.id === this.editingNoteId);
-      if (existingNote && existingNote.quiz) {
-        newNote.quiz = existingNote.quiz;
-      }
       const idx = this.app.notes.findIndex(n => n.id === this.editingNoteId);
       if (idx !== -1) {
         this.app.notes[idx] = newNote;
@@ -1632,6 +1631,7 @@ class VaultController {
           }
         ]
       };
+      matterNote.quiz = this.app.generateQuizForTopic(matterNote);
       this.app.notes.push(matterNote);
       this.app.saveNotes();
       this.app.render();
@@ -1681,6 +1681,7 @@ class VaultController {
           }
         ]
       };
+      photoNote.quiz = this.app.generateQuizForTopic(photoNote);
       this.app.notes.push(photoNote);
       this.app.saveNotes();
       this.app.render();
@@ -5918,6 +5919,83 @@ class ScienceIoApp {
     return item;
   }
 
+  generateQuizForTopic(topic) {
+    if (!topic) return [];
+    if (!topic.properties || topic.properties.length === 0) {
+      return [
+        {
+          q: `What is the core principle of ${topic.title || "this unit"}?`,
+          options: [topic.coreFormula || "Observable Science Law", "Matter disappears completely", "Energy cannot be transformed", "Variables do not matter"],
+          ans: 0,
+          why: "This matches the official 5th grade scientific law!"
+        }
+      ];
+    }
+
+    const fallbackPool = [
+      "Cell Membrane", "Mitochondria", "Cytoplasm", "Nucleus", "Chloroplast",
+      "Cell Wall", "Central Vacuole", "Endoplasmic Reticulum", "Golgi Body",
+      "Photosynthesis", "Cellular Respiration", "Gravitational Pull", "Kinetic Energy",
+      "Water Cycle Condensation", "Precipitation", "Evaporation", "Ecosystem Producer"
+    ];
+
+    const allNotePropNames = [];
+    (this.notes || []).forEach(n => {
+      if (Array.isArray(n.properties)) {
+        n.properties.forEach(p => {
+          if (p.name) allNotePropNames.push(this.cleanQuizName(p.name));
+        });
+      }
+    });
+
+    const questions = topic.properties.map((p, idx) => {
+      const correctName = this.cleanQuizName(p.name);
+      
+      // 1. Distractors from same topic
+      const sameTopicNames = topic.properties
+        .filter((_, i) => i !== idx)
+        .map(o => this.cleanQuizName(o.name))
+        .filter(n => n.toLowerCase() !== correctName.toLowerCase());
+
+      const chosenDistractors = [...sameTopicNames];
+
+      // 2. If needed, pull from other published notes
+      if (chosenDistractors.length < 3) {
+        for (const name of allNotePropNames) {
+          if (name.toLowerCase() !== correctName.toLowerCase() && !chosenDistractors.some(d => d.toLowerCase() === name.toLowerCase())) {
+            chosenDistractors.push(name);
+            if (chosenDistractors.length >= 3) break;
+          }
+        }
+      }
+
+      // 3. If still needed, pull from 5th grade curriculum fallback pool
+      if (chosenDistractors.length < 3) {
+        for (const fallback of fallbackPool) {
+          if (fallback.toLowerCase() !== correctName.toLowerCase() && !chosenDistractors.some(d => d.toLowerCase() === fallback.toLowerCase())) {
+            chosenDistractors.push(fallback);
+            if (chosenDistractors.length >= 3) break;
+          }
+        }
+      }
+
+      const finalDistractors = chosenDistractors.slice(0, 3);
+      const options = [correctName, ...finalDistractors].sort(() => Math.random() - 0.5);
+
+      // Rephrase definition so answer is not revealed in question
+      const questionText = this.rephraseDefinitionToQuestion(p.explanation, correctName);
+
+      return {
+        q: questionText,
+        options: options,
+        ans: options.indexOf(correctName),
+        why: `${correctName}: "${p.explanation}"`
+      };
+    });
+
+    return questions.map(item => this.sanitizeQuizQuestion(item));
+  }
+
   renderModalQuiz(topic) {
     const container = document.getElementById("modal-quiz-container");
     if (!container) return;
@@ -5925,46 +6003,24 @@ class ScienceIoApp {
 
     let questions = [];
 
-    // 1. If topic has predefined quiz (like our 10 Plant Cell worksheet questions), use them
+    // 1. If topic has predefined quiz, use them (and sanitize them)
     if (Array.isArray(topic.quiz) && topic.quiz.length > 0) {
-      questions = JSON.parse(JSON.stringify(topic.quiz));
-    } 
-    // 2. Otherwise generate questions based directly on the teacher explanation notes
-    else if (topic.properties && topic.properties.length > 0) {
-      questions = topic.properties.map((p, idx) => {
-        const correctName = this.cleanQuizName(p.name);
-        const otherNames = topic.properties
-          .filter((_, i) => i !== idx)
-          .map(o => this.cleanQuizName(o.name));
-        const distractors = otherNames.slice(0, 3);
-        while (distractors.length < 3) distractors.push("Scientific Principle");
-        const options = [correctName, ...distractors].sort(() => Math.random() - 0.5);
-
-        // Rephrase question so if the answer is in the definition, it is never added
-        const questionText = this.rephraseDefinitionToQuestion(p.explanation, correctName);
-
-        return {
-          q: questionText,
-          options: options,
-          ans: options.indexOf(correctName),
-          why: `${correctName}: "${p.explanation}"`
-        };
-      });
+      questions = JSON.parse(JSON.stringify(topic.quiz)).map(item => this.sanitizeQuizQuestion(item));
+    } else {
+      // 2. Otherwise generate questions with exact same layout and rephrased definitions
+      questions = this.generateQuizForTopic(topic);
     }
 
     if (questions.length === 0) {
       questions = [
         {
           q: `What is the core principle of ${topic.title}?`,
-          options: [topic.coreFormula, "Matter disappears completely", "Energy cannot be transformed", "Variables do not matter"],
+          options: [topic.coreFormula || "Observable Science Law", "Matter disappears completely", "Energy cannot be transformed", "Variables do not matter"],
           ans: 0,
           why: "This matches the official 5th grade scientific law!"
         }
       ];
     }
-
-    // Apply sanitization to ensure no question gives away the answer in the definition
-    questions = questions.map(item => this.sanitizeQuizQuestion(item));
 
     questions.forEach((item, qIdx) => {
       const card = document.createElement("div");
