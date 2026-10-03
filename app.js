@@ -3217,7 +3217,7 @@ class ScienceIoApp {
       "Calibrating atomic mass spectrometers...",
       "Sequencing cellular DNA matrices...",
       "Simulating ecosystem energy flows...",
-      "Connecting to sk1ence.io Global Cloud Database...",
+      "Connecting to skience.io Global Cloud Database...",
       "System Operational. Welcome Jeeva R."
     ];
 
@@ -3324,8 +3324,9 @@ class ScienceIoApp {
       cum += len;
       return cum / totalLen;
     });
-    const dot1Threshold = strokeCumFractions[11] || 0.78; // period '.' after 'sk1ence'
-    const dot2Threshold = strokeCumFractions[12] || 0.86; // dot on 'i' in '.io'
+    const dot1Threshold = strokeCumFractions[5] || 0.35; // dot on 'i' in 'skience'
+    const dot2Threshold = strokeCumFractions[11] || 0.78; // period '.' after 'skience'
+    const dot3Threshold = strokeCumFractions[12] || 0.86; // dot on 'i' in '.io'
 
     const frame = (now) => {
       const elapsed = now - startTime;
@@ -3352,9 +3353,9 @@ class ScienceIoApp {
         accumulated += len;
       });
 
-      // Animate dots based on exact linear progress (2 dots in sk1ence.io)
+      // Animate dots based on exact linear progress (3 dots in skience.io)
       dots.forEach((dot, idx) => {
-        const threshold = idx === 0 ? dot1Threshold : dot2Threshold;
+        const threshold = idx === 0 ? dot1Threshold : idx === 1 ? dot2Threshold : dot3Threshold;
         if (progress >= threshold) {
           dot.style.transform = "scale(1)";
           dot.style.opacity = "1";
@@ -3420,9 +3421,9 @@ class ScienceIoApp {
         track.innerHTML = `
           <div class="empty-notebook-card">
             <div class="empty-notebook-icon">🔬</div>
-            <h3 class="empty-notebook-title">Your Sk1ence Notebook is Ready!</h3>
+            <h3 class="empty-notebook-title">Your Skience Notebook is Ready!</h3>
             <p class="empty-notebook-desc">
-              No notes have been published yet. Sk1ence units and concept squares will appear here once published from the Vault.
+              No notes have been published yet. Skience units and concept squares will appear here once published from the Vault.
             </p>
           </div>
         `;
@@ -3430,7 +3431,7 @@ class ScienceIoApp {
         // Search returned no results
         track.innerHTML = `
           <div style="text-align: center; color: var(--text-muted); padding: 40px;">
-            <p style="font-size: 1.2rem; margin-bottom: 8px;">No sk1ence notes found for "${this.searchQuery}"</p>
+            <p style="font-size: 1.2rem; margin-bottom: 8px;">No skience notes found for "${this.searchQuery}"</p>
             <button class="hero-cta-btn" id="reset-search-btn" style="padding: 10px 20px; font-size: 0.85rem; margin: 12px auto 0;">Reset Filters</button>
           </div>
         `;
@@ -3464,7 +3465,7 @@ class ScienceIoApp {
       const glowClass = `glow-${topic.color || "cyan"}`;
       const sqCount = topic.properties ? topic.properties.length : 1;
       const hasBulletsOrLines = topic.coreFormula && (topic.coreFormula.includes('•') || topic.coreFormula.includes('\n'));
-      const catDisplay = ((topic.category || "Sk1ence").replace(/science/gi, 'Sk1ence')).toUpperCase();
+      const catDisplay = ((topic.category || "Skience").replace(/science|sk1ence/gi, 'Skience')).toUpperCase();
 
       card.innerHTML = `
         <div class="card-glow-layer ${glowClass}"></div>
@@ -3494,7 +3495,7 @@ class ScienceIoApp {
           </button>
           <div class="card-dual-actions-row">
             <button class="card-action-btn btn-card-pdf" data-id="${topic.id}">
-              📄 SK1ENCE SHEET
+              📄 SKIENCE SHEET
             </button>
             <button class="card-action-btn btn-card-quiz" data-id="${topic.id}">
               ⚡ PRACTICE QUIZ
@@ -3714,7 +3715,7 @@ class ScienceIoApp {
       tbody.innerHTML = `
         <tr>
           <td colspan="6" style="text-align: center; padding: 36px; color: var(--text-muted);">
-            No sk1ence topics stored yet. Click "Add My Notes" or open the Admin Vault to create your first unit!
+            No skience topics stored yet. Click "Add My Notes" or open the Admin Vault to create your first unit!
           </td>
         </tr>
       `;
@@ -3724,7 +3725,7 @@ class ScienceIoApp {
     filtered.forEach((topic) => {
       const tr = document.createElement("tr");
       const sqCount = topic.properties ? topic.properties.length : 1;
-      const catDisplay = ((topic.category || "Sk1ence").replace(/science/gi, 'Sk1ence')).toUpperCase();
+      const catDisplay = ((topic.category || "Skience").replace(/science|sk1ence/gi, 'Skience')).toUpperCase();
 
       tr.innerHTML = `
         <td><strong>${formatBulletText(topic.title)}</strong></td>
@@ -3777,7 +3778,7 @@ class ScienceIoApp {
         descEl.textContent = topic.description;
       }
     }
-    if (catBadge) catBadge.textContent = `5TH GRADE ${((topic.category || "SK1ENCE").replace(/science/gi, 'SK1ENCE')).toUpperCase()}`;
+    if (catBadge) catBadge.textContent = `5TH GRADE ${((topic.category || "SKIENCE").replace(/science|sk1ence/gi, 'SKIENCE')).toUpperCase()}`;
 
     if (this.readingSuite) {
       this.readingSuite.onOpenTopic(topic);
@@ -3949,7 +3950,7 @@ class ScienceIoApp {
 
         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
           ${trickHtml ? `<span class="prop-trick-badge">💡 ${trickHtml}</span>` : ""}
-          <span class="prop-trick-badge" style="background: rgba(0, 240, 255, 0.15); border-color: rgba(0, 240, 255, 0.3); color: #a5f3fc;">🔬 Verified 5th Grade Sk1ence</span>
+          <span class="prop-trick-badge" style="background: rgba(0, 240, 255, 0.15); border-color: rgba(0, 240, 255, 0.3); color: #a5f3fc;">🔬 Verified 5th Grade Skience</span>
         </div>
       `;
 
@@ -3959,7 +3960,7 @@ class ScienceIoApp {
     const copyrightFooter = document.createElement("div");
     copyrightFooter.className = "modal-notes-copyright-footer";
     copyrightFooter.style.cssText = "grid-column: 1 / -1; text-align: center; padding: 18px 12px; margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.65); font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px;";
-    copyrightFooter.innerHTML = `<span>© Copyright Protected • 5th Grade Sk1ence Curriculum by Jeeva R.</span>`;
+    copyrightFooter.innerHTML = `<span>© Copyright Protected • 5th Grade Skience Curriculum by Jeeva R.</span>`;
     container.appendChild(copyrightFooter);
   }
 
@@ -4450,7 +4451,7 @@ class ScienceIoApp {
       <div class="moon-orbit-wrap">
         <div class="moon-hud-header">
           <div class="moon-hud-title-col">
-            <div class="moon-scope-tag">EARTH & SPACE SK1ENCE • IN-NOTES INTERACTIVE LAB</div>
+            <div class="moon-scope-tag">EARTH & SPACE SKIENCE • IN-NOTES INTERACTIVE LAB</div>
             <h3 class="moon-title">Moon Phases & Solar System Orbit Simulator</h3>
             <p class="moon-desc">Drag the Moon around Earth or scrub the orbit to see why lunar phases appear from Earth's vantage point!</p>
           </div>
@@ -5300,7 +5301,7 @@ class ScienceIoApp {
     if (!printContent) return;
 
     if (!topic) {
-      alert("No notes available to print. Please add a sk1ence note first!");
+      alert("No notes available to print. Please add a skience note first!");
       return;
     }
 
@@ -5529,7 +5530,7 @@ class ScienceIoApp {
       if (this.notes.length > 0) {
         this.printCheatSheet(this.notes[0]?.id);
       } else {
-        alert("Add a sk1ence note first to generate your cheat sheet!");
+        alert("Add a skience note first to generate your cheat sheet!");
       }
     });
 
@@ -5551,7 +5552,7 @@ class ScienceIoApp {
       e.preventDefault();
       sounds.playSuccess();
       this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 50);
-      alert("Thank you! Your sk1ence feedback was recorded.");
+      alert("Thank you! Your skience feedback was recorded.");
       fbModal?.classList.add("hidden");
     });
 
@@ -5696,7 +5697,7 @@ class Chatbot {
         }
         // Navigation: Take me to notes / notes area / scroll to notes
         else if (t.includes("note") || t.includes("take me") || t.includes("go to") || t.includes("show me") || t.includes("navigate") || t.includes("area") || t.includes("scroll") || t.includes("carousel") || t.includes("table")) {
-          replyHTML = `<div class="msg-bubble">Taking you directly to the <strong>5th Grade Sk1ence Notes & 3D Coverflow Carousel</strong>! 🔬✨</div>`;
+          replyHTML = `<div class="msg-bubble">Taking you directly to the <strong>5th Grade Skience Notes & 3D Coverflow Carousel</strong>! 🔬✨</div>`;
           setTimeout(() => {
             const target = document.getElementById("notes-section");
             if (target) {
@@ -5711,33 +5712,33 @@ class Chatbot {
               <strong>How to save notes across all devices:</strong><br>
               1. Add and architect your notes in the <strong>Admin Vault</strong>.<br>
               2. Click <strong>🚀 Publish All Notes to Cloud</strong> inside the Vault.<br>
-              3. All your notes are instantly uploaded to the secure sk1ence.io Cloud Database (zero credit drain, 100% free)!<br>
-              4. When you open sk1ence.io on your phone, tablet, or another computer, your notes will be right there!
+              3. All your notes are instantly uploaded to the secure skience.io Cloud Database (zero credit drain, 100% free)!<br>
+              4. When you open skience.io on your phone, tablet, or another computer, your notes will be right there!
             </div>
           `;
         }
         // Matter / Physical science
         else if (t.includes("matter") || t.includes("solid") || t.includes("liquid") || t.includes("gas") || t.includes("atom")) {
-          replyHTML = `<div class="msg-bubble">In 5th grade sk1ence, matter exists in 3 primary states: <strong>Solid</strong> (definite shape & volume), <strong>Liquid</strong> (flows to take container shape), and <strong>Gas</strong> (expands rapidly). Atoms are the fundamental building blocks of all matter!</div>`;
+          replyHTML = `<div class="msg-bubble">In 5th grade skience, matter exists in 3 primary states: <strong>Solid</strong> (definite shape & volume), <strong>Liquid</strong> (flows to take container shape), and <strong>Gas</strong> (expands rapidly). Atoms are the fundamental building blocks of all matter!</div>`;
         }
         // Photosynthesis / Life science / Cells
         else if (t.includes("photosynthesis") || t.includes("plant") || t.includes("cell") || t.includes("ecosystem")) {
           replyHTML = `<div class="msg-bubble"><strong>Photosynthesis Equation:</strong><br><code>6CO₂ + 6H₂O + Sunlight → C₆H₁₂O₆ (Glucose) + 6O₂ (Oxygen)</code><br>Plants use solar energy in chloroplasts to create food for themselves and oxygen for animals!</div>`;
         }
         // Scientific method
-        else if (t.includes("scientific method") || t.includes("sk1entific method") || t.includes("hypothesis") || t.includes("experiment") || t.includes("variable")) {
-          replyHTML = `<div class="msg-bubble">The 5 steps of the <strong>Sk1entific Method</strong> are:<br>1. Ask a Question<br>2. Form a Hypothesis (If... then...)<br>3. Conduct a Controlled Experiment (change only 1 variable!)<br>4. Collect & Analyze Data<br>5. Draw Conclusions!</div>`;
+        else if (t.includes("scientific method") || t.includes("skientific method") || t.includes("hypothesis") || t.includes("experiment") || t.includes("variable")) {
+          replyHTML = `<div class="msg-bubble">The 5 steps of the <strong>Skientific Method</strong> are:<br>1. Ask a Question<br>2. Form a Hypothesis (If... then...)<br>3. Conduct a Controlled Experiment (change only 1 variable!)<br>4. Collect & Analyze Data<br>5. Draw Conclusions!</div>`;
         }
         // Practice quiz
         else if (t.includes("quiz") || t.includes("test") || t.includes("practice")) {
-          replyHTML = `<div class="msg-bubble">Every sk1ence topic has an interactive <strong>⚡ Practice Quiz</strong> directly on its carousel card and inside the notes viewer! Test your mastery with instant scoring and feedback.</div>`;
+          replyHTML = `<div class="msg-bubble">Every skience topic has an interactive <strong>⚡ Practice Quiz</strong> directly on its carousel card and inside the notes viewer! Test your mastery with instant scoring and feedback.</div>`;
         }
         // Creator Bio
         else if (t.includes("who created") || t.includes("developer") || t.includes("creator") || t.includes("who made") || t.includes("jeeva")) {
           replyHTML = `
             <div class="creator-plaque">
               <div class="plaque-title">Jeeva Raghavan • Developer</div>
-              I built sk1ence.io to make 5th-grade sk1ence vibrant, tactile, and accessible across every computer and mobile device. Crafted with clean code and high-tech neon aesthetics!
+              I built skience.io to make 5th-grade skience vibrant, tactile, and accessible across every computer and mobile device. Crafted with clean code and high-tech neon aesthetics!
             </div>
           `;
         }
@@ -5747,11 +5748,11 @@ class Chatbot {
         }
         // Greeting
         else if (t.includes("hi") || t.includes("hello") || t.includes("hey") || t.includes("help")) {
-          replyHTML = `<div class="msg-bubble">Hello! 👋 I'm the sk1ence.io assistant. I can help explain 5th grade sk1ence concepts (Cells, Matter, Ecosystems, Forces), help you navigate the notes, or answer questions about your study sheets!</div>`;
+          replyHTML = `<div class="msg-bubble">Hello! 👋 I'm the skience.io assistant. I can help explain 5th grade skience concepts (Cells, Matter, Ecosystems, Forces), help you navigate the notes, or answer questions about your study sheets!</div>`;
         }
         // Fallback
         else {
-          replyHTML = `<div class="msg-bubble">I am the sk1ence.io assistant! Ask me about 5th grade sk1ence concepts (Matter, Ecosystems, the Sk1entific Method), navigation ("take me to notes"), or how to publish your notes across all your devices!</div>`;
+          replyHTML = `<div class="msg-bubble">I am the skience.io assistant! Ask me about 5th grade skience concepts (Matter, Ecosystems, the Skientific Method), navigation ("take me to notes"), or how to publish your notes across all your devices!</div>`;
         }
 
         this.appendRawHTML(replyHTML, "ai-msg");
