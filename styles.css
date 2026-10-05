@@ -1022,7 +1022,6 @@ html, body {
 
 .cat-pill {
   background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(14px) saturate(200%);
   border: 1px solid rgba(255, 255, 255, 0.18);
   color: rgba(255, 255, 255, 0.85);
   font-size: 0.78rem;
@@ -1114,7 +1113,7 @@ html, body {
   border-top: 2.5px solid rgba(255, 255, 255, 0.85);
   border-left: 2.5px solid rgba(255, 255, 255, 0.85);
   border-top-left-radius: 16px;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 
 .corner-tr {
@@ -1123,7 +1122,7 @@ html, body {
   border-top: 2.5px solid rgba(255, 255, 255, 0.85);
   border-right: 2.5px solid rgba(255, 255, 255, 0.85);
   border-top-right-radius: 16px;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 
 .corner-bl {
@@ -1132,7 +1131,7 @@ html, body {
   border-bottom: 2.5px solid rgba(255, 255, 255, 0.85);
   border-left: 2.5px solid rgba(255, 255, 255, 0.85);
   border-bottom-left-radius: 16px;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 
 .corner-br {
@@ -1141,7 +1140,7 @@ html, body {
   border-bottom: 2.5px solid rgba(255, 255, 255, 0.85);
   border-right: 2.5px solid rgba(255, 255, 255, 0.85);
   border-bottom-right-radius: 16px;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 
 @media (max-width: 1024px) {
@@ -1225,9 +1224,7 @@ html, body {
   width: 335px;
   height: 480px;
   border-radius: 28px;
-  background: rgba(14, 20, 38, 0.88);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  background: rgba(14, 20, 38, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-top: 1.5px solid rgba(255, 255, 255, 0.45);
   box-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2);
@@ -1245,8 +1242,7 @@ html, body {
   transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.5s ease;
   overflow: hidden;
-  will-change: transform, opacity;
-  contain: none;
+  contain: layout;
 }
 
 .deck-card::before {
@@ -1312,6 +1308,7 @@ html, body {
   border-color: rgba(255, 255, 255, 0.28) !important;
   border-top-color: rgba(255, 255, 255, 0.85) !important;
   box-shadow: 0 35px 85px -10px rgba(0, 0, 0, 0.85), 0 0 35px rgba(56, 189, 248, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.4) !important;
+  will-change: transform, opacity;
 }
 
 .deck-card.pos-center:hover {
@@ -1324,13 +1321,14 @@ html, body {
   transform: translate3d(-310px, 0, -30px) rotateY(20deg) scale(0.88);
   z-index: 25;
   opacity: 0.6;
-  filter: brightness(0.92);
+  filter: none !important;
   cursor: pointer;
-  background: rgba(12, 17, 34, 0.88) !important;
-  backdrop-filter: blur(14px) saturate(150%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
+  background: rgba(12, 17, 34, 0.94) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+  will-change: transform, opacity;
 }
 
 .deck-card.pos-left-1:hover {
@@ -1342,24 +1340,26 @@ html, body {
   transform: translate3d(-530px, 0, -100px) rotateY(32deg) scale(0.74);
   z-index: 15;
   opacity: 0.35;
-  filter: grayscale(30%);
-  background: rgba(10, 14, 28, 0.85) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+  filter: none !important;
+  background: rgba(10, 14, 28, 0.94) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  will-change: transform, opacity;
 }
 
 .deck-card.pos-right-1 {
   transform: translate3d(310px, 0, -30px) rotateY(-20deg) scale(0.88);
   z-index: 25;
   opacity: 0.6;
-  filter: brightness(0.92);
+  filter: none !important;
   cursor: pointer;
-  background: rgba(12, 17, 34, 0.88) !important;
-  backdrop-filter: blur(14px) saturate(150%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
+  background: rgba(12, 17, 34, 0.94) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+  will-change: transform, opacity;
 }
 
 .deck-card.pos-right-1:hover {
@@ -1371,19 +1371,23 @@ html, body {
   transform: translate3d(530px, 0, -100px) rotateY(-32deg) scale(0.74);
   z-index: 15;
   opacity: 0.35;
-  filter: grayscale(30%);
-  background: rgba(10, 14, 28, 0.85) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+  filter: none !important;
+  background: rgba(10, 14, 28, 0.94) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  will-change: transform, opacity;
 }
 
 .deck-card.pos-hidden {
   transform: translate3d(0, 0, -320px) scale(0.48);
   opacity: 0;
-  pointer-events: none;
+  pointer-events: none !important;
   z-index: 0;
-  visibility: hidden;
+  visibility: hidden !important;
+  will-change: auto !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 @media (max-width: 768px) {
@@ -1464,8 +1468,6 @@ html, body {
   font-size: 0.88rem;
   color: #a5f3fc;
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   padding: 8px 14px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -1502,8 +1504,6 @@ html, body {
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-top: 1px solid rgba(255, 255, 255, 0.35);
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(14px) saturate(180%);
-  -webkit-backdrop-filter: blur(14px) saturate(180%);
   color: #ffffff;
   font-family: var(--font-display);
   font-size: 0.82rem;
@@ -1537,8 +1537,6 @@ html, body {
 .card-action-btn.btn-card-view,
 .card-action-btn.primary-action {
   background: linear-gradient(135deg, rgba(6, 182, 212, 0.32) 0%, rgba(99, 102, 241, 0.42) 100%) !important;
-  backdrop-filter: blur(16px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
   border: 1px solid rgba(56, 189, 248, 0.45) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.7) !important;
   color: #ffffff !important;
@@ -1555,8 +1553,6 @@ html, body {
 /* 2. SCIENCE SHEET BUTTON (Transparent Liquid Glass Frosted Sheen) */
 .card-action-btn.btn-card-pdf {
   background: rgba(255, 255, 255, 0.07) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
   color: #ffffff !important;
@@ -1572,8 +1568,6 @@ html, body {
 /* 3. PRACTICE QUIZ BUTTON (Transparent Liquid Glass Purple / Teal) */
 .card-action-btn.btn-card-quiz {
   background: linear-gradient(135deg, rgba(168, 85, 247, 0.22) 0%, rgba(99, 102, 241, 0.26) 100%) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
   border: 1px solid rgba(168, 85, 247, 0.35) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.45) !important;
   color: #ffffff !important;
@@ -2157,9 +2151,7 @@ html, body {
   justify-content: flex-end;
   gap: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(14, 9, 22, 0.42);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(14, 9, 22, 0.65);
 }
 
 /* ================= ORGANIZED 5 PROPERTIES GRID ================= */
@@ -2171,8 +2163,6 @@ html, body {
 
 .property-detail-card {
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.03) 25%, rgba(22, 10, 42, 0.18) 70%, rgba(255, 122, 0, 0.08) 100%);
-  backdrop-filter: blur(20px) saturate(240%) brightness(110%);
-  -webkit-backdrop-filter: blur(20px) saturate(240%) brightness(110%);
   border: 1.5px solid rgba(255, 255, 255, 0.32);
   border-top: 1.5px solid rgba(255, 255, 255, 0.55);
   border-radius: 20px;
@@ -2290,8 +2280,6 @@ html, body {
 .interactive-demo-card {
   width: 100%;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(28, 16, 42, 0.4) 60%, rgba(18, 12, 30, 0.5) 100%);
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
   border: 1.5px solid rgba(255, 255, 255, 0.18);
   border-radius: 20px;
   padding: 24px;
@@ -2424,8 +2412,6 @@ html, body {
 
 .quiz-card {
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.07) 0%, rgba(32, 18, 48, 0.42) 60%, rgba(20, 12, 34, 0.5) 100%);
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
   border: 1.5px solid rgba(255, 122, 0, 0.42);
   border-radius: 18px;
   padding: 22px;
@@ -3312,8 +3298,6 @@ html, body {
 /* Squares Builder Section */
 .squares-builder-section {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(20, 10, 36, 0.28) 50%, rgba(28, 12, 45, 0.35) 100%);
-  backdrop-filter: blur(24px) saturate(220%);
-  -webkit-backdrop-filter: blur(24px) saturate(220%);
   border: 1.5px solid rgba(255, 183, 3, 0.45);
   border-radius: 20px;
   padding: 22px;
@@ -3389,8 +3373,6 @@ html, body {
 .square-builder-card,
 .architect-square-card {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 25%, rgba(24, 12, 44, 0.22) 70%, rgba(0, 212, 255, 0.08) 100%) !important;
-  backdrop-filter: blur(22px) saturate(220%) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(220%) !important;
   border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
   border-top: 1.5px solid rgba(255, 255, 255, 0.5) !important;
   border-radius: 18px !important;
@@ -5473,8 +5455,6 @@ html, body {
   font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.2);
 }
@@ -5546,13 +5526,11 @@ html, body {
 .calc-solver-panel {
   position: relative;
   z-index: 2;
-  background: rgba(18, 12, 38, 0.55);
+  background: rgba(18, 12, 38, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 20px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 10px 25px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
@@ -5712,13 +5690,11 @@ html, body {
 .calc-glass-screen {
   position: relative;
   z-index: 2;
-  background: rgba(3, 1, 12, 0.82);
+  background: rgba(3, 1, 12, 0.92);
   border: 1.5px solid rgba(56, 189, 248, 0.35);
   border-radius: 20px;
   padding: 20px 24px;
   margin-bottom: 22px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   box-shadow: 
     inset 0 2px 12px rgba(0, 0, 0, 0.85),
     0 0 30px rgba(6, 182, 212, 0.18),
@@ -5868,8 +5844,6 @@ html, body {
   color: #ffffff;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   box-shadow: 
     0 4px 14px rgba(0, 0, 0, 0.25),
     inset 0 1px 1px rgba(255, 255, 255, 0.35),
