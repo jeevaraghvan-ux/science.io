@@ -2927,7 +2927,7 @@ class ReadingEnhancementSuite {
     if (modal) modal.classList.toggle("zen-mode-active", this.isZen);
     if (btn) {
       btn.classList.toggle("active", this.isZen);
-      btn.innerHTML = this.isZen ? `<span>✕</span> Exit Zen` : `<span>⛶</span> Zen`;
+      btn.innerHTML = this.isZen ? `<span>✕</span> Exit Fullscreen` : `<span>⛶</span> Fullscreen`;
     }
     if (window.sounds) window.sounds.playClick();
   }
@@ -2939,7 +2939,7 @@ class ReadingEnhancementSuite {
     if (modal) modal.classList.remove("zen-mode-active");
     if (btn) {
       btn.classList.remove("active");
-      btn.innerHTML = `<span>⛶</span> Zen`;
+      btn.innerHTML = `<span>⛶</span> Fullscreen`;
     }
   }
 
