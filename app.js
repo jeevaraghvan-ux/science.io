@@ -6362,8 +6362,8 @@ class ScienceIoApp {
           const payload = {
             student_name: userName,
             feedback: userMsg,
-            platform: "skience.io",
-            _subject: `skience.io Feedback from ${userName}`,
+            platform: "scienceio-best.vercel.app",
+            _subject: `scienceio-best.vercel.app Feedback from ${userName}`,
             _template: "table"
           };
 
