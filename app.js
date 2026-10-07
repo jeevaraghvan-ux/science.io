@@ -2492,10 +2492,18 @@ function applyBionicReading(html) {
   });
 }
 
+let _VOCAB_TERMS_REGEX = null;
+function getVocabTermsRegex() {
+  if (!_VOCAB_TERMS_REGEX) {
+    const terms = Object.keys(SCIENCE_VOCAB_GLOSSARY).sort((a, b) => b.length - a.length);
+    _VOCAB_TERMS_REGEX = new RegExp(`(?![^<]*>)(\\b(?:${terms.join('|')})\\b)`, 'gi');
+  }
+  return _VOCAB_TERMS_REGEX;
+}
+
 function annotateVocabTerms(html) {
-  const terms = Object.keys(SCIENCE_VOCAB_GLOSSARY).sort((a, b) => b.length - a.length);
-  const regex = new RegExp(`(?![^<]*>)(\\b(?:${terms.join('|')})\\b)`, 'gi');
-  return html.replace(regex, (match) => {
+  if (!html) return html;
+  return html.replace(getVocabTermsRegex(), (match) => {
     const key = match.toLowerCase();
     return `<span class="vocab-term" data-term="${key}">${match}</span>`;
   });
@@ -4302,15 +4310,14 @@ class ScienceIoApp {
       this.readingSuite.onOpenTopic(topic);
     }
 
-    this.renderModalProperties(topic);
-    this.renderModalInteractive(topic);
-    this.renderModalQuiz(topic);
+    this._modalRenderedTabs = {};
     this.switchModalTab(defaultTab);
 
     if (modal) modal.classList.remove("hidden");
   }
 
   closeNotesViewer() {
+    this._modalRenderedTabs = {};
     this.cleanupInteractiveSimulators();
     if (this.readingSuite) {
       this.readingSuite.stopAudio();
@@ -4329,6 +4336,18 @@ class ScienceIoApp {
       if (btn) btn.classList.toggle("active", tab === tabName);
       if (pane) pane.classList.toggle("hidden", tab !== tabName);
     });
+
+    if (!this._modalRenderedTabs) this._modalRenderedTabs = {};
+    if (!this._modalRenderedTabs[tabName] && this.currentModalTopic) {
+      if (tabName === "notes") {
+        this.renderModalProperties(this.currentModalTopic);
+      } else if (tabName === "interactive") {
+        this.renderModalInteractive(this.currentModalTopic);
+      } else if (tabName === "practice") {
+        this.renderModalQuiz(this.currentModalTopic);
+      }
+      this._modalRenderedTabs[tabName] = true;
+    }
 
     const readingControls = document.getElementById("reading-controls-bar");
     if (readingControls) {
@@ -4404,29 +4423,14 @@ class ScienceIoApp {
       return;
     }
 
-    const keyWords = [
-      "surrounds", "structure", "semi-permeable",
-      "fluid", "pressure",
-      "powerhouse", "energy", "cellular respiration",
-      "Smooth", "lipids", "proteins", "transports",
-      "carbohydrates", "vesicles", "outside",
-      "control", "functions", "DNA", "ribosomes",
-      "Rough", "protein",
-      "plant", "protection",
-      "storage", "water", "larger", "animal",
-      "light", "sun", "sugars", "photosynthesis"
-    ];
+    const keyWordsRegex = /\b(surrounds|structure|semi-permeable|fluid|pressure|powerhouse|energy|cellular respiration|Smooth|lipids|proteins|transports|carbohydrates|vesicles|outside|control|functions|DNA|ribosomes|Rough|protein|plant|protection|storage|water|larger|animal|light|sun|sugars|photosynthesis)\b/gi;
 
     topic.properties.forEach((prop) => {
       const card = document.createElement("div");
       card.className = "property-detail-card";
       card.id = `concept-square-${prop.num}`;
 
-      let highlightedExplanation = prop.explanation || "";
-      keyWords.forEach((kw) => {
-        const regex = new RegExp(`\\b(${kw})\\b`, "gi");
-        highlightedExplanation = highlightedExplanation.replace(regex, `<span class="key-term">$1</span>`);
-      });
+      let highlightedExplanation = (prop.explanation || "").replace(keyWordsRegex, `<span class="key-term">$1</span>`);
 
       let nameHtml = formatBulletText(prop.name);
       let formulaHtml = formatBulletText(prop.formula);
@@ -6335,13 +6339,62 @@ class ScienceIoApp {
       fbModal?.classList.add("hidden");
     });
 
-    document.getElementById("feedback-form")?.addEventListener("submit", (e) => {
-      e.preventDefault();
-      sounds.playSuccess();
-      this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 50);
-      alert("Thank you! Your skience feedback was recorded.");
-      fbModal?.classList.add("hidden");
-    });
+    const fbForm = document.getElementById("feedback-form");
+    if (fbForm) {
+      fbForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const nameInput = document.getElementById("fb-user-name");
+        const msgInput = document.getElementById("fb-user-message");
+        const submitBtn = fbForm.querySelector("button[type='submit']");
+
+        const userName = (nameInput?.value || "").trim() || "Anonymous Student";
+        const userMsg = (msgInput?.value || "").trim();
+
+        if (!userMsg) return;
+
+        const origBtnText = submitBtn ? submitBtn.textContent : "Submit Feedback";
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending to Jeeva... 🚀";
+        }
+
+        try {
+          await fetch("https://formsubmit.co/ajax/jeev.rag914@scholarsacademy.org", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify({
+              name: userName,
+              message: userMsg,
+              _subject: `New skience.io Feedback from ${userName}!`,
+              _cc: "jeeva.raghvan@gmail.com",
+              _template: "table"
+            })
+          });
+        } catch (err) {
+          console.warn("Feedback delivery attempted:", err);
+        }
+
+        sounds.playSuccess();
+        this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 55);
+
+        if (submitBtn) {
+          submitBtn.textContent = "Sent to Jeeva! ✨";
+        }
+
+        setTimeout(() => {
+          if (nameInput) nameInput.value = "";
+          if (msgInput) msgInput.value = "";
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = origBtnText;
+          }
+          fbModal?.classList.add("hidden");
+        }, 1200);
+      });
+    }
 
     // Replay loader
     document.getElementById("replay-loader-btn")?.addEventListener("click", () => {
