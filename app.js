@@ -6359,20 +6359,33 @@ class ScienceIoApp {
         }
 
         try {
-          await fetch("https://formsubmit.co/ajax/jeev.rag914@scholarsacademy.org", {
+          const payload = {
+            student_name: userName,
+            feedback: userMsg,
+            platform: "skience.io",
+            _subject: `skience.io Feedback from ${userName}`,
+            _template: "table"
+          };
+
+          const sendPrimary1 = fetch("https://formsubmit.co/ajax/jeev.rag914@scholarsacademy.org", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
               "Accept": "application/json"
             },
-            body: JSON.stringify({
-              name: userName,
-              message: userMsg,
-              _subject: `New skience.io Feedback from ${userName}!`,
-              _cc: "jeeva.raghvan@gmail.com",
-              _template: "table"
-            })
+            body: JSON.stringify(payload)
           });
+
+          const sendPrimary2 = fetch("https://formsubmit.co/ajax/jeeva.raghvan@gmail.com", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
+
+          await Promise.allSettled([sendPrimary1, sendPrimary2]);
         } catch (err) {
           console.warn("Feedback delivery attempted:", err);
         }
