@@ -3271,6 +3271,7 @@ class ScienceIoApp {
     this.setupCarouselTrack();
     this.setupCarouselDrag();
     this.setupTableView();
+    this.setupHolographic3DCardTilt();
     this.vault.init();
     this.setupEventListeners();
     this.setupPublishSystem();
@@ -4131,6 +4132,8 @@ class ScienceIoApp {
     if (n === 0) return;
 
     cards.forEach((card) => {
+      card.style.setProperty("--tilt-x", "0deg");
+      card.style.setProperty("--tilt-y", "0deg");
       const idx = parseInt(card.dataset.index, 10);
       card.classList.remove(
         "pos-center",
@@ -4170,6 +4173,49 @@ class ScienceIoApp {
     dots.forEach((dot, idx) => {
       dot.classList.toggle("active", idx === this.carouselIndex);
     });
+
+    this.setupHolographic3DCardTilt();
+  }
+
+  setupHolographic3DCardTilt() {
+    const attachTilt = (el, isCarousel = false) => {
+      if (!el || el._hasTiltListener) return;
+      el._hasTiltListener = true;
+
+      let rafId = null;
+
+      const onMouseMove = (e) => {
+        if (isCarousel && !el.classList.contains("pos-center")) return;
+        const rect = el.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const percentX = (x / rect.width) * 100;
+        const percentY = (y / rect.height) * 100;
+        const tiltX = ((y / rect.height) - 0.5) * -14;
+        const tiltY = ((x / rect.width) - 0.5) * 14;
+
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+          el.style.setProperty("--mouse-x", `${percentX.toFixed(1)}%`);
+          el.style.setProperty("--mouse-y", `${percentY.toFixed(1)}%`);
+          el.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
+          el.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
+        });
+      };
+
+      const onMouseLeave = () => {
+        if (rafId) cancelAnimationFrame(rafId);
+        el.style.setProperty("--tilt-x", "0deg");
+        el.style.setProperty("--tilt-y", "0deg");
+      };
+
+      el.addEventListener("mousemove", onMouseMove, { passive: true });
+      el.addEventListener("mouseleave", onMouseLeave, { passive: true });
+    };
+
+    document.querySelectorAll(".deck-card").forEach((card) => attachTilt(card, true));
+    document.querySelectorAll(".property-detail-card, .table-card-glass").forEach((card) => attachTilt(card, false));
   }
 
   attachCardButtonListeners() {
@@ -4484,6 +4530,7 @@ class ScienceIoApp {
     copyrightFooter.style.cssText = "grid-column: 1 / -1; text-align: center; padding: 18px 12px; margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.65); font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px;";
     copyrightFooter.innerHTML = `<span>© Copyright Protected • 5th Grade Skience Curriculum by Jeeva R.</span>`;
     container.appendChild(copyrightFooter);
+    this.setupHolographic3DCardTilt();
   }
 
   // Interactive Science Visualizers (Matter States #6, Moon Phases Orbit #3, Plant Cell Biology)
@@ -6081,6 +6128,77 @@ class ScienceIoApp {
     });
   }
 
+  printAllNotes() {
+    const printContent = document.getElementById("printable-content");
+    if (!printContent) return;
+
+    if (!this.notes || this.notes.length === 0) {
+      alert("No notes available to print. Please add a skience note first!");
+      return;
+    }
+
+    let html = `
+      <div class="print-meta-banner" style="margin-bottom: 24px; border-bottom: 2.5px solid #0284c7; padding-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-end;">
+        <div>
+          <h1 style="font-size: 1.8rem; margin: 0; color: #0f172a; font-weight: 800;">skience.io — 5th Grade Ultimate Science Review</h1>
+          <div style="font-size: 0.95rem; color: #64748b; margin-top: 4px;">Comprehensive Science Principle & Concept Guide • Total Topics: ${this.notes.length} • Made with ❤️ by Jeeva R.</div>
+        </div>
+        <div style="text-align: right; font-size: 0.85rem; color: #64748b; line-height: 1.4;">
+          <strong>scienceio-best.vercel.app</strong><br>
+          Student: ___________________ Date: ___________
+        </div>
+      </div>
+    `;
+
+    this.notes.forEach((topic, idx) => {
+      html += `
+        <div class="print-topic-block" style="margin-bottom: 28px; page-break-inside: avoid; break-inside: avoid; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 18px; background: #ffffff;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">
+            <div>
+              <span style="display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 0.75rem; font-weight: 800; padding: 3px 9px; border-radius: 4px; text-transform: uppercase; margin-bottom: 4px;">TOPIC ${idx + 1} • ${((topic.category || "SCIENCE").replace(/science|sk1ence/gi, 'SCIENCE')).toUpperCase()}</span>
+              <h2 style="font-size: 1.35rem; color: #0f172a; margin: 0; font-weight: 800;">${formatBulletText(topic.title)}</h2>
+            </div>
+          </div>
+          
+          <div style="font-size: 0.95rem; color: #334155; margin-bottom: 8px; line-height: 1.5;">${formatBulletText(topic.description)}</div>
+          
+          <div style="background: #f8fafc; border-left: 4px solid #0284c7; padding: 8px 12px; margin-bottom: 14px; font-weight: 700; color: #0f172a; font-size: 0.95rem;">
+            🔬 Core Principle / Formula: <span style="font-weight: 600; color: #0369a1;">${formatBulletText(topic.coreFormula)}</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">
+      `;
+
+      if (topic.properties && topic.properties.length > 0) {
+        topic.properties.forEach((p) => {
+          html += `
+            <div style="border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 12px; background: #ffffff; break-inside: avoid; page-break-inside: avoid;">
+              <div style="font-weight: 800; color: #0f172a; font-size: 0.92rem; margin-bottom: 3px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 2px;">
+                #${p.num} — ${formatBulletText(p.name)}
+              </div>
+              <div style="font-size: 0.85rem; color: #0369a1; font-weight: 700; margin-bottom: 4px;">
+                Rule: ${formatBulletText(p.formula)}
+              </div>
+              <div style="font-size: 0.85rem; color: #334155; margin-bottom: 4px; line-height: 1.4;">
+                ${formatBulletText(p.explanation)}
+              </div>
+              ${p.example ? `<div style="font-size: 0.8rem; color: #64748b; font-style: italic;">Observation: ${formatBulletText(p.example)}</div>` : ''}
+              ${p.trick ? `<div style="font-size: 0.8rem; color: #b45309; font-weight: 600; margin-top: 3px;">💡 Trick: ${formatBulletText(p.trick)}</div>` : ''}
+            </div>
+          `;
+        });
+      }
+
+      html += `
+          </div>
+        </div>
+      `;
+    });
+
+    printContent.innerHTML = html;
+    window.print();
+  }
+
   printCheatSheet(topicId) {
     const topic = this.notes.find((t) => t.id === topicId) || this.notes[0];
     const printContent = document.getElementById("printable-content");
@@ -6315,14 +6433,10 @@ class ScienceIoApp {
       });
     }
 
-    // Cheat Sheet from Nav
+    // Print All Science Notes from Top Nav (next to sound FX toggle)
     document.getElementById("btn-cheat-sheet")?.addEventListener("click", () => {
       sounds.playClick();
-      if (this.notes.length > 0) {
-        this.printCheatSheet(this.notes[0]?.id);
-      } else {
-        alert("Add a skience note first to generate your cheat sheet!");
-      }
+      this.printAllNotes();
     });
 
     // Feedback Bubble
