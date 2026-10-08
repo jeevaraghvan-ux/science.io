@@ -6267,6 +6267,15 @@ class ScienceIoApp {
       if (themeName !== "theme-cyber-neon") {
         document.body.classList.add(themeName);
       }
+      if (themeName === "theme-bio-emerald") {
+        btn.style.color = "#10b981";
+      } else if (themeName === "theme-solar-flare") {
+        btn.style.color = "#f59e0b";
+      } else if (themeName === "theme-quantum-void") {
+        btn.style.color = "#a855f7";
+      } else {
+        btn.style.color = "var(--neon-cyan)";
+      }
       swatches.forEach(s => s.classList.toggle("active", s.dataset.theme === themeName));
       localStorage.setItem("scienceio_theme_colorway", themeName);
     };
@@ -6673,6 +6682,31 @@ class Chatbot {
     this.input.addEventListener("keypress", (e) => {
       if (e.key === "Enter") this.handleSend();
     });
+
+    this.messagesContainer.addEventListener("click", (e) => {
+      const pill = e.target.closest(".chat-prompt-pill");
+      if (pill) {
+        const query = pill.dataset.query;
+        if (query) {
+          this.input.value = query;
+          this.handleSend();
+        }
+        return;
+      }
+
+      const jumpBtn = e.target.closest(".chat-memo-jump-btn");
+      if (jumpBtn) {
+        const noteId = jumpBtn.dataset.noteId;
+        this.closeChat();
+        sounds.playSuccess();
+        if (noteId && window.app && typeof window.app.openNotesViewer === "function") {
+          window.app.openNotesViewer(noteId, "notes");
+        } else {
+          const target = document.getElementById("notes-section");
+          if (target) target.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    });
   }
 
   toggleChat() {
@@ -6696,6 +6730,313 @@ class Chatbot {
     this.bubble.style.display = "flex";
     setTimeout(() => { this.bubble.style.transform = "scale(1) rotate(0deg)"; }, 10);
     sounds.playClick();
+  }
+
+  escapeHTML(str) {
+    if (!str) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  getAvailableNotes() {
+    if (window.app && Array.isArray(window.app.notes) && window.app.notes.length > 0) {
+      return window.app.notes;
+    }
+    if (Array.isArray(window.SCIENCE_IO_PUBLISHED_NOTES) && window.SCIENCE_IO_PUBLISHED_NOTES.length > 0) {
+      return window.SCIENCE_IO_PUBLISHED_NOTES;
+    }
+    try {
+      const cached = JSON.parse(localStorage.getItem("scienceio_notes_v6") || "[]");
+      if (Array.isArray(cached) && cached.length > 0) return cached;
+    } catch (e) {}
+    return [];
+  }
+
+  findNoteMatch(query) {
+    const notes = this.getAvailableNotes();
+    if (!notes.length) return null;
+    const q = query.toLowerCase().trim();
+    const stripped = q.replace(/^(memorize|summarize|summary of|explain|study|how to memorize|tell me about|what is|review|help me memorize)\s+/i, '').replace(/system/gi, '').trim();
+
+    // 1. Direct title match or stripped match
+    for (const note of notes) {
+      const title = (note.title || '').toLowerCase();
+      const id = (note.id || '').toLowerCase();
+      if ((stripped && title.includes(stripped)) || (stripped && stripped.includes(title))) return note;
+      if (q.includes(title)) return note;
+      if (stripped && (id.includes(stripped) || stripped.includes(id))) return note;
+    }
+
+    // 2. Organelle / concept property match
+    for (const note of notes) {
+      if (Array.isArray(note.properties)) {
+        for (const prop of note.properties) {
+          const pName = (prop.name || '').toLowerCase();
+          if (q.includes(pName) || (stripped && (pName.includes(stripped) || stripped.includes(pName)))) {
+            return note;
+          }
+        }
+      }
+    }
+
+    // 3. Keyword matching across topics
+    const keywords = [
+      { key: "plant", test: (n) => (n.title || '').toLowerCase().includes("plant") },
+      { key: "animal", test: (n) => (n.title || '').toLowerCase().includes("animal") },
+      { key: "multi", test: (n) => (n.title || '').toLowerCase().includes("multi") },
+      { key: "uni", test: (n) => (n.title || '').toLowerCase().includes("uni") },
+      { key: "cell", test: (n) => (n.title || '').toLowerCase().includes("cell") },
+      { key: "matter", test: (n) => (n.title || '').toLowerCase().includes("matter") },
+      { key: "ecosystem", test: (n) => (n.title || '').toLowerCase().includes("ecosystem") },
+      { key: "respirat", test: (n) => (n.title || '').toLowerCase().includes("respirat") },
+      { key: "circulat", test: (n) => (n.title || '').toLowerCase().includes("circulat") },
+      { key: "digest", test: (n) => (n.title || '').toLowerCase().includes("digest") },
+      { key: "nervous", test: (n) => (n.title || '').toLowerCase().includes("nervous") },
+    ];
+
+    for (const kw of keywords) {
+      if (q.includes(kw.key)) {
+        const found = notes.find(kw.test);
+        if (found) return found;
+      }
+    }
+
+    return null;
+  }
+
+  getCurriculumFallback(query) {
+    const q = query.toLowerCase();
+    const systems = {
+      respiratory: {
+        title: "RESPIRATORY SYSTEM",
+        id: "science-respiratory",
+        coreFormula: "Gas Exchange: O₂ (Inhale) ➔ Trachea ➔ Bronchi ➔ Alveoli (Blood Diffusion) ➔ CO₂ (Exhale)",
+        description: "The vital organ system that brings oxygen into the bloodstream to power cellular mitochondria and expels carbon dioxide waste.",
+        properties: [
+          {
+            num: 1,
+            name: "Nose & Trachea (Windpipe)",
+            formula: "Filtration & Main Airway",
+            explanation: "Cilia hairs and mucus filter pathogens and dust, while C-shaped cartilage rings keep the airway wide open.",
+            trick: "Memory Trick: The hollow highway channeling filtered air straight to the chest!"
+          },
+          {
+            num: 2,
+            name: "Bronchi & Bronchioles",
+            formula: "Branching Air Tree",
+            explanation: "Two primary bronchial tubes branch into left and right lungs, dividing into thousands of tiny bronchioles.",
+            trick: "Memory Trick: Think of an upside-down tree with branching air twigs!"
+          },
+          {
+            num: 3,
+            name: "Alveoli (Air Sacs)",
+            formula: "Microscopic Gas Diffusion",
+            explanation: "Millions of grape-like microscopic air sacs wrapped in capillaries where O₂ enters red blood cells and CO₂ exits.",
+            trick: "Memory Trick: Alveoli = Tiny Air Grapes where oxygen and CO₂ trade places!"
+          },
+          {
+            num: 4,
+            name: "Diaphragm Muscle",
+            formula: "Breathing Engine (Pressure Pump)",
+            explanation: "Dome-shaped muscle beneath lungs. Pulls down to draw air in; pushes up to force air out.",
+            trick: "Memory Trick: Diaphragm down = Inhale; Diaphragm up = Exhale!"
+          }
+        ],
+        takeaways: [
+          "Inhale = Delivers Oxygen (O₂) for mitochondria to synthesize cellular ATP energy.",
+          "Exhale = Removes Carbon Dioxide (CO₂) waste produced during cellular respiration.",
+          "Capillaries wrap directly around alveoli to exchange gases via rapid diffusion."
+        ]
+      },
+      circulatory: {
+        title: "CIRCULATORY SYSTEM",
+        id: "science-circulatory",
+        coreFormula: "Internal Transport: Heart Pump ➔ Arteries (Away) ➔ Capillaries (Trade) ➔ Veins (Return)",
+        description: "The transport network of blood vessels and the muscular heart that distributes oxygen and nutrients to every cell.",
+        properties: [
+          {
+            num: 1,
+            name: "Heart (Cardiac Pump)",
+            formula: "4-Chambered Muscular Engine",
+            explanation: "Pumps blood through pulmonary and systemic circuits without stopping.",
+            trick: "Memory Trick: 2 Atriums at the top receive blood, 2 Ventricles at the bottom pump it out!"
+          },
+          {
+            num: 2,
+            name: "Arteries",
+            formula: "High-Pressure Blood Vessels",
+            explanation: "Carry freshly oxygenated blood AWAY from the heart into bodily tissues.",
+            trick: "Memory Trick: Arteries = AWAY from the heart!"
+          },
+          {
+            num: 3,
+            name: "Capillaries",
+            formula: "Microscopic Diffusion Beds",
+            explanation: "Ultra-thin single-cell vessels where nutrients and gases diffuse into tissues.",
+            trick: "Memory Trick: Capillaries = Connectors & trading posts!"
+          },
+          {
+            num: 4,
+            name: "Veins",
+            formula: "Low-Pressure One-Way Valved Vessels",
+            explanation: "Return deoxygenated blood back into the heart, using one-way valves.",
+            trick: "Memory Trick: Veins = Visiting back into the heart!"
+          }
+        ],
+        takeaways: [
+          "Arteries travel Away; Veins visit back In.",
+          "Capillaries are so narrow red blood cells travel single file.",
+          "Delivers oxygen and glucose to every living cell."
+        ]
+      },
+      digestive: {
+        title: "DIGESTIVE SYSTEM",
+        id: "science-digestive",
+        coreFormula: "Nutrient Extraction: Mechanical Chewing + Chemical Enzymes ➔ Absorption (Villi) ➔ Elimination",
+        description: "Breaks food down physically and chemically into biomolecules that cells convert into ATP fuel.",
+        properties: [
+          {
+            num: 1,
+            name: "Mouth & Esophagus",
+            formula: "Mastication & Peristalsis",
+            explanation: "Teeth physically crush food, salivary enzymes digest starch, and peristalsis squeezes food downward.",
+            trick: "Memory Trick: Peristalsis is the muscular wave pushing food down!"
+          },
+          {
+            num: 2,
+            name: "Stomach",
+            formula: "Acid & Churning Tank",
+            explanation: "Hydrochloric acid and enzymes liquefy food into nutrient chyme while destroying pathogens.",
+            trick: "Memory Trick: The acid blender tank liquefying food!"
+          },
+          {
+            num: 3,
+            name: "Small Intestine & Villi",
+            formula: "90% Nutrient Absorption Hub",
+            explanation: "Millions of finger-like villi absorb glucose, amino acids, and fats directly into the blood.",
+            trick: "Memory Trick: Small Intestine has HUGE surface area for absorption!"
+          },
+          {
+            num: 4,
+            name: "Large Intestine",
+            formula: "Water Reclamation & Waste Compaction",
+            explanation: "Reabsorbs water and compacts indigestible matter for excretion.",
+            trick: "Memory Trick: The water recycling plant of the body!"
+          }
+        ],
+        takeaways: [
+          "Digestion is both Mechanical (physical breakdown) and Chemical (enzymes and acid).",
+          "Most nutrients enter the bloodstream in the Small Intestine.",
+          "Supplies fuel for mitochondria to perform cellular respiration."
+        ]
+      },
+      nervous: {
+        title: "NERVOUS SYSTEM",
+        id: "science-nervous",
+        coreFormula: "Signal Flow: Sensory Receptor ➔ Central Processor (Brain/Spinal Cord) ➔ Motor Output",
+        description: "The body's electrochemical network directing conscious thought, automatic vitals, and instant reflexes.",
+        properties: [
+          {
+            num: 1,
+            name: "Brain (Central Command)",
+            formula: "Cerebrum, Cerebellum, Brainstem",
+            explanation: "Directs voluntary movement, processes sensory input, and controls vital functions like heartbeat.",
+            trick: "Memory Trick: The supercomputer running all body systems!"
+          },
+          {
+            num: 2,
+            name: "Spinal Cord",
+            formula: "Information Superhighway",
+            explanation: "Connects the brain to peripheral nerves and mediates rapid life-saving reflex arcs.",
+            trick: "Memory Trick: The fiber-optic trunk line running down your back!"
+          },
+          {
+            num: 3,
+            name: "Neurons (Nerve Cells)",
+            formula: "Dendrites ➔ Axon ➔ Synapse",
+            explanation: "Specialized cells transmitting electrical impulses at over 200 mph.",
+            trick: "Memory Trick: High-speed electrical messengers firing signals!"
+          }
+        ],
+        takeaways: [
+          "Central Nervous System (CNS) = Brain + Spinal Cord.",
+          "Peripheral Nervous System (PNS) = Branching nerves to organs and limbs.",
+          "Reflex arcs trigger movement before signals reach the conscious brain to prevent injury!"
+        ]
+      }
+    };
+
+    if (q.includes("respirat") || q.includes("lung") || q.includes("breath")) return systems.respiratory;
+    if (q.includes("circulat") || q.includes("heart") || q.includes("blood") || q.includes("cardio")) return systems.circulatory;
+    if (q.includes("digest") || q.includes("stomach") || q.includes("intestine")) return systems.digestive;
+    if (q.includes("nervous") || q.includes("brain") || q.includes("neuron") || q.includes("nerve")) return systems.nervous;
+    return null;
+  }
+
+  buildMemorizationHTML(note) {
+    const title = (note.title || 'SKIENCE TOPIC').toUpperCase();
+    const formula = note.coreFormula || note.badge || 'Core Scientific Principle';
+    const desc = note.description || '';
+    const props = Array.isArray(note.properties) ? note.properties : [];
+    
+    const renderedProps = props.map((p, idx) => {
+      const num = p.num || (idx + 1);
+      const name = p.name || `Concept ${num}`;
+      const formulaSub = p.formula ? `<span class="chat-memo-chip">${this.escapeHTML(p.formula)}</span>` : '';
+      const exp = p.explanation || '';
+      let trick = p.trick || '';
+      if (!trick) {
+        trick = `Associate ${name} with its primary role: ${exp.slice(0, 50)}...`;
+      }
+      return `
+        <div class="chat-memo-item">
+          <div class="chat-memo-item-header">
+            <span class="chat-memo-num">#${num}</span>
+            <strong class="chat-memo-item-name">${this.escapeHTML(name)}</strong>
+            ${formulaSub}
+          </div>
+          <div class="chat-memo-item-desc">${this.escapeHTML(exp)}</div>
+          <div class="chat-memo-item-trick">💡 <strong>Memory Key:</strong> ${this.escapeHTML(trick)}</div>
+        </div>
+      `;
+    }).join('');
+
+    const takeawayBullets = (Array.isArray(note.takeaways) && note.takeaways.length > 0)
+      ? note.takeaways.map(t => `<li>⚡ ${this.escapeHTML(t)}</li>`).join('')
+      : props.slice(0, 4).map(p => `<li>⚡ <strong>${this.escapeHTML(p.name)}:</strong> ${this.escapeHTML((p.explanation || '').slice(0, 75))}...</li>`).join('');
+
+    const jumpId = note.id || '';
+
+    return `
+      <div class="chat-memo-dossier">
+        <div class="chat-memo-badge">🧠 ULTRA-MEMORIZATION DOSSIER</div>
+        <div class="chat-memo-title">${this.escapeHTML(title)}</div>
+        <div class="chat-memo-formula">⚡ <strong>Core Principle:</strong> ${this.escapeHTML(formula)}</div>
+        ${desc ? `<div class="chat-memo-intro">${this.escapeHTML(desc)}</div>` : ''}
+        
+        <div class="chat-memo-section-hd">📋 CONCEPT SQUARES & MEMORY TRICKS</div>
+        <div class="chat-memo-list">
+          ${renderedProps}
+        </div>
+
+        <div class="chat-memo-recall-box">
+          <div class="chat-memo-recall-hd">🎯 Rapid 10-Second Self-Test Checklist:</div>
+          <ul class="chat-memo-checklist">
+            ${takeawayBullets}
+          </ul>
+        </div>
+
+        <div class="chat-memo-btn-row">
+          <button type="button" class="chat-memo-jump-btn" data-note-id="${this.escapeHTML(jumpId)}">
+            🔬 Open in 3D Card Carousel
+          </button>
+        </div>
+      </div>
+    `;
   }
 
   handleSend() {
@@ -6730,6 +7071,41 @@ class Chatbot {
             sounds.playSuccess();
           }, 800);
         }
+        // Memorization & Dynamic Note Summarization (checks published notes and curriculum body systems)
+        else if (
+          t.includes("memoriz") || t.includes("summar") || t.includes("study") || 
+          t.includes("explain") || t.includes("breakdown") || t.includes("review") || 
+          t.includes("how to remember") || t.includes("respirat") || t.includes("circulat") || 
+          t.includes("digest") || t.includes("nervous") || t.includes("cell") || t.includes("matter")
+        ) {
+          const matchedNote = this.findNoteMatch(text);
+          if (matchedNote) {
+            replyHTML = this.buildMemorizationHTML(matchedNote);
+          } else if (this.getCurriculumFallback(text)) {
+            replyHTML = this.buildMemorizationHTML(this.getCurriculumFallback(text));
+          } else {
+            // General memorization guide listing available topics
+            const avail = this.getAvailableNotes();
+            const titles = avail.map(n => n.title).filter(Boolean);
+            const pillsHTML = [
+              ...titles.map(title => `<button type="button" class="chat-prompt-pill" data-query="memorize ${this.escapeHTML(title)}">🔬 ${this.escapeHTML(title)}</button>`),
+              `<button type="button" class="chat-prompt-pill" data-query="memorize respiratory system">🫁 Respiratory System</button>`,
+              `<button type="button" class="chat-prompt-pill" data-query="memorize circulatory system">❤️ Circulatory System</button>`,
+              `<button type="button" class="chat-prompt-pill" data-query="memorize digestive system">🍎 Digestive System</button>`,
+              `<button type="button" class="chat-prompt-pill" data-query="memorize nervous system">🧠 Nervous System</button>`
+            ].join(' ');
+
+            replyHTML = `
+              <div class="msg-bubble">
+                <strong>🧠 Ultra-Memorization Engine:</strong><br>
+                I auto-read all your published study sheets! Tap any topic below or ask me to memorize any system or note to generate a complete concept breakdown and memory mnemonics:
+                <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;">
+                  ${pillsHTML}
+                </div>
+              </div>
+            `;
+          }
+        }
         // Navigation: Take me to notes / notes area / scroll to notes
         else if (t.includes("note") || t.includes("take me") || t.includes("go to") || t.includes("show me") || t.includes("navigate") || t.includes("area") || t.includes("scroll") || t.includes("carousel") || t.includes("table")) {
           replyHTML = `<div class="msg-bubble">Taking you directly to the <strong>5th Grade Skience Notes & 3D Coverflow Carousel</strong>! 🔬✨</div>`;
@@ -6761,14 +7137,6 @@ class Chatbot {
               4. When you open skience.io on your phone, tablet, or another computer, your notes will be right there!
             </div>
           `;
-        }
-        // Matter / Physical science
-        else if (t.includes("matter") || t.includes("solid") || t.includes("liquid") || t.includes("gas") || t.includes("atom")) {
-          replyHTML = `<div class="msg-bubble">In 5th grade skience, matter exists in 3 primary states: <strong>Solid</strong> (definite shape & volume), <strong>Liquid</strong> (flows to take container shape), and <strong>Gas</strong> (expands rapidly). Atoms are the fundamental building blocks of all matter!</div>`;
-        }
-        // Photosynthesis / Life science / Cells
-        else if (t.includes("photosynthesis") || t.includes("plant") || t.includes("cell") || t.includes("ecosystem")) {
-          replyHTML = `<div class="msg-bubble"><strong>Photosynthesis Equation:</strong><br><code>6CO₂ + 6H₂O + Sunlight → C₆H₁₂O₆ (Glucose) + 6O₂ (Oxygen)</code><br>Plants use solar energy in chloroplasts to create food for themselves and oxygen for animals!</div>`;
         }
         // Scientific method
         else if (t.includes("scientific method") || t.includes("skientific method") || t.includes("hypothesis") || t.includes("experiment") || t.includes("variable")) {
@@ -6803,11 +7171,11 @@ class Chatbot {
         }
         // Greeting
         else if (t.includes("hi") || t.includes("hello") || t.includes("hey") || t.includes("help")) {
-          replyHTML = `<div class="msg-bubble">Hello! 👋 I'm the skience.io assistant. I can help explain 5th grade skience concepts (Cells, Matter, Ecosystems, Forces), help you navigate the notes, or answer questions about your study sheets!</div>`;
+          replyHTML = `<div class="msg-bubble">Hello! 👋 I'm the skience.io assistant. I can help explain 5th grade skience concepts (Cells, Respiratory System, Circulatory System, Matter, Ecosystems), summarize any of your notes for memorization, or guide you through your study sheets!</div>`;
         }
         // Fallback
         else {
-          replyHTML = `<div class="msg-bubble">I am the skience.io assistant! Ask me about 5th grade skience concepts (Matter, Ecosystems, the Skientific Method), navigation ("take me to notes"), or how to publish your notes across all your devices!</div>`;
+          replyHTML = `<div class="msg-bubble">I am the skience.io assistant! Ask me "memorize respiratory system", "summarize plant cell", "explain the circulatory system", or ask about any of your published study notes!</div>`;
         }
 
         this.appendRawHTML(replyHTML, "ai-msg");
