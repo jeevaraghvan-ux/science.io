@@ -3310,7 +3310,14 @@ class ScienceIoApp {
       try {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          this.notes = ensurePlantCellUnit(parsed);
+          const existingIds = new Set(parsed.map(n => n.id));
+          const merged = [...parsed];
+          baseNotes.forEach(bn => {
+            if (!existingIds.has(bn.id)) {
+              merged.push(bn);
+            }
+          });
+          this.notes = ensurePlantCellUnit(merged);
           localStorage.setItem("scienceio_notes_v6", JSON.stringify(this.notes));
           this.render();
           return;
@@ -6235,7 +6242,49 @@ class ScienceIoApp {
     window.print();
   }
 
+  setupThemePicker() {
+    const btn = document.getElementById("btn-theme-color-palette");
+    const popover = document.getElementById("theme-palette-popover");
+    if (!btn || !popover) return;
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      sounds.playClick();
+      popover.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!popover.contains(e.target) && e.target !== btn) {
+        popover.classList.add("hidden");
+      }
+    });
+
+    const swatches = popover.querySelectorAll(".theme-swatch-btn");
+    const savedTheme = localStorage.getItem("scienceio_theme_colorway") || "theme-cyber-neon";
+    
+    const applyTheme = (themeName) => {
+      document.body.classList.remove("theme-cyber-neon", "theme-bio-emerald", "theme-solar-flare", "theme-quantum-void");
+      if (themeName !== "theme-cyber-neon") {
+        document.body.classList.add(themeName);
+      }
+      swatches.forEach(s => s.classList.toggle("active", s.dataset.theme === themeName));
+      localStorage.setItem("scienceio_theme_colorway", themeName);
+    };
+
+    applyTheme(savedTheme);
+
+    swatches.forEach(swatch => {
+      swatch.addEventListener("click", () => {
+        sounds.playClick();
+        applyTheme(swatch.dataset.theme);
+        setTimeout(() => popover.classList.add("hidden"), 300);
+      });
+    });
+  }
+
   setupEventListeners() {
+    this.setupThemePicker();
+
     // Nav links
     const navLinks = document.querySelectorAll(".nav-link[data-scroll]");
     navLinks.forEach((btn) => {
