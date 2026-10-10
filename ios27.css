@@ -1578,6 +1578,633 @@ body.theme-quantum-void .chat-memo-jump-btn {
   box-shadow: 0 4px 12px rgba(0, 245, 212, 0.35);
 }
 
+/* ================= UNIVERSAL LIQUID GLASSMORHISM & VIBRANT GRADIENT SYSTEM ================= */
+
+/* 1. Global Liquid Glass Root Tokens */
+:root {
+  --glass-specular-top: rgba(255, 255, 255, 0.75);
+  --glass-specular-side: rgba(255, 255, 255, 0.38);
+  --glass-border-base: rgba(255, 255, 255, 0.24);
+  --glass-acrylic-fill: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 35%, rgba(14, 10, 30, 0.65) 75%, rgba(6, 182, 212, 0.1) 100%);
+  --glass-acrylic-blur: blur(24px) saturate(210%) brightness(1.08);
+  --glass-ambient-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.75), 0 0 35px rgba(6, 182, 212, 0.2), inset 0 1.5px 2px rgba(255, 255, 255, 0.55);
+}
+
+/* 2. Top Nav & Glass Pill Nav Upgrade */
+.top-nav-container {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.glass-pill-nav {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(18, 10, 36, 0.42) 45%, rgba(6, 182, 212, 0.16) 100%) !important;
+  backdrop-filter: var(--glass-acrylic-blur) !important;
+  -webkit-backdrop-filter: var(--glass-acrylic-blur) !important;
+  border: 1.5px solid var(--glass-border-base) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  border-left: 1.5px solid var(--glass-specular-side) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 25px rgba(6, 182, 212, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+}
+
+.nav-link {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.nav-link:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.3) !important;
+}
+
+.nav-link.active {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.35) 0%, rgba(99, 102, 241, 0.4) 100%) !important;
+  border: 1px solid rgba(56, 189, 248, 0.55) !important;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+  color: #fff !important;
+}
+
+/* 3. Hero Section Glassmorphism & Colorful Typography */
+.hero-badge-pill {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(6, 182, 212, 0.2) 50%, rgba(168, 85, 247, 0.18) 100%) !important;
+  backdrop-filter: var(--glass-acrylic-blur) !important;
+  -webkit-backdrop-filter: var(--glass-acrylic-blur) !important;
+  border: 1.5px solid rgba(56, 189, 248, 0.5) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 25px rgba(6, 182, 212, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  color: #ffffff !important;
+}
+
+.hero-neon-word {
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 25%, #818cf8 55%, #c084fc 80%, #f472b6 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 0 35px rgba(6, 182, 212, 0.8), 0 0 70px rgba(168, 85, 247, 0.5) !important;
+}
+
+.hero-script-word {
+  background: linear-gradient(135deg, #ffffff 0%, #67e8f9 35%, #e879f9 70%, #ffffff 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 0 25px rgba(6, 182, 212, 0.7) !important;
+}
+
+.hero-cta-btn {
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 30%, #6366f1 70%, #a855f7 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.55) !important;
+  box-shadow: 0 14px 40px rgba(6, 182, 212, 0.55), 0 0 30px rgba(99, 102, 241, 0.45), inset 0 1.5px 2px rgba(255, 255, 255, 0.7) !important;
+  color: #fff !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cta-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s ease;
+}
+
+.hero-cta-btn:hover::before {
+  left: 100%;
+}
+
+.cue-pill {
+  background: rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 0 0 18px rgba(6, 182, 212, 0.35) !important;
+}
+
+/* 4. Notes Controls & Filter Bar Glassmorphism */
+.pill-toggle-container {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(14, 10, 30, 0.5) 100%) !important;
+  backdrop-filter: var(--glass-acrylic-blur) !important;
+  -webkit-backdrop-filter: var(--glass-acrylic-blur) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 1.5px rgba(255, 255, 255, 0.4) !important;
+  border-radius: 9999px !important;
+}
+
+.pill-toggle-btn.active {
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 50%, #6366f1 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.6) !important;
+}
+
+.search-input-wrap {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(14, 10, 30, 0.45) 100%) !important;
+  backdrop-filter: var(--glass-acrylic-blur) !important;
+  -webkit-backdrop-filter: var(--glass-acrylic-blur) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.4) !important;
+  border-radius: 9999px !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.search-input-wrap:focus-within {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 30px rgba(6, 182, 212, 0.5), inset 0 1px 1.5px rgba(255, 255, 255, 0.6) !important;
+}
+
+.cat-pill {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(14, 10, 30, 0.35) 100%) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.cat-pill:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(56, 189, 248, 0.6) !important;
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35), 0 0 20px rgba(6, 182, 212, 0.4) !important;
+}
+
+.cat-pill.active {
+  background: linear-gradient(135deg, #06b6d4 0%, #6366f1 60%, #a855f7 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 25px rgba(6, 182, 212, 0.5), 0 0 25px rgba(168, 85, 247, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.7) !important;
+}
+
+/* 5. Carousel Bracket Frame & Experience Badge */
+.frame-experience-badge {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(6, 182, 212, 0.2) 50%, rgba(168, 85, 247, 0.18) 100%) !important;
+  backdrop-filter: var(--glass-acrylic-blur) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 25px rgba(6, 182, 212, 0.3), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  border-radius: 9999px !important;
+}
+
+.carousel-arrow-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(14, 10, 30, 0.45) 100%) !important;
+  backdrop-filter: var(--glass-acrylic-blur) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(6, 182, 212, 0.25), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  color: #fff !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.carousel-arrow-btn:hover {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.4) 0%, rgba(99, 102, 241, 0.5) 100%) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.55), 0 0 35px rgba(6, 182, 212, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.7) !important;
+  transform: scale(1.1) !important;
+}
+
+/* 6. Deck Carousel Cards - Pristine Apple VisionOS Liquid Glass */
+.deck-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 30%, rgba(14, 10, 30, 0.65) 75%, rgba(6, 182, 212, 0.1) 100%) !important;
+  backdrop-filter: blur(24px) saturate(220%) brightness(1.1) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(220%) brightness(1.1) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  border-left: 1.5px solid var(--glass-specular-side) !important;
+  box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.8), 0 0 45px rgba(6, 182, 212, 0.22), inset 0 1.5px 2px rgba(255, 255, 255, 0.6), inset 0 -1.5px 2px rgba(0, 0, 0, 0.4) !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease !important;
+}
+
+.deck-card.pos-center {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 30%, rgba(18, 12, 38, 0.7) 75%, rgba(99, 102, 241, 0.14) 100%) !important;
+  border-color: rgba(56, 189, 248, 0.7) !important;
+  border-top: 2px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 35px 90px -10px rgba(0, 0, 0, 0.85), 0 0 50px rgba(6, 182, 212, 0.45), inset 0 2px 2.5px rgba(255, 255, 255, 0.75) !important;
+}
+
+.card-header-meta {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 9999px !important;
+  padding: 4px 12px !important;
+}
+
+.card-topic-title {
+  background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 40%, #c084fc 80%, #ffffff 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 0 25px rgba(56, 189, 248, 0.5) !important;
+}
+
+.card-formula-chip {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.16) 0%, rgba(168, 85, 247, 0.16) 100%) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1.5px solid rgba(56, 189, 248, 0.5) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35), 0 0 25px rgba(6, 182, 212, 0.3), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  color: #38bdf8 !important;
+}
+
+.organelles-preview-box {
+  background: rgba(10, 6, 22, 0.55) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+  border-radius: 18px !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.organelle-chip {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+  color: #e2e8f0 !important;
+  transition: all 0.2s ease !important;
+}
+
+.organelle-chip:hover {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(99, 102, 241, 0.3) 100%) !important;
+  border-color: #38bdf8 !important;
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 15px rgba(6, 182, 212, 0.5) !important;
+}
+
+.card-action-btn.btn-card-view,
+.card-action-btn.primary-action {
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 35%, #6366f1 75%, #a855f7 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.5), 0 0 25px rgba(99, 102, 241, 0.35), inset 0 1.5px 2px rgba(255, 255, 255, 0.7) !important;
+  color: #ffffff !important;
+  border-radius: 9999px !important;
+}
+
+.card-action-btn.btn-card-view:hover,
+.card-action-btn.primary-action:hover {
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 40%, #c084fc 80%, #f472b6 100%) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 15px 45px rgba(6, 182, 212, 0.7), 0 0 35px rgba(168, 85, 247, 0.6) !important;
+}
+
+.card-action-btn.btn-card-pdf,
+.card-action-btn.secondary-action {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(14, 10, 30, 0.4) 100%) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.55) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+  color: #ffffff !important;
+  border-radius: 9999px !important;
+}
+
+.card-action-btn.btn-card-pdf:hover,
+.card-action-btn.secondary-action:hover {
+  background: rgba(255, 255, 255, 0.22) !important;
+  border-color: rgba(56, 189, 248, 0.7) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(6, 182, 212, 0.45) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* 7. Notes Catalog Table View Glassmorphism */
+.table-card-glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.03) 30%, rgba(14, 10, 32, 0.6) 80%, rgba(6, 182, 212, 0.08) 100%) !important;
+  backdrop-filter: var(--glass-acrylic-blur) !important;
+  -webkit-backdrop-filter: var(--glass-acrylic-blur) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  border-left: 1.5px solid var(--glass-specular-side) !important;
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.7), 0 0 40px rgba(6, 182, 212, 0.2), inset 0 1.5px 2px rgba(255, 255, 255, 0.5) !important;
+  border-radius: 28px !important;
+}
+
+.table-title {
+  background: linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #c084fc 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 0 25px rgba(56, 189, 248, 0.4) !important;
+}
+
+.table-count {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%) !important;
+  border: 1px solid rgba(56, 189, 248, 0.5) !important;
+  color: #38bdf8 !important;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.3) !important;
+  border-radius: 9999px !important;
+}
+
+.notes-data-table thead th {
+  background: rgba(255, 255, 255, 0.06) !important;
+  backdrop-filter: blur(10px) !important;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.16) !important;
+  color: #94a3b8 !important;
+}
+
+.notes-data-table tbody tr {
+  transition: all 0.25s ease !important;
+}
+
+.notes-data-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: inset 0 0 20px rgba(6, 182, 212, 0.15) !important;
+}
+
+/* 8. Scientific Formula Calculator Section Glass & Gradients */
+.calc-badge-glow {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.22) 0%, rgba(99, 102, 241, 0.25) 100%) !important;
+  border: 1.5px solid #06b6d4 !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.75) !important;
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+  color: #00f5d4 !important;
+}
+
+.calc-grade-tag {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.22) 0%, rgba(236, 72, 153, 0.25) 100%) !important;
+  border: 1.5px solid #a855f7 !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.75) !important;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+  color: #e879f9 !important;
+}
+
+.calc-main-title {
+  background: linear-gradient(135deg, #ffffff 0%, #38bdf8 30%, #818cf8 60%, #c084fc 85%, #f472b6 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 0 40px rgba(56, 189, 248, 0.6) !important;
+}
+
+.calc-pill {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(14, 10, 30, 0.4) 100%) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+  color: #ffffff !important;
+}
+
+.calc-pill:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(6, 182, 212, 0.25) 100%) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 25px rgba(6, 182, 212, 0.5) !important;
+  transform: translateY(-2px) !important;
+}
+
+.calc-pill.active {
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 40%, #6366f1 80%, #a855f7 100%) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.6), 0 0 35px rgba(99, 102, 241, 0.5), inset 0 1.5px 2px rgba(255, 255, 255, 0.8) !important;
+}
+
+.liquid-calc-container {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 30%, rgba(12, 8, 26, 0.72) 75%, rgba(6, 182, 212, 0.12) 100%) !important;
+  backdrop-filter: blur(30px) saturate(220%) brightness(1.1) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  border-top: 2px solid var(--glass-specular-top) !important;
+  border-left: 2px solid var(--glass-specular-side) !important;
+  box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.9), 0 0 60px rgba(6, 182, 212, 0.3), inset 0 2px 2.5px rgba(255, 255, 255, 0.65) !important;
+}
+
+.calc-solver-panel {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(16, 10, 32, 0.65) 100%) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 12px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+.calc-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(14, 10, 30, 0.45) 100%) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+  color: #fff !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.calc-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(6, 182, 212, 0.25) 100%) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 20px rgba(6, 182, 212, 0.5) !important;
+  transform: translateY(-2px) scale(1.03) !important;
+}
+
+.calc-btn:active {
+  transform: scale(0.96) !important;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.6) !important;
+}
+
+.calc-btn.op-btn {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.35) 0%, rgba(99, 102, 241, 0.45) 100%) !important;
+  border-color: rgba(168, 85, 247, 0.6) !important;
+  color: #e879f9 !important;
+}
+
+.calc-btn.action-btn-equals {
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 50%, #6366f1 100%) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 25px rgba(6, 182, 212, 0.6), 0 0 30px rgba(0, 245, 212, 0.5) !important;
+}
+
+/* 9. Universal Modals Glassmorphism & Concept Squares */
+.modal-window,
+.glass-modal {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 30%, rgba(14, 10, 30, 0.72) 75%, rgba(6, 182, 212, 0.1) 100%) !important;
+  backdrop-filter: blur(28px) saturate(220%) brightness(1.08) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(220%) brightness(1.08) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
+  border-top: 2px solid var(--glass-specular-top) !important;
+  border-left: 2px solid var(--glass-specular-side) !important;
+  box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.9), 0 0 50px rgba(6, 182, 212, 0.25), inset 0 2px 2.5px rgba(255, 255, 255, 0.6) !important;
+  border-radius: 32px !important;
+}
+
+.modal-cat-badge {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.22) 0%, rgba(168, 85, 247, 0.25) 100%) !important;
+  border: 1.5px solid rgba(56, 189, 248, 0.55) !important;
+  color: #00f5d4 !important;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.35) !important;
+  border-radius: 9999px !important;
+}
+
+.modal-topic-title {
+  background: linear-gradient(135deg, #ffffff 0%, #38bdf8 45%, #c084fc 80%, #ffffff 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 0 30px rgba(56, 189, 248, 0.5) !important;
+}
+
+.modal-tab-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 9999px !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.25s ease !important;
+}
+
+.modal-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  color: #fff !important;
+}
+
+.modal-tab-btn.active {
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 50%, #6366f1 100%) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Concept Squares Detail Cards inside Notes Viewer */
+.property-detail-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.03) 30%, rgba(16, 10, 32, 0.65) 75%, rgba(6, 182, 212, 0.1) 100%) !important;
+  backdrop-filter: blur(20px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(200%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  border-left: 1.5px solid var(--glass-specular-side) !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(6, 182, 212, 0.2), inset 0 1.5px 2px rgba(255, 255, 255, 0.5) !important;
+  border-radius: 24px !important;
+}
+
+.property-detail-card:hover {
+  transform: translateY(-3px) scale(1.01) !important;
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.6), 0 0 45px rgba(6, 182, 212, 0.35), inset 0 2px 2.5px rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(56, 189, 248, 0.6) !important;
+}
+
+/* Project Cards in Showcase Modal */
+.project-card.glass-project-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(14, 10, 30, 0.6) 100%) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(6, 182, 212, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.5) !important;
+  border-radius: 24px !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.project-card.glass-project-card:hover {
+  transform: translateY(-4px) scale(1.02) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.65), 0 0 45px rgba(6, 182, 212, 0.45) !important;
+}
+
+/* Admin Vault Telemetry & Command Cards */
+.admin-cmd-card,
+.telem-stat-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(14, 10, 30, 0.55) 100%) !important;
+  backdrop-filter: blur(18px) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), inset 0 1px 1.5px rgba(255, 255, 255, 0.4) !important;
+  border-radius: 20px !important;
+}
+
+/* 10. Footer Liquid Glass Deck */
+.app-footer {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(10, 6, 20, 0.65) 50%, rgba(18, 10, 34, 0.8) 100%) !important;
+  backdrop-filter: blur(24px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+  border-top: 1.5px solid var(--glass-specular-top) !important;
+  box-shadow: 0 -15px 45px rgba(0, 0, 0, 0.6), inset 0 1px 1.5px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* 11. Theme Overrides for Universal Liquid Glass & Gradients */
+body.theme-bio-emerald .hero-neon-word,
+body.theme-bio-emerald .calc-main-title,
+body.theme-bio-emerald .modal-topic-title,
+body.theme-bio-emerald .table-title {
+  background: linear-gradient(135deg, #ffffff 0%, #34d399 35%, #10b981 70%, #06b6d4 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 0 35px rgba(16, 185, 129, 0.75) !important;
+}
+
+body.theme-bio-emerald .card-formula-chip,
+body.theme-bio-emerald .calc-badge-glow,
+body.theme-bio-emerald .table-count {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.25) 100%) !important;
+  border-color: #10b981 !important;
+  color: #34d399 !important;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4) !important;
+}
+
+body.theme-bio-emerald .pill-toggle-btn.active,
+body.theme-bio-emerald .cat-pill.active,
+body.theme-bio-emerald .calc-pill.active,
+body.theme-bio-emerald .modal-tab-btn.active {
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%) !important;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.6) !important;
+}
+
+body.theme-solar-flare .hero-neon-word,
+body.theme-solar-flare .calc-main-title,
+body.theme-solar-flare .modal-topic-title,
+body.theme-solar-flare .table-title {
+  background: linear-gradient(135deg, #ffffff 0%, #fbbf24 35%, #f59e0b 70%, #ef4444 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 0 35px rgba(245, 158, 11, 0.75) !important;
+}
+
+body.theme-solar-flare .card-formula-chip,
+body.theme-solar-flare .calc-badge-glow,
+body.theme-solar-flare .table-count {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(234, 88, 12, 0.25) 100%) !important;
+  border-color: #f59e0b !important;
+  color: #fbbf24 !important;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4) !important;
+}
+
+body.theme-solar-flare .pill-toggle-btn.active,
+body.theme-solar-flare .cat-pill.active,
+body.theme-solar-flare .calc-pill.active,
+body.theme-solar-flare .modal-tab-btn.active {
+  background: linear-gradient(135deg, #f59e0b 0%, #ea580c 50%, #dc2626 100%) !important;
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.6) !important;
+}
+
+body.theme-quantum-void .hero-neon-word,
+body.theme-quantum-void .calc-main-title,
+body.theme-quantum-void .modal-topic-title,
+body.theme-quantum-void .table-title {
+  background: linear-gradient(135deg, #ffffff 0%, #c084fc 35%, #8b5cf6 70%, #6366f1 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 0 35px rgba(168, 85, 247, 0.75) !important;
+}
+
+body.theme-quantum-void .card-formula-chip,
+body.theme-quantum-void .calc-badge-glow,
+body.theme-quantum-void .table-count {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(99, 102, 241, 0.25) 100%) !important;
+  border-color: #a855f7 !important;
+  color: #c084fc !important;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4) !important;
+}
+
+body.theme-quantum-void .pill-toggle-btn.active,
+body.theme-quantum-void .cat-pill.active,
+body.theme-quantum-void .calc-pill.active,
+body.theme-quantum-void .modal-tab-btn.active {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #6366f1 100%) !important;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.6) !important;
+}
+
+
 
 
 
