@@ -4189,40 +4189,54 @@ class ScienceIoApp {
       if (!el || el._hasTiltListener) return;
       el._hasTiltListener = true;
 
-      let rafId = null;
+      let rect = null;
+      let rafPending = false;
+      let targetX = 0;
+      let targetY = 0;
+
+      const onMouseEnter = () => {
+        rect = el.getBoundingClientRect();
+      };
 
       const onMouseMove = (e) => {
         if (isCarousel && !el.classList.contains("pos-center")) return;
-        const rect = el.getBoundingClientRect();
-        if (rect.width === 0 || rect.height === 0) return;
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const percentX = (x / rect.width) * 100;
-        const percentY = (y / rect.height) * 100;
-        const tiltX = ((y / rect.height) - 0.5) * -14;
-        const tiltY = ((x / rect.width) - 0.5) * 14;
+        if (!rect) rect = el.getBoundingClientRect();
+        if (!rect || rect.width === 0 || rect.height === 0) return;
 
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(() => {
-          el.style.setProperty("--mouse-x", `${percentX.toFixed(1)}%`);
-          el.style.setProperty("--mouse-y", `${percentY.toFixed(1)}%`);
-          el.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
-          el.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
-        });
+        targetX = e.clientX - rect.left;
+        targetY = e.clientY - rect.top;
+
+        if (!rafPending) {
+          rafPending = true;
+          requestAnimationFrame(() => {
+            rafPending = false;
+            if (!rect || rect.width === 0 || rect.height === 0) return;
+            const percentX = (targetX / rect.width) * 100;
+            const percentY = (targetY / rect.height) * 100;
+            const tiltX = ((targetY / rect.height) - 0.5) * -12;
+            const tiltY = ((targetX / rect.width) - 0.5) * 12;
+
+            el.style.setProperty("--mouse-x", `${percentX.toFixed(1)}%`);
+            el.style.setProperty("--mouse-y", `${percentY.toFixed(1)}%`);
+            el.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
+            el.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
+          });
+        }
       };
 
       const onMouseLeave = () => {
-        if (rafId) cancelAnimationFrame(rafId);
+        rect = null;
+        rafPending = false;
         el.style.setProperty("--tilt-x", "0deg");
         el.style.setProperty("--tilt-y", "0deg");
       };
 
+      el.addEventListener("mouseenter", onMouseEnter, { passive: true });
       el.addEventListener("mousemove", onMouseMove, { passive: true });
       el.addEventListener("mouseleave", onMouseLeave, { passive: true });
     };
 
     document.querySelectorAll(".deck-card").forEach((card) => attachTilt(card, true));
-    document.querySelectorAll(".property-detail-card, .table-card-glass").forEach((card) => attachTilt(card, false));
   }
 
   attachCardButtonListeners() {
