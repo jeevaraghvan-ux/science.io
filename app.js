@@ -4540,7 +4540,7 @@ class ScienceIoApp {
     this.setupHolographic3DCardTilt();
   }
 
-  // Interactive Science Visualizers (Matter States #6, Moon Phases Orbit #3, Plant Cell Biology)
+  // Interactive Science Visualizers (Circulatory, Respiratory, Digestive, Nervous, Animal Cell, Plant Cell, Unicellular, Multicellular, Universal Concept Matrix)
   renderModalInteractive(topic) {
     const container = document.getElementById("interactive-sandbox-container");
     if (!container) return;
@@ -4548,17 +4548,45 @@ class ScienceIoApp {
     container.innerHTML = "";
 
     // Determine initial active lab based on topic
-    let defaultLab = "cell";
+    let defaultLab = "concept-matrix";
+    let defaultLabLabel = "🔬 Holographic Concept Matrix";
     const topicTitle = (topic.title || "").toUpperCase();
     const topicCategory = (topic.category || "").toLowerCase();
     const topicId = topic.id || "";
 
-    if (topicCategory === "earth" || topicTitle.includes("MOON") || topicTitle.includes("SPACE") || topicTitle.includes("ORBIT") || topicTitle.includes("SOLAR") || topicId === "moon-phases-01") {
+    if (topicTitle.includes("CIRCULAT") || topicTitle.includes("HEART") || topicTitle.includes("BLOOD") || topicId === "science-circulatory") {
+      defaultLab = "circulatory";
+      defaultLabLabel = "🫀 Circulatory System Visualizer";
+    } else if (topicTitle.includes("RESPIRAT") || topicTitle.includes("LUNG") || topicTitle.includes("BREATH") || topicId === "science-respiratory") {
+      defaultLab = "respiratory";
+      defaultLabLabel = "🫁 Respiratory System Visualizer";
+    } else if (topicTitle.includes("DIGEST") || topicTitle.includes("STOMACH") || topicTitle.includes("INTESTINE") || topicId === "science-digestive") {
+      defaultLab = "digestive";
+      defaultLabLabel = "🥪 Digestive System Visualizer";
+    } else if (topicTitle.includes("NERVOUS") || topicTitle.includes("BRAIN") || topicTitle.includes("NEURON") || topicId === "science-nervous") {
+      defaultLab = "nervous";
+      defaultLabLabel = "🧠 Nervous System Visualizer";
+    } else if (topicTitle.includes("ANIMAL CELL") || topicId === "animal-cell-01") {
+      defaultLab = "animal-cell";
+      defaultLabLabel = "🧬 Animal Cell Anatomy";
+    } else if (topicTitle.includes("PLANT CELL") || topicId === "science-plant-cell") {
+      defaultLab = "plant-cell";
+      defaultLabLabel = "🌿 Plant Cell Anatomy";
+    } else if (topicTitle.includes("UNICELLULAR") || topicTitle.includes("AMOEBA") || topicTitle.includes("PARAMECIUM") || topicTitle.includes("EUGLENA") || topicId === "unicellular-organisms-04") {
+      defaultLab = "unicellular";
+      defaultLabLabel = "🦠 Unicellular Organisms";
+    } else if (topicTitle.includes("MULTICELLULAR") || topicId === "multicellular-organisms-03") {
+      defaultLab = "multicellular";
+      defaultLabLabel = "🌳 Multicellular Hierarchy";
+    } else if (topicCategory === "earth" || topicTitle.includes("MOON") || topicTitle.includes("SPACE") || topicTitle.includes("ORBIT") || topicTitle.includes("SOLAR") || topicId === "moon-phases-01") {
       defaultLab = "moon";
+      defaultLabLabel = "🪐 Moon Phases & Orbit (#3)";
     } else if (topicCategory === "physical" || topicTitle.includes("MATTER") || topicTitle.includes("HEAT") || topicTitle.includes("SOLID") || topicTitle.includes("GAS") || topicId === "states-of-matter-01") {
       defaultLab = "matter";
+      defaultLabLabel = "❄️ Matter State Changes (#6)";
     } else {
-      defaultLab = "cell";
+      defaultLab = "concept-matrix";
+      defaultLabLabel = `🔮 ${topic.title || 'Topic'} Visualizer`;
     }
 
     container.innerHTML = `
@@ -4568,15 +4596,19 @@ class ScienceIoApp {
           <span class="lab-nav-sub">Inside Notes Exclusive Sandbox</span>
         </div>
         <div class="lab-switcher-pills">
-          <button class="lab-pill-btn ${defaultLab === 'matter' ? 'active' : ''}" id="lab-btn-matter" data-lab="matter">
-            <span>❄️ Matter State Changes (#6)</span>
+          <button class="lab-pill-btn active" id="lab-btn-primary" data-lab="${defaultLab}">
+            <span>${defaultLabLabel}</span>
           </button>
-          <button class="lab-pill-btn ${defaultLab === 'moon' ? 'active' : ''}" id="lab-btn-moon" data-lab="moon">
-            <span>🪐 Moon Phases & Orbit (#3)</span>
-          </button>
-          <button class="lab-pill-btn ${defaultLab === 'cell' ? 'active' : ''}" id="lab-btn-cell" data-lab="cell">
-            <span>🔬 Plant Cell Biology</span>
-          </button>
+          ${defaultLab !== 'circulatory' ? `<button class="lab-pill-btn" data-lab="circulatory"><span>🫀 Circulatory</span></button>` : ''}
+          ${defaultLab !== 'respiratory' ? `<button class="lab-pill-btn" data-lab="respiratory"><span>🫁 Respiratory</span></button>` : ''}
+          ${defaultLab !== 'digestive' ? `<button class="lab-pill-btn" data-lab="digestive"><span>🥪 Digestive</span></button>` : ''}
+          ${defaultLab !== 'nervous' ? `<button class="lab-pill-btn" data-lab="nervous"><span>🧠 Nervous</span></button>` : ''}
+          ${defaultLab !== 'plant-cell' ? `<button class="lab-pill-btn" data-lab="plant-cell"><span>🌿 Plant Cell</span></button>` : ''}
+          ${defaultLab !== 'animal-cell' ? `<button class="lab-pill-btn" data-lab="animal-cell"><span>🧬 Animal Cell</span></button>` : ''}
+          ${defaultLab !== 'unicellular' ? `<button class="lab-pill-btn" data-lab="unicellular"><span>🦠 Unicellular</span></button>` : ''}
+          ${defaultLab !== 'multicellular' ? `<button class="lab-pill-btn" data-lab="multicellular"><span>🌳 Multicellular</span></button>` : ''}
+          ${defaultLab !== 'matter' ? `<button class="lab-pill-btn" data-lab="matter"><span>❄️ Matter (#6)</span></button>` : ''}
+          ${defaultLab !== 'moon' ? `<button class="lab-pill-btn" data-lab="moon"><span>🪐 Moon Orbit (#3)</span></button>` : ''}
         </div>
       </div>
       <div id="interactive-lab-stage" class="interactive-lab-stage"></div>
@@ -4586,7 +4618,7 @@ class ScienceIoApp {
     const labButtons = container.querySelectorAll(".lab-pill-btn");
     labButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
-        sounds.playClick();
+        if (typeof sounds !== 'undefined' && sounds.playClick) sounds.playClick();
         const targetLab = btn.dataset.lab;
         labButtons.forEach((b) => b.classList.toggle("active", b.dataset.lab === targetLab));
         this.loadInteractiveLab(targetLab, topic, stage);
@@ -4602,12 +4634,44 @@ class ScienceIoApp {
     this.cleanupInteractiveSimulators();
     this.currentLabType = labName;
 
-    if (labName === "matter") {
-      this.loadMatterStateLab(stage, topic);
-    } else if (labName === "moon") {
-      this.loadMoonPhasesLab(stage, topic);
-    } else {
-      this.loadPlantCellLab(stage, topic);
+    switch (labName) {
+      case "circulatory":
+        this.loadCirculatoryLab(stage, topic);
+        break;
+      case "respiratory":
+        this.loadRespiratoryLab(stage, topic);
+        break;
+      case "digestive":
+        this.loadDigestiveLab(stage, topic);
+        break;
+      case "nervous":
+        this.loadNervousLab(stage, topic);
+        break;
+      case "animal-cell":
+        this.loadAnimalCellLab(stage, topic);
+        break;
+      case "plant-cell":
+      case "cell":
+        this.loadPlantCellLab(stage, topic);
+        break;
+      case "unicellular":
+        this.loadUnicellularLab(stage, topic);
+        break;
+      case "multicellular":
+        this.loadMulticellularLab(stage, topic);
+        break;
+      case "concept-matrix":
+        this.loadUniversalConceptMatrixLab(stage, topic);
+        break;
+      case "matter":
+        this.loadMatterStateLab(stage, topic);
+        break;
+      case "moon":
+        this.loadMoonPhasesLab(stage, topic);
+        break;
+      default:
+        this.loadPlantCellLab(stage, topic);
+        break;
     }
   }
 
@@ -5591,12 +5655,1243 @@ class ScienceIoApp {
     };
   }
 
-  // ================= LAB: PLANT CELL BIOLOGY =================
-  loadPlantCellLab(stage, topic) {
+  // ================= INTERACTIVE ANATOMY & CURRICULUM VISUALIZERS =================
+  getPartNoteData(topic, partNum, partKeywords = [], fallbackData = {}) {
+    // 1. Check active topic.properties by exact num
+    let match = topic?.properties?.find(p => p.num === partNum);
+
+    // 2. Check active topic.properties by keywords in name or explanation
+    if (!match && topic?.properties && partKeywords.length > 0) {
+      match = topic.properties.find(p => {
+        const name = (p.name || '').toLowerCase();
+        const expl = (p.explanation || '').toLowerCase();
+        return partKeywords.some(kw => name.includes(kw.toLowerCase()) || expl.includes(kw.toLowerCase()));
+      });
+    }
+
+    // 3. Fallback to curriculum database if available
+    if (!match && topic) {
+      const fallbackSystem = this.getCurriculumFallback(topic.title || '');
+      if (fallbackSystem?.properties) {
+        match = fallbackSystem.properties.find(p => p.num === partNum) ||
+                fallbackSystem.properties.find(p => {
+                  const name = (p.name || '').toLowerCase();
+                  return partKeywords.some(kw => name.includes(kw.toLowerCase()));
+                });
+      }
+    }
+
+    const resolvedNum = match?.num || partNum;
+    const cleanName = (match?.name || fallbackData.name || `Part #${partNum}`).replace(/^\d+[\.\-\)]\s*/, '').trim();
+
+    return {
+      num: resolvedNum,
+      name: cleanName,
+      formula: match?.formula || fallbackData.formula || 'Key Scientific Concept',
+      explanation: match?.explanation || fallbackData.explanation || 'Scientific definition based on curriculum notes.',
+      example: match?.example || fallbackData.example || 'Classroom observation observed in 5th grade laboratory.',
+      trick: match?.trick || fallbackData.trick || 'Remember key scientific terms!',
+      hasSquare: !!match || (topic?.properties && topic.properties.some(p => p.num === resolvedNum))
+    };
+  }
+
+  bindInteractiveDiagram({ stage, topic, parts, defaultNum = 1 }) {
+    const hudTitle = stage.querySelector("#diagram-hud-title");
+    const hudFormula = stage.querySelector("#diagram-hud-formula");
+    const hudDesc = stage.querySelector("#diagram-hud-desc");
+    const hudExample = stage.querySelector("#diagram-hud-example");
+    const hudTrick = stage.querySelector("#diagram-hud-trick");
+    const hudJumpBtn = stage.querySelector("#diagram-hud-jump-btn");
+    const hudSource = stage.querySelector("#diagram-hud-source");
+
+    let activeNum = null;
+
+    const selectPart = (num) => {
+      const partConfig = parts.find(p => p.num === num) || parts[0];
+      if (!partConfig) return;
+      activeNum = partConfig.num;
+
+      const data = this.getPartNoteData(topic, partConfig.num, partConfig.keywords || [], partConfig.fallback || {});
+
+      if (typeof sounds !== 'undefined' && sounds.playClick) sounds.playClick();
+
+      if (hudTitle) {
+        hudTitle.innerHTML = `<span style="font-size: 1.15em;">${partConfig.icon || '🔬'}</span> ${data.num}. ${data.name}`;
+      }
+      if (hudFormula) {
+        hudFormula.textContent = data.formula;
+      }
+      if (hudDesc) {
+        hudDesc.textContent = data.explanation;
+      }
+      if (hudExample) {
+        hudExample.innerHTML = `<strong>💡 Observation:</strong> <span>${data.example}</span>`;
+      }
+      if (hudTrick) {
+        hudTrick.innerHTML = `<strong>🧠 Memory Trick:</strong> <span>${data.trick}</span>`;
+      }
+      if (hudSource) {
+        hudSource.textContent = `Source: ${topic.title || 'Curriculum'} • Square #${data.num}`;
+      }
+
+      if (hudJumpBtn) {
+        hudJumpBtn.style.display = "inline-flex";
+        hudJumpBtn.innerHTML = `<span>🔍 Jump to Square #${data.num}</span>`;
+      }
+
+      // Update pins
+      stage.querySelectorAll(".diagram-pin-marker").forEach(pin => {
+        pin.classList.toggle("active", parseInt(pin.dataset.num, 10) === partConfig.num);
+      });
+
+      // Update quick buttons
+      stage.querySelectorAll(".diagram-part-btn").forEach(btn => {
+        btn.classList.toggle("active", parseInt(btn.dataset.num, 10) === partConfig.num);
+      });
+
+      // Update paths
+      stage.querySelectorAll(".diagram-interactive-path").forEach(path => {
+        path.classList.toggle("highlighted", parseInt(path.dataset.num, 10) === partConfig.num);
+      });
+    };
+
+    stage.querySelectorAll(".diagram-pin-marker").forEach(pin => {
+      pin.addEventListener("click", () => {
+        const num = parseInt(pin.dataset.num, 10);
+        selectPart(num);
+      });
+    });
+
+    stage.querySelectorAll(".diagram-part-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const num = parseInt(btn.dataset.num, 10);
+        selectPart(num);
+      });
+    });
+
+    stage.querySelectorAll(".diagram-interactive-path").forEach(path => {
+      path.addEventListener("click", () => {
+        const num = parseInt(path.dataset.num, 10);
+        selectPart(num);
+      });
+    });
+
+    if (hudJumpBtn) {
+      hudJumpBtn.addEventListener("click", () => {
+        if (!activeNum) return;
+        this.switchModalTab("notes");
+        setTimeout(() => {
+          const card = document.getElementById(`concept-square-${activeNum}`);
+          if (card) {
+            card.scrollIntoView({ behavior: "smooth", block: "center" });
+            card.classList.add("highlighted");
+            setTimeout(() => card.classList.remove("highlighted"), 1500);
+          }
+        }, 150);
+      });
+    }
+
+    setTimeout(() => selectPart(defaultNum), 200);
+  }
+
+  // ================= 1. CIRCULATORY SYSTEM VISUALIZER =================
+  loadCirculatoryLab(stage, topic) {
+    const parts = [
+      {
+        num: 1,
+        icon: "❤️",
+        keywords: ["heart", "cardiac", "pump"],
+        fallback: {
+          name: "Heart (Cardiac Pump)",
+          formula: "4-Chambered Muscular Engine",
+          explanation: "Pumps blood through pulmonary and systemic circuits without stopping.",
+          example: "Beats approximately 100,000 times per day to keep blood circulating.",
+          trick: "Memory Trick: 2 Atriums at the top receive blood, 2 Ventricles at the bottom pump it out!"
+        }
+      },
+      {
+        num: 2,
+        icon: "🔴",
+        keywords: ["artery", "arteries", "aorta"],
+        fallback: {
+          name: "Arteries",
+          formula: "High-Pressure Blood Vessels",
+          explanation: "Carry freshly oxygenated blood AWAY from the heart into bodily tissues.",
+          example: "The aorta is the largest artery with thick muscular walls to withstand high blood pressure.",
+          trick: "Memory Trick: Arteries = AWAY from the heart!"
+        }
+      },
+      {
+        num: 3,
+        icon: "🟣",
+        keywords: ["capillary", "capillaries", "diffusion"],
+        fallback: {
+          name: "Capillaries",
+          formula: "Microscopic Diffusion Beds",
+          explanation: "Ultra-thin single-cell vessels where nutrients and gases diffuse into tissues.",
+          example: "Blood cells must travel single-file through capillary beds to exchange O₂ and CO₂.",
+          trick: "Memory Trick: Capillaries = Connectors & trading posts!"
+        }
+      },
+      {
+        num: 4,
+        icon: "🔵",
+        keywords: ["vein", "veins", "vena cava"],
+        fallback: {
+          name: "Veins",
+          formula: "Low-Pressure One-Way Valved Vessels",
+          explanation: "Return deoxygenated blood back into the heart, using one-way valves.",
+          example: "Valves prevent blood from flowing backward against gravity as it returns from your legs.",
+          trick: "Memory Trick: Veins = Visiting back into the heart!"
+        }
+      },
+      {
+        num: 5,
+        icon: "🩸",
+        keywords: ["red blood cell", "erythrocyte", "blood", "hemoglobin"],
+        fallback: {
+          name: "Red Blood Cells (Erythrocytes)",
+          formula: "Hemoglobin Oxygen Transporter",
+          explanation: "Biconcave disc cells packed with iron-rich hemoglobin that carry oxygen from lungs to every cell.",
+          example: "Millions of red blood cells deliver fuel to cellular mitochondria for ATP synthesis.",
+          trick: "Memory Trick: Red Blood Cells are tiny oxygen delivery delivery vans!"
+        }
+      },
+      {
+        num: 6,
+        icon: "🫁",
+        keywords: ["pulmonary", "pulmonary circuit", "lung circuit"],
+        fallback: {
+          name: "Pulmonary Circuit",
+          formula: "Heart-to-Lungs Gas Exchange Loop",
+          explanation: "Sends deoxygenated blood from the right ventricle into the lungs to release CO₂ and pick up fresh O₂.",
+          example: "The only artery carrying deoxygenated blood is the pulmonary artery heading to the lungs.",
+          trick: "Memory Trick: Pulmonary = Pumping to lungs!"
+        }
+      }
+    ];
+
     stage.innerHTML = `
-      <div class="plant-cell-interactive-wrap">
-        <div class="cell-diagram-svg-container">
-          <svg class="cell-svg-canvas" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+      <div class="diagram-interactive-wrap">
+        <div class="diagram-viewport-container">
+          <svg class="diagram-svg-canvas" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="circAortaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ff4d4d" />
+                <stop offset="100%" stop-color="#b91c1c" />
+              </linearGradient>
+              <linearGradient id="circVeinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8" />
+                <stop offset="100%" stop-color="#1e40af" />
+              </linearGradient>
+              <radialGradient id="circHeartGrad" cx="45%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#f87171" />
+                <stop offset="60%" stop-color="#dc2626" />
+                <stop offset="100%" stop-color="#7f1d1d" />
+              </radialGradient>
+              <linearGradient id="circCapillaryGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+                <stop offset="0%" stop-color="#ef4444" />
+                <stop offset="50%" stop-color="#a855f7" />
+                <stop offset="100%" stop-color="#0284c7" />
+              </linearGradient>
+              <radialGradient id="rbcGlow" cx="40%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="#fca5a5" />
+                <stop offset="70%" stop-color="#dc2626" />
+                <stop offset="100%" stop-color="#991b1b" />
+              </radialGradient>
+            </defs>
+
+            <!-- Background Circulation Glow -->
+            <ellipse cx="320" cy="210" rx="260" ry="175" fill="none" stroke="rgba(56, 189, 248, 0.08)" stroke-width="2" stroke-dasharray="8 6" />
+
+            <!-- UPPER CAPILLARIES (Head & Upper Body) -->
+            <g id="path-circ-3" class="diagram-interactive-path" data-num="3">
+              <path d="M 230,55 C 260,30 380,30 410,55" fill="none" stroke="url(#circCapillaryGrad)" stroke-width="6" stroke-linecap="round" />
+              <path d="M 240,70 C 280,45 360,45 400,70" fill="none" stroke="url(#circCapillaryGrad)" stroke-width="4" stroke-linecap="round" />
+              <path d="M 255,85 C 290,65 350,65 385,85" fill="none" stroke="url(#circCapillaryGrad)" stroke-width="3" stroke-linecap="round" />
+              <text x="320" y="28" fill="#e0f2fe" font-size="11" font-weight="800" text-anchor="middle" opacity="0.8">Upper Body Capillary Bed</text>
+            </g>
+
+            <!-- 2. SYSTEMIC ARTERIES (Oxygenated - Red) -->
+            <g id="path-circ-2" class="diagram-interactive-path" data-num="2">
+              <!-- Aortic Arch -->
+              <path d="M 320,150 C 315,100 250,90 230,55" fill="none" stroke="url(#circAortaGrad)" stroke-width="8" stroke-linecap="round" />
+              <!-- Descending Aorta to Lower Body -->
+              <path d="M 315,225 C 310,270 250,300 235,355" fill="none" stroke="url(#circAortaGrad)" stroke-width="7" stroke-linecap="round" />
+              <path d="M 235,355 L 210,390" fill="none" stroke="url(#circAortaGrad)" stroke-width="5" stroke-linecap="round" />
+              <text x="215" y="115" fill="#fca5a5" font-size="10" font-weight="bold">Arteries (Away)</text>
+            </g>
+
+            <!-- 4. SYSTEMIC VEINS (Deoxygenated - Blue) -->
+            <g id="path-circ-4" class="diagram-interactive-path" data-num="4">
+              <!-- Superior Vena Cava from Head -->
+              <path d="M 410,55 C 390,90 335,100 330,150" fill="none" stroke="url(#circVeinGrad)" stroke-width="8" stroke-linecap="round" />
+              <!-- Inferior Vena Cava from Lower Body -->
+              <path d="M 405,355 C 390,300 330,270 328,225" fill="none" stroke="url(#circVeinGrad)" stroke-width="7" stroke-linecap="round" />
+              <path d="M 405,355 L 430,390" fill="none" stroke="url(#circVeinGrad)" stroke-width="5" stroke-linecap="round" />
+              <text x="425" y="115" fill="#93c5fd" font-size="10" font-weight="bold">Veins (Return)</text>
+            </g>
+
+            <!-- LOWER CAPILLARIES (Trunk & Lower Body) -->
+            <g class="diagram-interactive-path" data-num="3">
+              <path d="M 235,355 C 270,380 370,380 405,355" fill="none" stroke="url(#circCapillaryGrad)" stroke-width="6" stroke-linecap="round" />
+              <path d="M 245,340 C 285,365 355,365 395,340" fill="none" stroke="url(#circCapillaryGrad)" stroke-width="4" stroke-linecap="round" />
+              <text x="320" y="398" fill="#e0f2fe" font-size="11" font-weight="800" text-anchor="middle" opacity="0.8">Lower Body Capillary Bed</text>
+            </g>
+
+            <!-- 6. PULMONARY CIRCUIT (To Lungs & Back) -->
+            <g id="path-circ-6" class="diagram-interactive-path" data-num="6">
+              <!-- Right Pulmonary Artery to Left Lung -->
+              <path d="M 330,165 C 380,155 430,180 470,185" fill="none" stroke="#0284c7" stroke-width="5" stroke-dasharray="6 3" />
+              <!-- Left Pulmonary Artery to Right Lung -->
+              <path d="M 310,165 C 260,155 210,180 170,185" fill="none" stroke="#0284c7" stroke-width="5" stroke-dasharray="6 3" />
+              <!-- Lung Capillary mesh icons -->
+              <ellipse cx="150" cy="190" rx="32" ry="24" fill="rgba(6, 182, 212, 0.15)" stroke="#38bdf8" stroke-width="2" />
+              <text x="150" y="194" fill="#7dd3fc" font-size="9" font-weight="bold" text-anchor="middle">Right Lung</text>
+              <ellipse cx="490" cy="190" rx="32" ry="24" fill="rgba(6, 182, 212, 0.15)" stroke="#38bdf8" stroke-width="2" />
+              <text x="490" y="194" fill="#7dd3fc" font-size="9" font-weight="bold" text-anchor="middle">Left Lung</text>
+              <!-- Pulmonary Veins returning fresh O2 -->
+              <path d="M 182,200 C 230,205 275,190 305,185" fill="none" stroke="#ef4444" stroke-width="4" />
+              <path d="M 458,200 C 410,205 365,190 335,185" fill="none" stroke="#ef4444" stroke-width="4" />
+            </g>
+
+            <!-- 1. HEART (Cardiac Muscular Pump) -->
+            <g id="path-circ-1" class="diagram-interactive-path" data-num="1">
+              <!-- Heart Muscle Contour -->
+              <path d="M 320,135 C 290,110 260,140 260,180 C 260,225 320,255 320,265 C 320,255 380,225 380,180 C 380,140 350,110 320,135 Z" fill="url(#circHeartGrad)" stroke="#fca5a5" stroke-width="3.5" />
+              <!-- Septum division line -->
+              <line x1="320" y1="140" x2="320" y2="260" stroke="#7f1d1d" stroke-width="3" />
+              <!-- Chamber labels -->
+              <text x="285" y="165" fill="#fef2f2" font-size="8" font-weight="900">RA</text>
+              <text x="345" y="165" fill="#fef2f2" font-size="8" font-weight="900">LA</text>
+              <text x="288" y="215" fill="#fef2f2" font-size="8" font-weight="900">RV</text>
+              <text x="342" y="215" fill="#fef2f2" font-size="8" font-weight="900">LV</text>
+            </g>
+
+            <!-- 5. RED BLOOD CELLS (Erythrocytes) -->
+            <g id="path-circ-5" class="diagram-interactive-path" data-num="5">
+              <ellipse cx="235" cy="275" rx="14" ry="9" fill="url(#rbcGlow)" stroke="#fff" stroke-width="1.5" transform="rotate(-25 235 275)" />
+              <ellipse cx="235" cy="275" rx="5" ry="3" fill="#7f1d1d" opacity="0.6" transform="rotate(-25 235 275)" />
+              <ellipse cx="245" cy="310" rx="12" ry="8" fill="url(#rbcGlow)" stroke="#fff" stroke-width="1.5" transform="rotate(15 245 310)" />
+              <ellipse cx="395" cy="285" rx="13" ry="8" fill="#1e40af" stroke="#93c5fd" stroke-width="1.5" transform="rotate(30 395 285)" />
+            </g>
+
+            <!-- NUMBERED PINS -->
+            <g class="diagram-pins-layer">
+              <!-- Pin 1: Heart -->
+              <g class="diagram-pin-marker" data-num="1" transform="translate(320, 195)">
+                <circle cx="0" cy="0" r="15" class="pin-base" fill="#dc2626" stroke="#fff" stroke-width="2.5" />
+                <text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">1</text>
+              </g>
+              <!-- Pin 2: Arteries -->
+              <g class="diagram-pin-marker" data-num="2" transform="translate(245, 95)">
+                <circle cx="0" cy="0" r="15" class="pin-base" fill="#ef4444" stroke="#fff" stroke-width="2.5" />
+                <text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">2</text>
+              </g>
+              <!-- Pin 3: Capillaries -->
+              <g class="diagram-pin-marker" data-num="3" transform="translate(320, 48)">
+                <circle cx="0" cy="0" r="15" class="pin-base" fill="#8b5cf6" stroke="#fff" stroke-width="2.5" />
+                <text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">3</text>
+              </g>
+              <!-- Pin 4: Veins -->
+              <g class="diagram-pin-marker" data-num="4" transform="translate(395, 95)">
+                <circle cx="0" cy="0" r="15" class="pin-base" fill="#0284c7" stroke="#fff" stroke-width="2.5" />
+                <text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">4</text>
+              </g>
+              <!-- Pin 5: Red Blood Cells -->
+              <g class="diagram-pin-marker" data-num="5" transform="translate(225, 275)">
+                <circle cx="0" cy="0" r="15" class="pin-base" fill="#b91c1c" stroke="#fff" stroke-width="2.5" />
+                <text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">5</text>
+              </g>
+              <!-- Pin 6: Pulmonary Circuit -->
+              <g class="diagram-pin-marker" data-num="6" transform="translate(435, 240)">
+                <circle cx="0" cy="0" r="15" class="pin-base" fill="#06b6d4" stroke="#fff" stroke-width="2.5" />
+                <text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">6</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Quick Access Parts Dock -->
+        <div class="diagram-parts-quickbar">
+          <button class="diagram-part-btn active" data-num="1"><span class="btn-badge">1</span> ❤️ Heart</button>
+          <button class="diagram-part-btn" data-num="2"><span class="btn-badge">2</span> 🔴 Arteries</button>
+          <button class="diagram-part-btn" data-num="3"><span class="btn-badge">3</span> 🟣 Capillaries</button>
+          <button class="diagram-part-btn" data-num="4"><span class="btn-badge">4</span> 🔵 Veins</button>
+          <button class="diagram-part-btn" data-num="5"><span class="btn-badge">5</span> 🩸 Blood Cells</button>
+          <button class="diagram-part-btn" data-num="6"><span class="btn-badge">6</span> 🫁 Pulmonary Circuit</button>
+        </div>
+
+        <!-- Note Inspection HUD Card -->
+        <div class="diagram-hud-card">
+          <div class="diagram-hud-header">
+            <span class="diagram-hud-title" id="diagram-hud-title">❤️ 1. Heart (Cardiac Pump)</span>
+            <span class="diagram-hud-formula" id="diagram-hud-formula">4-Chambered Muscular Engine</span>
+          </div>
+          <p class="diagram-hud-desc" id="diagram-hud-desc">
+            Pumps blood through pulmonary and systemic circuits without stopping.
+          </p>
+          <div class="diagram-hud-callouts">
+            <div class="diagram-hud-example" id="diagram-hud-example">
+              <strong>💡 Observation:</strong> <span>Beats approximately 100,000 times per day.</span>
+            </div>
+            <div class="diagram-hud-trick" id="diagram-hud-trick">
+              <strong>🧠 Memory Trick:</strong> <span>2 Atriums receive, 2 Ventricles pump!</span>
+            </div>
+          </div>
+          <div class="diagram-hud-footer">
+            <span class="diagram-hud-source" id="diagram-hud-source">Source: Circulatory System Notes</span>
+            <button class="btn-jump-square" id="diagram-hud-jump-btn">
+              <span>🔍 Jump to Square Notes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    this.bindInteractiveDiagram({ stage, topic, parts, defaultNum: 1 });
+  }
+
+  // ================= 2. RESPIRATORY SYSTEM VISUALIZER =================
+  loadRespiratoryLab(stage, topic) {
+    const parts = [
+      {
+        num: 1,
+        icon: "👃",
+        keywords: ["nose", "trachea", "windpipe", "airway"],
+        fallback: {
+          name: "Nose & Trachea (Windpipe)",
+          formula: "Filtration & Main Airway",
+          explanation: "Cilia hairs and mucus filter pathogens and dust, while C-shaped cartilage rings keep the airway wide open.",
+          example: "Air is warmed and humidified in the nasal cavity before reaching the delicate lungs.",
+          trick: "Memory Trick: The hollow highway channeling filtered air straight to the chest!"
+        }
+      },
+      {
+        num: 2,
+        icon: "🌿",
+        keywords: ["bronchi", "bronchial", "bronchiole"],
+        fallback: {
+          name: "Bronchi & Bronchioles",
+          formula: "Branching Air Tree",
+          explanation: "Two primary bronchial tubes branch into left and right lungs, dividing into thousands of tiny bronchioles.",
+          example: "Smooth muscle rings around bronchioles regulate airflow into each lung quadrant.",
+          trick: "Memory Trick: Think of an upside-down tree with branching air twigs!"
+        }
+      },
+      {
+        num: 3,
+        icon: "🍇",
+        keywords: ["alveoli", "air sac", "alveolus", "diffusion"],
+        fallback: {
+          name: "Alveoli (Air Sacs)",
+          formula: "Microscopic Gas Diffusion",
+          explanation: "Millions of grape-like microscopic air sacs wrapped in capillaries where O₂ enters red blood cells and CO₂ exits.",
+          example: "The total surface area of human alveoli is about the size of an entire tennis court!",
+          trick: "Memory Trick: Alveoli = Tiny Air Grapes where oxygen and CO₂ trade places!"
+        }
+      },
+      {
+        num: 4,
+        icon: "🫁",
+        keywords: ["diaphragm", "muscle", "breathing"],
+        fallback: {
+          name: "Diaphragm Muscle",
+          formula: "Breathing Engine (Pressure Pump)",
+          explanation: "Dome-shaped muscle beneath lungs. Pulls down to draw air in; pushes up to force air out.",
+          example: "When you inhale, the diaphragm contracts downward creating negative pressure that pulls air inside.",
+          trick: "Memory Trick: Diaphragm down = Inhale; Diaphragm up = Exhale!"
+        }
+      },
+      {
+        num: 5,
+        icon: "🌬️",
+        keywords: ["lung", "lungs", "pleural", "gas exchange"],
+        fallback: {
+          name: "Lungs & Capillary Gas Exchange",
+          formula: "Pleural Gas Exchange Chambers",
+          explanation: "Paired spongy organs housing the bronchial tree and alveolar capillary networks for external respiration.",
+          example: "The right lung has 3 lobes while the left lung has 2 lobes to make room for the heart.",
+          trick: "Memory Trick: Lungs expand like twin air balloons inside the ribcage!"
+        }
+      }
+    ];
+
+    stage.innerHTML = `
+      <div class="diagram-interactive-wrap">
+        <div class="diagram-viewport-container">
+          <svg class="diagram-svg-canvas" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="tracheaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#94a3b8" />
+                <stop offset="50%" stop-color="#f1f5f9" />
+                <stop offset="100%" stop-color="#94a3b8" />
+              </linearGradient>
+              <radialGradient id="lungLeftGrad" cx="40%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.35" />
+                <stop offset="100%" stop-color="#be123c" stop-opacity="0.15" />
+              </radialGradient>
+              <radialGradient id="alveoliGrad" cx="35%" cy="35%" r="60%">
+                <stop offset="0%" stop-color="#fda4af" />
+                <stop offset="60%" stop-color="#f43f5e" />
+                <stop offset="100%" stop-color="#9f1239" />
+              </radialGradient>
+              <linearGradient id="diaphragmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f59e0b" />
+                <stop offset="100%" stop-color="#b45309" />
+              </linearGradient>
+            </defs>
+
+            <!-- 5. LUNGS CONTOURS (Spongy paired organs) -->
+            <g id="path-resp-5" class="diagram-interactive-path" data-num="5">
+              <!-- Right Lung (3 lobes) -->
+              <path d="M 230,150 C 180,150 140,200 140,270 C 140,320 180,340 230,340 C 255,340 265,300 265,220 C 265,160 250,150 230,150 Z" fill="url(#lungLeftGrad)" stroke="#fb7185" stroke-width="2.5" />
+              <!-- Left Lung (2 lobes with cardiac notch) -->
+              <path d="M 330,150 C 310,150 295,170 295,220 C 295,260 315,280 305,310 C 315,335 340,340 370,340 C 420,340 440,300 440,270 C 440,200 380,150 330,150 Z" fill="url(#lungLeftGrad)" stroke="#fb7185" stroke-width="2.5" />
+              <text x="180" y="240" fill="#fecdd3" font-size="10" font-weight="bold" opacity="0.7">Right Lung</text>
+              <text x="385" y="240" fill="#fecdd3" font-size="10" font-weight="bold" opacity="0.7">Left Lung</text>
+            </g>
+
+            <!-- 1. NOSE, PHARYNX, LARYNX & TRACHEA -->
+            <g id="path-resp-1" class="diagram-interactive-path" data-num="1">
+              <!-- Nasal profile -->
+              <path d="M 280,30 Q 300,30 295,50 Q 285,60 285,75" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linecap="round" />
+              <!-- Trachea tube with cartilage rings -->
+              <rect x="272" y="75" width="16" height="85" rx="4" fill="url(#tracheaGrad)" stroke="#0284c7" stroke-width="2" />
+              <!-- Cartilage ring ridges -->
+              <line x1="272" y1="90" x2="288" y2="90" stroke="#0f172a" stroke-width="2" />
+              <line x1="272" y1="105" x2="288" y2="105" stroke="#0f172a" stroke-width="2" />
+              <line x1="272" y1="120" x2="288" y2="120" stroke="#0f172a" stroke-width="2" />
+              <line x1="272" y1="135" x2="288" y2="135" stroke="#0f172a" stroke-width="2" />
+              <line x1="272" y1="150" x2="288" y2="150" stroke="#0f172a" stroke-width="2" />
+            </g>
+
+            <!-- 2. BRONCHI & BRONCHIAL TREE -->
+            <g id="path-resp-2" class="diagram-interactive-path" data-num="2">
+              <!-- Right primary bronchus -->
+              <path d="M 276,160 Q 250,180 220,195 Q 190,210 170,230" fill="none" stroke="#22c55e" stroke-width="5" stroke-linecap="round" />
+              <path d="M 220,195 Q 210,230 195,260" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" />
+              <path d="M 235,185 Q 240,220 235,260" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" />
+              <!-- Left primary bronchus -->
+              <path d="M 284,160 Q 315,180 345,195 Q 380,210 400,230" fill="none" stroke="#22c55e" stroke-width="5" stroke-linecap="round" />
+              <path d="M 345,195 Q 360,230 375,260" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" />
+              <path d="M 330,185 Q 325,220 330,260" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" />
+            </g>
+
+            <!-- 3. ZOOMED ALVEOLI CLUSTER (Microscopic Air Sacs with Capillaries) -->
+            <g id="path-resp-3" class="diagram-interactive-path" data-num="3" transform="translate(470, 75)">
+              <rect x="0" y="0" width="150" height="135" rx="16" fill="rgba(15, 23, 42, 0.85)" stroke="#38bdf8" stroke-width="1.5" />
+              <text x="75" y="20" fill="#38bdf8" font-size="10" font-weight="900" text-anchor="middle">ZOOM: Alveoli (Air Sacs)</text>
+              <!-- Grape cluster -->
+              <circle cx="55" cy="55" r="16" fill="url(#alveoliGrad)" stroke="#fff" stroke-width="1.5" />
+              <circle cx="85" cy="50" r="15" fill="url(#alveoliGrad)" stroke="#fff" stroke-width="1.5" />
+              <circle cx="70" cy="78" r="18" fill="url(#alveoliGrad)" stroke="#fff" stroke-width="1.5" />
+              <circle cx="98" cy="75" r="14" fill="url(#alveoliGrad)" stroke="#fff" stroke-width="1.5" />
+              <circle cx="45" cy="85" r="14" fill="url(#alveoliGrad)" stroke="#fff" stroke-width="1.5" />
+              <!-- Capillary Net Wrap -->
+              <path d="M 35,55 Q 65,35 95,65 Q 115,85 85,95 Q 45,95 35,55" fill="none" stroke="#ef4444" stroke-width="2.5" />
+              <path d="M 40,65 Q 75,55 105,75" fill="none" stroke="#0284c7" stroke-width="2" stroke-dasharray="3 2" />
+              <!-- Gas exchange arrows -->
+              <text x="70" y="120" fill="#4ade80" font-size="9" font-weight="bold" text-anchor="middle">O₂ ➔ Blood | CO₂ ➔ Air</text>
+            </g>
+
+            <!-- 4. DIAPHRAGM MUSCLE (Breathing Engine) -->
+            <g id="path-resp-4" class="diagram-interactive-path" data-num="4">
+              <path d="M 130,345 C 190,325 370,325 450,345 C 430,365 150,365 130,345 Z" fill="url(#diaphragmGrad)" stroke="#fef08a" stroke-width="2.5" />
+              <text x="290" y="358" fill="#fff" font-size="11" font-weight="900" text-anchor="middle">Diaphragm Muscle Sheet</text>
+              <!-- Inhale motion arrows -->
+              <path d="M 290,368 L 290,385 M 285,380 L 290,385 L 295,380" fill="none" stroke="#f59e0b" stroke-width="2" />
+              <text x="290" y="400" fill="#f59e0b" font-size="9" font-weight="bold" text-anchor="middle">Pulls Down to Inhale</text>
+            </g>
+
+            <!-- PINS -->
+            <g class="diagram-pins-layer">
+              <g class="diagram-pin-marker" data-num="1" transform="translate(280, 85)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#0284c7" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">1</text></g>
+              <g class="diagram-pin-marker" data-num="2" transform="translate(280, 185)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#16a34a" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">2</text></g>
+              <g class="diagram-pin-marker" data-num="3" transform="translate(485, 145)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#e11d48" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">3</text></g>
+              <g class="diagram-pin-marker" data-num="4" transform="translate(290, 340)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#d97706" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">4</text></g>
+              <g class="diagram-pin-marker" data-num="5" transform="translate(195, 235)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#ec4899" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">5</text></g>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Quick Access Parts Dock -->
+        <div class="diagram-parts-quickbar">
+          <button class="diagram-part-btn active" data-num="1"><span class="btn-badge">1</span> 👃 Nose & Trachea</button>
+          <button class="diagram-part-btn" data-num="2"><span class="btn-badge">2</span> 🌿 Bronchi Tree</button>
+          <button class="diagram-part-btn" data-num="3"><span class="btn-badge">3</span> 🍇 Alveoli (Air Sacs)</button>
+          <button class="diagram-part-btn" data-num="4"><span class="btn-badge">4</span> 🫁 Diaphragm Muscle</button>
+          <button class="diagram-part-btn" data-num="5"><span class="btn-badge">5</span> 🌬️ Lungs & Gas Exchange</button>
+        </div>
+
+        <!-- Inspection HUD Card -->
+        <div class="diagram-hud-card">
+          <div class="diagram-hud-header">
+            <span class="diagram-hud-title" id="diagram-hud-title">👃 1. Nose & Trachea (Windpipe)</span>
+            <span class="diagram-hud-formula" id="diagram-hud-formula">Filtration & Main Airway</span>
+          </div>
+          <p class="diagram-hud-desc" id="diagram-hud-desc">
+            Cilia hairs and mucus filter pathogens and dust, while C-shaped cartilage rings keep the airway wide open.
+          </p>
+          <div class="diagram-hud-callouts">
+            <div class="diagram-hud-example" id="diagram-hud-example">
+              <strong>💡 Observation:</strong> <span>Air is warmed and humidified before reaching lungs.</span>
+            </div>
+            <div class="diagram-hud-trick" id="diagram-hud-trick">
+              <strong>🧠 Memory Trick:</strong> <span>The hollow highway channeling filtered air straight to the chest!</span>
+            </div>
+          </div>
+          <div class="diagram-hud-footer">
+            <span class="diagram-hud-source" id="diagram-hud-source">Source: Respiratory System Notes</span>
+            <button class="btn-jump-square" id="diagram-hud-jump-btn">
+              <span>🔍 Jump to Square Notes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    this.bindInteractiveDiagram({ stage, topic, parts, defaultNum: 1 });
+  }
+
+  // ================= 3. DIGESTIVE SYSTEM VISUALIZER =================
+  loadDigestiveLab(stage, topic) {
+    const parts = [
+      {
+        num: 1,
+        icon: "👄",
+        keywords: ["mouth", "esophagus", "peristalsis"],
+        fallback: {
+          name: "Mouth & Esophagus",
+          formula: "Mastication & Peristalsis",
+          explanation: "Teeth physically crush food, salivary enzymes digest starch, and peristalsis squeezes food downward.",
+          example: "Peristalsis is strong enough to transport food to your stomach even if you are hanging upside down!",
+          trick: "Memory Trick: Peristalsis is the muscular wave pushing food down!"
+        }
+      },
+      {
+        num: 2,
+        icon: "🥣",
+        keywords: ["stomach", "acid", "chyme"],
+        fallback: {
+          name: "Stomach",
+          formula: "Acid & Churning Tank",
+          explanation: "Hydrochloric acid and enzymes liquefy food into nutrient chyme while destroying pathogens.",
+          example: "A protective mucus barrier prevents the strong stomach acid (pH 1.5–2.0) from digesting the stomach itself.",
+          trick: "Memory Trick: The acid blender tank liquefying food!"
+        }
+      },
+      {
+        num: 3,
+        icon: "🧬",
+        keywords: ["small intestine", "villi", "absorption"],
+        fallback: {
+          name: "Small Intestine & Villi",
+          formula: "90% Nutrient Absorption Hub",
+          explanation: "Millions of finger-like villi absorb glucose, amino acids, and fats directly into the blood.",
+          example: "Stretches over 20 feet long with microvilli that create an absorption surface area of 250 square meters.",
+          trick: "Memory Trick: Small Intestine has HUGE surface area for absorption!"
+        }
+      },
+      {
+        num: 4,
+        icon: "🔄",
+        keywords: ["large intestine", "colon", "water"],
+        fallback: {
+          name: "Large Intestine",
+          formula: "Water Reclamation & Waste Compaction",
+          explanation: "Reabsorbs water and compacts indigestible matter for excretion.",
+          example: "Millions of beneficial gut bacteria synthesize vitamin K and break down fibrous matter.",
+          trick: "Memory Trick: The water recycling plant of the body!"
+        }
+      },
+      {
+        num: 5,
+        icon: "🧪",
+        keywords: ["liver", "pancreas", "gallbladder", "bile", "enzymes"],
+        fallback: {
+          name: "Liver, Gallbladder & Pancreas",
+          formula: "Digestive Chemistry & Enzymes",
+          explanation: "Liver produces bile to break down fats, while the pancreas secretes digestive enzymes and insulin.",
+          example: "Bile is stored in the gallbladder and squirted into the duodenum when fatty foods arrive.",
+          trick: "Memory Trick: The chemical factory supporting digestion!"
+        }
+      }
+    ];
+
+    stage.innerHTML = `
+      <div class="diagram-interactive-wrap">
+        <div class="diagram-viewport-container">
+          <svg class="diagram-svg-canvas" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="digStomachGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f87171" />
+                <stop offset="100%" stop-color="#b91c1c" />
+              </linearGradient>
+              <linearGradient id="digLiverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#991b1b" />
+                <stop offset="100%" stop-color="#581c87" />
+              </linearGradient>
+              <linearGradient id="digSmallGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fbbf24" />
+                <stop offset="100%" stop-color="#d97706" />
+              </linearGradient>
+              <linearGradient id="digLargeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#34d399" />
+                <stop offset="100%" stop-color="#047857" />
+              </linearGradient>
+            </defs>
+
+            <!-- 1. MOUTH & ESOPHAGUS -->
+            <g id="path-dig-1" class="diagram-interactive-path" data-num="1">
+              <path d="M 260,25 Q 285,25 285,45 Q 275,55 275,70" fill="none" stroke="#f43f5e" stroke-width="6" stroke-linecap="round" />
+              <!-- Esophagus Tube with Peristalsis rings -->
+              <path d="M 275,70 L 275,145" fill="none" stroke="#fb7185" stroke-width="12" stroke-linecap="round" />
+              <!-- Wave constriction lines -->
+              <path d="M 269,85 Q 275,80 281,85" fill="none" stroke="#881337" stroke-width="2.5" />
+              <path d="M 269,105 Q 275,100 281,105" fill="none" stroke="#881337" stroke-width="2.5" />
+              <path d="M 269,125 Q 275,120 281,125" fill="none" stroke="#881337" stroke-width="2.5" />
+              <text x="245" y="105" fill="#fecdd3" font-size="9" font-weight="bold" text-anchor="end">Esophagus (Peristalsis)</text>
+            </g>
+
+            <!-- 5. LIVER, GALLBLADDER & PANCREAS -->
+            <g id="path-dig-5" class="diagram-interactive-path" data-num="5">
+              <!-- Liver Wedge -->
+              <path d="M 210,135 C 255,135 265,155 255,185 C 245,210 185,200 175,175 C 170,150 185,135 210,135 Z" fill="url(#digLiverGrad)" stroke="#fca5a5" stroke-width="2" />
+              <text x="215" y="170" fill="#fff" font-size="10" font-weight="900" text-anchor="middle">Liver</text>
+              <!-- Gallbladder -->
+              <ellipse cx="235" cy="190" rx="9" ry="6" fill="#16a34a" stroke="#86efac" stroke-width="1.5" />
+              <!-- Pancreas -->
+              <path d="M 285,185 Q 330,175 350,195 Q 315,205 285,190" fill="#fde047" stroke="#eab308" stroke-width="2" />
+              <text x="345" y="180" fill="#fef08a" font-size="8" font-weight="bold">Pancreas</text>
+            </g>
+
+            <!-- 2. STOMACH (J-shaped Acid Tank) -->
+            <g id="path-dig-2" class="diagram-interactive-path" data-num="2">
+              <path d="M 275,145 C 315,140 345,160 340,200 C 335,235 285,230 265,205 C 260,190 270,165 275,145 Z" fill="url(#digStomachGrad)" stroke="#fecaca" stroke-width="3" />
+              <path d="M 290,165 Q 305,180 295,200" fill="none" stroke="#7f1d1d" stroke-width="2" opacity="0.6" />
+              <path d="M 310,170 Q 325,185 315,205" fill="none" stroke="#7f1d1d" stroke-width="2" opacity="0.6" />
+              <text x="305" y="190" fill="#fff" font-size="10" font-weight="900" text-anchor="middle">Stomach</text>
+            </g>
+
+            <!-- 4. LARGE INTESTINE (Framing Inverted U-Shape) -->
+            <g id="path-dig-4" class="diagram-interactive-path" data-num="4">
+              <!-- Ascending, Transverse, Descending colon -->
+              <path d="M 210,320 L 210,230 Q 210,210 235,210 L 375,210 Q 395,210 395,230 L 395,330 L 340,330 L 340,375" fill="none" stroke="url(#digLargeGrad)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" />
+              <text x="305" y="222" fill="#d1fae5" font-size="9" font-weight="900" text-anchor="middle">Large Intestine (Colon)</text>
+            </g>
+
+            <!-- 3. SMALL INTESTINE & ZOOMED VILLI -->
+            <g id="path-dig-3" class="diagram-interactive-path" data-num="3">
+              <!-- Coiled central loops -->
+              <path d="M 270,225 Q 310,240 270,255 Q 340,265 260,280 Q 350,295 280,310 Q 320,315 295,325" fill="none" stroke="url(#digSmallGrad)" stroke-width="14" stroke-linecap="round" />
+              <!-- Zoomed Villi Callout -->
+              <g transform="translate(460, 230)">
+                <rect x="0" y="0" width="160" height="130" rx="14" fill="rgba(15, 23, 42, 0.9)" stroke="#fbbf24" stroke-width="1.5" />
+                <text x="80" y="20" fill="#fbbf24" font-size="10" font-weight="900" text-anchor="middle">ZOOM: Intestinal Villi</text>
+                <!-- Finger like microvilli -->
+                <path d="M 25,100 L 25,50 Q 35,40 45,50 L 45,100" fill="#fde68a" stroke="#d97706" stroke-width="2" />
+                <path d="M 55,100 L 55,42 Q 65,32 75,42 L 75,100" fill="#fde68a" stroke="#d97706" stroke-width="2" />
+                <path d="M 85,100 L 85,46 Q 95,36 105,46 L 105,100" fill="#fde68a" stroke="#d97706" stroke-width="2" />
+                <path d="M 115,100 L 115,54 Q 125,44 135,54 L 135,100" fill="#fde68a" stroke="#d97706" stroke-width="2" />
+                <!-- Capillary core inside villi -->
+                <path d="M 65,100 L 65,55" stroke="#ef4444" stroke-width="2" />
+                <text x="80" y="118" fill="#fef08a" font-size="8" font-weight="bold" text-anchor="middle">Nutrients ➔ Blood</text>
+              </g>
+            </g>
+
+            <!-- PINS -->
+            <g class="diagram-pins-layer">
+              <g class="diagram-pin-marker" data-num="1" transform="translate(280, 75)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#f43f5e" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">1</text></g>
+              <g class="diagram-pin-marker" data-num="2" transform="translate(315, 175)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#dc2626" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">2</text></g>
+              <g class="diagram-pin-marker" data-num="3" transform="translate(285, 275)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#d97706" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">3</text></g>
+              <g class="diagram-pin-marker" data-num="4" transform="translate(395, 265)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#059669" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">4</text></g>
+              <g class="diagram-pin-marker" data-num="5" transform="translate(195, 165)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#7c2d12" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">5</text></g>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Quick Access Parts Dock -->
+        <div class="diagram-parts-quickbar">
+          <button class="diagram-part-btn active" data-num="1"><span class="btn-badge">1</span> 👄 Mouth & Esophagus</button>
+          <button class="diagram-part-btn" data-num="2"><span class="btn-badge">2</span> 🥣 Stomach</button>
+          <button class="diagram-part-btn" data-num="3"><span class="btn-badge">3</span> 🧬 Small Intestine & Villi</button>
+          <button class="diagram-part-btn" data-num="4"><span class="btn-badge">4</span> 🔄 Large Intestine</button>
+          <button class="diagram-part-btn" data-num="5"><span class="btn-badge">5</span> 🧪 Liver & Pancreas</button>
+        </div>
+
+        <!-- Inspection HUD Card -->
+        <div class="diagram-hud-card">
+          <div class="diagram-hud-header">
+            <span class="diagram-hud-title" id="diagram-hud-title">👄 1. Mouth & Esophagus</span>
+            <span class="diagram-hud-formula" id="diagram-hud-formula">Mastication & Peristalsis</span>
+          </div>
+          <p class="diagram-hud-desc" id="diagram-hud-desc">
+            Teeth physically crush food, salivary enzymes digest starch, and peristalsis squeezes food downward.
+          </p>
+          <div class="diagram-hud-callouts">
+            <div class="diagram-hud-example" id="diagram-hud-example">
+              <strong>💡 Observation:</strong> <span>Peristalsis works against gravity!</span>
+            </div>
+            <div class="diagram-hud-trick" id="diagram-hud-trick">
+              <strong>🧠 Memory Trick:</strong> <span>Peristalsis is the muscular wave pushing food down!</span>
+            </div>
+          </div>
+          <div class="diagram-hud-footer">
+            <span class="diagram-hud-source" id="diagram-hud-source">Source: Digestive System Notes</span>
+            <button class="btn-jump-square" id="diagram-hud-jump-btn">
+              <span>🔍 Jump to Square Notes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    this.bindInteractiveDiagram({ stage, topic, parts, defaultNum: 1 });
+  }
+
+  // ================= 4. NERVOUS SYSTEM VISUALIZER =================
+  loadNervousLab(stage, topic) {
+    const parts = [
+      {
+        num: 1,
+        icon: "🧠",
+        keywords: ["brain", "cerebrum", "cerebellum", "brainstem"],
+        fallback: {
+          name: "Brain (Central Command)",
+          formula: "Cerebrum, Cerebellum, Brainstem",
+          explanation: "Directs voluntary movement, processes sensory input, and controls vital functions like heartbeat.",
+          example: "Contains approximately 86 billion neurons communicating through trillions of synaptic connections.",
+          trick: "Memory Trick: The supercomputer running all body systems!"
+        }
+      },
+      {
+        num: 2,
+        icon: "⚡",
+        keywords: ["spinal cord", "spine", "vertebra"],
+        fallback: {
+          name: "Spinal Cord",
+          formula: "Information Superhighway",
+          explanation: "Connects the brain to peripheral nerves and mediates rapid life-saving reflex arcs.",
+          example: "Protected inside the bony spinal vertebrae, conducting signals between brain and body in milliseconds.",
+          trick: "Memory Trick: The fiber-optic trunk line running down your back!"
+        }
+      },
+      {
+        num: 3,
+        icon: "🧬",
+        keywords: ["neuron", "nerve cell", "axon"],
+        fallback: {
+          name: "Neurons (Nerve Cells)",
+          formula: "Dendrites ➔ Axon ➔ Synapse",
+          explanation: "Specialized cells transmitting electrical impulses at speeds over 200 mph.",
+          example: "The longest single neuron in the human body is the sciatic nerve running from lower spine to big toe!",
+          trick: "Memory Trick: High-speed electrical messengers firing signals!"
+        }
+      },
+      {
+        num: 4,
+        icon: "✨",
+        keywords: ["synapse", "dendrite", "neurotransmitter"],
+        fallback: {
+          name: "Dendrites & Synaptic Cleft",
+          formula: "Chemical Neurotransmitter Junction",
+          explanation: "Dendrites receive incoming messages while synapses release neurotransmitter chemicals across microscopic gaps.",
+          example: "Chemical messengers like dopamine and acetylcholine bridge the 20-nanometer synaptic cleft instantly.",
+          trick: "Memory Trick: Synapse is the microscopic whisper between neurons!"
+        }
+      },
+      {
+        num: 5,
+        icon: "🖐️",
+        keywords: ["peripheral", "reflex", "nerve"],
+        fallback: {
+          name: "Peripheral Nerves & Reflex Arcs",
+          formula: "Sensory & Motor Arc Network",
+          explanation: "Branching nerve network reaching muscles and organs that trigger instant reflex actions before signals reach the conscious brain.",
+          example: "Touching a hot stove causes your hand to jerk back before you even consciously perceive the pain!",
+          trick: "Memory Trick: Emergency reflexes react before reaching the brain!"
+        }
+      }
+    ];
+
+    stage.innerHTML = `
+      <div class="diagram-interactive-wrap">
+        <div class="diagram-viewport-container">
+          <svg class="diagram-svg-canvas" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="nervBrainGrad" cx="40%" cy="35%" r="60%">
+                <stop offset="0%" stop-color="#e9d5ff" />
+                <stop offset="60%" stop-color="#a855f7" />
+                <stop offset="100%" stop-color="#581c87" />
+              </radialGradient>
+              <linearGradient id="nervSpineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8" />
+                <stop offset="100%" stop-color="#6366f1" />
+              </linearGradient>
+              <linearGradient id="axonMyelinGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#fde047" />
+                <stop offset="100%" stop-color="#eab308" />
+              </linearGradient>
+            </defs>
+
+            <!-- 1. BRAIN (Central Command) -->
+            <g id="path-nerv-1" class="diagram-interactive-path" data-num="1">
+              <!-- Cerebrum folds -->
+              <path d="M 230,45 C 195,45 180,75 185,100 C 185,120 205,130 220,130 L 240,130 C 255,130 275,120 275,100 C 280,75 265,45 230,45 Z" fill="url(#nervBrainGrad)" stroke="#c084fc" stroke-width="2.5" />
+              <!-- Gyri convolutions -->
+              <path d="M 195,75 Q 220,65 245,75 Q 260,90 240,105 Q 215,95 200,105" fill="none" stroke="#581c87" stroke-width="2" />
+              <!-- Cerebellum & Brainstem -->
+              <ellipse cx="250" cy="120" rx="16" ry="12" fill="#7e22ce" stroke="#d8b4fe" stroke-width="1.5" />
+              <path d="M 230,125 L 230,145" stroke="#a855f7" stroke-width="8" stroke-linecap="round" />
+              <text x="230" y="32" fill="#f3e8ff" font-size="10" font-weight="900" text-anchor="middle">Brain</text>
+            </g>
+
+            <!-- 2. SPINAL CORD & 5. PERIPHERAL NERVES -->
+            <g id="path-nerv-2" class="diagram-interactive-path" data-num="2">
+              <!-- Central Spinal Conduit -->
+              <rect x="226" y="145" width="8" height="195" rx="4" fill="url(#nervSpineGrad)" stroke="#38bdf8" stroke-width="2" />
+              <!-- Radiating Spinal Nerve Roots (5. Peripheral) -->
+              <g id="path-nerv-5" class="diagram-interactive-path" data-num="5">
+                <path d="M 226,165 Q 180,180 145,210" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" />
+                <path d="M 234,165 Q 280,180 305,210" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" />
+                <path d="M 226,205 Q 170,225 130,265" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M 234,205 Q 285,225 315,265" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M 226,255 Q 165,280 120,340" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M 234,255 Q 290,280 325,340" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" />
+                <text x="145" y="195" fill="#7dd3fc" font-size="9" font-weight="bold">Peripheral Nerves</text>
+              </g>
+            </g>
+
+            <!-- 3. LARGE ZOOMED MULTIPOLAR NEURON -->
+            <g id="path-nerv-3" class="diagram-interactive-path" data-num="3" transform="translate(350, 45)">
+              <rect x="0" y="0" width="275" height="340" rx="18" fill="rgba(15, 23, 42, 0.88)" stroke="#a855f7" stroke-width="1.5" />
+              <text x="135" y="24" fill="#c084fc" font-size="11" font-weight="900" text-anchor="middle">ZOOM: Neuron (Nerve Cell)</text>
+
+              <!-- Dendrites (4. Dendrites & Synapse) -->
+              <g id="path-nerv-4" class="diagram-interactive-path" data-num="4">
+                <path d="M 65,85 L 35,65 M 35,65 L 18,55 M 35,65 L 20,78" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M 85,65 L 75,40 M 75,40 L 60,28 M 75,40 L 88,25" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M 105,80 L 125,55 M 125,55 L 140,42 M 125,55 L 145,62" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" />
+                <text x="35" y="105" fill="#7dd3fc" font-size="8" font-weight="bold">Dendrites</text>
+              </g>
+
+              <!-- Soma (Cell Body) & Nucleus -->
+              <circle cx="85" cy="85" r="22" fill="#7e22ce" stroke="#e9d5ff" stroke-width="2" />
+              <circle cx="85" cy="85" r="8" fill="#fde047" />
+
+              <!-- Long Axon with Myelin Sheaths -->
+              <path d="M 85,107 L 85,270" stroke="#facc15" stroke-width="4" />
+              <!-- Myelin Pods -->
+              <rect x="74" y="120" width="22" height="30" rx="8" fill="url(#axonMyelinGrad)" stroke="#fff" stroke-width="1.5" />
+              <rect x="74" y="165" width="22" height="30" rx="8" fill="url(#axonMyelinGrad)" stroke="#fff" stroke-width="1.5" />
+              <rect x="74" y="210" width="22" height="30" rx="8" fill="url(#axonMyelinGrad)" stroke="#fff" stroke-width="1.5" />
+              <text x="105" y="185" fill="#fde047" font-size="8" font-weight="bold">Myelin Sheath</text>
+
+              <!-- Axon Terminals & Synapse (4) -->
+              <path d="M 85,270 L 65,305 M 65,305 L 50,318 M 65,305 L 70,325" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" />
+              <path d="M 85,270 L 105,305 M 105,305 L 120,318 M 105,305 L 100,325" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" />
+              <circle cx="50" cy="318" r="4" fill="#38bdf8" />
+              <circle cx="120" cy="318" r="4" fill="#38bdf8" />
+              <text x="135" y="305" fill="#38bdf8" font-size="9" font-weight="bold">Synaptic Terminals</text>
+            </g>
+
+            <!-- PINS -->
+            <g class="diagram-pins-layer">
+              <g class="diagram-pin-marker" data-num="1" transform="translate(230, 85)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#8b5cf6" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">1</text></g>
+              <g class="diagram-pin-marker" data-num="2" transform="translate(230, 220)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#0284c7" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">2</text></g>
+              <g class="diagram-pin-marker" data-num="3" transform="translate(435, 130)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#f59e0b" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">3</text></g>
+              <g class="diagram-pin-marker" data-num="4" transform="translate(435, 305)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#06b6d4" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">4</text></g>
+              <g class="diagram-pin-marker" data-num="5" transform="translate(155, 235)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#3b82f6" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">5</text></g>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Quick Access Parts Dock -->
+        <div class="diagram-parts-quickbar">
+          <button class="diagram-part-btn active" data-num="1"><span class="btn-badge">1</span> 🧠 Brain</button>
+          <button class="diagram-part-btn" data-num="2"><span class="btn-badge">2</span> ⚡ Spinal Cord</button>
+          <button class="diagram-part-btn" data-num="3"><span class="btn-badge">3</span> 🧬 Neurons</button>
+          <button class="diagram-part-btn" data-num="4"><span class="btn-badge">4</span> ✨ Dendrites & Synapse</button>
+          <button class="diagram-part-btn" data-num="5"><span class="btn-badge">5</span> 🖐️ Peripheral Nerves</button>
+        </div>
+
+        <!-- Inspection HUD Card -->
+        <div class="diagram-hud-card">
+          <div class="diagram-hud-header">
+            <span class="diagram-hud-title" id="diagram-hud-title">🧠 1. Brain (Central Command)</span>
+            <span class="diagram-hud-formula" id="diagram-hud-formula">Cerebrum, Cerebellum, Brainstem</span>
+          </div>
+          <p class="diagram-hud-desc" id="diagram-hud-desc">
+            Directs voluntary movement, processes sensory input, and controls vital functions like heartbeat.
+          </p>
+          <div class="diagram-hud-callouts">
+            <div class="diagram-hud-example" id="diagram-hud-example">
+              <strong>💡 Observation:</strong> <span>Contains 86 billion interconnected neurons!</span>
+            </div>
+            <div class="diagram-hud-trick" id="diagram-hud-trick">
+              <strong>🧠 Memory Trick:</strong> <span>The supercomputer running all body systems!</span>
+            </div>
+          </div>
+          <div class="diagram-hud-footer">
+            <span class="diagram-hud-source" id="diagram-hud-source">Source: Nervous System Notes</span>
+            <button class="btn-jump-square" id="diagram-hud-jump-btn">
+              <span>🔍 Jump to Square Notes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    this.bindInteractiveDiagram({ stage, topic, parts, defaultNum: 1 });
+  }
+
+  // ================= 5. ANIMAL CELL VISUALIZER =================
+  loadAnimalCellLab(stage, topic) {
+    const parts = [
+      {
+        num: 1,
+        icon: "🛡️",
+        keywords: ["cell membrane", "membrane"],
+        fallback: {
+          name: "Cell Membrane",
+          formula: "Semi-Permeable Boundary",
+          explanation: "Thin layer that surrounds the cell. It provides structure and protection and it is semi-permeable.",
+          example: "Regulates what molecules (water, oxygen, glucose) enter and exit the animal cell.",
+          trick: "Memory Trick: The security gatekeeper of the cell!"
+        }
+      },
+      {
+        num: 2,
+        icon: "💧",
+        keywords: ["cytoplasm", "internal fluid"],
+        fallback: {
+          name: "Cytoplasm",
+          formula: "Internal Fluid Matrix",
+          explanation: "The fluid in which organelles are suspended. It maintains the pressure inside of the cell.",
+          example: "Gel-like suspension where biochemical reactions occur continuously.",
+          trick: "Memory Trick: Cyto = Cell, Plasm = Fluid matrix!"
+        }
+      },
+      {
+        num: 3,
+        icon: "⚡",
+        keywords: ["mitochondria", "powerhouse"],
+        fallback: {
+          name: "Mitochondria",
+          formula: "Powerhouse of the Cell",
+          explanation: "Nicknamed the powerhouse of the cell because they provide the energy for the cell. The site of cellular respiration.",
+          example: "Converts glucose and oxygen into ATP fuel to power cellular work.",
+          trick: "Memory Trick: Mighty Mitochondria = Powerhouse!"
+        }
+      },
+      {
+        num: 4,
+        icon: "🧪",
+        keywords: ["smooth endoplasmic reticulum", "smooth er", "lipid"],
+        fallback: {
+          name: "Endoplasmic Reticulum (Smooth)",
+          formula: "Transport & Lipid Synthesis",
+          explanation: "Smooth endoplasmic reticulum makes lipids (fats), modifies proteins and transports them throughout the cell.",
+          example: "Synthesizes cholesterol and steroid hormones needed by the body.",
+          trick: "Memory Trick: Smooth ER makes smooth lipids and highways!"
+        }
+      },
+      {
+        num: 5,
+        icon: "📦",
+        keywords: ["golgi", "packaging"],
+        fallback: {
+          name: "Golgi Body",
+          formula: "Packaging & Shipping Center",
+          explanation: "Packages proteins and carbohydrates into vesicles for transport outside of the cell.",
+          example: "Tags proteins with molecular addresses so vesicles deliver them accurately.",
+          trick: "Memory Trick: Golgi = 'Go' deliver the packages!"
+        }
+      },
+      {
+        num: 6,
+        icon: "👑",
+        keywords: ["nucleus", "nucleolus", "dna"],
+        fallback: {
+          name: "Nucleus & Nucleolus",
+          formula: "Control Center & DNA Storage",
+          explanation: "Control center of the cell that directs functions and contains DNA. The nucleolus aids in the production of ribosomes.",
+          example: "Houses chromosomes that code instructions for cellular division and synthesis.",
+          trick: "Memory Trick: Nucleus = Brain / Boss of the cell!"
+        }
+      },
+      {
+        num: 7,
+        icon: "🏭",
+        keywords: ["rough er", "ribosome", "protein"],
+        fallback: {
+          name: "Rough ER & Ribosomes",
+          formula: "Protein Synthesis Factory",
+          explanation: "Rough Endoplasmic Reticulum has ribosomes bound to its membranes. Ribosomes are the site of protein synthesis.",
+          example: "Assembles amino acid chains into functional structural proteins and enzymes.",
+          trick: "Memory Trick: Ribosomes make Ribs (Proteins)!"
+        }
+      },
+      {
+        num: 8,
+        icon: "♻️",
+        keywords: ["lysosome", "centrosome", "digestive"],
+        fallback: {
+          name: "Lysosomes & Centrosome",
+          formula: "Digestive Enzymes & Division Machinery",
+          explanation: "Contains hydrolytic enzymes that break down cellular waste and worn-out organelles.",
+          example: "Recycles cellular biomolecules and destroys foreign bacteria.",
+          trick: "Memory Trick: Lysosomes = Cellular garbage disposal!"
+        }
+      }
+    ];
+
+    stage.innerHTML = `
+      <div class="diagram-interactive-wrap">
+        <div class="diagram-viewport-container">
+          <svg class="diagram-svg-canvas" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="animCytoGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#1e1b4b" stop-opacity="0.8" />
+                <stop offset="80%" stop-color="#0f172a" stop-opacity="0.95" />
+                <stop offset="100%" stop-color="#020617" />
+              </radialGradient>
+              <radialGradient id="animNucGrad" cx="40%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="#c084fc" />
+                <stop offset="65%" stop-color="#7e22ce" />
+                <stop offset="100%" stop-color="#3b0764" />
+              </radialGradient>
+              <linearGradient id="animMitoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fb923c" />
+                <stop offset="100%" stop-color="#c2410c" />
+              </linearGradient>
+            </defs>
+
+            <!-- 1. CELL MEMBRANE & 2. CYTOPLASM (Flexible rounded contour) -->
+            <path id="path-anim-1" class="diagram-interactive-path" data-num="1" d="M 120,200 C 110,100 240,50 340,55 C 470,60 550,120 540,230 C 530,340 440,375 320,370 C 180,365 130,300 120,200 Z" fill="url(#animCytoGrad)" stroke="#38bdf8" stroke-width="4" stroke-dasharray="10 4" />
+
+            <!-- 6. NUCLEUS & NUCLEOLUS -->
+            <g id="path-anim-6" class="diagram-interactive-path" data-num="6">
+              <circle cx="310" cy="205" r="52" fill="url(#animNucGrad)" stroke="#e9d5ff" stroke-width="2.5" />
+              <circle cx="300" cy="210" r="18" fill="#3b0764" stroke="#a855f7" stroke-width="2" />
+              <text x="310" y="248" fill="#e9d5ff" font-size="9" font-weight="bold" text-anchor="middle">Nucleus</text>
+            </g>
+
+            <!-- 4. SMOOTH ER -->
+            <g id="path-anim-4" class="diagram-interactive-path" data-num="4">
+              <path d="M 370,185 Q 410,165 440,190 Q 405,205 375,210" fill="none" stroke="#c084fc" stroke-width="6" stroke-linecap="round" />
+              <path d="M 380,170 Q 420,150 455,175 Q 420,190 385,195" fill="none" stroke="#c084fc" stroke-width="5" stroke-linecap="round" />
+            </g>
+
+            <!-- 7. ROUGH ER & RIBOSOMES -->
+            <g id="path-anim-7" class="diagram-interactive-path" data-num="7">
+              <path d="M 255,190 Q 220,170 195,195 Q 225,210 255,215" fill="none" stroke="#a855f7" stroke-width="7" stroke-linecap="round" />
+              <circle cx="240" cy="180" r="2.5" fill="#fde047" />
+              <circle cx="220" cy="178" r="2.5" fill="#fde047" />
+              <circle cx="205" cy="190" r="2.5" fill="#fde047" />
+              <circle cx="230" cy="200" r="2.5" fill="#fde047" />
+            </g>
+
+            <!-- 3. MITOCHONDRIA (Powerhouses) -->
+            <g id="path-anim-3" class="diagram-interactive-path" data-num="3">
+              <rect x="180" y="110" width="46" height="24" rx="12" transform="rotate(-30 203 122)" fill="url(#animMitoGrad)" stroke="#fdba74" stroke-width="2" />
+              <path d="M 190,118 Q 203,112 215,125" fill="none" stroke="#7c2d12" stroke-width="2" />
+              <rect x="420" y="270" width="46" height="24" rx="12" transform="rotate(25 443 282)" fill="url(#animMitoGrad)" stroke="#fdba74" stroke-width="2" />
+            </g>
+
+            <!-- 5. GOLGI BODY -->
+            <g id="path-anim-5" class="diagram-interactive-path" data-num="5">
+              <path d="M 390,270 Q 420,260 450,275" fill="none" stroke="#f43f5e" stroke-width="5" stroke-linecap="round" />
+              <path d="M 395,282 Q 425,272 455,287" fill="none" stroke="#f43f5e" stroke-width="5" stroke-linecap="round" />
+              <circle cx="470" cy="275" r="4.5" fill="#fda4af" />
+              <circle cx="465" cy="295" r="5" fill="#fda4af" />
+            </g>
+
+            <!-- 8. LYSOSOMES & CENTROSOME -->
+            <g id="path-anim-8" class="diagram-interactive-path" data-num="8">
+              <circle cx="230" cy="280" r="14" fill="#059669" stroke="#6ee7b7" stroke-width="2" />
+              <circle cx="280" cy="115" r="12" fill="#059669" stroke="#6ee7b7" stroke-width="2" />
+              <!-- Centrioles -->
+              <rect x="345" y="125" width="12" height="6" fill="#e2e8f0" stroke="#94a3b8" />
+              <rect x="350" y="120" width="6" height="12" fill="#e2e8f0" stroke="#94a3b8" />
+            </g>
+
+            <!-- PINS -->
+            <g class="diagram-pins-layer">
+              <g class="diagram-pin-marker" data-num="1" transform="translate(135, 125)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#0284c7" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">1</text></g>
+              <g class="diagram-pin-marker" data-num="2" transform="translate(260, 85)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#0891b2" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">2</text></g>
+              <g class="diagram-pin-marker" data-num="3" transform="translate(203, 122)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#ea580c" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">3</text></g>
+              <g class="diagram-pin-marker" data-num="4" transform="translate(425, 165)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#8b5cf6" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">4</text></g>
+              <g class="diagram-pin-marker" data-num="5" transform="translate(425, 275)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#e11d48" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">5</text></g>
+              <g class="diagram-pin-marker" data-num="6" transform="translate(310, 205)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#6d28d9" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">6</text></g>
+              <g class="diagram-pin-marker" data-num="7" transform="translate(225, 195)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#9333ea" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">7</text></g>
+              <g class="diagram-pin-marker" data-num="8" transform="translate(230, 280)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#059669" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">8</text></g>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Quick Access Parts Dock -->
+        <div class="diagram-parts-quickbar">
+          <button class="diagram-part-btn active" data-num="1"><span class="btn-badge">1</span> 🛡️ Membrane</button>
+          <button class="diagram-part-btn" data-num="2"><span class="btn-badge">2</span> 💧 Cytoplasm</button>
+          <button class="diagram-part-btn" data-num="3"><span class="btn-badge">3</span> ⚡ Mitochondria</button>
+          <button class="diagram-part-btn" data-num="4"><span class="btn-badge">4</span> 🧪 Smooth ER</button>
+          <button class="diagram-part-btn" data-num="5"><span class="btn-badge">5</span> 📦 Golgi Body</button>
+          <button class="diagram-part-btn" data-num="6"><span class="btn-badge">6</span> 👑 Nucleus</button>
+          <button class="diagram-part-btn" data-num="7"><span class="btn-badge">7</span> 🏭 Rough ER</button>
+          <button class="diagram-part-btn" data-num="8"><span class="btn-badge">8</span> ♻️ Lysosomes</button>
+        </div>
+
+        <!-- Inspection HUD Card -->
+        <div class="diagram-hud-card">
+          <div class="diagram-hud-header">
+            <span class="diagram-hud-title" id="diagram-hud-title">🛡️ 1. Cell Membrane</span>
+            <span class="diagram-hud-formula" id="diagram-hud-formula">Semi-Permeable Boundary</span>
+          </div>
+          <p class="diagram-hud-desc" id="diagram-hud-desc">
+            Thin layer that surrounds the cell. It provides structure and protection and it is semi-permeable.
+          </p>
+          <div class="diagram-hud-callouts">
+            <div class="diagram-hud-example" id="diagram-hud-example">
+              <strong>💡 Observation:</strong> <span>Classroom demonstration observed by 5th graders.</span>
+            </div>
+            <div class="diagram-hud-trick" id="diagram-hud-trick">
+              <strong>🧠 Memory Trick:</strong> <span>The security gatekeeper of the cell!</span>
+            </div>
+          </div>
+          <div class="diagram-hud-footer">
+            <span class="diagram-hud-source" id="diagram-hud-source">Source: Animal Cell Notes</span>
+            <button class="btn-jump-square" id="diagram-hud-jump-btn">
+              <span>🔍 Jump to Square Notes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    this.bindInteractiveDiagram({ stage, topic, parts, defaultNum: 1 });
+  }
+
+  // ================= 6. PLANT CELL BIOLOGY VISUALIZER =================
+  loadPlantCellLab(stage, topic) {
+    const parts = [
+      { num: 1, icon: "🛡️", keywords: ["cell membrane"], fallback: { name: "Cell Membrane", formula: "Semi-Permeable Layer", explanation: "Thin layer surrounding the cell that provides structure and regulates passage.", trick: "Memory Trick: The security gatekeeper of the cell!" } },
+      { num: 2, icon: "💧", keywords: ["cytoplasm"], fallback: { name: "Cytoplasm", formula: "Gel-Like Matrix", explanation: "Fluid in which organelles are suspended. Maintains turgor pressure.", trick: "Memory Trick: Cyto = Cell, Plasm = Fluid matrix!" } },
+      { num: 3, icon: "⚡", keywords: ["mitochondria"], fallback: { name: "Mitochondria", formula: "Cellular Respiration", explanation: "Powerhouse of the cell providing energy via ATP synthesis.", trick: "Memory Trick: Mighty Mitochondria = Powerhouse!" } },
+      { num: 4, icon: "🧪", keywords: ["smooth endoplasmic reticulum", "smooth er"], fallback: { name: "Smooth Endoplasmic Reticulum", formula: "Lipid Synthesis", explanation: "Makes lipids (fats) and transports them throughout the cell.", trick: "Memory Trick: Smooth ER makes smooth lipids!" } },
+      { num: 5, icon: "📦", keywords: ["golgi"], fallback: { name: "Golgi Body", formula: "Packaging Center", explanation: "Packages proteins and carbohydrates into vesicles for secretion.", trick: "Memory Trick: Golgi = 'Go' deliver the packages!" } },
+      { num: 6, icon: "👑", keywords: ["nucleus"], fallback: { name: "Nucleus & Nucleolus", formula: "Command Center", explanation: "Control center that directs functions and contains DNA blueprints.", trick: "Memory Trick: Nucleus = Brain / Boss of the cell!" } },
+      { num: 7, icon: "🏭", keywords: ["rough er", "ribosome"], fallback: { name: "Rough ER & Ribosomes", formula: "Protein Factory", explanation: "Membranes studded with ribosomes that assemble amino acids into proteins.", trick: "Memory Trick: Ribosomes make Ribs (Proteins)!" } },
+      { num: 8, icon: "🏰", keywords: ["cell wall"], fallback: { name: "Cell Wall", formula: "Rigid Cellulose Shield", explanation: "Found only in plants, provides rigid structural protection against gravity.", trick: "Memory Trick: Like a fortress wall outside a castle!" } },
+      { num: 9, icon: "🌊", keywords: ["central vacuole", "vacuole"], fallback: { name: "Central Vacuole", formula: "Water Storage Reservoir", explanation: "Large water sac exerting turgor pressure so plant stems remain upright.", trick: "Memory Trick: Vacuole is like a giant water reservoir!" } },
+      { num: 10, icon: "☀️", keywords: ["chloroplast"], fallback: { name: "Chloroplast", formula: "Photosynthesis Engine", explanation: "Converts light energy from the sun into glucose sugars using chlorophyll.", trick: "Memory Trick: Solar panels of the plant world!" } }
+    ];
+
+    stage.innerHTML = `
+      <div class="diagram-interactive-wrap">
+        <div class="diagram-viewport-container">
+          <svg class="diagram-svg-canvas" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="cellWallGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#15803d" />
@@ -5627,89 +6922,102 @@ class ScienceIoApp {
             </defs>
 
             <!-- 8. CELL WALL -->
-            <polygon id="path-org-8" class="cell-organelle-path" points="40,25 560,25 580,70 580,330 560,375 40,375 20,330 20,70" fill="url(#cellWallGrad)" stroke="#4ade80" stroke-width="5" />
+            <polygon id="path-org-8" class="diagram-interactive-path" data-num="8" points="40,25 560,25 580,70 580,330 560,375 40,375 20,330 20,70" fill="url(#cellWallGrad)" stroke="#4ade80" stroke-width="5" />
 
             <!-- 1. CELL MEMBRANE & CYTOPLASM -->
-            <polygon id="path-org-1" class="cell-organelle-path" points="52,38 548,38 565,78 565,322 548,362 52,362 35,322 35,78" fill="url(#cytoGrad)" stroke="#22c55e" stroke-width="3" stroke-dasharray="8 4" />
+            <polygon id="path-org-1" class="diagram-interactive-path" data-num="1" points="52,38 548,38 565,78 565,322 548,362 52,362 35,322 35,78" fill="url(#cytoGrad)" stroke="#22c55e" stroke-width="3" stroke-dasharray="8 4" />
 
             <!-- 9. CENTRAL VACUOLE -->
-            <path id="path-org-9" class="cell-organelle-path" d="M 170,140 C 130,160 120,240 150,290 C 180,340 320,340 370,310 C 420,280 430,220 400,180 C 370,140 280,120 220,130 Z" fill="url(#vacuoleGrad)" stroke="#7dd3fc" stroke-width="2" />
-            <text x="220" y="240" fill="#e0f2fe" font-size="12" font-weight="bold" opacity="0.6">Central Vacuole (Water Storage)</text>
+            <path id="path-org-9" class="diagram-interactive-path" data-num="9" d="M 170,140 C 130,160 120,240 150,290 C 180,340 320,340 370,310 C 420,280 430,220 400,180 C 370,140 280,120 220,130 Z" fill="url(#vacuoleGrad)" stroke="#7dd3fc" stroke-width="2" />
+            <text x="220" y="240" fill="#e0f2fe" font-size="12" font-weight="bold" opacity="0.6">Central Vacuole</text>
 
             <!-- 6. NUCLEUS & NUCLEOLUS -->
-            <g id="path-org-6" class="cell-organelle-path">
+            <g id="path-org-6" class="diagram-interactive-path" data-num="6">
               <circle cx="340" cy="110" r="48" fill="url(#nucleusGrad)" stroke="#e9d5ff" stroke-width="2.5" />
               <circle cx="330" cy="115" r="18" fill="#3b0764" stroke="#a855f7" stroke-width="2" />
-              <circle cx="350" cy="100" r="10" fill="#581c87" opacity="0.8" />
             </g>
 
             <!-- 4. SMOOTH ER -->
-            <g id="path-org-4" class="cell-organelle-path">
+            <g id="path-org-4" class="diagram-interactive-path" data-num="4">
               <path d="M 395,95 Q 430,75 465,100 Q 435,115 400,120" fill="none" stroke="#c084fc" stroke-width="5" stroke-linecap="round" />
-              <path d="M 405,80 Q 445,60 480,85 Q 445,100 410,105" fill="none" stroke="#c084fc" stroke-width="4" stroke-linecap="round" />
             </g>
 
             <!-- 7. ROUGH ER & RIBOSOMES -->
-            <g id="path-org-7" class="cell-organelle-path">
+            <g id="path-org-7" class="diagram-interactive-path" data-num="7">
               <path d="M 285,100 Q 250,75 220,95 Q 255,110 290,115" fill="none" stroke="#a855f7" stroke-width="6" stroke-linecap="round" />
               <circle cx="270" cy="90" r="2.5" fill="#fde047" />
               <circle cx="250" cy="85" r="2.5" fill="#fde047" />
-              <circle cx="235" cy="95" r="2.5" fill="#fde047" />
-              <circle cx="260" cy="102" r="2.5" fill="#fde047" />
-              <circle cx="275" cy="108" r="2.5" fill="#fde047" />
             </g>
 
             <!-- 10. CHLOROPLASTS -->
-            <g id="path-org-10" class="cell-organelle-path">
+            <g id="path-org-10" class="diagram-interactive-path" data-num="10">
               <ellipse cx="110" cy="90" rx="34" ry="20" transform="rotate(-15 110 90)" fill="url(#chloroGrad)" stroke="#86efac" stroke-width="2" />
-              <line x1="90" y1="90" x2="130" y2="90" stroke="#166534" stroke-width="2" />
               <ellipse cx="105" cy="315" rx="32" ry="18" transform="rotate(20 105 315)" fill="url(#chloroGrad)" stroke="#86efac" stroke-width="2" />
               <ellipse cx="480" cy="320" rx="32" ry="18" transform="rotate(-10 480 320)" fill="url(#chloroGrad)" stroke="#86efac" stroke-width="2" />
             </g>
 
             <!-- 3. MITOCHONDRIA -->
-            <g id="path-org-3" class="cell-organelle-path">
+            <g id="path-org-3" class="diagram-interactive-path" data-num="3">
               <rect x="75" y="180" width="46" height="24" rx="12" transform="rotate(-40 98 192)" fill="url(#mitoGrad)" stroke="#fdba74" stroke-width="2" />
-              <path d="M 85,188 Q 98,182 110,195" fill="none" stroke="#7c2d12" stroke-width="2" />
               <rect x="470" y="160" width="46" height="24" rx="12" transform="rotate(35 493 172)" fill="url(#mitoGrad)" stroke="#fdba74" stroke-width="2" />
             </g>
 
             <!-- 5. GOLGI BODY -->
-            <g id="path-org-5" class="cell-organelle-path">
+            <g id="path-org-5" class="diagram-interactive-path" data-num="5">
               <path d="M 450,225 Q 480,215 510,230" fill="none" stroke="#f43f5e" stroke-width="5" stroke-linecap="round" />
-              <path d="M 455,238 Q 485,228 515,243" fill="none" stroke="#f43f5e" stroke-width="5" stroke-linecap="round" />
               <circle cx="530" cy="235" r="4" fill="#fda4af" />
-              <circle cx="525" cy="255" r="5" fill="#fda4af" />
             </g>
 
-            <!-- 10 NUMBERED PINS -->
-            <g class="cell-pins-group">
-              <g class="cell-pin-marker" data-num="1" transform="translate(48, 55)"><circle cx="0" cy="0" r="14" fill="#10b981" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">1</text></g>
-              <g class="cell-pin-marker" data-num="2" transform="translate(170, 75)"><circle cx="0" cy="0" r="14" fill="#059669" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">2</text></g>
-              <g class="cell-pin-marker" data-num="3" transform="translate(98, 192)"><circle cx="0" cy="0" r="14" fill="#ea580c" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">3</text></g>
-              <g class="cell-pin-marker" data-num="4" transform="translate(440, 85)"><circle cx="0" cy="0" r="14" fill="#8b5cf6" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">4</text></g>
-              <g class="cell-pin-marker" data-num="5" transform="translate(485, 238)"><circle cx="0" cy="0" r="14" fill="#e11d48" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">5</text></g>
-              <g class="cell-pin-marker" data-num="6" transform="translate(340, 110)"><circle cx="0" cy="0" r="14" fill="#6d28d9" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">6</text></g>
-              <g class="cell-pin-marker" data-num="7" transform="translate(255, 95)"><circle cx="0" cy="0" r="14" fill="#9333ea" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">7</text></g>
-              <g class="cell-pin-marker" data-num="8" transform="translate(26, 260)"><circle cx="0" cy="0" r="14" fill="#15803d" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">8</text></g>
-              <g class="cell-pin-marker" data-num="9" transform="translate(270, 260)"><circle cx="0" cy="0" r="14" fill="#0284c7" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">9</text></g>
-              <g class="cell-pin-marker" data-num="10" transform="translate(110, 90)"><circle cx="0" cy="0" r="14" fill="#16a34a" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">10</text></g>
+            <!-- NUMBERED PINS -->
+            <g class="diagram-pins-layer">
+              <g class="diagram-pin-marker" data-num="1" transform="translate(48, 55)"><circle cx="0" cy="0" r="14" class="pin-base" fill="#10b981" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">1</text></g>
+              <g class="diagram-pin-marker" data-num="2" transform="translate(170, 75)"><circle cx="0" cy="0" r="14" class="pin-base" fill="#059669" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">2</text></g>
+              <g class="diagram-pin-marker" data-num="3" transform="translate(98, 192)"><circle cx="0" cy="0" r="14" class="pin-base" fill="#ea580c" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">3</text></g>
+              <g class="diagram-pin-marker" data-num="4" transform="translate(440, 85)"><circle cx="0" cy="0" r="14" class="pin-base" fill="#8b5cf6" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">4</text></g>
+              <g class="diagram-pin-marker" data-num="5" transform="translate(485, 238)"><circle cx="0" cy="0" r="14" class="pin-base" fill="#e11d48" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">5</text></g>
+              <g class="diagram-pin-marker" data-num="6" transform="translate(340, 110)"><circle cx="0" cy="0" r="14" class="pin-base" fill="#6d28d9" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">6</text></g>
+              <g class="diagram-pin-marker" data-num="7" transform="translate(255, 95)"><circle cx="0" cy="0" r="14" class="pin-base" fill="#9333ea" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">7</text></g>
+              <g class="diagram-pin-marker" data-num="8" transform="translate(26, 260)"><circle cx="0" cy="0" r="14" class="pin-base" fill="#15803d" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">8</text></g>
+              <g class="diagram-pin-marker" data-num="9" transform="translate(270, 260)"><circle cx="0" cy="0" r="14" class="pin-base" fill="#0284c7" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">9</text></g>
+              <g class="diagram-pin-marker" data-num="10" transform="translate(110, 90)"><circle cx="0" cy="0" r="14" class="pin-base" fill="#16a34a" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">10</text></g>
             </g>
           </svg>
         </div>
 
-        <!-- Organelle Inspect HUD Card -->
-        <div class="plant-cell-hud-card" id="plant-cell-hud">
-          <div class="hud-organelle-header">
-            <span class="hud-organelle-title" id="hud-title">Click Any Organelle (1–10)</span>
-            <span class="hud-organelle-formula" id="hud-formula">Interactive Plant Biology</span>
+        <!-- Quick Access Parts Dock -->
+        <div class="diagram-parts-quickbar">
+          <button class="diagram-part-btn active" data-num="1"><span class="btn-badge">1</span> 🛡️ Membrane</button>
+          <button class="diagram-part-btn" data-num="2"><span class="btn-badge">2</span> 💧 Cytoplasm</button>
+          <button class="diagram-part-btn" data-num="3"><span class="btn-badge">3</span> ⚡ Mitochondria</button>
+          <button class="diagram-part-btn" data-num="4"><span class="btn-badge">4</span> 🧪 Smooth ER</button>
+          <button class="diagram-part-btn" data-num="5"><span class="btn-badge">5</span> 📦 Golgi Body</button>
+          <button class="diagram-part-btn" data-num="6"><span class="btn-badge">6</span> 👑 Nucleus</button>
+          <button class="diagram-part-btn" data-num="7"><span class="btn-badge">7</span> 🏭 Rough ER</button>
+          <button class="diagram-part-btn" data-num="8"><span class="btn-badge">8</span> 🏰 Cell Wall</button>
+          <button class="diagram-part-btn" data-num="9"><span class="btn-badge">9</span> 🌊 Vacuole</button>
+          <button class="diagram-part-btn" data-num="10"><span class="btn-badge">10</span> ☀️ Chloroplast</button>
+        </div>
+
+        <!-- Inspection HUD Card -->
+        <div class="diagram-hud-card">
+          <div class="diagram-hud-header">
+            <span class="diagram-hud-title" id="diagram-hud-title">🛡️ 1. Cell Membrane</span>
+            <span class="diagram-hud-formula" id="diagram-hud-formula">Semi-Permeable Boundary Layer</span>
           </div>
-          <p class="hud-organelle-desc" id="hud-desc">
-            Explore the 10 essential structures of the plant cell from your worksheet! Click or hover any numbered pin on the diagram above to inspect its scientific explanation.
+          <p class="diagram-hud-desc" id="diagram-hud-desc">
+            Thin layer that surrounds the cell. It provides structure and protection and it is semi-permeable.
           </p>
-          <div class="hud-actions-row">
-            <span style="font-size: 0.75rem; color: var(--text-muted);">Source: 5th Grade Plant Cell Worksheet</span>
-            <button class="btn-jump-square" id="hud-jump-btn" style="display: none;">
+          <div class="diagram-hud-callouts">
+            <div class="diagram-hud-example" id="diagram-hud-example">
+              <strong>💡 Observation:</strong> <span>Controls what materials enter and exit the plant cell.</span>
+            </div>
+            <div class="diagram-hud-trick" id="diagram-hud-trick">
+              <strong>🧠 Memory Trick:</strong> <span>The security gatekeeper of the cell!</span>
+            </div>
+          </div>
+          <div class="diagram-hud-footer">
+            <span class="diagram-hud-source" id="diagram-hud-source">Source: Plant Cell Notes</span>
+            <button class="btn-jump-square" id="diagram-hud-jump-btn">
               <span>🔍 Jump to Square Notes</span>
             </button>
           </div>
@@ -5717,61 +7025,495 @@ class ScienceIoApp {
       </div>
     `;
 
-    const hudTitle = document.getElementById("hud-title");
-    const hudFormula = document.getElementById("hud-formula");
-    const hudDesc = document.getElementById("hud-desc");
-    const hudJumpBtn = document.getElementById("hud-jump-btn");
-    let activeSqNum = null;
+    this.bindInteractiveDiagram({ stage, topic, parts, defaultNum: 1 });
+  }
 
-    const selectOrganelle = (num) => {
-      // Look up organelle info from plant cell topic or current topic
-      const plantTopic = this.notes.find((n) => n.id === "science-plant-cell") || topic;
-      const sq = plantTopic.properties?.find((p) => p.num === num);
-      if (!sq) return;
-      activeSqNum = num;
-
-      sounds.playClick();
-
-      if (hudTitle) hudTitle.textContent = `${sq.num}. ${sq.name.replace(/^\d+\.\s*/, "")}`;
-      if (hudFormula) hudFormula.textContent = sq.formula;
-      if (hudDesc) hudDesc.textContent = sq.explanation;
-      if (hudJumpBtn) {
-        hudJumpBtn.style.display = "inline-flex";
-        hudJumpBtn.innerHTML = `<span>🔍 Jump to Square #${sq.num}</span>`;
+  // ================= 7. UNICELLULAR ORGANISMS VISUALIZER =================
+  loadUnicellularLab(stage, topic) {
+    const parts = [
+      {
+        num: 1,
+        icon: "🟢",
+        keywords: ["euglena", "flagellum"],
+        fallback: {
+          name: "Euglena",
+          formula: "an organism made of only 1 cell.",
+          explanation: "Move by using a flagellum (thread like structures that whip around).",
+          example: "Can photosynthesize using chloroplasts in sunlight or absorb organic nutrients in the dark.",
+          trick: "Memory Trick: Flagellum whips like a propeller!"
+        }
+      },
+      {
+        num: 2,
+        icon: "🌐",
+        keywords: ["volvox", "colony"],
+        fallback: {
+          name: "Volvox",
+          formula: "an organism made of only 1 cell.",
+          explanation: "They move by using a flagellum (thread like structures that whip around).",
+          example: "Hundreds of individual flagellated cells join to form a rolling hollow sphere.",
+          trick: "Memory Trick: Volvox colonies roll with flagella!"
+        }
+      },
+      {
+        num: 3,
+        icon: "👟",
+        keywords: ["paramecium", "cilia"],
+        fallback: {
+          name: "Paramecium",
+          formula: "an organism made of only 1 cell.",
+          explanation: "A paramecium moves by cillia (hair like).",
+          example: "Thousands of beating cilia sweep food into its oral groove while paddling through water.",
+          trick: "Memory Trick: Cilia paddle like tiny oars!"
+        }
+      },
+      {
+        num: 4,
+        icon: "🦠",
+        keywords: ["amoeba", "pseudopodia", "false feet"],
+        fallback: {
+          name: "Amoeba",
+          formula: "an organism made of only 1 cell.",
+          explanation: "An amoeba moves by projecting out its cytoplasm. These projections are called pseudopodia (false feet).",
+          example: "Surrounds and engulfs food particles through phagocytosis using its false feet.",
+          trick: "Memory Trick: Pseudopodia means false feet!"
+        }
+      },
+      {
+        num: 5,
+        icon: "💧",
+        keywords: ["contractile vacuole", "water regulator"],
+        fallback: {
+          name: "Contractile Vacuole",
+          formula: "Cellular Bilge Pump",
+          explanation: "Specialized organelle in freshwater protists that collects and expels excess water so the single cell doesn't burst.",
+          example: "Pumps water out rhythmically like a microscopic heartbeat.",
+          trick: "Memory Trick: Keeps the single cell from popping like a water balloon!"
+        }
       }
+    ];
 
-      document.querySelectorAll(".cell-pin-marker").forEach((pin) => {
-        pin.classList.toggle("active", parseInt(pin.dataset.num, 10) === num);
-      });
+    stage.innerHTML = `
+      <div class="diagram-interactive-wrap">
+        <div class="diagram-viewport-container">
+          <svg class="diagram-svg-canvas" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="slideGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#042f2e" stop-opacity="0.9" />
+                <stop offset="100%" stop-color="#020617" />
+              </radialGradient>
+              <linearGradient id="euglenaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4ade80" />
+                <stop offset="100%" stop-color="#15803d" />
+              </linearGradient>
+            </defs>
 
-      document.querySelectorAll(".cell-organelle-path").forEach((p) => p.classList.remove("highlighted"));
-      const targetPath = document.getElementById(`path-org-${num}`);
-      if (targetPath) targetPath.classList.add("highlighted");
-    };
+            <!-- Darkfield Microscope Slide Glass Outline -->
+            <rect x="20" y="20" width="600" height="380" rx="20" fill="url(#slideGrad)" stroke="#14b8a6" stroke-width="2" />
+            <text x="320" y="42" fill="#2dd4bf" font-size="11" font-weight="900" text-anchor="middle" letter-spacing="2">MICROSCOPIC PROTIST OBSERVATION CHAMBER (1000X)</text>
 
-    stage.querySelectorAll(".cell-pin-marker").forEach((pin) => {
-      pin.addEventListener("click", () => {
-        const num = parseInt(pin.dataset.num, 10);
-        selectOrganelle(num);
-      });
+            <!-- 1. EUGLENA (Top Left) -->
+            <g id="path-uni-1" class="diagram-interactive-path" data-num="1" transform="translate(60, 60)">
+              <!-- Spindle body -->
+              <path d="M 40,70 C 60,40 140,50 160,85 C 140,120 60,110 40,70 Z" fill="url(#euglenaGrad)" stroke="#86efac" stroke-width="2" />
+              <!-- Eyespot (stigma) -->
+              <circle cx="58" cy="72" r="4.5" fill="#ef4444" stroke="#fca5a5" />
+              <!-- Nucleus -->
+              <circle cx="105" cy="80" r="14" fill="#a855f7" opacity="0.8" />
+              <!-- Whip Flagellum -->
+              <path d="M 40,70 C 20,60 10,40 25,20 C 35,5 15, -10 5,5" fill="none" stroke="#f43f5e" stroke-width="3" stroke-linecap="round" />
+              <text x="105" y="125" fill="#a7f3d0" font-size="10" font-weight="bold" text-anchor="middle">Euglena (Flagellum)</text>
+            </g>
+
+            <!-- 2. VOLVOX (Top Right) -->
+            <g id="path-uni-2" class="diagram-interactive-path" data-num="2" transform="translate(380, 50)">
+              <!-- Sphere perimeter -->
+              <circle cx="100" cy="80" r="55" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="2.5" stroke-dasharray="4 3" />
+              <!-- Daughter colonies inside -->
+              <circle cx="85" cy="65" r="15" fill="#059669" opacity="0.7" />
+              <circle cx="115" cy="95" r="18" fill="#059669" opacity="0.7" />
+              <circle cx="120" cy="60" r="12" fill="#059669" opacity="0.7" />
+              <text x="100" y="152" fill="#6ee7b7" font-size="10" font-weight="bold" text-anchor="middle">Volvox (Rolling Colony)</text>
+            </g>
+
+            <!-- 3. PARAMECIUM (Bottom Left) -->
+            <g id="path-uni-3" class="diagram-interactive-path" data-num="3" transform="translate(60, 200)">
+              <!-- Slipper shape -->
+              <path d="M 60,95 C 40,60 60,30 110,35 C 160,40 190,75 180,110 C 170,140 120,150 75,130 C 50,115 50,110 60,95 Z" fill="#38bdf8" fill-opacity="0.3" stroke="#0284c7" stroke-width="2.5" />
+              <!-- Oral groove -->
+              <path d="M 120,55 Q 110,85 135,100" fill="none" stroke="#0369a1" stroke-width="4" stroke-linecap="round" />
+              <!-- Cilia Fringe -->
+              <path d="M 50,90 Q 30,55 105,30 Q 170,35 185,75 Q 195,115 175,145 Q 120,160 65,135 Z" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-dasharray="3 3" />
+              <!-- 5. Contractile Vacuole star -->
+              <g id="path-uni-5" class="diagram-interactive-path" data-num="5" transform="translate(150, 75)">
+                <circle cx="0" cy="0" r="7" fill="#0284c7" />
+                <path d="M -12,0 L 12,0 M 0,-12 L 0,12" stroke="#38bdf8" stroke-width="2" />
+              </g>
+              <text x="120" y="165" fill="#bae6fd" font-size="10" font-weight="bold" text-anchor="middle">Paramecium (Cilia)</text>
+            </g>
+
+            <!-- 4. AMOEBA (Bottom Right) -->
+            <g id="path-uni-4" class="diagram-interactive-path" data-num="4" transform="translate(360, 210)">
+              <!-- Amorphous pseudopodia extensions -->
+              <path d="M 110,40 C 150,20 180,60 170,95 C 205,110 195,155 155,150 C 125,180 80,165 70,135 C 40,130 35,90 70,70 C 60,40 90,30 110,40 Z" fill="#a855f7" fill-opacity="0.3" stroke="#9333ea" stroke-width="3" />
+              <!-- Food vacuoles -->
+              <circle cx="120" cy="85" r="16" fill="#6d28d9" opacity="0.8" />
+              <circle cx="95" cy="115" r="9" fill="#eab308" opacity="0.7" />
+              <circle cx="145" cy="120" r="7" fill="#10b981" opacity="0.7" />
+              <!-- Pseudopodia projection arrow -->
+              <path d="M 185,115 L 205,120 M 200,113 L 206,120 L 200,126" stroke="#c084fc" stroke-width="2" fill="none" />
+              <text x="125" y="172" fill="#e9d5ff" font-size="10" font-weight="bold" text-anchor="middle">Amoeba (Pseudopodia)</text>
+            </g>
+
+            <!-- PINS -->
+            <g class="diagram-pins-layer">
+              <g class="diagram-pin-marker" data-num="1" transform="translate(100, 100)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#16a34a" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">1</text></g>
+              <g class="diagram-pin-marker" data-num="2" transform="translate(480, 120)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#059669" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">2</text></g>
+              <g class="diagram-pin-marker" data-num="3" transform="translate(140, 290)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#0284c7" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">3</text></g>
+              <g class="diagram-pin-marker" data-num="4" transform="translate(470, 305)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#9333ea" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">4</text></g>
+              <g class="diagram-pin-marker" data-num="5" transform="translate(210, 275)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#0891b2" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">5</text></g>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Quick Access Parts Dock -->
+        <div class="diagram-parts-quickbar">
+          <button class="diagram-part-btn active" data-num="1"><span class="btn-badge">1</span> 🟢 Euglena (Flagellum)</button>
+          <button class="diagram-part-btn" data-num="2"><span class="btn-badge">2</span> 🌐 Volvox (Colony)</button>
+          <button class="diagram-part-btn" data-num="3"><span class="btn-badge">3</span> 👟 Paramecium (Cilia)</button>
+          <button class="diagram-part-btn" data-num="4"><span class="btn-badge">4</span> 🦠 Amoeba (Pseudopodia)</button>
+          <button class="diagram-part-btn" data-num="5"><span class="btn-badge">5</span> 💧 Contractile Vacuole</button>
+        </div>
+
+        <!-- Inspection HUD Card -->
+        <div class="diagram-hud-card">
+          <div class="diagram-hud-header">
+            <span class="diagram-hud-title" id="diagram-hud-title">🟢 1. Euglena</span>
+            <span class="diagram-hud-formula" id="diagram-hud-formula">an organism made of only 1 cell.</span>
+          </div>
+          <p class="diagram-hud-desc" id="diagram-hud-desc">
+            Move by using a flagellum (thread like structures that whip around).
+          </p>
+          <div class="diagram-hud-callouts">
+            <div class="diagram-hud-example" id="diagram-hud-example">
+              <strong>💡 Observation:</strong> <span>Can photosynthesize or hunt depending on light availability.</span>
+            </div>
+            <div class="diagram-hud-trick" id="diagram-hud-trick">
+              <strong>🧠 Memory Trick:</strong> <span>Flagellum whips like a propeller!</span>
+            </div>
+          </div>
+          <div class="diagram-hud-footer">
+            <span class="diagram-hud-source" id="diagram-hud-source">Source: Unicellular Organisms Notes</span>
+            <button class="btn-jump-square" id="diagram-hud-jump-btn">
+              <span>🔍 Jump to Square Notes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    this.bindInteractiveDiagram({ stage, topic, parts, defaultNum: 1 });
+  }
+
+  // ================= 8. MULTICELLULAR ORGANISMS VISUALIZER =================
+  loadMulticellularLab(stage, topic) {
+    const parts = [
+      {
+        num: 1,
+        icon: "👥",
+        keywords: ["multicellular", "two or more cells"],
+        fallback: {
+          name: "Multicellular Organisms",
+          formula: "an organism made with two or more cells",
+          explanation: "• These organisms are able to be seen with the naked eye\n• These organisms need all parts of themselves to survive\n• Plants belong to the category of autotrophs, meaning self feeders\n• In the kingdom Animalia; Heterotrophic - other feeder, organisms that eat other organisms.",
+          example: "Humans, dogs, trees, and insects are all multicellular living beings.",
+          trick: "Memory Trick: Multi = many cells working together to survive!"
+        }
+      },
+      {
+        num: 2,
+        icon: "🌱",
+        keywords: ["autotroph", "heterotroph"],
+        fallback: {
+          name: "Autotrophs vs Heterotrophs",
+          formula: "Self-Feeders vs Other-Feeders",
+          explanation: "Plants are autotrophs (making food via photosynthesis); animals are heterotrophs (consuming other organisms for fuel).",
+          example: "Autotrophic oak trees convert solar photons; heterotrophic rabbits consume plant leaves.",
+          trick: "Memory Trick: Auto = automatic self food; Hetero = other food!"
+        }
+      },
+      {
+        num: 3,
+        icon: "🔬",
+        keywords: ["specialized cells", "cell"],
+        fallback: {
+          name: "Specialized Cells (Level 1)",
+          formula: "Basic Structural Units",
+          explanation: "Individual cells differentiate to perform specialized tasks (e.g. muscle cells contract, nerve cells fire signals, red blood cells carry O₂).",
+          example: "A single muscle cell cannot survive on its own outside the multicellular organism.",
+          trick: "Memory Trick: Each specialized cell is a worker with one specific job!"
+        }
+      },
+      {
+        num: 4,
+        icon: "🫀",
+        keywords: ["tissue", "organ"],
+        fallback: {
+          name: "Tissues & Organs (Levels 2 & 3)",
+          formula: "Cellular Teams & Functional Units",
+          explanation: "Similar cells group into tissues (muscle, nerve, epithelial); different tissues combine to form distinct organs (heart, stomach, lungs).",
+          example: "The heart organ contains cardiac muscle tissue, connective tissue, and nerve tissue working in unison.",
+          trick: "Memory Trick: Cells make Tissues, Tissues make Organs!"
+        }
+      },
+      {
+        num: 5,
+        icon: "🧍",
+        keywords: ["organ system", "organism"],
+        fallback: {
+          name: "Organ Systems & Whole Organism (Levels 4 & 5)",
+          formula: "Interdependent Life Support Systems",
+          explanation: "Groups of organs cooperate into organ systems (circulatory, respiratory, digestive) that keep the entire organism alive.",
+          example: "Respiratory system brings in oxygen, circulatory distributes it, and digestive delivers the fuel.",
+          trick: "Memory Trick: Cells ➔ Tissues ➔ Organs ➔ Organ Systems ➔ Organism!"
+        }
+      }
+    ];
+
+    stage.innerHTML = `
+      <div class="diagram-interactive-wrap">
+        <div class="diagram-viewport-container">
+          <svg class="diagram-svg-canvas" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="pyr1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3b82f6" /><stop offset="100%" stop-color="#1d4ed8" /></linearGradient>
+              <linearGradient id="pyr2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#06b6d4" /><stop offset="100%" stop-color="#0e7490" /></linearGradient>
+              <linearGradient id="pyr3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#10b981" /><stop offset="100%" stop-color="#047857" /></linearGradient>
+              <linearGradient id="pyr4" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f59e0b" /><stop offset="100%" stop-color="#b45309" /></linearGradient>
+              <linearGradient id="pyr5" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#a855f7" /><stop offset="100%" stop-color="#6b21a8" /></linearGradient>
+            </defs>
+
+            <text x="320" y="35" fill="#e0f2fe" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="1">HIERARCHY OF MULTICELLULAR ORGANIZATION</text>
+
+            <!-- 5 TIER PYRAMID / LADDER -->
+            <!-- Level 5: Whole Organism -->
+            <g id="path-multi-1" class="diagram-interactive-path" data-num="1">
+              <polygon points="260,60 380,60 410,115 230,115" fill="url(#pyr5)" stroke="#e9d5ff" stroke-width="2" />
+              <text x="320" y="85" fill="#fff" font-size="11" font-weight="900" text-anchor="middle">5. WHOLE ORGANISM</text>
+              <text x="320" y="102" fill="#f3e8ff" font-size="8" font-weight="bold" text-anchor="middle">Autotrophs & Heterotrophs</text>
+            </g>
+
+            <!-- Level 4: Organ Systems -->
+            <g id="path-multi-5" class="diagram-interactive-path" data-num="5">
+              <polygon points="230,120 410,120 440,175 200,175" fill="url(#pyr4)" stroke="#fef3c7" stroke-width="2" />
+              <text x="320" y="145" fill="#fff" font-size="11" font-weight="900" text-anchor="middle">4. ORGAN SYSTEMS</text>
+              <text x="320" y="162" fill="#fef9c3" font-size="8" font-weight="bold" text-anchor="middle">Circulatory, Respiratory, Digestive</text>
+            </g>
+
+            <!-- Level 3: Organs -->
+            <g id="path-multi-4" class="diagram-interactive-path" data-num="4">
+              <polygon points="200,180 440,180 470,235 170,235" fill="url(#pyr3)" stroke="#d1fae5" stroke-width="2" />
+              <text x="320" y="205" fill="#fff" font-size="11" font-weight="900" text-anchor="middle">3. ORGANS</text>
+              <text x="320" y="222" fill="#ecfdf5" font-size="8" font-weight="bold" text-anchor="middle">Heart, Stomach, Lungs, Brain</text>
+            </g>
+
+            <!-- Level 2: Tissues -->
+            <g class="diagram-interactive-path" data-num="4">
+              <polygon points="170,240 470,240 500,295 140,295" fill="url(#pyr2)" stroke="#cffafe" stroke-width="2" />
+              <text x="320" y="265" fill="#fff" font-size="11" font-weight="900" text-anchor="middle">2. TISSUES</text>
+              <text x="320" y="282" fill="#e0f2fe" font-size="8" font-weight="bold" text-anchor="middle">Muscle, Nerve, Epithelial, Connective</text>
+            </g>
+
+            <!-- Level 1: Cells -->
+            <g id="path-multi-3" class="diagram-interactive-path" data-num="3">
+              <polygon points="140,300 500,300 530,355 110,355" fill="url(#pyr1)" stroke="#dbeafe" stroke-width="2" />
+              <text x="320" y="325" fill="#fff" font-size="11" font-weight="900" text-anchor="middle">1. SPECIALIZED CELLS</text>
+              <text x="320" y="342" fill="#eff6ff" font-size="8" font-weight="bold" text-anchor="middle">Basic building blocks (Cannot live alone)</text>
+            </g>
+
+            <!-- 2. AUTOTROPHS vs HETEROTROPHS CALLOUTS -->
+            <g id="path-multi-2" class="diagram-interactive-path" data-num="2">
+              <rect x="25" y="70" width="165" height="70" rx="12" fill="rgba(6, 78, 59, 0.7)" stroke="#34d399" stroke-width="1.5" />
+              <text x="107" y="92" fill="#6ee7b7" font-size="10" font-weight="900" text-anchor="middle">🌱 AUTOTROPHS</text>
+              <text x="107" y="110" fill="#ecfdf5" font-size="8" font-weight="bold" text-anchor="middle">Self-feeders (Plants make food</text>
+              <text x="107" y="124" fill="#ecfdf5" font-size="8" font-weight="bold" text-anchor="middle">via photosynthesis)</text>
+
+              <rect x="450" y="70" width="165" height="70" rx="12" fill="rgba(127, 29, 29, 0.7)" stroke="#f87171" stroke-width="1.5" />
+              <text x="532" y="92" fill="#fca5a5" font-size="10" font-weight="900" text-anchor="middle">🦁 HETEROTROPHS</text>
+              <text x="532" y="110" fill="#fef2f2" font-size="8" font-weight="bold" text-anchor="middle">Other-feeders (Animals eat</text>
+              <text x="532" y="124" fill="#fef2f2" font-size="8" font-weight="bold" text-anchor="middle">other organisms)</text>
+            </g>
+
+            <!-- PINS -->
+            <g class="diagram-pins-layer">
+              <g class="diagram-pin-marker" data-num="1" transform="translate(320, 85)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#9333ea" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">1</text></g>
+              <g class="diagram-pin-marker" data-num="2" transform="translate(107, 105)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#10b981" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">2</text></g>
+              <g class="diagram-pin-marker" data-num="3" transform="translate(320, 325)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#2563eb" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">3</text></g>
+              <g class="diagram-pin-marker" data-num="4" transform="translate(320, 205)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#059669" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">4</text></g>
+              <g class="diagram-pin-marker" data-num="5" transform="translate(320, 145)"><circle cx="0" cy="0" r="15" class="pin-base" fill="#d97706" stroke="#fff" stroke-width="2.5" /><text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">5</text></g>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Quick Access Parts Dock -->
+        <div class="diagram-parts-quickbar">
+          <button class="diagram-part-btn active" data-num="1"><span class="btn-badge">1</span> 👥 Multicellular Organism</button>
+          <button class="diagram-part-btn" data-num="2"><span class="btn-badge">2</span> 🌱 Auto vs Heterotrophs</button>
+          <button class="diagram-part-btn" data-num="3"><span class="btn-badge">3</span> 🔬 Specialized Cells</button>
+          <button class="diagram-part-btn" data-num="4"><span class="btn-badge">4</span> 🫀 Tissues & Organs</button>
+          <button class="diagram-part-btn" data-num="5"><span class="btn-badge">5</span> 🧍 Organ Systems</button>
+        </div>
+
+        <!-- Inspection HUD Card -->
+        <div class="diagram-hud-card">
+          <div class="diagram-hud-header">
+            <span class="diagram-hud-title" id="diagram-hud-title">👥 1. Multicellular Organisms</span>
+            <span class="diagram-hud-formula" id="diagram-hud-formula">an organism made with two or more cells</span>
+          </div>
+          <p class="diagram-hud-desc" id="diagram-hud-desc">
+            These organisms are able to be seen with the naked eye and need all parts of themselves to survive.
+          </p>
+          <div class="diagram-hud-callouts">
+            <div class="diagram-hud-example" id="diagram-hud-example">
+              <strong>💡 Observation:</strong> <span>Plants are autotrophs; animals are heterotrophs.</span>
+            </div>
+            <div class="diagram-hud-trick" id="diagram-hud-trick">
+              <strong>🧠 Memory Trick:</strong> <span>Multi = many cells working together to survive!</span>
+            </div>
+          </div>
+          <div class="diagram-hud-footer">
+            <span class="diagram-hud-source" id="diagram-hud-source">Source: Multicellular Organisms Notes</span>
+            <button class="btn-jump-square" id="diagram-hud-jump-btn">
+              <span>🔍 Jump to Square Notes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    this.bindInteractiveDiagram({ stage, topic, parts, defaultNum: 1 });
+  }
+
+  // ================= 9. UNIVERSAL HOLOGRAPHIC CONCEPT MATRIX =================
+  loadUniversalConceptMatrixLab(stage, topic) {
+    const props = topic.properties && topic.properties.length > 0
+      ? topic.properties
+      : [
+          { num: 1, name: topic.title || "Core Concept", formula: topic.coreFormula || "Scientific Principle", explanation: topic.description || "Core scientific concept.", example: "Observed in classroom curriculum.", trick: "Focus on primary scientific terms!" }
+        ];
+
+    const parts = props.map((p, idx) => ({
+      num: p.num || (idx + 1),
+      icon: "⚛️",
+      keywords: [(p.name || '').toLowerCase()],
+      fallback: {
+        name: p.name || `Square #${idx + 1}`,
+        formula: p.formula || "Key Formula",
+        explanation: p.explanation || "Scientific definition from notes.",
+        example: p.example || "Classroom demonstration observed by 5th graders.",
+        trick: p.trick || "Remember key scientific terms!"
+      }
+    }));
+
+    const count = props.length;
+    const cx = 320;
+    const cy = 200;
+    const radius = Math.min(155, 120 + Math.min(count * 5, 40));
+
+    let nodesSvg = "";
+    let linesSvg = "";
+    let quickbarHtml = "";
+
+    props.forEach((p, idx) => {
+      const num = p.num || (idx + 1);
+      const angle = (2 * Math.PI * idx) / count - Math.PI / 2;
+      const nx = Math.round(cx + radius * Math.cos(angle));
+      const ny = Math.round(cy + radius * Math.sin(angle));
+      const cleanName = (p.name || `Square #${num}`).replace(/^\d+[\.\-\)]\s*/, '').slice(0, 18);
+
+      linesSvg += `
+        <line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="rgba(56, 189, 248, 0.45)" stroke-width="2.5" stroke-dasharray="6 4" class="diagram-interactive-path" data-num="${num}" id="path-matrix-${num}" />
+      `;
+
+      nodesSvg += `
+        <g class="diagram-pin-marker ${idx === 0 ? 'active' : ''}" data-num="${num}" transform="translate(${nx}, ${ny})">
+          <circle cx="0" cy="0" r="16" class="pin-base" fill="#0284c7" stroke="#fff" stroke-width="2.5" />
+          <text x="0" y="4.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">${num}</text>
+          <text x="0" y="${ny > cy ? 26 : -22}" text-anchor="middle" fill="#e0f2fe" font-size="9" font-weight="bold">${cleanName}</text>
+        </g>
+      `;
+
+      quickbarHtml += `
+        <button class="diagram-part-btn ${idx === 0 ? 'active' : ''}" data-num="${num}">
+          <span class="btn-badge">${num}</span> ${cleanName}
+        </button>
+      `;
     });
 
-    if (hudJumpBtn) {
-      hudJumpBtn.addEventListener("click", () => {
-        if (!activeSqNum) return;
-        this.switchModalTab("notes");
-        setTimeout(() => {
-          const card = document.getElementById(`concept-square-${activeSqNum}`);
-          if (card) {
-            card.scrollIntoView({ behavior: "smooth", block: "center" });
-            card.classList.add("highlighted");
-            setTimeout(() => card.classList.remove("highlighted"), 1500);
-          }
-        }, 150);
-      });
-    }
+    stage.innerHTML = `
+      <div class="diagram-interactive-wrap">
+        <div class="diagram-viewport-container">
+          <svg class="diagram-svg-canvas" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#38bdf8" />
+                <stop offset="70%" stop-color="#0369a1" />
+                <stop offset="100%" stop-color="#082f49" />
+              </radialGradient>
+            </defs>
 
-    setTimeout(() => selectOrganelle(1), 250);
+            <!-- Background Neural Constellation Rings -->
+            <circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="rgba(56, 189, 248, 0.12)" stroke-width="2" stroke-dasharray="8 6" />
+            <circle cx="${cx}" cy="${cy}" r="${radius + 35}" fill="none" stroke="rgba(168, 85, 247, 0.08)" stroke-width="1.5" />
+
+            <!-- Connecting Data Bus Lines -->
+            <g class="matrix-lines-layer">${linesSvg}</g>
+
+            <!-- Central Holographic Core Reactor -->
+            <g transform="translate(${cx}, ${cy})">
+              <circle cx="0" cy="0" r="44" fill="url(#coreGlow)" stroke="#38bdf8" stroke-width="3" class="diagram-pulse-ring" />
+              <circle cx="0" cy="0" r="50" fill="none" stroke="#a855f7" stroke-width="2" stroke-dasharray="6 4" class="diagram-spin-slow" />
+              <text x="0" y="-4" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="900">${(topic.title || 'TOPIC').slice(0, 16)}</text>
+              <text x="0" y="12" text-anchor="middle" fill="#7dd3fc" font-size="8" font-weight="bold">CORE REACTOR</text>
+            </g>
+
+            <!-- Interactive Concept Node Pins -->
+            <g class="diagram-pins-layer">${nodesSvg}</g>
+          </svg>
+        </div>
+
+        <!-- Quick Access Parts Dock -->
+        <div class="diagram-parts-quickbar">
+          ${quickbarHtml}
+        </div>
+
+        <!-- Inspection HUD Card -->
+        <div class="diagram-hud-card">
+          <div class="diagram-hud-header">
+            <span class="diagram-hud-title" id="diagram-hud-title">⚛️ 1. Concept Square</span>
+            <span class="diagram-hud-formula" id="diagram-hud-formula">Scientific Principle</span>
+          </div>
+          <p class="diagram-hud-desc" id="diagram-hud-desc">
+            Inspect the key scientific properties and explanations directly from your notes.
+          </p>
+          <div class="diagram-hud-callouts">
+            <div class="diagram-hud-example" id="diagram-hud-example">
+              <strong>💡 Observation:</strong> <span>Key observation from notes.</span>
+            </div>
+            <div class="diagram-hud-trick" id="diagram-hud-trick">
+              <strong>🧠 Memory Trick:</strong> <span>Remember the core concepts!</span>
+            </div>
+          </div>
+          <div class="diagram-hud-footer">
+            <span class="diagram-hud-source" id="diagram-hud-source">Source: ${topic.title || 'Curriculum'} Notes</span>
+            <button class="btn-jump-square" id="diagram-hud-jump-btn">
+              <span>🔍 Jump to Square Notes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    this.bindInteractiveDiagram({ stage, topic, parts, defaultNum: parts[0]?.num || 1 });
   }
 
   // ================= PRACTICE QUIZ =================

@@ -2204,6 +2204,254 @@ body.theme-quantum-void .modal-tab-btn.active {
   box-shadow: 0 0 25px rgba(168, 85, 247, 0.6) !important;
 }
 
+/* ==========================================================================
+   INTERACTIVE ANATOMY & SYSTEM VISUALIZERS (LIQUID GLASS v46.0)
+   ========================================================================== */
+.diagram-interactive-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.diagram-viewport-container {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  height: 420px;
+  background: radial-gradient(circle at center, rgba(15, 23, 42, 0.72) 0%, rgba(3, 7, 18, 0.98) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85), inset 0 0 40px rgba(56, 189, 248, 0.12);
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+}
+
+.diagram-svg-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.diagram-interactive-path {
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.diagram-interactive-path:hover,
+.diagram-interactive-path.highlighted {
+  filter: drop-shadow(0 0 14px var(--neon-cyan, #06b6d4)) drop-shadow(0 0 6px #ffffff);
+  stroke-width: 3.5 !important;
+  stroke: #ffffff !important;
+}
+
+.diagram-pin-marker {
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+}
+
+.diagram-pin-marker:hover,
+.diagram-pin-marker.active {
+  transform: scale(1.35);
+  filter: drop-shadow(0 0 12px var(--neon-cyan, #38bdf8)) drop-shadow(0 0 20px rgba(56, 189, 248, 0.8));
+}
+
+.diagram-pin-marker circle.pin-base {
+  transition: all 0.25s ease;
+}
+
+.diagram-pin-marker.active circle.pin-base {
+  stroke: #ffffff !important;
+  stroke-width: 3.5 !important;
+}
+
+/* Quick-Access Parts Dock */
+.diagram-parts-quickbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 680px;
+  padding: 8px 12px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.diagram-part-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  color: #e2e8f0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.diagram-part-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.diagram-part-btn.active {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(168, 85, 247, 0.35));
+  border-color: rgba(56, 189, 248, 0.7);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+  color: #ffffff;
+  font-weight: 800;
+  transform: scale(1.05);
+}
+
+.diagram-part-btn .btn-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+/* Inspection HUD Card */
+.diagram-hud-card {
+  width: 100%;
+  max-width: 680px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  border-radius: 20px;
+  padding: 18px 22px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 30px rgba(56, 189, 248, 0.15);
+  backdrop-filter: blur(20px) saturate(220%);
+  -webkit-backdrop-filter: blur(20px) saturate(220%);
+  transition: all 0.3s ease;
+}
+
+.diagram-hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.diagram-hud-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #38bdf8;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.diagram-hud-formula {
+  font-size: 0.8rem;
+  color: var(--neon-cyan, #06b6d4);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background: rgba(6, 182, 212, 0.12);
+  padding: 4px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  font-weight: 600;
+}
+
+.diagram-hud-desc {
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: #f8fafc;
+  margin-bottom: 12px;
+}
+
+.diagram-hud-callouts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.diagram-hud-trick {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(245, 158, 11, 0.12);
+  border-left: 3px solid #f59e0b;
+  border-radius: 0 10px 10px 0;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  color: #fef3c7;
+  line-height: 1.4;
+}
+
+.diagram-hud-example {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(56, 189, 248, 0.08);
+  border-left: 3px solid #38bdf8;
+  border-radius: 0 10px 10px 0;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  color: #e0f2fe;
+  line-height: 1.4;
+}
+
+.diagram-hud-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+}
+
+.diagram-hud-source {
+  font-size: 0.74rem;
+  color: var(--text-dim, rgba(235, 235, 245, 0.6));
+  font-style: italic;
+}
+
+/* Animations for pulsing and node matrix */
+@keyframes diagramPulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+.diagram-pulse-ring {
+  animation: diagramPulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  transform-origin: center;
+}
+
+@keyframes diagramSpinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.diagram-spin-slow {
+  animation: diagramSpinSlow 30s linear infinite;
+  transform-origin: center;
+}
+
+
 
 
 
