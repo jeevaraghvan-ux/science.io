@@ -6873,7 +6873,7 @@ class ScienceIoApp {
           </p>
           <div class="diagram-hud-callouts">
             <div class="diagram-hud-example" id="diagram-hud-example">
-              <strong>💡 Observation:</strong> <span>Classroom demonstration observed by 5th graders.</span>
+              <strong>💡 Observation:</strong> <span>Functions like a flexible, selective border patrol surrounding the animal cell.</span>
             </div>
             <div class="diagram-hud-trick" id="diagram-hud-trick">
               <strong>🧠 Memory Trick:</strong> <span>The security gatekeeper of the cell!</span>
@@ -7428,7 +7428,7 @@ class ScienceIoApp {
         name: p.name || `Square #${idx + 1}`,
         formula: p.formula || "Key Formula",
         explanation: p.explanation || "Scientific definition from notes.",
-        example: p.example || "Classroom demonstration observed by 5th graders.",
+        example: p.example || "Demonstrates the scientific function and observable characteristics of this concept in real life.",
         trick: p.trick || "Remember key scientific terms!"
       }
     }));
