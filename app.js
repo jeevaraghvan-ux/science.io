@@ -587,10 +587,10 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Functions of the muscular system",
-        "trick": "5th Grade Science Concept",
-        "example": "Acts as the body's mechanical engine and central heating system. For example, when you shiver in cold weather, your muscles rapidly twitch to generate internal body heat, while simultaneously holding your spine upright in proper posture so you can sit and run.",
-        "formula": "There is no scientific formula",
-        "explanation": "Functions of the muscular system are to provide posture, generate heat, and provide movement. "
+        "trick": "Remember P-H-M: Posture, Heat, and Movement!",
+        "example": "Acts as the body's primary mechanical engine, postural support cables, and internal furnace. For example, when you shiver in freezing winter air, your skeletal muscles rapidly twitch to generate internal body heat, while deep postural muscles along your spine fire non-stop to keep you standing upright and balanced without falling over!",
+        "formula": "Muscle Contraction (Actin & Myosin) → Force + Motion + Body Heat",
+        "explanation": "• Provides Movement: Skeletal muscles contract and pull on bones to move limbs, while cardiac and smooth muscles move blood and food.\n• Maintains Posture & Stability: Muscle tension continuously resists gravity to keep the body upright and stabilize joints.\n• Generates Body Heat (Thermogenesis): Muscle contractions release heat to maintain the body's core 98.6°F temperature.\n• Controls Involuntary Bodily Flows: Smooth muscles propel fluids and food through internal organs (like blood vessels and intestines)."
       },
       {
         "num": 2,
@@ -649,6 +649,14 @@ const DEFAULT_SCIENCE_TOPICS = [
     "properties": [
       {
         "num": 1,
+        "name": "Functions of the skeletal system",
+        "trick": "Remember S-P-M-S-B: Support, Protection, Movement, Storage, and Blood cell production!",
+        "example": "Functions as the steel framework of a skyscraper, an impenetrable suit of armor, and a blood cell factory all in one! For example, your rib cage locks around your delicate heart and lungs like a knight's chest plate to absorb blunt shocks, your strong femur bones act as levers that allow you to leap, and red bone marrow deep inside your hip bones manufactures over 2 million brand-new red blood cells every single second!",
+        "formula": "Rigid Mineralized Calcium Matrix + Collagen Framework = Structural Armor & Levers",
+        "explanation": "• Shape and Support: Forms the rigid structural framework that gives your body its upright shape and supports soft internal tissues.\n• Protection of Vital Organs: Hard bone plates encase delicate organs (the skull shields the brain, the rib cage protects the heart and lungs, and vertebrae encase the spinal cord).\n• Movement: Bones act as rigid levers that skeletal muscles pull across joints to create motion.\n• Mineral Storage & Homeostasis: Stores essential minerals like calcium and phosphorus, releasing them into the bloodstream to keep nerves and muscles functioning.\n• Blood Cell Production (Hematopoiesis): Spongy bone marrow inside bones manufactures red blood cells, white blood cells, and platelets."
+      },
+      {
+        "num": 2,
         "name": "What are Bones Made Of?",
         "trick": "5th Grade Science Concept",
         "example": "Functions as living composite armor that is light, hollow, and incredibly strong. For example, the hard compact bone outer shell resists cracking when you jump, spongy cancellous bone absorbs shock like honeycomb arches, and inner bone marrow constantly manufactures billions of fresh red blood cells.",
@@ -656,7 +664,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Bones are made out of periosteum, compact bone , cancellous bone, and bone marrow."
       },
       {
-        "num": 2,
+        "num": 3,
         "name": "Cartilage & Ligaments",
         "trick": "5th Grade Science Concept",
         "example": "Act like slick shock-absorbing bumpers and durable rubber tie-down straps. For example, cartilage cushions your knee joints so bone never grinds on bone when running, while stretchy ligaments strap your thigh and shin bones firmly together so your knee doesn't twist out of place.",
@@ -664,7 +672,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Cartilage is soft and flexible and as your growing your bones slowly replaces it. Ligaments are things that hold bones together in the joints, and they are like strong rubber bands."
       },
       {
-        "num": 3,
+        "num": 4,
         "name": "Types of Joints ",
         "trick": "5th Grade Science Concept",
         "example": "Function like mechanical door hinges and omnidirectional joysticks. For example, your elbow and knee hinge joints open and shut in one direction like a door, your shoulder ball-and-socket joint lets your arm swing in complete 360-degree circles, and synovial fluid oils the joint like WD-40 so bones glide friction-free.",
@@ -672,7 +680,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "The hinge joint helps you bend your arms and legs. It also helps you straighten them. The ball-and-socket joint helps you swing your arms and your legs. Synovial fluid is like oiling the valves of a brass instrument; it lets your bones move freely. "
       },
       {
-        "num": 4,
+        "num": 5,
         "name": "Where is the smallest bone in your body? What is it called? Size?",
         "trick": "5th Grade Science Concept",
         "example": "Functions as an ultra-delicate acoustic amplifier in your middle ear. For example, this tiny 2-to-3-millimeter stirrup-shaped bone vibrates when sound waves hit your eardrum, magnifying sound vibrations and transmitting them directly into the fluid-filled cochlea so your brain can hear whispers and music.",
@@ -680,7 +688,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "The smallest bone in your body is the stapes, and it is 2 to 3 millimeters long."
       },
       {
-        "num": 5,
+        "num": 6,
         "name": "What are the different jobs of the vertebrae?",
         "trick": "5th Grade Science Concept",
         "example": "Functions as a flexible armored pillar and protective cable conduit. For example, the 33 stacked ring-shaped bones of your spine support the entire heavy weight of your upper body, bend so you can touch your toes, and form a hollow armored tunnel shielding your delicate spinal cord from injury.",
@@ -690,7 +698,75 @@ const DEFAULT_SCIENCE_TOPICS = [
     ],
     "coreFormula": "NO FORMULA",
     "description": "Learn about the parts of the skeletal system",
-    "redirectUrl": ""
+    "redirectUrl": "",
+    "quiz": [
+      {
+        "q": "What are the major functions of the skeletal system?",
+        "ans": 1,
+        "why": "The skeletal system provides shape/support, protects vital organs, enables movement with muscles, stores calcium, and produces blood cells in bone marrow.",
+        "options": [
+          "To pump oxygenated blood and digest carbohydrates",
+          "Shape and support, organ protection, movement, mineral storage, and blood cell production",
+          "To send electrical impulses and secrete hormones into the bloodstream",
+          "To filter urine and exchange gases in the lungs"
+        ]
+      },
+      {
+        "q": "Where in the skeletal system are red and white blood cells produced?",
+        "ans": 0,
+        "why": "Blood cell production (hematopoiesis) occurs inside the soft bone marrow of bones.",
+        "options": [
+          "Inside red bone marrow",
+          "In the cartilage of joints",
+          "In the periosteum outer layer",
+          "In the stapes bone"
+        ]
+      },
+      {
+        "q": "Which bones protect the heart and lungs from injury?",
+        "ans": 2,
+        "why": "The rib cage curves around the chest cavity to shield the heart and lungs like armor.",
+        "options": [
+          "The cranium / skull",
+          "The pelvis",
+          "The rib cage",
+          "The vertebrae"
+        ]
+      },
+      {
+        "q": "What is the smallest bone in the human body?",
+        "ans": 3,
+        "why": "The smallest bone is the stapes (stirrup) inside the middle ear, measuring only 2 to 3 millimeters.",
+        "options": [
+          "The femur",
+          "The phalange",
+          "The clavicle",
+          "The stapes (in the middle ear)"
+        ]
+      },
+      {
+        "q": "What holds bones together at a joint?",
+        "ans": 1,
+        "why": "Ligaments are tough bands of connective tissue that connect bone to bone at joints.",
+        "options": [
+          "Tendons",
+          "Ligaments",
+          "Bone marrow",
+          "Vertebrae"
+        ]
+      },
+      {
+        "q": "What type of joint allows you to bend your elbows and knees like a door?",
+        "ans": 0,
+        "why": "Hinge joints swing back and forth in one direction, like the hinge on a door.",
+        "options": [
+          "Hinge joint",
+          "Ball and socket joint",
+          "Pivot joint",
+          "Fixed suture joint"
+        ]
+      }
+    ]
   },
   {
     "id": "science-unit-1790995817093",
@@ -704,6 +780,14 @@ const DEFAULT_SCIENCE_TOPICS = [
     "properties": [
       {
         "num": 1,
+        "name": "Functions of the digestive system",
+        "trick": "Remember I-D-A-E: Ingestion, Digestion, Absorption, and Elimination!",
+        "example": "Operates as a 30-foot continuous biochemical disassembly line and nutrient extraction refinery. For example, when you eat an apple or pizza, your mouth mashes it mechanically, stomach acids dissolve it chemically into liquid chyme, small intestine villi soak the sugars, proteins, and vitamins directly into your bloodstream to power your muscles, and the colon safely disposes of the leftover fiber!",
+        "formula": "Food Ingestion → Mechanical & Chemical Breakdown → Nutrient Absorption → Waste Elimination",
+        "explanation": "• Ingestion: Takes food and liquids into the body through the mouth and oral cavity.\n• Mechanical Digestion: Physically crushes, grinds, and churns food into smaller particles using teeth and stomach muscle contractions.\n• Chemical Digestion: Breaks complex food molecules down into microscopic nutrients (glucose, amino acids, fatty acids) using digestive acids and enzymes from saliva, stomach, liver, and pancreas.\n• Nutrient Absorption: Passes dissolved nutrients and water through the intestinal villi into the bloodstream to nourish body cells.\n• Elimination: Compels and expels indigestible food remnants and metabolic waste out of the body as solid waste."
+      },
+      {
+        "num": 2,
         "name": "Mouth",
         "trick": "5th Grade Science Concept",
         "example": "Functions as the initial crushing mill and chemical prep kitchen. For example, your sharp incisors slice an apple while molars grind it down, and saliva glands squirt amylase enzymes that instantly start dissolving starches into simple sugars before you even swallow.",
@@ -711,7 +795,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Your mouth has teeth that tear up and chop your food. Your saliva enzymes break it down even more."
       },
       {
-        "num": 2,
+        "num": 3,
         "name": "Esophagus",
         "trick": "5th Grade Science Concept",
         "example": "Operates like an automated muscular elevator chute. For example, when you swallow a bite of bread, wave-like muscular contractions called peristalsis push the food bolus downward into your stomach, working so reliably that food would still travel to your stomach even if you were hanging upside down!",
@@ -719,7 +803,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• (Pushes food down to the stomach by Peristalsis)\n• The tube that connects your mouth and the stomach"
       },
       {
-        "num": 3,
+        "num": 4,
         "name": "Stomach",
         "trick": "5th Grade Science Concept",
         "example": "Acts like a churning acid blender and sterilization vat. For example, three layers of thick smooth muscle mash food into a liquid soup called chyme, while hydrochloric acid kills swallowed germs and activates pepsin enzymes to break tough proteins down.",
@@ -727,7 +811,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• (Smooth Muscles churn and mix the food.)\n• Chemicals, like acids, break down the food\n"
       },
       {
-        "num": 4,
+        "num": 5,
         "name": "Small Intestine",
         "trick": "5th Grade Science Concept",
         "example": "Functions as the master nutrient absorption highway. For example, along its 20-foot winding length, microscopic finger-like projections soak up glucose, vitamins, and minerals directly into your bloodstream over 4 to 8 hours to nourish your cells.",
@@ -735,7 +819,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "(Tube that is 20 feet long. Food stays in your small intestine for 4 to 8 hours.)\n• Continues to break down food   \n• Absorbs nutrients into the blood\n"
       },
       {
-        "num": 5,
+        "num": 6,
         "name": "Large Intestine",
         "trick": "5th Grade Science Concept",
         "example": "Operates as a water reclamation and waste compaction facility. For example, as leftover liquid waste moves through over 10 to 12 hours, the large intestine reabsorbs almost all the water back into your body so you don't dehydrate, compacting leftovers into solid waste.",
@@ -743,7 +827,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "(Tube that is 5 feet long. Gets waste from the small intestine. Waste stays for 10 to 12 hours.)\n• Absorbs (soaks up) water from the remaining food\n• Contains bacteria that breaks down food\n"
       },
       {
-        "num": 6,
+        "num": 7,
         "name": "Rectum",
         "trick": "5th Grade Science Concept",
         "example": "Functions as a temporary holding vault with sensory stretch receptors. For example, it stores compacted stool until sensory nerves alert your brain that it is time to visit the bathroom, then coordinates with the anal sphincter to release it cleanly.",
@@ -751,7 +835,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Rectum (Stores waste until it leaves the body through the anus)\n"
       },
       {
-        "num": 7,
+        "num": 8,
         "name": "Gall Bladder",
         "trick": "5th Grade Science Concept",
         "example": "Acts like a pressurized squeeze pouch holding concentrated digestive bile. For example, when you eat french fries or butter, the gall bladder squeezes greenish-yellow bile into your small intestine to break large fat blobs down into tiny droplets that enzymes can digest.",
@@ -759,7 +843,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "(Storage tank for bile - a greenish-yellow liquid, that helps your body break down and use fats. Located under your liver. Shaped like a pear.)\n"
       },
       {
-        "num": 8,
+        "num": 9,
         "name": "Liver",
         "trick": "5th Grade Science Concept",
         "example": "Functions as your body's central chemical processing factory and warehouse. For example, it filters poisons and toxins from blood, manufactures digestive bile, and stores extra glucose as glycogen, releasing it whenever your muscles need extra sprint energy.",
@@ -767,7 +851,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "(Factory for antibodies and bile. Store vitamins and sugars until your body needs them.)\n"
       },
       {
-        "num": 9,
+        "num": 10,
         "name": "Pancreas",
         "trick": "5th Grade Science Concept",
         "example": "Operates as a high-powered enzyme laboratory and blood-sugar regulator. For example, it pumps digestive juices that neutralize stomach acid and produces insulin hormones that unlock your cell doors so glucose sugar can leave the bloodstream and enter your cells.",
@@ -775,7 +859,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": " (Helps you digest food by breaking down sugars.)\n"
       },
       {
-        "num": 10,
+        "num": 11,
         "name": "Summary",
         "trick": "Lab Memory Tip",
         "example": "Functions through two coordinated phases: mechanical breakdown (teeth chewing and stomach churning into smaller pieces) followed by chemical breakdown (acids and enzymes dissolving complex food molecules into microscopic nutrients that blood can carry).",
@@ -783,7 +867,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Mechanical digestion breaks food down into smaller pieces   \n• Chemical digestion breaks food down into nutrients "
       },
       {
-        "num": 11,
+        "num": 12,
         "name": "Role of villi",
         "trick": "5th Grade Science Concept",
         "example": "Function like millions of plush velvet towel fibers maximizing absorption surface area. For example, if all the microscopic villi in your small intestine were smoothed flat, they would cover an entire tennis court, allowing nutrients to soak into blood vessels in seconds!",
@@ -791,7 +875,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Villi breaks down food into nutrients"
       },
       {
-        "num": 12,
+        "num": 13,
         "name": "What is gut flora?",
         "trick": "5th Grade Science Concept",
         "example": "Functions as a bustling community of trillions of helpful friendly bacteria. For example, these microbes digest stubborn fiber that your human enzymes cannot break down, manufacture essential Vitamin K for blood clotting, and fight off dangerous food poisoning germs.",
@@ -799,7 +883,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Gut flora are bacteria inside your gut. It makes up 30% of your body weight and it helps turn food into nutrients.  "
       },
       {
-        "num": 13,
+        "num": 14,
         "name": "Who is a gasteroentologist?",
         "trick": "5th Grade Science Concept",
         "example": "Operates as a specialized medical detective and physician for the digestive tract. For example, they diagnose and treat stomach ulcers, food allergies, acid reflux, and bowel conditions using cameras and medical tests to keep your gut healthy.",
@@ -809,7 +893,64 @@ const DEFAULT_SCIENCE_TOPICS = [
     ],
     "coreFormula": "5th Grade Scientific Principle",
     "description": "• Digest the food we eat\n• Take the nutrients out of your food so your body can use it",
-    "redirectUrl": ""
+    "redirectUrl": "",
+    "quiz": [
+      {
+        "q": "What are the four primary functions of the digestive system?",
+        "ans": 2,
+        "why": "The digestive system carries out Ingestion, Digestion (mechanical and chemical), Absorption of nutrients, and Elimination of waste.",
+        "options": [
+          "Breathing oxygen, exhaling carbon dioxide, and speech",
+          "Pumping blood, storing minerals, and shivering",
+          "Ingestion, Digestion, Nutrient Absorption, and Waste Elimination",
+          "Filtering blood, making urine, and sweat production"
+        ]
+      },
+      {
+        "q": "Where does the majority of chemical digestion and nutrient absorption happen?",
+        "ans": 1,
+        "why": "The small intestine (about 20 feet long) is where food is broken down into microscopic nutrients and absorbed through villi into blood.",
+        "options": [
+          "In the mouth",
+          "In the small intestine",
+          "In the esophagus",
+          "In the rectum"
+        ]
+      },
+      {
+        "q": "What wave-like muscular contraction pushes food down the esophagus into the stomach?",
+        "ans": 0,
+        "why": "Peristalsis is the rhythmic involuntary smooth muscle squeezing that pushes food down the esophagus.",
+        "options": [
+          "Peristalsis",
+          "Osmosis",
+          "Circulation",
+          "Respiration"
+        ]
+      },
+      {
+        "q": "What is the function of bile produced by the liver and stored in the gall bladder?",
+        "ans": 3,
+        "why": "Bile is a greenish-yellow fluid that breaks down and digests fats in the small intestine.",
+        "options": [
+          "To break down carbohydrates into sugars",
+          "To pump oxygen into the blood",
+          "To produce insulin hormones",
+          "To break down and digest fats"
+        ]
+      },
+      {
+        "q": "What microscopic finger-like projections in the small intestine absorb nutrients into the blood?",
+        "ans": 2,
+        "why": "Villi line the small intestine, dramatically increasing surface area to absorb nutrients.",
+        "options": [
+          "Cilia",
+          "Flagella",
+          "Villi",
+          "Nephrons"
+        ]
+      }
+    ]
   },
   {
     "id": "science-unit-1791049853454",
@@ -823,6 +964,14 @@ const DEFAULT_SCIENCE_TOPICS = [
     "properties": [
       {
         "num": 1,
+        "name": "Functions of waste elimination",
+        "trick": "Flush the bad stuff out before it poisons the cells!",
+        "example": "Functions as the body's internal plumbing, municipal sanitation system, and garbage collection truck. For example, if your body could not discharge carbon dioxide exhaust from breathing, urea from protein digestion, or solid waste from meals, your cells would quickly suffocate and drown in their own chemical trash; eliminating them daily keeps your bloodstream clean, balanced, and disease-free!",
+        "formula": "Cellular Metabolism → Byproduct Accumulation → Excretory Elimination → Clean Internal Environment",
+        "explanation": "• Preventing Toxic Buildup: Purges harmful, acidic, or poisonous metabolic byproducts that cells produce during energy creation.\n• Maintaining Homeostasis: Regulates water balance, mineral salts, and blood pH by discharging surpluses.\n• Digestive and Cellular Cleansing: Evacuates indigestible fiber, dead gut bacteria, and cellular debris through distinct excretory pathways.\n• Multi-Pathway Expulsion: Discharges liquid waste (urine via kidneys), gaseous waste (CO2 via lungs), solid waste (feces via colon), and immune battlefield remnants (pus via skin)."
+      },
+      {
+        "num": 2,
         "name": "Urine",
         "trick": "5th Grade Science Concept",
         "example": "Functions as liquid chemical waste filtered from your bloodstream. For example, when your kidneys filter blood, they dissolve excess urea, salts, and unneeded water into urine; pale yellow urine indicates healthy hydration, while dark yellow warns you to drink a glass of water immediately!",
@@ -830,7 +979,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Goes into the kidneys' waste products. If your urine is yellow, then you need to drink more liquids and fluids."
       },
       {
-        "num": 2,
+        "num": 3,
         "name": "Puss",
         "trick": "5th Grade Science Concept",
         "example": "Functions as an honorable battlefield collection of fallen immune soldiers. For example, when you scrape your knee and bacteria invade, white blood cells rush in and destroy the invaders; the resulting white fluid is made of dead bacteria, spent white blood cells, and damaged tissue cells.",
@@ -838,7 +987,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Pus is dead skin cells that form when you get a cut and bacteria get in. Pus is produced from cells."
       },
       {
-        "num": 3,
+        "num": 4,
         "name": "CO2",
         "trick": "5th Grade Science Concept",
         "example": "Functions as a gaseous combustion exhaust byproduct of cellular respiration. For example, every time your cells burn glucose for energy, carbon dioxide gas builds up in your blood; your bloodstream carries it to your lungs, where you exhale it out into the air with every breath.",
@@ -846,7 +995,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "When you breathe in, it goes through your lungs and you breathe out CO2"
       },
       {
-        "num": 4,
+        "num": 5,
         "name": "Poop",
         "trick": "5th Grade Science Concept",
         "example": "Functions as the elimination of unabsorbed solid food remnants, dead cells, and gut bacteria. For example, getting rid of solid bowel movements every 24 hours prevents toxic buildup and keeps your colon healthy, light, and clear.",
@@ -854,7 +1003,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Takes 24 hours to get rid of. Getting rid of it keeps you healthy."
       },
       {
-        "num": 5,
+        "num": 6,
         "name": "Fart",
         "trick": "5th Grade Science Concept",
         "example": "Functions as the natural pressure relief release of intestinal gases. For example, when gut bacteria ferment and digest hard-to-break-down beans and broccoli, harmless gases like nitrogen and methane build up pressure until they safely escape as a burp or a flatulence release.",
@@ -864,7 +1013,42 @@ const DEFAULT_SCIENCE_TOPICS = [
     ],
     "coreFormula": "5th Grade Scientific Principle",
     "description": "Learn about the waste your body doesn't need",
-    "redirectUrl": ""
+    "redirectUrl": "",
+    "quiz": [
+      {
+        "q": "Why is waste elimination essential to the human body?",
+        "ans": 1,
+        "why": "Eliminating waste prevents toxic metabolic byproducts from accumulating and poisoning organs and cells.",
+        "options": [
+          "To stop the heart from beating too quickly",
+          "To prevent toxic metabolic buildup and maintain clean internal homeostasis",
+          "To absorb more sunlight for photosynthesis",
+          "To produce hormones in the pineal gland"
+        ]
+      },
+      {
+        "q": "What waste gas is created when cells burn food for energy and must be exhaled through the lungs?",
+        "ans": 0,
+        "why": "Carbon dioxide (CO2) is the gaseous exhaust waste of cellular respiration exhaled by the lungs.",
+        "options": [
+          "Carbon dioxide (CO2)",
+          "Oxygen (O2)",
+          "Nitrogen (N2)",
+          "Hydrogen (H2)"
+        ]
+      },
+      {
+        "q": "What does dark yellow urine usually indicate about your body?",
+        "ans": 2,
+        "why": "Dark yellow urine indicates your kidneys are conserving water because your body needs more fluids (dehydration).",
+        "options": [
+          "You are fully hydrated",
+          "Your kidneys are sleeping",
+          "You need to drink more liquids/water",
+          "You have eaten too much sugar"
+        ]
+      }
+    ]
   },
   {
     "id": "science-unit-1791055801467",
@@ -878,6 +1062,14 @@ const DEFAULT_SCIENCE_TOPICS = [
     "properties": [
       {
         "num": 1,
+        "name": "Functions of protective bodily secretions",
+        "trick": "Secretions that defend, wash, cool, and eject danger!",
+        "example": "Functions as an automatic chemical security barrier, hazard containment squad, and emergency eject system. For example, earwax traps bugs and dust from penetrating your eardrum, nasal mucus catches cold viruses before reaching your lungs, tears flush dust grains off your eye in a blink, sweat cools your skin on a scorching hot day, and vomiting violently expels food poisoning bacteria before it can poison your blood!",
+        "formula": "External Pathogens / Toxins / Heat → Secretion Response (Mucus/Tears/Sweat/Earwax/Vomit) → Organ Protection",
+        "explanation": "• Physical & Chemical Trapping: Employs sticky secretions (mucus, earwax) to trap incoming dirt, spores, and bacteria before they infect delicate organs.\n• Emergency Toxin Eviction: Forcefully expels contaminated, spoiled, or poisonous ingested substances via vomiting before toxins can enter the bloodstream.\n• Optical Irrigation & Antimicrobial Cleansing: Continually bathes eyes with tears containing lysozyme enzymes to wash away irritants and destroy bacterial cell walls.\n• Evaporative Thermoregulation: Secretes watery perspiration onto the skin that evaporates to cool core body temperature and prevent heatstroke."
+      },
+      {
+        "num": 2,
         "name": "Mucus",
         "trick": "5th Grade Science Concept",
         "example": "Functions as a sticky, germ-trapping biological flypaper lining your airways. For example, when you inhale dust, soot, or pollen, sticky nasal mucus traps the foreign particles before they can reach your lungs, and sweeps them harmlessly away.",
@@ -885,7 +1077,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Mucus protects you by catching any dirt from entering your nose. When you get sick, mucus membranes go overload."
       },
       {
-        "num": 2,
+        "num": 3,
         "name": "Vomit",
         "trick": "5th Grade Science Concept",
         "example": "Functions as an emergency biological eject button. For example, if you accidentally swallow spoiled food or a dangerous toxin, your stomach senses the poison and violently reverses peristalsis to forcefully expel the contents before the poison can be absorbed into your blood.",
@@ -893,7 +1085,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "When you eat too much food it wants to throw up. You vomit because your body wants to get rid of something."
       },
       {
-        "num": 3,
+        "num": 4,
         "name": "Earwax",
         "trick": "5th Grade Science Concept",
         "example": "Functions as a waterproof, antimicrobial trap door lining your ear canal. For example, sticky cerumen traps dirt, insects, and fungal spores from reaching your delicate eardrum, while natural antibacterial oils keep the ear canal skin moisturized and germ-free.",
@@ -901,7 +1093,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Earwax helps you by catching dirt and helps protect  the skin. You shouldn't put Q-tips into the ear canal because Q-tips are used for medicine. (Credit to Clifford for teaching me this)"
       },
       {
-        "num": 4,
+        "num": 5,
         "name": "Tears",
         "trick": "5th Grade Science Concept",
         "example": "Function as an automatic optical wash and sterile saline rinse. For example, every time you blink, tear glands flush a protective film of saltwater and antibacterial lysozyme enzymes across your eyeball to wash away dirt specks and keep corneal cells crystal clear.",
@@ -909,7 +1101,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "You get tears to help keep your eyes moist and to wash off dirt from your face."
       },
       {
-        "num": 5,
+        "num": 6,
         "name": "Sweat",
         "trick": "5th Grade Science Concept",
         "example": "Functions as an evaporative cooling air conditioning system. For example, when your body temperature rises during sports on a hot day, sweat glands release droplets of water onto your skin; as the liquid sweat evaporates into the air, it pulls heat away from your skin, cooling you down.",
@@ -919,7 +1111,42 @@ const DEFAULT_SCIENCE_TOPICS = [
     ],
     "coreFormula": "It can protect you by keeping germs and dirt out of your body.",
     "description": "Learn about the waste that protects your body.",
-    "redirectUrl": ""
+    "redirectUrl": "",
+    "quiz": [
+      {
+        "q": "How does mucus function to protect the respiratory system?",
+        "ans": 1,
+        "why": "Sticky mucus lines the airway passages to trap dust, pollen, and bacteria before they reach delicate lungs.",
+        "options": [
+          "By cooling the body through evaporation",
+          "By catching dust, dirt, and airborne germs from entering the lungs",
+          "By dissolving food into liquid chyme",
+          "By creating tears to wash the eyes"
+        ]
+      },
+      {
+        "q": "What is the primary protective function of sweating (perspiration)?",
+        "ans": 0,
+        "why": "As liquid sweat evaporates off the skin surface, it pulls heat away to regulate body temperature around 98.6°F.",
+        "options": [
+          "To regulate body temperature through evaporative cooling",
+          "To catch dirt in the ear canal",
+          "To pump oxygen into the blood",
+          "To store extra calcium"
+        ]
+      },
+      {
+        "q": "Why does the body trigger vomiting when spoiled food or toxins are eaten?",
+        "ans": 3,
+        "why": "Vomiting is an emergency biological reflex to forcefully eject poisons before they can be absorbed into the blood.",
+        "options": [
+          "To help the small intestine rest",
+          "To moisten the vocal cords",
+          "To increase body temperature",
+          "To forcefully expel dangerous toxins or spoiled food before absorption into the bloodstream"
+        ]
+      }
+    ]
   },
   {
     "id": "science-unit-1791057557017",
@@ -933,6 +1160,14 @@ const DEFAULT_SCIENCE_TOPICS = [
     "properties": [
       {
         "num": 1,
+        "name": "Functions of the excretory system",
+        "trick": "Clean, Filter, and Flush: Keeps body chemistry clean and non-toxic!",
+        "example": "Functions as the body's nationwide hazardous waste sanitation department and water recycling facility. For example, if cells were unable to purge metabolic poisons, urea and carbon dioxide would build up like toxic exhaust and shut down your organs; instead, your kidneys, lungs, liver, and skin quietly filter and flush out toxic compounds 24/7 so your blood stays crystal clean!",
+        "formula": "Cellular Metabolic Wastes (Urea + CO2 + Excess Salts) → Multi-Organ Filtration → Waste Elimination",
+        "explanation": "• Removal of Toxic Wastes: Continuously purifies the body by removing cellular byproducts such as toxic urea, uric acid, and excess salts.\n• Regulation of Water & Electrolyte Balance (Osmoregulation): Controls the exact volume of water and mineral salts in the bloodstream to maintain proper cellular hydration.\n• Maintaining Acid-Base (pH) Homeostasis: Prevents body fluids from becoming dangerously acidic or alkaline.\n• Cooperative Organ Network: Coordinates multiple organs (kidneys filter liquid wastes, lungs exhale gaseous carbon dioxide, skin sweats out excess salts and heat, and the liver detoxifies poisonous chemicals)."
+      },
+      {
+        "num": 2,
         "name": "Other Excretory Organs",
         "trick": "5th Grade Science Concept",
         "example": "Functions as a multi-organ detox cleanup network working together to flush toxic byproducts. For example, lungs exhale water vapor and carbon dioxide gas, sweat glands in the skin excrete excess salts and heat, and the liver filters harmful chemicals and medications out of the bloodstream.",
@@ -942,7 +1177,31 @@ const DEFAULT_SCIENCE_TOPICS = [
     ],
     "coreFormula": "5th Grade Scientific Principle",
     "description": "• Collects wastes produced by the cells & removes them from the body.",
-    "redirectUrl": ""
+    "redirectUrl": "",
+    "quiz": [
+      {
+        "q": "What is the primary function of the excretory system?",
+        "ans": 2,
+        "why": "The excretory system removes metabolic wastes, balances fluids and electrolytes, and maintains non-toxic blood homeostasis.",
+        "options": [
+          "To produce electrical nerve impulses for conscious thought",
+          "To protect bones and produce white blood cells",
+          "To remove toxic metabolic wastes and maintain fluid/electrolyte balance",
+          "To pump oxygenated blood through the aorta"
+        ]
+      },
+      {
+        "q": "Which organs work together as part of the excretory network?",
+        "ans": 0,
+        "why": "The kidneys (urine/urea), lungs (CO2/water vapor), skin (sweat/salts), and liver (detoxification) all excrete wastes.",
+        "options": [
+          "Kidneys, lungs, skin, and liver",
+          "Stomach, pancreas, and teeth",
+          "Biceps, triceps, and tendons",
+          "Cornea, iris, and retina"
+        ]
+      }
+    ]
   },
   {
     "id": "science-unit-1791058004932",
@@ -956,6 +1215,14 @@ const DEFAULT_SCIENCE_TOPICS = [
     "properties": [
       {
         "num": 1,
+        "name": "Functions of the urinary system",
+        "trick": "Filter the blood, balance the water, expel the waste!",
+        "example": "Acts as a state-of-the-art chemical water treatment plant and precision hydration regulator. For example, on a hot summer day when you sweat heavily, your urinary system commands the kidneys to reabsorb water back into your blood to prevent dehydration (producing dark concentrated urine); but when you chug two water bottles, it quickly flushes out the excess as pale, clear urine to prevent blood pressure from climbing!",
+        "formula": "Blood Filtration (Nephrons) → Water/Electrolyte Reabsorption → Urine Excretion",
+        "explanation": "• Filters Blood Plasma: Microscopic nephrons continuously wash and filter your entire blood supply over 40 times each day.\n• Removes Toxic Liquid Waste: Eliminates urea, uric acid, and surplus metabolic chemicals in the form of liquid urine.\n• Regulates Fluid Volume and Blood Pressure: Adjusts how much water is reabsorbed into the bloodstream versus expelled, directly controlling blood pressure and hydration.\n• Maintains Electrolyte and pH Equilibrium: Regulates sodium, potassium, and hydrogen ions to keep blood pH steady around 7.4."
+      },
+      {
+        "num": 2,
         "name": "Kidneys",
         "trick": "5th Grade Science Concept",
         "example": "Function as twin high-efficiency water treatment and blood purification plants. For example, your two bean-shaped kidneys filter your entire body's blood volume over 400 times every day, sifting out urea waste and excess salts while reabsorbing clean water back into circulation.",
@@ -963,7 +1230,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Major organs of the urinary system remove excess water and other waste materials by filtering blood."
       },
       {
-        "num": 2,
+        "num": 3,
         "name": "Nephrons",
         "trick": "5th Grade Science Concept",
         "example": "Operate as over one million microscopic filtration funnels inside each kidney. For example, each nephron acts like a tiny sieve that strains out liquid waste and toxins into collecting ducts while keeping valuable red blood cells and protein molecules in your blood.",
@@ -971,7 +1238,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Tiny structures in the kidneys that filter liquid waste from blood to produce urine"
       },
       {
-        "num": 3,
+        "num": 4,
         "name": "Ureters",
         "trick": "5th Grade Science Concept",
         "example": "Act like two narrow muscular pipeline conduits. For example, these 10-inch tubes use rhythmic smooth muscle waves to push urine droplets downward from each kidney into the urinary bladder, preventing backflow.",
@@ -979,7 +1246,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Tubes that carry wastes from the kidneys to the urinary bladder."
       },
       {
-        "num": 4,
+        "num": 5,
         "name": "Urinary Bladder",
         "trick": "5th Grade Science Concept",
         "example": "Functions as an expandable, stretchy muscular holding tank. For example, its balloon-like elastic walls stretch to comfortably store up to two cups of urine until sensory nerves tell your brain it is time to empty it.",
@@ -987,7 +1254,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Muscular organ that stores urine until it passes out of the body"
       },
       {
-        "num": 5,
+        "num": 6,
         "name": "Urethra",
         "trick": "5th Grade Science Concept",
         "example": "Functions as the final exit pipeline and valve system. For example, a ring of sphincter muscle relaxes to allow stored urine to flow smoothly out of the bladder and leave the body cleanly during urination.",
@@ -997,64 +1264,99 @@ const DEFAULT_SCIENCE_TOPICS = [
     ],
     "coreFormula": "5th Grade Scientific Principle",
     "description": "• Eliminates many wastes as liquid urine\n\n\nParts of the urinary system\n\n• Kidneys\n• Nephrons\n• Ureters\n• Urinary Bladder\n• Urethra",
-    "redirectUrl": ""
+    "redirectUrl": "",
+    "quiz": [
+      {
+        "q": "What are the main functions of the urinary system?",
+        "ans": 1,
+        "why": "The urinary system filters blood, removes toxic urea in urine, regulates fluid balance, and controls blood pressure.",
+        "options": [
+          "To digest carbohydrates and churn food in gastric juices",
+          "To filter blood, excrete toxic urea in urine, and regulate fluid/electrolyte balance",
+          "To produce adrenaline and insulin hormones",
+          "To exchange oxygen and carbon dioxide in alveoli sacs"
+        ]
+      },
+      {
+        "q": "What microscopic structures inside the kidneys actually filter waste from the blood?",
+        "ans": 0,
+        "why": "Nephrons are the million microscopic filtering units in each kidney that filter blood to produce urine.",
+        "options": [
+          "Nephrons",
+          "Alveoli",
+          "Villi",
+          "Neurons"
+        ]
+      },
+      {
+        "q": "What muscular organ holds and stores urine until it is released from the body?",
+        "ans": 2,
+        "why": "The urinary bladder is an expandable muscular sac that stores urine until urination.",
+        "options": [
+          "Ureter",
+          "Kidney",
+          "Urinary bladder",
+          "Urethra"
+        ]
+      },
+      {
+        "q": "What tubes carry urine from the kidneys down to the urinary bladder?",
+        "ans": 3,
+        "why": "The ureters are two narrow muscular tubes carrying urine from each kidney to the bladder.",
+        "options": [
+          "Bronchi",
+          "Arteries",
+          "Urethra",
+          "Ureters"
+        ]
+      }
+    ]
   },
   {
     "id": "science-unit-1791126671261",
     "quiz": [
       {
-        "q": "According to the teacher notes: \"Small air sacs where gases are exchanged\" - What part is this?",
+        "q": "What is the primary function of the respiratory system?",
         "ans": 1,
-        "why": "Alveoli: \"Small air sacs where gases are exchanged\"",
+        "why": "The respiratory system brings oxygen into the blood for cellular respiration and expels carbon dioxide waste into the air.",
         "options": [
-          "Larynx",
-          "Alveoli",
-          "Trachea",
-          "Pharynx"
+          "To pump blood to the brain and kidneys",
+          "To exchange oxygen into the bloodstream and exhale carbon dioxide waste",
+          "To churn and mechanically break down food",
+          "To store calcium and manufacture red blood cells"
         ]
       },
       {
-        "q": "According to the teacher notes: \"Routes air and food into proper channels\" - What part is this?",
+        "q": "In what microscopic air sacs does the actual gas exchange between air and blood happen?",
         "ans": 0,
-        "why": "Larynx: \"Routes air and food into proper channels\"",
+        "why": "Alveoli are tiny grape-like air sacs surrounded by capillaries where oxygen diffuses into blood and CO2 diffuses out.",
         "options": [
-          "Larynx",
           "Alveoli",
+          "Bronchioles",
           "Trachea",
-          "Pharynx"
+          "Larynx"
         ]
       },
       {
-        "q": "According to the teacher notes: \"Muscular passage from the nasal cavity to the larynx\" - What part is this?",
-        "ans": 0,
-        "why": "Pharynx: \"Muscular passage from the nasal cavity to the larynx. \"",
+        "q": "Which organ contains the vocal cords that vibrate to produce speech and sounds?",
+        "ans": 2,
+        "why": "The larynx (voice box) houses vocal cords that vibrate as exhaled air rushes across them.",
         "options": [
           "Pharynx",
-          "Alveoli",
-          "Larynx",
+          "Diaphragm",
+          "Larynx (voice box)",
           "Trachea"
         ]
       },
       {
-        "q": "According to the teacher notes: \"Connects the larynx with the bronchi\" - What part is this?",
+        "q": "What is the windpipe that connects the larynx to the bronchi called?",
         "ans": 3,
-        "why": "Trachea: \"Connects the larynx with the bronchi\"",
+        "why": "The trachea (windpipe) is reinforced with cartilage rings to keep the airway open for breathing.",
         "options": [
+          "Esophagus",
+          "Aorta",
           "Pharynx",
-          "Larynx",
-          "Alveoli",
           "Trachea"
-        ]
-      },
-      {
-        "q": "According to the teacher notes: \"The lung is the essential respiratory organ in air-breathing vertebrates. Its principal function is to transport oxygen from the atmosphere into the bloodstream and to excrete carbon dioxide from the bloodstream into the atmosphere. This exchange of gases is accomplished in the mosaic of specialized cells that form millions of tiny, exceptionally thin-walled air sacs called alveoli\" - What part is this?",
-        "ans": 0,
-        "why": "Lungs: \"The lung is the essential respiratory organ in air-breathing vertebrates. Its principal function is to transport oxygen from the atmosphere into the bloodstream and to excrete carbon dioxide from the bloodstream into the atmosphere. This exchange of gases is accomplished in the mosaic of specialized cells that form millions of tiny, exceptionally thin-walled air sacs called alveoli.\"",
-        "options": [
-          "Lungs",
-          "Larynx",
-          "Alveoli",
-          "Pharynx"
         ]
       }
     ],
@@ -1068,6 +1370,14 @@ const DEFAULT_SCIENCE_TOPICS = [
     "properties": [
       {
         "num": 1,
+        "name": "Functions of the respiratory system",
+        "trick": "Breathe in Oxygen (O2), Breathe out Carbon Dioxide (CO2)!",
+        "example": "Acts as the body's high-volume oxygen intake manifold and carbon dioxide exhaust pipe. For example, during a 100-meter dash, your respiratory rate surges to pump millions of oxygen molecules through your alveoli into working red blood cells every second, while simultaneously dumping billowing clouds of acidic carbon dioxide waste out into the atmosphere!",
+        "formula": "Atmospheric O2 Inhalation → Alveolar Gas Exchange → Cellular Respiration → CO2 Exhalation",
+        "explanation": "• Gas Exchange: Delivers life-giving oxygen from the air into the bloodstream and extracts toxic carbon dioxide waste from the blood to exhale.\n• Cellular Fuel Supply: Supplies the vital oxygen that cellular mitochondria need to burn glucose and create ATP energy.\n• Vocalization and Speech: Directs exhaled air across the vocal cords in the larynx, vibrating them to produce sound, speech, and singing.\n• Air Conditioning & Immune Defense: Traps airborne pollutants, dust, and pathogens with sticky mucus and beating cilia, while warming and humidifying inhaled air."
+      },
+      {
+        "num": 2,
         "name": "Alveoli",
         "trick": "5th Grade Science Concept",
         "example": "Function as over 300 million microscopic, gossamer-thin air sac bubbles. For example, each alveolus is wrapped in spiderweb capillaries where oxygen molecules hop across into your red blood cells while carbon dioxide waste hops out to be exhaled with each breath.",
@@ -1075,7 +1385,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Small air sacs where gases are exchanged"
       },
       {
-        "num": 2,
+        "num": 3,
         "name": "Larynx",
         "trick": "5th Grade Science Concept",
         "example": "Operates as your vocal soundbox and emergency airway traffic director. For example, its vocal cords vibrate when exhaled air rushes through to create your voice, while the epiglottis flap snaps shut over your windpipe when swallowing so food never goes down the wrong pipe.",
@@ -1083,7 +1393,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Routes air and food into proper channels"
       },
       {
-        "num": 3,
+        "num": 4,
         "name": "Pharynx",
         "trick": "5th Grade Science Concept",
         "example": "Functions as a dual-purpose throat intersection corridor. For example, this muscular hallway guides inhaled air from your nasal cavity down to the larynx, and guides swallowed food from your mouth into the esophagus.",
@@ -1091,7 +1401,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Muscular passage from the nasal cavity to the larynx. "
       },
       {
-        "num": 4,
+        "num": 5,
         "name": "Trachea",
         "trick": "5th Grade Science Concept",
         "example": "Operates as a reinforced, non-collapsible windpipe corridor. For example, tough C-shaped rings of cartilage hold your trachea permanently wide open like a vacuum cleaner hose, ensuring air can flow freely into your chest even when your neck bends.",
@@ -1099,7 +1409,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Connects the larynx with the bronchi"
       },
       {
-        "num": 5,
+        "num": 6,
         "name": "Lungs",
         "trick": "5th Grade Science Concept",
         "example": "Function as twin spongy, elastic gas exchange bellows. For example, when your diaphragm pulls downward, the lungs expand and draw in fresh atmospheric air, transferring life-giving oxygen directly into the bloodstream while collecting carbon dioxide to exhaust on exhalation.",
@@ -1115,14 +1425,25 @@ const DEFAULT_SCIENCE_TOPICS = [
     "id": "science-unit-1791135574244",
     "quiz": [
       {
-        "q": "According to the teacher notes: \"Epidermis\" - What part is this?",
+        "q": "What are the major functions of the integumentary system (skin)?",
         "ans": 0,
-        "why": "Layers of the Skin: \"• Epidermis\n• Dermis\n• Hypodermis\"",
+        "why": "The integumentary system protects against germs/injury, regulates temperature, senses touch/pain, retains moisture, and makes Vitamin D.",
         "options": [
-          "Layers of the Skin",
-          "Cell Membrane",
-          "Cytoplasm",
-          "Mitochondria"
+          "Protection, temperature regulation, touch sensation, moisture retention, and Vitamin D synthesis",
+          "Pumping blood, digesting fats, and filtering urine",
+          "Filtering liquid blood and producing hormones",
+          "Gas exchange in alveoli and vocal cord speech"
+        ]
+      },
+      {
+        "q": "What are the three main layers of human skin?",
+        "ans": 2,
+        "why": "The three layers are the Epidermis (outer), Dermis (middle), and Hypodermis / Subcutaneous (inner fatty layer).",
+        "options": [
+          "Compact bone, spongy bone, and periosteum",
+          "Cerebrum, cerebellum, and brain stem",
+          "Epidermis, Dermis, and Hypodermis",
+          "Cornea, pupil, and retina"
         ]
       }
     ],
@@ -1136,6 +1457,14 @@ const DEFAULT_SCIENCE_TOPICS = [
     "properties": [
       {
         "num": 1,
+        "name": "Functions of the integumentary system",
+        "trick": "Remember P-T-S-V-M: Protection, Temperature, Sensation, Vitamin D, and Moisture retention!",
+        "example": "Functions as a self-healing, waterproof, climate-controlled environmental space suit. For example, your skin stops billions of bacteria on your desk from entering your bloodstream, flushes cooling sweat onto your forehead during a hot basketball game, produces Vitamin D when you play in the sun, and fires instant pain signals to your brain the moment you brush against a hot iron!",
+        "formula": "Epidermal Keratin Shield + Dermal Capillary Heat Shunt + Nerve Receptors = Living Protective Barrier",
+        "explanation": "• Physical Barrier Protection: Shields underlying muscles, blood vessels, and internal organs from physical abrasions, UV radiation, toxic chemicals, and disease-causing germs.\n• Thermoregulation (Temperature Regulation): Cools the body through sweat evaporation and dilating surface blood vessels, or conserves body heat by constricting vessels.\n• Sensory Reception: Packed with millions of microscopic sensory receptors that detect touch, pressure, vibration, temperature, and pain to alert the brain of danger.\n• Prevention of Water Loss: Creates a waterproof, keratinized seal that stops internal bodily fluids and water from evaporating into the air.\n• Vitamin D Synthesis: Uses solar ultraviolet B light to manufacture Vitamin D, which is essential for calcium absorption and strong bones."
+      },
+      {
+        "num": 2,
         "name": "Layers of the Skin",
         "trick": "5th Grade Science Concept",
         "example": "Functions as your body's waterproof, multi-layered protective suit of armor. For example, the outer epidermis sheds dead cells and blocks germs like a raincoat, the middle dermis contains blood vessels, sweat glands, and touch nerves that sense warmth and pain, and the inner hypodermis cushions against falls with a layer of insulating fat.",
@@ -1151,91 +1480,47 @@ const DEFAULT_SCIENCE_TOPICS = [
     "id": "science-unit-1791244354574",
     "quiz": [
       {
-        "q": "Key to life and failures in what can lead to disease?",
-        "ans": 1,
-        "why": "Homeostasis: \"• Key to life and failures in homeostasis can lead to disease\n• Keeping things constant\n• Hunger & Thirst are examples\n\n\nHomeostasis includes the regulation of\n\n• oxygen & carbon dioxide levels \n• nutrient & waste product levels\n• water balance\n• body temperature\n\"",
-        "options": [
-          "Pineal Gland",
-          "Homeostasis",
-          "Thyroid Gland",
-          "Pituitary Gland"
-        ]
-      },
-      {
-        "q": "This is considered the \"master what.\"?",
-        "ans": 0,
-        "why": "Pituitary Gland: \"• This is considered the \"master gland.\"\n• Growth harmonies get produced there and they get sent to other organs\"",
-        "options": [
-          "Pituitary Gland",
-          "Pineal Gland",
-          "Homeostasis",
-          "Thyroid Gland"
-        ]
-      },
-      {
-        "q": "Secretes hormones that control the other what?",
-        "ans": 0,
-        "why": "Pineal Gland: \"• Secretes hormones that control the other glands\n• Middle of the Brain\n• Secretes melatonin\n• Helps to regulate when you sleep and when you wake up\"",
-        "options": [
-          "Pineal Gland",
-          "Thyroid Gland",
-          "Homeostasis",
-          "Pituitary Gland"
-        ]
-      },
-      {
-        "q": "According to the teacher notes: \"Front of the lower neck\" - What part is this?",
+        "q": "What is the primary function of the endocrine system?",
         "ans": 2,
-        "why": "Thyroid Gland: \"• Front of the lower neck\n• Controls the rate at which our cells burn food to produce energy\"",
+        "why": "The endocrine system produces and secretes hormones into the blood to regulate metabolism, growth, mood, sleep, and homeostasis.",
         "options": [
-          "Pineal Gland",
-          "Homeostasis",
-          "Thyroid Gland",
-          "Pituitary Gland"
+          "To carry oxygen to muscle cells through arteries",
+          "To physically chew and churn food into nutrients",
+          "To release chemical hormone messengers into the bloodstream to control long-term body functions and maintain homeostasis",
+          "To filter liquid waste into the bladder"
         ]
       },
       {
-        "q": "Two what?",
+        "q": "Which endocrine gland is known as the 'master gland' because it directs other glands?",
         "ans": 1,
-        "why": "Adrenal Gland: \"• Two glands\n• Produces adrenaline\n• Controls the body's response to stress\"",
+        "why": "The pituitary gland (located at the base of the brain) secretes master hormones that stimulate and control other endocrine glands.",
         "options": [
-          "Pineal Gland",
-          "Adrenal Gland",
-          "Pituitary Gland",
-          "Homeostasis"
+          "Thyroid gland",
+          "Pituitary gland",
+          "Adrenal gland",
+          "Pancreas"
         ]
       },
       {
-        "q": "According to the teacher notes: \"Hormones secreted are called Gonads\" - What part is this?",
-        "ans": 2,
-        "why": "Reproductive Glands: \"• Hormones secreted are called Gonads\n• Produces hormones called androgens, most importantly testosterone\"",
-        "options": [
-          "Pineal Gland",
-          "Pituitary Gland",
-          "Reproductive Glands",
-          "Homeostasis"
-        ]
-      },
-      {
-        "q": "According to the teacher notes: \"Long flat gland\" - What part is this?",
+        "q": "Which hormone produced by the pineal gland helps regulate your sleep-wake cycle?",
         "ans": 0,
-        "why": "Pancreas: \"• Long flat gland\n• Produces insulin and glucagon\n• Helps controls the levels of glucose in the body\"",
+        "why": "Melatonin is released by the pineal gland in darkness to promote sleepiness.",
         "options": [
-          "Pancreas",
-          "Homeostasis",
-          "Pituitary Gland",
-          "Pineal Gland"
+          "Melatonin",
+          "Adrenaline",
+          "Insulin",
+          "Thyroxine"
         ]
       },
       {
-        "q": "According to the teacher notes: \"The purpose of the endocrine system is to control body functions. It works with tthe nervous system and the circulatory system. Each gland an organ that makes chemical substances/ hormones in the endocrine system has a different job. Glands are controlled by the hypothalamus which acts like a thermostat\" - What part is this?",
-        "ans": 1,
-        "why": "Summary: \"The purpose of the endocrine system is to control body functions. It works with tthe nervous system and the circulatory system. Each gland an organ that makes chemical substances/ hormones in the endocrine system has a different job. Glands are controlled by the hypothalamus which acts like a thermostat.\"",
+        "q": "What endocrine gland produces insulin and glucagon to balance blood sugar?",
+        "ans": 3,
+        "why": "The pancreas secretes insulin (to lower blood sugar) and glucagon (to raise blood sugar).",
         "options": [
-          "Homeostasis",
-          "Summary",
-          "Pituitary Gland",
-          "Pineal Gland"
+          "Gallbladder",
+          "Thyroid gland",
+          "Pineal gland",
+          "Pancreas"
         ]
       }
     ],
@@ -1249,6 +1534,14 @@ const DEFAULT_SCIENCE_TOPICS = [
     "properties": [
       {
         "num": 1,
+        "name": "Functions of the endocrine system",
+        "trick": "Glands make Hormones; Hormones deliver chemical commands through blood!",
+        "example": "Acts as the body's wireless chemical broadband network and automatic environmental control system. For example, while the nervous system is like lightning-fast electrical wiring for sudden reflexes, the endocrine system uses slower, long-lasting chemical messages: when you eat lunch, the pancreas releases insulin to store sugar; when danger looms, adrenal glands flood blood with adrenaline; and at night, the pineal gland sends melatonin to put you to sleep!",
+        "formula": "Endocrine Gland Secretion → Hormone Chemical Messengers in Bloodstream → Target Cell Receptors → Physiological Regulation",
+        "explanation": "• Chemical Communication & Regulation: Secretes specialized chemical messengers called hormones directly into the bloodstream to coordinate organ systems.\n• Metabolism & Energy Balance: Regulates how fast cells burn glucose and store nutrients (via thyroid thyroxine and pancreatic insulin/glucagon).\n• Growth & Physical Development: Controls bone growth, muscle growth, and cellular repair from childhood through adulthood (via pituitary growth hormone).\n• Sleep-Wake Cycles: Regulates circadian rhythms and rest patterns (via pineal melatonin).\n• Stress Response & Emergency Readiness: Controls adrenaline and cortisol release to prepare the body for immediate fight-or-flight action.\n• Internal Homeostasis: Maintains steady internal conditions including blood sugar, body temperature, water balance, and mineral levels."
+      },
+      {
+        "num": 2,
         "name": "Homeostasis",
         "trick": "5th Grade Science Concept",
         "example": "Functions as the body's internal balancing thermostat. For example, whether you are in a freezing snowstorm or a hot desert, homeostasis automatically regulates internal body temperature around 98.6°F, balances blood sugar, and signals hunger and thirst to keep you alive and stable.",
@@ -1256,7 +1549,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Key to life and failures in homeostasis can lead to disease\n• Keeping things constant\n• Hunger & Thirst are examples\n\n\nHomeostasis includes the regulation of\n\n• oxygen & carbon dioxide levels \n• nutrient & waste product levels\n• water balance\n• body temperature\n"
       },
       {
-        "num": 2,
+        "num": 3,
         "name": "Pituitary Gland",
         "trick": "5th Grade Science Concept",
         "example": "Operates as the master endocrine conductor and hormone command center. For example, this pea-sized gland at the base of the brain produces human growth hormone to make your bones grow taller and sends chemical orders to all other hormone glands.",
@@ -1264,7 +1557,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• This is considered the \"master gland.\"\n• Growth harmonies get produced there and they get sent to other organs"
       },
       {
-        "num": 3,
+        "num": 4,
         "name": "Pineal Gland",
         "trick": "5th Grade Science Concept",
         "example": "Functions as your internal biological clock and sleep regulator. For example, when darkness falls at night, the pineal gland secretes melatonin into your bloodstream to make you feel drowsy, then turns off production at sunrise so you wake up refreshed.",
@@ -1272,7 +1565,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Secretes hormones that control the other glands\n• Middle of the Brain\n• Secretes melatonin\n• Helps to regulate when you sleep and when you wake up"
       },
       {
-        "num": 4,
+        "num": 5,
         "name": "Thyroid Gland",
         "trick": "5th Grade Science Concept",
         "example": "Operates as the metabolic throttle and energy speedometer. For example, this butterfly-shaped gland on your neck secretes thyroxine to control how fast your cells burn calories and convert food into active energy versus storing it.",
@@ -1280,7 +1573,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Front of the lower neck\n• Controls the rate at which our cells burn food to produce energy"
       },
       {
-        "num": 5,
+        "num": 6,
         "name": "Adrenal Gland",
         "trick": "5th Grade Science Concept",
         "example": "Functions as the emergency adrenaline turbocharger. For example, if you encounter sudden danger or prepare for a race, these glands on top of your kidneys dump adrenaline into your blood, making your heart race, pupils dilate, and muscles surge with instant fight-or-flight power.",
@@ -1288,7 +1581,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Two glands\n• Produces adrenaline\n• Controls the body's response to stress"
       },
       {
-        "num": 6,
+        "num": 7,
         "name": "Reproductive Glands",
         "trick": "5th Grade Science Concept",
         "example": "Function as developmental maturation glands. For example, they produce androgens and sex hormones that trigger growth spurts, deepen the voice, and develop secondary characteristics as children grow into healthy adults.",
@@ -1296,7 +1589,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Hormones secreted are called Gonads\n• Produces hormones called androgens, most importantly testosterone"
       },
       {
-        "num": 7,
+        "num": 8,
         "name": "Pancreas",
         "trick": "5th Grade Science Concept",
         "example": "Functions as a high-precision chemical blood glucose monitor and dispenser. For example, after eating lunch, it secretes insulin to help cells absorb sugar from the blood; between meals, it secretes glucagon to release stored liver sugar, keeping energy perfectly steady.",
@@ -1304,7 +1597,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Long flat gland\n• Produces insulin and glucagon\n• Helps controls the levels of glucose in the body"
       },
       {
-        "num": 8,
+        "num": 9,
         "name": "Summary",
         "trick": "5th Grade Science Concept",
         "example": "Operates as a wireless chemical messaging network controlling long-term body processes. For example, while nerves send instant electrical sparks, endocrine glands release slow-acting hormone messengers through the bloodstream to regulate mood, growth, metabolism, and sleep under hypothalamus supervision.",
@@ -1441,10 +1734,10 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Functions of the nervous system",
-        "trick": "5th Grade Science Concept",
-        "example": "Functions as the body's master high-speed electrical communication grid. For example, it senses touch, light, and temperature from sensory organs, processes that data in the brain in milliseconds, and fires instant motor commands to keep you balanced, reacting, and safe.",
-        "formula": "5th Grade Scientific Principle",
-        "explanation": "• Recieves info from inside & outside of the body\n• Controls & directs body's functions and responses\n• Helps maintain homeostasis"
+        "trick": "Sense, Process, Respond: The body's supercomputer network!",
+        "example": "Functions as the body's high-speed fiber-optic command center and biological supercomputer. For example, if you accidentally touch a scorching hot frying pan, sensory receptors in your skin send an electrical impulse at 250 mph up your arm into your spinal cord, which triggers an instant reflex arc to yank your hand back in a fraction of a second before you even consciously perceive the pain!",
+        "formula": "Sensory Input (Receptors) → Integration & Decision (Brain & Cord) → Motor Output (Nerves to Muscles/Glands)",
+        "explanation": "• Sensory Input: Gathers real-time sensory information from sensory receptors inside and outside the body (sight, sound, touch, taste, smell, temperature, pain).\n• Integration and Processing: The brain and spinal cord evaluate incoming sensory signals, compare them with memories, and make decisions.\n• Motor Output & Control: Transmits high-speed electrical nerve impulses to muscles and glands to trigger voluntary actions (moving) and involuntary actions (breathing, heartbeats).\n• Homeostatic Maintenance: Constantly monitors and regulates internal body balance in coordination with the endocrine system."
       },
       {
         "num": 2,
@@ -1527,58 +1820,36 @@ const DEFAULT_SCIENCE_TOPICS = [
     "id": "science-unit-1791502148496",
     "quiz": [
       {
-        "q": "According to the teacher notes: \"The main artery in the human body starts from the left ventricle to the stomach\" - What part is this?",
+        "q": "What is the primary function of the heart in the circulatory system?",
         "ans": 1,
-        "why": "Aorta: \"The main artery in the human body starts from the left ventricle to the stomach\"",
+        "why": "The heart functions as a continuous double-pump, driving pulmonary circulation to the lungs and systemic circulation to all body organs.",
         "options": [
-          "Right Atrium",
-          "Aorta",
-          "Left Atrium",
-          "Right Ventricle"
+          "To produce hormones that cause sleepiness",
+          "To act as a continuous muscular pump propelling blood through pulmonary and systemic circuits",
+          "To filter liquid waste from blood plasma into urine",
+          "To absorb nutrients from digested food"
         ]
       },
       {
-        "q": "According to the teacher notes: \"Receives blood from all the parts of the body. Blood is high in CO2 and low in oxygen\" - What part is this?",
+        "q": "Which heart chamber pumps oxygen-rich blood to the entire body through the aorta?",
+        "ans": 2,
+        "why": "The left ventricle has thick muscular walls that forcefully pump oxygenated blood through the aorta to the whole body.",
+        "options": [
+          "Right atrium",
+          "Right ventricle",
+          "Left ventricle",
+          "Left atrium"
+        ]
+      },
+      {
+        "q": "What is the largest artery in the human body that carries fresh oxygenated blood leaving the heart?",
         "ans": 0,
-        "why": "Right Atrium: \"Receives blood from all the parts of the body. Blood is high in CO2 and low in oxygen.\"",
+        "why": "The aorta is the largest artery in the human body, originating from the left ventricle.",
         "options": [
-          "Right Atrium",
           "Aorta",
-          "Left Atrium",
-          "Right Ventricle"
-        ]
-      },
-      {
-        "q": "According to the teacher notes: \"Pumps blood to the lungs. Blood is high in carbon dioxide and low in oxygen\" - What part is this?",
-        "ans": 2,
-        "why": "Right Ventricle: \"Pumps blood to the lungs. Blood is high in carbon dioxide and low in oxygen\"",
-        "options": [
-          "Right Atrium",
-          "Left Atrium",
-          "Right Ventricle",
-          "Aorta"
-        ]
-      },
-      {
-        "q": "According to the teacher notes: \"Recieves blood from the lungs. Blood is high in oxygen and low in CO2\" - What part is this?",
-        "ans": 3,
-        "why": "Left Atrium: \"Recieves blood from the lungs. Blood is high in oxygen and low in CO2\"",
-        "options": [
-          "Right Ventricle",
-          "Aorta",
-          "Right Atrium",
-          "Left Atrium"
-        ]
-      },
-      {
-        "q": "According to the teacher notes: \"Pumps blood to all parts of the body except the lungs. Blood is high in oxygen and low in CO2\" - What part is this?",
-        "ans": 2,
-        "why": "Left Ventricle: \"Pumps blood to all parts of the body except the lungs. Blood is high in oxygen and low in CO2\"",
-        "options": [
-          "Right Ventricle",
-          "Aorta",
-          "Left Ventricle",
-          "Right Atrium"
+          "Pulmonary vein",
+          "Vena cava",
+          "Coronary sinus"
         ]
       }
     ],
@@ -1592,6 +1863,14 @@ const DEFAULT_SCIENCE_TOPICS = [
     "properties": [
       {
         "num": 1,
+        "name": "Functions of the heart",
+        "trick": "Right side pumps to Lungs; Left side pumps to the Body!",
+        "example": "Functions as a high-powered, dual-cylinder mechanical fluid engine that never turns off. For example, its right chambers funnel spent dark blood to your lungs to pick up fresh oxygen, while its extra-thick left ventricle squeezes with enough force to shoot oxygenated bright red blood straight up to your brain and down to your toes in a single beat!",
+        "formula": "Cardiac Muscle Contraction (Systole/Diastole) → Pulmonary & Systemic Hemodynamic Pumping",
+        "explanation": "• Continuous Muscular Pumping: Contracts rhythmically approximately 100,000 times each day without stopping, pumping about 2,000 gallons of blood daily.\n• Pulmonary Circulation: The right atrium and ventricle receive oxygen-depleted blood from the body and pump it to the lungs to discard CO2 and pick up oxygen.\n• Systemic Circulation: The left atrium and powerful left ventricle receive fresh oxygenated blood from the lungs and pump it out through the aorta to all organs and limbs.\n• Generates Blood Pressure: Generates the hydraulic fluid pressure required to push blood through 60,000 miles of capillaries, arteries, and veins."
+      },
+      {
+        "num": 2,
         "name": "Aorta",
         "trick": "5th Grade Science Concept",
         "example": "Functions as the superhighway main trunk artery of the entire body. For example, this thick, elastic arch receives high-pressure, oxygen-rich blood freshly pumped from the left ventricle and channels it into branching arterial highways serving the brain, chest, abdomen, and legs.",
@@ -1599,7 +1878,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "The main artery in the human body starts from the left ventricle to the stomach"
       },
       {
-        "num": 2,
+        "num": 3,
         "name": "Right Atrium",
         "trick": "5th Grade Science Concept",
         "example": "Operates as the venous receiving lounge for depleted blood. For example, it collects oxygen-poor, carbon-dioxide-rich dark blood returning from your working muscles and organs through the vena cava veins and funnels it down into the right ventricle.",
@@ -1607,7 +1886,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Receives blood from all the parts of the body. Blood is high in CO2 and low in oxygen."
       },
       {
-        "num": 3,
+        "num": 4,
         "name": "Right Ventricle",
         "trick": "5th Grade Science Concept",
         "example": "Functions as the pulmonary pump sending blood to the lungs. For example, with every heartbeat, its muscular chamber contracts to squeeze oxygen-depleted blood through the pulmonary artery straight into the lungs so it can pick up fresh oxygen.",
@@ -1615,7 +1894,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Pumps blood to the lungs. Blood is high in carbon dioxide and low in oxygen"
       },
       {
-        "num": 4,
+        "num": 5,
         "name": "Left Atrium",
         "trick": "5th Grade Science Concept",
         "example": "Functions as the pulmonary receiving dock for freshly oxygenated blood. For example, it receives bright red, oxygen-rich blood arriving from the lungs via the pulmonary veins and funnels it through the mitral valve into the powerful left ventricle.",
@@ -1623,7 +1902,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "Recieves blood from the lungs. Blood is high in oxygen and low in CO2"
       },
       {
-        "num": 5,
+        "num": 6,
         "name": "Left Ventricle",
         "trick": "5th Grade Science Concept",
         "example": "Functions as the powerhouse muscle engine of the entire circulatory system. For example, with walls three times thicker than any other chamber, it generates immense squeezing force to shoot oxygen-packed blood through the aorta all the way to your brain, toes, and every living cell.",
@@ -1639,80 +1918,47 @@ const DEFAULT_SCIENCE_TOPICS = [
     "id": "science-unit-1791502958384",
     "quiz": [
       {
-        "q": "According to the teacher notes: \"Largest of all blood vessels\" - What part is this?",
-        "ans": 1,
-        "why": "Artery: \"• Largest of all blood vessels\n• Carries blood away from the heart\n• Arteries, except those that go to the lungs, are rich in oxygen\n• Carry materials that the cells need\n• \"",
+        "q": "What are the core functions of the circulatory system?",
+        "ans": 2,
+        "why": "The circulatory system transports oxygen/nutrients, removes waste (CO2/urea), defends against infections, and regulates body temperature.",
         "options": [
-          "Vein",
-          "Artery",
-          "Capilary",
-          "Blood vessels"
+          "To produce saliva and chew food into boluses",
+          "To provide rigid shape and protect spinal nerves",
+          "To transport oxygen and nutrients, remove metabolic wastes, fight disease, and regulate body temperature",
+          "To make urine and balance electrolytes"
         ]
       },
       {
-        "q": "According to the teacher notes: \"Carry blood back to the heart\" - What part is this?",
+        "q": "Which blood vessels carry oxygen-rich blood AWAY from the heart under high pressure?",
         "ans": 0,
-        "why": "Vein: \"• Carry blood back to the heart\n• Veins, except those that go to the lungs carry blood with dissolved materials\n• Medium sized\"",
+        "why": "Arteries carry blood away from the heart with thick, elastic muscular walls.",
         "options": [
-          "Vein",
-          "Capilary",
-          "Artery",
-          "Blood vessels"
+          "Arteries",
+          "Veins",
+          "Capillaries",
+          "Lymph nodes"
         ]
       },
       {
-        "q": "According to the teacher notes: \"Connects the arteries and the veins\" - What part is this?",
+        "q": "What are the tiny microscopic blood vessels where nutrients and gases actually diffuse into cells?",
+        "ans": 1,
+        "why": "Capillaries are ultra-thin vessels (one cell thick) where oxygen, nutrients, and waste are exchanged.",
+        "options": [
+          "Arteries",
+          "Capillaries",
+          "Veins",
+          "Vena cava"
+        ]
+      },
+      {
+        "q": "What blood components are responsible for clotting and stopping bleeding when you get a cut?",
         "ans": 3,
-        "why": "Capilary: \"• Connects the arteries and the veins\n• They are tiny in size -- some as thin as one strand of hair\n• Most numerous in your body\"",
+        "why": "Platelets are cell fragments that release clotting chemicals and form mesh scabs over cuts.",
         "options": [
-          "Vein",
-          "Blood vessels",
-          "Artery",
-          "Capilary"
-        ]
-      },
-      {
-        "q": "What carry this structure to and from the heart and other parts of the body?",
-        "ans": 0,
-        "why": "Blood vessels: \"• Blood vessels carry blood to and from the heart and other parts of the body\n• Blood circulates throughout the blood vessels to reach all areas of the body. It transports nutrients and oxygens to the heart and carries away waste.\n\"",
-        "options": [
-          "Blood vessels",
-          "Artery",
-          "Capilary",
-          "Vein"
-        ]
-      },
-      {
-        "q": "According to the teacher notes: \"Fight disease and infection\" - What part is this?",
-        "ans": 0,
-        "why": "White Blood Cell: \"• Fight disease and infection\n• Destroy harmful germs in the body\n• Largest of blood cells\"",
-        "options": [
-          "White Blood Cell",
-          "Vein",
-          "Artery",
-          "Capilary"
-        ]
-      },
-      {
-        "q": "According to the teacher notes: \"Contains hemoglobin that gives it that red color\" - What part is this?",
-        "ans": 1,
-        "why": "Red Blood Cell: \"• Contains hemoglobin that gives it that red color\n• Most numerous\n• Carries oxygen to all parts of the body\n• Picks up carbon dioide waste from the cells\"",
-        "options": [
-          "Capilary",
-          "Red Blood Cell",
-          "Artery",
-          "Vein"
-        ]
-      },
-      {
-        "q": "According to the teacher notes: \"Tiny colorless pieces of blood\" - What part is this?",
-        "ans": 0,
-        "why": "Platelets: \"• Tiny colorless pieces of blood\n• Help stop bleeding by giving off a chemical that helps blood clot\n• Smallest of the blood cells\"",
-        "options": [
-          "Platelets",
-          "Artery",
-          "Capilary",
-          "Vein"
+          "Red blood cells",
+          "White blood cells",
+          "Plasma proteins",
+          "Platelets"
         ]
       }
     ],
@@ -1726,6 +1972,14 @@ const DEFAULT_SCIENCE_TOPICS = [
     "properties": [
       {
         "num": 1,
+        "name": "Functions of the circulatory system",
+        "trick": "Transport, Defend, and Regulate: The body's superhighway!",
+        "example": "Acts as a 60,000-mile nationwide high-speed pipeline and logistics distribution network. For example, red blood cells act like delivery trucks bringing fresh oxygen and sugar to your brain and muscle cells, veins haul away carbon dioxide exhaust, white blood cells patrol like police cruisers to swallow harmful bacteria, and warm blood circulation keeps your fingers and toes warm in the winter!",
+        "formula": "Cardiac Pump + Vascular Network (Arteries, Capillaries, Veins) + Blood Fluid = Systemic Mass Transport",
+        "explanation": "• Delivery of Oxygen and Nutrients: Transports oxygen from the lungs and glucose, amino acids, and vitamins from the digestive tract to every living cell.\n• Removal of Metabolic Waste: Transports toxic carbon dioxide to the lungs for exhalation, and urea and waste products to the kidneys for filtration.\n• Immune Defense & Clotting: Transports disease-fighting white blood cells and antibodies to infection sites, and deploys platelets to form clots over wounds.\n• Thermal and Chemical Regulation: Distributes internal body heat across the body surface to regulate 98.6°F temperature, while maintaining optimal pH and fluid levels."
+      },
+      {
+        "num": 2,
         "name": "Artery",
         "trick": "5th Grade Science Concept",
         "example": "Functions as high-pressure, thick-walled distribution pipelines. For example, each time your heart beats, strong elastic arteries pulse as they carry oxygen-rich, nutrient-packed blood away from the heart to fuel muscles and tissues under high pressure.",
@@ -1733,7 +1987,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Largest of all blood vessels\n• Carries blood away from the heart\n• Arteries, except those that go to the lungs, are rich in oxygen\n• Carry materials that the cells need\n• "
       },
       {
-        "num": 2,
+        "num": 3,
         "name": "Vein",
         "trick": "5th Grade Science Concept",
         "example": "Operates as low-pressure return conduits equipped with one-way valves. For example, veins carry deoxygenated blood back toward the heart; tiny flap valves inside prevent blood from pooling backward in your legs against gravity.",
@@ -1741,7 +1995,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Carry blood back to the heart\n• Veins, except those that go to the lungs carry blood with dissolved materials\n• Medium sized"
       },
       {
-        "num": 3,
+        "num": 4,
         "name": "Capilary",
         "trick": "5th Grade Science Concept",
         "example": "Functions as ultra-thin microscopic transfer bridges connecting arteries and veins. For example, being only one red blood cell wide with walls as thin as cell membranes, capillaries allow oxygen and glucose to slip directly into body cells while absorbing waste products.",
@@ -1749,7 +2003,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Connects the arteries and the veins\n• They are tiny in size -- some as thin as one strand of hair\n• Most numerous in your body"
       },
       {
-        "num": 4,
+        "num": 5,
         "name": "Blood vessels",
         "trick": "5th Grade Science Concept",
         "example": "Function as an interconnected closed loop transport network spanning over 60,000 miles. For example, they deliver continuous streams of oxygen, water, and fuel to every organ while whisking away toxic waste products to keep tissues alive.",
@@ -1757,7 +2011,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Blood vessels carry blood to and from the heart and other parts of the body\n• Blood circulates throughout the blood vessels to reach all areas of the body. It transports nutrients and oxygens to the heart and carries away waste.\n"
       },
       {
-        "num": 5,
+        "num": 6,
         "name": "White Blood Cell",
         "trick": "5th Grade Science Concept",
         "example": "Functions as the body's armed immune defense force. For example, when bacteria enter a cut, white blood cells squeeze through capillary walls, hunt down the invading germs, and swallow or chemically destroy them so you don't get infected.",
@@ -1765,7 +2019,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Fight disease and infection\n• Destroy harmful germs in the body\n• Largest of blood cells"
       },
       {
-        "num": 6,
+        "num": 7,
         "name": "Red Blood Cell",
         "trick": "5th Grade Science Concept",
         "example": "Functions as microscopic hemoglobin oxygen delivery trucks. For example, packed with red iron hemoglobin molecules, billions of disc-shaped red blood cells load up on oxygen in your lungs and deliver it to your muscle cells, picking up carbon dioxide waste on the return trip.",
@@ -1773,7 +2027,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Contains hemoglobin that gives it that red color\n• Most numerous\n• Carries oxygen to all parts of the body\n• Picks up carbon dioide waste from the cells"
       },
       {
-        "num": 7,
+        "num": 8,
         "name": "Platelets ",
         "trick": "5th Grade Science Concept",
         "example": "Function as microscopic biological emergency patching kits. For example, the moment you get a papercut, sticky platelets clump together over the broken blood vessel and release chemical clotting factors that form a mesh scab to stop bleeding immediately.",
@@ -1789,80 +2043,58 @@ const DEFAULT_SCIENCE_TOPICS = [
     "id": "science-unit-1791828041009",
     "quiz": [
       {
-        "q": "What helps the eye focus as light enters?",
+        "q": "What are the primary functions of the eye in the visual system?",
         "ans": 1,
-        "why": "Cornea: \"• Helps the eye focus as light enters\"",
+        "why": "The eye gathers light, focuses rays onto the retina, converts light into electrical nerve signals, and transmits them to the brain.",
         "options": [
-          "Pupil",
-          "Cornea",
-          "Iris",
-          "Lens"
+          "To hear vibrations and balance the body",
+          "To gather light, focus optical images onto the retina, and transmit nerve signals to the brain for vision",
+          "To pump tears into the bloodstream to cool down",
+          "To produce melatonin hormones for sleep"
         ]
       },
       {
-        "q": "According to the teacher notes: \"It lets light enter the eye\" - What part is this?",
-        "ans": 1,
-        "why": "Pupil: \"• It lets light enter the eye\n\"",
+        "q": "What part of the eye is the clear front dome that protects the eye and bends light as it enters?",
+        "ans": 0,
+        "why": "The cornea is the clear protective outer layer that refracts light into the pupil.",
         "options": [
+          "Cornea",
           "Iris",
           "Pupil",
-          "Cornea",
-          "Lens"
+          "Optic nerve"
         ]
       },
       {
-        "q": "What determines how much light should go through the pupil?",
-        "ans": 1,
-        "why": "Iris: \"• The iris determines how much light should go through the pupil\"",
+        "q": "What is the dark opening in the center of the iris that lets light enter the eye?",
+        "ans": 2,
+        "why": "The pupil is the adjustable opening controlled by the iris muscles to let light enter.",
         "options": [
           "Lens",
-          "Iris",
-          "Cornea",
-          "Pupil"
-        ]
-      },
-      {
-        "q": "What job is to focus the light rays at the back of the eyeballs?",
-        "ans": 3,
-        "why": "Lens: \"• Lens job is to focus the light rays at the back of the eyeballs\"",
-        "options": [
-          "Iris",
-          "Cornea",
-          "Pupil",
-          "Lens"
-        ]
-      },
-      {
-        "q": "According to the teacher notes: \"Takes the light and turns it into nerve signals\" - What part is this?",
-        "ans": 1,
-        "why": "Retina: \"• Takes the light and turns it into nerve signals\n• In the retina, the light makes an upside-down and backwards picture.\n• The retina contains light sensitive cells (called rods and cones) that change the picture into messages that your brain understands\"",
-        "options": [
-          "Iris",
           "Retina",
-          "Cornea",
-          "Pupil"
+          "Pupil",
+          "Ciliary muscle"
         ]
       },
       {
-        "q": "What change the shapes of the lens?",
-        "ans": 0,
-        "why": "Ciliary Muscle: \"• The ciliary muscle change the shapes of the lens\"",
+        "q": "What layer at the back of the eye contains light-sensitive rods and cones that convert light into nerve signals?",
+        "ans": 3,
+        "why": "The retina contains photoreceptor rods and cones that convert light rays into electrical signals.",
         "options": [
-          "Ciliary Muscle",
           "Cornea",
           "Iris",
-          "Pupil"
+          "Sclera",
+          "Retina"
         ]
       },
       {
-        "q": "What carries the this structure signals to the brain?",
-        "ans": 2,
-        "why": "Optic Nerve: \"• The optic nerve carries the nerve signals to the brain\"",
+        "q": "What nerve carries visual nerve impulses from the retina to the brain?",
+        "ans": 1,
+        "why": "The optic nerve is the high-speed nerve pathway carrying visual impulses to the brain.",
         "options": [
-          "Pupil",
-          "Cornea",
-          "Optic Nerve",
-          "Iris"
+          "Spinal nerve",
+          "Optic nerve",
+          "Auditory nerve",
+          "Olfactory nerve"
         ]
       }
     ],
@@ -1876,6 +2108,14 @@ const DEFAULT_SCIENCE_TOPICS = [
     "properties": [
       {
         "num": 1,
+        "name": "Functions of the eye",
+        "trick": "Capture light, focus the rays, send the picture to the brain!",
+        "example": "Functions like an advanced, autofocus biological digital video camera. For example, light enters through your protective corneal front element, the iris shutter adjusts the pupil aperture for brightness, the ciliary-powered lens zooms to focus sharply on words in a book, and the retinal sensor converts the image into electrical impulses that stream through the optic nerve cable so your brain can see the world in full color!",
+        "formula": "Light Rays → Cornea & Lens Refraction → Retinal Phototransduction (Rods/Cones) → Optic Nerve Impulses → Brain Visual Cortex",
+        "explanation": "• Light Gathering and Ingestion: Captures photons of visible light reflected off surrounding objects through the cornea and pupil aperture.\n• Optical Focusing and Refraction: Refracts and bends light rays through the cornea and adjustable crystalline lens to project an inverted, razor-sharp image onto the retina.\n• Phototransduction: Millions of specialized rod and cone photoreceptor cells in the retina convert light energy into electrochemical nerve impulses.\n• Visual Signal Transmission: Bundles over one million axons into the optic nerve to transmit encoded visual data straight to the brain's visual cortex for 3D sight and color interpretation."
+      },
+      {
+        "num": 2,
         "name": "Cornea",
         "trick": "5th Grade Science Concept",
         "example": "Functions like a crystal-clear protective windshield and primary focusing lens. For example, it covers the front of your eyeball, keeping dust and water out while bending and refracting incoming light rays so they pass through the pupil directly toward the lens.",
@@ -1883,7 +2123,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Helps the eye focus as light enters"
       },
       {
-        "num": 2,
+        "num": 3,
         "name": "Pupil",
         "trick": "5th Grade Science Concept",
         "example": "Functions like an adjustable doorway aperture for light rays. For example, when you walk into a dark movie theater, your pupil opens wide (dilates) to let more light in; when you step out into bright sunshine, it shrinks to a tiny black pinhole to protect your eye.",
@@ -1891,7 +2131,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• It lets light enter the eye\n"
       },
       {
-        "num": 3,
+        "num": 4,
         "name": "Iris",
         "trick": "5th Grade Science Concept",
         "example": "Operates as the colorful muscular shutter controlling pupil size. For example, this pigmented ring of smooth muscle (giving eyes their blue, brown, or green color) contracts or expands automatically to regulate the exact amount of light entering the eye.",
@@ -1899,7 +2139,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• The iris determines how much light should go through the pupil"
       },
       {
-        "num": 4,
+        "num": 5,
         "name": "Lens",
         "trick": "5th Grade Science Concept",
         "example": "Functions as a transparent, flexible zoom lens that fine-tunes image sharpness. For example, when you shift your gaze from a textbook right in front of your face to a clock across the classroom, the lens instantly changes its curvature to focus rays sharply onto the back of the eye.",
@@ -1907,7 +2147,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Lens job is to focus the light rays at the back of the eyeballs"
       },
       {
-        "num": 5,
+        "num": 6,
         "name": "Retina",
         "trick": "5th Grade Science Concept",
         "example": "Functions like a high-tech digital camera sensor lining the back of the eyeball. For example, millions of photoreceptor cells (rods for dim light and cones for bright colors) catch focused light rays and convert the upside-down image into electrical nerve pulses for the brain.",
@@ -1915,7 +2155,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• Takes the light and turns it into nerve signals\n• In the retina, the light makes an upside-down and backwards picture.\n• The retina contains light sensitive cells (called rods and cones) that change the picture into messages that your brain understands"
       },
       {
-        "num": 6,
+        "num": 7,
         "name": "Ciliary Muscle",
         "trick": "5th Grade Science Concept",
         "example": "Functions as the muscular focus adjuster controlling the lens. For example, when you read small text up close, ciliary muscles contract to make the lens rounder and thicker; when looking at distant stars, they relax to flatten the lens for far vision.",
@@ -1923,7 +2163,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "explanation": "• The ciliary muscle change the shapes of the lens"
       },
       {
-        "num": 7,
+        "num": 8,
         "name": "Optic Nerve",
         "trick": "5th Grade Science Concept",
         "example": "Operates as a high-speed fiber-optic data transmission cable connecting the eye to the brain. For example, over one million nerve fibers bundled together carry the retina's electrical image signals directly to the visual cortex in the back of your brain, which flips the image right-side up so you can see!",
@@ -1936,1952 +2176,6 @@ const DEFAULT_SCIENCE_TOPICS = [
     "redirectUrl": ""
   }
 ];
-
-// Default Cloud Database Bucket ID (Hosted on permanent free REST backend)
-const DEFAULT_CLOUD_DB_ID = "ff808181a09d98f701a0f483e327513e";
-
-// ================= UNIVERSAL BULLET POINT FORMATTERS & HELPERS =================
-function formatBulletText(str) {
-  if (!str && str !== 0) return "";
-  const raw = String(str);
-  if (!raw.trim()) return "";
-
-  const hasBullets = raw.includes("•") || /(?:^|\n)\s*[-*]\s+/.test(raw) || /(?:^|\n)\s*\d+[\.\)]\s+/.test(raw);
-  const hasLines = raw.includes("\n");
-
-  if (!hasBullets && !hasLines) {
-    return raw;
-  }
-
-  // Single line with inline bullets (e.g. "• A • B • C")
-  if (!hasLines && raw.includes("•")) {
-    const parts = raw.split("•").map(p => p.trim()).filter(Boolean);
-    if (parts.length > 1 || raw.trim().startsWith("•")) {
-      const items = parts.map(p => `<li class="bullet-item"><span class="bullet-dot">•</span><span class="bullet-text">${p}</span></li>`).join("");
-      return `<ul class="notes-bullet-list">${items}</ul>`;
-    }
-  }
-
-  // Multi-line list & paragraph parsing
-  const lines = raw.split(/\r?\n/);
-  let html = "";
-  let inList = false;
-  let listType = "ul";
-
-  lines.forEach((line) => {
-    const trimmed = line.trim();
-    if (!trimmed) {
-      if (inList) {
-        html += `</${listType}>`;
-        inList = false;
-      }
-      html += `<div class="bullet-spacer"></div>`;
-      return;
-    }
-
-    const isBulletDot = trimmed.startsWith("•");
-    const isDash = /^[-*]\s+/.test(trimmed);
-    const isNum = /^(\d+)[\.\)]\s+/.test(trimmed);
-
-    if (isBulletDot || isDash) {
-      let content = isBulletDot ? trimmed.replace(/^•\s*/, "") : trimmed.replace(/^[-*]\s+/, "");
-      if (!inList || listType !== "ul") {
-        if (inList) html += `</${listType}>`;
-        html += `<ul class="notes-bullet-list">`;
-        inList = true;
-        listType = "ul";
-      }
-      html += `<li class="bullet-item"><span class="bullet-dot">•</span><span class="bullet-text">${content}</span></li>`;
-    } else if (isNum) {
-      const numMatch = trimmed.match(/^(\d+)[\.\)]\s+(.*)/);
-      const numVal = numMatch ? numMatch[1] : "";
-      const content = numMatch ? numMatch[2] : trimmed;
-      if (!inList || listType !== "ol") {
-        if (inList) html += `</${listType}>`;
-        html += `<ol class="notes-bullet-list numbered">`;
-        inList = true;
-        listType = "ol";
-      }
-      html += `<li class="bullet-item"><span class="bullet-num">${numVal}.</span><span class="bullet-text">${content}</span></li>`;
-    } else {
-      if (inList) {
-        html += `</${listType}>`;
-        inList = false;
-      }
-      html += `<div class="bullet-line">${trimmed}</div>`;
-    }
-  });
-
-  if (inList) {
-    html += `</${listType}>`;
-  }
-
-  return html;
-}
-
-function insertTextAtCursor(inputEl, text) {
-  if (!inputEl) return;
-  inputEl.focus();
-  const start = inputEl.selectionStart !== undefined ? inputEl.selectionStart : inputEl.value.length;
-  const end = inputEl.selectionEnd !== undefined ? inputEl.selectionEnd : inputEl.value.length;
-  const val = inputEl.value;
-
-  inputEl.value = val.substring(0, start) + text + val.substring(end);
-  const newPos = start + text.length;
-  inputEl.setSelectionRange(newPos, newPos);
-  inputEl.dispatchEvent(new Event("input", { bubbles: true }));
-  inputEl.dispatchEvent(new Event("change", { bubbles: true }));
-}
-
-function insertBulletAtCursor(inputEl) {
-  if (!inputEl) return;
-  inputEl.focus();
-  const val = inputEl.value;
-  const start = inputEl.selectionStart !== undefined ? inputEl.selectionStart : val.length;
-  const end = inputEl.selectionEnd !== undefined ? inputEl.selectionEnd : val.length;
-
-  const lastNewline = val.lastIndexOf("\n", start - 1);
-  const lineStart = lastNewline === -1 ? 0 : lastNewline + 1;
-  const currentLinePrefix = val.substring(lineStart, start);
-
-  let toInsert = "• ";
-  if (currentLinePrefix.trim().length > 0) {
-    toInsert = "\n• ";
-  }
-
-  if (start !== end) {
-    const selectedText = val.substring(start, end);
-    const bulletedSelection = selectedText
-      .split("\n")
-      .map(line => line.trim().startsWith("•") ? line : `• ${line}`)
-      .join("\n");
-    inputEl.value = val.substring(0, start) + bulletedSelection + val.substring(end);
-    const newEnd = start + bulletedSelection.length;
-    inputEl.setSelectionRange(newEnd, newEnd);
-  } else {
-    inputEl.value = val.substring(0, start) + toInsert + val.substring(end);
-    const newPos = start + toInsert.length;
-    inputEl.setSelectionRange(newPos, newPos);
-  }
-
-  inputEl.dispatchEvent(new Event("input", { bubbles: true }));
-  inputEl.dispatchEvent(new Event("change", { bubbles: true }));
-}
-
-function enableSmartBulletInput(el) {
-  if (!el || el._smartBulletAttached) return;
-  el._smartBulletAttached = true;
-
-  el.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      if (el.tagName === "TEXTAREA") {
-        const val = el.value;
-        const selStart = el.selectionStart;
-        const lastNewline = val.lastIndexOf("\n", selStart - 1);
-        const lineStart = lastNewline === -1 ? 0 : lastNewline + 1;
-        const currentLine = val.substring(lineStart, selStart);
-
-        const bulletMatch = currentLine.match(/^(\s*)([•\-\*])\s+/);
-        if (bulletMatch) {
-          e.preventDefault();
-          const indent = bulletMatch[1];
-          const afterBullet = currentLine.substring(bulletMatch[0].length).trim();
-
-          if (afterBullet.length === 0) {
-            const nextNewline = val.indexOf("\n", selStart);
-            const lineEnd = nextNewline === -1 ? val.length : nextNewline;
-            el.value = val.substring(0, lineStart) + val.substring(lineEnd);
-            el.setSelectionRange(lineStart, lineStart);
-          } else {
-            const insertion = `\n${indent}• `;
-            const before = val.substring(0, selStart);
-            const after = val.substring(selStart);
-            el.value = before + insertion + after;
-            const newPos = selStart + insertion.length;
-            el.setSelectionRange(newPos, newPos);
-          }
-          el.dispatchEvent(new Event("input", { bubbles: true }));
-        }
-      }
-    }
-  });
-
-  el.addEventListener("input", (e) => {
-    if (e.inputType === "insertText" && (e.data === " " || e.data === "\u00A0")) {
-      const val = el.value;
-      const selStart = el.selectionStart;
-      const lastNewline = val.lastIndexOf("\n", selStart - 2);
-      const lineStart = lastNewline === -1 ? 0 : lastNewline + 1;
-      const lineBeforeCursor = val.substring(lineStart, selStart);
-
-      if (/^[-*]\s$/.test(lineBeforeCursor)) {
-        const before = val.substring(0, lineStart);
-        const after = val.substring(selStart);
-        el.value = before + "• " + after;
-        const newPos = lineStart + 2;
-        el.setSelectionRange(newPos, newPos);
-        el.dispatchEvent(new Event("input", { bubbles: true }));
-      }
-    }
-  });
-}
-
-// ================= SOUND FX SYSTEM (WEB AUDIO API) =================
-class SoundController {
-  constructor() {
-    this.enabled = true;
-    this.ctx = null;
-  }
-
-  init() {
-    if (!this.ctx) {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (AudioCtx) {
-        this.ctx = new AudioCtx();
-      }
-    }
-  }
-
-  playClick() {
-    if (!this.enabled) return;
-    this.init();
-    if (!this.ctx) return;
-    try {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(600, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.04);
-      gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.04);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.04);
-    } catch (e) {}
-  }
-
-  /* ASMR Buttery Smooth Slide Chime */
-  playAsmrSlide() {
-    if (!this.enabled) return;
-    this.init();
-    if (!this.ctx) return;
-    try {
-      const now = this.ctx.currentTime;
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(380, now);
-      osc.frequency.exponentialRampToValueAtTime(140, now + 0.09);
-      gain.gain.setValueAtTime(0.07, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start(now);
-      osc.stop(now + 0.09);
-
-      const osc2 = this.ctx.createOscillator();
-      const gain2 = this.ctx.createGain();
-      osc2.type = "sine";
-      osc2.frequency.setValueAtTime(960, now);
-      osc2.frequency.exponentialRampToValueAtTime(640, now + 0.05);
-      gain2.gain.setValueAtTime(0.025, now);
-      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-      osc2.connect(gain2);
-      gain2.connect(this.ctx.destination);
-      osc2.start(now);
-      osc2.stop(now + 0.05);
-    } catch (e) {}
-  }
-
-  /* Tactile Mechanical Keypad Click */
-  playKeypadTap() {
-    if (!this.enabled) return;
-    this.init();
-    if (!this.ctx) return;
-    try {
-      const now = this.ctx.currentTime;
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(820, now);
-      osc.frequency.exponentialRampToValueAtTime(1150, now + 0.035);
-      gain.gain.setValueAtTime(0.09, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start(now);
-      osc.stop(now + 0.035);
-    } catch (e) {}
-  }
-
-  /* Heavy Vault Hydraulic Unlock Clunk & Chime */
-  playVaultUnlock() {
-    if (!this.enabled) return;
-    this.init();
-    if (!this.ctx) return;
-    try {
-      const now = this.ctx.currentTime;
-      const osc1 = this.ctx.createOscillator();
-      const gain1 = this.ctx.createGain();
-      osc1.type = "triangle";
-      osc1.frequency.setValueAtTime(95, now);
-      osc1.frequency.exponentialRampToValueAtTime(32, now + 0.28);
-      gain1.gain.setValueAtTime(0.25, now);
-      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
-      osc1.connect(gain1);
-      gain1.connect(this.ctx.destination);
-      osc1.start(now);
-      osc1.stop(now + 0.28);
-
-      const osc2 = this.ctx.createOscillator();
-      const gain2 = this.ctx.createGain();
-      osc2.type = "sawtooth";
-      osc2.frequency.setValueAtTime(360, now + 0.08);
-      osc2.frequency.exponentialRampToValueAtTime(70, now + 0.42);
-      gain2.gain.setValueAtTime(0.08, now + 0.08);
-      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
-      osc2.connect(gain2);
-      gain2.connect(this.ctx.destination);
-      osc2.start(now + 0.08);
-      osc2.stop(now + 0.42);
-
-      [587.33, 739.99, 880.0, 1174.66].forEach((f, idx) => {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = "sine";
-        osc.frequency.value = f;
-        gain.gain.setValueAtTime(0.05, now + 0.22 + idx * 0.06);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.55 + idx * 0.06);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now + 0.22 + idx * 0.06);
-        osc.stop(now + 0.6 + idx * 0.06);
-      });
-    } catch (e) {}
-  }
-
-  playVaultError() {
-    if (!this.enabled) return;
-    this.init();
-    if (!this.ctx) return;
-    try {
-      const now = this.ctx.currentTime;
-      [135, 105].forEach((freq, idx) => {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = "sawtooth";
-        osc.frequency.setValueAtTime(freq, now + idx * 0.12);
-        gain.gain.setValueAtTime(0.14, now + idx * 0.12);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.12 + 0.11);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now + idx * 0.12);
-        osc.stop(now + idx * 0.12 + 0.11);
-      });
-    } catch (e) {}
-  }
-
-  playVaultRedirect() {
-    if (!this.enabled) return;
-    this.init();
-    if (!this.ctx) return;
-    try {
-      const now = this.ctx.currentTime;
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(540, now);
-      osc.frequency.exponentialRampToValueAtTime(320, now + 0.16);
-      gain.gain.setValueAtTime(0.1, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start(now);
-      osc.stop(now + 0.16);
-    } catch (e) {}
-  }
-
-  playSuccess() {
-    if (!this.enabled) return;
-    this.init();
-    if (!this.ctx) return;
-    try {
-      const now = this.ctx.currentTime;
-      const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
-      notes.forEach((freq, idx) => {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(freq, now + idx * 0.08);
-        gain.gain.setValueAtTime(0.08, now + idx * 0.08);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.25);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now + idx * 0.08);
-        osc.stop(now + idx * 0.08 + 0.25);
-      });
-    } catch (e) {}
-  }
-}
-
-const sounds = new SoundController();
-
-// ================= CONFETTI CELEBRATION ENGINE =================
-class ConfettiEngine {
-  constructor(canvas) {
-    this.canvas = canvas;
-    this.ctx = canvas ? canvas.getContext("2d") : null;
-    this.particles = [];
-    this.animating = false;
-    this.resize();
-    window.addEventListener("resize", () => this.resize());
-  }
-
-  resize() {
-    if (!this.canvas) return;
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
-  }
-
-  burst(x, y, count = 60) {
-    if (!this.canvas || !this.ctx) return;
-    const colors = ["#00d4ff", "#9d4edd", "#ff375f", "#34d399", "#f59e0b", "#38bdf8"];
-    for (let i = 0; i < count; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 8 + 3;
-      this.particles.push({
-        x: x || window.innerWidth / 2,
-        y: y || window.innerHeight / 2,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - 2,
-        size: Math.random() * 7 + 4,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        rotation: Math.random() * 360,
-        vr: (Math.random() - 0.5) * 12,
-        life: 1,
-        decay: Math.random() * 0.015 + 0.01
-      });
-    }
-
-    if (!this.animating) {
-      this.animating = true;
-      this.loop();
-    }
-  }
-
-  loop() {
-    if (!this.animating || !this.ctx) return;
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    for (let i = this.particles.length - 1; i >= 0; i--) {
-      const p = this.particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.2; // Gravity
-      p.rotation += p.vr;
-      p.life -= p.decay;
-
-      if (p.life <= 0 || p.y > this.canvas.height + 50) {
-        this.particles.splice(i, 1);
-        continue;
-      }
-
-      this.ctx.save();
-      this.ctx.translate(p.x, p.y);
-      this.ctx.rotate((p.rotation * Math.PI) / 180);
-      this.ctx.globalAlpha = p.life;
-      this.ctx.fillStyle = p.color;
-      this.ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
-      this.ctx.restore();
-    }
-
-    if (this.particles.length > 0) {
-      requestAnimationFrame(() => this.loop());
-    } else {
-      this.animating = false;
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    }
-  }
-}
-
-// ================= ADMIN SECURITY VAULT CONTROLLER =================
-class VaultController {
-  constructor(app) {
-    this.app = app;
-    this.code = atob("MTU5MzU3");
-    this.currentPin = "";
-    this.isUnlocked = false;
-    this.openCreatorAfterUnlock = false;
-    this.activeTab = "architect";
-    this.architectSquares = [];
-    this.editingNoteId = null;
-  }
-
-  init() {
-    this.setupKeypad();
-    this.setupVaultTriggers();
-    this.setupAdminTabs();
-    this.setupArchitectForm();
-    this.setupAdminCommands();
-  }
-
-  setupKeypad() {
-    const keypadBtns = document.querySelectorAll(".keypad-btn");
-    keypadBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const key = btn.dataset.key;
-        sounds.playKeypadTap();
-
-        if (key === "clear") {
-          this.currentPin = "";
-        } else if (key === "back") {
-          this.currentPin = this.currentPin.slice(0, -1);
-        } else if (this.currentPin.length < 6) {
-          this.currentPin += key;
-        }
-
-        this.updatePinDisplay();
-
-        if (this.currentPin.length === 6) {
-          this.verifyPin();
-        }
-      });
-    });
-
-    window.addEventListener("keydown", (e) => {
-      const vaultModal = document.getElementById("vault-modal");
-      if (!vaultModal || vaultModal.classList.contains("hidden")) return;
-      if (this.isUnlocked) return;
-
-      if (e.key >= "0" && e.key <= "9") {
-        if (this.currentPin.length < 6) {
-          sounds.playKeypadTap();
-          this.currentPin += e.key;
-          this.updatePinDisplay();
-          if (this.currentPin.length === 6) {
-            this.verifyPin();
-          }
-        }
-      } else if (e.key === "Backspace") {
-        sounds.playKeypadTap();
-        this.currentPin = this.currentPin.slice(0, -1);
-        this.updatePinDisplay();
-      } else if (e.key === "Escape") {
-        this.close();
-      }
-    });
-  }
-
-  updatePinDisplay() {
-    const slots = document.querySelectorAll(".pin-slot");
-    slots.forEach((slot, idx) => {
-      slot.classList.toggle("filled", idx < this.currentPin.length);
-    });
-
-    const feedback = document.getElementById("vault-pin-feedback");
-    if (feedback) {
-      if (this.currentPin.length === 0) {
-        feedback.textContent = "ENTER 6-DIGIT CODE";
-        feedback.className = "vault-pin-feedback";
-      } else {
-        feedback.textContent = `AUTHENTICATING [${this.currentPin.length}/6]`;
-        feedback.className = "vault-pin-feedback checking";
-      }
-    }
-  }
-
-  verifyPin() {
-    const safeDoor = document.getElementById("vault-safe-door");
-    const feedback = document.getElementById("vault-pin-feedback");
-
-    if (this.currentPin === this.code) {
-      this.isUnlocked = true;
-      if (feedback) {
-        feedback.textContent = "ACCESS GRANTED • WELCOME JEEVA R.";
-        feedback.className = "vault-pin-feedback granted";
-      }
-
-      if (safeDoor) safeDoor.classList.add("unlocking");
-      sounds.playVaultUnlock();
-      this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 70);
-
-      setTimeout(() => {
-        document.getElementById("vault-lock-view")?.classList.add("hidden");
-        document.getElementById("vault-admin-view")?.classList.remove("hidden");
-        if (safeDoor) safeDoor.classList.remove("unlocking");
-
-        this.currentPin = "";
-        this.updatePinDisplay();
-        this.updateManagerTable();
-        this.updateTelemetry();
-
-        this.switchTab("architect");
-      }, 900);
-    } else {
-      if (safeDoor) safeDoor.classList.add("shake-error");
-      if (feedback) {
-        feedback.textContent = "ACCESS DENIED • INVALID PASSCODE";
-        feedback.className = "vault-pin-feedback denied";
-      }
-      sounds.playVaultError();
-
-      setTimeout(() => {
-        if (safeDoor) safeDoor.classList.remove("shake-error");
-        this.currentPin = "";
-        this.updatePinDisplay();
-      }, 800);
-    }
-  }
-
-  setupVaultTriggers() {
-    document.getElementById("vault-lock-close")?.addEventListener("click", () => this.close());
-    document.getElementById("vault-admin-close")?.addEventListener("click", () => this.close());
-
-    document.getElementById("btn-vault-relock")?.addEventListener("click", () => {
-      this.relock();
-    });
-  }
-
-  requestCreateNote() {
-    if (this.isUnlocked) {
-      this.open();
-      this.switchTab("architect");
-      const titleInput = document.getElementById("vnote-title");
-      if (titleInput) {
-        titleInput.focus();
-        titleInput.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  }
-
-  open(mode = "normal") {
-    const modal = document.getElementById("vault-modal");
-    if (!modal) return;
-    modal.classList.remove("hidden");
-
-    const warn = document.getElementById("vault-redirect-warning");
-    if (mode === "redirect") {
-      if (warn) warn.classList.remove("hidden");
-      sounds.playVaultRedirect();
-    } else {
-      if (warn) warn.classList.add("hidden");
-      sounds.playClick();
-    }
-
-    if (this.isUnlocked) {
-      document.getElementById("vault-lock-view")?.classList.add("hidden");
-      document.getElementById("vault-admin-view")?.classList.remove("hidden");
-      this.updateManagerTable();
-      this.updateTelemetry();
-    } else {
-      document.getElementById("vault-lock-view")?.classList.remove("hidden");
-      document.getElementById("vault-admin-view")?.classList.add("hidden");
-      this.currentPin = "";
-      this.updatePinDisplay();
-    }
-  }
-
-  close() {
-    this.isUnlocked = false;
-    document.getElementById("vault-modal")?.classList.add("hidden");
-    this.currentPin = "";
-    this.updatePinDisplay();
-    // Guarantee AI Chatbot bubble is visible and ready for re-entry
-    const bubble = document.getElementById("ai-chat-bubble");
-    if (bubble) {
-      bubble.style.display = "flex";
-      bubble.style.transform = "scale(1) rotate(0deg)";
-    }
-  }
-
-  relock() {
-    this.isUnlocked = false;
-    this.currentPin = "";
-    document.getElementById("vault-admin-view")?.classList.add("hidden");
-    document.getElementById("vault-lock-view")?.classList.remove("hidden");
-    this.updatePinDisplay();
-    // Guarantee AI Chatbot bubble is visible and ready for re-entry
-    const bubble = document.getElementById("ai-chat-bubble");
-    if (bubble) {
-      bubble.style.display = "flex";
-      bubble.style.transform = "scale(1) rotate(0deg)";
-    }
-    sounds.playClick();
-    alert("Vault session ended. Security lock re-engaged.");
-  }
-
-  setupAdminTabs() {
-    const tabBtns = document.querySelectorAll(".admin-tab-btn");
-    tabBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        sounds.playClick();
-        const tab = btn.dataset.tab;
-        this.switchTab(tab);
-      });
-    });
-  }
-
-  switchTab(tabName) {
-    this.activeTab = tabName;
-    document.querySelectorAll(".admin-tab-btn").forEach((btn) => {
-      btn.classList.toggle("active", btn.dataset.tab === tabName);
-    });
-
-    document.querySelectorAll(".admin-panel").forEach((panel) => {
-      panel.classList.toggle("hidden", panel.id !== `panel-admin-${tabName}`);
-      panel.classList.toggle("active", panel.id === `panel-admin-${tabName}`);
-    });
-
-    if (tabName === "manager") {
-      this.updateManagerTable();
-    } else if (tabName === "telemetry") {
-      this.updateTelemetry();
-    }
-  }
-
-  // ================= NOTE ARCHITECT LOGIC =================
-  setupArchitectForm() {
-    const form = document.getElementById("vault-note-form");
-    if (!form) return;
-
-    // Attach smart bullet auto-continuation to top-level fields
-    const titleInp = document.getElementById("vnote-title");
-    const formulaInp = document.getElementById("vnote-formula");
-    const descInp = document.getElementById("vnote-desc");
-
-    if (titleInp) enableSmartBulletInput(titleInp);
-    if (formulaInp) enableSmartBulletInput(formulaInp);
-    if (descInp) enableSmartBulletInput(descInp);
-
-    // Wire top-level field bullet buttons (+ • Bullet)
-    document.querySelectorAll(".btn-field-bullet[data-for]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const targetId = btn.getAttribute("data-for");
-        const targetEl = document.getElementById(targetId);
-        if (targetEl) {
-          insertBulletAtCursor(targetEl);
-          sounds.playClick();
-        }
-      });
-    });
-
-    // Wire universal bullet template button
-    document.getElementById("btn-architect-insert-bullet")?.addEventListener("click", () => {
-      const active = document.activeElement;
-      if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA")) {
-        insertBulletAtCursor(active);
-      } else {
-        if (descInp) insertBulletAtCursor(descInp);
-      }
-      sounds.playClick();
-    });
-
-    document.getElementById("btn-add-square")?.addEventListener("click", () => this.addBlankSquare());
-    document.getElementById("btn-add-square-bottom")?.addEventListener("click", () => this.addBlankSquare());
-
-    document.getElementById("btn-template-science-props")?.addEventListener("click", () => this.loadTemplate("method"));
-    document.getElementById("btn-template-steps")?.addEventListener("click", () => this.loadTemplate("structure"));
-
-    document.getElementById("btn-clear-architect")?.addEventListener("click", () => {
-      if (confirm("Clear all fields in Note Architect?")) {
-        form.reset();
-        this.architectSquares = [];
-        this.editingNoteId = null;
-        this.renderSquares();
-        const saveBtn = document.getElementById("btn-save-vault-note");
-        if (saveBtn) {
-          saveBtn.innerHTML = "<span>🚀 Publish to Website & Cloud</span>";
-          saveBtn.style.background = "";
-        }
-      }
-    });
-
-    form.addEventListener("submit", (e) => this.handleSaveNote(e));
-  }
-
-  addBlankSquare(data = null) {
-    const sqIndex = this.architectSquares.length + 1;
-    const defaultData = data || {
-      name: `Concept Square #${sqIndex}`,
-      formula: "Observation / Principle",
-      explanation: "Explain this scientific concept clearly for 5th graders...",
-      example: "Real-world experiment or demonstration...",
-      trick: "Lab Memory Tip"
-    };
-
-    this.architectSquares.push(defaultData);
-    sounds.playClick();
-    this.renderSquares();
-
-    setTimeout(() => {
-      const container = document.getElementById("vault-squares-list");
-      if (container && container.lastElementChild) {
-        container.lastElementChild.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      }
-    }, 50);
-  }
-
-  removeSquare(index) {
-    this.architectSquares.splice(index, 1);
-    sounds.playClick();
-    this.renderSquares();
-  }
-
-  renderSquares() {
-    const list = document.getElementById("vault-squares-list");
-    const countBadge = document.getElementById("squares-count-badge");
-    if (!list) return;
-
-    list.innerHTML = "";
-    if (countBadge) {
-      countBadge.textContent = `${this.architectSquares.length} Square${this.architectSquares.length === 1 ? "" : "s"} Configured`;
-    }
-
-    if (this.architectSquares.length === 0) {
-      list.innerHTML = `
-        <div style="text-align: center; padding: 24px; color: var(--text-muted); border: 2px dashed rgba(255,255,255,0.1); border-radius: 14px;">
-          <p style="margin-bottom: 10px;">No concept squares added yet.</p>
-          <button type="button" class="btn-add-square" id="btn-add-first-sq">+ Add First Concept Square</button>
-        </div>
-      `;
-      document.getElementById("btn-add-first-sq")?.addEventListener("click", () => this.addBlankSquare());
-      return;
-    }
-
-    this.architectSquares.forEach((sq, idx) => {
-      const card = document.createElement("div");
-      card.className = "architect-square-card";
-      card.dataset.index = idx;
-
-      card.innerHTML = `
-        <div class="sq-card-top-bar">
-          <div class="sq-pill-badge">
-            <span class="sq-drag-handle">☰</span>
-            <span>CONCEPT SQUARE #${idx + 1}</span>
-          </div>
-          <button type="button" class="sq-remove-btn" data-index="${idx}" title="Remove this square">&times;</button>
-        </div>
-
-        <div class="form-row-2">
-          <div class="form-group">
-            <div class="field-label-row">
-              <label>Square Title / Principle <span class="req">*</span></label>
-              <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="name" title="Insert a bullet point at cursor">+ • Bullet</button>
-            </div>
-            <input type="text" class="sq-input-name" value="${sq.name || ""}" placeholder="e.g. Solid: Definite Shape & Volume" />
-          </div>
-          <div class="form-group">
-            <div class="field-label-row">
-              <label>Scientific Formula / Rule</label>
-              <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="formula" title="Insert a bullet point at cursor">+ • Bullet</button>
-            </div>
-            <input type="text" class="sq-input-formula" value="${sq.formula || ""}" placeholder="e.g. Molecular motion: Tightly packed vibration" />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="field-label-row">
-            <label>Scientific Explanation <span class="req">*</span></label>
-            <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="explanation" title="Insert a bullet point at cursor">+ • Bullet</button>
-          </div>
-          <textarea class="sq-input-explanation" rows="2" placeholder="Describe the mechanism, behavior, or core science idea...">${sq.explanation || ""}</textarea>
-        </div>
-
-        <div class="form-row-2">
-          <div class="form-group">
-            <div class="field-label-row">
-              <label>Real-World Example / Experiment</label>
-              <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="example" title="Insert a bullet point at cursor">+ • Bullet</button>
-            </div>
-            <input type="text" class="sq-input-example" value="${sq.example || ""}" placeholder="e.g. Ice cube in a glass holding its geometric shape" />
-          </div>
-          <div class="form-group">
-            <div class="field-label-row">
-              <label>Lab Tip / Memory Trick</label>
-              <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="trick" title="Insert a bullet point at cursor">+ • Bullet</button>
-            </div>
-            <input type="text" class="sq-input-trick" value="${sq.trick || ""}" placeholder="e.g. Solids hold their ground; liquids flow around!" />
-          </div>
-        </div>
-      `;
-
-      card.querySelector(".sq-remove-btn")?.addEventListener("click", () => {
-        this.removeSquare(idx);
-      });
-
-      const nameInp = card.querySelector(".sq-input-name");
-      const formInp = card.querySelector(".sq-input-formula");
-      const explInp = card.querySelector(".sq-input-explanation");
-      const exInp = card.querySelector(".sq-input-example");
-      const trkInp = card.querySelector(".sq-input-trick");
-
-      nameInp?.addEventListener("input", (e) => {
-        this.architectSquares[idx].name = e.target.value;
-      });
-      formInp?.addEventListener("input", (e) => {
-        this.architectSquares[idx].formula = e.target.value;
-      });
-      explInp?.addEventListener("input", (e) => {
-        this.architectSquares[idx].explanation = e.target.value;
-      });
-      exInp?.addEventListener("input", (e) => {
-        this.architectSquares[idx].example = e.target.value;
-      });
-      trkInp?.addEventListener("input", (e) => {
-        this.architectSquares[idx].trick = e.target.value;
-      });
-
-      // Enable smart bullet auto-continuation on all square inputs
-      if (nameInp) enableSmartBulletInput(nameInp);
-      if (formInp) enableSmartBulletInput(formInp);
-      if (explInp) enableSmartBulletInput(explInp);
-      if (exInp) enableSmartBulletInput(exInp);
-      if (trkInp) enableSmartBulletInput(trkInp);
-
-      // Wire bullet buttons for each field on this concept square
-      card.querySelectorAll(".sq-bullet-btn").forEach((bBtn) => {
-        bBtn.addEventListener("click", () => {
-          const field = bBtn.dataset.field;
-          const targetInp = card.querySelector(`.sq-input-${field}`);
-          if (targetInp) {
-            insertBulletAtCursor(targetInp);
-            this.architectSquares[idx][field] = targetInp.value;
-            sounds.playClick();
-          }
-        });
-      });
-
-      list.appendChild(card);
-    });
-  }
-
-  loadTemplate(type) {
-    if (type === "method") {
-      document.getElementById("vnote-title").value = "THE SCIENTIFIC METHOD: 5-STEP INQUIRY";
-      document.getElementById("vnote-category").value = "method";
-      document.getElementById("vnote-formula").value = "Question → Hypothesis → Controlled Experiment → Data → Conclusion";
-      document.getElementById("vnote-desc").value = "The official process 5th grade scientists use to explore questions, test hypotheses, and discover truths about our world.";
-      this.architectSquares = [
-        {
-          name: "Step 1: Ask a Testable Question",
-          formula: "Does changing [Independent Variable] affect [Dependent Variable]?",
-          explanation: "Begin with curiosity. Formulate a specific question that can be measured and tested through hands-on observation.",
-          example: "Does increasing sunlight make tomato plants grow taller?",
-          trick: "Tip: Make sure your question can be answered with numbers or direct measurements!"
-        },
-        {
-          name: "Step 2: Formulate a Hypothesis",
-          formula: "If... then... because...",
-          explanation: "An educated prediction of what you expect to occur based on prior scientific research and reasoning.",
-          example: "If a plant receives 8 hours of light, then it will grow faster because photosynthesis produces more energy.",
-          trick: "Tip: A hypothesis is not just a guess—it must be testable!"
-        },
-        {
-          name: "Step 3: Conduct a Controlled Experiment",
-          formula: "Keep Controls Constant • Change 1 Variable",
-          explanation: "Test only ONE independent variable at a time. Keep all controlled variables (water, soil, temperature) identical.",
-          example: "3 plants receive identical soil and water, but different light exposure.",
-          trick: "Memory Trick: If you change two things at once, you won't know which one caused the result!"
-        },
-        {
-          name: "Step 4: Collect & Analyze Data",
-          formula: "Quantitative Data (Numbers) + Qualitative Data (Observations)",
-          explanation: "Record measurements daily using metric tools (rulers, scales, graduated cylinders) and plot into charts.",
-          example: "Plant A: 14cm, Plant B: 9cm, Plant C: 4cm after 2 weeks.",
-          trick: "Tip: Repeat experiments multiple times to ensure reliable results!"
-        },
-        {
-          name: "Step 5: Draw Conclusions & Share",
-          formula: "Did the evidence support or refute the hypothesis?",
-          explanation: "Synthesize findings. Explain what the data proves, identify experimental errors, and communicate results to peers.",
-          example: "Data supported the hypothesis: greater sunlight exposure produced 55% more stem growth.",
-          trick: "Tip: In science, even an incorrect hypothesis teaches you valuable discoveries!"
-        }
-      ];
-    } else {
-      document.getElementById("vnote-title").value = "CELL STRUCTURE & SPECIALIZED FUNCTIONS";
-      document.getElementById("vnote-category").value = "life";
-      document.getElementById("vnote-formula").value = "Cell Theory: All living organisms are composed of one or more cells";
-      document.getElementById("vnote-desc").value = "Exploring the fundamental building blocks of life: plant vs animal cell organelles and their vital jobs.";
-      this.architectSquares = [
-        {
-          name: "Cell Membrane: The Gatekeeper",
-          formula: "Selectively Permeable Barrier",
-          explanation: "A flexible outer boundary that controls what enters and exits the cell (nutrients in, waste out).",
-          example: "Like a security guard at school doors letting registered students inside.",
-          trick: "Memory Trick: 'Membrane' means Member Access Only!"
-        },
-        {
-          name: "Nucleus: The Command Center",
-          formula: "Houses DNA & Genetic Instructions",
-          explanation: "The brain of the cell containing hereditary chromosomes that guide all cellular operations and protein manufacturing.",
-          example: "Like City Hall directing municipal services and public construction.",
-          trick: "Memory Trick: Nucleus is the Boss of the Cell!"
-        },
-        {
-          name: "Chloroplast: Solar Energy Converter",
-          formula: "6CO₂ + 6H₂O + Sunlight → C₆H₁₂O₆ + 6O₂",
-          explanation: "Plant cell organelle containing green chlorophyll pigments that capture sunlight to manufacture glucose food.",
-          example: "Green leaves acting as microscopic solar panel factories.",
-          trick: "Found in plant cells, NOT animal cells!"
-        },
-        {
-          name: "Mitochondria: The Powerhouse",
-          formula: "Cellular Respiration (ATP Energy)",
-          explanation: "Breaks down food molecules into usable cellular energy to power all organism activity.",
-          example: "Like the electric power station supplying electricity to city buildings.",
-          trick: "Memory Trick: Mighty Mitochondria makes energy!"
-        }
-      ];
-    }
-    sounds.playSuccess();
-    this.renderSquares();
-  }
-
-  async handleSaveNote(e) {
-    if (e && e.preventDefault) e.preventDefault();
-    const title = document.getElementById("vnote-title").value.trim();
-    const category = document.getElementById("vnote-category").value;
-    const color = document.getElementById("vnote-color").value;
-    const formula = document.getElementById("vnote-formula").value.trim() || "5th Grade Scientific Principle";
-    const desc = document.getElementById("vnote-desc").value.trim();
-    let redirectUrl = document.getElementById("vnote-redirect")?.value.trim() || "";
-    if (redirectUrl && !redirectUrl.startsWith("http://") && !redirectUrl.startsWith("https://")) {
-      redirectUrl = "https://" + redirectUrl;
-    }
-
-    if (!title || !desc) {
-      alert("Please fill in the unit title and description.");
-      return;
-    }
-
-    if (this.architectSquares.length === 0) {
-      alert("Please add at least one concept square to your science unit!");
-      return;
-    }
-
-    // Synchronize current values directly from rendered square inputs to ensure latest user edits are captured
-    const squareCards = document.querySelectorAll("#vault-squares-list .architect-square-card");
-    if (squareCards.length > 0) {
-      this.architectSquares = Array.from(squareCards).map((card, idx) => ({
-        name: card.querySelector(".sq-input-name")?.value || this.architectSquares[idx]?.name || `Square #${idx + 1}`,
-        formula: card.querySelector(".sq-input-formula")?.value || this.architectSquares[idx]?.formula || "",
-        explanation: card.querySelector(".sq-input-explanation")?.value || this.architectSquares[idx]?.explanation || "",
-        example: card.querySelector(".sq-input-example")?.value || this.architectSquares[idx]?.example || "",
-        trick: card.querySelector(".sq-input-trick")?.value || this.architectSquares[idx]?.trick || ""
-      }));
-    }
-
-    const properties = this.architectSquares.map((sq, idx) => ({
-      num: idx + 1,
-      name: sq.name || `Square #${idx + 1}`,
-      formula: sq.formula || formula,
-      explanation: sq.explanation || desc,
-      example: sq.example || "Demonstrated in Jeeva's notebook.",
-      trick: sq.trick || "5th Grade Science Concept"
-    }));
-
-    const newNote = {
-      id: this.editingNoteId ? this.editingNoteId : `science-unit-${Date.now()}`,
-      title: (title.includes("\n") || title.includes("•")) ? title : title.toUpperCase(),
-      category: category,
-      color: color,
-      grade: "5th Grade",
-      badge: `${properties.length} Concept Squares`,
-      coreFormula: formula,
-      description: desc,
-      redirectUrl: redirectUrl,
-      isCustom: true,
-      properties: properties,
-      updatedAt: new Date().toISOString()
-    };
-
-    // Generate practice quiz matching the exact same layout & rephrased questions
-    newNote.quiz = this.app.generateQuizForTopic(newNote);
-
-    if (this.editingNoteId) {
-      const idx = this.app.notes.findIndex(n => n.id === this.editingNoteId);
-      if (idx !== -1) {
-        this.app.notes[idx] = newNote;
-      }
-      this.editingNoteId = null;
-    } else {
-      this.app.notes.push(newNote);
-    }
-
-    this.app.saveNotes();
-    this.app.render();
-    this.updateManagerTable();
-    this.updateTelemetry();
-
-    const saveBtn = document.getElementById("btn-save-vault-note");
-    if (saveBtn) {
-      saveBtn.disabled = true;
-      saveBtn.innerHTML = "<span>⏳ Publishing to Website & Cloud...</span>";
-    }
-
-    // Automatically publish to Cloud Database across all devices
-    await this.app.publishAllNotes(true, `🎉 Unit "${newNote.title}" published live to website & cloud database!`);
-
-    if (saveBtn) {
-      saveBtn.disabled = false;
-      saveBtn.innerHTML = "<span>🚀 Publish to Website & Cloud</span>";
-      saveBtn.style.background = "";
-    }
-
-    // Close vault and celebrate
-    this.close();
-
-    const filtered = this.app.getFilteredNotes();
-    const newIdx = filtered.findIndex((n) => n.id === newNote.id);
-    if (newIdx !== -1) {
-      this.app.carouselIndex = newIdx;
-      this.app.updateCarouselPositions();
-    }
-  }
-
-  setupAdminCommands() {
-    // Quick Publish
-    document.getElementById("cmd-btn-quick-publish")?.addEventListener("click", () => {
-      this.app.publishAllNotes();
-    });
-
-    // Preset: States of Matter
-    document.getElementById("cmd-btn-preset-matter")?.addEventListener("click", async () => {
-      const matterNote = {
-        id: `science-matter-${Date.now()}`,
-        title: "STATES OF MATTER & PHASE CHANGES",
-        category: "physical",
-        color: "cyan",
-        grade: "5th Grade",
-        badge: "3 Concept Squares",
-        coreFormula: "Thermal Energy Changes Matter: Solid ⇄ Liquid ⇄ Gas",
-        description: "How heating and cooling alters molecular motion without changing the substance's chemical identity.",
-        isCustom: true,
-        properties: [
-          {
-            num: 1,
-            name: "Solid State: Tightly Packed",
-            formula: "Definite Shape & Definite Volume",
-            explanation: "Particles vibrate in fixed lattice positions. They have the least thermal energy and cannot be easily compressed.",
-            example: "Ice cubes, quartz crystals, iron bars.",
-            trick: "Memory Trick: Solids are solid as a rock!"
-          },
-          {
-            num: 2,
-            name: "Liquid State: Flowing & Conforming",
-            formula: "Definite Volume & Indefinite Shape",
-            explanation: "Particles slide past one another smoothly. Liquids take the shape of whatever container holds them.",
-            example: "Liquid water, juice, vegetable oil.",
-            trick: "Memory Trick: Liquids flow to the bottom!"
-          },
-          {
-            num: 3,
-            name: "Gas State: Rapid Expansion",
-            formula: "Indefinite Shape & Indefinite Volume",
-            explanation: "Particles move rapidly in all directions with high kinetic energy, filling the entire volume of any closed container.",
-            example: "Water vapor steam, oxygen, nitrogen in our air.",
-            trick: "Memory Trick: Gas spreads fast everywhere!"
-          }
-        ]
-      };
-      matterNote.quiz = this.app.generateQuizForTopic(matterNote);
-      this.app.notes.push(matterNote);
-      this.app.saveNotes();
-      this.app.render();
-      sounds.playSuccess();
-      this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 60);
-      this.updateManagerTable();
-      this.updateTelemetry();
-      await this.app.publishAllNotes(true);
-    });
-
-    // Preset: Photosynthesis
-    document.getElementById("cmd-btn-preset-photo")?.addEventListener("click", async () => {
-      const photoNote = {
-        id: `science-photo-${Date.now()}`,
-        title: "PHOTOSYNTHESIS & ECOSYSTEM ENERGY",
-        category: "life",
-        color: "emerald",
-        grade: "5th Grade",
-        badge: "3 Concept Squares",
-        coreFormula: "6CO₂ + 6H₂O + Sunlight → C₆H₁₂O₆ (Sugar) + 6O₂ (Oxygen)",
-        description: "The foundational biochemical process where green plant producers convert solar energy into storable chemical sugar food.",
-        isCustom: true,
-        properties: [
-          {
-            num: 1,
-            name: "Chlorophyll & Solar Capture",
-            formula: "Solar Energy Captured in Chloroplasts",
-            explanation: "Green pigments inside plant cells absorb sunlight energy, driving the synthesis of carbon and water.",
-            example: "Leaves turning toward the sun on a windowsill.",
-            trick: "Producers create energy for the entire food web!"
-          },
-          {
-            num: 2,
-            name: "Chemical Reactants: CO₂ + H₂O",
-            formula: "Carbon Dioxide (Air) + Water (Soil)",
-            explanation: "Roots absorb water from soil while leaf stomata take in carbon dioxide gas from the atmosphere.",
-            example: "Watering garden plants and giving them fresh air.",
-            trick: "Without water, the reaction halts!"
-          },
-          {
-            num: 3,
-            name: "Essential Products: Glucose & Oxygen",
-            formula: "C₆H₁₂O₆ + 6O₂",
-            explanation: "Plants produce glucose sugar to feed their own growth and release pure oxygen gas for all animals to breathe.",
-            example: "Forests acting as the green lungs of Earth.",
-            trick: "Plants feed themselves and oxygenate us!"
-          }
-        ]
-      };
-      photoNote.quiz = this.app.generateQuizForTopic(photoNote);
-      this.app.notes.push(photoNote);
-      this.app.saveNotes();
-      this.app.render();
-      sounds.playSuccess();
-      this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 60);
-      this.updateManagerTable();
-      this.updateTelemetry();
-      await this.app.publishAllNotes(true);
-    });
-
-    // Confetti
-    document.getElementById("cmd-btn-confetti")?.addEventListener("click", () => {
-      sounds.playSuccess();
-      this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 90);
-    });
-
-    // Toggle Sound
-    document.getElementById("cmd-btn-toggle-sound")?.addEventListener("click", () => {
-      sounds.enabled = !sounds.enabled;
-      alert(`Sound effects are now ${sounds.enabled ? "ENABLED 🔊" : "MUTED 🔇"}`);
-      const soundOn = document.getElementById("sound-icon-on");
-      const soundOff = document.getElementById("sound-icon-off");
-      if (soundOn && soundOff) {
-        soundOn.classList.toggle("hidden", !sounds.enabled);
-        soundOff.classList.toggle("hidden", sounds.enabled);
-      }
-    });
-
-    // Export JSON
-    document.getElementById("cmd-btn-export-json")?.addEventListener("click", () => {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.app.notes, null, 2));
-      const dlAnchor = document.createElement("a");
-      dlAnchor.setAttribute("href", dataStr);
-      dlAnchor.setAttribute("download", `scienceio-backup-${Date.now()}.json`);
-      dlAnchor.click();
-      sounds.playClick();
-    });
-
-    // Import JSON
-    const fileInput = document.getElementById("admin-file-import");
-    document.getElementById("cmd-btn-import-json")?.addEventListener("click", () => {
-      if (fileInput) fileInput.click();
-    });
-
-    if (fileInput) {
-      fileInput.addEventListener("change", (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-          try {
-            const parsed = JSON.parse(event.target.result);
-            const notesArr = Array.isArray(parsed) ? parsed : (Array.isArray(parsed.notes) ? parsed.notes : null);
-            if (notesArr) {
-              this.app.notes = notesArr;
-              this.app.saveNotes();
-              this.app.render();
-              sounds.playSuccess();
-              this.updateManagerTable();
-              this.updateTelemetry();
-              await this.app.publishAllNotes(true);
-            } else {
-              alert("Invalid JSON format: expected an array of science units.");
-            }
-          } catch (err) {
-            alert("Error parsing JSON file: " + err.message);
-          }
-        };
-        reader.readAsText(file);
-      });
-    }
-
-    // Clear All Notes
-    document.getElementById("cmd-btn-clear-custom")?.addEventListener("click", async () => {
-      if (!confirm("Are you sure you want to clear all notes? Your notebook will be completely empty.")) return;
-      this.app.notes = [];
-      this.app.saveNotes();
-      this.app.render();
-      sounds.playClick();
-      this.updateManagerTable();
-      this.updateTelemetry();
-      await this.app.publishAllNotes(true);
-    });
-  }
-
-  // ================= DATABASE MANAGER =================
-  updateManagerTable() {
-    const tbody = document.getElementById("admin-manager-tbody");
-    if (!tbody) return;
-    tbody.innerHTML = "";
-
-    if (this.app.notes.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 24px; color: var(--text-muted);">No units stored in database. Create your first unit above!</td></tr>`;
-      return;
-    }
-
-    this.app.notes.forEach((topic) => {
-      const tr = document.createElement("tr");
-      const sqCount = topic.properties ? topic.properties.length : 0;
-
-      tr.innerHTML = `
-        <td><strong>${topic.title}</strong></td>
-        <td><span class="card-cat-pill">${(topic.category || "General").toUpperCase()}</span></td>
-        <td>${sqCount} Concept Squares</td>
-        <td><span style="color: #6ee7b7;">User Unit</span></td>
-        <td>
-          <div style="display: flex; gap: 8px;">
-            <button type="button" class="btn-table-action preview" data-id="${topic.id}">Preview</button>
-            <button type="button" class="btn-table-action edit" data-id="${topic.id}">Edit</button>
-            <button type="button" class="btn-table-action delete" data-id="${topic.id}">Delete</button>
-          </div>
-        </td>
-      `;
-
-      tr.querySelector(".preview")?.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        this.app.openNotesViewer(topic.id);
-      });
-
-      tr.querySelector(".edit")?.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        this.editNoteInArchitect(topic.id);
-      });
-
-      tr.querySelector(".delete")?.addEventListener("click", async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (confirm(`Delete unit "${topic.title}"?`)) {
-          this.app.notes = this.app.notes.filter(n => n.id !== topic.id);
-          this.app.saveNotes();
-          this.app.render();
-          this.updateManagerTable();
-          this.updateTelemetry();
-          sounds.playClick();
-          await this.app.publishAllNotes(true, `🗑️ Unit "${topic.title}" deleted and changes synced live to all devices!`);
-        }
-      });
-
-      tbody.appendChild(tr);
-    });
-  }
-
-  editNoteInArchitect(id) {
-    const note = this.app.notes.find(n => n.id === id);
-    if (!note) return;
-
-    this.editingNoteId = note.id;
-    const titleInput = document.getElementById("vnote-title");
-    const catSelect = document.getElementById("vnote-category");
-    const colorSelect = document.getElementById("vnote-color");
-    const formulaInput = document.getElementById("vnote-formula");
-    const descInput = document.getElementById("vnote-desc");
-    const redirectInput = document.getElementById("vnote-redirect");
-
-    if (titleInput) titleInput.value = note.title || "";
-    
-    // Category mapping
-    if (catSelect) {
-      const catVal = note.category || "life";
-      if (catSelect.querySelector(`option[value="${catVal}"]`)) {
-        catSelect.value = catVal;
-      } else if (catVal === "biology") {
-        catSelect.value = "life";
-      } else {
-        catSelect.value = "physical";
-      }
-    }
-
-    // Color mapping
-    if (colorSelect) {
-      const colorVal = note.color || "blue";
-      if (colorSelect.querySelector(`option[value="${colorVal}"]`)) {
-        colorSelect.value = colorVal;
-      } else if (colorVal === "amber") {
-        colorSelect.value = "orange";
-      } else {
-        colorSelect.value = "blue";
-      }
-    }
-
-    if (formulaInput) formulaInput.value = note.coreFormula || "";
-    if (descInput) descInput.value = note.description || "";
-    if (redirectInput) redirectInput.value = note.redirectUrl || "";
-
-    this.architectSquares = (note.properties || []).map(p => ({
-      name: p.name || "",
-      formula: p.formula || "",
-      explanation: p.explanation || "",
-      example: p.example || "",
-      trick: p.trick || ""
-    }));
-
-    this.renderSquares();
-    this.switchTab("architect");
-
-    // Scroll to top of architect form and focus title input
-    const deckBody = document.querySelector(".admin-deck-content-body");
-    if (deckBody) deckBody.scrollTop = 0;
-    const vaultModal = document.getElementById("vault-modal");
-    if (vaultModal) {
-      const scrollable = vaultModal.querySelector(".admin-vault-container") || vaultModal;
-      scrollable.scrollTop = 0;
-    }
-    if (titleInput) {
-      titleInput.scrollIntoView({ behavior: "smooth", block: "center" });
-      setTimeout(() => titleInput.focus(), 80);
-    }
-
-    const saveBtn = document.getElementById("btn-save-vault-note");
-    if (saveBtn) {
-      saveBtn.innerHTML = "<span>🚀 Update & Publish to Website & Cloud</span>";
-      saveBtn.style.background = "linear-gradient(135deg, #10b981, #06b6d4)";
-    }
-
-    sounds.playClick();
-  }
-
-  // ================= SYSTEM TELEMETRY =================
-  updateTelemetry() {
-    const topEl = document.getElementById("telem-topics-count");
-    const sqEl = document.getElementById("telem-squares-count");
-    if (topEl) topEl.textContent = this.app.notes.length;
-    if (sqEl) {
-      const totalSq = this.app.notes.reduce((acc, n) => acc + (n.properties ? n.properties.length : 0), 0);
-      sqEl.textContent = totalSq;
-    }
-  }
-}
-
-// ================= LIQUID GLASS SCIENTIFIC FORMULA CALCULATOR CONTROLLER =================
-class LiquidGlassCalculator {
-  constructor(app) {
-    this.app = app;
-    this.currentFormula = "density";
-    this.degMode = true; // true = degrees, false = radians
-    this.currentExpression = "";
-    this.ans = 0;
-    this.history = [];
-
-    this.formulas = {
-      density: {
-        id: "density",
-        name: "Density of Matter",
-        code: "D = m ÷ V",
-        principle: "Physical Skience • States & Mass",
-        unit: "g/cm³",
-        desc: "Density is the amount of mass packed into a given unit volume of matter.",
-        inputs: [
-          { id: "mass", label: "Mass (m)", unit: "grams (g)", default: 120, min: 0.001 },
-          { id: "vol", label: "Volume (V)", unit: "cm³ or mL", default: 24, min: 0.001 }
-        ],
-        solve: (vals) => {
-          const m = parseFloat(vals.mass) || 0;
-          const v = parseFloat(vals.vol) || 1;
-          const d = m / v;
-          const floatStatus = d > 1.0 ? "SINKS in liquid water (> 1.0 g/cm³)" : "FLOATS in liquid water (≤ 1.0 g/cm³)";
-          return {
-            result: Number(d.toFixed(3)),
-            unit: "g/cm³",
-            step: `${m}g ÷ ${v}cm³`,
-            insight: `Density = ${d.toFixed(2)} g/cm³. Pure liquid water has a density of 1.0 g/cm³. Result: This substance ${floatStatus}!`
-          };
-        }
-      },
-      speed: {
-        id: "speed",
-        name: "Speed & Velocity",
-        code: "s = d ÷ t",
-        principle: "Forces & Motion",
-        unit: "m/s",
-        desc: "Speed describes how quickly an object travels over a distance in a period of time.",
-        inputs: [
-          { id: "dist", label: "Distance (d)", unit: "meters (m)", default: 100, min: 0 },
-          { id: "time", label: "Time (t)", unit: "seconds (s)", default: 9.58, min: 0.001 }
-        ],
-        solve: (vals) => {
-          const d = parseFloat(vals.dist) || 0;
-          const t = parseFloat(vals.time) || 1;
-          const s = d / t;
-          const kmh = (s * 3.6).toFixed(1);
-          const mph = (s * 2.237).toFixed(1);
-          return {
-            result: Number(s.toFixed(2)),
-            unit: "m/s",
-            step: `${d}m ÷ ${t}s`,
-            insight: `Speed = ${s.toFixed(2)} m/s (${kmh} km/h or ${mph} mph). The speed of sound in air is ~343 m/s!`
-          };
-        }
-      },
-      force: {
-        id: "force",
-        name: "Force (Newton's 2nd Law)",
-        code: "F = m × a",
-        principle: "Newtonian Physics & Force",
-        unit: "N (Newtons)",
-        desc: "An unbalanced force causes a mass to accelerate proportionally.",
-        inputs: [
-          { id: "mass", label: "Mass (m)", unit: "kilograms (kg)", default: 25, min: 0 },
-          { id: "accel", label: "Acceleration (a)", unit: "m/s²", default: 9.8, min: 0 }
-        ],
-        solve: (vals) => {
-          const m = parseFloat(vals.mass) || 0;
-          const a = parseFloat(vals.accel) || 0;
-          const f = m * a;
-          return {
-            result: Number(f.toFixed(2)),
-            unit: "N",
-            step: `${m}kg × ${a}m/s²`,
-            insight: `Force = ${f.toFixed(2)} Newtons (kg·m/s²). Earth's gravitational acceleration is roughly 9.8 m/s²!`
-          };
-        }
-      },
-      work: {
-        id: "work",
-        name: "Work & Mechanical Energy",
-        code: "W = F × d",
-        principle: "Energy & Simple Machines",
-        unit: "J (Joules)",
-        desc: "Work is done when a force causes an object to move in the direction of the force.",
-        inputs: [
-          { id: "force", label: "Force (F)", unit: "Newtons (N)", default: 50, min: 0 },
-          { id: "dist", label: "Distance (d)", unit: "meters (m)", default: 12, min: 0 }
-        ],
-        solve: (vals) => {
-          const f = parseFloat(vals.force) || 0;
-          const d = parseFloat(vals.dist) || 0;
-          const w = f * d;
-          return {
-            result: Number(w.toFixed(2)),
-            unit: "J (Joules)",
-            step: `${f}N × ${d}m`,
-            insight: `Work = ${w.toFixed(2)} Joules. In physics, if an object doesn't move (d = 0), zero work is done regardless of the effort!`
-          };
-        }
-      },
-      ke: {
-        id: "ke",
-        name: "Kinetic Energy",
-        code: "KE = ½ · m · v²",
-        principle: "Forms of Energy",
-        unit: "J (Joules)",
-        desc: "Kinetic energy is the energy of motion possessed by any moving mass.",
-        inputs: [
-          { id: "mass", label: "Mass (m)", unit: "kilograms (kg)", default: 1200, min: 0 },
-          { id: "vel", label: "Velocity (v)", unit: "m/s", default: 20, min: 0 }
-        ],
-        solve: (vals) => {
-          const m = parseFloat(vals.mass) || 0;
-          const v = parseFloat(vals.vel) || 0;
-          const ke = 0.5 * m * Math.pow(v, 2);
-          return {
-            result: Number(ke.toFixed(1)),
-            unit: "J (Joules)",
-            step: `0.5 × ${m}kg × (${v}m/s)²`,
-            insight: `Kinetic Energy = ${ke.toLocaleString()} Joules. Velocity is squared (v²), meaning doubling speed quadruples energy!`
-          };
-        }
-      },
-      temp: {
-        id: "temp",
-        name: "Thermal Temperature Scale",
-        code: "°F = (1.8 × °C) + 32",
-        principle: "Thermal Energy & Phases",
-        unit: "°F / °C",
-        desc: "Convert thermal kinetic molecular activity between Celsius and Fahrenheit.",
-        inputs: [
-          { id: "tempVal", label: "Degrees Input", unit: "Value", default: 25 },
-          { id: "mode", label: "Conversion Mode (1: C → F, 2: F → C)", unit: "1 or 2", default: 1 }
-        ],
-        solve: (vals) => {
-          const t = parseFloat(vals.tempVal) || 0;
-          const mode = parseInt(vals.mode, 10) === 2 ? 2 : 1;
-          if (mode === 2) {
-            const c = (t - 32) / 1.8;
-            return {
-              result: Number(c.toFixed(1)),
-              unit: "°C",
-              step: `(${t}°F - 32) ÷ 1.8`,
-              insight: `${t}°F is ${c.toFixed(1)}°C. Liquid water freezes at 0°C (32°F) and boils at 100°C (212°F).`
-            };
-          } else {
-            const f = (t * 1.8) + 32;
-            return {
-              result: Number(f.toFixed(1)),
-              unit: "°F",
-              step: `(${t}°C × 1.8) + 32`,
-              insight: `${t}°C is ${f.toFixed(1)}°F. Average healthy human body temperature is 37°C (98.6°F).`
-            };
-          }
-        }
-      },
-      photo: {
-        id: "photo",
-        name: "Photosynthesis Stoichiometric Yield",
-        code: "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂",
-        principle: "Life Skience • Cellular Plant Energy",
-        unit: "g Glucose",
-        desc: "Calculates the mass of glucose plant food and oxygen produced from carbon dioxide input.",
-        inputs: [
-          { id: "co2", label: "Carbon Dioxide (CO₂) Moles", unit: "moles", default: 6, min: 0.1 }
-        ],
-        solve: (vals) => {
-          const moles = parseFloat(vals.co2) || 6;
-          const glucoseMoles = moles / 6;
-          const glucoseGrams = glucoseMoles * 180.16;
-          const o2Grams = moles * 32.0;
-          return {
-            result: Number(glucoseGrams.toFixed(1)),
-            unit: "g Glucose",
-            step: `${moles} mol CO₂ produces ${glucoseMoles.toFixed(2)} mol Glucose & ${o2Grams.toFixed(1)}g O₂`,
-            insight: `Chloroplasts convert ${moles} mol of CO₂ into ${glucoseGrams.toFixed(1)} grams of glucose plant food and release ${o2Grams.toFixed(1)}g of oxygen!`
-          };
-        }
-      }
-    };
-  }
-
-  init() {
-    this.bindDomElements();
-    this.setupPresetPills();
-    this.setupSolverActions();
-    this.setupKeypad();
-    this.switchFormula("density");
-  }
-
-  bindDomElements() {
-    this.pillsContainer = document.getElementById("calc-formula-pills");
-    this.solverPanel = document.getElementById("calc-solver-panel");
-    this.solverInputsGrid = document.getElementById("solver-inputs-grid");
-    this.formulaCode = document.getElementById("solver-formula-code");
-    this.formulaName = document.getElementById("solver-formula-name");
-    this.principleBadge = document.getElementById("solver-principle-badge");
-    this.solveBtn = document.getElementById("btn-calc-solve-formula");
-    this.resetBtn = document.getElementById("btn-calc-reset-formula");
-
-    this.modeText = document.getElementById("calc-mode-text");
-    this.degRadIndicator = document.getElementById("calc-deg-rad-indicator");
-    this.historyText = document.getElementById("calc-history-text");
-    this.resultValue = document.getElementById("calc-result-value");
-    this.unitTag = document.getElementById("calc-unit-tag");
-    this.insightText = document.getElementById("calc-insight-text");
-    this.historyTags = document.getElementById("calc-history-tags");
-  }
-
-  setupPresetPills() {
-    if (!this.pillsContainer) return;
-    const pills = this.pillsContainer.querySelectorAll(".calc-pill");
-    pills.forEach((pill) => {
-      pill.addEventListener("click", () => {
-        sounds.playClick();
-        pills.forEach((p) => p.classList.remove("active"));
-        pill.classList.add("active");
-        const formulaKey = pill.dataset.formula;
-        this.switchFormula(formulaKey);
-      });
-    });
-  }
-
-  switchFormula(key) {
-    this.currentFormula = key;
-    if (key === "freeform") {
-      if (this.solverPanel) this.solverPanel.classList.add("hidden-panel");
-      if (this.modeText) this.modeText.textContent = "DIRECT SCIENTIFIC EVALUATOR";
-      if (this.unitTag) this.unitTag.textContent = "";
-      if (this.historyText) this.historyText.textContent = "Ready for expression";
-      if (this.insightText) this.insightText.textContent = "Type numbers, operators (+, -, ×, ÷), or scientific functions (sin, cos, √, x²) on the keypad.";
-      this.currentExpression = "";
-      this.updateDisplay("0");
-    } else {
-      const f = this.formulas[key];
-      if (!f) return;
-      if (this.solverPanel) this.solverPanel.classList.remove("hidden-panel");
-      if (this.formulaCode) this.formulaCode.textContent = f.code;
-      if (this.formulaName) this.formulaName.textContent = f.name;
-      if (this.principleBadge) this.principleBadge.textContent = f.principle;
-      if (this.modeText) this.modeText.textContent = `FORMULA SOLVER • ${f.id.toUpperCase()}`;
-      if (this.unitTag) this.unitTag.textContent = f.unit;
-      this.renderInputs(f);
-      this.solveCurrentFormula(false);
-    }
-  }
-
-  renderInputs(formula) {
-    if (!this.solverInputsGrid) return;
-    this.solverInputsGrid.innerHTML = "";
-    formula.inputs.forEach((inp) => {
-      const group = document.createElement("div");
-      group.className = "solver-input-group";
-      group.innerHTML = `
-        <label class="solver-input-label" for="calc-inp-${inp.id}">
-          <span>${inp.label}</span>
-          <span class="solver-input-unit">[${inp.unit}]</span>
-        </label>
-        <div class="solver-field-wrap">
-          <input type="number" step="any" class="solver-input-box" id="calc-inp-${inp.id}" value="${inp.default}">
-        </div>
-      `;
-      this.solverInputsGrid.appendChild(group);
-
-      const inputEl = group.querySelector("input");
-      inputEl.addEventListener("input", () => {
-        this.solveCurrentFormula(false);
-      });
-      inputEl.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          this.solveCurrentFormula(true);
-        }
-      });
-    });
-  }
-
-  setupSolverActions() {
-    this.solveBtn?.addEventListener("click", () => {
-      this.solveCurrentFormula(true);
-    });
-
-    this.resetBtn?.addEventListener("click", () => {
-      sounds.playClick();
-      const f = this.formulas[this.currentFormula];
-      if (f) {
-        this.renderInputs(f);
-        this.solveCurrentFormula(false);
-      }
-    });
-  }
-
-  solveCurrentFormula(triggerFeedback = true) {
-    const f = this.formulas[this.currentFormula];
-    if (!f) return;
-
-    const values = {};
-    f.inputs.forEach((inp) => {
-      const el = document.getElementById(`calc-inp-${inp.id}`);
-      values[inp.id] = el ? parseFloat(el.value) || 0 : inp.default;
-    });
-
-    try {
-      const outcome = f.solve(values);
-      this.ans = outcome.result;
-      this.updateDisplay(outcome.result.toLocaleString());
-      if (this.unitTag) this.unitTag.textContent = outcome.unit;
-      if (this.historyText) this.historyText.textContent = `${f.code}  ➔  ${outcome.step}`;
-      if (this.insightText) this.insightText.textContent = outcome.insight;
-
-      if (triggerFeedback) {
-        sounds.playSuccess();
-        this.addHistoryTag(`${f.name}: ${outcome.result} ${outcome.unit}`, outcome.result);
-      }
-    } catch (e) {
-      if (this.historyText) this.historyText.textContent = "Error in formula parameters";
-    }
-  }
-
-  setupKeypad() {
-    const keys = document.querySelectorAll(".lkey");
-    keys.forEach((key) => {
-      key.addEventListener("click", () => {
-        sounds.playKeypadTap();
-        this.handleKeyClick(key);
-      });
-    });
-  }
-
-  handleKeyClick(btn) {
-    const val = btn.dataset.val;
-    const op = btn.dataset.op;
-    const action = btn.dataset.action;
-
-    if (action === "all_clear") {
-      this.currentExpression = "";
-      this.updateDisplay("0");
-      if (this.historyText) this.historyText.textContent = "Cleared";
-      return;
-    }
-
-    if (action === "backspace") {
-      this.currentExpression = this.currentExpression.slice(0, -1);
-      this.updateDisplay(this.currentExpression || "0");
-      return;
-    }
-
-    if (action === "ans") {
-      this.currentExpression += this.ans.toString();
-      this.updateDisplay(this.currentExpression);
-      return;
-    }
-
-    if (action === "equals") {
-      this.evaluateExpression();
-      return;
-    }
-
-    if (op === "deg_rad") {
-      this.degMode = !this.degMode;
-      if (this.degRadIndicator) {
-        this.degRadIndicator.textContent = this.degMode ? "DEG" : "RAD";
-      }
-      return;
-    }
-
-    if (op === "sq") {
-      this.currentExpression += "^2";
-      this.updateDisplay(this.currentExpression);
-      return;
-    }
-
-    if (op === "pow") {
-      this.currentExpression += "^";
-      this.updateDisplay(this.currentExpression);
-      return;
-    }
-
-    if (op === "sqrt") {
-      this.currentExpression += "√(";
-      this.updateDisplay(this.currentExpression);
-      return;
-    }
-
-    if (op === "cbrt") {
-      this.currentExpression += "∛(";
-      this.updateDisplay(this.currentExpression);
-      return;
-    }
-
-    if (op === "sin" || op === "cos" || op === "tan") {
-      this.currentExpression += `${op}(`;
-      this.updateDisplay(this.currentExpression);
-      return;
-    }
-
-    if (val === "PI") {
-      this.currentExpression += "π";
-      this.updateDisplay(this.currentExpression);
-      return;
-    }
-
-    if (val === "E") {
-      this.currentExpression += "e";
-      this.updateDisplay(this.currentExpression);
-      return;
-    }
-
-    if (val) {
-      this.currentExpression += val;
-      this.updateDisplay(this.currentExpression);
-    }
-  }
-
-  evaluateExpression() {
-    if (!this.currentExpression.trim()) return;
-
-    let expr = this.currentExpression;
-    const originalExpr = expr;
-
-    try {
-      // Replace display symbols with JavaScript equivalents
-      expr = expr.replace(/×/g, "*").replace(/÷/g, "/").replace(/−/g, "-");
-      expr = expr.replace(/π/g, "Math.PI").replace(/\be\b/g, "Math.E");
-      expr = expr.replace(/\^/g, "**");
-
-      // Replace square roots and cube roots
-      expr = expr.replace(/√\(([^)]+)\)/g, "Math.sqrt($1)");
-      expr = expr.replace(/∛\(([^)]+)\)/g, "Math.cbrt($1)");
-
-      // Replace trig functions with degree / radian conversion
-      if (this.degMode) {
-        expr = expr.replace(/sin\(([^)]+)\)/g, "Math.sin(($1) * Math.PI / 180)");
-        expr = expr.replace(/cos\(([^)]+)\)/g, "Math.cos(($1) * Math.PI / 180)");
-        expr = expr.replace(/tan\(([^)]+)\)/g, "Math.tan(($1) * Math.PI / 180)");
-      } else {
-        expr = expr.replace(/sin\(/g, "Math.sin(");
-        expr = expr.replace(/cos\(/g, "Math.cos(");
-        expr = expr.replace(/tan\(/g, "Math.tan(");
-      }
-
-      // Safe evaluation
-      // Allow only digits, basic operators, Math calls, parentheses, decimals
-      const cleanExpr = expr.replace(/Math\.(PI|E|sqrt|cbrt|sin|cos|tan)/g, "");
-      if (/[^0-9+\-*/%().\s*]/g.test(cleanExpr)) {
-        throw new Error("Invalid characters");
-      }
-
-      const evalFn = new Function(`return (${expr});`);
-      let result = evalFn();
-
-      if (typeof result === "number") {
-        if (!isFinite(result)) {
-          this.updateDisplay("Undefined");
-          if (this.historyText) this.historyText.textContent = `${originalExpr} = Undefined`;
-          return;
-        }
-        // Round to reasonable precision to remove floating point anomalies
-        result = Math.round(result * 100000000) / 100000000;
-        this.ans = result;
-        this.updateDisplay(result.toLocaleString());
-        if (this.historyText) this.historyText.textContent = `${originalExpr} =`;
-        if (this.insightText) this.insightText.textContent = `Evaluated: ${originalExpr} = ${result}`;
-
-        sounds.playSuccess();
-        this.addHistoryTag(`${originalExpr} = ${result}`, result);
-        this.currentExpression = result.toString();
-      }
-    } catch (err) {
-      this.updateDisplay("Error");
-      if (this.historyText) this.historyText.textContent = `Syntax Error in: ${originalExpr}`;
-      sounds.playVaultError();
-    }
-  }
-
-  updateDisplay(val) {
-    if (this.resultValue) {
-      this.resultValue.textContent = val;
-      const len = val.toString().length;
-      if (len > 12) {
-        this.resultValue.style.fontSize = "1.8rem";
-      } else if (len > 8) {
-        this.resultValue.style.fontSize = "2.4rem";
-      } else {
-        this.resultValue.style.fontSize = "";
-      }
-    }
-  }
-
-  addHistoryTag(label, val) {
-    this.history.unshift({ label, val });
-    if (this.history.length > 8) this.history.pop();
-    if (!this.historyTags) return;
-
-    this.historyTags.innerHTML = "";
-    this.history.forEach((h) => {
-      const tag = document.createElement("span");
-      tag.className = "calc-history-tag";
-      tag.textContent = h.label;
-      tag.title = "Click to load value into calculator";
-      tag.addEventListener("click", () => {
-        sounds.playClick();
-        this.currentExpression = h.val.toString();
-        this.updateDisplay(h.val.toString());
-      });
-      this.historyTags.appendChild(tag);
-    });
-  }
-}
 
 // Helper to guarantee science notes list has valid fallback if completely empty and filters out unwanted notes
 function ensurePlantCellUnit(notesList) {
@@ -7131,16 +5425,22 @@ class ScienceIoApp {
 
   // ================= INTERACTIVE ANATOMY & CURRICULUM VISUALIZERS =================
   getPartNoteData(topic, partNum, partKeywords = [], fallbackData = {}) {
-    // 1. Check active topic.properties by exact num
-    let match = topic?.properties?.find(p => p.num === partNum);
-
-    // 2. Check active topic.properties by keywords in name or explanation
-    if (!match && topic?.properties && partKeywords.length > 0) {
+    // 1. Check active topic.properties by keywords first if provided
+    let match = null;
+    if (topic?.properties && partKeywords.length > 0) {
       match = topic.properties.find(p => {
+        const name = (p.name || '').toLowerCase();
+        return partKeywords.some(kw => name.includes(kw.toLowerCase()));
+      }) || topic.properties.find(p => {
         const name = (p.name || '').toLowerCase();
         const expl = (p.explanation || '').toLowerCase();
         return partKeywords.some(kw => name.includes(kw.toLowerCase()) || expl.includes(kw.toLowerCase()));
       });
+    }
+
+    // 2. If no keyword match, check active topic.properties by exact num
+    if (!match) {
+      match = topic?.properties?.find(p => p.num === partNum);
     }
 
     // 3. Fallback to curriculum database if available
