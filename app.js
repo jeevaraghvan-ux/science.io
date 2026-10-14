@@ -2177,6 +2177,1953 @@ const DEFAULT_SCIENCE_TOPICS = [
   }
 ];
 
+// Default Cloud Database Bucket ID (Hosted on permanent free REST backend)
+const DEFAULT_CLOUD_DB_ID = "ff808181a09d98f701a0f483e327513e";
+
+// ================= UNIVERSAL BULLET POINT FORMATTERS & HELPERS =================
+function formatBulletText(str) {
+  if (!str && str !== 0) return "";
+  const raw = String(str);
+  if (!raw.trim()) return "";
+
+  const hasBullets = raw.includes("•") || /(?:^|\n)\s*[-*]\s+/.test(raw) || /(?:^|\n)\s*\d+[\.\)]\s+/.test(raw);
+  const hasLines = raw.includes("\n");
+
+  if (!hasBullets && !hasLines) {
+    return raw;
+  }
+
+  // Single line with inline bullets (e.g. "• A • B • C")
+  if (!hasLines && raw.includes("•")) {
+    const parts = raw.split("•").map(p => p.trim()).filter(Boolean);
+    if (parts.length > 1 || raw.trim().startsWith("•")) {
+      const items = parts.map(p => `<li class="bullet-item"><span class="bullet-dot">•</span><span class="bullet-text">${p}</span></li>`).join("");
+      return `<ul class="notes-bullet-list">${items}</ul>`;
+    }
+  }
+
+  // Multi-line list & paragraph parsing
+  const lines = raw.split(/\r?\n/);
+  let html = "";
+  let inList = false;
+  let listType = "ul";
+
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      if (inList) {
+        html += `</${listType}>`;
+        inList = false;
+      }
+      html += `<div class="bullet-spacer"></div>`;
+      return;
+    }
+
+    const isBulletDot = trimmed.startsWith("•");
+    const isDash = /^[-*]\s+/.test(trimmed);
+    const isNum = /^(\d+)[\.\)]\s+/.test(trimmed);
+
+    if (isBulletDot || isDash) {
+      let content = isBulletDot ? trimmed.replace(/^•\s*/, "") : trimmed.replace(/^[-*]\s+/, "");
+      if (!inList || listType !== "ul") {
+        if (inList) html += `</${listType}>`;
+        html += `<ul class="notes-bullet-list">`;
+        inList = true;
+        listType = "ul";
+      }
+      html += `<li class="bullet-item"><span class="bullet-dot">•</span><span class="bullet-text">${content}</span></li>`;
+    } else if (isNum) {
+      const numMatch = trimmed.match(/^(\d+)[\.\)]\s+(.*)/);
+      const numVal = numMatch ? numMatch[1] : "";
+      const content = numMatch ? numMatch[2] : trimmed;
+      if (!inList || listType !== "ol") {
+        if (inList) html += `</${listType}>`;
+        html += `<ol class="notes-bullet-list numbered">`;
+        inList = true;
+        listType = "ol";
+      }
+      html += `<li class="bullet-item"><span class="bullet-num">${numVal}.</span><span class="bullet-text">${content}</span></li>`;
+    } else {
+      if (inList) {
+        html += `</${listType}>`;
+        inList = false;
+      }
+      html += `<div class="bullet-line">${trimmed}</div>`;
+    }
+  });
+
+  if (inList) {
+    html += `</${listType}>`;
+  }
+
+  return html;
+}
+
+function insertTextAtCursor(inputEl, text) {
+  if (!inputEl) return;
+  inputEl.focus();
+  const start = inputEl.selectionStart !== undefined ? inputEl.selectionStart : inputEl.value.length;
+  const end = inputEl.selectionEnd !== undefined ? inputEl.selectionEnd : inputEl.value.length;
+  const val = inputEl.value;
+
+  inputEl.value = val.substring(0, start) + text + val.substring(end);
+  const newPos = start + text.length;
+  inputEl.setSelectionRange(newPos, newPos);
+  inputEl.dispatchEvent(new Event("input", { bubbles: true }));
+  inputEl.dispatchEvent(new Event("change", { bubbles: true }));
+}
+
+function insertBulletAtCursor(inputEl) {
+  if (!inputEl) return;
+  inputEl.focus();
+  const val = inputEl.value;
+  const start = inputEl.selectionStart !== undefined ? inputEl.selectionStart : val.length;
+  const end = inputEl.selectionEnd !== undefined ? inputEl.selectionEnd : val.length;
+
+  const lastNewline = val.lastIndexOf("\n", start - 1);
+  const lineStart = lastNewline === -1 ? 0 : lastNewline + 1;
+  const currentLinePrefix = val.substring(lineStart, start);
+
+  let toInsert = "• ";
+  if (currentLinePrefix.trim().length > 0) {
+    toInsert = "\n• ";
+  }
+
+  if (start !== end) {
+    const selectedText = val.substring(start, end);
+    const bulletedSelection = selectedText
+      .split("\n")
+      .map(line => line.trim().startsWith("•") ? line : `• ${line}`)
+      .join("\n");
+    inputEl.value = val.substring(0, start) + bulletedSelection + val.substring(end);
+    const newEnd = start + bulletedSelection.length;
+    inputEl.setSelectionRange(newEnd, newEnd);
+  } else {
+    inputEl.value = val.substring(0, start) + toInsert + val.substring(end);
+    const newPos = start + toInsert.length;
+    inputEl.setSelectionRange(newPos, newPos);
+  }
+
+  inputEl.dispatchEvent(new Event("input", { bubbles: true }));
+  inputEl.dispatchEvent(new Event("change", { bubbles: true }));
+}
+
+function enableSmartBulletInput(el) {
+  if (!el || el._smartBulletAttached) return;
+  el._smartBulletAttached = true;
+
+  el.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      if (el.tagName === "TEXTAREA") {
+        const val = el.value;
+        const selStart = el.selectionStart;
+        const lastNewline = val.lastIndexOf("\n", selStart - 1);
+        const lineStart = lastNewline === -1 ? 0 : lastNewline + 1;
+        const currentLine = val.substring(lineStart, selStart);
+
+        const bulletMatch = currentLine.match(/^(\s*)([•\-\*])\s+/);
+        if (bulletMatch) {
+          e.preventDefault();
+          const indent = bulletMatch[1];
+          const afterBullet = currentLine.substring(bulletMatch[0].length).trim();
+
+          if (afterBullet.length === 0) {
+            const nextNewline = val.indexOf("\n", selStart);
+            const lineEnd = nextNewline === -1 ? val.length : nextNewline;
+            el.value = val.substring(0, lineStart) + val.substring(lineEnd);
+            el.setSelectionRange(lineStart, lineStart);
+          } else {
+            const insertion = `\n${indent}• `;
+            const before = val.substring(0, selStart);
+            const after = val.substring(selStart);
+            el.value = before + insertion + after;
+            const newPos = selStart + insertion.length;
+            el.setSelectionRange(newPos, newPos);
+          }
+          el.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+      }
+    }
+  });
+
+  el.addEventListener("input", (e) => {
+    if (e.inputType === "insertText" && (e.data === " " || e.data === "\u00A0")) {
+      const val = el.value;
+      const selStart = el.selectionStart;
+      const lastNewline = val.lastIndexOf("\n", selStart - 2);
+      const lineStart = lastNewline === -1 ? 0 : lastNewline + 1;
+      const lineBeforeCursor = val.substring(lineStart, selStart);
+
+      if (/^[-*]\s$/.test(lineBeforeCursor)) {
+        const before = val.substring(0, lineStart);
+        const after = val.substring(selStart);
+        el.value = before + "• " + after;
+        const newPos = lineStart + 2;
+        el.setSelectionRange(newPos, newPos);
+        el.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+    }
+  });
+}
+
+// ================= SOUND FX SYSTEM (WEB AUDIO API) =================
+class SoundController {
+  constructor() {
+    this.enabled = true;
+    this.ctx = null;
+  }
+
+  init() {
+    if (!this.ctx) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) {
+        this.ctx = new AudioCtx();
+      }
+    }
+  }
+
+  playClick() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(600, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.04);
+      gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.04);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.04);
+    } catch (e) {}
+  }
+
+  /* ASMR Buttery Smooth Slide Chime */
+  playAsmrSlide() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(380, now);
+      osc.frequency.exponentialRampToValueAtTime(140, now + 0.09);
+      gain.gain.setValueAtTime(0.07, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.09);
+
+      const osc2 = this.ctx.createOscillator();
+      const gain2 = this.ctx.createGain();
+      osc2.type = "sine";
+      osc2.frequency.setValueAtTime(960, now);
+      osc2.frequency.exponentialRampToValueAtTime(640, now + 0.05);
+      gain2.gain.setValueAtTime(0.025, now);
+      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+      osc2.connect(gain2);
+      gain2.connect(this.ctx.destination);
+      osc2.start(now);
+      osc2.stop(now + 0.05);
+    } catch (e) {}
+  }
+
+  /* Tactile Mechanical Keypad Click */
+  playKeypadTap() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(820, now);
+      osc.frequency.exponentialRampToValueAtTime(1150, now + 0.035);
+      gain.gain.setValueAtTime(0.09, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.035);
+    } catch (e) {}
+  }
+
+  /* Heavy Vault Hydraulic Unlock Clunk & Chime */
+  playVaultUnlock() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc1 = this.ctx.createOscillator();
+      const gain1 = this.ctx.createGain();
+      osc1.type = "triangle";
+      osc1.frequency.setValueAtTime(95, now);
+      osc1.frequency.exponentialRampToValueAtTime(32, now + 0.28);
+      gain1.gain.setValueAtTime(0.25, now);
+      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+      osc1.connect(gain1);
+      gain1.connect(this.ctx.destination);
+      osc1.start(now);
+      osc1.stop(now + 0.28);
+
+      const osc2 = this.ctx.createOscillator();
+      const gain2 = this.ctx.createGain();
+      osc2.type = "sawtooth";
+      osc2.frequency.setValueAtTime(360, now + 0.08);
+      osc2.frequency.exponentialRampToValueAtTime(70, now + 0.42);
+      gain2.gain.setValueAtTime(0.08, now + 0.08);
+      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+      osc2.connect(gain2);
+      gain2.connect(this.ctx.destination);
+      osc2.start(now + 0.08);
+      osc2.stop(now + 0.42);
+
+      [587.33, 739.99, 880.0, 1174.66].forEach((f, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = f;
+        gain.gain.setValueAtTime(0.05, now + 0.22 + idx * 0.06);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.55 + idx * 0.06);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now + 0.22 + idx * 0.06);
+        osc.stop(now + 0.6 + idx * 0.06);
+      });
+    } catch (e) {}
+  }
+
+  playVaultError() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      [135, 105].forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(freq, now + idx * 0.12);
+        gain.gain.setValueAtTime(0.14, now + idx * 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.12 + 0.11);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now + idx * 0.12);
+        osc.stop(now + idx * 0.12 + 0.11);
+      });
+    } catch (e) {}
+  }
+
+  playVaultRedirect() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(540, now);
+      osc.frequency.exponentialRampToValueAtTime(320, now + 0.16);
+      gain.gain.setValueAtTime(0.1, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.16);
+    } catch (e) {}
+  }
+
+  playSuccess() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+      notes.forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+        gain.gain.setValueAtTime(0.08, now + idx * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.25);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now + idx * 0.08);
+        osc.stop(now + idx * 0.08 + 0.25);
+      });
+    } catch (e) {}
+  }
+}
+
+const sounds = new SoundController();
+window.sounds = sounds;
+
+// ================= CONFETTI CELEBRATION ENGINE =================
+class ConfettiEngine {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas && typeof canvas.getContext === "function" ? canvas.getContext("2d") : null;
+    this.particles = [];
+    this.animating = false;
+    this.resize();
+    window.addEventListener("resize", () => this.resize());
+  }
+
+  resize() {
+    if (!this.canvas) return;
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+  }
+
+  burst(x, y, count = 60) {
+    if (!this.canvas || !this.ctx) return;
+    const colors = ["#00d4ff", "#9d4edd", "#ff375f", "#34d399", "#f59e0b", "#38bdf8"];
+    for (let i = 0; i < count; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 8 + 3;
+      this.particles.push({
+        x: x || window.innerWidth / 2,
+        y: y || window.innerHeight / 2,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 2,
+        size: Math.random() * 7 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * 360,
+        vr: (Math.random() - 0.5) * 12,
+        life: 1,
+        decay: Math.random() * 0.015 + 0.01
+      });
+    }
+
+    if (!this.animating) {
+      this.animating = true;
+      this.loop();
+    }
+  }
+
+  loop() {
+    if (!this.animating || !this.ctx) return;
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      const p = this.particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.2; // Gravity
+      p.rotation += p.vr;
+      p.life -= p.decay;
+
+      if (p.life <= 0 || p.y > this.canvas.height + 50) {
+        this.particles.splice(i, 1);
+        continue;
+      }
+
+      this.ctx.save();
+      this.ctx.translate(p.x, p.y);
+      this.ctx.rotate((p.rotation * Math.PI) / 180);
+      this.ctx.globalAlpha = p.life;
+      this.ctx.fillStyle = p.color;
+      this.ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+      this.ctx.restore();
+    }
+
+    if (this.particles.length > 0) {
+      requestAnimationFrame(() => this.loop());
+    } else {
+      this.animating = false;
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+  }
+}
+
+// ================= ADMIN SECURITY VAULT CONTROLLER =================
+class VaultController {
+  constructor(app) {
+    this.app = app;
+    this.code = atob("MTU5MzU3");
+    this.currentPin = "";
+    this.isUnlocked = false;
+    this.openCreatorAfterUnlock = false;
+    this.activeTab = "architect";
+    this.architectSquares = [];
+    this.editingNoteId = null;
+  }
+
+  init() {
+    this.setupKeypad();
+    this.setupVaultTriggers();
+    this.setupAdminTabs();
+    this.setupArchitectForm();
+    this.setupAdminCommands();
+  }
+
+  setupKeypad() {
+    const keypadBtns = document.querySelectorAll(".keypad-btn");
+    keypadBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.key;
+        sounds.playKeypadTap();
+
+        if (key === "clear") {
+          this.currentPin = "";
+        } else if (key === "back") {
+          this.currentPin = this.currentPin.slice(0, -1);
+        } else if (this.currentPin.length < 6) {
+          this.currentPin += key;
+        }
+
+        this.updatePinDisplay();
+
+        if (this.currentPin.length === 6) {
+          this.verifyPin();
+        }
+      });
+    });
+
+    window.addEventListener("keydown", (e) => {
+      const vaultModal = document.getElementById("vault-modal");
+      if (!vaultModal || vaultModal.classList.contains("hidden")) return;
+      if (this.isUnlocked) return;
+
+      if (e.key >= "0" && e.key <= "9") {
+        if (this.currentPin.length < 6) {
+          sounds.playKeypadTap();
+          this.currentPin += e.key;
+          this.updatePinDisplay();
+          if (this.currentPin.length === 6) {
+            this.verifyPin();
+          }
+        }
+      } else if (e.key === "Backspace") {
+        sounds.playKeypadTap();
+        this.currentPin = this.currentPin.slice(0, -1);
+        this.updatePinDisplay();
+      } else if (e.key === "Escape") {
+        this.close();
+      }
+    });
+  }
+
+  updatePinDisplay() {
+    const slots = document.querySelectorAll(".pin-slot");
+    slots.forEach((slot, idx) => {
+      slot.classList.toggle("filled", idx < this.currentPin.length);
+    });
+
+    const feedback = document.getElementById("vault-pin-feedback");
+    if (feedback) {
+      if (this.currentPin.length === 0) {
+        feedback.textContent = "ENTER 6-DIGIT CODE";
+        feedback.className = "vault-pin-feedback";
+      } else {
+        feedback.textContent = `AUTHENTICATING [${this.currentPin.length}/6]`;
+        feedback.className = "vault-pin-feedback checking";
+      }
+    }
+  }
+
+  verifyPin() {
+    const safeDoor = document.getElementById("vault-safe-door");
+    const feedback = document.getElementById("vault-pin-feedback");
+
+    if (this.currentPin === this.code) {
+      this.isUnlocked = true;
+      if (feedback) {
+        feedback.textContent = "ACCESS GRANTED • WELCOME JEEVA R.";
+        feedback.className = "vault-pin-feedback granted";
+      }
+
+      if (safeDoor) safeDoor.classList.add("unlocking");
+      sounds.playVaultUnlock();
+      this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 70);
+
+      setTimeout(() => {
+        document.getElementById("vault-lock-view")?.classList.add("hidden");
+        document.getElementById("vault-admin-view")?.classList.remove("hidden");
+        if (safeDoor) safeDoor.classList.remove("unlocking");
+
+        this.currentPin = "";
+        this.updatePinDisplay();
+        this.updateManagerTable();
+        this.updateTelemetry();
+
+        this.switchTab("architect");
+      }, 900);
+    } else {
+      if (safeDoor) safeDoor.classList.add("shake-error");
+      if (feedback) {
+        feedback.textContent = "ACCESS DENIED • INVALID PASSCODE";
+        feedback.className = "vault-pin-feedback denied";
+      }
+      sounds.playVaultError();
+
+      setTimeout(() => {
+        if (safeDoor) safeDoor.classList.remove("shake-error");
+        this.currentPin = "";
+        this.updatePinDisplay();
+      }, 800);
+    }
+  }
+
+  setupVaultTriggers() {
+    document.getElementById("vault-lock-close")?.addEventListener("click", () => this.close());
+    document.getElementById("vault-admin-close")?.addEventListener("click", () => this.close());
+
+    document.getElementById("btn-vault-relock")?.addEventListener("click", () => {
+      this.relock();
+    });
+  }
+
+  requestCreateNote() {
+    if (this.isUnlocked) {
+      this.open();
+      this.switchTab("architect");
+      const titleInput = document.getElementById("vnote-title");
+      if (titleInput) {
+        titleInput.focus();
+        titleInput.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }
+
+  open(mode = "normal") {
+    const modal = document.getElementById("vault-modal");
+    if (!modal) return;
+    modal.classList.remove("hidden");
+
+    const warn = document.getElementById("vault-redirect-warning");
+    if (mode === "redirect") {
+      if (warn) warn.classList.remove("hidden");
+      sounds.playVaultRedirect();
+    } else {
+      if (warn) warn.classList.add("hidden");
+      sounds.playClick();
+    }
+
+    if (this.isUnlocked) {
+      document.getElementById("vault-lock-view")?.classList.add("hidden");
+      document.getElementById("vault-admin-view")?.classList.remove("hidden");
+      this.updateManagerTable();
+      this.updateTelemetry();
+    } else {
+      document.getElementById("vault-lock-view")?.classList.remove("hidden");
+      document.getElementById("vault-admin-view")?.classList.add("hidden");
+      this.currentPin = "";
+      this.updatePinDisplay();
+    }
+  }
+
+  close() {
+    this.isUnlocked = false;
+    document.getElementById("vault-modal")?.classList.add("hidden");
+    this.currentPin = "";
+    this.updatePinDisplay();
+    // Guarantee AI Chatbot bubble is visible and ready for re-entry
+    const bubble = document.getElementById("ai-chat-bubble");
+    if (bubble) {
+      bubble.style.display = "flex";
+      bubble.style.transform = "scale(1) rotate(0deg)";
+    }
+  }
+
+  relock() {
+    this.isUnlocked = false;
+    this.currentPin = "";
+    document.getElementById("vault-admin-view")?.classList.add("hidden");
+    document.getElementById("vault-lock-view")?.classList.remove("hidden");
+    this.updatePinDisplay();
+    // Guarantee AI Chatbot bubble is visible and ready for re-entry
+    const bubble = document.getElementById("ai-chat-bubble");
+    if (bubble) {
+      bubble.style.display = "flex";
+      bubble.style.transform = "scale(1) rotate(0deg)";
+    }
+    sounds.playClick();
+    alert("Vault session ended. Security lock re-engaged.");
+  }
+
+  setupAdminTabs() {
+    const tabBtns = document.querySelectorAll(".admin-tab-btn");
+    tabBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        sounds.playClick();
+        const tab = btn.dataset.tab;
+        this.switchTab(tab);
+      });
+    });
+  }
+
+  switchTab(tabName) {
+    this.activeTab = tabName;
+    document.querySelectorAll(".admin-tab-btn").forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.tab === tabName);
+    });
+
+    document.querySelectorAll(".admin-panel").forEach((panel) => {
+      panel.classList.toggle("hidden", panel.id !== `panel-admin-${tabName}`);
+      panel.classList.toggle("active", panel.id === `panel-admin-${tabName}`);
+    });
+
+    if (tabName === "manager") {
+      this.updateManagerTable();
+    } else if (tabName === "telemetry") {
+      this.updateTelemetry();
+    }
+  }
+
+  // ================= NOTE ARCHITECT LOGIC =================
+  setupArchitectForm() {
+    const form = document.getElementById("vault-note-form");
+    if (!form) return;
+
+    // Attach smart bullet auto-continuation to top-level fields
+    const titleInp = document.getElementById("vnote-title");
+    const formulaInp = document.getElementById("vnote-formula");
+    const descInp = document.getElementById("vnote-desc");
+
+    if (titleInp) enableSmartBulletInput(titleInp);
+    if (formulaInp) enableSmartBulletInput(formulaInp);
+    if (descInp) enableSmartBulletInput(descInp);
+
+    // Wire top-level field bullet buttons (+ • Bullet)
+    document.querySelectorAll(".btn-field-bullet[data-for]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.getAttribute("data-for");
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          insertBulletAtCursor(targetEl);
+          sounds.playClick();
+        }
+      });
+    });
+
+    // Wire universal bullet template button
+    document.getElementById("btn-architect-insert-bullet")?.addEventListener("click", () => {
+      const active = document.activeElement;
+      if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA")) {
+        insertBulletAtCursor(active);
+      } else {
+        if (descInp) insertBulletAtCursor(descInp);
+      }
+      sounds.playClick();
+    });
+
+    document.getElementById("btn-add-square")?.addEventListener("click", () => this.addBlankSquare());
+    document.getElementById("btn-add-square-bottom")?.addEventListener("click", () => this.addBlankSquare());
+
+    document.getElementById("btn-template-science-props")?.addEventListener("click", () => this.loadTemplate("method"));
+    document.getElementById("btn-template-steps")?.addEventListener("click", () => this.loadTemplate("structure"));
+
+    document.getElementById("btn-clear-architect")?.addEventListener("click", () => {
+      if (confirm("Clear all fields in Note Architect?")) {
+        form.reset();
+        this.architectSquares = [];
+        this.editingNoteId = null;
+        this.renderSquares();
+        const saveBtn = document.getElementById("btn-save-vault-note");
+        if (saveBtn) {
+          saveBtn.innerHTML = "<span>🚀 Publish to Website & Cloud</span>";
+          saveBtn.style.background = "";
+        }
+      }
+    });
+
+    form.addEventListener("submit", (e) => this.handleSaveNote(e));
+  }
+
+  addBlankSquare(data = null) {
+    const sqIndex = this.architectSquares.length + 1;
+    const defaultData = data || {
+      name: `Concept Square #${sqIndex}`,
+      formula: "Observation / Principle",
+      explanation: "Explain this scientific concept clearly for 5th graders...",
+      example: "Real-world experiment or demonstration...",
+      trick: "Lab Memory Tip"
+    };
+
+    this.architectSquares.push(defaultData);
+    sounds.playClick();
+    this.renderSquares();
+
+    setTimeout(() => {
+      const container = document.getElementById("vault-squares-list");
+      if (container && container.lastElementChild) {
+        container.lastElementChild.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }, 50);
+  }
+
+  removeSquare(index) {
+    this.architectSquares.splice(index, 1);
+    sounds.playClick();
+    this.renderSquares();
+  }
+
+  renderSquares() {
+    const list = document.getElementById("vault-squares-list");
+    const countBadge = document.getElementById("squares-count-badge");
+    if (!list) return;
+
+    list.innerHTML = "";
+    if (countBadge) {
+      countBadge.textContent = `${this.architectSquares.length} Square${this.architectSquares.length === 1 ? "" : "s"} Configured`;
+    }
+
+    if (this.architectSquares.length === 0) {
+      list.innerHTML = `
+        <div style="text-align: center; padding: 24px; color: var(--text-muted); border: 2px dashed rgba(255,255,255,0.1); border-radius: 14px;">
+          <p style="margin-bottom: 10px;">No concept squares added yet.</p>
+          <button type="button" class="btn-add-square" id="btn-add-first-sq">+ Add First Concept Square</button>
+        </div>
+      `;
+      document.getElementById("btn-add-first-sq")?.addEventListener("click", () => this.addBlankSquare());
+      return;
+    }
+
+    this.architectSquares.forEach((sq, idx) => {
+      const card = document.createElement("div");
+      card.className = "architect-square-card";
+      card.dataset.index = idx;
+
+      card.innerHTML = `
+        <div class="sq-card-top-bar">
+          <div class="sq-pill-badge">
+            <span class="sq-drag-handle">☰</span>
+            <span>CONCEPT SQUARE #${idx + 1}</span>
+          </div>
+          <button type="button" class="sq-remove-btn" data-index="${idx}" title="Remove this square">&times;</button>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <div class="field-label-row">
+              <label>Square Title / Principle <span class="req">*</span></label>
+              <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="name" title="Insert a bullet point at cursor">+ • Bullet</button>
+            </div>
+            <input type="text" class="sq-input-name" value="${sq.name || ""}" placeholder="e.g. Solid: Definite Shape & Volume" />
+          </div>
+          <div class="form-group">
+            <div class="field-label-row">
+              <label>Scientific Formula / Rule</label>
+              <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="formula" title="Insert a bullet point at cursor">+ • Bullet</button>
+            </div>
+            <input type="text" class="sq-input-formula" value="${sq.formula || ""}" placeholder="e.g. Molecular motion: Tightly packed vibration" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="field-label-row">
+            <label>Scientific Explanation <span class="req">*</span></label>
+            <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="explanation" title="Insert a bullet point at cursor">+ • Bullet</button>
+          </div>
+          <textarea class="sq-input-explanation" rows="2" placeholder="Describe the mechanism, behavior, or core science idea...">${sq.explanation || ""}</textarea>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <div class="field-label-row">
+              <label>Real-World Example / Experiment</label>
+              <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="example" title="Insert a bullet point at cursor">+ • Bullet</button>
+            </div>
+            <input type="text" class="sq-input-example" value="${sq.example || ""}" placeholder="e.g. Ice cube in a glass holding its geometric shape" />
+          </div>
+          <div class="form-group">
+            <div class="field-label-row">
+              <label>Lab Tip / Memory Trick</label>
+              <button type="button" class="btn-field-bullet sq-bullet-btn" data-field="trick" title="Insert a bullet point at cursor">+ • Bullet</button>
+            </div>
+            <input type="text" class="sq-input-trick" value="${sq.trick || ""}" placeholder="e.g. Solids hold their ground; liquids flow around!" />
+          </div>
+        </div>
+      `;
+
+      card.querySelector(".sq-remove-btn")?.addEventListener("click", () => {
+        this.removeSquare(idx);
+      });
+
+      const nameInp = card.querySelector(".sq-input-name");
+      const formInp = card.querySelector(".sq-input-formula");
+      const explInp = card.querySelector(".sq-input-explanation");
+      const exInp = card.querySelector(".sq-input-example");
+      const trkInp = card.querySelector(".sq-input-trick");
+
+      nameInp?.addEventListener("input", (e) => {
+        this.architectSquares[idx].name = e.target.value;
+      });
+      formInp?.addEventListener("input", (e) => {
+        this.architectSquares[idx].formula = e.target.value;
+      });
+      explInp?.addEventListener("input", (e) => {
+        this.architectSquares[idx].explanation = e.target.value;
+      });
+      exInp?.addEventListener("input", (e) => {
+        this.architectSquares[idx].example = e.target.value;
+      });
+      trkInp?.addEventListener("input", (e) => {
+        this.architectSquares[idx].trick = e.target.value;
+      });
+
+      // Enable smart bullet auto-continuation on all square inputs
+      if (nameInp) enableSmartBulletInput(nameInp);
+      if (formInp) enableSmartBulletInput(formInp);
+      if (explInp) enableSmartBulletInput(explInp);
+      if (exInp) enableSmartBulletInput(exInp);
+      if (trkInp) enableSmartBulletInput(trkInp);
+
+      // Wire bullet buttons for each field on this concept square
+      card.querySelectorAll(".sq-bullet-btn").forEach((bBtn) => {
+        bBtn.addEventListener("click", () => {
+          const field = bBtn.dataset.field;
+          const targetInp = card.querySelector(`.sq-input-${field}`);
+          if (targetInp) {
+            insertBulletAtCursor(targetInp);
+            this.architectSquares[idx][field] = targetInp.value;
+            sounds.playClick();
+          }
+        });
+      });
+
+      list.appendChild(card);
+    });
+  }
+
+  loadTemplate(type) {
+    if (type === "method") {
+      document.getElementById("vnote-title").value = "THE SCIENTIFIC METHOD: 5-STEP INQUIRY";
+      document.getElementById("vnote-category").value = "method";
+      document.getElementById("vnote-formula").value = "Question → Hypothesis → Controlled Experiment → Data → Conclusion";
+      document.getElementById("vnote-desc").value = "The official process 5th grade scientists use to explore questions, test hypotheses, and discover truths about our world.";
+      this.architectSquares = [
+        {
+          name: "Step 1: Ask a Testable Question",
+          formula: "Does changing [Independent Variable] affect [Dependent Variable]?",
+          explanation: "Begin with curiosity. Formulate a specific question that can be measured and tested through hands-on observation.",
+          example: "Does increasing sunlight make tomato plants grow taller?",
+          trick: "Tip: Make sure your question can be answered with numbers or direct measurements!"
+        },
+        {
+          name: "Step 2: Formulate a Hypothesis",
+          formula: "If... then... because...",
+          explanation: "An educated prediction of what you expect to occur based on prior scientific research and reasoning.",
+          example: "If a plant receives 8 hours of light, then it will grow faster because photosynthesis produces more energy.",
+          trick: "Tip: A hypothesis is not just a guess—it must be testable!"
+        },
+        {
+          name: "Step 3: Conduct a Controlled Experiment",
+          formula: "Keep Controls Constant • Change 1 Variable",
+          explanation: "Test only ONE independent variable at a time. Keep all controlled variables (water, soil, temperature) identical.",
+          example: "3 plants receive identical soil and water, but different light exposure.",
+          trick: "Memory Trick: If you change two things at once, you won't know which one caused the result!"
+        },
+        {
+          name: "Step 4: Collect & Analyze Data",
+          formula: "Quantitative Data (Numbers) + Qualitative Data (Observations)",
+          explanation: "Record measurements daily using metric tools (rulers, scales, graduated cylinders) and plot into charts.",
+          example: "Plant A: 14cm, Plant B: 9cm, Plant C: 4cm after 2 weeks.",
+          trick: "Tip: Repeat experiments multiple times to ensure reliable results!"
+        },
+        {
+          name: "Step 5: Draw Conclusions & Share",
+          formula: "Did the evidence support or refute the hypothesis?",
+          explanation: "Synthesize findings. Explain what the data proves, identify experimental errors, and communicate results to peers.",
+          example: "Data supported the hypothesis: greater sunlight exposure produced 55% more stem growth.",
+          trick: "Tip: In science, even an incorrect hypothesis teaches you valuable discoveries!"
+        }
+      ];
+    } else {
+      document.getElementById("vnote-title").value = "CELL STRUCTURE & SPECIALIZED FUNCTIONS";
+      document.getElementById("vnote-category").value = "life";
+      document.getElementById("vnote-formula").value = "Cell Theory: All living organisms are composed of one or more cells";
+      document.getElementById("vnote-desc").value = "Exploring the fundamental building blocks of life: plant vs animal cell organelles and their vital jobs.";
+      this.architectSquares = [
+        {
+          name: "Cell Membrane: The Gatekeeper",
+          formula: "Selectively Permeable Barrier",
+          explanation: "A flexible outer boundary that controls what enters and exits the cell (nutrients in, waste out).",
+          example: "Like a security guard at school doors letting registered students inside.",
+          trick: "Memory Trick: 'Membrane' means Member Access Only!"
+        },
+        {
+          name: "Nucleus: The Command Center",
+          formula: "Houses DNA & Genetic Instructions",
+          explanation: "The brain of the cell containing hereditary chromosomes that guide all cellular operations and protein manufacturing.",
+          example: "Like City Hall directing municipal services and public construction.",
+          trick: "Memory Trick: Nucleus is the Boss of the Cell!"
+        },
+        {
+          name: "Chloroplast: Solar Energy Converter",
+          formula: "6CO₂ + 6H₂O + Sunlight → C₆H₁₂O₆ + 6O₂",
+          explanation: "Plant cell organelle containing green chlorophyll pigments that capture sunlight to manufacture glucose food.",
+          example: "Green leaves acting as microscopic solar panel factories.",
+          trick: "Found in plant cells, NOT animal cells!"
+        },
+        {
+          name: "Mitochondria: The Powerhouse",
+          formula: "Cellular Respiration (ATP Energy)",
+          explanation: "Breaks down food molecules into usable cellular energy to power all organism activity.",
+          example: "Like the electric power station supplying electricity to city buildings.",
+          trick: "Memory Trick: Mighty Mitochondria makes energy!"
+        }
+      ];
+    }
+    sounds.playSuccess();
+    this.renderSquares();
+  }
+
+  async handleSaveNote(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const title = document.getElementById("vnote-title").value.trim();
+    const category = document.getElementById("vnote-category").value;
+    const color = document.getElementById("vnote-color").value;
+    const formula = document.getElementById("vnote-formula").value.trim() || "5th Grade Scientific Principle";
+    const desc = document.getElementById("vnote-desc").value.trim();
+    let redirectUrl = document.getElementById("vnote-redirect")?.value.trim() || "";
+    if (redirectUrl && !redirectUrl.startsWith("http://") && !redirectUrl.startsWith("https://")) {
+      redirectUrl = "https://" + redirectUrl;
+    }
+
+    if (!title || !desc) {
+      alert("Please fill in the unit title and description.");
+      return;
+    }
+
+    if (this.architectSquares.length === 0) {
+      alert("Please add at least one concept square to your science unit!");
+      return;
+    }
+
+    // Synchronize current values directly from rendered square inputs to ensure latest user edits are captured
+    const squareCards = document.querySelectorAll("#vault-squares-list .architect-square-card");
+    if (squareCards.length > 0) {
+      this.architectSquares = Array.from(squareCards).map((card, idx) => ({
+        name: card.querySelector(".sq-input-name")?.value || this.architectSquares[idx]?.name || `Square #${idx + 1}`,
+        formula: card.querySelector(".sq-input-formula")?.value || this.architectSquares[idx]?.formula || "",
+        explanation: card.querySelector(".sq-input-explanation")?.value || this.architectSquares[idx]?.explanation || "",
+        example: card.querySelector(".sq-input-example")?.value || this.architectSquares[idx]?.example || "",
+        trick: card.querySelector(".sq-input-trick")?.value || this.architectSquares[idx]?.trick || ""
+      }));
+    }
+
+    const properties = this.architectSquares.map((sq, idx) => ({
+      num: idx + 1,
+      name: sq.name || `Square #${idx + 1}`,
+      formula: sq.formula || formula,
+      explanation: sq.explanation || desc,
+      example: sq.example || "Demonstrated in Jeeva's notebook.",
+      trick: sq.trick || "5th Grade Science Concept"
+    }));
+
+    const newNote = {
+      id: this.editingNoteId ? this.editingNoteId : `science-unit-${Date.now()}`,
+      title: (title.includes("\n") || title.includes("•")) ? title : title.toUpperCase(),
+      category: category,
+      color: color,
+      grade: "5th Grade",
+      badge: `${properties.length} Concept Squares`,
+      coreFormula: formula,
+      description: desc,
+      redirectUrl: redirectUrl,
+      isCustom: true,
+      properties: properties,
+      updatedAt: new Date().toISOString()
+    };
+
+    // Generate practice quiz matching the exact same layout & rephrased questions
+    newNote.quiz = this.app.generateQuizForTopic(newNote);
+
+    if (this.editingNoteId) {
+      const idx = this.app.notes.findIndex(n => n.id === this.editingNoteId);
+      if (idx !== -1) {
+        this.app.notes[idx] = newNote;
+      }
+      this.editingNoteId = null;
+    } else {
+      this.app.notes.push(newNote);
+    }
+
+    this.app.saveNotes();
+    this.app.render();
+    this.updateManagerTable();
+    this.updateTelemetry();
+
+    const saveBtn = document.getElementById("btn-save-vault-note");
+    if (saveBtn) {
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = "<span>⏳ Publishing to Website & Cloud...</span>";
+    }
+
+    // Automatically publish to Cloud Database across all devices
+    await this.app.publishAllNotes(true, `🎉 Unit "${newNote.title}" published live to website & cloud database!`);
+
+    if (saveBtn) {
+      saveBtn.disabled = false;
+      saveBtn.innerHTML = "<span>🚀 Publish to Website & Cloud</span>";
+      saveBtn.style.background = "";
+    }
+
+    // Close vault and celebrate
+    this.close();
+
+    const filtered = this.app.getFilteredNotes();
+    const newIdx = filtered.findIndex((n) => n.id === newNote.id);
+    if (newIdx !== -1) {
+      this.app.carouselIndex = newIdx;
+      this.app.updateCarouselPositions();
+    }
+  }
+
+  setupAdminCommands() {
+    // Quick Publish
+    document.getElementById("cmd-btn-quick-publish")?.addEventListener("click", () => {
+      this.app.publishAllNotes();
+    });
+
+    // Preset: States of Matter
+    document.getElementById("cmd-btn-preset-matter")?.addEventListener("click", async () => {
+      const matterNote = {
+        id: `science-matter-${Date.now()}`,
+        title: "STATES OF MATTER & PHASE CHANGES",
+        category: "physical",
+        color: "cyan",
+        grade: "5th Grade",
+        badge: "3 Concept Squares",
+        coreFormula: "Thermal Energy Changes Matter: Solid ⇄ Liquid ⇄ Gas",
+        description: "How heating and cooling alters molecular motion without changing the substance's chemical identity.",
+        isCustom: true,
+        properties: [
+          {
+            num: 1,
+            name: "Solid State: Tightly Packed",
+            formula: "Definite Shape & Definite Volume",
+            explanation: "Particles vibrate in fixed lattice positions. They have the least thermal energy and cannot be easily compressed.",
+            example: "Ice cubes, quartz crystals, iron bars.",
+            trick: "Memory Trick: Solids are solid as a rock!"
+          },
+          {
+            num: 2,
+            name: "Liquid State: Flowing & Conforming",
+            formula: "Definite Volume & Indefinite Shape",
+            explanation: "Particles slide past one another smoothly. Liquids take the shape of whatever container holds them.",
+            example: "Liquid water, juice, vegetable oil.",
+            trick: "Memory Trick: Liquids flow to the bottom!"
+          },
+          {
+            num: 3,
+            name: "Gas State: Rapid Expansion",
+            formula: "Indefinite Shape & Indefinite Volume",
+            explanation: "Particles move rapidly in all directions with high kinetic energy, filling the entire volume of any closed container.",
+            example: "Water vapor steam, oxygen, nitrogen in our air.",
+            trick: "Memory Trick: Gas spreads fast everywhere!"
+          }
+        ]
+      };
+      matterNote.quiz = this.app.generateQuizForTopic(matterNote);
+      this.app.notes.push(matterNote);
+      this.app.saveNotes();
+      this.app.render();
+      sounds.playSuccess();
+      this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 60);
+      this.updateManagerTable();
+      this.updateTelemetry();
+      await this.app.publishAllNotes(true);
+    });
+
+    // Preset: Photosynthesis
+    document.getElementById("cmd-btn-preset-photo")?.addEventListener("click", async () => {
+      const photoNote = {
+        id: `science-photo-${Date.now()}`,
+        title: "PHOTOSYNTHESIS & ECOSYSTEM ENERGY",
+        category: "life",
+        color: "emerald",
+        grade: "5th Grade",
+        badge: "3 Concept Squares",
+        coreFormula: "6CO₂ + 6H₂O + Sunlight → C₆H₁₂O₆ (Sugar) + 6O₂ (Oxygen)",
+        description: "The foundational biochemical process where green plant producers convert solar energy into storable chemical sugar food.",
+        isCustom: true,
+        properties: [
+          {
+            num: 1,
+            name: "Chlorophyll & Solar Capture",
+            formula: "Solar Energy Captured in Chloroplasts",
+            explanation: "Green pigments inside plant cells absorb sunlight energy, driving the synthesis of carbon and water.",
+            example: "Leaves turning toward the sun on a windowsill.",
+            trick: "Producers create energy for the entire food web!"
+          },
+          {
+            num: 2,
+            name: "Chemical Reactants: CO₂ + H₂O",
+            formula: "Carbon Dioxide (Air) + Water (Soil)",
+            explanation: "Roots absorb water from soil while leaf stomata take in carbon dioxide gas from the atmosphere.",
+            example: "Watering garden plants and giving them fresh air.",
+            trick: "Without water, the reaction halts!"
+          },
+          {
+            num: 3,
+            name: "Essential Products: Glucose & Oxygen",
+            formula: "C₆H₁₂O₆ + 6O₂",
+            explanation: "Plants produce glucose sugar to feed their own growth and release pure oxygen gas for all animals to breathe.",
+            example: "Forests acting as the green lungs of Earth.",
+            trick: "Plants feed themselves and oxygenate us!"
+          }
+        ]
+      };
+      photoNote.quiz = this.app.generateQuizForTopic(photoNote);
+      this.app.notes.push(photoNote);
+      this.app.saveNotes();
+      this.app.render();
+      sounds.playSuccess();
+      this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 60);
+      this.updateManagerTable();
+      this.updateTelemetry();
+      await this.app.publishAllNotes(true);
+    });
+
+    // Confetti
+    document.getElementById("cmd-btn-confetti")?.addEventListener("click", () => {
+      sounds.playSuccess();
+      this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 90);
+    });
+
+    // Toggle Sound
+    document.getElementById("cmd-btn-toggle-sound")?.addEventListener("click", () => {
+      sounds.enabled = !sounds.enabled;
+      alert(`Sound effects are now ${sounds.enabled ? "ENABLED 🔊" : "MUTED 🔇"}`);
+      const soundOn = document.getElementById("sound-icon-on");
+      const soundOff = document.getElementById("sound-icon-off");
+      if (soundOn && soundOff) {
+        soundOn.classList.toggle("hidden", !sounds.enabled);
+        soundOff.classList.toggle("hidden", sounds.enabled);
+      }
+    });
+
+    // Export JSON
+    document.getElementById("cmd-btn-export-json")?.addEventListener("click", () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.app.notes, null, 2));
+      const dlAnchor = document.createElement("a");
+      dlAnchor.setAttribute("href", dataStr);
+      dlAnchor.setAttribute("download", `scienceio-backup-${Date.now()}.json`);
+      dlAnchor.click();
+      sounds.playClick();
+    });
+
+    // Import JSON
+    const fileInput = document.getElementById("admin-file-import");
+    document.getElementById("cmd-btn-import-json")?.addEventListener("click", () => {
+      if (fileInput) fileInput.click();
+    });
+
+    if (fileInput) {
+      fileInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          try {
+            const parsed = JSON.parse(event.target.result);
+            const notesArr = Array.isArray(parsed) ? parsed : (Array.isArray(parsed.notes) ? parsed.notes : null);
+            if (notesArr) {
+              this.app.notes = notesArr;
+              this.app.saveNotes();
+              this.app.render();
+              sounds.playSuccess();
+              this.updateManagerTable();
+              this.updateTelemetry();
+              await this.app.publishAllNotes(true);
+            } else {
+              alert("Invalid JSON format: expected an array of science units.");
+            }
+          } catch (err) {
+            alert("Error parsing JSON file: " + err.message);
+          }
+        };
+        reader.readAsText(file);
+      });
+    }
+
+    // Clear All Notes
+    document.getElementById("cmd-btn-clear-custom")?.addEventListener("click", async () => {
+      if (!confirm("Are you sure you want to clear all notes? Your notebook will be completely empty.")) return;
+      this.app.notes = [];
+      this.app.saveNotes();
+      this.app.render();
+      sounds.playClick();
+      this.updateManagerTable();
+      this.updateTelemetry();
+      await this.app.publishAllNotes(true);
+    });
+  }
+
+  // ================= DATABASE MANAGER =================
+  updateManagerTable() {
+    const tbody = document.getElementById("admin-manager-tbody");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+
+    if (this.app.notes.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 24px; color: var(--text-muted);">No units stored in database. Create your first unit above!</td></tr>`;
+      return;
+    }
+
+    this.app.notes.forEach((topic) => {
+      const tr = document.createElement("tr");
+      const sqCount = topic.properties ? topic.properties.length : 0;
+
+      tr.innerHTML = `
+        <td><strong>${topic.title}</strong></td>
+        <td><span class="card-cat-pill">${(topic.category || "General").toUpperCase()}</span></td>
+        <td>${sqCount} Concept Squares</td>
+        <td><span style="color: #6ee7b7;">User Unit</span></td>
+        <td>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn-table-action preview" data-id="${topic.id}">Preview</button>
+            <button type="button" class="btn-table-action edit" data-id="${topic.id}">Edit</button>
+            <button type="button" class="btn-table-action delete" data-id="${topic.id}">Delete</button>
+          </div>
+        </td>
+      `;
+
+      tr.querySelector(".preview")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.app.openNotesViewer(topic.id);
+      });
+
+      tr.querySelector(".edit")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.editNoteInArchitect(topic.id);
+      });
+
+      tr.querySelector(".delete")?.addEventListener("click", async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (confirm(`Delete unit "${topic.title}"?`)) {
+          this.app.notes = this.app.notes.filter(n => n.id !== topic.id);
+          this.app.saveNotes();
+          this.app.render();
+          this.updateManagerTable();
+          this.updateTelemetry();
+          sounds.playClick();
+          await this.app.publishAllNotes(true, `🗑️ Unit "${topic.title}" deleted and changes synced live to all devices!`);
+        }
+      });
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  editNoteInArchitect(id) {
+    const note = this.app.notes.find(n => n.id === id);
+    if (!note) return;
+
+    this.editingNoteId = note.id;
+    const titleInput = document.getElementById("vnote-title");
+    const catSelect = document.getElementById("vnote-category");
+    const colorSelect = document.getElementById("vnote-color");
+    const formulaInput = document.getElementById("vnote-formula");
+    const descInput = document.getElementById("vnote-desc");
+    const redirectInput = document.getElementById("vnote-redirect");
+
+    if (titleInput) titleInput.value = note.title || "";
+    
+    // Category mapping
+    if (catSelect) {
+      const catVal = note.category || "life";
+      if (catSelect.querySelector(`option[value="${catVal}"]`)) {
+        catSelect.value = catVal;
+      } else if (catVal === "biology") {
+        catSelect.value = "life";
+      } else {
+        catSelect.value = "physical";
+      }
+    }
+
+    // Color mapping
+    if (colorSelect) {
+      const colorVal = note.color || "blue";
+      if (colorSelect.querySelector(`option[value="${colorVal}"]`)) {
+        colorSelect.value = colorVal;
+      } else if (colorVal === "amber") {
+        colorSelect.value = "orange";
+      } else {
+        colorSelect.value = "blue";
+      }
+    }
+
+    if (formulaInput) formulaInput.value = note.coreFormula || "";
+    if (descInput) descInput.value = note.description || "";
+    if (redirectInput) redirectInput.value = note.redirectUrl || "";
+
+    this.architectSquares = (note.properties || []).map(p => ({
+      name: p.name || "",
+      formula: p.formula || "",
+      explanation: p.explanation || "",
+      example: p.example || "",
+      trick: p.trick || ""
+    }));
+
+    this.renderSquares();
+    this.switchTab("architect");
+
+    // Scroll to top of architect form and focus title input
+    const deckBody = document.querySelector(".admin-deck-content-body");
+    if (deckBody) deckBody.scrollTop = 0;
+    const vaultModal = document.getElementById("vault-modal");
+    if (vaultModal) {
+      const scrollable = vaultModal.querySelector(".admin-vault-container") || vaultModal;
+      scrollable.scrollTop = 0;
+    }
+    if (titleInput) {
+      titleInput.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => titleInput.focus(), 80);
+    }
+
+    const saveBtn = document.getElementById("btn-save-vault-note");
+    if (saveBtn) {
+      saveBtn.innerHTML = "<span>🚀 Update & Publish to Website & Cloud</span>";
+      saveBtn.style.background = "linear-gradient(135deg, #10b981, #06b6d4)";
+    }
+
+    sounds.playClick();
+  }
+
+  // ================= SYSTEM TELEMETRY =================
+  updateTelemetry() {
+    const topEl = document.getElementById("telem-topics-count");
+    const sqEl = document.getElementById("telem-squares-count");
+    if (topEl) topEl.textContent = this.app.notes.length;
+    if (sqEl) {
+      const totalSq = this.app.notes.reduce((acc, n) => acc + (n.properties ? n.properties.length : 0), 0);
+      sqEl.textContent = totalSq;
+    }
+  }
+}
+
+// ================= LIQUID GLASS SCIENTIFIC FORMULA CALCULATOR CONTROLLER =================
+class LiquidGlassCalculator {
+  constructor(app) {
+    this.app = app;
+    this.currentFormula = "density";
+    this.degMode = true; // true = degrees, false = radians
+    this.currentExpression = "";
+    this.ans = 0;
+    this.history = [];
+
+    this.formulas = {
+      density: {
+        id: "density",
+        name: "Density of Matter",
+        code: "D = m ÷ V",
+        principle: "Physical Skience • States & Mass",
+        unit: "g/cm³",
+        desc: "Density is the amount of mass packed into a given unit volume of matter.",
+        inputs: [
+          { id: "mass", label: "Mass (m)", unit: "grams (g)", default: 120, min: 0.001 },
+          { id: "vol", label: "Volume (V)", unit: "cm³ or mL", default: 24, min: 0.001 }
+        ],
+        solve: (vals) => {
+          const m = parseFloat(vals.mass) || 0;
+          const v = parseFloat(vals.vol) || 1;
+          const d = m / v;
+          const floatStatus = d > 1.0 ? "SINKS in liquid water (> 1.0 g/cm³)" : "FLOATS in liquid water (≤ 1.0 g/cm³)";
+          return {
+            result: Number(d.toFixed(3)),
+            unit: "g/cm³",
+            step: `${m}g ÷ ${v}cm³`,
+            insight: `Density = ${d.toFixed(2)} g/cm³. Pure liquid water has a density of 1.0 g/cm³. Result: This substance ${floatStatus}!`
+          };
+        }
+      },
+      speed: {
+        id: "speed",
+        name: "Speed & Velocity",
+        code: "s = d ÷ t",
+        principle: "Forces & Motion",
+        unit: "m/s",
+        desc: "Speed describes how quickly an object travels over a distance in a period of time.",
+        inputs: [
+          { id: "dist", label: "Distance (d)", unit: "meters (m)", default: 100, min: 0 },
+          { id: "time", label: "Time (t)", unit: "seconds (s)", default: 9.58, min: 0.001 }
+        ],
+        solve: (vals) => {
+          const d = parseFloat(vals.dist) || 0;
+          const t = parseFloat(vals.time) || 1;
+          const s = d / t;
+          const kmh = (s * 3.6).toFixed(1);
+          const mph = (s * 2.237).toFixed(1);
+          return {
+            result: Number(s.toFixed(2)),
+            unit: "m/s",
+            step: `${d}m ÷ ${t}s`,
+            insight: `Speed = ${s.toFixed(2)} m/s (${kmh} km/h or ${mph} mph). The speed of sound in air is ~343 m/s!`
+          };
+        }
+      },
+      force: {
+        id: "force",
+        name: "Force (Newton's 2nd Law)",
+        code: "F = m × a",
+        principle: "Newtonian Physics & Force",
+        unit: "N (Newtons)",
+        desc: "An unbalanced force causes a mass to accelerate proportionally.",
+        inputs: [
+          { id: "mass", label: "Mass (m)", unit: "kilograms (kg)", default: 25, min: 0 },
+          { id: "accel", label: "Acceleration (a)", unit: "m/s²", default: 9.8, min: 0 }
+        ],
+        solve: (vals) => {
+          const m = parseFloat(vals.mass) || 0;
+          const a = parseFloat(vals.accel) || 0;
+          const f = m * a;
+          return {
+            result: Number(f.toFixed(2)),
+            unit: "N",
+            step: `${m}kg × ${a}m/s²`,
+            insight: `Force = ${f.toFixed(2)} Newtons (kg·m/s²). Earth's gravitational acceleration is roughly 9.8 m/s²!`
+          };
+        }
+      },
+      work: {
+        id: "work",
+        name: "Work & Mechanical Energy",
+        code: "W = F × d",
+        principle: "Energy & Simple Machines",
+        unit: "J (Joules)",
+        desc: "Work is done when a force causes an object to move in the direction of the force.",
+        inputs: [
+          { id: "force", label: "Force (F)", unit: "Newtons (N)", default: 50, min: 0 },
+          { id: "dist", label: "Distance (d)", unit: "meters (m)", default: 12, min: 0 }
+        ],
+        solve: (vals) => {
+          const f = parseFloat(vals.force) || 0;
+          const d = parseFloat(vals.dist) || 0;
+          const w = f * d;
+          return {
+            result: Number(w.toFixed(2)),
+            unit: "J (Joules)",
+            step: `${f}N × ${d}m`,
+            insight: `Work = ${w.toFixed(2)} Joules. In physics, if an object doesn't move (d = 0), zero work is done regardless of the effort!`
+          };
+        }
+      },
+      ke: {
+        id: "ke",
+        name: "Kinetic Energy",
+        code: "KE = ½ · m · v²",
+        principle: "Forms of Energy",
+        unit: "J (Joules)",
+        desc: "Kinetic energy is the energy of motion possessed by any moving mass.",
+        inputs: [
+          { id: "mass", label: "Mass (m)", unit: "kilograms (kg)", default: 1200, min: 0 },
+          { id: "vel", label: "Velocity (v)", unit: "m/s", default: 20, min: 0 }
+        ],
+        solve: (vals) => {
+          const m = parseFloat(vals.mass) || 0;
+          const v = parseFloat(vals.vel) || 0;
+          const ke = 0.5 * m * Math.pow(v, 2);
+          return {
+            result: Number(ke.toFixed(1)),
+            unit: "J (Joules)",
+            step: `0.5 × ${m}kg × (${v}m/s)²`,
+            insight: `Kinetic Energy = ${ke.toLocaleString()} Joules. Velocity is squared (v²), meaning doubling speed quadruples energy!`
+          };
+        }
+      },
+      temp: {
+        id: "temp",
+        name: "Thermal Temperature Scale",
+        code: "°F = (1.8 × °C) + 32",
+        principle: "Thermal Energy & Phases",
+        unit: "°F / °C",
+        desc: "Convert thermal kinetic molecular activity between Celsius and Fahrenheit.",
+        inputs: [
+          { id: "tempVal", label: "Degrees Input", unit: "Value", default: 25 },
+          { id: "mode", label: "Conversion Mode (1: C → F, 2: F → C)", unit: "1 or 2", default: 1 }
+        ],
+        solve: (vals) => {
+          const t = parseFloat(vals.tempVal) || 0;
+          const mode = parseInt(vals.mode, 10) === 2 ? 2 : 1;
+          if (mode === 2) {
+            const c = (t - 32) / 1.8;
+            return {
+              result: Number(c.toFixed(1)),
+              unit: "°C",
+              step: `(${t}°F - 32) ÷ 1.8`,
+              insight: `${t}°F is ${c.toFixed(1)}°C. Liquid water freezes at 0°C (32°F) and boils at 100°C (212°F).`
+            };
+          } else {
+            const f = (t * 1.8) + 32;
+            return {
+              result: Number(f.toFixed(1)),
+              unit: "°F",
+              step: `(${t}°C × 1.8) + 32`,
+              insight: `${t}°C is ${f.toFixed(1)}°F. Average healthy human body temperature is 37°C (98.6°F).`
+            };
+          }
+        }
+      },
+      photo: {
+        id: "photo",
+        name: "Photosynthesis Stoichiometric Yield",
+        code: "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂",
+        principle: "Life Skience • Cellular Plant Energy",
+        unit: "g Glucose",
+        desc: "Calculates the mass of glucose plant food and oxygen produced from carbon dioxide input.",
+        inputs: [
+          { id: "co2", label: "Carbon Dioxide (CO₂) Moles", unit: "moles", default: 6, min: 0.1 }
+        ],
+        solve: (vals) => {
+          const moles = parseFloat(vals.co2) || 6;
+          const glucoseMoles = moles / 6;
+          const glucoseGrams = glucoseMoles * 180.16;
+          const o2Grams = moles * 32.0;
+          return {
+            result: Number(glucoseGrams.toFixed(1)),
+            unit: "g Glucose",
+            step: `${moles} mol CO₂ produces ${glucoseMoles.toFixed(2)} mol Glucose & ${o2Grams.toFixed(1)}g O₂`,
+            insight: `Chloroplasts convert ${moles} mol of CO₂ into ${glucoseGrams.toFixed(1)} grams of glucose plant food and release ${o2Grams.toFixed(1)}g of oxygen!`
+          };
+        }
+      }
+    };
+  }
+
+  init() {
+    this.bindDomElements();
+    this.setupPresetPills();
+    this.setupSolverActions();
+    this.setupKeypad();
+    this.switchFormula("density");
+  }
+
+  bindDomElements() {
+    this.pillsContainer = document.getElementById("calc-formula-pills");
+    this.solverPanel = document.getElementById("calc-solver-panel");
+    this.solverInputsGrid = document.getElementById("solver-inputs-grid");
+    this.formulaCode = document.getElementById("solver-formula-code");
+    this.formulaName = document.getElementById("solver-formula-name");
+    this.principleBadge = document.getElementById("solver-principle-badge");
+    this.solveBtn = document.getElementById("btn-calc-solve-formula");
+    this.resetBtn = document.getElementById("btn-calc-reset-formula");
+
+    this.modeText = document.getElementById("calc-mode-text");
+    this.degRadIndicator = document.getElementById("calc-deg-rad-indicator");
+    this.historyText = document.getElementById("calc-history-text");
+    this.resultValue = document.getElementById("calc-result-value");
+    this.unitTag = document.getElementById("calc-unit-tag");
+    this.insightText = document.getElementById("calc-insight-text");
+    this.historyTags = document.getElementById("calc-history-tags");
+  }
+
+  setupPresetPills() {
+    if (!this.pillsContainer) return;
+    const pills = this.pillsContainer.querySelectorAll(".calc-pill");
+    pills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        sounds.playClick();
+        pills.forEach((p) => p.classList.remove("active"));
+        pill.classList.add("active");
+        const formulaKey = pill.dataset.formula;
+        this.switchFormula(formulaKey);
+      });
+    });
+  }
+
+  switchFormula(key) {
+    this.currentFormula = key;
+    if (key === "freeform") {
+      if (this.solverPanel) this.solverPanel.classList.add("hidden-panel");
+      if (this.modeText) this.modeText.textContent = "DIRECT SCIENTIFIC EVALUATOR";
+      if (this.unitTag) this.unitTag.textContent = "";
+      if (this.historyText) this.historyText.textContent = "Ready for expression";
+      if (this.insightText) this.insightText.textContent = "Type numbers, operators (+, -, ×, ÷), or scientific functions (sin, cos, √, x²) on the keypad.";
+      this.currentExpression = "";
+      this.updateDisplay("0");
+    } else {
+      const f = this.formulas[key];
+      if (!f) return;
+      if (this.solverPanel) this.solverPanel.classList.remove("hidden-panel");
+      if (this.formulaCode) this.formulaCode.textContent = f.code;
+      if (this.formulaName) this.formulaName.textContent = f.name;
+      if (this.principleBadge) this.principleBadge.textContent = f.principle;
+      if (this.modeText) this.modeText.textContent = `FORMULA SOLVER • ${f.id.toUpperCase()}`;
+      if (this.unitTag) this.unitTag.textContent = f.unit;
+      this.renderInputs(f);
+      this.solveCurrentFormula(false);
+    }
+  }
+
+  renderInputs(formula) {
+    if (!this.solverInputsGrid) return;
+    this.solverInputsGrid.innerHTML = "";
+    formula.inputs.forEach((inp) => {
+      const group = document.createElement("div");
+      group.className = "solver-input-group";
+      group.innerHTML = `
+        <label class="solver-input-label" for="calc-inp-${inp.id}">
+          <span>${inp.label}</span>
+          <span class="solver-input-unit">[${inp.unit}]</span>
+        </label>
+        <div class="solver-field-wrap">
+          <input type="number" step="any" class="solver-input-box" id="calc-inp-${inp.id}" value="${inp.default}">
+        </div>
+      `;
+      this.solverInputsGrid.appendChild(group);
+
+      const inputEl = group.querySelector("input");
+      inputEl.addEventListener("input", () => {
+        this.solveCurrentFormula(false);
+      });
+      inputEl.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          this.solveCurrentFormula(true);
+        }
+      });
+    });
+  }
+
+  setupSolverActions() {
+    this.solveBtn?.addEventListener("click", () => {
+      this.solveCurrentFormula(true);
+    });
+
+    this.resetBtn?.addEventListener("click", () => {
+      sounds.playClick();
+      const f = this.formulas[this.currentFormula];
+      if (f) {
+        this.renderInputs(f);
+        this.solveCurrentFormula(false);
+      }
+    });
+  }
+
+  solveCurrentFormula(triggerFeedback = true) {
+    const f = this.formulas[this.currentFormula];
+    if (!f) return;
+
+    const values = {};
+    f.inputs.forEach((inp) => {
+      const el = document.getElementById(`calc-inp-${inp.id}`);
+      values[inp.id] = el ? parseFloat(el.value) || 0 : inp.default;
+    });
+
+    try {
+      const outcome = f.solve(values);
+      this.ans = outcome.result;
+      this.updateDisplay(outcome.result.toLocaleString());
+      if (this.unitTag) this.unitTag.textContent = outcome.unit;
+      if (this.historyText) this.historyText.textContent = `${f.code}  ➔  ${outcome.step}`;
+      if (this.insightText) this.insightText.textContent = outcome.insight;
+
+      if (triggerFeedback) {
+        sounds.playSuccess();
+        this.addHistoryTag(`${f.name}: ${outcome.result} ${outcome.unit}`, outcome.result);
+      }
+    } catch (e) {
+      if (this.historyText) this.historyText.textContent = "Error in formula parameters";
+    }
+  }
+
+  setupKeypad() {
+    const keys = document.querySelectorAll(".lkey");
+    keys.forEach((key) => {
+      key.addEventListener("click", () => {
+        sounds.playKeypadTap();
+        this.handleKeyClick(key);
+      });
+    });
+  }
+
+  handleKeyClick(btn) {
+    const val = btn.dataset.val;
+    const op = btn.dataset.op;
+    const action = btn.dataset.action;
+
+    if (action === "all_clear") {
+      this.currentExpression = "";
+      this.updateDisplay("0");
+      if (this.historyText) this.historyText.textContent = "Cleared";
+      return;
+    }
+
+    if (action === "backspace") {
+      this.currentExpression = this.currentExpression.slice(0, -1);
+      this.updateDisplay(this.currentExpression || "0");
+      return;
+    }
+
+    if (action === "ans") {
+      this.currentExpression += this.ans.toString();
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (action === "equals") {
+      this.evaluateExpression();
+      return;
+    }
+
+    if (op === "deg_rad") {
+      this.degMode = !this.degMode;
+      if (this.degRadIndicator) {
+        this.degRadIndicator.textContent = this.degMode ? "DEG" : "RAD";
+      }
+      return;
+    }
+
+    if (op === "sq") {
+      this.currentExpression += "^2";
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (op === "pow") {
+      this.currentExpression += "^";
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (op === "sqrt") {
+      this.currentExpression += "√(";
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (op === "cbrt") {
+      this.currentExpression += "∛(";
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (op === "sin" || op === "cos" || op === "tan") {
+      this.currentExpression += `${op}(`;
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (val === "PI") {
+      this.currentExpression += "π";
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (val === "E") {
+      this.currentExpression += "e";
+      this.updateDisplay(this.currentExpression);
+      return;
+    }
+
+    if (val) {
+      this.currentExpression += val;
+      this.updateDisplay(this.currentExpression);
+    }
+  }
+
+  evaluateExpression() {
+    if (!this.currentExpression.trim()) return;
+
+    let expr = this.currentExpression;
+    const originalExpr = expr;
+
+    try {
+      // Replace display symbols with JavaScript equivalents
+      expr = expr.replace(/×/g, "*").replace(/÷/g, "/").replace(/−/g, "-");
+      expr = expr.replace(/π/g, "Math.PI").replace(/\be\b/g, "Math.E");
+      expr = expr.replace(/\^/g, "**");
+
+      // Replace square roots and cube roots
+      expr = expr.replace(/√\(([^)]+)\)/g, "Math.sqrt($1)");
+      expr = expr.replace(/∛\(([^)]+)\)/g, "Math.cbrt($1)");
+
+      // Replace trig functions with degree / radian conversion
+      if (this.degMode) {
+        expr = expr.replace(/sin\(([^)]+)\)/g, "Math.sin(($1) * Math.PI / 180)");
+        expr = expr.replace(/cos\(([^)]+)\)/g, "Math.cos(($1) * Math.PI / 180)");
+        expr = expr.replace(/tan\(([^)]+)\)/g, "Math.tan(($1) * Math.PI / 180)");
+      } else {
+        expr = expr.replace(/sin\(/g, "Math.sin(");
+        expr = expr.replace(/cos\(/g, "Math.cos(");
+        expr = expr.replace(/tan\(/g, "Math.tan(");
+      }
+
+      // Safe evaluation
+      // Allow only digits, basic operators, Math calls, parentheses, decimals
+      const cleanExpr = expr.replace(/Math\.(PI|E|sqrt|cbrt|sin|cos|tan)/g, "");
+      if (/[^0-9+\-*/%().\s*]/g.test(cleanExpr)) {
+        throw new Error("Invalid characters");
+      }
+
+      const evalFn = new Function(`return (${expr});`);
+      let result = evalFn();
+
+      if (typeof result === "number") {
+        if (!isFinite(result)) {
+          this.updateDisplay("Undefined");
+          if (this.historyText) this.historyText.textContent = `${originalExpr} = Undefined`;
+          return;
+        }
+        // Round to reasonable precision to remove floating point anomalies
+        result = Math.round(result * 100000000) / 100000000;
+        this.ans = result;
+        this.updateDisplay(result.toLocaleString());
+        if (this.historyText) this.historyText.textContent = `${originalExpr} =`;
+        if (this.insightText) this.insightText.textContent = `Evaluated: ${originalExpr} = ${result}`;
+
+        sounds.playSuccess();
+        this.addHistoryTag(`${originalExpr} = ${result}`, result);
+        this.currentExpression = result.toString();
+      }
+    } catch (err) {
+      this.updateDisplay("Error");
+      if (this.historyText) this.historyText.textContent = `Syntax Error in: ${originalExpr}`;
+      sounds.playVaultError();
+    }
+  }
+
+  updateDisplay(val) {
+    if (this.resultValue) {
+      this.resultValue.textContent = val;
+      const len = val.toString().length;
+      if (len > 12) {
+        this.resultValue.style.fontSize = "1.8rem";
+      } else if (len > 8) {
+        this.resultValue.style.fontSize = "2.4rem";
+      } else {
+        this.resultValue.style.fontSize = "";
+      }
+    }
+  }
+
+  addHistoryTag(label, val) {
+    this.history.unshift({ label, val });
+    if (this.history.length > 8) this.history.pop();
+    if (!this.historyTags) return;
+
+    this.historyTags.innerHTML = "";
+    this.history.forEach((h) => {
+      const tag = document.createElement("span");
+      tag.className = "calc-history-tag";
+      tag.textContent = h.label;
+      tag.title = "Click to load value into calculator";
+      tag.addEventListener("click", () => {
+        sounds.playClick();
+        this.currentExpression = h.val.toString();
+        this.updateDisplay(h.val.toString());
+      });
+      this.historyTags.appendChild(tag);
+    });
+  }
+}
+
 // Helper to guarantee science notes list has valid fallback if completely empty and filters out unwanted notes
 function ensurePlantCellUnit(notesList) {
   if (!Array.isArray(notesList) || notesList.length === 0) {
@@ -3519,7 +5466,9 @@ class ScienceIoApp {
       if (bar) bar.style.width = "100%";
       if (pct) pct.textContent = "100%";
       if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> System Operational. Welcome Jeeva R.`;
-      sounds.playSuccess();
+      try {
+        if (typeof sounds !== 'undefined' && sounds.playSuccess) sounds.playSuccess();
+      } catch (e) {}
       setTimeout(() => {
         if (loader) {
           loader.classList.add("fade-out");
@@ -3532,6 +5481,11 @@ class ScienceIoApp {
         }
       }, 350);
     };
+
+    // Auto-dismiss loader failsafe after 2.2 seconds maximum
+    setTimeout(() => {
+      if (!finished) completeLoader();
+    }, 2200);
 
     if (skipBtn) {
       skipBtn.addEventListener("click", () => {
@@ -3671,7 +5625,7 @@ class ScienceIoApp {
       }
     };
 
-    this._cursiveAnimId = requestAnimationFrame(frame);
+    this._cursiveAnimId = typeof requestAnimationFrame === "function" ? requestAnimationFrame(frame) : null;
   }
 
   // ================= FILTERED NOTES =================
@@ -8723,8 +10677,9 @@ class Chatbot {
 
 // Mouse spotlight disabled to eliminate continuous GPU invalidation of glass cards
 
-// Initialize on DOMContentLoaded
-document.addEventListener("DOMContentLoaded", () => {
+// Initialize ScienceIoApp reliably across all browsers and states
+function initScienceApp() {
+  if (window.app) return;
   window.app = new ScienceIoApp();
   window.scienceApp = window.app;
   window.chatbot = new Chatbot();
@@ -8756,7 +10711,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   document.addEventListener("focusout", () => {
     setTimeout(() => {
-      if (!document.activeElement.classList.contains("mk-btn")) {
+      if (!document.activeElement || !document.activeElement.classList.contains("mk-btn")) {
         mk.classList.add("hidden");
       }
     }, 150);
@@ -8772,8 +10727,16 @@ document.addEventListener("DOMContentLoaded", () => {
           insertTextAtCursor(activeInput, btn.textContent);
         }
         activeInput.focus();
-        sounds.playClick();
+        try {
+          if (typeof sounds !== 'undefined' && sounds.playClick) sounds.playClick();
+        } catch (err) {}
       }
     });
   });
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initScienceApp);
+} else {
+  initScienceApp();
+}
