@@ -9802,18 +9802,18 @@ class ScienceIoApp {
       this.replayLoader();
     });
 
-    // Developer Projects Showcase Modal trigger on "Made with ❤️ by Jeeva R."
-    const openProjectsModal = () => {
+    // Direct redirect to haunt.gg/reallyjgr on "Made with love by Jeeva R." (DO NOT OPEN MODAL)
+    const redirectToJeevaProfile = (e) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
       sounds.playSuccess();
-      const trigger = document.getElementById("author-credit-trigger");
-      const rect = trigger ? trigger.getBoundingClientRect() : null;
-      if (rect) this.confetti.burst(rect.left + rect.width / 2, rect.top, 60);
-      const projModal = document.getElementById("projects-modal");
-      if (projModal) projModal.classList.remove("hidden");
+      window.location.href = "https://haunt.gg/reallyjgr";
     };
 
-    document.getElementById("author-credit-trigger")?.addEventListener("click", openProjectsModal);
-    document.querySelector(".loader-author")?.addEventListener("click", openProjectsModal);
+    document.getElementById("author-credit-trigger")?.addEventListener("click", redirectToJeevaProfile);
+    document.querySelector(".loader-author")?.addEventListener("click", redirectToJeevaProfile);
 
     document.getElementById("modal-projects-close")?.addEventListener("click", () => {
       sounds.playClick();
@@ -10367,17 +10367,17 @@ class Chatbot {
           replyHTML = `
             <div class="creator-plaque">
               <div class="plaque-title">Jeeva Raghavan • Developer</div>
-              I built <strong>skience.io</strong> and <strong>W PRINTS</strong>. Click "made with love by Jeeva R." in the footer or click below to explore my projects!
+              I built <strong>skience.io</strong> and <strong>W PRINTS</strong>. Click "made with love by Jeeva R." in the footer or visit <a href="https://haunt.gg/reallyjgr" target="_blank" style="color: #38bdf8; text-decoration: underline;">haunt.gg/reallyjgr</a>!
               <div style="margin-top: 10px;">
-                <button type="button" class="hero-cta-btn" id="chat-view-projects-btn" style="padding: 6px 14px; font-size: 0.78rem;">🚀 Explore Jeeva's Projects</button>
+                <button type="button" class="hero-cta-btn" id="chat-view-projects-btn" style="padding: 6px 14px; font-size: 0.78rem;">🚀 Visit haunt.gg/reallyjgr</button>
               </div>
             </div>
           `;
           setTimeout(() => {
             document.getElementById("chat-view-projects-btn")?.addEventListener("click", () => {
               this.closeChat();
-              document.getElementById("projects-modal")?.classList.remove("hidden");
               sounds.playSuccess();
+              window.location.href = "https://haunt.gg/reallyjgr";
             });
           }, 60);
         }
