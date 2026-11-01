@@ -2,27 +2,27 @@
 
 :root {
   /* Dynamic Tertiary Color Palette: Blue-Green / Teal, Blue-Violet / Indigo, Red-Violet / Plum, Yellow-Green / Mint, Aquamarine */
-  --neon-blue: #38bdf8;
-  --neon-purple: #a855f7;
-  --neon-cyan: #06b6d4;
-  --neon-lime: #10b981;
-  --neon-magenta: #c084fc;
-  --neon-orange: #6366f1;
-  --neon-amber: #14b8a6;
-  --neon-coral: #00f5d4;
-  --neon-gold: #38bdf8;
+  --neon-blue: #00f5d4; /* Tertiary Blue-Green / Mint-Teal */
+  --neon-purple: #8b5cf6; /* Tertiary Blue-Violet */
+  --neon-cyan: #00f5d4; /* Tertiary Electric Mint */
+  --neon-lime: #10e2a3; /* Tertiary Yellow-Green / Mint */
+  --neon-magenta: #c084fc; /* Tertiary Plum / Red-Violet */
+  --neon-orange: #6366f1; /* Tertiary Royal Indigo */
+  --neon-amber: #14b8a6; /* Tertiary Deep Mint-Teal */
+  --neon-coral: #06b6d4; /* Tertiary Cerulean-Teal */
+  --neon-gold: #38bdf8; /* Tertiary Aquamarine */
 
   /* VisionOS Glass Bases (Ultra-Transparent Crystal Liquid Glass) */
-  --glass-bg: rgba(18, 10, 36, 0.16);
-  --glass-bg-hover: rgba(30, 14, 52, 0.26);
-  --glass-card: rgba(18, 10, 36, 0.14);
-  --glass-card-border: rgba(255, 255, 255, 0.32);
-  --glass-blur: blur(10px) saturate(150%) brightness(105%);
+  --glass-bg: rgba(10, 24, 48, 0.12);
+  --glass-bg-hover: rgba(16, 36, 68, 0.2);
+  --glass-card: rgba(8, 20, 44, 0.16);
+  --glass-card-border: rgba(255, 255, 255, 0.42);
+  --glass-blur: blur(20px) saturate(220%) brightness(108%);
 
   /* Typography */
   --text-main: #FFFFFF;
   --text-muted: #EBEBF5;
-  --text-dim: rgba(235, 235, 245, 0.6);
+  --text-dim: rgba(235, 235, 245, 0.65);
   
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
@@ -31,13 +31,13 @@
 /* Base resets for iOS feel */
 body {
   font-family: var(--font-sans);
-  background-color: #030108;
+  background-color: #030814;
   letter-spacing: -0.015em;
 }
 
 /* 1. Liquid Wallpaper / Static Vibrant Mesh Background with Tertiary Multi-Chromatic Fluid Aurora Nodes */
 .ambient-fluid-canvas-wrap {
-  background: #030108;
+  background: #030814;
   contain: strict;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
@@ -48,15 +48,24 @@ body {
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(circle at 12% 18%, rgba(6, 182, 212, 0.75) 0%, rgba(6, 182, 212, 0.35) 25%, rgba(6, 182, 212, 0.12) 45%, transparent 65%),
-    radial-gradient(circle at 88% 12%, rgba(99, 102, 241, 0.75) 0%, rgba(99, 102, 241, 0.35) 25%, rgba(99, 102, 241, 0.12) 45%, transparent 65%),
-    radial-gradient(circle at 50% 90%, rgba(168, 85, 247, 0.70) 0%, rgba(168, 85, 247, 0.30) 25%, rgba(168, 85, 247, 0.10) 45%, transparent 65%),
-    radial-gradient(circle at 10% 82%, rgba(16, 185, 129, 0.75) 0%, rgba(16, 185, 129, 0.35) 28%, rgba(16, 185, 129, 0.12) 48%, transparent 68%),
-    radial-gradient(circle at 90% 85%, rgba(56, 189, 248, 0.75) 0%, rgba(56, 189, 248, 0.35) 28%, rgba(56, 189, 248, 0.12) 48%, transparent 68%),
-    radial-gradient(circle at 50% 45%, rgba(192, 132, 252, 0.65) 0%, rgba(192, 132, 252, 0.30) 25%, rgba(192, 132, 252, 0.10) 45%, transparent 65%),
-    radial-gradient(circle at 82% 48%, rgba(6, 182, 212, 0.75) 0%, rgba(14, 165, 233, 0.35) 28%, rgba(14, 165, 233, 0.12) 48%, transparent 68%),
-    radial-gradient(circle at 18% 50%, rgba(16, 185, 129, 0.75) 0%, rgba(5, 150, 105, 0.35) 28%, rgba(5, 150, 105, 0.12) 48%, transparent 68%),
-    radial-gradient(circle at 50% 15%, rgba(99, 102, 241, 0.70) 0%, rgba(79, 70, 229, 0.30) 28%, rgba(79, 70, 229, 0.10) 48%, transparent 65%);
+    /* Tertiary Blue-Green / Mint-Cyan */
+    radial-gradient(circle at 12% 18%, rgba(0, 245, 212, 0.68) 0%, rgba(6, 182, 212, 0.35) 25%, rgba(6, 182, 212, 0.1) 48%, transparent 68%),
+    /* Tertiary Blue-Violet / Royal Indigo */
+    radial-gradient(circle at 88% 12%, rgba(99, 102, 241, 0.78) 0%, rgba(79, 70, 229, 0.35) 26%, rgba(99, 102, 241, 0.1) 48%, transparent 68%),
+    /* Tertiary Red-Violet / Vivid Plum */
+    radial-gradient(circle at 50% 92%, rgba(192, 132, 252, 0.68) 0%, rgba(168, 85, 247, 0.3) 25%, rgba(168, 85, 247, 0.08) 48%, transparent 68%),
+    /* Tertiary Yellow-Green / Bright Mint */
+    radial-gradient(circle at 10% 82%, rgba(16, 226, 163, 0.68) 0%, rgba(52, 211, 153, 0.3) 28%, rgba(16, 185, 129, 0.08) 50%, transparent 70%),
+    /* Tertiary Aquamarine */
+    radial-gradient(circle at 90% 85%, rgba(56, 189, 248, 0.75) 0%, rgba(14, 165, 233, 0.32) 28%, rgba(56, 189, 248, 0.08) 50%, transparent 70%),
+    /* Tertiary Red-Violet / Electric Plum center aura */
+    radial-gradient(circle at 50% 45%, rgba(192, 132, 252, 0.58) 0%, rgba(168, 85, 247, 0.25) 25%, rgba(147, 51, 234, 0.08) 48%, transparent 68%),
+    /* Tertiary Cerulean-Teal mid-right */
+    radial-gradient(circle at 82% 48%, rgba(6, 182, 212, 0.72) 0%, rgba(0, 245, 212, 0.3) 28%, rgba(6, 182, 212, 0.08) 50%, transparent 70%),
+    /* Tertiary Mint mid-left */
+    radial-gradient(circle at 18% 50%, rgba(52, 211, 153, 0.68) 0%, rgba(16, 185, 129, 0.28) 28%, rgba(16, 185, 129, 0.08) 50%, transparent 70%),
+    /* Tertiary Indigo top-mid */
+    radial-gradient(circle at 50% 15%, rgba(99, 102, 241, 0.75) 0%, rgba(129, 140, 248, 0.3) 28%, rgba(99, 102, 241, 0.08) 48%, transparent 68%);
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   z-index: -2;
@@ -74,28 +83,30 @@ body {
 
 /* 2. Glassmorphism for Components */
 
-/* Top Nav Pill - Crystal Liquid Glass with Specular Rim */
+/* Top Nav Pill - Crystal Liquid Glass with Specular Rim & Tertiary Edge */
 .glass-pill-nav {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(20, 10, 36, 0.32) 55%, rgba(6, 182, 212, 0.12) 100%) !important;
-  backdrop-filter: blur(12px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(10, 24, 48, 0.28) 45%, rgba(0, 245, 212, 0.12) 100%) !important;
+  backdrop-filter: blur(20px) saturate(200%) brightness(1.08) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(1.08) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.85) !important;
+  border-left: 1.5px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.45), 0 0 30px rgba(0, 245, 212, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.7) !important;
   border-radius: 999px !important;
 }
 
 .nav-link.active {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  box-shadow: none !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(0, 245, 212, 0.55) !important;
+  box-shadow: 0 0 15px rgba(0, 245, 212, 0.35) !important;
   color: #fff !important;
 }
 
 /* Buttons */
 .hero-cta-btn, .btn-modal-action.primary, .cmd-exec-btn {
-  background: rgba(255, 255, 255, 0.2) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 30%, #6366f1 70%, #c084fc 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 12px 35px rgba(0, 245, 212, 0.45), 0 0 25px rgba(99, 102, 241, 0.35), inset 0 1.5px 2px rgba(255, 255, 255, 0.7) !important;
   border-radius: 999px !important;
   color: #fff !important;
   font-weight: 600 !important;
@@ -103,25 +114,26 @@ body {
 }
 
 .hero-cta-btn:hover, .btn-modal-action.primary:hover, .cmd-exec-btn:hover {
-  background: rgba(255, 255, 255, 0.3) !important;
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 35%, #c084fc 70%, #00f5d4 100%) !important;
   transform: translateY(-2px) scale(1.02) !important;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 16px 45px rgba(0, 245, 212, 0.6), 0 0 35px rgba(99, 102, 241, 0.5), inset 0 2px 2.5px rgba(255, 255, 255, 0.85) !important;
 }
 
 .hero-secondary-btn {
-  background: rgba(0, 0, 0, 0.35) !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  background: rgba(8, 20, 44, 0.35) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
   border-radius: 999px !important;
+  backdrop-filter: blur(14px) !important;
 }
 
 /* Hero Text - Vibrant Tertiary Holographic Neon (Text-shadow optimized) */
 .hero-neon-word {
-  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 35%, #6366f1 70%, #a855f7 100%) !important;
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 25%, #6366f1 55%, #c084fc 80%, #38bdf8 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  text-shadow: 0 0 25px rgba(6, 182, 212, 0.75), 0 0 50px rgba(99, 102, 241, 0.55) !important;
+  text-shadow: 0 0 30px rgba(0, 245, 212, 0.75), 0 0 60px rgba(99, 102, 241, 0.55) !important;
   filter: none !important;
   font-family: var(--font-display) !important;
 }
@@ -129,56 +141,63 @@ body {
 .hero-script-word {
   font-family: var(--font-cursive) !important;
   font-style: normal !important;
-  background: linear-gradient(135deg, #ffffff 0%, #a5f3fc 45%, #c084fc 100%) !important;
+  background: linear-gradient(135deg, #ffffff 0%, #a5f3fc 35%, #c084fc 70%, #ffffff 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  text-shadow: 0 0 20px rgba(99, 102, 241, 0.65) !important;
+  text-shadow: 0 0 25px rgba(56, 189, 248, 0.7) !important;
   filter: none !important;
 }
 
 /* Modals & Vault Glass - Ultra-Transparent Crystal Liquid Glass with Specular Edge */
 .glass-modal, .table-card-glass, .admin-cmd-card, .cmd-cmd-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(18, 10, 32, 0.45) 40%, rgba(28, 12, 45, 0.55) 100%) !important;
-  backdrop-filter: blur(16px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.5) !important;
-  border-left: 1.5px solid rgba(255, 255, 255, 0.38) !important;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(168, 85, 247, 0.2), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(10, 24, 48, 0.35) 45%, rgba(18, 12, 40, 0.45) 100%) !important;
+  backdrop-filter: blur(24px) saturate(210%) brightness(1.08) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(210%) brightness(1.08) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.38) !important;
+  border-top: 2px solid rgba(255, 255, 255, 0.85) !important;
+  border-left: 2px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.75), 0 0 45px rgba(0, 245, 212, 0.25), 0 0 25px rgba(99, 102, 241, 0.2), inset 0 1.5px 2px rgba(255, 255, 255, 0.7) !important;
   border-radius: 32px !important;
 }
 
-/* Note Detail Window Override - No backdrop blur during notes scrolling to eliminate GPU lag */
+/* Note Detail Window Override - Crystalline Transparent Liquid Glass */
 .notes-detail-window {
   width: 95vw !important;
   max-width: 1220px !important;
   max-height: 94vh !important;
-  background: rgba(14, 10, 26, 0.98) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.05) 30%, rgba(8, 20, 44, 0.48) 75%, rgba(0, 245, 212, 0.1) 100%) !important;
+  backdrop-filter: blur(24px) saturate(200%) brightness(1.08) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(200%) brightness(1.08) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  border-top: 2px solid rgba(255, 255, 255, 0.85) !important;
+  border-left: 2px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 35px 95px -15px rgba(0, 0, 0, 0.85), 0 0 50px rgba(0, 245, 212, 0.25), inset 0 2px 2.5px rgba(255, 255, 255, 0.7) !important;
   contain: layout;
 }
 
-/* Vault Floating Glass Button with Amber Specular Glow */
+/* Vault Floating Glass Button with Cool Tertiary Specular Glow */
 .vault-bubble-btn {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(32, 18, 50, 0.45) 100%) !important;
-  backdrop-filter: blur(14px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
-  border: 1.5px solid rgba(255, 183, 3, 0.6) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(10, 24, 48, 0.38) 100%) !important;
+  backdrop-filter: blur(16px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(190%) !important;
+  border: 1.5px solid rgba(0, 245, 212, 0.6) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 245, 212, 0.3), inset 0 1.5px 2px rgba(255, 255, 255, 0.65) !important;
 }
 
 .vault-bubble-btn:hover {
-  border-color: rgba(255, 215, 0, 0.9) !important;
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(0, 245, 212, 0.95) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5), 0 0 35px rgba(0, 245, 212, 0.55), inset 0 2px 2.5px rgba(255, 255, 255, 0.85) !important;
 }
 
 /* Inputs and Forms */
 input, select, textarea {
-  background: rgba(12, 8, 22, 0.65) !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  background: rgba(8, 20, 44, 0.38) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.5) !important;
   border-radius: 16px !important;
   color: #fff !important;
   padding: 12px 16px !important;
@@ -186,9 +205,9 @@ input, select, textarea {
 }
 
 input:focus, select:focus, textarea:focus {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border-color: rgba(255, 255, 255, 0.4) !important;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1) !important;
+  background: rgba(12, 28, 58, 0.45) !important;
+  border-color: rgba(0, 245, 212, 0.7) !important;
+  box-shadow: 0 0 0 3px rgba(0, 245, 212, 0.25) !important;
   outline: none !important;
 }
 
@@ -356,12 +375,14 @@ STYLES
   height: 500px;
   max-height: calc(100vh - 140px);
   margin-bottom: 16px;
-  background: rgba(18, 12, 28, 0.88);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  border: 1.5px solid rgba(255, 183, 3, 0.45);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(8, 20, 44, 0.42) 55%, rgba(18, 12, 40, 0.52) 100%);
+  backdrop-filter: blur(28px) saturate(210%) brightness(1.08);
+  -webkit-backdrop-filter: blur(28px) saturate(210%) brightness(1.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.38);
+  border-top: 2px solid rgba(255, 255, 255, 0.85);
+  border-left: 2px solid rgba(255, 255, 255, 0.6);
   border-radius: 28px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 122, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(0, 245, 212, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.7);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -378,8 +399,8 @@ STYLES
 
 .ai-chat-header {
   padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 183, 3, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -1544,28 +1565,28 @@ body.theme-quantum-void .chat-memo-jump-btn {
 
 /* 1. Global Liquid Glass Root Tokens */
 :root {
-  --glass-specular-top: rgba(255, 255, 255, 0.75);
-  --glass-specular-side: rgba(255, 255, 255, 0.38);
-  --glass-border-base: rgba(255, 255, 255, 0.24);
-  --glass-acrylic-fill: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 35%, rgba(14, 10, 30, 0.65) 75%, rgba(6, 182, 212, 0.1) 100%);
-  --glass-acrylic-blur: blur(10px) saturate(150%) brightness(1.05);
-  --glass-ambient-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.75), 0 0 35px rgba(6, 182, 212, 0.2), inset 0 1.5px 2px rgba(255, 255, 255, 0.55);
+  --glass-specular-top: rgba(255, 255, 255, 0.85);
+  --glass-specular-side: rgba(255, 255, 255, 0.45);
+  --glass-border-base: rgba(255, 255, 255, 0.3);
+  --glass-acrylic-fill: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.04) 35%, rgba(8, 20, 44, 0.38) 75%, rgba(0, 245, 212, 0.1) 100%);
+  --glass-acrylic-blur: blur(20px) saturate(200%) brightness(1.08);
+  --glass-ambient-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.75), 0 0 40px rgba(0, 245, 212, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.65);
 }
 
 /* 2. Top Nav & Glass Pill Nav Upgrade */
 .top-nav-container {
-  backdrop-filter: blur(12px) saturate(150%);
-  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
 }
 
 .glass-pill-nav {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(18, 10, 36, 0.42) 45%, rgba(6, 182, 212, 0.16) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(10, 24, 48, 0.28) 45%, rgba(0, 245, 212, 0.12) 100%) !important;
   backdrop-filter: var(--glass-acrylic-blur) !important;
   -webkit-backdrop-filter: var(--glass-acrylic-blur) !important;
   border: 1.5px solid var(--glass-border-base) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
   border-left: 1.5px solid var(--glass-specular-side) !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 25px rgba(6, 182, 212, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.45), 0 0 30px rgba(0, 245, 212, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.7) !important;
 }
 
 .nav-link {
@@ -1574,48 +1595,48 @@ body.theme-quantum-void .chat-memo-jump-btn {
 
 .nav-link:hover {
   color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.3) !important;
+  background: rgba(255, 255, 255, 0.16) !important;
+  box-shadow: 0 0 15px rgba(0, 245, 212, 0.35) !important;
 }
 
 .nav-link.active {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.35) 0%, rgba(99, 102, 241, 0.4) 100%) !important;
-  border: 1px solid rgba(56, 189, 248, 0.55) !important;
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.35) 0%, rgba(99, 102, 241, 0.4) 100%) !important;
+  border: 1px solid rgba(0, 245, 212, 0.65) !important;
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.6) !important;
   color: #fff !important;
 }
 
 /* 3. Hero Section Glassmorphism & Colorful Typography */
 .hero-badge-pill {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(6, 182, 212, 0.2) 50%, rgba(168, 85, 247, 0.18) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 245, 212, 0.22) 50%, rgba(99, 102, 241, 0.2) 100%) !important;
   backdrop-filter: var(--glass-acrylic-blur) !important;
   -webkit-backdrop-filter: var(--glass-acrylic-blur) !important;
-  border: 1.5px solid rgba(56, 189, 248, 0.5) !important;
+  border: 1.5px solid rgba(0, 245, 212, 0.55) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 25px rgba(6, 182, 212, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 25px rgba(0, 245, 212, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.6) !important;
   color: #ffffff !important;
 }
 
 .hero-neon-word {
-  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 25%, #818cf8 55%, #c084fc 80%, #f472b6 100%) !important;
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 25%, #6366f1 55%, #c084fc 80%, #38bdf8 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  text-shadow: 0 0 35px rgba(6, 182, 212, 0.8), 0 0 70px rgba(168, 85, 247, 0.5) !important;
+  text-shadow: 0 0 35px rgba(0, 245, 212, 0.8), 0 0 70px rgba(99, 102, 241, 0.55) !important;
 }
 
 .hero-script-word {
-  background: linear-gradient(135deg, #ffffff 0%, #67e8f9 35%, #e879f9 70%, #ffffff 100%) !important;
+  background: linear-gradient(135deg, #ffffff 0%, #a5f3fc 35%, #c084fc 70%, #ffffff 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  text-shadow: 0 0 25px rgba(6, 182, 212, 0.7) !important;
+  text-shadow: 0 0 25px rgba(56, 189, 248, 0.7) !important;
 }
 
 .hero-cta-btn {
-  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 30%, #6366f1 70%, #a855f7 100%) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.55) !important;
-  box-shadow: 0 14px 40px rgba(6, 182, 212, 0.55), 0 0 30px rgba(99, 102, 241, 0.45), inset 0 1.5px 2px rgba(255, 255, 255, 0.7) !important;
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 30%, #6366f1 70%, #c084fc 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 14px 40px rgba(0, 245, 212, 0.55), 0 0 30px rgba(99, 102, 241, 0.45), inset 0 1.5px 2px rgba(255, 255, 255, 0.7) !important;
   color: #fff !important;
   position: relative;
   overflow: hidden;
@@ -1634,117 +1655,118 @@ body.theme-quantum-void .chat-memo-jump-btn {
 }
 
 .cue-pill {
-  background: rgba(255, 255, 255, 0.12) !important;
-  backdrop-filter: blur(12px) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
-  box-shadow: 0 0 18px rgba(6, 182, 212, 0.35) !important;
+  background: rgba(255, 255, 255, 0.14) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 0 18px rgba(0, 245, 212, 0.35) !important;
 }
 
 /* 4. Notes Controls & Filter Bar Glassmorphism */
 .pill-toggle-container {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(14, 10, 30, 0.5) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(8, 20, 44, 0.35) 100%) !important;
   backdrop-filter: var(--glass-acrylic-blur) !important;
   -webkit-backdrop-filter: var(--glass-acrylic-blur) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.32) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 1.5px rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
   border-radius: 9999px !important;
 }
 
 .pill-toggle-btn.active {
-  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 50%, #6366f1 100%) !important;
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 40%, #6366f1 100%) !important;
   color: #ffffff !important;
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.7) !important;
 }
 
 .search-input-wrap {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(14, 10, 30, 0.45) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(8, 20, 44, 0.35) 100%) !important;
   backdrop-filter: var(--glass-acrylic-blur) !important;
   -webkit-backdrop-filter: var(--glass-acrylic-blur) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
   border-radius: 9999px !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .search-input-wrap:focus-within {
-  border-color: #38bdf8 !important;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 30px rgba(6, 182, 212, 0.5), inset 0 1px 1.5px rgba(255, 255, 255, 0.6) !important;
+  border-color: #00f5d4 !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 30px rgba(0, 245, 212, 0.55), inset 0 1px 1.5px rgba(255, 255, 255, 0.7) !important;
 }
 
 .cat-pill {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(14, 10, 30, 0.35) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(8, 20, 44, 0.28) 100%) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.5) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
-  color: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .cat-pill:hover {
-  background: rgba(255, 255, 255, 0.2) !important;
-  border-color: rgba(56, 189, 248, 0.6) !important;
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(0, 245, 212, 0.7) !important;
   color: #fff !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35), 0 0 20px rgba(6, 182, 212, 0.4) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 245, 212, 0.45) !important;
 }
 
 .cat-pill.active {
-  background: linear-gradient(135deg, #06b6d4 0%, #6366f1 60%, #a855f7 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 35%, #6366f1 75%, #c084fc 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
   color: #ffffff !important;
-  box-shadow: 0 8px 25px rgba(6, 182, 212, 0.5), 0 0 25px rgba(168, 85, 247, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 8px 25px rgba(0, 245, 212, 0.55), 0 0 25px rgba(99, 102, 241, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 /* 5. Carousel Bracket Frame & Experience Badge */
 .frame-experience-badge {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(6, 182, 212, 0.2) 50%, rgba(168, 85, 247, 0.18) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(0, 245, 212, 0.2) 50%, rgba(99, 102, 241, 0.18) 100%) !important;
   backdrop-filter: var(--glass-acrylic-blur) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 25px rgba(6, 182, 212, 0.3), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 25px rgba(0, 245, 212, 0.3), inset 0 1px 1.5px rgba(255, 255, 255, 0.6) !important;
   border-radius: 9999px !important;
 }
 
 .carousel-arrow-btn {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(14, 10, 30, 0.45) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(8, 20, 44, 0.35) 100%) !important;
   backdrop-filter: var(--glass-acrylic-blur) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(6, 182, 212, 0.25), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 245, 212, 0.25), inset 0 1px 1.5px rgba(255, 255, 255, 0.6) !important;
   color: #fff !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .carousel-arrow-btn:hover {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.4) 0%, rgba(99, 102, 241, 0.5) 100%) !important;
-  border-color: #38bdf8 !important;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.55), 0 0 35px rgba(6, 182, 212, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.7) !important;
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.4) 0%, rgba(99, 102, 241, 0.5) 100%) !important;
+  border-color: #00f5d4 !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.55), 0 0 35px rgba(0, 245, 212, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
   transform: scale(1.1) !important;
 }
 
 /* 6. Deck Carousel Cards - Pristine Apple VisionOS Liquid Glass */
 .deck-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 30%, rgba(14, 10, 30, 0.65) 75%, rgba(6, 182, 212, 0.1) 100%) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
-  border-top: 1.5px solid var(--glass-specular-top) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.05) 30%, rgba(8, 20, 44, 0.35) 75%, rgba(0, 245, 212, 0.1) 100%) !important;
+  backdrop-filter: blur(14px) saturate(180%) brightness(1.06) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(180%) brightness(1.06) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  border-top: 2px solid var(--glass-specular-top) !important;
   border-left: 1.5px solid var(--glass-specular-side) !important;
-  box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.8), 0 0 45px rgba(6, 182, 212, 0.22), inset 0 1.5px 2px rgba(255, 255, 255, 0.6), inset 0 -1.5px 2px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.7), 0 0 45px rgba(0, 245, 212, 0.22), inset 0 1.5px 2px rgba(255, 255, 255, 0.7), inset 0 -1.5px 2px rgba(0, 0, 0, 0.25) !important;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease !important;
 }
 
 .deck-card.pos-center {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 30%, rgba(18, 12, 38, 0.7) 75%, rgba(99, 102, 241, 0.14) 100%) !important;
-  backdrop-filter: blur(10px) saturate(150%) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(150%) !important;
-  border-color: rgba(56, 189, 248, 0.7) !important;
-  border-top: 2px solid rgba(255, 255, 255, 0.9) !important;
-  box-shadow: 0 35px 90px -10px rgba(0, 0, 0, 0.85), 0 0 50px rgba(6, 182, 212, 0.45), inset 0 2px 2.5px rgba(255, 255, 255, 0.75) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.08) 30%, rgba(10, 26, 56, 0.42) 75%, rgba(0, 245, 212, 0.18) 100%) !important;
+  backdrop-filter: blur(20px) saturate(210%) brightness(1.1) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(210%) brightness(1.1) !important;
+  border-color: rgba(0, 245, 212, 0.75) !important;
+  border-top: 2.5px solid rgba(255, 255, 255, 0.95) !important;
+  border-left: 2px solid rgba(255, 255, 255, 0.75) !important;
+  box-shadow: 0 35px 90px -10px rgba(0, 0, 0, 0.8), 0 0 55px rgba(0, 245, 212, 0.45), 0 0 25px rgba(99, 102, 241, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.85) !important;
 }
 
 .deck-card:not(.pos-center) {
@@ -1770,58 +1792,58 @@ body.theme-quantum-void .chat-memo-jump-btn {
 }
 
 .card-formula-chip {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.16) 0%, rgba(168, 85, 247, 0.16) 100%) !important;
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.2) 0%, rgba(99, 102, 241, 0.22) 100%) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1.5px solid rgba(56, 189, 248, 0.5) !important;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.7) !important;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35), 0 0 25px rgba(6, 182, 212, 0.3), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
-  color: #38bdf8 !important;
+  border: 1.5px solid rgba(0, 245, 212, 0.6) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35), 0 0 25px rgba(0, 245, 212, 0.3), inset 0 1px 1.5px rgba(255, 255, 255, 0.6) !important;
+  color: #00f5d4 !important;
 }
 
 .organelles-preview-box {
-  background: rgba(10, 6, 22, 0.55) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+  background: rgba(8, 20, 44, 0.35) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.5) !important;
   border-radius: 18px !important;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 20px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(0, 0, 0, 0.3) !important;
 }
 
 .organelle-chip {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
   border-radius: 9999px !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
-  color: #e2e8f0 !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+  color: #f1f5f9 !important;
   transition: all 0.2s ease !important;
 }
 
 .organelle-chip:hover {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(99, 102, 241, 0.3) 100%) !important;
-  border-color: #38bdf8 !important;
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.35) 0%, rgba(99, 102, 241, 0.35) 100%) !important;
+  border-color: #00f5d4 !important;
   color: #fff !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 15px rgba(6, 182, 212, 0.5) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 15px rgba(0, 245, 212, 0.5) !important;
 }
 
 .card-action-btn.btn-card-view,
 .card-action-btn.primary-action {
-  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 35%, #6366f1 75%, #a855f7 100%) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.6) !important;
-  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.5), 0 0 25px rgba(99, 102, 241, 0.35), inset 0 1.5px 2px rgba(255, 255, 255, 0.7) !important;
+  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 35%, #6366f1 75%, #c084fc 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 10px 30px rgba(0, 245, 212, 0.5), 0 0 25px rgba(99, 102, 241, 0.35), inset 0 1.5px 2px rgba(255, 255, 255, 0.8) !important;
   color: #ffffff !important;
   border-radius: 9999px !important;
 }
 
 .card-action-btn.btn-card-view:hover,
 .card-action-btn.primary-action:hover {
-  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 40%, #c084fc 80%, #f472b6 100%) !important;
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 35%, #c084fc 70%, #00f5d4 100%) !important;
   transform: translateY(-2px) scale(1.02) !important;
-  box-shadow: 0 15px 45px rgba(6, 182, 212, 0.7), 0 0 35px rgba(168, 85, 247, 0.6) !important;
+  box-shadow: 0 15px 45px rgba(0, 245, 212, 0.7), 0 0 35px rgba(99, 102, 241, 0.6), inset 0 2px 2.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .card-action-btn.btn-card-pdf,
@@ -1937,36 +1959,36 @@ body.theme-quantum-void .chat-memo-jump-btn {
 }
 
 .liquid-calc-container {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 30%, rgba(12, 8, 26, 0.72) 75%, rgba(6, 182, 212, 0.12) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.04) 30%, rgba(8, 20, 44, 0.42) 75%, rgba(0, 245, 212, 0.12) 100%) !important;
   backdrop-filter: blur(30px) saturate(220%) brightness(1.1) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
   border-top: 2px solid var(--glass-specular-top) !important;
   border-left: 2px solid var(--glass-specular-side) !important;
-  box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.9), 0 0 60px rgba(6, 182, 212, 0.3), inset 0 2px 2.5px rgba(255, 255, 255, 0.65) !important;
+  box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.9), 0 0 60px rgba(0, 245, 212, 0.3), inset 0 2px 2.5px rgba(255, 255, 255, 0.7) !important;
 }
 
 .calc-solver-panel {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(16, 10, 32, 0.65) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(8, 20, 44, 0.4) 100%) !important;
   backdrop-filter: blur(16px) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 12px 30px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.5), 0 12px 30px rgba(0, 0, 0, 0.4) !important;
 }
 
 .calc-btn {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(14, 10, 30, 0.45) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(8, 20, 44, 0.35) 100%) !important;
   backdrop-filter: blur(14px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border: 1px solid rgba(255, 255, 255, 0.26) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
   color: #fff !important;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .calc-btn:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(6, 182, 212, 0.25) 100%) !important;
-  border-color: #38bdf8 !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 20px rgba(6, 182, 212, 0.5) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(0, 245, 212, 0.25) 100%) !important;
+  border-color: #00f5d4 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 245, 212, 0.5) !important;
   transform: translateY(-2px) scale(1.03) !important;
 }
 
@@ -1976,122 +1998,122 @@ body.theme-quantum-void .chat-memo-jump-btn {
 }
 
 .calc-btn.op-btn {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.35) 0%, rgba(99, 102, 241, 0.45) 100%) !important;
-  border-color: rgba(168, 85, 247, 0.6) !important;
-  color: #e879f9 !important;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.35) 0%, rgba(99, 102, 241, 0.45) 100%) !important;
+  border-color: rgba(139, 92, 246, 0.6) !important;
+  color: #c084fc !important;
 }
 
 .calc-btn.action-btn-equals {
   background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 50%, #6366f1 100%) !important;
   border-color: rgba(255, 255, 255, 0.8) !important;
   color: #fff !important;
-  box-shadow: 0 8px 25px rgba(6, 182, 212, 0.6), 0 0 30px rgba(0, 245, 212, 0.5) !important;
+  box-shadow: 0 8px 25px rgba(0, 245, 212, 0.6), 0 0 30px rgba(99, 102, 241, 0.5) !important;
 }
 
 /* 9. Universal Modals Glassmorphism & Concept Squares */
 .modal-window,
 .glass-modal {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 30%, rgba(14, 10, 30, 0.72) 75%, rgba(6, 182, 212, 0.1) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(10, 24, 48, 0.35) 45%, rgba(18, 12, 40, 0.45) 100%) !important;
   backdrop-filter: blur(28px) saturate(220%) brightness(1.08) !important;
   -webkit-backdrop-filter: blur(28px) saturate(220%) brightness(1.08) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
   border-top: 2px solid var(--glass-specular-top) !important;
   border-left: 2px solid var(--glass-specular-side) !important;
-  box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.9), 0 0 50px rgba(6, 182, 212, 0.25), inset 0 2px 2.5px rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 245, 212, 0.25), inset 0 2px 2.5px rgba(255, 255, 255, 0.7) !important;
   border-radius: 32px !important;
 }
 
 .modal-cat-badge {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.22) 0%, rgba(168, 85, 247, 0.25) 100%) !important;
-  border: 1.5px solid rgba(56, 189, 248, 0.55) !important;
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.22) 0%, rgba(99, 102, 241, 0.25) 100%) !important;
+  border: 1.5px solid rgba(0, 245, 212, 0.6) !important;
   color: #00f5d4 !important;
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.35) !important;
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.35) !important;
   border-radius: 9999px !important;
 }
 
 .modal-topic-title {
-  background: linear-gradient(135deg, #ffffff 0%, #38bdf8 45%, #c084fc 80%, #ffffff 100%) !important;
+  background: linear-gradient(135deg, #ffffff 0%, #00f5d4 35%, #818cf8 70%, #ffffff 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  text-shadow: 0 0 30px rgba(56, 189, 248, 0.5) !important;
+  text-shadow: 0 0 30px rgba(0, 245, 212, 0.5) !important;
 }
 
 .modal-tab-btn {
-  background: rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
   border-radius: 9999px !important;
-  color: rgba(255, 255, 255, 0.8) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
   transition: all 0.25s ease !important;
 }
 
 .modal-tab-btn:hover {
-  background: rgba(255, 255, 255, 0.18) !important;
+  background: rgba(255, 255, 255, 0.22) !important;
   color: #fff !important;
 }
 
 .modal-tab-btn.active {
   background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 50%, #6366f1 100%) !important;
-  border-color: rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.7) !important;
   color: #fff !important;
-  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 6px 20px rgba(0, 245, 212, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.7) !important;
 }
 
 /* Concept Squares Detail Cards inside Notes Viewer */
 .property-detail-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.03) 30%, rgba(16, 10, 32, 0.65) 75%, rgba(6, 182, 212, 0.1) 100%) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.04) 30%, rgba(8, 20, 44, 0.42) 75%, rgba(0, 245, 212, 0.1) 100%) !important;
+  backdrop-filter: blur(16px) saturate(190%) brightness(1.06) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(190%) brightness(1.06) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.32) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
   border-left: 1.5px solid var(--glass-specular-side) !important;
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(6, 182, 212, 0.2), inset 0 1.5px 2px rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 245, 212, 0.2), inset 0 1.5px 2px rgba(255, 255, 255, 0.65) !important;
   border-radius: 24px !important;
   padding: 30px 34px !important;
 }
 
 .property-detail-card:hover {
   transform: translateY(-3px) scale(1.01) !important;
-  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.6), 0 0 45px rgba(6, 182, 212, 0.35), inset 0 2px 2.5px rgba(255, 255, 255, 0.7) !important;
-  border-color: rgba(56, 189, 248, 0.6) !important;
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.6), 0 0 45px rgba(0, 245, 212, 0.4), inset 0 2px 2.5px rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(0, 245, 212, 0.75) !important;
 }
 
 /* Project Cards in Showcase Modal */
 .project-card.glass-project-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(14, 10, 30, 0.6) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(8, 20, 44, 0.38) 100%) !important;
   backdrop-filter: blur(20px) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.32) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(6, 182, 212, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 245, 212, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.6) !important;
   border-radius: 24px !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .project-card.glass-project-card:hover {
   transform: translateY(-4px) scale(1.02) !important;
-  border-color: #38bdf8 !important;
-  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.65), 0 0 45px rgba(6, 182, 212, 0.45) !important;
+  border-color: #00f5d4 !important;
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.65), 0 0 45px rgba(0, 245, 212, 0.45) !important;
 }
 
 /* Admin Vault Telemetry & Command Cards */
 .admin-cmd-card,
 .telem-stat-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(14, 10, 30, 0.55) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(8, 20, 44, 0.38) 100%) !important;
   backdrop-filter: blur(18px) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), inset 0 1px 1.5px rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
   border-radius: 20px !important;
 }
 
 /* 10. Footer Liquid Glass Deck */
 .app-footer {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(10, 6, 20, 0.65) 50%, rgba(18, 10, 34, 0.8) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(6, 14, 30, 0.55) 50%, rgba(10, 22, 48, 0.7) 100%) !important;
   backdrop-filter: blur(24px) saturate(200%) !important;
   -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 -15px 45px rgba(0, 0, 0, 0.6), inset 0 1px 1.5px rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 -15px 45px rgba(0, 0, 0, 0.6), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
 }
 
 /* 11. Theme Overrides for Universal Liquid Glass & Gradients */
