@@ -37,12 +37,14 @@
   --grad-tertiary-cool: linear-gradient(135deg, #38bdf8 0%, #6366f1 45%, #c084fc 80%, #00f5d4 100%);
   --grad-liquid-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.05) 35%, rgba(10, 24, 48, 0.28) 75%, rgba(0, 245, 212, 0.1) 100%);
 
-  /* Ultra-Transparent Crystal Liquid Glass Bases */
+  /* Apple iOS 26 Pure Liquid Glass Bases */
+  --liquid-glass-lens: blur(28px) saturate(230%) brightness(1.12) contrast(1.04);
   --glass-bg: rgba(10, 24, 48, 0.12);
   --glass-bg-hover: rgba(16, 36, 68, 0.2);
   --glass-card: rgba(8, 20, 44, 0.16);
   --glass-card-border: rgba(255, 255, 255, 0.42);
-  --glass-blur: blur(20px) saturate(220%) brightness(108%);
+  --glass-blur: var(--liquid-glass-lens);
+  --ease-liquid: cubic-bezier(0.16, 1, 0.3, 1);
 
   --text-main: #f8fafc;
   --text-muted: #94a3b8;

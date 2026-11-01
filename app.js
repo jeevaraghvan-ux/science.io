@@ -5676,8 +5676,14 @@ class ScienceIoApp {
             const tiltX = ((targetY / rect.height) - 0.5) * -12;
             const tiltY = ((targetX / rect.width) - 0.5) * 12;
 
+            // Apple iOS 26 Liquid Glass Optical Engine Coordinates
+            const specularAngle = Math.atan2(targetY - (rect.height / 2), targetX - (rect.width / 2)) * (180 / Math.PI) + 180;
+
             el.style.setProperty("--mouse-x", `${percentX.toFixed(1)}%`);
             el.style.setProperty("--mouse-y", `${percentY.toFixed(1)}%`);
+            el.style.setProperty("--specular-x", `${percentX.toFixed(1)}%`);
+            el.style.setProperty("--specular-y", `${percentY.toFixed(1)}%`);
+            el.style.setProperty("--specular-angle", `${specularAngle.toFixed(1)}deg`);
             el.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
             el.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
           });
@@ -5689,6 +5695,9 @@ class ScienceIoApp {
         rafPending = false;
         el.style.setProperty("--tilt-x", "0deg");
         el.style.setProperty("--tilt-y", "0deg");
+        el.style.setProperty("--specular-x", "50%");
+        el.style.setProperty("--specular-y", "20%");
+        el.style.setProperty("--specular-angle", "135deg");
       };
 
       el.addEventListener("mouseenter", onMouseEnter, { passive: true });
@@ -5697,6 +5706,34 @@ class ScienceIoApp {
     };
 
     document.querySelectorAll(".deck-card").forEach((card) => attachTilt(card, true));
+
+    // Also attach optical tracking to floating controls (Pill nav, calculator, modals)
+    const floatingElements = document.querySelectorAll(".glass-pill-nav, .liquid-calc-container, .vault-bubble-btn, .pill-toggle-container");
+    floatingElements.forEach((elem) => attachTilt(elem, false));
+
+    // Mobile Gyroscope Tilt for Apple iOS 26 Liquid Glass
+    if (!window._hasLiquidGlassGyro && window.DeviceOrientationEvent) {
+      window._hasLiquidGlassGyro = true;
+      let gyroRaf = false;
+      window.addEventListener("deviceorientation", (ev) => {
+        if (ev.gamma === null || ev.beta === null) return;
+        if (gyroRaf) return;
+        gyroRaf = true;
+        requestAnimationFrame(() => {
+          gyroRaf = false;
+          // Clamp gamma (-30 to 30) and beta (10 to 60) for natural hand-held phone angle
+          const clampedX = Math.max(-30, Math.min(30, ev.gamma));
+          const clampedY = Math.max(-30, Math.min(30, ev.beta - 35));
+          const normX = ((clampedX + 30) / 60) * 100;
+          const normY = ((clampedY + 30) / 60) * 100;
+
+          document.documentElement.style.setProperty("--specular-x", `${normX.toFixed(1)}%`);
+          document.documentElement.style.setProperty("--specular-y", `${normY.toFixed(1)}%`);
+          document.documentElement.style.setProperty("--gyro-tilt-x", `${(clampedY * 0.35).toFixed(2)}deg`);
+          document.documentElement.style.setProperty("--gyro-tilt-y", `${(clampedX * 0.35).toFixed(2)}deg`);
+        });
+      }, { passive: true });
+    }
   }
 
   attachCardButtonListeners() {
