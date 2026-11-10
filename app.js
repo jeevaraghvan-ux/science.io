@@ -3225,7 +3225,7 @@ class ConfettiEngine {
 class VaultController {
   constructor(app) {
     this.app = app;
-    this.code = atob("MTU5MzU3");
+    this.code = atob("MjUyNTI1");
     this.currentPin = "";
     this.isUnlocked = false;
     this.openCreatorAfterUnlock = false;
