@@ -5440,6 +5440,12 @@ class BubbleCascadeEngine {
     this.originY = this.height * 0.42;
     this.isCascading = false;
     this.isPopping = false;
+    this.blanketAlpha = 0;
+    this.targetBlanketAlpha = 0;
+    this.shockwaveActive = false;
+    this.shockwaveRadius = 0;
+    this.shockwaveMaxRadius = 0;
+    this.shockwaveAlpha = 1.0;
 
     if (this.canvas) {
       this.resize();
@@ -5479,6 +5485,8 @@ class BubbleCascadeEngine {
       vy: -(Math.random() * 2 + 1.2),
       radius: Math.random() * 8 + 4,
       targetRadius: Math.random() * 14 + 8,
+      growSpeed: 0.12,
+      delay: 0,
       hue: Math.random() > 0.5 ? 185 : 275,
       alpha: 0.85,
       wobble: Math.random() * Math.PI * 2,
@@ -5490,55 +5498,69 @@ class BubbleCascadeEngine {
 
   startCascade() {
     this.isCascading = true;
+    this.targetBlanketAlpha = 0.98;
     this.resize();
 
-    const totalToSpawn = Math.min(Math.floor((this.width * this.height) / 10000) + 75, 140);
-    for (let i = 0; i < totalToSpawn; i++) {
-      setTimeout(() => {
-        if (!this.isCascading && !this.isPopping) return;
-        this.spawnCascadeBubble(i, totalToSpawn);
-      }, i * 16);
+    const maxDist = Math.hypot(this.width, this.height);
+    const hues = [185, 215, 275, 315, 340, 160];
+
+    // 1. DENSE VIEWPORT-WIDE GRID: Covers upper half, lower half, corners, center
+    const colStep = 95;
+    const rowStep = 85;
+    const cols = Math.ceil(this.width / colStep) + 2;
+    const rows = Math.ceil(this.height / rowStep) + 2;
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const targetX = (c - 0.8) * colStep + (Math.random() - 0.5) * 45;
+        const targetY = (r - 0.8) * rowStep + (Math.random() - 0.5) * 45;
+        const dist = Math.hypot(targetX - this.originX, targetY - this.originY);
+        const delay = Math.min((dist / maxDist) * 320, 360);
+
+        const isGiant = (c + r) % 3 === 0;
+        const targetR = isGiant ? (Math.random() * 90 + 130) : (Math.random() * 55 + 75);
+
+        this.bubbles.push({
+          x: targetX,
+          y: targetY,
+          vx: (Math.random() - 0.5) * 0.8,
+          vy: (Math.random() - 0.5) * 0.8,
+          radius: 3,
+          targetRadius: targetR,
+          growSpeed: Math.random() * 0.08 + 0.16,
+          delay: delay,
+          hue: hues[Math.floor(Math.random() * hues.length)],
+          alpha: Math.random() * 0.18 + 0.8,
+          wobble: Math.random() * Math.PI * 2,
+          wobbleSpeed: Math.random() * 0.05 + 0.03,
+          popped: false
+        });
+      }
+    }
+
+    // 2. RADIAL ERUPTION FROM FLASK: Shoots 45 high-speed expanding bubbles outward
+    for (let i = 0; i < 45; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 9 + 4;
+      const targetR = Math.random() * 80 + 90;
+      this.bubbles.push({
+        x: this.originX,
+        y: this.originY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        radius: 8,
+        targetRadius: targetR,
+        growSpeed: 0.15,
+        delay: Math.random() * 120,
+        hue: hues[i % hues.length],
+        alpha: 0.9,
+        wobble: Math.random() * Math.PI * 2,
+        wobbleSpeed: 0.06,
+        popped: false
+      });
     }
 
     if (!this.animId) this.animate();
-  }
-
-  spawnCascadeBubble(idx, total) {
-    const fromFlask = idx < total * 0.4;
-    const isGiant = idx % 4 === 0;
-
-    let startX, startY, vx, vy;
-    if (fromFlask) {
-      startX = this.originX + (Math.random() - 0.5) * 25;
-      startY = this.originY;
-      const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.9;
-      const speed = Math.random() * 7 + 4;
-      vx = Math.cos(angle) * speed;
-      vy = Math.sin(angle) * speed;
-    } else {
-      startX = Math.random() * this.width;
-      startY = this.height + Math.random() * 60;
-      vx = (Math.random() - 0.5) * 2;
-      vy = -(Math.random() * 5 + 3);
-    }
-
-    const minR = isGiant ? 65 : 24;
-    const maxR = isGiant ? 160 : 60;
-    const targetR = Math.random() * (maxR - minR) + minR;
-
-    this.bubbles.push({
-      x: startX,
-      y: startY,
-      vx,
-      vy,
-      radius: fromFlask ? 10 : targetR * 0.4,
-      targetRadius: targetR,
-      hue: [180, 270, 310, 140][Math.floor(Math.random() * 4)],
-      alpha: Math.random() * 0.25 + 0.65,
-      wobble: Math.random() * Math.PI * 2,
-      wobbleSpeed: Math.random() * 0.06 + 0.03,
-      popped: false
-    });
   }
 
   handleClick(e) {
@@ -5548,7 +5570,7 @@ class BubbleCascadeEngine {
 
     for (let i = this.bubbles.length - 1; i >= 0; i--) {
       const b = this.bubbles[i];
-      if (b.popped) continue;
+      if (b.popped || (b.delay && b.delay > 0)) continue;
       const dist = Math.hypot(clickX - b.x, clickY - b.y);
       if (dist <= b.radius) {
         this.popBubble(b, true);
@@ -5561,49 +5583,95 @@ class BubbleCascadeEngine {
     if (b.popped) return;
     b.popped = true;
 
-    for (let i = 0; i < 12; i++) {
-      const angle = (Math.PI * 2 * i) / 12 + Math.random() * 0.3;
-      const speed = Math.random() * 4 + 2;
+    const sparkleCount = userClicked ? 18 : 14;
+    for (let i = 0; i < sparkleCount; i++) {
+      const angle = (Math.PI * 2 * i) / sparkleCount + Math.random() * 0.4;
+      const speed = Math.random() * 6 + 3;
       this.sparkles.push({
         x: b.x,
         y: b.y,
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed,
-        size: Math.random() * 4 + 2,
+        size: Math.random() * 4.5 + 2,
         alpha: 1,
         color: b.hue
       });
     }
 
     if (typeof sounds !== "undefined" && sounds.playBubblePop) {
-      sounds.playBubblePop(userClicked ? 1.2 : 1.0);
+      sounds.playBubblePop(userClicked ? 1.25 : 1.0);
     }
   }
 
   startMagicalBurst(callback) {
     this.isPopping = true;
     this.isCascading = false;
+    this.targetBlanketAlpha = 0;
+
+    // Start expanding chromatic shockwave ring
+    this.shockwaveActive = true;
+    this.shockwaveRadius = 15;
+    this.shockwaveMaxRadius = Math.hypot(this.width, this.height) * 0.9;
+    this.shockwaveAlpha = 1.0;
+
+    // Additional screen-wide celestial star sparkles
+    for (let i = 0; i < 70; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 7 + 2;
+      this.sparkles.push({
+        x: Math.random() * this.width,
+        y: Math.random() * this.height,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        size: Math.random() * 5 + 2.5,
+        alpha: 1,
+        color: [185, 275, 45, 315][Math.floor(Math.random() * 4)]
+      });
+    }
 
     const unpopped = this.bubbles.filter((b) => !b.popped);
     const centerX = this.width / 2;
     const centerY = this.height / 2;
     unpopped.sort((a, b) => Math.hypot(a.x - centerX, a.y - centerY) - Math.hypot(b.x - centerX, b.y - centerY));
 
+    // Pop all bubbles in a fast 220ms radial shockwave ripple
     unpopped.forEach((b, idx) => {
       setTimeout(() => {
         this.popBubble(b, false);
-      }, idx * 6);
+      }, (idx / Math.max(unpopped.length, 1)) * 220);
     });
 
     setTimeout(() => {
       if (typeof callback === "function") callback();
-    }, Math.min(unpopped.length * 6 + 150, 600));
+    }, 420);
   }
 
   animate() {
     if (!this.ctx) return;
     this.ctx.clearRect(0, 0, this.width, this.height);
 
+    // 1. Shimmering Iridescent Liquid Glass Foam Blanket
+    if (this.targetBlanketAlpha > this.blanketAlpha) {
+      this.blanketAlpha += (this.targetBlanketAlpha - this.blanketAlpha) * 0.12;
+    } else if (this.targetBlanketAlpha < this.blanketAlpha) {
+      this.blanketAlpha += (this.targetBlanketAlpha - this.blanketAlpha) * 0.22;
+      if (this.blanketAlpha < 0.01) this.blanketAlpha = 0;
+    }
+
+    if (this.blanketAlpha > 0.01) {
+      const g = this.ctx.createRadialGradient(
+        this.originX, this.originY, 30,
+        this.width * 0.5, this.height * 0.5, Math.hypot(this.width, this.height) * 0.75
+      );
+      g.addColorStop(0, `hsla(185, 95%, 72%, ${this.blanketAlpha * 0.88})`);
+      g.addColorStop(0.35, `hsla(270, 90%, 68%, ${this.blanketAlpha * 0.85})`);
+      g.addColorStop(0.7, `hsla(315, 95%, 70%, ${this.blanketAlpha * 0.82})`);
+      g.addColorStop(1, `hsla(210, 100%, 65%, ${this.blanketAlpha * 0.90})`);
+      this.ctx.fillStyle = g;
+      this.ctx.fillRect(0, 0, this.width, this.height);
+    }
+
+    // 2. Liquid Glass Bubbles
     for (let i = this.bubbles.length - 1; i >= 0; i--) {
       const b = this.bubbles[i];
       if (b.popped) {
@@ -5611,26 +5679,50 @@ class BubbleCascadeEngine {
         continue;
       }
 
+      if (b.delay && b.delay > 0) {
+        b.delay -= 16;
+        continue;
+      }
+
       if (b.radius < b.targetRadius) {
-        b.radius += (b.targetRadius - b.radius) * 0.12;
+        b.radius += (b.targetRadius - b.radius) * b.growSpeed;
       }
 
       b.wobble += b.wobbleSpeed;
-      b.x += b.vx + Math.sin(b.wobble) * 0.8;
-      b.y += b.vy;
+      b.x += b.vx + Math.sin(b.wobble) * 0.6;
+      b.y += b.vy + Math.cos(b.wobble * 0.8) * 0.6;
       b.vy *= 0.985;
       b.vx *= 0.985;
-      if (b.vy > -1.2) b.vy -= 0.05;
 
       this.drawLiquidGlassBubble(b);
     }
 
+    // 3. Chromatic Shockwave Ring
+    if (this.shockwaveActive) {
+      this.shockwaveRadius += (this.shockwaveMaxRadius - this.shockwaveRadius) * 0.16 + 14;
+      this.shockwaveAlpha -= 0.038;
+      if (this.shockwaveAlpha <= 0 || this.shockwaveRadius >= this.shockwaveMaxRadius) {
+        this.shockwaveActive = false;
+      } else {
+        this.ctx.save();
+        this.ctx.lineWidth = Math.max(16 * this.shockwaveAlpha, 2);
+        this.ctx.strokeStyle = `hsla(185, 100%, 85%, ${this.shockwaveAlpha * 0.85})`;
+        this.ctx.shadowColor = `hsla(280, 100%, 75%, ${this.shockwaveAlpha})`;
+        this.ctx.shadowBlur = 25;
+        this.ctx.beginPath();
+        this.ctx.arc(this.width / 2, this.height / 2, this.shockwaveRadius, 0, Math.PI * 2);
+        this.ctx.stroke();
+        this.ctx.restore();
+      }
+    }
+
+    // 4. Sparkles & Star Particles
     for (let i = this.sparkles.length - 1; i >= 0; i--) {
       const s = this.sparkles[i];
       s.x += s.vx;
       s.y += s.vy;
-      s.vy += 0.08;
-      s.alpha -= 0.035;
+      s.vy += 0.05;
+      s.alpha -= 0.032;
 
       if (s.alpha <= 0) {
         this.sparkles.splice(i, 1);
@@ -5639,16 +5731,16 @@ class BubbleCascadeEngine {
 
       this.ctx.save();
       this.ctx.globalAlpha = s.alpha;
-      this.ctx.fillStyle = `hsl(${s.color}, 90%, 75%)`;
+      this.ctx.fillStyle = `hsl(${s.color}, 95%, 78%)`;
       this.ctx.shadowColor = `hsl(${s.color}, 100%, 70%)`;
-      this.ctx.shadowBlur = 8;
+      this.ctx.shadowBlur = 10;
       this.ctx.beginPath();
       this.ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
       this.ctx.fill();
       this.ctx.restore();
     }
 
-    if (this.bubbles.length > 0 || this.sparkles.length > 0 || this.isCascading) {
+    if (this.bubbles.length > 0 || this.sparkles.length > 0 || this.isCascading || this.blanketAlpha > 0.01 || this.shockwaveActive) {
       this.animId = requestAnimationFrame(() => this.animate());
     } else {
       this.animId = null;
@@ -5667,33 +5759,33 @@ class BubbleCascadeEngine {
     const r = Math.max(b.radius, 2);
 
     const bodyGrad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, r * 0.1, 0, 0, r);
-    bodyGrad.addColorStop(0, `hsla(${b.hue}, 90%, 85%, ${b.alpha * 0.35})`);
-    bodyGrad.addColorStop(0.6, `hsla(${(b.hue + 40) % 360}, 85%, 65%, ${b.alpha * 0.18})`);
-    bodyGrad.addColorStop(0.9, `hsla(${(b.hue + 80) % 360}, 95%, 70%, ${b.alpha * 0.5})`);
-    bodyGrad.addColorStop(1, `hsla(${b.hue}, 100%, 80%, ${b.alpha * 0.85})`);
+    bodyGrad.addColorStop(0, `hsla(${b.hue}, 90%, 85%, ${b.alpha * 0.45})`);
+    bodyGrad.addColorStop(0.6, `hsla(${(b.hue + 40) % 360}, 85%, 65%, ${b.alpha * 0.28})`);
+    bodyGrad.addColorStop(0.9, `hsla(${(b.hue + 80) % 360}, 95%, 70%, ${b.alpha * 0.6})`);
+    bodyGrad.addColorStop(1, `hsla(${b.hue}, 100%, 80%, ${b.alpha * 0.9})`);
 
     ctx.fillStyle = bodyGrad;
     ctx.beginPath();
     ctx.arc(0, 0, r, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.strokeStyle = `hsla(${b.hue}, 95%, 85%, ${b.alpha * 0.75})`;
-    ctx.lineWidth = Math.max(r * 0.04, 1.2);
-    ctx.shadowColor = `hsla(${b.hue}, 100%, 70%, 0.6)`;
+    ctx.strokeStyle = `hsla(${b.hue}, 95%, 85%, ${b.alpha * 0.85})`;
+    ctx.lineWidth = Math.max(r * 0.045, 1.5);
+    ctx.shadowColor = `hsla(${b.hue}, 100%, 70%, 0.7)`;
     ctx.shadowBlur = r * 0.25;
     ctx.stroke();
 
-    ctx.fillStyle = `rgba(255, 255, 255, ${b.alpha * 0.85})`;
+    ctx.fillStyle = `rgba(255, 255, 255, ${b.alpha * 0.88})`;
     ctx.beginPath();
     ctx.ellipse(-r * 0.4, -r * 0.4, r * 0.28, r * 0.12, -Math.PI / 4, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.fillStyle = `rgba(255, 255, 255, ${b.alpha * 0.65})`;
+    ctx.fillStyle = `rgba(255, 255, 255, ${b.alpha * 0.7})`;
     ctx.beginPath();
     ctx.arc(-r * 0.22, -r * 0.58, r * 0.06, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.fillStyle = `hsla(${(b.hue + 60) % 360}, 90%, 80%, ${b.alpha * 0.45})`;
+    ctx.fillStyle = `hsla(${(b.hue + 60) % 360}, 90%, 80%, ${b.alpha * 0.5})`;
     ctx.beginPath();
     ctx.ellipse(r * 0.38, r * 0.38, r * 0.22, r * 0.08, -Math.PI / 4, 0, Math.PI * 2);
     ctx.fill();
@@ -5712,6 +5804,9 @@ class BubbleCascadeEngine {
     }
     this.bubbles = [];
     this.sparkles = [];
+    this.blanketAlpha = 0;
+    this.targetBlanketAlpha = 0;
+    this.shockwaveActive = false;
   }
 }
 
@@ -6500,23 +6595,21 @@ class ScienceIoApp {
       finished = true;
       if (bar) bar.style.width = "100%";
       if (pct) pct.textContent = "100%";
-      if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> ✨ Magical Reaction Complete! Welcome to skience.io!`;
+      if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> ✨ Magical Reaction Complete! Welcome to science.io!`;
 
       sounds.playMagicalReveal();
 
       this.bubbleEngine.startMagicalBurst(() => {
-        setTimeout(() => {
-          if (loader) {
-            loader.classList.add("fade-out");
-            setTimeout(() => {
-              loader.style.display = "none";
-              this.bubbleEngine.destroy();
-              this.playCursiveHandwriting();
-            }, 750);
-          } else {
+        if (loader) {
+          loader.classList.add("fade-out");
+          setTimeout(() => {
+            loader.style.display = "none";
+            this.bubbleEngine.destroy();
             this.playCursiveHandwriting();
-          }
-        }, 200);
+          }, 750);
+        } else {
+          this.playCursiveHandwriting();
+        }
       });
     };
 
@@ -6527,9 +6620,9 @@ class ScienceIoApp {
     }
 
     // TIMELINE:
-    // 0.0s - 2.0s: Person conducting science experiment, pouring glowing liquid into flask
-    // 2.0s - 3.2s: Massive bubble cascade eruption covering the entire screen
-    // 3.2s: Magical reveal chime & bubbles pop, letting you into notebook
+    // 0.0s - 2.0s: Person conducting science experiment in flask with fizzing reactions
+    // 2.0s - 3.5s: Massive liquid glass bubble eruption blanketing 100% of the entire screen
+    // 3.5s: Celestial chime, bubbles magically pop into sparkling starbursts, letting student in
     const startTime = performance.now();
 
     const experimentInterval = setInterval(() => {
@@ -6557,32 +6650,39 @@ class ScienceIoApp {
         }
       }
 
-      // Phase 2: At 2.0s - Bubble cascade covers the entire screen
+      // Phase 2: At 2.0s - Bubble cascade erupts across 100% of the screen
       if (elapsed >= 2.0 && !cascadeStarted) {
         cascadeStarted = true;
         sounds.playBubbleFizz();
+        const loaderContent = document.querySelector(".loader-content");
+        if (loaderContent) {
+          loaderContent.style.transition = "opacity 0.4s ease";
+          loaderContent.style.opacity = "0";
+        }
         this.bubbleEngine.startCascade();
         if (hintPill) hintPill.style.display = "inline-flex";
-        if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> 🫧 BUBBLE CASCADE OVERFLOW! Covering screen... ✨`;
+        if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> 🫧 BUBBLE CASCADE OVERFLOW! Covering entire screen... ✨`;
       }
 
-      if (elapsed >= 2.0 && elapsed < 3.2) {
-        const p = 50 + Math.min(((elapsed - 2.0) / 1.2) * 45, 45);
+      if (elapsed >= 2.0 && elapsed < 3.5) {
+        const p = 50 + Math.min(((elapsed - 2.0) / 1.5) * 50, 50);
         if (bar) bar.style.width = `${p.toFixed(0)}%`;
         if (pct) pct.textContent = `${p.toFixed(0)}%`;
       }
 
-      // Phase 3: At 3.2s - Magically lets you in
-      if (elapsed >= 3.2) {
+      // Phase 3: At 3.5s - Magically pops and lets you into notebook
+      if (elapsed >= 3.5) {
         clearInterval(experimentInterval);
         completeLoader();
       }
-    }, 60);
+    }, 50);
   }
 
   replayLoader() {
     const loader = document.getElementById("loader-screen");
     if (!loader) return;
+    const loaderContent = document.querySelector(".loader-content");
+    if (loaderContent) loaderContent.style.opacity = "1";
     loader.style.display = "";
     loader.classList.remove("fade-out");
     this.setupLoadingScreen();
