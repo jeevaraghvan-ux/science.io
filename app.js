@@ -2627,6 +2627,22 @@ class BackgroundMusicManager {
       this.updateUI();
     });
 
+    this.audio.addEventListener("error", (e) => {
+      console.warn("Audio element error, restoring default study anthem:", e);
+      if (this.audio.src && !this.audio.src.endsWith("background-music.mp3")) {
+        this.audio.src = "background-music.mp3";
+        this.currentTrack = {
+          name: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+          source: "default",
+          url: "background-music.mp3"
+        };
+        this.updateUI();
+        if (!this.isMuted && this.hasStarted) {
+          this.audio.play().catch(() => {});
+        }
+      }
+    });
+
     // Wire navbar sound toggle (placed next to printer) and music toggle
     const soundToggle = document.getElementById("btn-sound-toggle");
     const musicToggle = document.getElementById("btn-music-toggle");
@@ -2968,6 +2984,11 @@ class BackgroundMusicManager {
 
   handleRemoteMusicUpdate(config) {
     if (!config || !config.audioUrl) return;
+    // Transient browser-local blob URLs must never be accepted from remote cloud sync
+    if (typeof config.audioUrl === "string" && config.audioUrl.startsWith("blob:")) {
+      console.warn("Skipping remote transient blob URL in musicConfig:", config.audioUrl);
+      return;
+    }
     if (config.trackSource === "default" && this.currentTrack.source === "default") return;
 
     if (config.audioData && config.audioData.startsWith("data:audio")) {
@@ -2979,7 +3000,7 @@ class BackgroundMusicManager {
       if (this.audio && this.audio.src !== config.audioData) {
         const wasPlaying = !this.audio.paused;
         this.audio.src = config.audioData;
-        if (wasPlaying && !this.isMuted) this.audio.play();
+        if (wasPlaying && !this.isMuted) this.audio.play().catch(() => {});
       }
     } else if (config.audioUrl && config.audioUrl !== "custom_upload") {
       this.currentTrack = {
@@ -2990,22 +3011,29 @@ class BackgroundMusicManager {
       if (this.audio && !this.audio.src.endsWith(config.audioUrl)) {
         const wasPlaying = !this.audio.paused;
         this.audio.src = config.audioUrl;
-        if (wasPlaying && !this.isMuted) this.audio.play();
+        if (wasPlaying && !this.isMuted) this.audio.play().catch(() => {});
       }
     }
     this.updateUI();
   }
 
   getMusicConfig() {
+    let safeUrl = this.currentTrack.url;
+    if (!safeUrl || safeUrl.startsWith("blob:") || this.currentTrack.source === "default") {
+      safeUrl = "background-music.mp3";
+    }
     return {
-      trackName: this.currentTrack.name,
-      trackSource: this.currentTrack.source,
-      audioUrl: (this.currentTrack.source === "default") ? "background-music.mp3" : this.currentTrack.url,
+      trackName: this.currentTrack.name || "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+      trackSource: (safeUrl === "background-music.mp3") ? "default" : this.currentTrack.source,
+      audioUrl: safeUrl,
       updated_at: new Date().toISOString()
     };
   }
 
   toggle() {
+    if (!this.audio) {
+      this.audio = document.getElementById("bg-music-player");
+    }
     if (!this.audio) return;
     if (this.audio.paused) {
       this.play(true);
@@ -3015,9 +3043,20 @@ class BackgroundMusicManager {
   }
 
   async play(userInitiated = true) {
-    if (!this.audio) return;
+    if (!this.audio) {
+      this.audio = document.getElementById("bg-music-player") || new Audio("background-music.mp3");
+    }
     try {
       this.audio.volume = this.volume;
+      // If audio has no src or has an error, ensure background-music.mp3 is set
+      if (!this.audio.src || this.audio.error) {
+        this.audio.src = "background-music.mp3";
+        this.currentTrack = {
+          name: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+          source: "default",
+          url: "background-music.mp3"
+        };
+      }
       await this.audio.play();
       this.hasStarted = true;
       this.isMuted = false;
@@ -3029,6 +3068,30 @@ class BackgroundMusicManager {
       }
     } catch (err) {
       console.warn("Audio play notice:", err);
+      // Auto-fallback to default study anthem and retry
+      try {
+        this.audio.src = "background-music.mp3";
+        this.currentTrack = {
+          name: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+          source: "default",
+          url: "background-music.mp3"
+        };
+        this.audio.load();
+        await this.audio.play();
+        this.hasStarted = true;
+        this.isMuted = false;
+        sounds.enabled = true;
+        localStorage.setItem("scienceio_sound_muted", "false");
+        this.updateUI();
+        if (userInitiated) {
+          this.showToast();
+        }
+      } catch (retryErr) {
+        console.warn("Audio fallback retry notice:", retryErr);
+        // Ensure state is unmuted in UI so user can see it attempted
+        this.isMuted = false;
+        this.updateUI();
+      }
     }
   }
 
