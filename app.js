@@ -17,6 +17,15 @@
 // ================= CLOUD SYNC CONFIGURATION =================
 // 100% Free Forever • Zero Credit Drain • Cross-Device Live Sync
 const CLOUD_SYNC_URL = "https://scienceio-best.vercel.app/api/sync";
+const DEFAULT_FIREBASE_CONFIG = {
+  apiKey: "AIzaSyBuPx45kJLhoiAjP6SaJAxIuZ7dcD7seKE",
+  authDomain: "science-io.firebaseapp.com",
+  projectId: "science-io",
+  storageBucket: "science-io.firebasestorage.app",
+  messagingSenderId: "128776151203",
+  appId: "1:128776151203:web:189778b06ceb1f0ebd1f16",
+  measurementId: "G-WLYT5E4MFD"
+};
 const DEFAULT_SUPABASE_URL = "https://nidkkbsmptiyixvealum.supabase.co";
 const DEFAULT_SUPABASE_KEY = "sb_publishable_VIbgYVwvFU2bcPJNLWg4Qg_Be4paQ_6";
 
@@ -2326,6 +2335,741 @@ class SoundController {
 }
 
 const sounds = new SoundController();
+
+// ================= INDEXEDDB AUDIO STORAGE FOR CUSTOM ADMIN UPLOADS =================
+const AudioStorage = {
+  dbName: "science_bg_music_db",
+  storeName: "audio_tracks",
+  db: null,
+
+  async init() {
+    if (this.db) return this.db;
+    return new Promise((resolve) => {
+      try {
+        const req = indexedDB.open(this.dbName, 1);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(this.storeName)) {
+            db.createObjectStore(this.storeName, { keyPath: "id" });
+          }
+        };
+        req.onsuccess = (e) => {
+          this.db = e.target.result;
+          resolve(this.db);
+        };
+        req.onerror = () => resolve(null);
+      } catch (err) {
+        console.warn("IndexedDB init notice:", err);
+        resolve(null);
+      }
+    });
+  },
+
+  async saveTrack(id, fileBlob, meta) {
+    const db = await this.init();
+    if (!db) return false;
+    return new Promise((resolve) => {
+      try {
+        const tx = db.transaction(this.storeName, "readwrite");
+        const store = tx.objectStore(this.storeName);
+        store.put({
+          id,
+          blob: fileBlob,
+          name: meta.name || "Custom Track",
+          size: meta.size || 0,
+          type: meta.type || "audio/mpeg",
+          updatedAt: Date.now()
+        });
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => resolve(false);
+      } catch (e) {
+        resolve(false);
+      }
+    });
+  },
+
+  async getTrack(id) {
+    const db = await this.init();
+    if (!db) return null;
+    return new Promise((resolve) => {
+      try {
+        const tx = db.transaction(this.storeName, "readonly");
+        const store = tx.objectStore(this.storeName);
+        const req = store.get(id);
+        req.onsuccess = () => resolve(req.result || null);
+        req.onerror = () => resolve(null);
+      } catch (e) {
+        resolve(null);
+      }
+    });
+  },
+
+  async clearTrack(id) {
+    const db = await this.init();
+    if (!db) return false;
+    return new Promise((resolve) => {
+      try {
+        const tx = db.transaction(this.storeName, "readwrite");
+        const store = tx.objectStore(this.storeName);
+        store.delete(id);
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => resolve(false);
+      } catch (e) {
+        resolve(false);
+      }
+    });
+  }
+};
+
+// Preset library
+const MUSIC_PRESETS = {
+  anthem: {
+    id: "anthem",
+    name: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+    source: "default",
+    url: "background-music.mp3",
+    desc: "Official Study Anthem (High Energy)"
+  },
+  lofi: {
+    id: "lofi",
+    name: "Lofi Chill Study Beats",
+    source: "preset",
+    url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3",
+    desc: "Relaxed, smooth, continuous study rhythm"
+  },
+  cosmic: {
+    id: "cosmic",
+    name: "Cosmic Focus Space Drone",
+    source: "preset",
+    url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=space-chillout-14194.mp3",
+    desc: "Atmospheric cosmic focus for deep reading"
+  },
+  synthwave: {
+    id: "synthwave",
+    name: "Synthwave Cyber Momentum",
+    source: "preset",
+    url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=synthwave-80s-110045.mp3",
+    desc: "Upbeat synthwave drive for rapid test review"
+  }
+};
+
+// ================= BACKGROUND STUDY MUSIC MANAGER =================
+class BackgroundMusicManager {
+  constructor() {
+    this.audio = null;
+    this.currentTrack = {
+      name: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+      source: "default",
+      url: "background-music.mp3"
+    };
+    this.customBlobUrl = null;
+    this.selectedUploadFile = null;
+    this.volume = 0.40;
+    this.hasStarted = false;
+    this.isMuted = false;
+    this.appRef = null;
+    this.toastTimeout = null;
+  }
+
+  async init(appRef = null) {
+    this.appRef = appRef;
+    this.audio = document.getElementById("bg-music-player");
+    if (!this.audio) {
+      this.audio = new Audio("background-music.mp3");
+      this.audio.id = "bg-music-player";
+      this.audio.loop = true;
+      document.body.appendChild(this.audio);
+    }
+    this.audio.volume = this.volume;
+
+    // Check mute state from localStorage
+    const savedMute = localStorage.getItem("scienceio_sound_muted");
+    this.isMuted = (savedMute === "true");
+
+    // Check IndexedDB for custom track
+    try {
+      const storedTrack = await AudioStorage.getTrack("active_custom_track");
+      if (storedTrack && storedTrack.blob) {
+        this.customBlobUrl = URL.createObjectURL(storedTrack.blob);
+        this.currentTrack = {
+          name: storedTrack.name || "Custom Uploaded Track",
+          source: "custom",
+          url: this.customBlobUrl
+        };
+        this.audio.src = this.customBlobUrl;
+      }
+    } catch (e) {
+      console.warn("AudioStorage fetch notice:", e);
+    }
+
+    this.bindEvents();
+    this.bindAdminVaultUI();
+    this.updateUI();
+
+    // Auto-start on first user interaction if not explicitly muted
+    if (!this.isMuted) {
+      const startOnInteraction = () => {
+        if (!this.hasStarted && !this.isMuted) {
+          this.play(false);
+        }
+        cleanupListeners();
+      };
+      const cleanupListeners = () => {
+        document.removeEventListener("click", startOnInteraction);
+        document.removeEventListener("keydown", startOnInteraction);
+        document.removeEventListener("touchstart", startOnInteraction);
+        document.removeEventListener("scroll", startOnInteraction);
+      };
+      document.addEventListener("click", startOnInteraction, { once: true });
+      document.addEventListener("keydown", startOnInteraction, { once: true });
+      document.addEventListener("touchstart", startOnInteraction, { once: true });
+      document.addEventListener("scroll", startOnInteraction, { once: true });
+
+      // Attempt immediate background start
+      this.audio.play().then(() => {
+        this.hasStarted = true;
+        this.updateUI();
+        this.showToast();
+      }).catch(() => {
+        // Handled by first interaction listener above
+      });
+    } else {
+      sounds.enabled = false;
+      this.updateNavbarIcons(false);
+    }
+  }
+
+  bindEvents() {
+    if (!this.audio) return;
+
+    this.audio.addEventListener("timeupdate", () => {
+      this.updateScrubber();
+    });
+
+    this.audio.addEventListener("play", () => {
+      this.hasStarted = true;
+      this.updateUI();
+    });
+
+    this.audio.addEventListener("pause", () => {
+      this.updateUI();
+    });
+
+    // Wire navbar sound toggle (placed next to printer) and music toggle
+    const soundToggle = document.getElementById("btn-sound-toggle");
+    const musicToggle = document.getElementById("btn-music-toggle");
+    const toastToggle = document.getElementById("toast-music-toggle-btn");
+    const toastCard = document.getElementById("music-floating-toast");
+
+    const onToggleClick = (e) => {
+      if (e) e.stopPropagation();
+      this.toggle();
+    };
+
+    soundToggle?.addEventListener("click", onToggleClick);
+    musicToggle?.addEventListener("click", onToggleClick);
+    toastToggle?.addEventListener("click", onToggleClick);
+    toastCard?.addEventListener("click", onToggleClick);
+  }
+
+  bindAdminVaultUI() {
+    // Open music studio button in command panel
+    document.getElementById("cmd-btn-open-music-studio")?.addEventListener("click", () => {
+      if (this.appRef && typeof this.appRef.switchTab === "function") {
+        this.appRef.switchTab("music");
+      }
+    });
+
+    // Play/Pause button in Admin Vault
+    document.getElementById("btn-admin-music-playpause")?.addEventListener("click", () => {
+      this.toggle();
+    });
+
+    // Restart button
+    document.getElementById("btn-admin-music-restart")?.addEventListener("click", () => {
+      if (this.audio) {
+        this.audio.currentTime = 0;
+        this.play(true);
+      }
+    });
+
+    // Volume slider
+    const volSlider = document.getElementById("admin-music-volume-slider");
+    const volVal = document.getElementById("admin-music-volume-val");
+    if (volSlider) {
+      volSlider.addEventListener("input", (e) => {
+        const val = parseInt(e.target.value, 10);
+        this.volume = val / 100;
+        if (this.audio) this.audio.volume = this.volume;
+        if (volVal) volVal.textContent = `${val}%`;
+      });
+    }
+
+    // Scrubber
+    const scrubber = document.getElementById("admin-music-scrubber");
+    if (scrubber) {
+      scrubber.addEventListener("input", (e) => {
+        if (this.audio && this.audio.duration) {
+          const seekPercent = parseFloat(e.target.value);
+          this.audio.currentTime = (seekPercent / 100) * this.audio.duration;
+        }
+      });
+    }
+
+    // File Dropzone & Browse button
+    const fileInput = document.getElementById("admin-music-file-input");
+    const browseBtn = document.getElementById("btn-browse-music-file");
+    const dropzone = document.getElementById("admin-music-dropzone");
+    const saveUploadBtn = document.getElementById("btn-save-uploaded-music");
+    const resetDefaultBtn = document.getElementById("btn-reset-default-music");
+
+    browseBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      fileInput?.click();
+    });
+
+    dropzone?.addEventListener("click", () => {
+      fileInput?.click();
+    });
+
+    dropzone?.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropzone.classList.add("dragover");
+    });
+
+    dropzone?.addEventListener("dragleave", () => {
+      dropzone.classList.remove("dragover");
+    });
+
+    dropzone?.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropzone.classList.remove("dragover");
+      if (e.dataTransfer && e.dataTransfer.files.length > 0) {
+        this.handleFileSelected(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput?.addEventListener("change", (e) => {
+      if (e.target.files && e.target.files.length > 0) {
+        this.handleFileSelected(e.target.files[0]);
+      }
+    });
+
+    // Save uploaded music button
+    saveUploadBtn?.addEventListener("click", async () => {
+      if (!this.selectedUploadFile) return;
+      await this.applyUploadedFile(this.selectedUploadFile);
+    });
+
+    // Reset default button
+    resetDefaultBtn?.addEventListener("click", async () => {
+      await this.resetToDefault();
+    });
+
+    // Presets click listeners
+    document.querySelectorAll(".music-preset-card").forEach((card) => {
+      const presetKey = card.dataset.preset;
+      const selectBtn = card.querySelector(".btn-preset-select");
+      const handleSelect = async () => {
+        if (MUSIC_PRESETS[presetKey]) {
+          await this.selectPreset(presetKey);
+        }
+      };
+      card.addEventListener("click", handleSelect);
+      selectBtn?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        handleSelect();
+      });
+    });
+
+    // Direct URL Apply button
+    document.getElementById("btn-apply-music-url")?.addEventListener("click", async () => {
+      const input = document.getElementById("admin-music-direct-url");
+      const url = (input?.value || "").trim();
+      if (!url) {
+        alert("Please enter a valid audio URL (e.g., https://example.com/study-beats.mp3)");
+        return;
+      }
+      await this.applyDirectUrl(url);
+    });
+  }
+
+  handleFileSelected(file) {
+    if (!file || !file.type.startsWith("audio/")) {
+      alert("Please select a valid audio file (MP3, WAV, OGG, M4A, etc.)");
+      return;
+    }
+    this.selectedUploadFile = file;
+    const filePill = document.getElementById("selected-audio-file-info");
+    const nameEl = document.getElementById("selected-audio-name");
+    const sizeEl = document.getElementById("selected-audio-size");
+    const saveBtn = document.getElementById("btn-save-uploaded-music");
+
+    if (nameEl) nameEl.textContent = file.name;
+    if (sizeEl) sizeEl.textContent = `(${(file.size / (1024 * 1024)).toFixed(2)} MB)`;
+    if (filePill) filePill.classList.remove("hidden");
+    if (saveBtn) saveBtn.disabled = false;
+  }
+
+  async applyUploadedFile(file) {
+    const saveBtn = document.getElementById("btn-save-uploaded-music");
+    if (saveBtn) {
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = `<span>⏳ Storing & Syncing Audio...</span>`;
+    }
+
+    try {
+      // 1. Save to local IndexedDB
+      await AudioStorage.saveTrack("active_custom_track", file, {
+        name: file.name,
+        size: file.size,
+        type: file.type
+      });
+
+      // 2. Revoke previous blob if any
+      if (this.customBlobUrl) {
+        URL.revokeObjectURL(this.customBlobUrl);
+      }
+
+      this.customBlobUrl = URL.createObjectURL(file);
+      this.currentTrack = {
+        name: file.name,
+        source: "custom_upload",
+        url: this.customBlobUrl
+      };
+
+      if (this.audio) {
+        this.audio.src = this.customBlobUrl;
+        this.audio.currentTime = 0;
+        await this.play(true);
+      }
+
+      // 3. Sync metadata to Firestore
+      const musicConfig = {
+        trackName: file.name,
+        trackSource: "custom_upload",
+        audioUrl: "custom_upload",
+        fileSize: file.size,
+        updated_at: new Date().toISOString()
+      };
+
+      // If file is <= 700KB, base64 sync directly into Firestore
+      if (file.size <= 700 * 1024) {
+        try {
+          const base64 = await this.fileToBase64(file);
+          musicConfig.audioData = base64;
+        } catch (e) {}
+      }
+
+      await this.syncToFirestore(musicConfig);
+
+      sounds.playSuccess();
+      alert(`🎉 Background music successfully set to "${file.name}"! It is now playing in the background for all study sessions.`);
+      this.updateUI();
+    } catch (err) {
+      alert(`⚠️ Failed to set background audio: ${err.message}`);
+    } finally {
+      if (saveBtn) {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = `<span>🚀 Apply & Set as Website Background Music</span>`;
+      }
+    }
+  }
+
+  fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (e) => reject(e);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async selectPreset(presetKey) {
+    const preset = MUSIC_PRESETS[presetKey];
+    if (!preset) return;
+
+    if (preset.isDefault || presetKey === "anthem") {
+      await this.resetToDefault();
+      return;
+    }
+
+    this.currentTrack = {
+      name: preset.name,
+      source: "preset",
+      url: preset.url
+    };
+
+    if (this.audio) {
+      this.audio.src = preset.url;
+      this.audio.currentTime = 0;
+      await this.play(true);
+    }
+
+    await this.syncToFirestore({
+      trackName: preset.name,
+      trackSource: "preset",
+      presetKey: presetKey,
+      audioUrl: preset.url,
+      updated_at: new Date().toISOString()
+    });
+
+    sounds.playSuccess();
+    this.updateUI();
+  }
+
+  async applyDirectUrl(url) {
+    let cleanUrl = url.trim();
+    let trackTitle = cleanUrl.split("/").pop().split("?")[0] || "Custom Cloud Audio Stream";
+
+    this.currentTrack = {
+      name: trackTitle,
+      source: "direct_url",
+      url: cleanUrl
+    };
+
+    if (this.audio) {
+      this.audio.src = cleanUrl;
+      this.audio.currentTime = 0;
+      await this.play(true);
+    }
+
+    await this.syncToFirestore({
+      trackName: trackTitle,
+      trackSource: "direct_url",
+      audioUrl: cleanUrl,
+      updated_at: new Date().toISOString()
+    });
+
+    sounds.playSuccess();
+    alert(`🎉 Cloud audio URL applied! Now playing "${trackTitle}" for all visitors.`);
+    this.updateUI();
+  }
+
+  async resetToDefault() {
+    await AudioStorage.clearTrack("active_custom_track");
+    if (this.customBlobUrl) {
+      URL.revokeObjectURL(this.customBlobUrl);
+      this.customBlobUrl = null;
+    }
+
+    this.currentTrack = {
+      name: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+      source: "default",
+      url: "background-music.mp3"
+    };
+
+    if (this.audio) {
+      this.audio.src = "background-music.mp3";
+      this.audio.currentTime = 0;
+      await this.play(true);
+    }
+
+    await this.syncToFirestore({
+      trackName: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+      trackSource: "default",
+      audioUrl: "background-music.mp3",
+      updated_at: new Date().toISOString()
+    });
+
+    const filePill = document.getElementById("selected-audio-file-info");
+    const saveBtn = document.getElementById("btn-save-uploaded-music");
+    if (filePill) filePill.classList.add("hidden");
+    if (saveBtn) saveBtn.disabled = true;
+
+    sounds.playSuccess();
+    this.updateUI();
+  }
+
+  async syncToFirestore(config) {
+    if (this.appRef && this.appRef.firestore) {
+      try {
+        await this.appRef.firestore.collection("science_notes").doc("curriculum").set({
+          musicConfig: config,
+          updated_at: new Date().toISOString()
+        }, { merge: true });
+      } catch (err) {
+        console.warn("Firestore music sync notice:", err);
+      }
+    }
+  }
+
+  handleRemoteMusicUpdate(config) {
+    if (!config || !config.audioUrl) return;
+    if (config.trackSource === "default" && this.currentTrack.source === "default") return;
+
+    if (config.audioData && config.audioData.startsWith("data:audio")) {
+      this.currentTrack = {
+        name: config.trackName || "Custom Track",
+        source: "remote_sync",
+        url: config.audioData
+      };
+      if (this.audio && this.audio.src !== config.audioData) {
+        const wasPlaying = !this.audio.paused;
+        this.audio.src = config.audioData;
+        if (wasPlaying && !this.isMuted) this.audio.play();
+      }
+    } else if (config.audioUrl && config.audioUrl !== "custom_upload") {
+      this.currentTrack = {
+        name: config.trackName || "Background Music",
+        source: config.trackSource || "remote_sync",
+        url: config.audioUrl
+      };
+      if (this.audio && !this.audio.src.endsWith(config.audioUrl)) {
+        const wasPlaying = !this.audio.paused;
+        this.audio.src = config.audioUrl;
+        if (wasPlaying && !this.isMuted) this.audio.play();
+      }
+    }
+    this.updateUI();
+  }
+
+  getMusicConfig() {
+    return {
+      trackName: this.currentTrack.name,
+      trackSource: this.currentTrack.source,
+      audioUrl: (this.currentTrack.source === "default") ? "background-music.mp3" : this.currentTrack.url,
+      updated_at: new Date().toISOString()
+    };
+  }
+
+  toggle() {
+    if (!this.audio) return;
+    if (this.audio.paused) {
+      this.play(true);
+    } else {
+      this.pause();
+    }
+  }
+
+  async play(userInitiated = true) {
+    if (!this.audio) return;
+    try {
+      this.audio.volume = this.volume;
+      await this.audio.play();
+      this.hasStarted = true;
+      this.isMuted = false;
+      sounds.enabled = true;
+      localStorage.setItem("scienceio_sound_muted", "false");
+      this.updateUI();
+      if (userInitiated) {
+        this.showToast();
+      }
+    } catch (err) {
+      console.warn("Audio play notice:", err);
+    }
+  }
+
+  pause() {
+    if (!this.audio) return;
+    this.audio.pause();
+    this.isMuted = true;
+    sounds.enabled = false;
+    localStorage.setItem("scienceio_sound_muted", "true");
+    this.updateUI();
+  }
+
+  updateNavbarIcons(isPlaying) {
+    const soundOn = document.getElementById("sound-icon-on");
+    const soundOff = document.getElementById("sound-icon-off");
+    const soundToggle = document.getElementById("btn-sound-toggle");
+    const musicToggle = document.getElementById("btn-music-toggle");
+
+    if (soundOn && soundOff) {
+      soundOn.classList.toggle("hidden", !isPlaying);
+      soundOff.classList.toggle("hidden", isPlaying);
+    }
+
+    if (soundToggle) {
+      soundToggle.classList.toggle("music-playing", isPlaying);
+      soundToggle.title = isPlaying 
+        ? "Background Music Playing (Click to Stop/Mute)" 
+        : "Sound Muted (Click to Play Background Music)";
+    }
+
+    if (musicToggle) {
+      musicToggle.classList.toggle("music-playing", isPlaying);
+    }
+  }
+
+  updateUI() {
+    const isPlaying = this.audio && !this.audio.paused;
+    this.updateNavbarIcons(isPlaying);
+
+    // Update Waveform bars
+    const waveform = document.getElementById("music-waveform-bars");
+    if (waveform) {
+      waveform.classList.toggle("paused", !isPlaying);
+    }
+
+    // Update Admin Track Info
+    const titleEl = document.getElementById("admin-music-track-title");
+    if (titleEl) titleEl.textContent = this.currentTrack.name;
+
+    const statusText = document.getElementById("admin-music-status-text");
+    const statusInd = document.getElementById("admin-music-status-indicator");
+    if (statusText) statusText.textContent = isPlaying ? "Playing" : "Paused";
+    if (statusInd) statusInd.classList.toggle("active", isPlaying);
+
+    const playPauseIcon = document.getElementById("admin-playpause-icon");
+    const playPauseText = document.getElementById("admin-playpause-text");
+    if (playPauseIcon) playPauseIcon.textContent = isPlaying ? "⏸️" : "▶️";
+    if (playPauseText) playPauseText.textContent = isPlaying ? "Pause Music" : "Play Music";
+
+    // Update Floating Toast
+    const toast = document.getElementById("music-floating-toast");
+    const toastTitle = document.getElementById("toast-music-title");
+    const toastIcon = document.getElementById("toast-icon");
+    if (toastTitle) toastTitle.textContent = this.currentTrack.name;
+    if (toastIcon) toastIcon.textContent = isPlaying ? "⏸️" : "▶️";
+    if (toast) toast.classList.toggle("paused", !isPlaying);
+
+    // Update active preset card
+    document.querySelectorAll(".music-preset-card").forEach((card) => {
+      const presetKey = card.dataset.preset;
+      const isCardActive = (presetKey === "anthem" && this.currentTrack.source === "default") ||
+                           (presetKey === "lofi" && this.currentTrack.name.includes("Lofi")) ||
+                           (presetKey === "cosmic" && this.currentTrack.name.includes("Cosmic")) ||
+                           (presetKey === "synthwave" && this.currentTrack.name.includes("Synthwave"));
+      card.classList.toggle("active", isCardActive);
+    });
+  }
+
+  updateScrubber() {
+    if (!this.audio) return;
+    const currTimeEl = document.getElementById("admin-music-curr-time");
+    const totalTimeEl = document.getElementById("admin-music-total-time");
+    const scrubber = document.getElementById("admin-music-scrubber");
+
+    const cur = this.audio.currentTime || 0;
+    const dur = this.audio.duration || 0;
+
+    if (currTimeEl) currTimeEl.textContent = this.formatTime(cur);
+    if (totalTimeEl && dur > 0) totalTimeEl.textContent = this.formatTime(dur);
+    if (scrubber && dur > 0) {
+      scrubber.value = ((cur / dur) * 100).toFixed(1);
+    }
+  }
+
+  formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+  }
+
+  showToast() {
+    const toast = document.getElementById("music-floating-toast");
+    if (!toast) return;
+    toast.classList.remove("hidden");
+    if (this.toastTimeout) clearTimeout(this.toastTimeout);
+    this.toastTimeout = setTimeout(() => {
+      toast.classList.add("hidden");
+    }, 6000);
+  }
+}
+
+const bgMusic = new BackgroundMusicManager();
+
 
 // ================= CONFETTI CELEBRATION ENGINE =================
 class ConfettiEngine {
@@ -4637,6 +5381,9 @@ class ScienceIoApp {
     const savedSupaKey = localStorage.getItem("scienceio_supabase_key");
     this.supabaseUrl = (savedSupaUrl && savedSupaUrl.trim()) ? savedSupaUrl.trim() : DEFAULT_SUPABASE_URL;
     this.supabaseKey = (savedSupaKey && savedSupaKey.trim()) ? savedSupaKey.trim() : DEFAULT_SUPABASE_KEY;
+    this.firebaseApp = null;
+    this.firestore = null;
+    this.firestoreUnsubscribe = null;
     this.supabase = null;
     this.supabaseChannel = null;
     this.activeSimAnimId = null;
@@ -4646,6 +5393,62 @@ class ScienceIoApp {
     this.calculator = new LiquidGlassCalculator(this);
 
     this.init();
+  }
+
+  initFirebase() {
+    let config = null;
+    const savedConfig = localStorage.getItem("scienceio_firebase_config");
+    if (savedConfig) {
+      try {
+        config = JSON.parse(savedConfig);
+      } catch (e) {}
+    }
+    if (!config && typeof DEFAULT_FIREBASE_CONFIG !== "undefined" && DEFAULT_FIREBASE_CONFIG.apiKey) {
+      config = DEFAULT_FIREBASE_CONFIG;
+    }
+    if (!config) return false;
+    try {
+      if (window.firebase && config && (config.apiKey || config.projectId)) {
+        if (!firebase.apps || !firebase.apps.length) {
+          this.firebaseApp = firebase.initializeApp(config);
+        } else {
+          this.firebaseApp = firebase.app();
+        }
+        this.firestore = firebase.firestore();
+        this.setupFirestoreRealtime();
+        return true;
+      }
+    } catch (err) {
+      console.warn("Firebase initialization notice:", err);
+    }
+    return false;
+  }
+
+  setupFirestoreRealtime() {
+    if (!this.firestore) return;
+    try {
+      if (typeof this.firestoreUnsubscribe === "function") {
+        this.firestoreUnsubscribe();
+      }
+      this.firestoreUnsubscribe = this.firestore
+        .collection("science_notes")
+        .doc("curriculum")
+        .onSnapshot((doc) => {
+          if (doc.exists) {
+            const data = doc.data();
+            if (data && Array.isArray(data.notes)) {
+              this.handleRemoteNotesUpdate(data.notes, "Firebase");
+            }
+            if (data && data.musicConfig) {
+              bgMusic.handleRemoteMusicUpdate(data.musicConfig);
+            }
+          }
+        }, (err) => {
+          console.warn("Firestore Realtime notice:", err);
+        });
+    } catch (e) {
+      console.warn("Firestore Realtime error:", e);
+    }
   }
 
   initSupabase() {
@@ -4665,7 +5468,7 @@ class ScienceIoApp {
     return false;
   }
 
-  handleRemoteNotesUpdate(incomingNotes) {
+  handleRemoteNotesUpdate(incomingNotes, source = "Database") {
     if (!Array.isArray(incomingNotes) || incomingNotes.length === 0) return;
     const incomingJson = JSON.stringify(incomingNotes);
     const currentJson = JSON.stringify(this.notes);
@@ -4681,8 +5484,8 @@ class ScienceIoApp {
       }
       const cloudDot = document.getElementById("cloud-status-dot");
       const cloudText = document.getElementById("cloud-status-text");
-      if (cloudDot) cloudDot.style.background = "#10b981";
-      if (cloudText) cloudText.textContent = "Supabase Live";
+      if (cloudDot) cloudDot.style.background = (source === "Firebase" ? "#f59e0b" : "#10b981");
+      if (cloudText) cloudText.textContent = `${source} Live`;
     }
   }
 
@@ -4696,12 +5499,12 @@ class ScienceIoApp {
         .channel('public:science_notes')
         .on('postgres_changes', { event: '*', schema: 'public', table: 'science_notes' }, (payload) => {
           if (payload.new && Array.isArray(payload.new.notes)) {
-            this.handleRemoteNotesUpdate(payload.new.notes);
+            this.handleRemoteNotesUpdate(payload.new.notes, "Supabase");
           }
         })
         .on('broadcast', { event: 'sync' }, (payload) => {
           if (payload.payload && Array.isArray(payload.payload.notes)) {
-            this.handleRemoteNotesUpdate(payload.payload.notes);
+            this.handleRemoteNotesUpdate(payload.payload.notes, "Supabase");
           }
         })
         .subscribe((status) => {
@@ -4716,7 +5519,8 @@ class ScienceIoApp {
     this.setupConfetti();
     this.setupLoadingScreen();
 
-    // 0. Initialize Supabase Client & Realtime WebSocket if credentials exist
+    // 0. Initialize Cloud Real-Time Clients (Firebase primary, Supabase fallback)
+    this.initFirebase();
     this.initSupabase();
 
     // 1. Load cached notes from localStorage FIRST so notes are ready before rendering UI
@@ -4804,8 +5608,26 @@ class ScienceIoApp {
 
     let loadedNotes = null;
 
-    // 0. Primary: Supabase Real-Time Client Fetch (100% Free Forever • Zero Node Server • Zero Token Drain)
-    if (this.supabase) {
+    // 0. Primary: Firebase Firestore Document Fetch
+    if (this.firestore) {
+      try {
+        const doc = await this.firestore.collection('science_notes').doc('curriculum').get();
+        if (doc.exists) {
+          const data = doc.data();
+          if (data && Array.isArray(data.notes) && data.notes.length > 0) {
+            loadedNotes = data.notes;
+          }
+          if (data && data.musicConfig) {
+            bgMusic.handleRemoteMusicUpdate(data.musicConfig);
+          }
+        }
+      } catch (err) {
+        console.warn("Firestore fetch notice:", err);
+      }
+    }
+
+    // 1. Fallback: Supabase Real-Time Client Fetch
+    if (!loadedNotes && this.supabase) {
       try {
         const { data, error } = await this.supabase
           .from('science_notes')
@@ -4918,8 +5740,24 @@ class ScienceIoApp {
     let publishedSuccessfully = false;
     let publishError = null;
 
-    // 0. Primary: Supabase Real-Time Client Upsert (100% Free Forever • Zero Node Server • Zero Token Drain)
-    if (this.supabase) {
+    // 0. Primary: Firebase Firestore Upsert
+    if (this.firestore) {
+      try {
+        await this.firestore.collection('science_notes').doc('curriculum').set({
+          id: 'curriculum',
+          notes: this.notes,
+          musicConfig: bgMusic.getMusicConfig(),
+          updated_at: new Date().toISOString()
+        }, { merge: true });
+        publishedSuccessfully = true;
+      } catch (err) {
+        publishError = err.message;
+        console.warn("Firestore publish notice:", err);
+      }
+    }
+
+    // 1. Fallback: Supabase Real-Time Client Upsert
+    if (!publishedSuccessfully && this.supabase) {
       try {
         const { error } = await this.supabase
           .from('science_notes')
@@ -5091,6 +5929,85 @@ class ScienceIoApp {
         sounds.playSuccess();
         alert(`Cloud Database ID updated to: ${this.cloudDbId}`);
         this.fetchCloudNotes();
+      }
+    });
+
+    // Firebase Configuration UI
+    const fbConfigInput = document.getElementById("firebase-config-input");
+    const fbBadge = document.getElementById("firebase-status-badge");
+    const savedFbConfig = localStorage.getItem("scienceio_firebase_config");
+
+    if (fbConfigInput) {
+      if (savedFbConfig) {
+        try {
+          fbConfigInput.value = JSON.stringify(JSON.parse(savedFbConfig), null, 2);
+        } catch (e) {
+          fbConfigInput.value = savedFbConfig;
+        }
+      } else if (typeof DEFAULT_FIREBASE_CONFIG !== "undefined") {
+        fbConfigInput.value = JSON.stringify(DEFAULT_FIREBASE_CONFIG, null, 2);
+      }
+    }
+    if (fbBadge) {
+      if (this.firestore) {
+        fbBadge.textContent = "Connected & Live";
+        fbBadge.style.background = "rgba(245, 158, 11, 0.25)";
+        fbBadge.style.color = "#fcd34d";
+      } else {
+        fbBadge.textContent = "Not Configured";
+        fbBadge.style.background = "rgba(255,255,255,0.1)";
+        fbBadge.style.color = "#aaa";
+      }
+    }
+
+    document.getElementById("btn-save-firebase-config")?.addEventListener("click", async () => {
+      const rawText = fbConfigInput ? fbConfigInput.value.trim() : "";
+      if (!rawText) {
+        alert("Please paste your Firebase configuration object or JSON.");
+        return;
+      }
+
+      let parsedConfig = null;
+      try {
+        parsedConfig = JSON.parse(rawText);
+      } catch (e) {
+        // Try extracting object if pasted as JS: const firebaseConfig = { ... };
+        try {
+          const match = rawText.match(/\{[\s\S]*\}/);
+          if (match) {
+            const sanitized = match[0]
+              .replace(/([{,]\s*)([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+              .replace(/'/g, '"')
+              .replace(/,\s*([}\]])/g, '$1');
+            parsedConfig = JSON.parse(sanitized);
+          }
+        } catch (err2) {
+          try {
+            parsedConfig = new Function(`return (${rawText.replace(/^const\s+[a-zA-Z0-9_]+\s*=\s*/, '').replace(/;*$/, '')})`)();
+          } catch (err3) {
+            console.warn("Failed to parse config:", err3);
+          }
+        }
+      }
+
+      if (!parsedConfig || typeof parsedConfig !== "object" || (!parsedConfig.apiKey && !parsedConfig.projectId)) {
+        alert("⚠️ Could not parse a valid Firebase configuration. Please ensure it contains 'apiKey' and 'projectId'.");
+        return;
+      }
+
+      localStorage.setItem("scienceio_firebase_config", JSON.stringify(parsedConfig));
+      const success = this.initFirebase();
+      if (success) {
+        if (fbBadge) {
+          fbBadge.textContent = "Connected & Live";
+          fbBadge.style.background = "rgba(245, 158, 11, 0.25)";
+          fbBadge.style.color = "#fcd34d";
+        }
+        sounds.playSuccess();
+        alert("🔥 Firebase successfully connected! Syncing current notes now...");
+        await this.publishAllNotes(true, "🎉 All notes synced to Firebase Firestore database in real-time!");
+      } else {
+        alert("⚠️ Failed to initialize Firebase. Please check your config parameters.");
       }
     });
 
@@ -9729,20 +10646,7 @@ class ScienceIoApp {
       });
     });
 
-    // Sound toggle
-    const soundToggle = document.getElementById("btn-sound-toggle");
-    const soundOn = document.getElementById("sound-icon-on");
-    const soundOff = document.getElementById("sound-icon-off");
-    if (soundToggle) {
-      soundToggle.addEventListener("click", () => {
-        sounds.enabled = !sounds.enabled;
-        if (soundOn && soundOff) {
-          soundOn.classList.toggle("hidden", !sounds.enabled);
-          soundOff.classList.toggle("hidden", sounds.enabled);
-        }
-        if (sounds.enabled) sounds.playClick();
-      });
-    }
+    // Sound & Music toggle next to printer icon is managed by bgMusic controller
 
     // Print All Science Notes from Top Nav (next to sound FX toggle)
     document.getElementById("btn-cheat-sheet")?.addEventListener("click", () => {
@@ -10465,6 +11369,8 @@ document.addEventListener("DOMContentLoaded", () => {
   window.app = new ScienceIoApp();
   window.scienceApp = window.app;
   window.chatbot = new Chatbot();
+  window.bgMusic = bgMusic;
+  bgMusic.init(window.app);
 
   // Science Keyboard
   const mk = document.createElement("div");

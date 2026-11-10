@@ -23,8 +23,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=54.0">
-  <link rel="stylesheet" href="ios27.css?v=54.0">
+  <link rel="stylesheet" href="styles.css?v=55.0">
+  <link rel="stylesheet" href="ios27.css?v=55.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
   <script>
@@ -42,11 +42,29 @@
       }
     }
   </script>
-  <!-- Supabase Official JavaScript Client (Free Realtime Database Sync) -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Firebase Official JavaScript Client (Realtime Cloud Firestore Sync) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <div id="mouse-spotlight"></div>
+
+  <!-- Background Music Player (Default: Nico & Vinz - Am I Wrong) -->
+  <audio id="bg-music-player" loop preload="auto" src="background-music.mp3"></audio>
+
+  <!-- Floating Study Music Toast / Indicator -->
+  <div id="music-floating-toast" class="music-floating-toast hidden" title="Click to toggle background music">
+    <div class="toast-equalizer-bars">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="toast-content">
+      <span class="toast-label">BACKGROUND STUDY MUSIC</span>
+      <span class="toast-title" id="toast-music-title">Nico &amp; Vinz - Am I Wrong</span>
+    </div>
+    <button type="button" class="toast-toggle-btn" id="toast-music-toggle-btn" title="Toggle Music Play/Pause">
+      <span id="toast-icon">⏸️</span>
+    </button>
+  </div>
   <!-- ================= HIGH-TECH SCIENCE LOADING SCREEN ================= -->
   <div id="loader-screen" class="loader-overlay">
     <div class="loader-bg-glow"></div>
@@ -164,7 +182,7 @@
             </svg>
           </button>
 
-          <button class="nav-icon-btn" id="btn-sound-toggle" title="Toggle Sound FX">
+          <button class="nav-icon-btn" id="btn-sound-toggle" title="Turn Sound &amp; Background Music On/Off (Next to Printer)">
             <svg class="icon-svg" id="sound-icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
               <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
@@ -176,7 +194,7 @@
             </svg>
           </button>
           
-          <button class="nav-icon-btn" id="btn-music-toggle" title="Toggle Lo-Fi Beats" style="color: var(--neon-purple);">
+          <button class="nav-icon-btn" id="btn-music-toggle" title="Background Study Music (Nico &amp; Vinz - Am I Wrong)" style="color: var(--neon-purple);">
             <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M9 18V5l12-2v13"></path>
               <circle cx="6" cy="18" r="3"></circle>
@@ -774,15 +792,15 @@
 
 
 
-      <div class="publish-db-id-row" style="flex-direction: column; align-items: stretch; gap: 8px; margin-top: 10px; background: rgba(16, 185, 129, 0.08); padding: 12px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.25);">
-        <div style="font-weight: bold; color: #6ee7b7; font-size: 0.85rem; display: flex; align-items: center; justify-content: space-between;">
-          <span>⚡ Supabase Real-Time Cloud Sync</span>
-          <span id="supabase-status-badge" style="font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.1); color: #aaa;">Not Configured</span>
+      <div class="publish-db-id-row" style="flex-direction: column; align-items: stretch; gap: 8px; margin-top: 10px; background: rgba(245, 158, 11, 0.08); padding: 12px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.25);">
+        <div style="font-weight: bold; color: #fbbf24; font-size: 0.85rem; display: flex; align-items: center; justify-content: space-between;">
+          <span>🔥 Firebase Real-Time Cloud Sync (Firestore)</span>
+          <span id="firebase-status-badge" style="font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.1); color: #aaa;">Not Configured</span>
         </div>
-        <input type="text" id="supabase-url-input" placeholder="Supabase URL (https://xyz.supabase.co)" style="font-size: 0.8rem; padding: 6px 10px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff;" />
-        <input type="password" id="supabase-key-input" placeholder="Supabase Anon Public Key (eyJ...)" style="font-size: 0.8rem; padding: 6px 10px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff;" />
-        <button class="btn-modal-action secondary" id="btn-save-supabase-config" style="padding: 6px 14px; font-size: 0.8rem; background: rgba(16, 185, 129, 0.3); border-color: rgba(16, 185, 129, 0.6); color: #fff; font-weight: bold;">
-          💾 Connect Supabase & Sync
+        <textarea id="firebase-config-input" rows="3" placeholder='Paste your Firebase config object or JSON here:
+{ "apiKey": "...", "projectId": "...", "appId": "..." }' style="font-size: 0.75rem; padding: 6px 10px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; resize: vertical; font-family: monospace;"></textarea>
+        <button class="btn-modal-action secondary" id="btn-save-firebase-config" style="padding: 6px 14px; font-size: 0.8rem; background: rgba(245, 158, 11, 0.3); border-color: rgba(245, 158, 11, 0.6); color: #fff; font-weight: bold;">
+          🔥 Connect Firebase & Sync
         </button>
       </div>
 
@@ -907,6 +925,9 @@
           </button>
           <button type="button" class="admin-tab-btn" data-tab="commands" id="admin-tab-commands">
             ⚡ Admin Web Controls
+          </button>
+          <button type="button" class="admin-tab-btn" data-tab="music" id="admin-tab-music">
+            🎵 Background Music Studio
           </button>
           <button type="button" class="admin-tab-btn" data-tab="manager" id="admin-tab-manager">
             📚 Database Manager
@@ -1057,6 +1078,13 @@
                 <button type="button" class="cmd-exec-btn" id="cmd-btn-confetti">Fire Confetti</button>
               </div>
 
+              <div class="admin-cmd-card" style="border-color: var(--neon-purple);">
+                <div class="cmd-icon-box">🎵</div>
+                <h4>Background Music Studio</h4>
+                <p>Upload your own music file, choose study vibes, or adjust global audio for all visitors.</p>
+                <button type="button" class="cmd-exec-btn" id="cmd-btn-open-music-studio" style="background: rgba(168, 85, 247, 0.35); border-color: rgba(168, 85, 247, 0.7); color: #fff;">Open Music Studio</button>
+              </div>
+
               <div class="admin-cmd-card">
                 <div class="cmd-icon-box">🔊</div>
                 <h4>Toggle Sound Effects</h4>
@@ -1143,6 +1171,163 @@
               </div>
             </div>
           </div>
+
+          <!-- PANEL 5: BACKGROUND MUSIC STUDIO -->
+          <div id="panel-admin-music" class="admin-panel hidden">
+            <div class="music-studio-container">
+              <!-- Active Playing Track Glass Card -->
+              <div class="music-active-track-card">
+                <div class="music-active-track-header">
+                  <div class="music-track-meta">
+                    <span class="music-badge" id="admin-music-badge">ACTIVE BACKGROUND MUSIC</span>
+                    <h3 id="admin-music-track-title">Nico &amp; Vinz - Am I Wrong [Official Lyric Video]</h3>
+                    <p id="admin-music-source-desc">Playing in background for all visitors during science study sessions</p>
+                  </div>
+                  <div class="music-status-indicator active" id="admin-music-status-indicator">
+                    <span class="status-pulse-dot"></span>
+                    <span id="admin-music-status-text">Playing</span>
+                  </div>
+                </div>
+
+                <!-- Animated Liquid Glass Waveform Visualizer -->
+                <div class="music-waveform-bars" id="music-waveform-bars">
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                  <span class="music-bar"></span>
+                </div>
+
+                <!-- Live Scrub Bar & Times -->
+                <div class="music-progress-wrapper">
+                  <span class="music-time" id="admin-music-curr-time">0:00</span>
+                  <input type="range" class="music-scrubber" id="admin-music-scrubber" min="0" max="100" value="0" />
+                  <span class="music-time" id="admin-music-total-time">4:07</span>
+                </div>
+
+                <!-- Studio Controls Bar -->
+                <div class="music-controls-row">
+                  <div class="music-playback-btns">
+                    <button type="button" class="btn-music-ctrl primary" id="btn-admin-music-playpause" title="Play or Pause">
+                      <span id="admin-playpause-icon">⏸️</span>
+                      <span id="admin-playpause-text">Pause Music</span>
+                    </button>
+                    <button type="button" class="btn-music-ctrl secondary" id="btn-admin-music-restart" title="Restart from Beginning">
+                      ⏮️ Restart Track
+                    </button>
+                  </div>
+
+                  <div class="music-volume-control">
+                    <span>🔊 Volume</span>
+                    <input type="range" id="admin-music-volume-slider" min="0" max="100" value="40" />
+                    <span id="admin-music-volume-val">40%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Upload Custom Audio Zone -->
+              <div class="music-upload-section">
+                <div class="music-section-heading">
+                  <h4>📤 Upload Custom Background Music</h4>
+                  <p>Upload your own MP3, WAV, OGG, or M4A file here. It will immediately play for anyone visiting the website, and can be stopped anytime by clicking the sound button next to the printer icon.</p>
+                </div>
+
+                <div class="music-dropzone" id="admin-music-dropzone">
+                  <input type="file" id="admin-music-file-input" accept="audio/*" class="hidden" />
+                  <div class="dropzone-content">
+                    <div class="dropzone-icon">🎵</div>
+                    <h5>Choose an audio file or drag &amp; drop here</h5>
+                    <p class="dropzone-hint">Supports MP3, WAV, OGG, M4A, AAC • Audio is stored and played in background for all students</p>
+                    <button type="button" class="btn-modal-action secondary" id="btn-browse-music-file" style="margin-top: 10px;">
+                      📁 Select Music File From Computer
+                    </button>
+                    <div id="selected-audio-file-info" class="selected-file-pill hidden">
+                      <span class="pill-icon">🎶</span>
+                      <span id="selected-audio-name">my-music.mp3</span>
+                      <span id="selected-audio-size" class="pill-size">(5.2 MB)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="music-upload-actions">
+                  <button type="button" class="btn-modal-action primary" id="btn-save-uploaded-music" disabled>
+                    <span>🚀 Apply &amp; Set as Website Background Music</span>
+                  </button>
+                  <button type="button" class="btn-modal-action secondary" id="btn-reset-default-music" title="Restore original Nico &amp; Vinz - Am I Wrong">
+                    <span>🔄 Reset to Default Anthem (Nico &amp; Vinz - Am I Wrong)</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Study Vibes Library & Cloud Audio Stream -->
+              <div class="music-presets-section">
+                <div class="music-section-heading">
+                  <h4>🎧 Curated Study Music Vibes &amp; Cloud Audio URL</h4>
+                  <p>Switch between study anthems or paste any direct streaming audio link.</p>
+                </div>
+
+                <div class="music-presets-grid">
+                  <div class="music-preset-card active" data-preset="anthem">
+                    <div class="preset-badge">Default Study Anthem</div>
+                    <div class="preset-icon">🌟</div>
+                    <div class="preset-info">
+                      <h5>Nico &amp; Vinz - Am I Wrong</h5>
+                      <span>Official Study Anthem (High Energy)</span>
+                    </div>
+                    <button type="button" class="btn-preset-select" data-track="anthem">Select Track</button>
+                  </div>
+
+                  <div class="music-preset-card" data-preset="lofi">
+                    <div class="preset-icon">☕</div>
+                    <div class="preset-info">
+                      <h5>Lofi Chill Study Beats</h5>
+                      <span>Relaxed, smooth, continuous study rhythm</span>
+                    </div>
+                    <button type="button" class="btn-preset-select" data-track="lofi">Select Track</button>
+                  </div>
+
+                  <div class="music-preset-card" data-preset="cosmic">
+                    <div class="preset-icon">🌌</div>
+                    <div class="preset-info">
+                      <h5>Cosmic Focus Space Drone</h5>
+                      <span>Atmospheric cosmic focus for deep reading</span>
+                    </div>
+                    <button type="button" class="btn-preset-select" data-track="cosmic">Select Track</button>
+                  </div>
+
+                  <div class="music-preset-card" data-preset="synthwave">
+                    <div class="preset-icon">⚡</div>
+                    <div class="preset-info">
+                      <h5>Synthwave Cyber Momentum</h5>
+                      <span>Upbeat synthwave drive for rapid test review</span>
+                    </div>
+                    <button type="button" class="btn-preset-select" data-track="synthwave">Select Track</button>
+                  </div>
+                </div>
+
+                <div class="music-url-direct-row">
+                  <label for="admin-music-direct-url">Direct Audio Stream / Cloud MP3 URL:</label>
+                  <div style="display: flex; gap: 8px; margin-top: 6px;">
+                    <input type="url" id="admin-music-direct-url" placeholder="https://cdn.example.com/audio/study-track.mp3" style="flex: 1; font-size: 0.85rem; padding: 8px 12px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff;" />
+                    <button type="button" class="btn-modal-action secondary" id="btn-apply-music-url" style="white-space: nowrap; font-size: 0.85rem; padding: 8px 16px;">
+                      Apply URL Globally
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1218,7 +1403,7 @@
     </button>
   </div>
 
-  <script src="published_notes.js?v=52.0"></script>
-  <script src="app.js?v=52.0"></script>
+  <script src="published_notes.js?v=55.0"></script>
+  <script src="app.js?v=55.0"></script>
 </body>
 </html>
