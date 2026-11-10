@@ -2332,6 +2332,78 @@ class SoundController {
       });
     } catch (e) {}
   }
+
+  /* Crisp, bubbly popping sound */
+  playBubblePop(freqMod = 1) {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = "sine";
+      const startFreq = (480 + Math.random() * 320) * freqMod;
+      const endFreq = (1100 + Math.random() * 500) * freqMod;
+      osc.frequency.setValueAtTime(startFreq, now);
+      osc.frequency.exponentialRampToValueAtTime(endFreq, now + 0.045);
+      gain.gain.setValueAtTime(0.09, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.045);
+    } catch (e) {}
+  }
+
+  /* Gentle bubbling reaction fizz */
+  playBubbleFizz() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      for (let i = 0; i < 3; i++) {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sine";
+        const t = now + i * 0.04 + Math.random() * 0.02;
+        osc.frequency.setValueAtTime(320 + Math.random() * 400, t);
+        osc.frequency.exponentialRampToValueAtTime(800 + Math.random() * 300, t + 0.035);
+        gain.gain.setValueAtTime(0.035, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.035);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.035);
+      }
+    } catch (e) {}
+  }
+
+  /* Celestial Magical Reveal Chime */
+  playMagicalReveal() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      // Celestial Pentatonic Chime: C5, E5, G5, B5, D6, G6
+      const chord = [523.25, 659.25, 783.99, 987.77, 1174.66, 1567.98];
+      chord.forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sine";
+        const noteTime = now + idx * 0.065;
+        osc.frequency.setValueAtTime(freq, noteTime);
+        gain.gain.setValueAtTime(0.075, noteTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, noteTime + 0.55);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(noteTime);
+        osc.stop(noteTime + 0.55);
+      });
+    } catch (e) {}
+  }
 }
 
 const sounds = new SoundController();
@@ -5354,6 +5426,295 @@ class ReadingEnhancementSuite {
   }
 }
 
+// ================= BUBBLE CASCADE ENGINE =================
+class BubbleCascadeEngine {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas ? canvas.getContext("2d") : null;
+    this.bubbles = [];
+    this.sparkles = [];
+    this.animId = null;
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    this.originX = this.width * 0.55;
+    this.originY = this.height * 0.42;
+    this.isCascading = false;
+    this.isPopping = false;
+
+    if (this.canvas) {
+      this.resize();
+      this._resizeHandler = () => this.resize();
+      window.addEventListener("resize", this._resizeHandler);
+      this._clickHandler = (e) => this.handleClick(e);
+      this.canvas.addEventListener("pointerdown", this._clickHandler);
+    }
+  }
+
+  resize() {
+    if (!this.canvas) return;
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.canvas.width = this.width * dpr;
+    this.canvas.height = this.height * dpr;
+    this.ctx?.resetTransform();
+    this.ctx?.scale(dpr, dpr);
+
+    const flaskEl = document.querySelector(".lab-flask-group");
+    if (flaskEl) {
+      const rect = flaskEl.getBoundingClientRect();
+      this.originX = rect.left + rect.width / 2;
+      this.originY = rect.top + rect.height * 0.3;
+    } else {
+      this.originX = this.width * 0.55;
+      this.originY = this.height * 0.42;
+    }
+  }
+
+  spawnPreBubble() {
+    this.bubbles.push({
+      x: this.originX + (Math.random() - 0.5) * 16,
+      y: this.originY,
+      vx: (Math.random() - 0.5) * 1.5,
+      vy: -(Math.random() * 2 + 1.2),
+      radius: Math.random() * 8 + 4,
+      targetRadius: Math.random() * 14 + 8,
+      hue: Math.random() > 0.5 ? 185 : 275,
+      alpha: 0.85,
+      wobble: Math.random() * Math.PI * 2,
+      wobbleSpeed: Math.random() * 0.08 + 0.04,
+      popped: false
+    });
+    if (!this.animId) this.animate();
+  }
+
+  startCascade() {
+    this.isCascading = true;
+    this.resize();
+
+    const totalToSpawn = Math.min(Math.floor((this.width * this.height) / 10000) + 75, 140);
+    for (let i = 0; i < totalToSpawn; i++) {
+      setTimeout(() => {
+        if (!this.isCascading && !this.isPopping) return;
+        this.spawnCascadeBubble(i, totalToSpawn);
+      }, i * 16);
+    }
+
+    if (!this.animId) this.animate();
+  }
+
+  spawnCascadeBubble(idx, total) {
+    const fromFlask = idx < total * 0.4;
+    const isGiant = idx % 4 === 0;
+
+    let startX, startY, vx, vy;
+    if (fromFlask) {
+      startX = this.originX + (Math.random() - 0.5) * 25;
+      startY = this.originY;
+      const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.9;
+      const speed = Math.random() * 7 + 4;
+      vx = Math.cos(angle) * speed;
+      vy = Math.sin(angle) * speed;
+    } else {
+      startX = Math.random() * this.width;
+      startY = this.height + Math.random() * 60;
+      vx = (Math.random() - 0.5) * 2;
+      vy = -(Math.random() * 5 + 3);
+    }
+
+    const minR = isGiant ? 65 : 24;
+    const maxR = isGiant ? 160 : 60;
+    const targetR = Math.random() * (maxR - minR) + minR;
+
+    this.bubbles.push({
+      x: startX,
+      y: startY,
+      vx,
+      vy,
+      radius: fromFlask ? 10 : targetR * 0.4,
+      targetRadius: targetR,
+      hue: [180, 270, 310, 140][Math.floor(Math.random() * 4)],
+      alpha: Math.random() * 0.25 + 0.65,
+      wobble: Math.random() * Math.PI * 2,
+      wobbleSpeed: Math.random() * 0.06 + 0.03,
+      popped: false
+    });
+  }
+
+  handleClick(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+
+    for (let i = this.bubbles.length - 1; i >= 0; i--) {
+      const b = this.bubbles[i];
+      if (b.popped) continue;
+      const dist = Math.hypot(clickX - b.x, clickY - b.y);
+      if (dist <= b.radius) {
+        this.popBubble(b, true);
+        break;
+      }
+    }
+  }
+
+  popBubble(b, userClicked = false) {
+    if (b.popped) return;
+    b.popped = true;
+
+    for (let i = 0; i < 12; i++) {
+      const angle = (Math.PI * 2 * i) / 12 + Math.random() * 0.3;
+      const speed = Math.random() * 4 + 2;
+      this.sparkles.push({
+        x: b.x,
+        y: b.y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        size: Math.random() * 4 + 2,
+        alpha: 1,
+        color: b.hue
+      });
+    }
+
+    if (typeof sounds !== "undefined" && sounds.playBubblePop) {
+      sounds.playBubblePop(userClicked ? 1.2 : 1.0);
+    }
+  }
+
+  startMagicalBurst(callback) {
+    this.isPopping = true;
+    this.isCascading = false;
+
+    const unpopped = this.bubbles.filter((b) => !b.popped);
+    const centerX = this.width / 2;
+    const centerY = this.height / 2;
+    unpopped.sort((a, b) => Math.hypot(a.x - centerX, a.y - centerY) - Math.hypot(b.x - centerX, b.y - centerY));
+
+    unpopped.forEach((b, idx) => {
+      setTimeout(() => {
+        this.popBubble(b, false);
+      }, idx * 6);
+    });
+
+    setTimeout(() => {
+      if (typeof callback === "function") callback();
+    }, Math.min(unpopped.length * 6 + 150, 600));
+  }
+
+  animate() {
+    if (!this.ctx) return;
+    this.ctx.clearRect(0, 0, this.width, this.height);
+
+    for (let i = this.bubbles.length - 1; i >= 0; i--) {
+      const b = this.bubbles[i];
+      if (b.popped) {
+        this.bubbles.splice(i, 1);
+        continue;
+      }
+
+      if (b.radius < b.targetRadius) {
+        b.radius += (b.targetRadius - b.radius) * 0.12;
+      }
+
+      b.wobble += b.wobbleSpeed;
+      b.x += b.vx + Math.sin(b.wobble) * 0.8;
+      b.y += b.vy;
+      b.vy *= 0.985;
+      b.vx *= 0.985;
+      if (b.vy > -1.2) b.vy -= 0.05;
+
+      this.drawLiquidGlassBubble(b);
+    }
+
+    for (let i = this.sparkles.length - 1; i >= 0; i--) {
+      const s = this.sparkles[i];
+      s.x += s.vx;
+      s.y += s.vy;
+      s.vy += 0.08;
+      s.alpha -= 0.035;
+
+      if (s.alpha <= 0) {
+        this.sparkles.splice(i, 1);
+        continue;
+      }
+
+      this.ctx.save();
+      this.ctx.globalAlpha = s.alpha;
+      this.ctx.fillStyle = `hsl(${s.color}, 90%, 75%)`;
+      this.ctx.shadowColor = `hsl(${s.color}, 100%, 70%)`;
+      this.ctx.shadowBlur = 8;
+      this.ctx.beginPath();
+      this.ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      this.ctx.fill();
+      this.ctx.restore();
+    }
+
+    if (this.bubbles.length > 0 || this.sparkles.length > 0 || this.isCascading) {
+      this.animId = requestAnimationFrame(() => this.animate());
+    } else {
+      this.animId = null;
+    }
+  }
+
+  drawLiquidGlassBubble(b) {
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.translate(b.x, b.y);
+
+    const scaleX = 1 + Math.sin(b.wobble) * 0.05;
+    const scaleY = 1 - Math.sin(b.wobble) * 0.05;
+    ctx.scale(scaleX, scaleY);
+
+    const r = Math.max(b.radius, 2);
+
+    const bodyGrad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, r * 0.1, 0, 0, r);
+    bodyGrad.addColorStop(0, `hsla(${b.hue}, 90%, 85%, ${b.alpha * 0.35})`);
+    bodyGrad.addColorStop(0.6, `hsla(${(b.hue + 40) % 360}, 85%, 65%, ${b.alpha * 0.18})`);
+    bodyGrad.addColorStop(0.9, `hsla(${(b.hue + 80) % 360}, 95%, 70%, ${b.alpha * 0.5})`);
+    bodyGrad.addColorStop(1, `hsla(${b.hue}, 100%, 80%, ${b.alpha * 0.85})`);
+
+    ctx.fillStyle = bodyGrad;
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = `hsla(${b.hue}, 95%, 85%, ${b.alpha * 0.75})`;
+    ctx.lineWidth = Math.max(r * 0.04, 1.2);
+    ctx.shadowColor = `hsla(${b.hue}, 100%, 70%, 0.6)`;
+    ctx.shadowBlur = r * 0.25;
+    ctx.stroke();
+
+    ctx.fillStyle = `rgba(255, 255, 255, ${b.alpha * 0.85})`;
+    ctx.beginPath();
+    ctx.ellipse(-r * 0.4, -r * 0.4, r * 0.28, r * 0.12, -Math.PI / 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = `rgba(255, 255, 255, ${b.alpha * 0.65})`;
+    ctx.beginPath();
+    ctx.arc(-r * 0.22, -r * 0.58, r * 0.06, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = `hsla(${(b.hue + 60) % 360}, 90%, 80%, ${b.alpha * 0.45})`;
+    ctx.beginPath();
+    ctx.ellipse(r * 0.38, r * 0.38, r * 0.22, r * 0.08, -Math.PI / 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  destroy() {
+    if (this.animId) {
+      cancelAnimationFrame(this.animId);
+      this.animId = null;
+    }
+    if (this.canvas) {
+      if (this._resizeHandler) window.removeEventListener("resize", this._resizeHandler);
+      if (this._clickHandler) this.canvas.removeEventListener("pointerdown", this._clickHandler);
+    }
+    this.bubbles = [];
+    this.sparkles = [];
+  }
+}
+
 // ================= MAIN SCIENCE.IO APP =================
 class ScienceIoApp {
   constructor() {
@@ -6107,8 +6468,15 @@ class ScienceIoApp {
     const status = document.getElementById("loader-status");
     const symbolsContainer = document.getElementById("floating-symbols-container");
     const skipBtn = document.getElementById("loader-skip-btn");
+    const canvas = document.getElementById("bubble-cascade-canvas");
+    const hintPill = document.getElementById("loader-hint-bubble-pop");
 
-    // Spawn 18 floating scientific glyphs & molecules
+    if (this.bubbleEngine) {
+      this.bubbleEngine.destroy();
+    }
+    this.bubbleEngine = new BubbleCascadeEngine(canvas);
+
+    // Spawn 18 floating scientific glyphs & molecules in background
     const glyphs = ["⚛️", "🧬", "🔬", "🧪", "🪐", "⚡", "🧲", "🌍", "🌡️", "💡", "🔭", "H₂O", "CO₂", "E=mc²", "F=ma", "DNA", "v=d/t", "O₂"];
     if (symbolsContainer) {
       symbolsContainer.innerHTML = "";
@@ -6124,36 +6492,32 @@ class ScienceIoApp {
       });
     }
 
-    const messages = [
-      "Calibrating atomic mass spectrometers...",
-      "Sequencing cellular DNA matrices...",
-      "Simulating ecosystem energy flows...",
-      "Connecting to skience.io Global Cloud Database...",
-      "System Operational. Welcome Jeeva R."
-    ];
-
-    let progress = 0;
     let finished = false;
+    let cascadeStarted = false;
 
     const completeLoader = () => {
       if (finished) return;
       finished = true;
-      progress = 100;
       if (bar) bar.style.width = "100%";
       if (pct) pct.textContent = "100%";
-      if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> System Operational. Welcome Jeeva R.`;
-      sounds.playSuccess();
-      setTimeout(() => {
-        if (loader) {
-          loader.classList.add("fade-out");
-          setTimeout(() => {
-            loader.style.display = "none";
+      if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> ✨ Magical Reaction Complete! Welcome to skience.io!`;
+
+      sounds.playMagicalReveal();
+
+      this.bubbleEngine.startMagicalBurst(() => {
+        setTimeout(() => {
+          if (loader) {
+            loader.classList.add("fade-out");
+            setTimeout(() => {
+              loader.style.display = "none";
+              this.bubbleEngine.destroy();
+              this.playCursiveHandwriting();
+            }, 750);
+          } else {
             this.playCursiveHandwriting();
-          }, 800);
-        } else {
-          this.playCursiveHandwriting();
-        }
-      }, 350);
+          }
+        }, 200);
+      });
     };
 
     if (skipBtn) {
@@ -6162,25 +6526,58 @@ class ScienceIoApp {
       });
     }
 
-    const interval = setInterval(() => {
+    // TIMELINE:
+    // 0.0s - 2.0s: Person conducting science experiment, pouring glowing liquid into flask
+    // 2.0s - 3.2s: Massive bubble cascade eruption covering the entire screen
+    // 3.2s: Magical reveal chime & bubbles pop, letting you into notebook
+    const startTime = performance.now();
+
+    const experimentInterval = setInterval(() => {
       if (finished) {
-        clearInterval(interval);
+        clearInterval(experimentInterval);
         return;
       }
-      progress += Math.floor(Math.random() * 12) + 8;
-      if (progress > 100) progress = 100;
+      const elapsed = (performance.now() - startTime) / 1000;
 
-      if (bar) bar.style.width = `${progress}%`;
-      if (pct) pct.textContent = `${progress}%`;
+      // Phase 1: 0.0s to 2.0s - Experiment in progress
+      if (elapsed < 2.0) {
+        this.bubbleEngine.spawnPreBubble();
+        if (Math.random() < 0.22) sounds.playBubbleFizz();
 
-      const msgIndex = Math.min(Math.floor((progress / 100) * messages.length), messages.length - 1);
-      if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> ${messages[msgIndex]}`;
+        const p = Math.min((elapsed / 2.0) * 50, 50);
+        if (bar) bar.style.width = `${p.toFixed(0)}%`;
+        if (pct) pct.textContent = `${p.toFixed(0)}%`;
 
-      if (progress >= 100) {
-        clearInterval(interval);
+        if (elapsed < 0.8) {
+          if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> Mixing chemical reagents in lab flask... 🧪`;
+        } else if (elapsed < 1.6) {
+          if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> Exothermic reaction detecting! Catalysts active... ⚡`;
+        } else {
+          if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> Reaction critical! Pressure rising... 💥`;
+        }
+      }
+
+      // Phase 2: At 2.0s - Bubble cascade covers the entire screen
+      if (elapsed >= 2.0 && !cascadeStarted) {
+        cascadeStarted = true;
+        sounds.playBubbleFizz();
+        this.bubbleEngine.startCascade();
+        if (hintPill) hintPill.style.display = "inline-flex";
+        if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> 🫧 BUBBLE CASCADE OVERFLOW! Covering screen... ✨`;
+      }
+
+      if (elapsed >= 2.0 && elapsed < 3.2) {
+        const p = 50 + Math.min(((elapsed - 2.0) / 1.2) * 45, 45);
+        if (bar) bar.style.width = `${p.toFixed(0)}%`;
+        if (pct) pct.textContent = `${p.toFixed(0)}%`;
+      }
+
+      // Phase 3: At 3.2s - Magically lets you in
+      if (elapsed >= 3.2) {
+        clearInterval(experimentInterval);
         completeLoader();
       }
-    }, 80);
+    }, 60);
   }
 
   replayLoader() {
