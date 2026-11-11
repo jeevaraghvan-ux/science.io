@@ -5757,6 +5757,8 @@ class ScienceIoApp {
     this.setupHolographic3DCardTilt();
     this.vault.init();
     this.setupEventListeners();
+    this.setupHeroSnowAndStars();
+    this.setupMeSkiencePortfolio();
     this.setupPublishSystem();
     this.readingSuite.init();
     if (this.calculator) this.calculator.init();
@@ -11033,6 +11035,9 @@ class ScienceIoApp {
         modal.classList.remove("hidden");
       }
       this.confetti?.burst(window.innerWidth / 2, window.innerHeight * 0.35, 60);
+      if (typeof this.drawMePortrait === "function") {
+        this.drawMePortrait(false);
+      }
     };
 
     document.getElementById("author-credit-trigger")?.addEventListener("click", openJeevaProfileModal);
@@ -11117,6 +11122,477 @@ class ScienceIoApp {
         sounds.playClick();
         if (fb) fb.textContent = "Not quite! Think of prehistoric remains preserved in stone...";
       }
+    });
+  }
+
+  // ================= HOME PAGE BACKGROUND: PITCH BLACK WITH SNOW AND SHOOTING STARS =================
+  setupHeroSnowAndStars() {
+    const canvas = document.getElementById("hero-snow-stars-canvas");
+    if (!canvas) return;
+    const hero = document.getElementById("hero");
+    if (!hero) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+
+    const resize = () => {
+      const rect = hero.getBoundingClientRect();
+      width = canvas.width = rect.width || window.innerWidth;
+      height = canvas.height = rect.height || (window.innerHeight * 0.9);
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    // Snowflakes array
+    const snowflakeCount = 95;
+    const snowflakes = [];
+    for (let i = 0; i < snowflakeCount; i++) {
+      snowflakes.push({
+        x: Math.random() * (width || window.innerWidth),
+        y: Math.random() * (height || window.innerHeight),
+        radius: Math.random() * 2.2 + 0.8,
+        speedY: Math.random() * 1.2 + 0.5,
+        swayAngle: Math.random() * Math.PI * 2,
+        swaySpeed: Math.random() * 0.02 + 0.01,
+        swayAmp: Math.random() * 1.2 + 0.4,
+        opacity: Math.random() * 0.65 + 0.3
+      });
+    }
+
+    // Shooting stars array
+    const shootingStars = [];
+    let lastShootTime = performance.now();
+    let nextShootDelay = 1400;
+
+    const spawnShootingStar = () => {
+      const startX = Math.random() * (width * 0.8) + (width * 0.15);
+      const startY = Math.random() * (height * 0.45);
+      const angle = (Math.PI / 4) + (Math.random() * 0.2 - 0.1);
+      const speed = Math.random() * 10 + 14;
+      const length = Math.random() * 85 + 70;
+      shootingStars.push({
+        x: startX,
+        y: startY,
+        dx: Math.cos(angle) * speed,
+        dy: Math.sin(angle) * speed,
+        length: length,
+        life: 1.0,
+        decay: Math.random() * 0.02 + 0.015,
+        width: Math.random() * 1.6 + 1.2
+      });
+    };
+
+    const render = (time) => {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, width, height);
+
+      // Periodic shooting star generation
+      if (time - lastShootTime > nextShootDelay) {
+        spawnShootingStar();
+        lastShootTime = time;
+        nextShootDelay = Math.random() * 2200 + 1200;
+      }
+
+      // Render & update shooting stars
+      for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const star = shootingStars[i];
+        star.x += star.dx;
+        star.y += star.dy;
+        star.life -= star.decay;
+
+        if (star.life <= 0 || star.x > width + 100 || star.y > height + 100) {
+          shootingStars.splice(i, 1);
+          continue;
+        }
+
+        const tailX = star.x - (star.dx / Math.hypot(star.dx, star.dy)) * star.length;
+        const tailY = star.y - (star.dy / Math.hypot(star.dx, star.dy)) * star.length;
+
+        const grad = ctx.createLinearGradient(tailX, tailY, star.x, star.y);
+        grad.addColorStop(0, "rgba(56, 189, 248, 0)");
+        grad.addColorStop(0.55, `rgba(56, 189, 248, ${star.life * 0.45})`);
+        grad.addColorStop(1, `rgba(255, 255, 255, ${star.life * 0.95})`);
+
+        ctx.save();
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = star.width;
+        ctx.lineCap = "round";
+        ctx.shadowColor = "#38bdf8";
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.moveTo(tailX, tailY);
+        ctx.lineTo(star.x, star.y);
+        ctx.stroke();
+
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.life})`;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.width * 1.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // Render & update snowflakes
+      ctx.save();
+      for (let i = 0; i < snowflakes.length; i++) {
+        const flake = snowflakes[i];
+        flake.y += flake.speedY;
+        flake.swayAngle += flake.swaySpeed;
+        flake.x += Math.sin(flake.swayAngle) * flake.swayAmp;
+
+        if (flake.y > height) {
+          flake.y = -5;
+          flake.x = Math.random() * width;
+        }
+        if (flake.x > width) flake.x = 0;
+        if (flake.x < 0) flake.x = width;
+
+        ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
+        ctx.shadowColor = "rgba(255, 255, 255, 0.6)";
+        ctx.shadowBlur = flake.radius * 1.2;
+        ctx.beginPath();
+        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      requestAnimationFrame(render);
+    };
+    requestAnimationFrame(render);
+  }
+
+  // ================= ME.SKIENCE.IO PORTFOLIO & macOS TERMINAL ENGINE =================
+  setupMeSkiencePortfolio() {
+    const emailAddress = "jvrghvn0@gmail.com";
+    const ytUrl = "https://youtube.com/@rivals0321";
+    const ghUrl = "https://github.com/jeevaraghvan-ux";
+
+    const projectsData = {
+      skience: {
+        name: "skience",
+        domain: "scienceio-best.vercel.app",
+        url: "https://scienceio-best.vercel.app",
+        tag: "Built for learning",
+        description: "5th Grade Science notes, interactive formula calculator, and study tools. Making the things you're learning a little easier to understand."
+      },
+      wprints: {
+        name: "W PRINTS",
+        domain: "W3D.base44.app",
+        url: "https://W3D.base44.app",
+        tag: "3D Printing & Design",
+        description: "Next-generation custom 3D web printing studio and document production platform. Custom merchandise, rapid prototyping, and creative design workflows."
+      }
+    };
+
+    // Toast helper
+    const showToast = (msg) => {
+      const toast = document.getElementById("me-toast");
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.hidden = false;
+      clearTimeout(this._toastTimeout);
+      this._toastTimeout = setTimeout(() => {
+        toast.hidden = true;
+      }, 2500);
+    };
+
+    // Pixel portrait drawing (authentic me.skience.io 96x96 pixel grid builder)
+    const canvas = document.getElementById("me-portrait-canvas");
+    let isWaving = false;
+    let waveTimeout = null;
+
+    const drawPortrait = (waving = false) => {
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      ctx.clearRect(0, 0, 96, 96);
+      const fill = (x, y, w, h, col) => {
+        ctx.fillStyle = col;
+        ctx.fillRect(x, y, w, h);
+      };
+      fill(19, 84, 58, 5, '#20291c');
+      fill(15, 89, 66, 3, '#151b11');
+      fill(30, 19, 35, 6, '#222720');
+      fill(24, 25, 46, 29, '#222720');
+      fill(28, 32, 37, 29, '#b97d57');
+      fill(23, 42, 5, 11, '#b97d57');
+      fill(65, 42, 5, 11, '#b97d57');
+      fill(28, 28, 37, 8, '#282b21');
+      fill(26, 35, 8, 8, '#282b21');
+      fill(59, 35, 8, 8, '#282b21');
+      fill(31, 43, 12, 9, '#171b15');
+      fill(50, 43, 12, 9, '#171b15');
+      fill(43, 45, 7, 3, '#171b15');
+      fill(34, 45, 5, 3, '#d9dcd2');
+      fill(53, 45, 5, 3, '#d9dcd2');
+      fill(44, 50, 5, 5, '#925e3e');
+      fill(40, 57, 14, 3, '#eceee6');
+      fill(34, 61, 25, 8, '#b97d57');
+      fill(31, 67, 31, 20, '#4a8a50');
+      fill(25, 70, 8, 17, '#3b7141');
+      fill(61, 70, 8, 17, '#3b7141');
+      fill(39, 67, 15, 6, '#304e30');
+      fill(45, 74, 4, 4, '#78d98a');
+      fill(29, 85, 16, 7, '#242c20');
+      fill(49, 85, 16, 7, '#242c20');
+      fill(26, 92, 19, 4, '#141711');
+      fill(49, 92, 20, 4, '#141711');
+      if (waving) {
+        fill(65, 61, 8, 12, '#4a8a50');
+        fill(71, 46, 7, 19, '#4a8a50');
+        fill(71, 39, 7, 10, '#b97d57');
+        fill(75, 36, 3, 5, '#b97d57');
+      } else {
+        fill(24, 85, 9, 6, '#b97d57');
+        fill(61, 85, 9, 6, '#b97d57');
+      }
+    };
+    this.drawMePortrait = drawPortrait;
+    drawPortrait(false);
+
+    document.getElementById("me-portrait-btn")?.addEventListener("click", () => {
+      isWaving = true;
+      drawPortrait(true);
+      sounds.playSuccess();
+      showToast("Hi, player 2.");
+      clearTimeout(waveTimeout);
+      waveTimeout = setTimeout(() => {
+        isWaving = false;
+        drawPortrait(false);
+      }, 2400);
+    });
+
+    // Project inspect dialog
+    const projectDialog = document.getElementById("me-project-dialog");
+    document.querySelectorAll(".inspect-project").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.project;
+        const project = projectsData[key];
+        if (!project || !projectDialog) return;
+        sounds.playClick();
+        document.getElementById("me-dialog-title").textContent = project.name;
+        document.getElementById("me-dialog-description").textContent = project.description;
+        const link = document.getElementById("me-dialog-link");
+        if (link) {
+          link.href = project.url;
+          link.textContent = `Visit ${project.name} ↗`;
+        }
+        if (typeof projectDialog.showModal === "function") {
+          projectDialog.showModal();
+        } else {
+          projectDialog.setAttribute("open", "true");
+        }
+      });
+    });
+
+    document.getElementById("me-dialog-close")?.addEventListener("click", () => {
+      sounds.playClick();
+      if (typeof projectDialog?.close === "function") {
+        projectDialog.close();
+      } else {
+        projectDialog?.removeAttribute("open");
+      }
+    });
+
+    projectDialog?.addEventListener("click", (e) => {
+      const rect = projectDialog.getBoundingClientRect();
+      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
+        if (typeof projectDialog.close === "function") projectDialog.close();
+        else projectDialog.removeAttribute("open");
+      }
+    });
+
+    // Replay intro button in me footer
+    document.getElementById("me-replay-btn")?.addEventListener("click", () => {
+      sounds.playClick();
+      const scrollable = document.querySelector(".me-modal-scrollable");
+      if (scrollable) scrollable.scrollTo({ top: 0, behavior: "smooth" });
+      resetTerminal();
+    });
+
+    // ================= macOS TERMINAL ENGINE =================
+    const terminalOutput = document.getElementById("me-terminal-output");
+    const terminalForm = document.getElementById("me-terminal-form");
+    const terminalInput = document.getElementById("me-terminal-command");
+    const terminalClearBtn = document.getElementById("me-terminal-clear");
+
+    const commandHistory = [];
+    let historyIndex = 0;
+    let awaitingJokeResponse = false;
+
+    const resetTerminal = () => {
+      if (!terminalOutput) return;
+      terminalOutput.innerHTML = "";
+      const p1 = document.createElement("p");
+      p1.textContent = "hi. this is jeeva’s terminal.";
+      const p2 = document.createElement("p");
+      p2.className = "terminal-muted";
+      p2.innerHTML = "type a command and press enter,<br />or just use the buttons below.";
+      terminalOutput.appendChild(p1);
+      terminalOutput.appendChild(p2);
+      awaitingJokeResponse = false;
+    };
+
+    terminalClearBtn?.addEventListener("click", () => {
+      sounds.playClick();
+      resetTerminal();
+    });
+
+    const appendTerminalLine = (text, className = "command-result") => {
+      if (!terminalOutput) return;
+      const p = document.createElement("p");
+      p.className = className;
+      p.textContent = text;
+      terminalOutput.appendChild(p);
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      return p;
+    };
+
+    const appendTerminalLink = (text, href, isBlank = true) => {
+      if (!terminalOutput) return;
+      const p = document.createElement("p");
+      p.className = "command-result";
+      const a = document.createElement("a");
+      a.textContent = text;
+      a.href = href;
+      if (isBlank) {
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+      }
+      p.appendChild(a);
+      terminalOutput.appendChild(p);
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    };
+
+    const copyEmail = async () => {
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(emailAddress);
+        } else {
+          throw new Error("Clipboard unavailable");
+        }
+        appendTerminalLine("Email copied. Let's make something.");
+        showToast("Email copied to clipboard.");
+        sounds.playSuccess();
+      } catch (err) {
+        appendTerminalLine(`Copy this address: ${emailAddress}`);
+        appendTerminalLink("Open your email app", `mailto:${emailAddress}`, false);
+      }
+    };
+
+    const executeCommand = (cmdText) => {
+      const raw = (cmdText || "").trim();
+      const cmd = raw.toLowerCase();
+      if (!cmd) return;
+
+      commandHistory.push(raw);
+      historyIndex = commandHistory.length;
+      appendTerminalLine(`guest ~ $ ${raw}`, "command-line");
+
+      // Check if user is responding to the joke punchline setup
+      if (awaitingJokeResponse) {
+        appendTerminalLine("To get to the other side!");
+        awaitingJokeResponse = false;
+        sounds.playSuccess();
+        return;
+      }
+
+      switch (cmd) {
+        case "help":
+          appendTerminalLine(
+            "email --> write a note\n" +
+            "copy --> copy my email\n" +
+            "follow --> find me elsewhere\n" +
+            "projects --> see what I’ve built\n" +
+            "about --> a little about me\n" +
+            "clear --> a fresh terminal\n" +
+            "hello --> say hello\n" +
+            "replay --> play the intro again\n" +
+            "joke --> hear a joke"
+          );
+          break;
+
+        case "email":
+        case "contact":
+          appendTerminalLink(emailAddress, `mailto:${emailAddress}`, false);
+          appendTerminalLine("Or type “copy” to grab the address.");
+          break;
+
+        case "copy":
+          copyEmail();
+          break;
+
+        case "follow":
+          appendTerminalLink("YouTube → @rivals0321", ytUrl);
+          appendTerminalLink("GitHub → @jeevaraghvan-ux", ghUrl);
+          break;
+
+        case "projects":
+          Object.values(projectsData).forEach((proj) => {
+            appendTerminalLink(`${proj.name} → ${proj.domain}`, proj.url);
+          });
+          break;
+
+        case "about":
+          appendTerminalLine(
+            "Jeeva Raghavan. Developer. Making Things for WForge.\n" +
+            "gng I don't know."
+          );
+          break;
+
+        case "clear":
+          resetTerminal();
+          break;
+
+        case "hello":
+        case "hi":
+          appendTerminalLine("Hi, player 2. Welcome to my little corner of the web.");
+          sounds.playSuccess();
+          break;
+
+        case "replay":
+          resetTerminal();
+          const scrollable = document.querySelector(".me-modal-scrollable");
+          if (scrollable) scrollable.scrollTo({ top: 0, behavior: "smooth" });
+          break;
+
+        case "joke":
+          appendTerminalLine("Why did the chicken cross the road.");
+          awaitingJokeResponse = true;
+          break;
+
+        default:
+          appendTerminalLine(`Unknown command: ${raw}. Type “help” to see what works.`);
+          break;
+      }
+    };
+
+    terminalForm?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!terminalInput) return;
+      const text = terminalInput.value;
+      terminalInput.value = "";
+      executeCommand(text);
+    });
+
+    terminalInput?.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        historyIndex = Math.max(0, historyIndex - 1);
+        terminalInput.value = commandHistory[historyIndex] || "";
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        historyIndex = Math.min(commandHistory.length, historyIndex + 1);
+        terminalInput.value = commandHistory[historyIndex] || "";
+      }
+    });
+
+    document.querySelectorAll("[data-command]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const c = btn.dataset.command;
+        if (c) executeCommand(c);
+      });
     });
   }
 }
