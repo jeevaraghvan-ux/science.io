@@ -2404,6 +2404,45 @@ class SoundController {
       });
     } catch (e) {}
   }
+
+  /* Cinematic Impact Synth for Letter Zoom-Out (s, k, i, e, n, c, e) */
+  playLetterZoom(index = 0) {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      // Musical pentatonic scale with deep bass: C3, D3, E3, G3, A3, C4, E4
+      const baseFreqs = [130.81, 146.83, 164.81, 196.00, 220.00, 261.63, 329.63];
+      const freq = baseFreqs[Math.min(index, baseFreqs.length - 1)];
+
+      // 1. Deep Sub-bass Drop
+      const subOsc = this.ctx.createOscillator();
+      const subGain = this.ctx.createGain();
+      subOsc.type = "sine";
+      subOsc.frequency.setValueAtTime(freq * 1.5, now);
+      subOsc.frequency.exponentialRampToValueAtTime(freq * 0.7, now + 0.16);
+      subGain.gain.setValueAtTime(0.18, now);
+      subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+      subOsc.connect(subGain);
+      subGain.connect(this.ctx.destination);
+      subOsc.start(now);
+      subOsc.stop(now + 0.22);
+
+      // 2. Crisp Metallic Shimmer Accent
+      const pingOsc = this.ctx.createOscillator();
+      const pingGain = this.ctx.createGain();
+      pingOsc.type = "triangle";
+      pingOsc.frequency.setValueAtTime(freq * 4, now);
+      pingOsc.frequency.exponentialRampToValueAtTime(freq * 2, now + 0.08);
+      pingGain.gain.setValueAtTime(0.06, now);
+      pingGain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+      pingOsc.connect(pingGain);
+      pingGain.connect(this.ctx.destination);
+      pingOsc.start(now);
+      pingOsc.stop(now + 0.09);
+    } catch (e) {}
+  }
 }
 
 const sounds = new SoundController();
@@ -5489,387 +5528,23 @@ class ReadingEnhancementSuite {
   }
 }
 
-// ================= BUBBLE CASCADE ENGINE =================
+// ================= BUBBLE CASCADE ENGINE (DEPRECATED & DORMANT FOR ZERO-LAG) =================
 class BubbleCascadeEngine {
   constructor(canvas) {
     this.canvas = canvas;
-    this.ctx = canvas ? canvas.getContext("2d") : null;
     this.bubbles = [];
     this.sparkles = [];
-    this.animId = null;
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
-    this.originX = this.width * 0.55;
-    this.originY = this.height * 0.42;
-    this.isCascading = false;
-    this.isPopping = false;
-    this.blanketAlpha = 0;
-    this.targetBlanketAlpha = 0;
-    this.shockwaveActive = false;
-    this.shockwaveRadius = 0;
-    this.shockwaveMaxRadius = 0;
-    this.shockwaveAlpha = 1.0;
-
-    if (this.canvas) {
-      this.resize();
-      this._resizeHandler = () => this.resize();
-      window.addEventListener("resize", this._resizeHandler);
-      this._clickHandler = (e) => this.handleClick(e);
-      this.canvas.addEventListener("pointerdown", this._clickHandler);
-    }
   }
-
-  resize() {
-    if (!this.canvas) return;
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    this.canvas.width = this.width * dpr;
-    this.canvas.height = this.height * dpr;
-    this.ctx?.resetTransform();
-    this.ctx?.scale(dpr, dpr);
-
-    const flaskEl = document.querySelector(".lab-flask-group");
-    if (flaskEl) {
-      const rect = flaskEl.getBoundingClientRect();
-      this.originX = rect.left + rect.width / 2;
-      this.originY = rect.top + rect.height * 0.3;
-    } else {
-      this.originX = this.width * 0.55;
-      this.originY = this.height * 0.42;
-    }
-  }
-
-  spawnPreBubble() {
-    this.bubbles.push({
-      x: this.originX + (Math.random() - 0.5) * 16,
-      y: this.originY,
-      vx: (Math.random() - 0.5) * 1.5,
-      vy: -(Math.random() * 2 + 1.2),
-      radius: Math.random() * 8 + 4,
-      targetRadius: Math.random() * 14 + 8,
-      growSpeed: 0.12,
-      delay: 0,
-      hue: Math.random() > 0.5 ? 185 : 275,
-      alpha: 0.85,
-      wobble: Math.random() * Math.PI * 2,
-      wobbleSpeed: Math.random() * 0.08 + 0.04,
-      popped: false
-    });
-    if (!this.animId) this.animate();
-  }
-
-  startCascade() {
-    this.isCascading = true;
-    this.targetBlanketAlpha = 0.98;
-    this.resize();
-
-    const maxDist = Math.hypot(this.width, this.height);
-    const hues = [185, 215, 275, 315, 340, 160];
-
-    // 1. DENSE VIEWPORT-WIDE GRID: Covers upper half, lower half, corners, center
-    const colStep = 95;
-    const rowStep = 85;
-    const cols = Math.ceil(this.width / colStep) + 2;
-    const rows = Math.ceil(this.height / rowStep) + 2;
-
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        const targetX = (c - 0.8) * colStep + (Math.random() - 0.5) * 45;
-        const targetY = (r - 0.8) * rowStep + (Math.random() - 0.5) * 45;
-        const dist = Math.hypot(targetX - this.originX, targetY - this.originY);
-        const delay = Math.min((dist / maxDist) * 320, 360);
-
-        const isGiant = (c + r) % 3 === 0;
-        const targetR = isGiant ? (Math.random() * 90 + 130) : (Math.random() * 55 + 75);
-
-        this.bubbles.push({
-          x: targetX,
-          y: targetY,
-          vx: (Math.random() - 0.5) * 0.8,
-          vy: (Math.random() - 0.5) * 0.8,
-          radius: 3,
-          targetRadius: targetR,
-          growSpeed: Math.random() * 0.08 + 0.16,
-          delay: delay,
-          hue: hues[Math.floor(Math.random() * hues.length)],
-          alpha: Math.random() * 0.18 + 0.8,
-          wobble: Math.random() * Math.PI * 2,
-          wobbleSpeed: Math.random() * 0.05 + 0.03,
-          popped: false
-        });
-      }
-    }
-
-    // 2. RADIAL ERUPTION FROM FLASK: Shoots 45 high-speed expanding bubbles outward
-    for (let i = 0; i < 45; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 9 + 4;
-      const targetR = Math.random() * 80 + 90;
-      this.bubbles.push({
-        x: this.originX,
-        y: this.originY,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        radius: 8,
-        targetRadius: targetR,
-        growSpeed: 0.15,
-        delay: Math.random() * 120,
-        hue: hues[i % hues.length],
-        alpha: 0.9,
-        wobble: Math.random() * Math.PI * 2,
-        wobbleSpeed: 0.06,
-        popped: false
-      });
-    }
-
-    if (!this.animId) this.animate();
-  }
-
-  handleClick(e) {
-    const rect = this.canvas.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const clickY = e.clientY - rect.top;
-
-    for (let i = this.bubbles.length - 1; i >= 0; i--) {
-      const b = this.bubbles[i];
-      if (b.popped || (b.delay && b.delay > 0)) continue;
-      const dist = Math.hypot(clickX - b.x, clickY - b.y);
-      if (dist <= b.radius) {
-        this.popBubble(b, true);
-        break;
-      }
-    }
-  }
-
-  popBubble(b, userClicked = false) {
-    if (b.popped) return;
-    b.popped = true;
-
-    const sparkleCount = userClicked ? 18 : 14;
-    for (let i = 0; i < sparkleCount; i++) {
-      const angle = (Math.PI * 2 * i) / sparkleCount + Math.random() * 0.4;
-      const speed = Math.random() * 6 + 3;
-      this.sparkles.push({
-        x: b.x,
-        y: b.y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        size: Math.random() * 4.5 + 2,
-        alpha: 1,
-        color: b.hue
-      });
-    }
-
-    if (typeof sounds !== "undefined" && sounds.playBubblePop) {
-      sounds.playBubblePop(userClicked ? 1.25 : 1.0);
-    }
-  }
-
-  startMagicalBurst(callback) {
-    this.isPopping = true;
-    this.isCascading = false;
-    this.targetBlanketAlpha = 0;
-
-    // Start expanding chromatic shockwave ring
-    this.shockwaveActive = true;
-    this.shockwaveRadius = 15;
-    this.shockwaveMaxRadius = Math.hypot(this.width, this.height) * 0.9;
-    this.shockwaveAlpha = 1.0;
-
-    // Additional screen-wide celestial star sparkles
-    for (let i = 0; i < 70; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 7 + 2;
-      this.sparkles.push({
-        x: Math.random() * this.width,
-        y: Math.random() * this.height,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        size: Math.random() * 5 + 2.5,
-        alpha: 1,
-        color: [185, 275, 45, 315][Math.floor(Math.random() * 4)]
-      });
-    }
-
-    const unpopped = this.bubbles.filter((b) => !b.popped);
-    const centerX = this.width / 2;
-    const centerY = this.height / 2;
-    unpopped.sort((a, b) => Math.hypot(a.x - centerX, a.y - centerY) - Math.hypot(b.x - centerX, b.y - centerY));
-
-    // Pop all bubbles in a fast 220ms radial shockwave ripple
-    unpopped.forEach((b, idx) => {
-      setTimeout(() => {
-        this.popBubble(b, false);
-      }, (idx / Math.max(unpopped.length, 1)) * 220);
-    });
-
-    setTimeout(() => {
-      if (typeof callback === "function") callback();
-    }, 420);
-  }
-
-  animate() {
-    if (!this.ctx) return;
-    this.ctx.clearRect(0, 0, this.width, this.height);
-
-    // 1. Shimmering Iridescent Liquid Glass Foam Blanket
-    if (this.targetBlanketAlpha > this.blanketAlpha) {
-      this.blanketAlpha += (this.targetBlanketAlpha - this.blanketAlpha) * 0.12;
-    } else if (this.targetBlanketAlpha < this.blanketAlpha) {
-      this.blanketAlpha += (this.targetBlanketAlpha - this.blanketAlpha) * 0.22;
-      if (this.blanketAlpha < 0.01) this.blanketAlpha = 0;
-    }
-
-    if (this.blanketAlpha > 0.01) {
-      const g = this.ctx.createRadialGradient(
-        this.originX, this.originY, 30,
-        this.width * 0.5, this.height * 0.5, Math.hypot(this.width, this.height) * 0.75
-      );
-      g.addColorStop(0, `hsla(185, 95%, 72%, ${this.blanketAlpha * 0.88})`);
-      g.addColorStop(0.35, `hsla(270, 90%, 68%, ${this.blanketAlpha * 0.85})`);
-      g.addColorStop(0.7, `hsla(315, 95%, 70%, ${this.blanketAlpha * 0.82})`);
-      g.addColorStop(1, `hsla(210, 100%, 65%, ${this.blanketAlpha * 0.90})`);
-      this.ctx.fillStyle = g;
-      this.ctx.fillRect(0, 0, this.width, this.height);
-    }
-
-    // 2. Liquid Glass Bubbles
-    for (let i = this.bubbles.length - 1; i >= 0; i--) {
-      const b = this.bubbles[i];
-      if (b.popped) {
-        this.bubbles.splice(i, 1);
-        continue;
-      }
-
-      if (b.delay && b.delay > 0) {
-        b.delay -= 16;
-        continue;
-      }
-
-      if (b.radius < b.targetRadius) {
-        b.radius += (b.targetRadius - b.radius) * b.growSpeed;
-      }
-
-      b.wobble += b.wobbleSpeed;
-      b.x += b.vx + Math.sin(b.wobble) * 0.6;
-      b.y += b.vy + Math.cos(b.wobble * 0.8) * 0.6;
-      b.vy *= 0.985;
-      b.vx *= 0.985;
-
-      this.drawLiquidGlassBubble(b);
-    }
-
-    // 3. Chromatic Shockwave Ring
-    if (this.shockwaveActive) {
-      this.shockwaveRadius += (this.shockwaveMaxRadius - this.shockwaveRadius) * 0.16 + 14;
-      this.shockwaveAlpha -= 0.038;
-      if (this.shockwaveAlpha <= 0 || this.shockwaveRadius >= this.shockwaveMaxRadius) {
-        this.shockwaveActive = false;
-      } else {
-        this.ctx.save();
-        this.ctx.lineWidth = Math.max(16 * this.shockwaveAlpha, 2);
-        this.ctx.strokeStyle = `hsla(185, 100%, 85%, ${this.shockwaveAlpha * 0.85})`;
-        this.ctx.shadowColor = `hsla(280, 100%, 75%, ${this.shockwaveAlpha})`;
-        this.ctx.shadowBlur = 25;
-        this.ctx.beginPath();
-        this.ctx.arc(this.width / 2, this.height / 2, this.shockwaveRadius, 0, Math.PI * 2);
-        this.ctx.stroke();
-        this.ctx.restore();
-      }
-    }
-
-    // 4. Sparkles & Star Particles
-    for (let i = this.sparkles.length - 1; i >= 0; i--) {
-      const s = this.sparkles[i];
-      s.x += s.vx;
-      s.y += s.vy;
-      s.vy += 0.05;
-      s.alpha -= 0.032;
-
-      if (s.alpha <= 0) {
-        this.sparkles.splice(i, 1);
-        continue;
-      }
-
-      this.ctx.save();
-      this.ctx.globalAlpha = s.alpha;
-      this.ctx.fillStyle = `hsl(${s.color}, 95%, 78%)`;
-      this.ctx.shadowColor = `hsl(${s.color}, 100%, 70%)`;
-      this.ctx.shadowBlur = 10;
-      this.ctx.beginPath();
-      this.ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-      this.ctx.fill();
-      this.ctx.restore();
-    }
-
-    if (this.bubbles.length > 0 || this.sparkles.length > 0 || this.isCascading || this.blanketAlpha > 0.01 || this.shockwaveActive) {
-      this.animId = requestAnimationFrame(() => this.animate());
-    } else {
-      this.animId = null;
-    }
-  }
-
-  drawLiquidGlassBubble(b) {
-    const ctx = this.ctx;
-    ctx.save();
-    ctx.translate(b.x, b.y);
-
-    const scaleX = 1 + Math.sin(b.wobble) * 0.05;
-    const scaleY = 1 - Math.sin(b.wobble) * 0.05;
-    ctx.scale(scaleX, scaleY);
-
-    const r = Math.max(b.radius, 2);
-
-    const bodyGrad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, r * 0.1, 0, 0, r);
-    bodyGrad.addColorStop(0, `hsla(${b.hue}, 90%, 85%, ${b.alpha * 0.45})`);
-    bodyGrad.addColorStop(0.6, `hsla(${(b.hue + 40) % 360}, 85%, 65%, ${b.alpha * 0.28})`);
-    bodyGrad.addColorStop(0.9, `hsla(${(b.hue + 80) % 360}, 95%, 70%, ${b.alpha * 0.6})`);
-    bodyGrad.addColorStop(1, `hsla(${b.hue}, 100%, 80%, ${b.alpha * 0.9})`);
-
-    ctx.fillStyle = bodyGrad;
-    ctx.beginPath();
-    ctx.arc(0, 0, r, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.strokeStyle = `hsla(${b.hue}, 95%, 85%, ${b.alpha * 0.85})`;
-    ctx.lineWidth = Math.max(r * 0.045, 1.5);
-    ctx.shadowColor = `hsla(${b.hue}, 100%, 70%, 0.7)`;
-    ctx.shadowBlur = r * 0.25;
-    ctx.stroke();
-
-    ctx.fillStyle = `rgba(255, 255, 255, ${b.alpha * 0.88})`;
-    ctx.beginPath();
-    ctx.ellipse(-r * 0.4, -r * 0.4, r * 0.28, r * 0.12, -Math.PI / 4, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = `rgba(255, 255, 255, ${b.alpha * 0.7})`;
-    ctx.beginPath();
-    ctx.arc(-r * 0.22, -r * 0.58, r * 0.06, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = `hsla(${(b.hue + 60) % 360}, 90%, 80%, ${b.alpha * 0.5})`;
-    ctx.beginPath();
-    ctx.ellipse(r * 0.38, r * 0.38, r * 0.22, r * 0.08, -Math.PI / 4, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.restore();
-  }
-
+  resize() {}
+  spawnPreBubble() {}
+  startCascade() {}
+  handleClick() {}
+  popBubble() {}
+  startMagicalBurst(cb) { if (typeof cb === "function") cb(); }
+  animate() {}
   destroy() {
-    if (this.animId) {
-      cancelAnimationFrame(this.animId);
-      this.animId = null;
-    }
-    if (this.canvas) {
-      if (this._resizeHandler) window.removeEventListener("resize", this._resizeHandler);
-      if (this._clickHandler) this.canvas.removeEventListener("pointerdown", this._clickHandler);
-    }
     this.bubbles = [];
     this.sparkles = [];
-    this.blanketAlpha = 0;
-    this.targetBlanketAlpha = 0;
-    this.shockwaveActive = false;
   }
 }
 
@@ -6618,134 +6293,105 @@ class ScienceIoApp {
     this.confetti = new ConfettiEngine(canvas);
   }
 
-  // ================= SCIENCE LOADING SCREEN CONTROLLER =================
+  // ================= SKIENCE LETTER ZOOM-OUT OPENING SCREEN CONTROLLER =================
   setupLoadingScreen() {
     const loader = document.getElementById("loader-screen");
-    const bar = document.getElementById("loader-bar");
-    const pct = document.getElementById("loader-pct");
-    const status = document.getElementById("loader-status");
-    const symbolsContainer = document.getElementById("floating-symbols-container");
+    if (!loader) return;
+    const wordWrap = document.getElementById("skience-zoom-word");
+    const letters = Array.from(loader.querySelectorAll(".zoom-letter"));
+    const tagline = document.getElementById("skience-intro-tagline");
     const skipBtn = document.getElementById("loader-skip-btn");
-    const canvas = document.getElementById("bubble-cascade-canvas");
-    const hintPill = document.getElementById("loader-hint-bubble-pop");
 
-    if (this.bubbleEngine) {
-      this.bubbleEngine.destroy();
+    // Clear any active animation timers
+    if (this._zoomTimers) {
+      this._zoomTimers.forEach((t) => clearTimeout(t));
     }
-    this.bubbleEngine = new BubbleCascadeEngine(canvas);
+    this._zoomTimers = [];
 
-    // Spawn 18 floating scientific glyphs & molecules in background
-    const glyphs = ["⚛️", "🧬", "🔬", "🧪", "🪐", "⚡", "🧲", "🌍", "🌡️", "💡", "🔭", "H₂O", "CO₂", "E=mc²", "F=ma", "DNA", "v=d/t", "O₂"];
-    if (symbolsContainer) {
-      symbolsContainer.innerHTML = "";
-      glyphs.forEach((char) => {
-        const span = document.createElement("span");
-        span.className = "floating-science-symbol";
-        span.textContent = char;
-        span.style.left = `${Math.random() * 90 + 5}%`;
-        span.style.top = `${Math.random() * 85 + 5}%`;
-        span.style.animationDelay = `${Math.random() * 4}s`;
-        span.style.animationDuration = `${Math.random() * 6 + 6}s`;
-        symbolsContainer.appendChild(span);
-      });
-    }
+    // Reset initial letter & word states
+    if (wordWrap) wordWrap.classList.remove("word-complete");
+    if (tagline) tagline.classList.remove("tagline-visible");
+    letters.forEach((l) => {
+      l.classList.remove("zoomed-in");
+    });
 
     let finished = false;
-    let cascadeStarted = false;
 
     const completeLoader = () => {
       if (finished) return;
       finished = true;
-      if (bar) bar.style.width = "100%";
-      if (pct) pct.textContent = "100%";
-      if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> ✨ Magical Reaction Complete! Welcome to science.io!`;
+      if (this._zoomTimers) {
+        this._zoomTimers.forEach((t) => clearTimeout(t));
+        this._zoomTimers = [];
+      }
+
+      // Ensure all letters landed and word is complete
+      letters.forEach((l) => l.classList.add("zoomed-in"));
+      if (wordWrap) wordWrap.classList.add("word-complete");
+      if (tagline) tagline.classList.add("tagline-visible");
 
       sounds.playMagicalReveal();
 
-      this.bubbleEngine.startMagicalBurst(() => {
+      setTimeout(() => {
         if (loader) {
           loader.classList.add("fade-out");
           setTimeout(() => {
             loader.style.display = "none";
-            this.bubbleEngine.destroy();
             this.playCursiveHandwriting();
-          }, 750);
+          }, 650);
         } else {
           this.playCursiveHandwriting();
         }
-      });
+      }, 420);
     };
 
     if (skipBtn) {
-      skipBtn.addEventListener("click", () => {
+      skipBtn.onclick = (e) => {
+        e.stopPropagation();
         completeLoader();
-      });
+      };
     }
 
-    // TIMELINE:
-    // 0.0s - 2.0s: Person conducting science experiment in flask with fizzing reactions
-    // 2.0s - 3.5s: Massive liquid glass bubble eruption blanketing 100% of the entire screen
-    // 3.5s: Celestial chime, bubbles magically pop into sparkling starbursts, letting student in
-    const startTime = performance.now();
-
-    const experimentInterval = setInterval(() => {
-      if (finished) {
-        clearInterval(experimentInterval);
-        return;
-      }
-      const elapsed = (performance.now() - startTime) / 1000;
-
-      // Phase 1: 0.0s to 2.0s - Experiment in progress
-      if (elapsed < 2.0) {
-        this.bubbleEngine.spawnPreBubble();
-        if (Math.random() < 0.22) sounds.playBubbleFizz();
-
-        const p = Math.min((elapsed / 2.0) * 50, 50);
-        if (bar) bar.style.width = `${p.toFixed(0)}%`;
-        if (pct) pct.textContent = `${p.toFixed(0)}%`;
-
-        if (elapsed < 0.8) {
-          if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> Mixing chemical reagents in lab flask... 🧪`;
-        } else if (elapsed < 1.6) {
-          if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> Exothermic reaction detecting! Catalysts active... ⚡`;
-        } else {
-          if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> Reaction critical! Pressure rising... 💥`;
-        }
-      }
-
-      // Phase 2: At 2.0s - Bubble cascade erupts across 100% of the screen
-      if (elapsed >= 2.0 && !cascadeStarted) {
-        cascadeStarted = true;
-        sounds.playBubbleFizz();
-        const loaderContent = document.querySelector(".loader-content");
-        if (loaderContent) {
-          loaderContent.style.transition = "opacity 0.4s ease";
-          loaderContent.style.opacity = "0";
-        }
-        this.bubbleEngine.startCascade();
-        if (hintPill) hintPill.style.display = "inline-flex";
-        if (status) status.innerHTML = `<span class="terminal-prefix">&gt;</span> 🫧 BUBBLE CASCADE OVERFLOW! Covering entire screen... ✨`;
-      }
-
-      if (elapsed >= 2.0 && elapsed < 3.5) {
-        const p = 50 + Math.min(((elapsed - 2.0) / 1.5) * 50, 50);
-        if (bar) bar.style.width = `${p.toFixed(0)}%`;
-        if (pct) pct.textContent = `${p.toFixed(0)}%`;
-      }
-
-      // Phase 3: At 3.5s - Magically pops and lets you into notebook
-      if (elapsed >= 3.5) {
-        clearInterval(experimentInterval);
+    loader.onclick = (e) => {
+      if (e.target !== skipBtn) {
         completeLoader();
       }
-    }, 50);
+    };
+
+    // Sequential Letter Zoom-Out: s -> k -> i -> e -> n -> c -> e
+    // Each letter zooms out from giant scale down into its place with sound
+    const intervalMs = 260; // 260ms between letters
+    letters.forEach((letterEl, index) => {
+      const timer = setTimeout(() => {
+        if (finished) return;
+        letterEl.classList.add("zoomed-in");
+        sounds.playLetterZoom(index);
+
+        // If this is the final letter ('e'), trigger full word aura & tagline
+        if (index === letters.length - 1) {
+          const completeTimer = setTimeout(() => {
+            if (finished) return;
+            if (wordWrap) wordWrap.classList.add("word-complete");
+            if (tagline) tagline.classList.add("tagline-visible");
+            sounds.playMagicalReveal();
+
+            // After glowing for 850ms, smoothly fade out into notebook
+            const fadeTimer = setTimeout(() => {
+              if (finished) return;
+              completeLoader();
+            }, 850);
+            this._zoomTimers.push(fadeTimer);
+          }, 320);
+          this._zoomTimers.push(completeTimer);
+        }
+      }, index * intervalMs);
+      this._zoomTimers.push(timer);
+    });
   }
 
   replayLoader() {
     const loader = document.getElementById("loader-screen");
     if (!loader) return;
-    const loaderContent = document.querySelector(".loader-content");
-    if (loaderContent) loaderContent.style.opacity = "1";
     loader.style.display = "";
     loader.classList.remove("fade-out");
     this.setupLoadingScreen();
