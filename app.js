@@ -6920,7 +6920,16 @@ class ScienceIoApp {
     const soloLetter = document.getElementById("solo-zoom-letter");
     const aperture = document.getElementById("quantum-aperture-core");
     const pulseRing = document.getElementById("quantum-pulse-ring");
+    const pulseRing2 = document.getElementById("quantum-pulse-ring-2");
     const skipBtn = document.getElementById("loader-skip-btn");
+    const warpCanvas = document.getElementById("loader-warp-canvas");
+    const halo = document.getElementById("solo-letter-halo");
+    const badgeIcon = document.getElementById("solo-badge-icon");
+    const badgeText = document.getElementById("solo-badge-text");
+    const badge = document.getElementById("solo-science-badge");
+    const hudState = document.getElementById("hud-status-state");
+    const hudWarp = document.getElementById("hud-warp-speed");
+    const hudDiscipline = document.getElementById("hud-discipline-tag");
 
     // Clear any pending animation timers
     if (this._zoomTimers) {
@@ -6928,10 +6937,16 @@ class ScienceIoApp {
     }
     this._zoomTimers = [];
 
+    if (this._warpAnimId) {
+      cancelAnimationFrame(this._warpAnimId);
+      this._warpAnimId = null;
+    }
+
     // Reset visibility & classes
     if (soloStage) soloStage.style.display = "";
     if (soloLetter) {
       soloLetter.textContent = "s";
+      soloLetter.setAttribute("data-theme", "s");
       soloLetter.classList.remove("zooming-out");
     }
     if (aperture) {
@@ -6940,17 +6955,162 @@ class ScienceIoApp {
     if (pulseRing) {
       pulseRing.classList.remove("pulse-active");
     }
+    if (pulseRing2) {
+      pulseRing2.classList.remove("pulse-active");
+    }
     const postResolve = document.getElementById("skience-post-resolve");
     if (postResolve) {
       postResolve.classList.add("hidden");
       postResolve.classList.remove("resolve-active");
     }
 
+    // 60FPS Quantum Warp Speed & Particle Shockwave Engine
+    let warpRunning = true;
+    let warpStars = [];
+    let shockwaveParticles = [];
+
+    if (warpCanvas) {
+      const resizeWarpCanvas = () => {
+        warpCanvas.width = window.innerWidth;
+        warpCanvas.height = window.innerHeight;
+      };
+      resizeWarpCanvas();
+
+      // Initialize 90 3D warp stars
+      const numStars = 90;
+      warpStars = [];
+      for (let i = 0; i < numStars; i++) {
+        warpStars.push({
+          x: (Math.random() - 0.5) * window.innerWidth * 2,
+          y: (Math.random() - 0.5) * window.innerHeight * 2,
+          z: Math.random() * 1000 + 10,
+          pz: 1000,
+          color: ["#00f5d4", "#818cf8", "#38bdf8", "#c084fc", "#ffffff"][Math.floor(Math.random() * 5)]
+        });
+      }
+
+      const ctx = warpCanvas.getContext("2d");
+      let cx = window.innerWidth / 2;
+      let cy = window.innerHeight / 2;
+
+      const runWarpLoop = () => {
+        if (!warpRunning) return;
+        cx = warpCanvas.width / 2;
+        cy = warpCanvas.height / 2;
+
+        ctx.clearRect(0, 0, warpCanvas.width, warpCanvas.height);
+
+        // 1. Draw 3D hyperspace warp stars
+        for (let i = 0; i < warpStars.length; i++) {
+          const s = warpStars[i];
+          s.pz = s.z;
+          s.z -= 18; // Warp flight velocity
+          if (s.z <= 0) {
+            s.x = (Math.random() - 0.5) * warpCanvas.width * 2;
+            s.y = (Math.random() - 0.5) * warpCanvas.height * 2;
+            s.z = 1000;
+            s.pz = 1000;
+          }
+
+          const k = 280 / s.z;
+          const px = s.x * k + cx;
+          const py = s.y * k + cy;
+
+          const pk = 280 / s.pz;
+          const prevX = s.x * pk + cx;
+          const prevY = s.y * pk + cy;
+
+          if (px >= 0 && px <= warpCanvas.width && py >= 0 && py <= warpCanvas.height) {
+            const alpha = Math.min(1, (1000 - s.z) / 500);
+            ctx.strokeStyle = s.color;
+            ctx.globalAlpha = alpha * 0.7;
+            ctx.lineWidth = Math.min(3.5, (1000 - s.z) / 300);
+            ctx.beginPath();
+            ctx.moveTo(prevX, prevY);
+            ctx.lineTo(px, py);
+            ctx.stroke();
+          }
+        }
+
+        // 2. Draw shockwave spark particles
+        for (let i = shockwaveParticles.length - 1; i >= 0; i--) {
+          const p = shockwaveParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vx *= 0.94;
+          p.vy *= 0.94;
+          p.alpha -= p.decay;
+
+          if (p.alpha <= 0) {
+            shockwaveParticles.splice(i, 1);
+            continue;
+          }
+
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.alpha;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.globalAlpha = 1;
+        this._warpAnimId = requestAnimationFrame(runWarpLoop);
+      };
+
+      this._warpAnimId = requestAnimationFrame(runWarpLoop);
+    }
+
+    const burstParticles = (color, count = 35) => {
+      if (!warpCanvas) return;
+      const cx = warpCanvas.width / 2;
+      const cy = warpCanvas.height / 2;
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 8 + 3;
+        shockwaveParticles.push({
+          x: cx,
+          y: cy,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          color: color,
+          alpha: 1,
+          radius: Math.random() * 2.5 + 1.2,
+          decay: Math.random() * 0.035 + 0.02
+        });
+      }
+    };
+
+    const supernovaBurst = () => {
+      if (!warpCanvas) return;
+      const cx = warpCanvas.width / 2;
+      const cy = warpCanvas.height / 2;
+      const colors = ["#00f5d4", "#ffb703", "#c084fc", "#10b981", "#38bdf8", "#f43f5e", "#ffffff"];
+      for (let i = 0; i < 140; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 16 + 4;
+        shockwaveParticles.push({
+          x: cx,
+          y: cy,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: 1,
+          radius: Math.random() * 3.5 + 1.5,
+          decay: Math.random() * 0.02 + 0.012
+        });
+      }
+    };
+
     let finished = false;
 
     const completeLoader = () => {
       if (finished) return;
       finished = true;
+      warpRunning = false;
+      if (this._warpAnimId) {
+        cancelAnimationFrame(this._warpAnimId);
+        this._warpAnimId = null;
+      }
       if (this._zoomTimers) {
         this._zoomTimers.forEach((t) => clearTimeout(t));
         this._zoomTimers = [];
@@ -6985,17 +7145,34 @@ class ScienceIoApp {
       }
     };
 
-    // The sequence of letters: s -> k -> i -> e -> n -> c -> e
-    // Each letter zooms into the quantum singularity and fades individually
-    const letterSequence = ["s", "k", "i", "e", "n", "c", "e"];
+    // Keyboard shortcut to skip intro (Space / Escape)
+    const onKeyDown = (e) => {
+      if (e.code === "Space" || e.code === "Escape") {
+        window.removeEventListener("keydown", onKeyDown);
+        completeLoader();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown, { once: true });
+
+    // The sequence of letters with rich creative domains and chromatic gradients:
+    const letterData = [
+      { char: "s", theme: "s", icon: "⚛️", title: "QUANTUM STRUCTURE // ATOMS & MATTER", color: "#00f5d4" },
+      { char: "k", theme: "k", icon: "⚡", title: "KINETIC DYNAMICS // ENERGY & FORCES", color: "#ffb703" },
+      { char: "i", theme: "i", icon: "🌌", title: "INTERSTELLAR COSMOS // ASTRONOMY", color: "#c084fc" },
+      { char: "e", theme: "e1", icon: "🌿", title: "BIOSPHERE // ECOSYSTEMS & LIFE", color: "#10b981" },
+      { char: "n", theme: "n", icon: "🍎", title: "NEWTONIAN MOTION // GRAVITY LAWS", color: "#38bdf8" },
+      { char: "c", theme: "c", icon: "🧪", title: "MOLECULAR BONDS // CHEMICAL REACTIONS", color: "#f43f5e" },
+      { char: "e", theme: "e2", icon: "🌍", title: "PLANETARY SCIENCE // EARTH SYSTEMS", color: "#eab308" }
+    ];
+
     const letterDurationMs = 380; // Crisp, zero-lag kinetic zoom timing
 
     const playNextLetter = (index) => {
       if (finished) return;
 
-      if (index >= letterSequence.length) {
+      if (index >= letterData.length) {
         // All individual letters completed! The letter 'e' has exploded into the singularity.
-        // Reveal the short, sleek post-resolve branding: "skience" + "made with love by Jeeva R."
+        // Climax: Trigger supernova shockwave burst & reveal full liquid glass "skience" word
         if (soloStage) soloStage.style.display = "none";
 
         const postResolve = document.getElementById("skience-post-resolve");
@@ -7003,9 +7180,17 @@ class ScienceIoApp {
           postResolve.classList.remove("hidden");
           postResolve.classList.add("resolve-active");
         }
-        sounds.playMagicalReveal();
 
-        // Give comfortable 1100ms window so "Made with love by Jeeva R" in the glass pill is vividly appreciated
+        supernovaBurst();
+        sounds.playMagicalReveal();
+        if (this.confetti) {
+          this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 70);
+        }
+
+        if (hudState) hudState.textContent = "SYNCHRONIZATION COMPLETE";
+        if (hudWarp) hudWarp.textContent = "WARP COLLAPSE 1.00c";
+
+        // Display for comfortable 1100ms so branding & credit are vividly appreciated
         const finishTimer = setTimeout(() => {
           if (finished) return;
           completeLoader();
@@ -7014,23 +7199,52 @@ class ScienceIoApp {
         return;
       }
 
-      const char = letterSequence[index];
+      const item = letterData[index];
 
       // Update and trigger the solo letter zooming into singularity and fading
       if (soloLetter) {
-        soloLetter.textContent = char;
+        soloLetter.textContent = item.char;
+        soloLetter.setAttribute("data-theme", item.theme);
         // Hardware-accelerated animation restart
         soloLetter.classList.remove("zooming-out");
         void soloLetter.offsetWidth;
         soloLetter.classList.add("zooming-out");
       }
 
-      // Trigger sonic shockwave ring ripple
+      // Update science subtitle badge under the letter
+      if (badgeIcon) badgeIcon.textContent = item.icon;
+      if (badgeText) badgeText.textContent = item.title;
+      if (badge) {
+        badge.style.borderColor = item.color;
+        badge.style.boxShadow = `0 0 22px ${item.color}55`;
+      }
+
+      // Update halo glow behind letter
+      if (halo) {
+        halo.style.background = `radial-gradient(circle, ${item.color}55 0%, transparent 70%)`;
+        halo.style.opacity = "1";
+        setTimeout(() => { if (halo) halo.style.opacity = "0"; }, 280);
+      }
+
+      // Update Telemetry HUD
+      if (hudState) hudState.textContent = `ACCELERATING // LETTER ${index + 1} OF 7`;
+      if (hudWarp) hudWarp.textContent = `${(0.5 + index * 0.08).toFixed(2)}c`;
+      if (hudDiscipline) hudDiscipline.textContent = item.title.split("//")[0].trim();
+
+      // Trigger dual sonic shockwave ring ripples
       if (pulseRing) {
         pulseRing.classList.remove("pulse-active");
         void pulseRing.offsetWidth;
         pulseRing.classList.add("pulse-active");
       }
+      if (pulseRing2) {
+        pulseRing2.classList.remove("pulse-active");
+        void pulseRing2.offsetWidth;
+        pulseRing2.classList.add("pulse-active");
+      }
+
+      // Trigger quantum particle explosion in warp canvas matching letter theme
+      burstParticles(item.color, 40);
 
       // Play punchy synthesizer chime for this letter
       sounds.playLetterZoom(index);
@@ -12799,12 +13013,6 @@ class ScienceIoApp {
         return;
       }
 
-      // Handle echo command
-      if (cleanCmd.startsWith("echo ")) {
-        appendTerminalLine(raw.substring(5).trim());
-        return;
-      }
-
       // 1. SECRET CODE: secret vault access -> open Vault Keypad (DO NOT show in help)
       if (cleanCmd === "secret vault access") {
         appendTerminalLine("🔐 SECURITY OVERRIDE ACCEPTED", "command-result");
@@ -12846,94 +13054,20 @@ class ScienceIoApp {
       switch (cleanCmd) {
         case "help":
           appendTerminalLine(
-            "================ macOS zsh Commands ================\n" +
-            "help      --> list available terminal commands\n" +
-            "ls        --> list files in current directory\n" +
-            "pwd       --> print working directory path\n" +
-            "whoami    --> display current user session\n" +
-            "uname -a  --> show Darwin kernel & system info\n" +
-            "cat       --> read about_jeeva.md\n" +
-            "date      --> print current system date & time\n" +
-            "history   --> show recent command history\n" +
-            "email     --> write a note to Jeeva\n" +
-            "copy      --> copy email to clipboard\n" +
-            "follow    --> YouTube & GitHub links\n" +
-            "wforge    --> WForge 3D print platform\n" +
-            "skills    --> visual skill meters\n" +
-            "banner    --> neon cyber banner\n" +
-            "arcade    --> play retro asteroid blaster\n" +
-            "matrix    --> toggle matrix digital rain\n" +
-            "clear     --> clear terminal (or press ⌘K / Ctrl+K)"
-          );
-          break;
-
-        case "whoami":
-          appendTerminalLine("guest (session: ttys001, uid=501, euid=501)");
-          break;
-
-        case "pwd":
-          appendTerminalLine("/Users/jeeva/projects/skience.io");
-          break;
-
-        case "uname":
-          appendTerminalLine("Darwin");
-          break;
-
-        case "uname -a":
-        case "uname -m":
-        case "uname -r":
-          appendTerminalLine("Darwin Jeeva-MacBook-Pro.local 23.4.0 Darwin Kernel Version 23.4.0: root:xnu-10063.101.17~1/RELEASE_ARM64_T6000 arm64");
-          break;
-
-        case "date":
-          appendTerminalLine(new Date().toString());
-          break;
-
-        case "ls":
-        case "ls -l":
-        case "ls -la":
-        case "dir":
-          appendTerminalLine(
-            "total 144\n" +
-            "drwxr-xr-x  7 jeeva staff   224 Nov 11 11:39 arcade/\n" +
-            "drwxr-xr-x  4 jeeva staff   128 Nov 11 11:39 assets/\n" +
-            "drwxr-xr-x  8 jeeva staff   256 Nov 11 11:39 wforge/\n" +
-            "-rw-r--r--  1 jeeva staff  3280 Nov 11 11:39 about_jeeva.md\n" +
-            "-rwxr-xr-x  1 jeeva staff  1420 Nov 11 11:39 matrix_rain.sh\n" +
-            "-rw-r--r--  1 jeeva staff   890 Nov 11 11:39 skills.json\n" +
-            "-rw-r--r--  1 jeeva staff  4120 Nov 11 11:39 skience.io.conf"
-          );
-          break;
-
-        case "cat":
-        case "cat about_jeeva.md":
-        case "cat about.md":
-          appendTerminalLine(
-            "=========================================\n" +
-            "👤 JEEVA RAGHAVAN\n" +
-            "Developer, Creator & 5th Grade Scholar\n" +
-            "Making Things for WForge (W3D.base44.app)\n" +
-            "=========================================\n" +
-            "Building next-gen interactive learning experiences,\n" +
-            "liquid glass user interfaces, and retro games."
-          );
-          break;
-
-        case "history":
-          if (commandHistory.length === 0) {
-            appendTerminalLine("No commands in history yet.");
-          } else {
-            appendTerminalLine(commandHistory.map((cmd, i) => `  ${(i + 1).toString().padStart(3, " ")}  ${cmd}`).join("\n"));
-          }
-          break;
-
-        case "ps":
-        case "top":
-          appendTerminalLine(
-            "  PID TTY           TIME CMD\n" +
-            " 1042 ttys001    0:00.12 -zsh\n" +
-            " 1088 ttys001    0:02.45 node skience.io\n" +
-            " 1120 ttys001    0:00.68 python3 wforge_daemon.py"
+            "email    --> write a note\n" +
+            "copy     --> copy my email\n" +
+            "follow   --> find me elsewhere\n" +
+            "projects --> see what I’ve built\n" +
+            "wforge   --> WForge 3D print platform\n" +
+            "skills   --> visual skill meters\n" +
+            "banner   --> neon cyber banner\n" +
+            "arcade   --> play retro asteroid blaster\n" +
+            "matrix   --> toggle matrix digital rain\n" +
+            "about    --> a little about me\n" +
+            "clear    --> a fresh terminal\n" +
+            "hello    --> say hello\n" +
+            "replay   --> play the intro again\n" +
+            "joke     --> hear a joke"
           );
           break;
 
@@ -13035,7 +13169,7 @@ class ScienceIoApp {
           break;
 
         default:
-          appendTerminalLine(`zsh: command not found: ${raw}. Type "help" to see available commands.`);
+          appendTerminalLine(`Unknown command: ${raw}. Type "help" to see what works.`);
           break;
       }
     };

@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=71.0">
+  <link rel="stylesheet" href="styles.css?v=72.0">
   <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -67,38 +67,94 @@
   </div>
   <!-- ================= SKIENCE CINEMATIC QUANTUM LETTER ZOOM OPENING SCREEN ================= -->
   <div id="loader-screen" class="loader-overlay skience-intro-overlay">
+    <!-- 60FPS Quantum Warp Speed & Cosmic Shockwave Canvas -->
+    <canvas id="loader-warp-canvas" class="loader-warp-canvas"></canvas>
+
     <div class="intro-bg-atmosphere"></div>
     <div class="intro-cosmic-grid"></div>
 
+    <!-- Sci-Fi Telemetry HUD Corners -->
+    <div class="loader-hud-overlay" aria-hidden="true">
+      <div class="loader-hud-corner hud-top-left">
+        <span class="hud-indicator-dot"></span>
+        <span class="hud-text-main">SKIENCE.IO // QUANTUM CORE v72.0</span>
+        <span class="hud-text-sub">STATUS: <span id="hud-status-state">ACCELERATING FIELD</span></span>
+      </div>
+      <div class="loader-hud-corner hud-top-right">
+        <span class="hud-text-main">SINGULARITY FLUX: <span id="hud-flux-meter">[||||||||||||] 100%</span></span>
+        <span class="hud-text-sub">WARP VELOCITY: <span id="hud-warp-speed">0.99c</span> // STABLE</span>
+      </div>
+      <div class="loader-hud-corner hud-bottom-left">
+        <span class="hud-text-main">STUDENT LAB NOTEBOOK ENGINE</span>
+        <span class="hud-text-sub">DISCIPLINE: <span id="hud-discipline-tag">QUANTUM DYNAMICS</span></span>
+      </div>
+    </div>
+
+    <!-- Floating Ambient Science Formulas in Orbit -->
+    <div class="loader-formulas-layer" aria-hidden="true">
+      <span class="hud-formula f-1">E = mc²</span>
+      <span class="hud-formula f-2">F = ma</span>
+      <span class="hud-formula f-3">λν = c</span>
+      <span class="hud-formula f-4">H₂O</span>
+      <span class="hud-formula f-5">G = 6.67×10⁻¹¹</span>
+      <span class="hud-formula f-6">h = 6.626×10⁻³⁴</span>
+      <span class="hud-formula f-7">∇ × B = μ₀J</span>
+      <span class="hud-formula f-8">c = 3.0×10⁸ m/s</span>
+    </div>
+
     <div class="skience-intro-stage" id="skience-intro-stage">
-      <!-- Quantum Aperture Core (Dual orbital rings + singularity glow + shockwave + laser crosshairs) -->
+      <!-- Quantum Aperture Core (4 orbital gyroscope rings + singularity glow + orbiting photon + laser crosshairs) -->
       <div class="quantum-aperture-core" id="quantum-aperture-core">
         <div class="quantum-aperture-glow"></div>
+        <div class="quantum-aperture-plasma"></div>
+        <!-- 4 Gyroscope Rings -->
+        <div class="quantum-orbit-ring ring-outer-coords">
+          <span class="ring-coord c-0">000°</span>
+          <span class="ring-coord c-90">090°</span>
+          <span class="ring-coord c-180">180°</span>
+          <span class="ring-coord c-270">270°</span>
+        </div>
         <div class="quantum-orbit-ring ring-outer"></div>
         <div class="quantum-orbit-ring ring-inner"></div>
+        <div class="quantum-orbit-ring ring-innermost"></div>
+
+        <!-- Orbiting Photon Light Bead -->
+        <div class="quantum-photon-orbit">
+          <div class="quantum-photon-orb"></div>
+        </div>
+
         <div class="quantum-pulse-ring" id="quantum-pulse-ring"></div>
+        <div class="quantum-pulse-ring ring-secondary" id="quantum-pulse-ring-2"></div>
         <div class="quantum-crosshair cross-h"></div>
         <div class="quantum-crosshair cross-v"></div>
       </div>
 
       <!-- SOLO INDIVIDUAL LETTER STAGE (One letter at a time zooms into singularity & fades) -->
       <div class="solo-letter-stage" id="solo-letter-stage">
-        <div class="solo-zoom-letter" id="solo-zoom-letter" data-char="s">s</div>
+        <div class="solo-letter-halo" id="solo-letter-halo"></div>
+        <div class="solo-zoom-letter" id="solo-zoom-letter" data-char="s" data-theme="s">s</div>
+        <!-- Dynamic Science Subtitle Badge that updates with each letter -->
+        <div class="solo-science-badge" id="solo-science-badge">
+          <span class="science-badge-icon" id="solo-badge-icon">⚛️</span>
+          <span class="science-badge-text" id="solo-badge-text">QUANTUM STRUCTURE // ATOMS &amp; MATTER</span>
+        </div>
       </div>
 
-      <!-- POST-E RESOLUTION BRANDING: "skience" + "made with love by Jeeva R." (short & elegant) -->
+      <!-- POST-E RESOLUTION BRANDING: "skience" + "made with love by Jeeva R." -->
       <div class="skience-post-resolve hidden" id="skience-post-resolve">
         <div class="post-resolve-supernova"></div>
-        <h1 class="post-resolve-word">skience</h1>
+        <div class="post-resolve-flare-h"></div>
+        <h1 class="post-resolve-word" id="post-resolve-word">skience</h1>
         <div class="post-resolve-tagline">
           <span class="tagline-sparkle">✨</span>
           <span class="tagline-badge">5TH GRADE SCIENCE</span>
           <span class="tagline-dot">•</span>
           <span class="tagline-credit">MADE WITH LOVE BY JEEVA R.</span>
+          <span class="tagline-sparkle">✨</span>
         </div>
       </div>
     </div>
-    <button class="loader-skip-btn" id="loader-skip-btn" title="Skip to notebook">Skip &gt;&gt;</button>
+    <button class="loader-skip-btn" id="loader-skip-btn" title="Skip to notebook">Skip Intro ⏭</button>
   </div>
 
   <!-- ================= FLUID COLORFUL AMBIENT BACKGROUND ================= -->
@@ -1758,6 +1814,6 @@
   </div>
 
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=71.0"></script>
+  <script src="app.js?v=72.0"></script>
 </body>
 </html>
