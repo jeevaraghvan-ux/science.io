@@ -6293,27 +6293,40 @@ class ScienceIoApp {
     this.confetti = new ConfettiEngine(canvas);
   }
 
-  // ================= SKIENCE LETTER ZOOM-OUT OPENING SCREEN CONTROLLER =================
+  // ================= SKIENCE ONE-LETTER-AT-A-TIME ZOOM-OUT CONTROLLER =================
   setupLoadingScreen() {
     const loader = document.getElementById("loader-screen");
     if (!loader) return;
-    const wordWrap = document.getElementById("skience-zoom-word");
-    const letters = Array.from(loader.querySelectorAll(".zoom-letter"));
+    const soloStage = document.getElementById("solo-letter-stage");
+    const soloLetter = document.getElementById("solo-zoom-letter");
+    const tracker = document.getElementById("spelled-tracker");
+    const trackerChars = Array.from(loader.querySelectorAll(".tracker-char"));
+    const resolvedWord = document.getElementById("skience-resolved-word");
     const tagline = document.getElementById("skience-intro-tagline");
     const skipBtn = document.getElementById("loader-skip-btn");
 
-    // Clear any active animation timers
+    // Clear any pending animation timers
     if (this._zoomTimers) {
       this._zoomTimers.forEach((t) => clearTimeout(t));
     }
     this._zoomTimers = [];
 
-    // Reset initial letter & word states
-    if (wordWrap) wordWrap.classList.remove("word-complete");
-    if (tagline) tagline.classList.remove("tagline-visible");
-    letters.forEach((l) => {
-      l.classList.remove("zoomed-in");
+    // Reset visibility & classes
+    if (soloStage) soloStage.style.display = "";
+    if (soloLetter) {
+      soloLetter.textContent = "s";
+      soloLetter.classList.remove("zooming-out");
+    }
+    if (tracker) tracker.style.display = "";
+    trackerChars.forEach((c) => {
+      c.classList.remove("active", "completed");
     });
+    if (resolvedWord) {
+      resolvedWord.classList.add("hidden");
+    }
+    if (tagline) {
+      tagline.classList.remove("tagline-visible");
+    }
 
     let finished = false;
 
@@ -6325,9 +6338,10 @@ class ScienceIoApp {
         this._zoomTimers = [];
       }
 
-      // Ensure all letters landed and word is complete
-      letters.forEach((l) => l.classList.add("zoomed-in"));
-      if (wordWrap) wordWrap.classList.add("word-complete");
+      // Hide individual stage & tracker, show resolved word & tagline
+      if (soloStage) soloStage.style.display = "none";
+      if (tracker) tracker.style.display = "none";
+      if (resolvedWord) resolvedWord.classList.remove("hidden");
       if (tagline) tagline.classList.add("tagline-visible");
 
       sounds.playMagicalReveal();
@@ -6342,7 +6356,7 @@ class ScienceIoApp {
         } else {
           this.playCursiveHandwriting();
         }
-      }, 420);
+      }, 500);
     };
 
     if (skipBtn) {
@@ -6358,35 +6372,75 @@ class ScienceIoApp {
       }
     };
 
-    // Sequential Letter Zoom-Out: s -> k -> i -> e -> n -> c -> e
-    // Each letter zooms out from giant scale down into its place with sound
-    const intervalMs = 260; // 260ms between letters
-    letters.forEach((letterEl, index) => {
-      const timer = setTimeout(() => {
-        if (finished) return;
-        letterEl.classList.add("zoomed-in");
-        sounds.playLetterZoom(index);
+    // The sequence of letters: s -> k -> i -> e -> n -> c -> e
+    // "the loading screen has to be one letter at a time it zooms out the first letter then the other individually it zooms out and it fades."
+    const letterSequence = ["s", "k", "i", "e", "n", "c", "e"];
+    const letterDurationMs = 420; // Time for each letter to zoom out and fade
 
-        // If this is the final letter ('e'), trigger full word aura & tagline
-        if (index === letters.length - 1) {
-          const completeTimer = setTimeout(() => {
-            if (finished) return;
-            if (wordWrap) wordWrap.classList.add("word-complete");
-            if (tagline) tagline.classList.add("tagline-visible");
-            sounds.playMagicalReveal();
+    const playNextLetter = (index) => {
+      if (finished) return;
 
-            // After glowing for 850ms, smoothly fade out into notebook
-            const fadeTimer = setTimeout(() => {
-              if (finished) return;
-              completeLoader();
-            }, 850);
-            this._zoomTimers.push(fadeTimer);
-          }, 320);
-          this._zoomTimers.push(completeTimer);
+      if (index >= letterSequence.length) {
+        // All letters have individually zoomed out and faded!
+        // Now reveal the complete resolved word "skience" with cosmic liquid glass glow
+        if (soloStage) soloStage.style.display = "none";
+        if (tracker) tracker.style.display = "none";
+        if (resolvedWord) resolvedWord.classList.remove("hidden");
+        if (tagline) tagline.classList.add("tagline-visible");
+        sounds.playMagicalReveal();
+
+        const finishTimer = setTimeout(() => {
+          if (finished) return;
+          completeLoader();
+        }, 850);
+        this._zoomTimers.push(finishTimer);
+        return;
+      }
+
+      const char = letterSequence[index];
+
+      // Update tracker chars
+      trackerChars.forEach((tc, idx) => {
+        if (idx === index) {
+          tc.classList.add("active");
+          tc.classList.remove("completed");
+        } else if (idx < index) {
+          tc.classList.add("completed");
+          tc.classList.remove("active");
+        } else {
+          tc.classList.remove("active", "completed");
         }
-      }, index * intervalMs);
-      this._zoomTimers.push(timer);
-    });
+      });
+
+      // Update and trigger the solo letter zooming out and fading
+      if (soloLetter) {
+        soloLetter.textContent = char;
+        // Force reflow to restart animation
+        soloLetter.classList.remove("zooming-out");
+        void soloLetter.offsetWidth;
+        soloLetter.classList.add("zooming-out");
+      }
+
+      // Play punchy sound for this letter
+      sounds.playLetterZoom(index);
+
+      // Schedule next letter after this one completes its zoom-out and fade
+      const stepTimer = setTimeout(() => {
+        if (finished) return;
+        if (trackerChars[index]) {
+          trackerChars[index].classList.remove("active");
+          trackerChars[index].classList.add("completed");
+        }
+        playNextLetter(index + 1);
+      }, letterDurationMs);
+      this._zoomTimers.push(stepTimer);
+    };
+
+    // Start with letter 0 ('s')
+    const startTimer = setTimeout(() => {
+      playNextLetter(0);
+    }, 120);
+    this._zoomTimers.push(startTimer);
   }
 
   replayLoader() {

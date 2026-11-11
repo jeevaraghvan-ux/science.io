@@ -148,71 +148,138 @@ html, body {
   padding: 0 20px;
 }
 
-/* The word container */
-.skience-zoom-word {
+/* Solo Individual Letter Stage (One letter at a time) */
+.solo-letter-stage {
+  position: relative;
+  width: 100%;
+  height: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.04em;
-  font-family: var(--font-display);
-  font-weight: 900;
-  text-transform: lowercase;
-  letter-spacing: -0.01em;
-  font-size: clamp(3.8rem, 13vw, 8.5rem);
-  line-height: 1;
-  position: relative;
-  perspective: 1000px;
+  perspective: 1200px;
 }
 
-/* Individual letter zooming out */
-.zoom-letter {
-  display: inline-block;
+.solo-zoom-letter {
+  font-family: var(--font-display);
+  font-size: clamp(6.5rem, 26vw, 13.5rem);
+  font-weight: 900;
+  text-transform: lowercase;
+  line-height: 1;
+  user-select: none;
   opacity: 0;
-  transform: scale(7) translateY(-20px);
-  filter: blur(22px);
   will-change: transform, opacity, filter;
-  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 30%, #818cf8 65%, #4f46e5 95%);
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 28%, #818cf8 62%, #4f46e5 95%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  text-shadow: 0 0 30px rgba(99, 102, 241, 0.8), 0 0 60px rgba(79, 70, 229, 0.5);
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.35s ease, opacity 0.35s ease;
+  filter: drop-shadow(0 0 35px rgba(99, 102, 241, 0.9)) drop-shadow(0 0 70px rgba(124, 58, 237, 0.55));
 }
 
-/* When letter zooms out from giant scale down into its place */
-.zoom-letter.zoomed-in {
-  opacity: 1;
-  transform: scale(1) translateY(0);
-  filter: blur(0px);
-  animation: letterImpact 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* One letter at a time zooming out into the distance and fading */
+.solo-zoom-letter.zooming-out {
+  animation: soloZoomOutFade 0.44s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes letterImpact {
+@keyframes soloZoomOutFade {
   0% {
     opacity: 0;
-    transform: scale(6.5) translateY(-25px);
-    filter: blur(20px);
+    transform: scale(2.6) translateZ(0);
+    filter: blur(14px) drop-shadow(0 0 45px rgba(99, 102, 241, 0.95));
   }
-  40% {
-    opacity: 0.95;
-    filter: blur(4px);
-  }
-  75% {
-    transform: scale(0.92) translateY(2px);
-    filter: blur(0px);
+  22% {
     opacity: 1;
+    transform: scale(1.4) translateZ(0);
+    filter: blur(0px) drop-shadow(0 0 40px rgba(139, 92, 246, 0.85));
+  }
+  65% {
+    opacity: 0.95;
+    transform: scale(0.95) translateZ(0);
+    filter: blur(0px) drop-shadow(0 0 30px rgba(59, 130, 246, 0.75));
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.2) translateZ(0);
+    filter: blur(12px) drop-shadow(0 0 10px rgba(79, 70, 229, 0));
+  }
+}
+
+/* Spelled Tracker under the solo letter */
+.spelled-tracker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 14px;
+  padding: 8px 24px;
+  background: rgba(10, 16, 38, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.tracker-char {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-transform: lowercase;
+  color: rgba(255, 255, 255, 0.2);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tracker-char.active {
+  color: #ffffff;
+  text-shadow: 0 0 16px #818cf8, 0 0 30px #4f46e5;
+  transform: scale(1.35);
+}
+
+.tracker-char.completed {
+  color: #93c5fd;
+  text-shadow: 0 0 12px rgba(99, 102, 241, 0.65);
+  transform: scale(1);
+}
+
+/* Final Resolved Word */
+.skience-resolved-word {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+  animation: wordPulseAura 2s ease-in-out infinite alternate;
+}
+
+.resolved-glow-word {
+  font-family: var(--font-display);
+  font-size: clamp(4.2rem, 14vw, 9.2rem);
+  font-weight: 900;
+  text-transform: lowercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 25%, #818cf8 60%, #4f46e5 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: resolvedWordImpact 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes resolvedWordImpact {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+    filter: blur(12px) drop-shadow(0 0 20px rgba(99, 102, 241, 0));
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.04);
+    filter: blur(0px) drop-shadow(0 0 40px rgba(129, 140, 248, 0.95)) drop-shadow(0 0 80px rgba(147, 51, 234, 0.65));
   }
   100% {
     opacity: 1;
-    transform: scale(1) translateY(0);
-    filter: blur(0px);
+    transform: scale(1);
+    filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.8)) drop-shadow(0 0 60px rgba(124, 58, 237, 0.5));
   }
-}
-
-/* When all letters have landed, the full word glows with liquid glass brilliance */
-.skience-zoom-word.word-complete {
-  animation: wordPulseAura 2s ease-in-out infinite alternate;
 }
 
 @keyframes wordPulseAura {
@@ -222,7 +289,7 @@ html, body {
   }
   100% {
     filter: drop-shadow(0 0 35px rgba(129, 140, 248, 0.85)) drop-shadow(0 0 75px rgba(147, 51, 234, 0.55));
-    transform: scale(1.025);
+    transform: scale(1.02);
   }
 }
 
