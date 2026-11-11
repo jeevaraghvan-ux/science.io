@@ -11021,18 +11021,44 @@ class ScienceIoApp {
       this.replayLoader();
     });
 
-    // Direct redirect to haunt.gg/reallyjgr on "Made with love by Jeeva R." (DO NOT OPEN MODAL)
-    const redirectToJeevaProfile = (e) => {
+    // In-App "All About Me" Portfolio Modal for Jeeva Raghavan (Zero Redirects)
+    const openJeevaProfileModal = (e) => {
       if (e) {
         e.preventDefault();
         e.stopPropagation();
       }
       sounds.playSuccess();
-      window.location.href = "https://haunt.gg/reallyjgr";
+      const modal = document.getElementById("projects-modal");
+      if (modal) {
+        modal.classList.remove("hidden");
+      }
+      this.confetti?.burst(window.innerWidth / 2, window.innerHeight * 0.35, 60);
     };
 
-    document.getElementById("author-credit-trigger")?.addEventListener("click", redirectToJeevaProfile);
-    document.querySelector(".loader-author")?.addEventListener("click", redirectToJeevaProfile);
+    document.getElementById("author-credit-trigger")?.addEventListener("click", openJeevaProfileModal);
+    document.querySelector(".loader-author")?.addEventListener("click", openJeevaProfileModal);
+
+    // 1-Click Copy Gmail feature
+    const copyGmailBtn = document.getElementById("btn-copy-gmail");
+    if (copyGmailBtn) {
+      copyGmailBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        navigator.clipboard.writeText("jvrghvn0@gmail.com").then(() => {
+          sounds.playBeep(880, 0.08);
+          const textEl = document.getElementById("copy-email-text");
+          if (textEl) {
+            const original = textEl.textContent;
+            textEl.textContent = "Copied! ✓";
+            setTimeout(() => {
+              textEl.textContent = original;
+            }, 2000);
+          }
+        }).catch(() => {
+          alert("Email: jvrghvn0@gmail.com");
+        });
+      });
+    }
 
     document.getElementById("modal-projects-close")?.addEventListener("click", () => {
       sounds.playClick();
