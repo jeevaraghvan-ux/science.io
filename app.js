@@ -2328,6 +2328,108 @@ class SoundController {
     } catch (e) {}
   }
 
+  playMechanicalKey() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(1400 + Math.random() * 300, now);
+      osc.frequency.exponentialRampToValueAtTime(320, now + 0.025);
+      gain.gain.setValueAtTime(0.035, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.025);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.025);
+    } catch (e) {}
+  }
+
+  playLaser() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(920, now);
+      osc.frequency.exponentialRampToValueAtTime(120, now + 0.11);
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.11);
+    } catch (e) {}
+  }
+
+  playExplosion() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = "square";
+      osc.frequency.setValueAtTime(180, now);
+      osc.frequency.exponentialRampToValueAtTime(35, now + 0.18);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.18);
+    } catch (e) {}
+  }
+
+  playCoin() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      [987.77, 1318.51].forEach((freq, i) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, now + i * 0.07);
+        gain.gain.setValueAtTime(0.08, now + i * 0.07);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.18);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now + i * 0.07);
+        osc.stop(now + i * 0.07 + 0.18);
+      });
+    } catch (e) {}
+  }
+
+  playMatrix() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      [440, 554, 659, 830, 987, 1108].forEach((f, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(f, now + idx * 0.035);
+        gain.gain.setValueAtTime(0.04, now + idx * 0.035);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.035 + 0.09);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now + idx * 0.035);
+        osc.stop(now + idx * 0.035 + 0.09);
+      });
+    } catch (e) {}
+  }
+
   playSuccess() {
     if (!this.enabled) return;
     this.init();
@@ -11343,12 +11445,14 @@ class ScienceIoApp {
       }, 2500);
     };
 
-    // Pixel portrait drawing (authentic me.skience.io 96x96 pixel grid builder)
+    // Pixel portrait drawing with Real-time Mouse Eye Tracking
     const canvas = document.getElementById("me-portrait-canvas");
     let isWaving = false;
     let waveTimeout = null;
+    let pupilX = 0;
+    let pupilY = 0;
 
-    const drawPortrait = (waving = false) => {
+    const drawPortrait = (waving = false, pX = 0, pY = 0) => {
       if (!canvas) return;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
@@ -11370,8 +11474,9 @@ class ScienceIoApp {
       fill(31, 43, 12, 9, '#171b15');
       fill(50, 43, 12, 9, '#171b15');
       fill(43, 45, 7, 3, '#171b15');
-      fill(34, 45, 5, 3, '#d9dcd2');
-      fill(53, 45, 5, 3, '#d9dcd2');
+      // Pupils with dynamic eye tracking offset
+      fill(34 + pX, 45 + pY, 5, 3, '#d9dcd2');
+      fill(53 + pX, 45 + pY, 5, 3, '#d9dcd2');
       fill(44, 50, 5, 5, '#925e3e');
       fill(40, 57, 14, 3, '#eceee6');
       fill(34, 61, 25, 8, '#b97d57');
@@ -11395,18 +11500,78 @@ class ScienceIoApp {
       }
     };
     this.drawMePortrait = drawPortrait;
-    drawPortrait(false);
+    drawPortrait(false, 0, 0);
+
+    // Eye tracking listener across the about me modal
+    const meModal = document.getElementById("projects-modal");
+    if (meModal) {
+      meModal.addEventListener("mousemove", (e) => {
+        if (!canvas) return;
+        const rect = canvas.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const dx = e.clientX - centerX;
+        const dy = e.clientY - centerY;
+
+        const newPX = Math.max(-2, Math.min(2, Math.round(dx / 75)));
+        const newPY = Math.max(-1, Math.min(1, Math.round(dy / 90)));
+        if (newPX !== pupilX || newPY !== pupilY) {
+          pupilX = newPX;
+          pupilY = newPY;
+          drawPortrait(isWaving, pupilX, pupilY);
+        }
+      });
+    }
+
+    // Avatar speech bubbles & greeting
+    const speechBubble = document.getElementById("avatar-speech-bubble");
+    const avatarQuotes = [
+      "Hi, player 2! 👋",
+      "Building the future at WForge! 🚀",
+      "Skience.io is live in neon! ⚡",
+      "Curiosity is power! 🔬",
+      "Every line coded by hand! 💻",
+      "Making things that matter!"
+    ];
+    let quoteIndex = 0;
 
     document.getElementById("me-portrait-btn")?.addEventListener("click", () => {
       isWaving = true;
-      drawPortrait(true);
-      sounds.playSuccess();
-      showToast("Hi, player 2.");
+      drawPortrait(true, pupilX, pupilY);
+      sounds.playCoin();
+      const currentQuote = avatarQuotes[quoteIndex % avatarQuotes.length];
+      quoteIndex++;
+      if (speechBubble) {
+        speechBubble.textContent = currentQuote;
+        speechBubble.classList.remove("hidden");
+        clearTimeout(this._bubbleTimeout);
+        this._bubbleTimeout = setTimeout(() => {
+          speechBubble.classList.add("hidden");
+        }, 2600);
+      }
+      showToast("Jeeva: " + currentQuote);
       clearTimeout(waveTimeout);
       waveTimeout = setTimeout(() => {
         isWaving = false;
-        drawPortrait(false);
+        drawPortrait(false, pupilX, pupilY);
       }, 2400);
+    });
+
+    // 3D Holographic Tilt on project cards
+    document.querySelectorAll(".me-skience-container .project-card").forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotX = ((y - centerY) / centerY) * -9;
+        const rotY = ((x - centerX) / centerX) * 9;
+        card.style.transform = `perspective(800px) rotateX(${rotX.toFixed(1)}deg) rotateY(${rotY.toFixed(1)}deg) translateZ(8px)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0px)";
+      });
     });
 
     // Project inspect dialog
@@ -11457,15 +11622,403 @@ class ScienceIoApp {
       resetTerminal();
     });
 
+    // ================= RETRO ARCADE MINI-GAME: WFORGE ASTEROID BLASTER =================
+    const arcadePanel = document.getElementById("me-arcade-panel");
+    const arcadeBtn = document.getElementById("me-arcade-btn");
+    const arcadeCloseBtn = document.getElementById("arcade-close-btn");
+    const arcadeCanvas = document.getElementById("me-arcade-canvas");
+    const arcadeScoreEl = document.getElementById("arcade-score");
+    const arcadeHighEl = document.getElementById("arcade-high-score");
+    const arcadeLivesEl = document.getElementById("arcade-lives");
+    const arcadeOverlay = document.getElementById("arcade-overlay");
+    const arcadeRestartBtn = document.getElementById("arcade-restart-btn");
+    const arcadeMsg = document.getElementById("arcade-overlay-msg");
+
+    let arcadeAnimId = null;
+    let arcadeRunning = false;
+    let arcadeScore = 0;
+    let arcadeHighScore = parseInt(localStorage.getItem("wforge_arcade_high") || "0", 10);
+    if (arcadeHighEl) arcadeHighEl.textContent = String(arcadeHighScore);
+    let arcadeLives = 3;
+    let arcadePlayer = { x: 280, y: 260, w: 22, h: 20, speed: 6 };
+    let arcadeLasers = [];
+    let arcadeAsteroids = [];
+    let arcadeTokens = [];
+    let arcadeParticles = [];
+    let arcadeKeys = { left: false, right: false };
+    let lastAsteroidSpawn = 0;
+    let lastTokenSpawn = 0;
+
+    const initArcade = () => {
+      arcadeScore = 0;
+      arcadeLives = 3;
+      arcadeLasers = [];
+      arcadeAsteroids = [];
+      arcadeTokens = [];
+      arcadeParticles = [];
+      if (arcadeCanvas) {
+        arcadePlayer.x = arcadeCanvas.width / 2;
+        arcadePlayer.y = arcadeCanvas.height - 35;
+      }
+      if (arcadeScoreEl) arcadeScoreEl.textContent = "0";
+      if (arcadeLivesEl) arcadeLivesEl.textContent = "❤️❤️❤️";
+      if (arcadeOverlay) arcadeOverlay.classList.add("hidden");
+      arcadeRunning = true;
+    };
+
+    const runArcadeLoop = (timestamp) => {
+      if (!arcadeRunning) return;
+      const ctx = arcadeCanvas?.getContext("2d");
+      if (!ctx || !arcadeCanvas) return;
+
+      const cw = arcadeCanvas.width;
+      const ch = arcadeCanvas.height;
+
+      // Clear with dark trail
+      ctx.fillStyle = "rgba(3, 4, 3, 0.35)";
+      ctx.fillRect(0, 0, cw, ch);
+
+      // Input movement
+      if (arcadeKeys.left && arcadePlayer.x > 18) arcadePlayer.x -= arcadePlayer.speed;
+      if (arcadeKeys.right && arcadePlayer.x < cw - 18) arcadePlayer.x += arcadePlayer.speed;
+
+      // Draw player ship (neon green arrow craft)
+      ctx.save();
+      ctx.strokeStyle = "#78d98a";
+      ctx.fillStyle = "#244229";
+      ctx.lineWidth = 2;
+      ctx.shadowColor = "#78d98a";
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.moveTo(arcadePlayer.x, arcadePlayer.y - 12);
+      ctx.lineTo(arcadePlayer.x - 12, arcadePlayer.y + 10);
+      ctx.lineTo(arcadePlayer.x, arcadePlayer.y + 5);
+      ctx.lineTo(arcadePlayer.x + 12, arcadePlayer.y + 10);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Thruster flame
+      ctx.fillStyle = Math.random() > 0.5 ? "#ff7a3d" : "#ffd166";
+      ctx.beginPath();
+      ctx.moveTo(arcadePlayer.x - 4, arcadePlayer.y + 7);
+      ctx.lineTo(arcadePlayer.x, arcadePlayer.y + 14 + Math.random() * 6);
+      ctx.lineTo(arcadePlayer.x + 4, arcadePlayer.y + 7);
+      ctx.fill();
+      ctx.restore();
+
+      // Spawning asteroids
+      if (timestamp - lastAsteroidSpawn > 750) {
+        lastAsteroidSpawn = timestamp;
+        arcadeAsteroids.push({
+          x: Math.random() * (cw - 40) + 20,
+          y: -20,
+          radius: Math.random() * 12 + 10,
+          speedY: Math.random() * 1.8 + 1.2,
+          speedX: (Math.random() - 0.5) * 1.2,
+          rot: 0,
+          rotSpeed: (Math.random() - 0.5) * 0.05
+        });
+      }
+
+      // Spawning WForge Tokens (gear cogs)
+      if (timestamp - lastTokenSpawn > 3200) {
+        lastTokenSpawn = timestamp;
+        arcadeTokens.push({
+          x: Math.random() * (cw - 40) + 20,
+          y: -20,
+          radius: 9,
+          speedY: 1.5,
+          rot: 0
+        });
+      }
+
+      // Update & Draw Lasers
+      for (let i = arcadeLasers.length - 1; i >= 0; i--) {
+        const l = arcadeLasers[i];
+        l.y -= 9;
+        ctx.fillStyle = "#78d98a";
+        ctx.shadowColor = "#78d98a";
+        ctx.shadowBlur = 8;
+        ctx.fillRect(l.x - 1.5, l.y, 3, 10);
+
+        if (l.y < -10) {
+          arcadeLasers.splice(i, 1);
+          continue;
+        }
+
+        // Laser vs Asteroid collision
+        for (let j = arcadeAsteroids.length - 1; j >= 0; j--) {
+          const a = arcadeAsteroids[j];
+          const dist = Math.hypot(l.x - a.x, l.y - a.y);
+          if (dist < a.radius + 3) {
+            // Explosion particles
+            for (let p = 0; p < 8; p++) {
+              arcadeParticles.push({
+                x: a.x,
+                y: a.y,
+                vx: (Math.random() - 0.5) * 5,
+                vy: (Math.random() - 0.5) * 5,
+                life: 1,
+                color: Math.random() > 0.5 ? "#ff7a3d" : "#78d98a"
+              });
+            }
+            arcadeAsteroids.splice(j, 1);
+            arcadeLasers.splice(i, 1);
+            arcadeScore += 10;
+            if (arcadeScoreEl) arcadeScoreEl.textContent = String(arcadeScore);
+            if (arcadeScore > arcadeHighScore) {
+              arcadeHighScore = arcadeScore;
+              if (arcadeHighEl) arcadeHighEl.textContent = String(arcadeHighScore);
+              localStorage.setItem("wforge_arcade_high", String(arcadeHighScore));
+            }
+            sounds.playExplosion();
+            break;
+          }
+        }
+      }
+
+      // Update & Draw Asteroids
+      for (let i = arcadeAsteroids.length - 1; i >= 0; i--) {
+        const a = arcadeAsteroids[i];
+        a.y += a.speedY;
+        a.x += a.speedX;
+        a.rot += a.rotSpeed;
+
+        ctx.save();
+        ctx.translate(a.x, a.y);
+        ctx.rotate(a.rot);
+        ctx.strokeStyle = "#ff7a3d";
+        ctx.fillStyle = "rgba(255, 122, 61, 0.15)";
+        ctx.lineWidth = 1.5;
+        ctx.shadowColor = "#ff7a3d";
+        ctx.shadowBlur = 6;
+        ctx.beginPath();
+        const sides = 6;
+        for (let s = 0; s < sides; s++) {
+          const angle = (s / sides) * Math.PI * 2;
+          const r = a.radius * (s % 2 === 0 ? 1 : 0.82);
+          const px = Math.cos(angle) * r;
+          const py = Math.sin(angle) * r;
+          if (s === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+
+        // Check collision with player
+        const pDist = Math.hypot(arcadePlayer.x - a.x, arcadePlayer.y - a.y);
+        if (pDist < a.radius + 10) {
+          arcadeAsteroids.splice(i, 1);
+          arcadeLives--;
+          sounds.playExplosion();
+          if (arcadeLivesEl) {
+            arcadeLivesEl.textContent = "❤️".repeat(Math.max(0, arcadeLives));
+          }
+          if (arcadeLives <= 0) {
+            arcadeRunning = false;
+            if (arcadeOverlay) {
+              arcadeOverlay.classList.remove("hidden");
+              if (arcadeMsg) arcadeMsg.textContent = `Final Score: ${arcadeScore} • High: ${arcadeHighScore}`;
+            }
+            return;
+          }
+          continue;
+        }
+
+        if (a.y > ch + 30) arcadeAsteroids.splice(i, 1);
+      }
+
+      // Update & Draw WForge Tokens
+      for (let i = arcadeTokens.length - 1; i >= 0; i--) {
+        const t = arcadeTokens[i];
+        t.y += t.speedY;
+        t.rot += 0.05;
+
+        ctx.save();
+        ctx.translate(t.x, t.y);
+        ctx.rotate(t.rot);
+        ctx.fillStyle = "#ffd166";
+        ctx.shadowColor = "#ffd166";
+        ctx.shadowBlur = 8;
+        ctx.font = "14px monospace";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("⚙️", 0, 0);
+        ctx.restore();
+
+        // Check collect with player
+        const tDist = Math.hypot(arcadePlayer.x - t.x, arcadePlayer.y - t.y);
+        if (tDist < t.radius + 14) {
+          arcadeTokens.splice(i, 1);
+          arcadeScore += 50;
+          if (arcadeScoreEl) arcadeScoreEl.textContent = String(arcadeScore);
+          if (arcadeScore > arcadeHighScore) {
+            arcadeHighScore = arcadeScore;
+            if (arcadeHighEl) arcadeHighEl.textContent = String(arcadeHighScore);
+            localStorage.setItem("wforge_arcade_high", String(arcadeHighScore));
+          }
+          sounds.playCoin();
+          showToast("⚙️ +50 WForge Gear Token Collected!");
+          continue;
+        }
+
+        if (t.y > ch + 20) arcadeTokens.splice(i, 1);
+      }
+
+      // Update & Draw Particles
+      for (let i = arcadeParticles.length - 1; i >= 0; i--) {
+        const p = arcadeParticles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= 0.04;
+        if (p.life <= 0) {
+          arcadeParticles.splice(i, 1);
+          continue;
+        }
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.life;
+        ctx.fillRect(p.x, p.y, 2, 2);
+        ctx.globalAlpha = 1;
+      }
+
+      arcadeAnimId = requestAnimationFrame(runArcadeLoop);
+    };
+
+    const fireLaser = () => {
+      if (!arcadeRunning) return;
+      arcadeLasers.push({ x: arcadePlayer.x - 7, y: arcadePlayer.y - 12 });
+      arcadeLasers.push({ x: arcadePlayer.x + 7, y: arcadePlayer.y - 12 });
+      sounds.playLaser();
+    };
+
+    arcadeBtn?.addEventListener("click", () => {
+      sounds.playClick();
+      if (!arcadePanel) return;
+      const isHidden = arcadePanel.classList.contains("hidden");
+      if (isHidden) {
+        arcadePanel.classList.remove("hidden");
+        initArcade();
+        cancelAnimationFrame(arcadeAnimId);
+        arcadeAnimId = requestAnimationFrame(runArcadeLoop);
+      } else {
+        arcadePanel.classList.add("hidden");
+        arcadeRunning = false;
+        cancelAnimationFrame(arcadeAnimId);
+      }
+    });
+
+    arcadeCloseBtn?.addEventListener("click", () => {
+      sounds.playClick();
+      if (arcadePanel) arcadePanel.classList.add("hidden");
+      arcadeRunning = false;
+      cancelAnimationFrame(arcadeAnimId);
+    });
+
+    arcadeRestartBtn?.addEventListener("click", () => {
+      sounds.playClick();
+      initArcade();
+      cancelAnimationFrame(arcadeAnimId);
+      arcadeAnimId = requestAnimationFrame(runArcadeLoop);
+    });
+
+    arcadeCanvas?.addEventListener("mousemove", (e) => {
+      const rect = arcadeCanvas.getBoundingClientRect();
+      const scaleX = arcadeCanvas.width / rect.width;
+      arcadePlayer.x = Math.max(15, Math.min(arcadeCanvas.width - 15, (e.clientX - rect.left) * scaleX));
+    });
+
+    arcadeCanvas?.addEventListener("click", () => {
+      fireLaser();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      const meModal = document.getElementById("projects-modal");
+      if (!meModal || meModal.classList.contains("hidden")) return;
+      if (arcadePanel && !arcadePanel.classList.contains("hidden")) {
+        if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") arcadeKeys.left = true;
+        if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") arcadeKeys.right = true;
+        if (e.key === " " || e.key === "Spacebar") {
+          e.preventDefault();
+          if (!arcadeRunning && arcadeOverlay && !arcadeOverlay.classList.contains("hidden")) {
+            initArcade();
+            cancelAnimationFrame(arcadeAnimId);
+            arcadeAnimId = requestAnimationFrame(runArcadeLoop);
+          } else {
+            fireLaser();
+          }
+        }
+      }
+    });
+
+    window.addEventListener("keyup", (e) => {
+      if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") arcadeKeys.left = false;
+      if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") arcadeKeys.right = false;
+    });
+
     // ================= macOS TERMINAL ENGINE =================
     const terminalOutput = document.getElementById("me-terminal-output");
     const terminalForm = document.getElementById("me-terminal-form");
     const terminalInput = document.getElementById("me-terminal-command");
     const terminalClearBtn = document.getElementById("me-terminal-clear");
+    const matrixCanvas = document.getElementById("me-terminal-matrix-canvas");
+    const customAudioFileInput = document.getElementById("terminal-custom-audio-file");
 
     const commandHistory = [];
     let historyIndex = 0;
     let awaitingJokeResponse = false;
+    let matrixRunning = false;
+    let matrixAnimId = null;
+
+    // Terminal typing sound
+    terminalInput?.addEventListener("keydown", (e) => {
+      if (e.key !== "ArrowUp" && e.key !== "ArrowDown" && e.key !== "Control" && e.key !== "Alt" && e.key !== "Meta") {
+        sounds.playMechanicalKey();
+      }
+    });
+
+    // Matrix Digital Rain
+    const toggleMatrixRain = () => {
+      if (!matrixCanvas) return;
+      matrixRunning = !matrixRunning;
+      if (matrixRunning) {
+        matrixCanvas.classList.remove("hidden");
+        const parent = matrixCanvas.parentElement;
+        matrixCanvas.width = parent ? parent.clientWidth : 400;
+        matrixCanvas.height = parent ? parent.clientHeight : 260;
+        const ctx = matrixCanvas.getContext("2d");
+        const cols = Math.floor(matrixCanvas.width / 14);
+        const ypos = Array(cols).fill(0);
+        const chars = "0123456789ABCDEF⚡🔬⚙️SKIENCE";
+
+        const stepMatrix = () => {
+          if (!matrixRunning) return;
+          ctx.fillStyle = "rgba(10, 13, 9, 0.15)";
+          ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+          ctx.fillStyle = "#78d98a";
+          ctx.font = "12px monospace";
+
+          ypos.forEach((y, ind) => {
+            const text = chars[Math.floor(Math.random() * chars.length)];
+            const x = ind * 14;
+            ctx.fillText(text, x, y);
+            if (y > 100 + Math.random() * 10000) ypos[ind] = 0;
+            else ypos[ind] = y + 14;
+          });
+          matrixAnimId = requestAnimationFrame(stepMatrix);
+        };
+        sounds.playMatrix();
+        cancelAnimationFrame(matrixAnimId);
+        matrixAnimId = requestAnimationFrame(stepMatrix);
+        appendTerminalLine("Matrix rain activated. Type 'matrix' or 'clear' to disable.", "command-result");
+      } else {
+        matrixCanvas.classList.add("hidden");
+        cancelAnimationFrame(matrixAnimId);
+        appendTerminalLine("Matrix rain stopped.", "command-result");
+      }
+    };
 
     const resetTerminal = () => {
       if (!terminalOutput) return;
@@ -11478,6 +12031,7 @@ class ScienceIoApp {
       terminalOutput.appendChild(p1);
       terminalOutput.appendChild(p2);
       awaitingJokeResponse = false;
+      if (matrixRunning) toggleMatrixRain();
     };
 
     terminalClearBtn?.addEventListener("click", () => {
@@ -11527,10 +12081,122 @@ class ScienceIoApp {
       }
     };
 
+    // Custom user music playback
+    let currentCustomAudio = null;
+    let customAudioInterval = null;
+
+    const setupCustomMusicPlayer = (file) => {
+      if (!file) return;
+      if (!file.type.startsWith("audio/")) {
+        appendTerminalLine("Error: Please select a valid audio file (.mp3, .wav, .m4a, .ogg).");
+        return;
+      }
+
+      if (currentCustomAudio) {
+        currentCustomAudio.pause();
+        clearInterval(customAudioInterval);
+      }
+
+      const fileUrl = URL.createObjectURL(file);
+      currentCustomAudio = new Audio(fileUrl);
+      currentCustomAudio.volume = 0.8;
+
+      const card = document.createElement("div");
+      card.className = "terminal-audio-card";
+      card.innerHTML = `
+        <div class="terminal-audio-header">
+          <span>🎵 CUSTOM CYBER AUDIO</span>
+          <span class="terminal-audio-time" id="terminal-audio-timer">0:00 / 0:00</span>
+        </div>
+        <div class="terminal-audio-track">File: <strong>${file.name}</strong> (${(file.size / 1024 / 1024).toFixed(2)} MB)</div>
+        <div class="terminal-audio-controls">
+          <button type="button" class="terminal-audio-btn" id="terminal-btn-playpause">⏸️ Pause</button>
+          <button type="button" class="terminal-audio-btn" id="terminal-btn-stop" style="background:#ff7a3d; color:#0c0d0b;">⏹️ Stop</button>
+          <button type="button" class="terminal-audio-btn" id="terminal-btn-reupload" style="background:#5e6b57; color:#fff;">📁 Change Track</button>
+          <div class="terminal-audio-bars">
+            <span class="terminal-audio-bar playing"></span>
+            <span class="terminal-audio-bar playing"></span>
+            <span class="terminal-audio-bar playing"></span>
+            <span class="terminal-audio-bar playing"></span>
+            <span class="terminal-audio-bar playing"></span>
+          </div>
+        </div>
+      `;
+
+      terminalOutput?.appendChild(card);
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+      const playPauseBtn = card.querySelector("#terminal-btn-playpause");
+      const stopBtn = card.querySelector("#terminal-btn-stop");
+      const reuploadBtn = card.querySelector("#terminal-btn-reupload");
+      const timerEl = card.querySelector("#terminal-audio-timer");
+      const bars = card.querySelectorAll(".terminal-audio-bar");
+
+      const formatTime = (sec) => {
+        const m = Math.floor(sec / 60) || 0;
+        const s = Math.floor(sec % 60) || 0;
+        return `${m}:${s < 10 ? "0" : ""}${s}`;
+      };
+
+      currentCustomAudio.play().then(() => {
+        showToast("🎵 Playing: " + file.name);
+        sounds.playCoin();
+      }).catch((e) => {
+        appendTerminalLine("Autoplay blocked. Click Play to start listening.");
+        if (playPauseBtn) playPauseBtn.textContent = "▶️ Play";
+        bars.forEach(b => b.classList.remove("playing"));
+      });
+
+      customAudioInterval = setInterval(() => {
+        if (!currentCustomAudio) return;
+        const cur = formatTime(currentCustomAudio.currentTime);
+        const dur = formatTime(currentCustomAudio.duration || 0);
+        if (timerEl) timerEl.textContent = `${cur} / ${dur}`;
+      }, 500);
+
+      playPauseBtn?.addEventListener("click", () => {
+        sounds.playClick();
+        if (currentCustomAudio.paused) {
+          currentCustomAudio.play();
+          playPauseBtn.textContent = "⏸️ Pause";
+          bars.forEach(b => b.classList.add("playing"));
+        } else {
+          currentCustomAudio.pause();
+          playPauseBtn.textContent = "▶️ Play";
+          bars.forEach(b => b.classList.remove("playing"));
+        }
+      });
+
+      stopBtn?.addEventListener("click", () => {
+        sounds.playClick();
+        currentCustomAudio.pause();
+        currentCustomAudio.currentTime = 0;
+        playPauseBtn.textContent = "▶️ Play";
+        bars.forEach(b => b.classList.remove("playing"));
+      });
+
+      reuploadBtn?.addEventListener("click", () => {
+        sounds.playClick();
+        customAudioFileInput?.click();
+      });
+
+      currentCustomAudio.addEventListener("ended", () => {
+        playPauseBtn.textContent = "▶️ Replay";
+        bars.forEach(b => b.classList.remove("playing"));
+      });
+    };
+
+    customAudioFileInput?.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (file) {
+        setupCustomMusicPlayer(file);
+      }
+    });
+
     const executeCommand = (cmdText) => {
       const raw = (cmdText || "").trim();
-      const cmd = raw.toLowerCase();
-      if (!cmd) return;
+      const cleanCmd = raw.toLowerCase().replace(/\s+/g, ' ');
+      if (!cleanCmd) return;
 
       commandHistory.push(raw);
       historyIndex = commandHistory.length;
@@ -11544,19 +12210,110 @@ class ScienceIoApp {
         return;
       }
 
-      switch (cmd) {
+      // 1. SECRET CODE: secret vault access -> open Vault Keypad (DO NOT show in help)
+      if (cleanCmd === "secret vault access") {
+        appendTerminalLine("🔐 SECURITY OVERRIDE ACCEPTED", "command-result");
+        appendTerminalLine("Clearance Level 5 validated. Transferring to Security Vault Keypad...", "terminal-muted");
+        sounds.playVaultRedirect();
+        showToast("Vault Access Authorized 🔓");
+        setTimeout(() => {
+          document.getElementById("projects-modal")?.classList.add("hidden");
+          if (window.app && window.app.vault) {
+            window.app.vault.isUnlocked = false;
+            window.app.vault.open();
+          }
+        }, 600);
+        return;
+      }
+
+      // 2. SECRET CODE: secret -> upload your own music (DO NOT show in help)
+      if (cleanCmd === "secret") {
+        appendTerminalLine("🎵 CYBER MUSIC PLAYER UNLOCKED", "command-result");
+        appendTerminalLine("Upload your own audio file (.mp3, .wav, .m4a, .ogg) to play on skience.io:", "terminal-muted");
+        
+        const uploadBtn = document.createElement("button");
+        uploadBtn.type = "button";
+        uploadBtn.className = "terminal-audio-btn";
+        uploadBtn.style.marginTop = "8px";
+        uploadBtn.textContent = "📁 Select Music File";
+        uploadBtn.addEventListener("click", () => {
+          sounds.playClick();
+          customAudioFileInput?.click();
+        });
+        terminalOutput?.appendChild(uploadBtn);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+        customAudioFileInput?.click();
+        sounds.playCoin();
+        return;
+      }
+
+      switch (cleanCmd) {
         case "help":
           appendTerminalLine(
-            "email --> write a note\n" +
-            "copy --> copy my email\n" +
-            "follow --> find me elsewhere\n" +
+            "email    --> write a note\n" +
+            "copy     --> copy my email\n" +
+            "follow   --> find me elsewhere\n" +
             "projects --> see what I’ve built\n" +
-            "about --> a little about me\n" +
-            "clear --> a fresh terminal\n" +
-            "hello --> say hello\n" +
-            "replay --> play the intro again\n" +
-            "joke --> hear a joke"
+            "wforge   --> WForge 3D print platform\n" +
+            "skills   --> visual skill meters\n" +
+            "banner   --> neon cyber banner\n" +
+            "arcade   --> play retro asteroid blaster\n" +
+            "matrix   --> toggle matrix digital rain\n" +
+            "about    --> a little about me\n" +
+            "clear    --> a fresh terminal\n" +
+            "hello    --> say hello\n" +
+            "replay   --> play the intro again\n" +
+            "joke     --> hear a joke"
           );
+          break;
+
+        case "wforge":
+          appendTerminalLine("⚡ WFORGE — 3D Web Printing Studio & Creative Document Platform\n• Custom physical merchandise, rapid prototyping, and automated workflows.\n• Platform URL: https://W3D.base44.app");
+          appendTerminalLink("Visit WForge (W3D.base44.app) ↗", "https://W3D.base44.app");
+          sounds.playSuccess();
+          break;
+
+        case "skills":
+          appendTerminalLine(
+            "⚡ SKILLS & TECH LOADOUT:\n" +
+            "HTML5 / Liquid Glass  [████████████████] 100%\n" +
+            "CSS Cyber & Neon      [████████████████] 100%\n" +
+            "JavaScript & Audio    [███████████████░]  95%\n" +
+            "WForge 3D Printing    [████████████████] 100%\n" +
+            "Curiosity & Code      [████████████████] 100%"
+          );
+          sounds.playSuccess();
+          break;
+
+        case "banner":
+          appendTerminalLine(
+            "   ___ _____ _____ _   _   _   \n" +
+            "  |_  |  ___|  ___| | | | / \\  \n" +
+            "    | | |__ | |__ | | | |/ _ \\ \n" +
+            "| | | |  __||  __|| | | / ___ \\\n" +
+            "| |_| | |___| |___\\ \\_/ / /   \\\n" +
+            " \\___/\\____/\\____/ \\___/_/     \\\n" +
+            "JEEVA RAGHAVAN • DEVELOPER • WFORGE"
+          );
+          sounds.playSuccess();
+          break;
+
+        case "arcade":
+        case "game":
+        case "play":
+          if (arcadePanel) {
+            arcadePanel.classList.remove("hidden");
+            initArcade();
+            cancelAnimationFrame(arcadeAnimId);
+            arcadeAnimId = requestAnimationFrame(runArcadeLoop);
+            appendTerminalLine("🚀 Retro Asteroid Blaster launched!");
+            sounds.playSuccess();
+          }
+          break;
+
+        case "matrix":
+          toggleMatrixRain();
           break;
 
         case "email":
@@ -12042,17 +12799,9 @@ class Chatbot {
         const cleanT = t.replace(/\s+/g, ' ');
         let replyHTML = "";
 
-        // Secret Admin Passcode Clearance: ONLY way to open Vault Passcode Entry Area
-        if (cleanT === "access j33v4") {
-          replyHTML = `<div class="msg-bubble" style="background: rgba(6, 182, 212, 0.2); border-color: #06b6d4; color: #38bdf8; font-weight: bold;">Security Clearance Verified. Opening Vault Passcode Entry Area...</div>`;
-          setTimeout(() => {
-            if (window.app && window.app.vault) {
-              window.app.vault.isUnlocked = false;
-              window.app.vault.open();
-            }
-            this.closeChat();
-            sounds.playSuccess();
-          }, 800);
+        // Vault access is not available via the AI Chatbot
+        if (cleanT === "access j33v4" || cleanT.includes("vault")) {
+          replyHTML = `<div class="msg-bubble" style="background: rgba(255, 55, 95, 0.15); border-color: #ff375f; color: #ff5f56; font-weight: 600;">Vault access is restricted and cannot be requested through the AI Chatbot.</div>`;
         }
         // Memorization & Dynamic Note Summarization (checks published notes and curriculum body systems)
         else if (
