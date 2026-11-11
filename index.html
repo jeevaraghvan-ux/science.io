@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=69.0">
+  <link rel="stylesheet" href="styles.css?v=70.0">
   <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -166,6 +166,15 @@
               <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
               <rect x="6" y="14" width="12" height="8"></rect>
             </svg>
+          </button>
+
+          <!-- SIGN UP / LOG IN BUTTON (NEXT TO PRINTER) -->
+          <button class="nav-icon-btn nav-auth-btn" id="btn-auth-trigger" title="Sign Up / Log In (Required for reviews & ideas)">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span class="auth-logged-dot hidden" id="auth-logged-dot"></span>
           </button>
 
           <button class="nav-icon-btn" id="btn-sound-toggle" title="Turn Sound &amp; Background Music On/Off (Next to Printer)">
@@ -1526,17 +1535,160 @@
       <h2 class="modal-topic-title">Help us improve skience.io</h2>
       <p class="modal-topic-desc">What 5th grade skience topics or experiment tools should Jeeva add next?</p>
       
-      <form id="feedback-form" class="new-note-form">
-        <div class="form-group">
-          <label>Your Name or Grade</label>
-          <input type="text" id="fb-user-name" placeholder="e.g. Jeeva or 5th Grade Skience Whiz" />
+      <!-- GATE FOR USERS WHO ARE NOT SIGNED IN -->
+      <div id="feedback-auth-gate" class="feedback-auth-gate">
+        <div style="font-size: 2.2rem; margin-bottom: 8px;">🔒</div>
+        <h3 style="color: #ffffff; font-size: 1.15rem; margin-bottom: 6px;">Sign Up or Log In Required</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">
+          To help us improve by giving us reviews or ideas you have to sign up! When you submit, your verified email will be sent to Jeeva along with your idea.
+        </p>
+        <button type="button" class="btn-modal-action primary" id="btn-feedback-open-auth" style="width: 100%;">
+          Sign Up / Log In to Submit Ideas 🚀
+        </button>
+      </div>
+
+      <!-- FORM FOR SIGNED IN USERS -->
+      <form id="feedback-form" class="new-note-form hidden">
+        <div class="feedback-verified-banner" style="margin-bottom: 16px; padding: 12px 14px; background: rgba(0, 245, 212, 0.08); border: 1px solid rgba(0, 245, 212, 0.35); border-radius: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <span style="font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); display: block; font-weight: 700;">Submitting as (Required Email):</span>
+            <strong id="fb-user-email-badge" style="color: var(--neon-cyan); font-size: 0.95rem; word-break: break-all;">user@email.com</strong>
+          </div>
+          <span style="font-size: 0.75rem; color: #78d98a; font-weight: 700; background: rgba(120, 217, 138, 0.15); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(120, 217, 138, 0.3);">✓ Verified</span>
         </div>
+
         <div class="form-group">
-          <label>What would make skience.io even cooler?</label>
-          <textarea id="fb-user-message" rows="3" required placeholder="e.g. Virtual microscope, solar system simulator, or molecule models!"></textarea>
+          <label for="fb-user-name">Your Name or Grade <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(Optional)</span></label>
+          <input type="text" id="fb-user-name" placeholder="e.g. 5th Grade Skience Scholar" />
         </div>
-        <button type="submit" class="btn-modal-action primary" style="width: 100%;">Submit Feedback</button>
+        
+        <div class="form-group">
+          <label for="fb-user-message">Your Review or Idea for Skience.io <span class="req">*</span></label>
+          <textarea id="fb-user-message" rows="4" required placeholder="Type your idea or review here (e.g. Add an interactive solar system scale visualizer, element periodic table or sound lab!)."></textarea>
+        </div>
+
+        <button type="submit" id="btn-submit-feedback" class="btn-modal-action primary" style="width: 100%;">Submit Review &amp; Idea ✉️</button>
       </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: SIGN UP / LOG IN ================= -->
+  <div id="auth-modal" class="modal-backdrop hidden">
+    <div class="modal-window glass-modal auth-window" style="max-width: 480px;">
+      <div class="modal-header">
+        <div class="modal-header-badge-row">
+          <span class="modal-cat-badge">MEMBER ACCESS</span>
+          <span class="modal-domain-tag">skience.io / account</span>
+        </div>
+        <button class="modal-close-btn" id="modal-auth-close">&times;</button>
+      </div>
+
+      <!-- TABS: LOG IN vs SIGN UP -->
+      <div class="auth-tabs" id="auth-tabs-row">
+        <button type="button" class="auth-tab-btn active" id="tab-auth-login">Log In</button>
+        <button type="button" class="auth-tab-btn" id="tab-auth-signup">Sign Up</button>
+      </div>
+
+      <div class="auth-modal-body" style="padding: 22px 26px 26px;">
+        <!-- PANE 1: LOG IN -->
+        <div id="auth-pane-login" class="auth-pane">
+          <h2 class="modal-topic-title" style="font-size: 1.55rem; margin-bottom: 6px;">Welcome Back!</h2>
+          <p class="modal-topic-desc" style="margin-bottom: 18px;">Log in with the account you signed up with.</p>
+          
+          <form id="auth-login-form" class="new-note-form">
+            <div class="form-group">
+              <label for="login-email">Email Address <span class="req">*</span></label>
+              <input type="email" id="login-email" required placeholder="your.name@gmail.com" autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password <span class="req">*</span></label>
+              <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password" />
+            </div>
+            <div id="login-error-msg" class="auth-alert-box error hidden"></div>
+            <button type="submit" id="btn-login-submit" class="btn-modal-action primary" style="width: 100%; margin-top: 10px;">Log In ⚡</button>
+            <p style="text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted);">
+              Don't have an account yet? <button type="button" class="link-btn" id="link-switch-to-signup" style="background:none; border:none; color: var(--neon-cyan); cursor:pointer; font-weight: bold; text-decoration: underline;">Sign up now</button>
+            </p>
+          </form>
+        </div>
+
+        <!-- PANE 2: SIGN UP -->
+        <div id="auth-pane-signup" class="auth-pane hidden">
+          <!-- SUB-STEP 1: ENTER CREDENTIALS -->
+          <div id="signup-step-credentials">
+            <h2 class="modal-topic-title" style="font-size: 1.55rem; margin-bottom: 6px;">Create Account</h2>
+            <p class="modal-topic-desc" style="margin-bottom: 18px;">Enter your email and password. We'll send a 6-digit verification code to your email.</p>
+            
+            <form id="auth-signup-form" class="new-note-form">
+              <div class="form-group">
+                <label for="signup-email">Email Address <span class="req">*</span></label>
+                <input type="email" id="signup-email" required placeholder="your.name@gmail.com" autocomplete="email" />
+              </div>
+              <div class="form-group">
+                <label for="signup-password">Create Password <span class="req">*</span></label>
+                <input type="password" id="signup-password" minlength="6" required placeholder="Minimum 6 characters" autocomplete="new-password" />
+              </div>
+              <div class="form-group">
+                <label for="signup-password-confirm">Confirm Password <span class="req">*</span></label>
+                <input type="password" id="signup-password-confirm" minlength="6" required placeholder="Re-enter password" autocomplete="new-password" />
+              </div>
+              <div id="signup-error-msg" class="auth-alert-box error hidden"></div>
+              <button type="submit" id="btn-signup-submit" class="btn-modal-action primary" style="width: 100%; margin-top: 10px;">Send Verification Code ✉️</button>
+              <p style="text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted);">
+                Already have an account? <button type="button" class="link-btn" id="link-switch-to-login" style="background:none; border:none; color: var(--neon-cyan); cursor:pointer; font-weight: bold; text-decoration: underline;">Log in</button>
+              </p>
+            </form>
+          </div>
+
+          <!-- SUB-STEP 2: ENTER VERIFICATION CODE -->
+          <div id="signup-step-verify" class="hidden">
+            <h2 class="modal-topic-title" style="font-size: 1.55rem; margin-bottom: 6px;">Check Your Email</h2>
+            <p class="modal-topic-desc" style="margin-bottom: 16px;">
+              A 6-digit verification code has been sent to <strong id="verify-email-display" style="color: var(--neon-cyan); word-break: break-all;"></strong>.
+            </p>
+            
+            <div class="auth-info-card" style="margin-bottom: 16px; padding: 12px 14px; background: rgba(0, 245, 212, 0.08); border: 1px solid rgba(0, 245, 212, 0.3); border-radius: 8px; font-size: 0.84rem; color: #fff; line-height: 1.5;">
+              ✉️ Check your inbox (and spam/junk folder) for the verification code email, then type it in below to activate your account.
+            </div>
+
+            <form id="auth-verify-form" class="new-note-form">
+              <div class="form-group">
+                <label for="verify-code-input" style="text-align: center; display: block; font-weight: 700;">6-Digit Verification Code</label>
+                <input type="text" id="verify-code-input" maxlength="6" pattern="[0-9]{6}" required placeholder="123456" style="font-family: monospace; font-size: 1.8rem; letter-spacing: 0.35em; text-align: center; font-weight: 800; padding: 10px; color: var(--neon-cyan); background: rgba(0,0,0,0.5); border: 1.5px solid var(--neon-cyan); border-radius: 10px;" />
+              </div>
+              <div id="verify-error-msg" class="auth-alert-box error hidden"></div>
+              <button type="submit" id="btn-verify-submit" class="btn-modal-action primary" style="width: 100%; margin-top: 10px;">Verify &amp; Activate Account 🚀</button>
+              
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; font-size: 0.85rem;">
+                <button type="button" id="btn-resend-code" style="background:none; border:none; color: var(--neon-cyan); cursor:pointer; text-decoration: underline;">Resend Code</button>
+                <button type="button" id="btn-change-email" style="background:none; border:none; color: var(--text-muted); cursor:pointer;">Change Email</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- PANE 3: LOGGED IN PROFILE VIEW -->
+        <div id="auth-pane-profile" class="auth-pane hidden">
+          <div style="text-align: center; margin-bottom: 22px;">
+            <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple)); display: grid; place-items: center; margin: 0 auto 12px; font-size: 30px; box-shadow: 0 0 25px rgba(0,245,212,0.4);">
+              👤
+            </div>
+            <h2 class="modal-topic-title" id="profile-email-display" style="font-size: 1.35rem; margin-bottom: 6px; word-break: break-all;">user@email.com</h2>
+            <span style="display: inline-block; padding: 4px 12px; background: rgba(120, 217, 138, 0.15); border: 1px solid #78d98a; border-radius: 999px; color: #78d98a; font-size: 0.78rem; font-weight: 700;">
+              ✓ Verified Skience Member
+            </span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <button type="button" id="btn-profile-give-feedback" class="btn-modal-action primary" style="width: 100%;">
+              💡 Submit Review or Idea
+            </button>
+            <button type="button" id="btn-profile-logout" class="btn-modal-action secondary" style="width: 100%; color: #ff5f56; border-color: rgba(255,95,86,0.35);">
+              Log Out
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1587,6 +1739,6 @@
   </div>
 
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=69.0"></script>
+  <script src="app.js?v=70.0"></script>
 </body>
 </html>
