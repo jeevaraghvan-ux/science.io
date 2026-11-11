@@ -145,7 +145,7 @@ html, body {
   text-align: center;
   width: 100%;
   max-width: 900px;
-  contain: layout style paint;
+  min-height: 380px;
 }
 
 /* ================= QUANTUM APERTURE CORE ================= */
@@ -365,20 +365,18 @@ html, body {
 
 /* ================= POST-E RESOLUTION BRANDING ================= */
 .skience-post-resolve {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  z-index: 15;
+  z-index: 25;
   pointer-events: none;
   width: 100%;
   max-width: 800px;
   opacity: 0;
+  margin: 0 auto;
   will-change: transform, opacity;
 }
 
@@ -389,15 +387,15 @@ html, body {
 @keyframes postResolveReveal {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale3d(0.85, 0.85, 1);
+    transform: scale3d(0.88, 0.88, 1);
   }
   60% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale3d(1.03, 1.03, 1);
+    transform: scale3d(1.04, 1.04, 1);
   }
   100% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }
 

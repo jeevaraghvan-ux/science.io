@@ -6408,7 +6408,6 @@ class ScienceIoApp {
         // All individual letters completed! The letter 'e' has exploded into the singularity.
         // Reveal the short, sleek post-resolve branding: "skience" + "made with love by Jeeva R."
         if (soloStage) soloStage.style.display = "none";
-        if (aperture) aperture.classList.add("portal-warp");
 
         const postResolve = document.getElementById("skience-post-resolve");
         if (postResolve) {
@@ -6417,11 +6416,11 @@ class ScienceIoApp {
         }
         sounds.playMagicalReveal();
 
-        // Keep it short as requested ("add that part back but make it short") ~850ms
+        // Give comfortable 1100ms window so "Made with love by Jeeva R" in the glass pill is vividly appreciated
         const finishTimer = setTimeout(() => {
           if (finished) return;
           completeLoader();
-        }, 850);
+        }, 1100);
         this._zoomTimers.push(finishTimer);
         return;
       }
