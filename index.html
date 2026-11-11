@@ -23,8 +23,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=62.0">
-  <link rel="stylesheet" href="ios27.css?v=62.0">
+  <link rel="stylesheet" href="styles.css?v=63.0">
+  <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
   <script>
@@ -71,17 +71,31 @@
     <div class="intro-cosmic-grid"></div>
 
     <div class="skience-intro-stage" id="skience-intro-stage">
-      <!-- Quantum Aperture Core (Dual orbital rings + singularity glow + shockwave) -->
+      <!-- Quantum Aperture Core (Dual orbital rings + singularity glow + shockwave + laser crosshairs) -->
       <div class="quantum-aperture-core" id="quantum-aperture-core">
         <div class="quantum-aperture-glow"></div>
         <div class="quantum-orbit-ring ring-outer"></div>
         <div class="quantum-orbit-ring ring-inner"></div>
         <div class="quantum-pulse-ring" id="quantum-pulse-ring"></div>
+        <div class="quantum-crosshair cross-h"></div>
+        <div class="quantum-crosshair cross-v"></div>
       </div>
 
       <!-- SOLO INDIVIDUAL LETTER STAGE (One letter at a time zooms into singularity & fades) -->
       <div class="solo-letter-stage" id="solo-letter-stage">
         <div class="solo-zoom-letter" id="solo-zoom-letter" data-char="s">s</div>
+      </div>
+
+      <!-- POST-E RESOLUTION BRANDING: "skience" + "made with love by Jeeva R." (short & elegant) -->
+      <div class="skience-post-resolve hidden" id="skience-post-resolve">
+        <div class="post-resolve-supernova"></div>
+        <h1 class="post-resolve-word">skience</h1>
+        <div class="post-resolve-tagline">
+          <span class="tagline-sparkle">✨</span>
+          <span class="tagline-badge">5TH GRADE SCIENCE</span>
+          <span class="tagline-dot">•</span>
+          <span class="tagline-credit">MADE WITH LOVE BY JEEVA R.</span>
+        </div>
       </div>
     </div>
     <button class="loader-skip-btn" id="loader-skip-btn" title="Skip to notebook">Skip &gt;&gt;</button>
@@ -101,8 +115,8 @@
     <header class="top-nav-container">
       <nav class="glass-pill-nav" style="max-width: 960px;">
         <div class="nav-left">
-          <a href="#hero" class="nav-brand-cursive" id="nav-brand-logo" aria-label="skience.io">
-            <svg class="cursive-logo-svg" id="cursive-logo-svg" viewBox="-6 -10 122 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <a href="#hero" class="nav-brand-cursive" id="nav-brand-logo" aria-label="skience">
+            <svg class="cursive-logo-svg" id="cursive-logo-svg" viewBox="-6 -10 92 28" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <filter id="cursive-spark-glow" x="-50%" y="-50%" width="200%" height="200%">
                   <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur" />
@@ -132,14 +146,7 @@
               <path class="cursive-stroke" data-seq="10" d="M 64 1.9986 C 64 1.7486 64.25 1.4986 64 0.9986 C 61.7595 -3.4824 54.3271 4.3257 58 7.9986 C 60.2512 10.2498 64.0176 8.981 66 6.9986 C 67.25 5.7486 67.5 4.7486 68 3.9986"></path>
               <!-- 'e' -->
               <path class="cursive-stroke" data-seq="11" d="M 69 7 C 70.8515 6.0743 72.4647 5.141 73 3 C 73.679 0.2838 71.1044 -1.1044 69 1 C 67.327 2.6729 67.3338 6.3338 69 8 C 72.4052 11.4052 76.1801 6.7299 78 4"></path>
-              <!-- '.' dot -->
-              <circle class="cursive-dot" data-seq="11.5" cx="83" cy="8" r="1.6"></circle>
-              <!-- 'i' in '.io' -->
-              <path class="cursive-stroke" data-seq="12" d="M 88 4 C 88.5 3 90.1263 -0.4838 90 0 C 89.334 2.5499 87.0969 5.4005 88 8.1097 C 88.3018 9.0151 89.3897 9.2642 90.2294 8.9843 C 92.7764 8.1353 93.5954 6.1069 95 4"></path>
-              <circle class="cursive-dot" data-seq="12.5" cx="91.9" cy="-4.8" r="1.6"></circle>
-              <!-- 'o' in '.io' -->
-              <path class="cursive-stroke" data-seq="13" d="M 101.1786 0.2242 C 92.5642 -2.9299 92.7755 11.7285 101.1786 8.8452 C 105.8917 7.228 105.0536 2.7604 101.5038 0.3938"></path>
-              <path class="cursive-stroke" data-seq="14" d="M 99.8615 0.4579 C 98.5824 7.1609 105.6724 7.7432 108.9656 3.9828"></path>
+
               <!-- Luminous glowing pen-tip spark that traces cursive writing stroke-by-stroke -->
               <circle class="cursive-spark" id="cursive-spark" cx="0" cy="4" r="2.2" fill="#38bdf8" filter="url(#cursive-spark-glow)" style="opacity: 0;"></circle>
             </svg>
@@ -806,15 +813,23 @@
         </div>
 
         <div class="vault-lock-stage">
-          <!-- Animated Cyber Safe Door -->
+          <!-- Animated Cyber Safe Door (Multi-stage hydraulic lock system) -->
           <div class="vault-safe-door" id="vault-safe-door">
+            <div class="vault-decompression-blast" id="vault-decompression-blast"></div>
+            <div class="vault-interior-chamber-glow" id="vault-interior-glow"></div>
             <div class="vault-door-outer-ring">
               <div class="vault-teeth-circle"></div>
               <div class="vault-rivets-circle"></div>
+              <!-- 4 Heavy-Duty Hydraulic Locking Bolts (Retract on unlock) -->
+              <div class="vault-bolt bolt-top"></div>
+              <div class="vault-bolt bolt-right"></div>
+              <div class="vault-bolt bolt-bottom"></div>
+              <div class="vault-bolt bolt-left"></div>
             </div>
             
             <div class="vault-door-inner-dial" id="vault-dial-wheel">
               <div class="dial-laser-line"></div>
+              <div class="dial-laser-cross"></div>
               <div class="dial-spokes"></div>
               <div class="dial-center-lock">
                 <svg viewBox="0 0 24 24" class="dial-lock-icon" id="vault-lock-status-icon">
@@ -1382,7 +1397,7 @@
     </button>
   </div>
 
-  <script src="published_notes.js?v=62.0"></script>
-  <script src="app.js?v=62.0"></script>
+  <script src="published_notes.js?v=63.0"></script>
+  <script src="app.js?v=63.0"></script>
 </body>
 </html>

@@ -2224,48 +2224,65 @@ class SoundController {
     } catch (e) {}
   }
 
-  /* Heavy Vault Hydraulic Unlock Clunk & Chime */
+  /* Multi-Stage Cyber-Hydraulic Vault Unlock Clunk, Decompression Hiss & Chime */
   playVaultUnlock() {
     if (!this.enabled) return;
     this.init();
     if (!this.ctx) return;
     try {
       const now = this.ctx.currentTime;
-      const osc1 = this.ctx.createOscillator();
-      const gain1 = this.ctx.createGain();
-      osc1.type = "triangle";
-      osc1.frequency.setValueAtTime(95, now);
-      osc1.frequency.exponentialRampToValueAtTime(32, now + 0.28);
-      gain1.gain.setValueAtTime(0.25, now);
-      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
-      osc1.connect(gain1);
-      gain1.connect(this.ctx.destination);
-      osc1.start(now);
-      osc1.stop(now + 0.28);
 
-      const osc2 = this.ctx.createOscillator();
-      const gain2 = this.ctx.createGain();
-      osc2.type = "sawtooth";
-      osc2.frequency.setValueAtTime(360, now + 0.08);
-      osc2.frequency.exponentialRampToValueAtTime(70, now + 0.42);
-      gain2.gain.setValueAtTime(0.08, now + 0.08);
-      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
-      osc2.connect(gain2);
-      gain2.connect(this.ctx.destination);
-      osc2.start(now + 0.08);
-      osc2.stop(now + 0.42);
+      // 1. Digital Authorization Chirp
+      const chirp = this.ctx.createOscillator();
+      const chirpGain = this.ctx.createGain();
+      chirp.type = "sine";
+      chirp.frequency.setValueAtTime(987.77, now);
+      chirp.frequency.exponentialRampToValueAtTime(1760.00, now + 0.12);
+      chirpGain.gain.setValueAtTime(0.12, now);
+      chirpGain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+      chirp.connect(chirpGain);
+      chirpGain.connect(this.ctx.destination);
+      chirp.start(now);
+      chirp.stop(now + 0.12);
 
-      [587.33, 739.99, 880.0, 1174.66].forEach((f, idx) => {
+      // 2. High-Torque Mechanical Dial Ratchet Spin
+      const dialOsc = this.ctx.createOscillator();
+      const dialGain = this.ctx.createGain();
+      dialOsc.type = "sawtooth";
+      dialOsc.frequency.setValueAtTime(480, now + 0.06);
+      dialOsc.frequency.exponentialRampToValueAtTime(80, now + 0.45);
+      dialGain.gain.setValueAtTime(0.14, now + 0.06);
+      dialGain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+      dialOsc.connect(dialGain);
+      dialGain.connect(this.ctx.destination);
+      dialOsc.start(now + 0.06);
+      dialOsc.stop(now + 0.45);
+
+      // 3. Deep Sub-Bass Hydraulic Chamber Release
+      const subOsc = this.ctx.createOscillator();
+      const subGain = this.ctx.createGain();
+      subOsc.type = "triangle";
+      subOsc.frequency.setValueAtTime(110, now + 0.22);
+      subOsc.frequency.exponentialRampToValueAtTime(28, now + 0.65);
+      subGain.gain.setValueAtTime(0.35, now + 0.22);
+      subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+      subOsc.connect(subGain);
+      subGain.connect(this.ctx.destination);
+      subOsc.start(now + 0.22);
+      subOsc.stop(now + 0.65);
+
+      // 4. Triumphant Crystal Glass Chord
+      [587.33, 739.99, 880.0, 1174.66, 1479.98].forEach((f, idx) => {
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = "sine";
         osc.frequency.value = f;
-        gain.gain.setValueAtTime(0.05, now + 0.22 + idx * 0.06);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.55 + idx * 0.06);
+        gain.gain.setValueAtTime(0.06, now + 0.32 + idx * 0.06);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.75 + idx * 0.06);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
-        osc.start(now + 0.22 + idx * 0.06);
-        osc.stop(now + 0.6 + idx * 0.06);
+        osc.start(now + 0.32 + idx * 0.06);
+        osc.stop(now + 0.85 + idx * 0.06);
       });
     } catch (e) {}
   }
@@ -3416,18 +3433,31 @@ class VaultController {
     if (this.currentPin === this.code) {
       this.isUnlocked = true;
       if (feedback) {
-        feedback.textContent = "ACCESS GRANTED • WELCOME JEEVA R.";
+        feedback.textContent = "ACCESS GRANTED • CLEARANCE LEVEL 5";
         feedback.className = "vault-pin-feedback granted";
       }
 
+      const lockIcon = document.getElementById("vault-lock-status-icon");
+      if (lockIcon) {
+        lockIcon.innerHTML = `<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path><circle cx="12" cy="16" r="1.5"></circle>`;
+      }
+
+      // Multi-stage cyber hydraulic unlock:
+      // 1. Dial spins 1080° with laser beams
+      // 2. 4 hydraulic bolts retract inward
+      // 3. Pneumatic decompression shockwave blasts outward
+      // 4. Safe door pivots open in 3D revealing interior chamber godrays
       if (safeDoor) safeDoor.classList.add("unlocking");
       sounds.playVaultUnlock();
-      this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 70);
+      this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 80);
 
       setTimeout(() => {
         document.getElementById("vault-lock-view")?.classList.add("hidden");
         document.getElementById("vault-admin-view")?.classList.remove("hidden");
         if (safeDoor) safeDoor.classList.remove("unlocking");
+        if (lockIcon) {
+          lockIcon.innerHTML = `<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path><circle cx="12" cy="16" r="1.5"></circle>`;
+        }
 
         this.currentPin = "";
         this.updatePinDisplay();
@@ -3435,7 +3465,7 @@ class VaultController {
         this.updateTelemetry();
 
         this.switchTab("architect");
-      }, 900);
+      }, 1250);
     } else {
       if (safeDoor) safeDoor.classList.add("shake-error");
       if (feedback) {
@@ -6321,6 +6351,11 @@ class ScienceIoApp {
     if (pulseRing) {
       pulseRing.classList.remove("pulse-active");
     }
+    const postResolve = document.getElementById("skience-post-resolve");
+    if (postResolve) {
+      postResolve.classList.add("hidden");
+      postResolve.classList.remove("resolve-active");
+    }
 
     let finished = false;
 
@@ -6370,8 +6405,24 @@ class ScienceIoApp {
       if (finished) return;
 
       if (index >= letterSequence.length) {
-        // All individual letters completed! Trigger grand quantum portal dissolve into notebook
-        completeLoader();
+        // All individual letters completed! The letter 'e' has exploded into the singularity.
+        // Reveal the short, sleek post-resolve branding: "skience" + "made with love by Jeeva R."
+        if (soloStage) soloStage.style.display = "none";
+        if (aperture) aperture.classList.add("portal-warp");
+
+        const postResolve = document.getElementById("skience-post-resolve");
+        if (postResolve) {
+          postResolve.classList.remove("hidden");
+          postResolve.classList.add("resolve-active");
+        }
+        sounds.playMagicalReveal();
+
+        // Keep it short as requested ("add that part back but make it short") ~850ms
+        const finishTimer = setTimeout(() => {
+          if (finished) return;
+          completeLoader();
+        }, 850);
+        this._zoomTimers.push(finishTimer);
         return;
       }
 
