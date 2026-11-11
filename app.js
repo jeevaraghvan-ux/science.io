@@ -12466,6 +12466,10 @@ class ScienceIoApp {
     const terminalClearBtn = document.getElementById("me-terminal-clear");
     const matrixCanvas = document.getElementById("me-terminal-matrix-canvas");
     const customAudioFileInput = document.getElementById("terminal-custom-audio-file");
+    const macTerminal = document.getElementById("me-mac-terminal");
+    const macLightClose = document.getElementById("mac-light-close");
+    const macLightMinimize = document.getElementById("mac-light-minimize");
+    const macLightZoom = document.getElementById("mac-light-zoom");
 
     const commandHistory = [];
     let historyIndex = 0;
@@ -12473,12 +12477,73 @@ class ScienceIoApp {
     let matrixRunning = false;
     let matrixAnimId = null;
 
-    // Terminal typing sound
+    // Window Traffic Light Controls (Red / Yellow / Green)
+    macLightClose?.addEventListener("click", () => {
+      sounds.playClick();
+      resetTerminal();
+      showToast("Terminal session cleared.");
+    });
+
+    macLightMinimize?.addEventListener("click", () => {
+      sounds.playClick();
+      if (macTerminal) {
+        macTerminal.classList.toggle("is-minimized");
+        if (macTerminal.classList.contains("is-minimized")) {
+          showToast("Terminal minimized. Click yellow button to restore.");
+        }
+      }
+    });
+
+    macLightZoom?.addEventListener("click", () => {
+      sounds.playClick();
+      if (macTerminal) {
+        macTerminal.classList.toggle("is-maximized");
+        const titleText = document.getElementById("terminal-title-display");
+        if (titleText) {
+          titleText.textContent = macTerminal.classList.contains("is-maximized")
+            ? "jeeva — -zsh — 140×36 (Zoomed)"
+            : "jeeva — -zsh — 80×24";
+        }
+      }
+    });
+
+    // Terminal typing sound & hotkeys (Cmd+K / Ctrl+K to clear, Cmd+1..6 for dock)
     terminalInput?.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        sounds.playClick();
+        resetTerminal();
+        return;
+      }
+
+      if ((e.metaKey || e.ctrlKey) && e.key >= "1" && e.key <= "6") {
+        e.preventDefault();
+        const btns = document.querySelectorAll("#me-terminal-actions button");
+        const idx = parseInt(e.key, 10) - 1;
+        if (btns[idx]) btns[idx].click();
+        return;
+      }
+
       if (e.key !== "ArrowUp" && e.key !== "ArrowDown" && e.key !== "Control" && e.key !== "Alt" && e.key !== "Meta") {
         sounds.playMechanicalKey();
       }
     });
+
+    // Dynamic initial session time
+    const updateLoginTime = () => {
+      const el = document.getElementById("terminal-login-time");
+      if (el) {
+        el.textContent = new Date().toLocaleString("en-US", {
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit"
+        });
+      }
+    };
+    updateLoginTime();
 
     // Matrix Digital Rain
     const toggleMatrixRain = () => {
@@ -12524,13 +12589,22 @@ class ScienceIoApp {
     const resetTerminal = () => {
       if (!terminalOutput) return;
       terminalOutput.innerHTML = "";
-      const p1 = document.createElement("p");
-      p1.textContent = "hi. this is jeeva’s terminal.";
-      const p2 = document.createElement("p");
-      p2.className = "terminal-muted";
-      p2.innerHTML = "type a command and press enter,<br />or just use the buttons below.";
-      terminalOutput.appendChild(p1);
-      terminalOutput.appendChild(p2);
+      const dateStr = new Date().toLocaleString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+      const header = document.createElement("div");
+      header.className = "terminal-session-header";
+      header.innerHTML = `Last login: <span>${dateStr}</span> on ttys001`;
+      const intro = document.createElement("p");
+      intro.className = "terminal-intro-line";
+      intro.innerHTML = `hi. this is jeeva’s terminal. Type <span class="term-hl">help</span> for commands, or use the dock buttons below.`;
+      terminalOutput.appendChild(header);
+      terminalOutput.appendChild(intro);
       awaitingJokeResponse = false;
       if (matrixRunning) toggleMatrixRain();
     };
@@ -12701,13 +12775,33 @@ class ScienceIoApp {
 
       commandHistory.push(raw);
       historyIndex = commandHistory.length;
-      appendTerminalLine(`guest ~ $ ${raw}`, "command-line");
+
+      if (terminalOutput) {
+        const line = document.createElement("div");
+        line.className = "command-line";
+        const sanitized = raw.replace(/[&<>'"]/g, tag => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[tag] || tag));
+        line.innerHTML = `<span class="terminal-prompt-user">guest@jeeva-macbook</span><span class="terminal-prompt-colon">:</span><span class="terminal-prompt-dir">~</span><span class="terminal-prompt-symbol">%</span> <span>${sanitized}</span>`;
+        terminalOutput.appendChild(line);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      }
 
       // Check if user is responding to the joke punchline setup
       if (awaitingJokeResponse) {
         appendTerminalLine("To get to the other side!");
         awaitingJokeResponse = false;
         sounds.playSuccess();
+        return;
+      }
+
+      // Handle echo command
+      if (cleanCmd.startsWith("echo ")) {
+        appendTerminalLine(raw.substring(5).trim());
         return;
       }
 
@@ -12752,20 +12846,94 @@ class ScienceIoApp {
       switch (cleanCmd) {
         case "help":
           appendTerminalLine(
-            "email    --> write a note\n" +
-            "copy     --> copy my email\n" +
-            "follow   --> find me elsewhere\n" +
-            "projects --> see what I’ve built\n" +
-            "wforge   --> WForge 3D print platform\n" +
-            "skills   --> visual skill meters\n" +
-            "banner   --> neon cyber banner\n" +
-            "arcade   --> play retro asteroid blaster\n" +
-            "matrix   --> toggle matrix digital rain\n" +
-            "about    --> a little about me\n" +
-            "clear    --> a fresh terminal\n" +
-            "hello    --> say hello\n" +
-            "replay   --> play the intro again\n" +
-            "joke     --> hear a joke"
+            "================ macOS zsh Commands ================\n" +
+            "help      --> list available terminal commands\n" +
+            "ls        --> list files in current directory\n" +
+            "pwd       --> print working directory path\n" +
+            "whoami    --> display current user session\n" +
+            "uname -a  --> show Darwin kernel & system info\n" +
+            "cat       --> read about_jeeva.md\n" +
+            "date      --> print current system date & time\n" +
+            "history   --> show recent command history\n" +
+            "email     --> write a note to Jeeva\n" +
+            "copy      --> copy email to clipboard\n" +
+            "follow    --> YouTube & GitHub links\n" +
+            "wforge    --> WForge 3D print platform\n" +
+            "skills    --> visual skill meters\n" +
+            "banner    --> neon cyber banner\n" +
+            "arcade    --> play retro asteroid blaster\n" +
+            "matrix    --> toggle matrix digital rain\n" +
+            "clear     --> clear terminal (or press ⌘K / Ctrl+K)"
+          );
+          break;
+
+        case "whoami":
+          appendTerminalLine("guest (session: ttys001, uid=501, euid=501)");
+          break;
+
+        case "pwd":
+          appendTerminalLine("/Users/jeeva/projects/skience.io");
+          break;
+
+        case "uname":
+          appendTerminalLine("Darwin");
+          break;
+
+        case "uname -a":
+        case "uname -m":
+        case "uname -r":
+          appendTerminalLine("Darwin Jeeva-MacBook-Pro.local 23.4.0 Darwin Kernel Version 23.4.0: root:xnu-10063.101.17~1/RELEASE_ARM64_T6000 arm64");
+          break;
+
+        case "date":
+          appendTerminalLine(new Date().toString());
+          break;
+
+        case "ls":
+        case "ls -l":
+        case "ls -la":
+        case "dir":
+          appendTerminalLine(
+            "total 144\n" +
+            "drwxr-xr-x  7 jeeva staff   224 Nov 11 11:39 arcade/\n" +
+            "drwxr-xr-x  4 jeeva staff   128 Nov 11 11:39 assets/\n" +
+            "drwxr-xr-x  8 jeeva staff   256 Nov 11 11:39 wforge/\n" +
+            "-rw-r--r--  1 jeeva staff  3280 Nov 11 11:39 about_jeeva.md\n" +
+            "-rwxr-xr-x  1 jeeva staff  1420 Nov 11 11:39 matrix_rain.sh\n" +
+            "-rw-r--r--  1 jeeva staff   890 Nov 11 11:39 skills.json\n" +
+            "-rw-r--r--  1 jeeva staff  4120 Nov 11 11:39 skience.io.conf"
+          );
+          break;
+
+        case "cat":
+        case "cat about_jeeva.md":
+        case "cat about.md":
+          appendTerminalLine(
+            "=========================================\n" +
+            "👤 JEEVA RAGHAVAN\n" +
+            "Developer, Creator & 5th Grade Scholar\n" +
+            "Making Things for WForge (W3D.base44.app)\n" +
+            "=========================================\n" +
+            "Building next-gen interactive learning experiences,\n" +
+            "liquid glass user interfaces, and retro games."
+          );
+          break;
+
+        case "history":
+          if (commandHistory.length === 0) {
+            appendTerminalLine("No commands in history yet.");
+          } else {
+            appendTerminalLine(commandHistory.map((cmd, i) => `  ${(i + 1).toString().padStart(3, " ")}  ${cmd}`).join("\n"));
+          }
+          break;
+
+        case "ps":
+        case "top":
+          appendTerminalLine(
+            "  PID TTY           TIME CMD\n" +
+            " 1042 ttys001    0:00.12 -zsh\n" +
+            " 1088 ttys001    0:02.45 node skience.io\n" +
+            " 1120 ttys001    0:00.68 python3 wforge_daemon.py"
           );
           break;
 
@@ -12867,7 +13035,7 @@ class ScienceIoApp {
           break;
 
         default:
-          appendTerminalLine(`Unknown command: ${raw}. Type “help” to see what works.`);
+          appendTerminalLine(`zsh: command not found: ${raw}. Type "help" to see available commands.`);
           break;
       }
     };
