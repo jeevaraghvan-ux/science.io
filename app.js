@@ -10744,6 +10744,12 @@ class ScienceIoApp {
   setupEventListeners() {
     this.setupThemePicker();
 
+    // Active tab attribute helper
+    const updateActiveTab = (tab) => {
+      document.body.setAttribute("data-active-tab", tab);
+    };
+    updateActiveTab("home");
+
     // Nav links
     const navLinks = document.querySelectorAll(".nav-link[data-scroll]");
     navLinks.forEach((btn) => {
@@ -10752,6 +10758,10 @@ class ScienceIoApp {
         navLinks.forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         const targetId = btn.dataset.scroll;
+        if (targetId === "hero") updateActiveTab("home");
+        else if (targetId === "notes-section") updateActiveTab("notes");
+        else if (targetId === "calculator-section") updateActiveTab("calc");
+
         const target = document.getElementById(targetId);
         if (target) target.scrollIntoView({ behavior: "smooth" });
       });
@@ -10780,14 +10790,17 @@ class ScienceIoApp {
             calcBtn.classList.add("active");
             if (notesBtn) notesBtn.classList.remove("active");
             if (homeBtn) homeBtn.classList.remove("active");
+            updateActiveTab("calc");
           } else if (notesSec && notesBtn && notesSec.getBoundingClientRect().top <= 250) {
             notesBtn.classList.add("active");
             if (calcBtn) calcBtn.classList.remove("active");
             if (homeBtn) homeBtn.classList.remove("active");
+            updateActiveTab("notes");
           } else {
             if (homeBtn) homeBtn.classList.add("active");
             if (notesBtn) notesBtn.classList.remove("active");
             if (calcBtn) calcBtn.classList.remove("active");
+            updateActiveTab("home");
           }
           scrollRafPending = false;
         });
@@ -11138,40 +11151,42 @@ class ScienceIoApp {
     let height = 0;
 
     const resize = () => {
-      const rect = hero.getBoundingClientRect();
-      width = canvas.width = rect.width || window.innerWidth;
-      height = canvas.height = rect.height || (window.innerHeight * 0.9);
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = Math.max(window.innerHeight, hero.offsetHeight || window.innerHeight);
     };
     resize();
     window.addEventListener("resize", resize);
+    if (window.ResizeObserver) {
+      new ResizeObserver(resize).observe(hero);
+    }
 
-    // Snowflakes array
-    const snowflakeCount = 95;
+    // Snowflakes array (continuous snowfall across entire home page)
+    const snowflakeCount = 135;
     const snowflakes = [];
     for (let i = 0; i < snowflakeCount; i++) {
       snowflakes.push({
         x: Math.random() * (width || window.innerWidth),
         y: Math.random() * (height || window.innerHeight),
-        radius: Math.random() * 2.2 + 0.8,
-        speedY: Math.random() * 1.2 + 0.5,
+        radius: Math.random() * 2.4 + 0.8,
+        speedY: Math.random() * 1.3 + 0.6,
         swayAngle: Math.random() * Math.PI * 2,
         swaySpeed: Math.random() * 0.02 + 0.01,
-        swayAmp: Math.random() * 1.2 + 0.4,
-        opacity: Math.random() * 0.65 + 0.3
+        swayAmp: Math.random() * 1.4 + 0.4,
+        opacity: Math.random() * 0.7 + 0.3
       });
     }
 
     // Shooting stars array
     const shootingStars = [];
     let lastShootTime = performance.now();
-    let nextShootDelay = 1400;
+    let nextShootDelay = 1200;
 
     const spawnShootingStar = () => {
-      const startX = Math.random() * (width * 0.8) + (width * 0.15);
-      const startY = Math.random() * (height * 0.45);
-      const angle = (Math.PI / 4) + (Math.random() * 0.2 - 0.1);
-      const speed = Math.random() * 10 + 14;
-      const length = Math.random() * 85 + 70;
+      const startX = Math.random() * (width * 0.85) + (width * 0.08);
+      const startY = Math.random() * (height * 0.55);
+      const angle = (Math.PI / 4) + (Math.random() * 0.25 - 0.12);
+      const speed = Math.random() * 12 + 15;
+      const length = Math.random() * 95 + 75;
       shootingStars.push({
         x: startX,
         y: startY,
@@ -11180,7 +11195,7 @@ class ScienceIoApp {
         length: length,
         life: 1.0,
         decay: Math.random() * 0.02 + 0.015,
-        width: Math.random() * 1.6 + 1.2
+        width: Math.random() * 1.8 + 1.2
       });
     };
 
