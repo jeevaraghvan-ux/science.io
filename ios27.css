@@ -227,11 +227,11 @@ input:focus, select:focus, textarea:focus {
   background: rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Loading Overlay tweaks */
+/* Loading Overlay tweaks - Pure GPU Accelerated, No full-screen backdrop blur lag */
 .loader-overlay {
-  background: rgba(15, 12, 22, 0.8) !important;
-  backdrop-filter: blur(16px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+  background: #020308 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 .loader-bg-glow {
   background: radial-gradient(circle, rgba(10, 132, 255, 0.4) 0%, rgba(191, 90, 242, 0.3) 35%, transparent 75%) !important;

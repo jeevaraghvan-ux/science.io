@@ -6293,16 +6293,14 @@ class ScienceIoApp {
     this.confetti = new ConfettiEngine(canvas);
   }
 
-  // ================= SKIENCE ONE-LETTER-AT-A-TIME ZOOM-OUT CONTROLLER =================
+  // ================= SKIENCE QUANTUM LETTER ZOOM-OUT OPENING CONTROLLER =================
   setupLoadingScreen() {
     const loader = document.getElementById("loader-screen");
     if (!loader) return;
     const soloStage = document.getElementById("solo-letter-stage");
     const soloLetter = document.getElementById("solo-zoom-letter");
-    const tracker = document.getElementById("spelled-tracker");
-    const trackerChars = Array.from(loader.querySelectorAll(".tracker-char"));
-    const resolvedWord = document.getElementById("skience-resolved-word");
-    const tagline = document.getElementById("skience-intro-tagline");
+    const aperture = document.getElementById("quantum-aperture-core");
+    const pulseRing = document.getElementById("quantum-pulse-ring");
     const skipBtn = document.getElementById("loader-skip-btn");
 
     // Clear any pending animation timers
@@ -6317,15 +6315,11 @@ class ScienceIoApp {
       soloLetter.textContent = "s";
       soloLetter.classList.remove("zooming-out");
     }
-    if (tracker) tracker.style.display = "";
-    trackerChars.forEach((c) => {
-      c.classList.remove("active", "completed");
-    });
-    if (resolvedWord) {
-      resolvedWord.classList.add("hidden");
+    if (aperture) {
+      aperture.classList.remove("portal-warp");
     }
-    if (tagline) {
-      tagline.classList.remove("tagline-visible");
+    if (pulseRing) {
+      pulseRing.classList.remove("pulse-active");
     }
 
     let finished = false;
@@ -6338,12 +6332,7 @@ class ScienceIoApp {
         this._zoomTimers = [];
       }
 
-      // Hide individual stage & tracker, show resolved word & tagline
-      if (soloStage) soloStage.style.display = "none";
-      if (tracker) tracker.style.display = "none";
-      if (resolvedWord) resolvedWord.classList.remove("hidden");
-      if (tagline) tagline.classList.add("tagline-visible");
-
+      if (aperture) aperture.classList.add("portal-warp");
       sounds.playMagicalReveal();
 
       setTimeout(() => {
@@ -6352,11 +6341,11 @@ class ScienceIoApp {
           setTimeout(() => {
             loader.style.display = "none";
             this.playCursiveHandwriting();
-          }, 650);
+          }, 500);
         } else {
           this.playCursiveHandwriting();
         }
-      }, 500);
+      }, 350);
     };
 
     if (skipBtn) {
@@ -6373,73 +6362,52 @@ class ScienceIoApp {
     };
 
     // The sequence of letters: s -> k -> i -> e -> n -> c -> e
-    // "the loading screen has to be one letter at a time it zooms out the first letter then the other individually it zooms out and it fades."
+    // Each letter zooms into the quantum singularity and fades individually
     const letterSequence = ["s", "k", "i", "e", "n", "c", "e"];
-    const letterDurationMs = 420; // Time for each letter to zoom out and fade
+    const letterDurationMs = 380; // Crisp, zero-lag kinetic zoom timing
 
     const playNextLetter = (index) => {
       if (finished) return;
 
       if (index >= letterSequence.length) {
-        // All letters have individually zoomed out and faded!
-        // Now reveal the complete resolved word "skience" with cosmic liquid glass glow
-        if (soloStage) soloStage.style.display = "none";
-        if (tracker) tracker.style.display = "none";
-        if (resolvedWord) resolvedWord.classList.remove("hidden");
-        if (tagline) tagline.classList.add("tagline-visible");
-        sounds.playMagicalReveal();
-
-        const finishTimer = setTimeout(() => {
-          if (finished) return;
-          completeLoader();
-        }, 850);
-        this._zoomTimers.push(finishTimer);
+        // All individual letters completed! Trigger grand quantum portal dissolve into notebook
+        completeLoader();
         return;
       }
 
       const char = letterSequence[index];
 
-      // Update tracker chars
-      trackerChars.forEach((tc, idx) => {
-        if (idx === index) {
-          tc.classList.add("active");
-          tc.classList.remove("completed");
-        } else if (idx < index) {
-          tc.classList.add("completed");
-          tc.classList.remove("active");
-        } else {
-          tc.classList.remove("active", "completed");
-        }
-      });
-
-      // Update and trigger the solo letter zooming out and fading
+      // Update and trigger the solo letter zooming into singularity and fading
       if (soloLetter) {
         soloLetter.textContent = char;
-        // Force reflow to restart animation
+        // Hardware-accelerated animation restart
         soloLetter.classList.remove("zooming-out");
         void soloLetter.offsetWidth;
         soloLetter.classList.add("zooming-out");
       }
 
-      // Play punchy sound for this letter
+      // Trigger sonic shockwave ring ripple
+      if (pulseRing) {
+        pulseRing.classList.remove("pulse-active");
+        void pulseRing.offsetWidth;
+        pulseRing.classList.add("pulse-active");
+      }
+
+      // Play punchy synthesizer chime for this letter
       sounds.playLetterZoom(index);
 
-      // Schedule next letter after this one completes its zoom-out and fade
+      // Schedule next letter
       const stepTimer = setTimeout(() => {
         if (finished) return;
-        if (trackerChars[index]) {
-          trackerChars[index].classList.remove("active");
-          trackerChars[index].classList.add("completed");
-        }
         playNextLetter(index + 1);
       }, letterDurationMs);
       this._zoomTimers.push(stepTimer);
     };
 
-    // Start with letter 0 ('s')
+    // Start with letter 0 ('s') after slight initial pause
     const startTimer = setTimeout(() => {
       playNextLetter(0);
-    }, 120);
+    }, 100);
     this._zoomTimers.push(startTimer);
   }
 

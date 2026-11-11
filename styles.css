@@ -145,189 +145,178 @@ html, body {
   text-align: center;
   width: 100%;
   max-width: 900px;
-  padding: 0 20px;
+  contain: layout style paint;
 }
 
-/* Solo Individual Letter Stage (One letter at a time) */
-.solo-letter-stage {
-  position: relative;
-  width: 100%;
-  height: 240px;
+/* ================= QUANTUM APERTURE CORE ================= */
+.quantum-aperture-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 440px;
+  height: 440px;
+  pointer-events: none;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1200px;
+}
+
+/* Deep Singularity Glow Core */
+.quantum-aperture-glow {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, rgba(59, 130, 246, 0.2) 45%, rgba(124, 58, 237, 0.08) 68%, transparent 80%);
+  will-change: transform, opacity;
+  animation: singularityBreathe 3s ease-in-out infinite alternate;
+}
+
+@keyframes singularityBreathe {
+  0% { transform: scale3d(0.88, 0.88, 1); opacity: 0.6; }
+  100% { transform: scale3d(1.15, 1.15, 1); opacity: 0.95; }
+}
+
+/* Outer High-Tech Orbital Ring */
+.quantum-orbit-ring.ring-outer {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(129, 140, 248, 0.35);
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.2), inset 0 0 25px rgba(79, 70, 229, 0.15);
+  will-change: transform;
+  animation: orbitCounterClockwise 16s linear infinite;
+}
+
+/* Inner High-Tech Orbital Ring */
+.quantum-orbit-ring.ring-inner {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: 1.5px dotted rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+  will-change: transform;
+  animation: orbitClockwise 10s linear infinite;
+}
+
+@keyframes orbitClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbitCounterClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+/* Kinetic Sonic Shockwave Ring triggered on each letter impact */
+.quantum-pulse-ring {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 2px solid rgba(147, 197, 253, 0.85);
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.8), inset 0 0 20px rgba(139, 92, 246, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale3d(0.2, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.quantum-pulse-ring.pulse-active {
+  animation: shockwaveBurst 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes shockwaveBurst {
+  0% {
+    opacity: 0.95;
+    transform: scale3d(0.25, 0.25, 1);
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: scale3d(2.4, 2.4, 1);
+  }
+}
+
+/* Grand Quantum Singularity Dissolve Flash */
+.quantum-aperture-core.portal-warp {
+  animation: portalWarpDissolve 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes portalWarpDissolve {
+  0% {
+    transform: translate(-50%, -50%) scale3d(1, 1, 1);
+    opacity: 1;
+  }
+  40% {
+    transform: translate(-50%, -50%) scale3d(2.2, 2.2, 1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale3d(4, 4, 1);
+    opacity: 0;
+  }
+}
+
+/* Solo Individual Letter Stage (One letter at a time zooms into singularity) */
+.solo-letter-stage {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  z-index: 5;
 }
 
 .solo-zoom-letter {
   font-family: var(--font-display);
-  font-size: clamp(6.5rem, 26vw, 13.5rem);
+  font-size: clamp(7rem, 28vw, 14rem);
   font-weight: 900;
   text-transform: lowercase;
   line-height: 1;
   user-select: none;
   opacity: 0;
-  will-change: transform, opacity, filter;
-  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 28%, #818cf8 62%, #4f46e5 95%);
+  will-change: transform, opacity;
+  background: linear-gradient(180deg, #ffffff 0%, #e0e7ff 30%, #818cf8 65%, #4f46e5 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  filter: drop-shadow(0 0 35px rgba(99, 102, 241, 0.9)) drop-shadow(0 0 70px rgba(124, 58, 237, 0.55));
+  text-shadow: 0 0 25px rgba(99, 102, 241, 0.75), 0 0 55px rgba(124, 58, 237, 0.45);
+  transform: translate3d(0, 0, 0) scale3d(2.2, 2.2, 1);
 }
 
-/* One letter at a time zooming out into the distance and fading */
+/* One letter at a time zooming out into the singularity and fading - 100% GPU, zero lag */
 .solo-zoom-letter.zooming-out {
-  animation: soloZoomOutFade 0.44s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: soloZoomOutGPU 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes soloZoomOutFade {
+@keyframes soloZoomOutGPU {
   0% {
     opacity: 0;
-    transform: scale(2.6) translateZ(0);
-    filter: blur(14px) drop-shadow(0 0 45px rgba(99, 102, 241, 0.95));
+    transform: translate3d(0, 0, 0) scale3d(2.3, 2.3, 1);
   }
   22% {
     opacity: 1;
-    transform: scale(1.4) translateZ(0);
-    filter: blur(0px) drop-shadow(0 0 40px rgba(139, 92, 246, 0.85));
-  }
-  65% {
-    opacity: 0.95;
-    transform: scale(0.95) translateZ(0);
-    filter: blur(0px) drop-shadow(0 0 30px rgba(59, 130, 246, 0.75));
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.2) translateZ(0);
-    filter: blur(12px) drop-shadow(0 0 10px rgba(79, 70, 229, 0));
-  }
-}
-
-/* Spelled Tracker under the solo letter */
-.spelled-tracker {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 14px;
-  padding: 8px 24px;
-  background: rgba(10, 16, 38, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 999px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.tracker-char {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 800;
-  text-transform: lowercase;
-  color: rgba(255, 255, 255, 0.2);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.tracker-char.active {
-  color: #ffffff;
-  text-shadow: 0 0 16px #818cf8, 0 0 30px #4f46e5;
-  transform: scale(1.35);
-}
-
-.tracker-char.completed {
-  color: #93c5fd;
-  text-shadow: 0 0 12px rgba(99, 102, 241, 0.65);
-  transform: scale(1);
-}
-
-/* Final Resolved Word */
-.skience-resolved-word {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px 0;
-  animation: wordPulseAura 2s ease-in-out infinite alternate;
-}
-
-.resolved-glow-word {
-  font-family: var(--font-display);
-  font-size: clamp(4.2rem, 14vw, 9.2rem);
-  font-weight: 900;
-  text-transform: lowercase;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 25%, #818cf8 60%, #4f46e5 95%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: resolvedWordImpact 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes resolvedWordImpact {
-  0% {
-    opacity: 0;
-    transform: scale(0.7);
-    filter: blur(12px) drop-shadow(0 0 20px rgba(99, 102, 241, 0));
+    transform: translate3d(0, 0, 0) scale3d(1.35, 1.35, 1);
   }
   60% {
-    opacity: 1;
-    transform: scale(1.04);
-    filter: blur(0px) drop-shadow(0 0 40px rgba(129, 140, 248, 0.95)) drop-shadow(0 0 80px rgba(147, 51, 234, 0.65));
+    opacity: 0.95;
+    transform: translate3d(0, 0, 0) scale3d(0.85, 0.85, 1);
   }
   100% {
-    opacity: 1;
-    transform: scale(1);
-    filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.8)) drop-shadow(0 0 60px rgba(124, 58, 237, 0.5));
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale3d(0.08, 0.08, 1);
   }
-}
-
-@keyframes wordPulseAura {
-  0% {
-    filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.65)) drop-shadow(0 0 50px rgba(124, 58, 237, 0.35));
-    transform: scale(1);
-  }
-  100% {
-    filter: drop-shadow(0 0 35px rgba(129, 140, 248, 0.85)) drop-shadow(0 0 75px rgba(147, 51, 234, 0.55));
-    transform: scale(1.02);
-  }
-}
-
-/* Tagline below the word */
-.skience-intro-tagline {
-  margin-top: 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s ease 0.1s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
-}
-
-.skience-intro-tagline.tagline-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.intro-tagline-badge {
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  color: #c7d2fe;
-  background: rgba(99, 102, 241, 0.15);
-  border: 1px solid rgba(129, 140, 248, 0.4);
-  padding: 5px 14px;
-  border-radius: 999px;
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.25);
-}
-
-.intro-tagline-author {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Skip button */
@@ -344,8 +333,6 @@ html, body {
   border-radius: 9999px;
   cursor: pointer;
   z-index: 20;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   transition: all 0.2s ease;
 }
 
