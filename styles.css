@@ -803,6 +803,7 @@ html, body {
 }
 
 .hero-neon-word {
+  display: inline-block;
   font-family: var(--font-display);
   font-size: clamp(3.2rem, 9.5vw, 7.8rem);
   font-weight: 900;
@@ -815,6 +816,23 @@ html, body {
   filter: drop-shadow(0 0 25px rgba(6, 182, 212, 0.75))
           drop-shadow(0 0 55px rgba(99, 102, 241, 0.55));
   animation: subtleNeonFlicker 6s infinite;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity, filter;
+}
+
+.hero-neon-word.word-exit {
+  opacity: 0;
+  transform: translateY(-16px) scale(0.96);
+  filter: blur(10px) drop-shadow(0 0 35px rgba(0, 245, 212, 0.9));
+}
+
+.hero-neon-word.word-enter-from-bottom {
+  transition: none !important;
+  opacity: 0;
+  transform: translateY(16px) scale(0.96);
+  filter: blur(10px) drop-shadow(0 0 35px rgba(99, 102, 241, 0.9));
 }
 
 @keyframes subtleNeonFlicker {
