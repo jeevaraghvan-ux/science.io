@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=75.0">
+  <link rel="stylesheet" href="styles.css?v=76.0">
   <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -620,6 +620,51 @@
   <!-- ================= MODAL: JEEVA RAGHAVAN "ALL ABOUT ME" PORTFOLIO (me.skience.io) ================= -->
   <div id="projects-modal" class="modal-backdrop hidden">
     <div class="modal-window about-me-window me-skience-container">
+      <!-- ================= "ALL ABOUT ME" RETRO-CYBER BOOT SCREEN ================= -->
+      <div id="me-boot-loader" class="me-boot-loader hidden" title="Click or Press Space to Skip Boot Screen">
+        <div class="me-boot-crt-scanlines"></div>
+        <div class="me-boot-vignette"></div>
+        
+        <div class="me-boot-terminal">
+          <!-- Top Bar -->
+          <div class="me-boot-header">
+            <div class="me-boot-header-left">
+              <span class="me-boot-dot red"></span>
+              <span class="me-boot-dot yellow"></span>
+              <span class="me-boot-dot green"></span>
+              <span class="me-boot-title">JEEVA_OS // KERNEL BOOT SEQUENCE v2.6</span>
+            </div>
+            <div class="me-boot-skip-hint">PRESS [SPACE] OR CLICK TO SKIP</div>
+          </div>
+
+          <!-- Diagnostic Stream & Centerpiece -->
+          <div class="me-boot-content">
+            <div class="me-boot-logs" id="me-boot-logs"></div>
+
+            <div class="me-boot-badge-card" id="me-boot-badge-card">
+              <div class="me-boot-chip-icon">⚡</div>
+              <div class="me-boot-name">JEEVA RAGHAVAN</div>
+              <div class="me-boot-sub">DEVELOPER • MAKING THINGS FOR SKIENCE</div>
+              
+              <div class="me-boot-progress-wrap">
+                <div class="me-boot-progress-bar">
+                  <div class="me-boot-progress-fill" id="me-boot-progress-fill"></div>
+                </div>
+                <div class="me-boot-progress-stats">
+                  <span id="me-boot-status-text">INITIALIZING QUANTUM KERNEL...</span>
+                  <span id="me-boot-pct-text">0%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="me-boot-footer">
+            <span class="me-boot-footer-tag">SYS://ME.SKIENCE.IO</span>
+            <span class="me-boot-footer-mem">MEM: 64TB NEURAL • SEQ: ARM64</span>
+          </div>
+        </div>
+      </div>
+
       <!-- Minimalist Header / Navigation Bar -->
       <header class="me-nav shell">
         <a class="me-nav-name" href="#me-top">Jeeva Raghavan</a>
@@ -644,7 +689,7 @@
             <h1 class="me-hero-name">Jeeva Raghavan</h1>
             <p class="me-hero-line">
               Developer.<br />Making Things for
-              <a class="accent-orange preview-trigger" data-project="wprints" href="https://W3D.base44.app" target="_blank" rel="noopener noreferrer">WForge</a>.
+              <a class="accent-green" href="https://scienceio-best.vercel.app" target="_blank" rel="noopener noreferrer">skience</a>.
             </p>
             <div class="me-hero-cta-group">
               <a class="pixel-button primary" href="#me-projects">
@@ -1637,6 +1682,6 @@
   </div>
 
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=75.0"></script>
+  <script src="app.js?v=76.0"></script>
 </body>
 </html>

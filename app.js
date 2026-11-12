@@ -11367,14 +11367,18 @@ class ScienceIoApp {
         e.preventDefault();
         e.stopPropagation();
       }
-      sounds.playSuccess();
       const modal = document.getElementById("projects-modal");
       if (modal) {
         modal.classList.remove("hidden");
       }
-      this.confetti?.burst(window.innerWidth / 2, window.innerHeight * 0.35, 60);
-      if (typeof this.drawMePortrait === "function") {
-        this.drawMePortrait(false);
+      if (typeof this.playAllAboutMeBootLoader === "function") {
+        this.playAllAboutMeBootLoader();
+      } else {
+        sounds.playSuccess();
+        this.confetti?.burst(window.innerWidth / 2, window.innerHeight * 0.35, 60);
+        if (typeof this.drawMePortrait === "function") {
+          this.drawMePortrait(false);
+        }
       }
     };
 
@@ -11749,7 +11753,7 @@ class ScienceIoApp {
     const speechBubble = document.getElementById("avatar-speech-bubble");
     const avatarQuotes = [
       "Hi, player 2! 👋",
-      "Building the future at WForge! 🚀",
+      "Building the future at skience! 🚀",
       "Skience.io is live in neon! ⚡",
       "Curiosity is power! 🔬",
       "Every line coded by hand! 💻",
@@ -11836,12 +11840,137 @@ class ScienceIoApp {
       }
     });
 
+    // ================= "ALL ABOUT ME" RETRO-CYBER KERNEL BOOT LOADER =================
+    const bootLoader = document.getElementById("me-boot-loader");
+    const bootLogs = document.getElementById("me-boot-logs");
+    const bootFill = document.getElementById("me-boot-progress-fill");
+    const bootStatus = document.getElementById("me-boot-status-text");
+    const bootPct = document.getElementById("me-boot-pct-text");
+    let bootTimeouts = [];
+    let isBooting = false;
+
+    const clearBootTimeouts = () => {
+      bootTimeouts.forEach(t => clearTimeout(t));
+      bootTimeouts = [];
+    };
+
+    const addBootLog = (line, okText = "[  OK  ]") => {
+      if (!bootLogs) return;
+      const row = document.createElement("div");
+      row.className = "me-boot-log-line";
+      row.innerHTML = `<span class="log-ok">${okText}</span> ${line}`;
+      bootLogs.appendChild(row);
+      bootLogs.scrollTop = bootLogs.scrollHeight;
+    };
+
+    const finishBootLoader = (instant = false) => {
+      clearBootTimeouts();
+      if (!bootLoader || !isBooting) return;
+      isBooting = false;
+
+      if (bootFill) bootFill.style.width = "100%";
+      if (bootPct) bootPct.textContent = "100%";
+      if (bootStatus) bootStatus.textContent = ">> SYSTEM READY. WELCOME, PLAYER 2. ✨";
+
+      sounds.playCoin();
+      sounds.playSuccess();
+      this.confetti?.burst(window.innerWidth / 2, window.innerHeight * 0.35, 60);
+
+      const delay = instant ? 80 : 250;
+      setTimeout(() => {
+        bootLoader.classList.add("boot-exit");
+        setTimeout(() => {
+          bootLoader.classList.add("hidden");
+          bootLoader.classList.remove("crt-turn-on", "boot-exit");
+          drawPortrait(false, 0, 0);
+        }, 300);
+      }, delay);
+    };
+
+    const playAllAboutMeBootLoader = () => {
+      if (!bootLoader) return;
+      clearBootTimeouts();
+      isBooting = true;
+
+      // Reset state
+      if (bootLogs) bootLogs.innerHTML = "";
+      if (bootFill) bootFill.style.width = "0%";
+      if (bootPct) bootPct.textContent = "0%";
+      if (bootStatus) bootStatus.textContent = "INITIALIZING QUANTUM KERNEL...";
+
+      bootLoader.classList.remove("hidden", "boot-exit");
+      bootLoader.classList.add("crt-turn-on");
+
+      sounds.playKeypadTap();
+
+      const logSequence = [
+        { time: 100, text: "HARDWARE INITIALIZED: JEEVA-CORE (ARM64 SEQUOIA)" },
+        { time: 240, text: "MOUNTING QUANTUM REPOSITORY: /dev/skience" },
+        { time: 380, text: "CODEC: LIQUID_GLASS // CSS_CYBER // NEON_AUDIO" },
+        { time: 520, text: "LINKING NEURAL DEVELOPER INTERFACE..." }
+      ];
+
+      logSequence.forEach(({ time, text }) => {
+        bootTimeouts.push(setTimeout(() => {
+          if (!isBooting) return;
+          addBootLog(text);
+          sounds.playKeypadTap();
+        }, time));
+      });
+
+      // Progress bar ticks
+      bootTimeouts.push(setTimeout(() => {
+        if (!isBooting) return;
+        if (bootFill) bootFill.style.width = "46%";
+        if (bootPct) bootPct.textContent = "46%";
+        if (bootStatus) bootStatus.textContent = "COMPILING SKIENCE REPOSITORY...";
+        sounds.playKeypadTap();
+      }, 550));
+
+      bootTimeouts.push(setTimeout(() => {
+        if (!isBooting) return;
+        if (bootFill) bootFill.style.width = "88%";
+        if (bootPct) bootPct.textContent = "88%";
+        if (bootStatus) bootStatus.textContent = "SYNCING INTERACTIVE LABS...";
+        sounds.playKeypadTap();
+      }, 820));
+
+      bootTimeouts.push(setTimeout(() => {
+        if (!isBooting) return;
+        if (bootFill) bootFill.style.width = "100%";
+        if (bootPct) bootPct.textContent = "100%";
+        if (bootStatus) bootStatus.textContent = ">> SYSTEM READY. WELCOME, PLAYER 2. ✨";
+        addBootLog("ALL SUBSYSTEMS NOMINAL. LAUNCHING PORTFOLIO.", "[ READY ]");
+      }, 1080));
+
+      // Auto finish
+      bootTimeouts.push(setTimeout(() => {
+        finishBootLoader(false);
+      }, 1300));
+    };
+
+    this.playAllAboutMeBootLoader = playAllAboutMeBootLoader;
+
+    // Skip on click or keyboard shortcut
+    bootLoader?.addEventListener("click", () => {
+      if (isBooting) finishBootLoader(true);
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (!isBooting) return;
+      if (e.key === " " || e.key === "Spacebar" || e.key === "Escape" || e.key === "Enter") {
+        e.preventDefault();
+        finishBootLoader(true);
+      }
+    });
+
     // Replay intro button in me footer
     document.getElementById("me-replay-btn")?.addEventListener("click", () => {
       sounds.playClick();
       const scrollable = document.querySelector(".me-modal-scrollable");
       if (scrollable) scrollable.scrollTo({ top: 0, behavior: "smooth" });
       resetTerminal();
+      playAllAboutMeBootLoader();
     });
 
     // ================= macOS TERMINAL ENGINE =================
@@ -12388,7 +12517,7 @@ class ScienceIoApp {
             "| | | |  __||  __|| | | / ___ \\\n" +
             "| |_| | |___| |___\\ \\_/ / /   \\\n" +
             " \\___/\\____/\\____/ \\___/_/     \\\n" +
-            "JEEVA RAGHAVAN • DEVELOPER • WFORGE"
+            "JEEVA RAGHAVAN • DEVELOPER • SKIENCE"
           );
           sounds.playSuccess();
           break;
@@ -12420,7 +12549,7 @@ class ScienceIoApp {
 
         case "about":
           appendTerminalLine(
-            "Jeeva Raghavan. Developer. Making Things for WForge.\n" +
+            "Jeeva Raghavan. Developer. Making Things for skience.\n" +
             "gng I don't know."
           );
           break;
@@ -12436,9 +12565,13 @@ class ScienceIoApp {
           break;
 
         case "replay":
+        case "boot":
           resetTerminal();
           const scrollable = document.querySelector(".me-modal-scrollable");
           if (scrollable) scrollable.scrollTo({ top: 0, behavior: "smooth" });
+          if (typeof this.playAllAboutMeBootLoader === "function") {
+            this.playAllAboutMeBootLoader();
+          }
           break;
 
         case "joke":
