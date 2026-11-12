@@ -12558,25 +12558,145 @@ class ScienceIoApp {
         return;
       }
 
+      // 3. SUDO COMMAND (Humorous Easter Egg)
+      if (cleanCmd === "sudo" || cleanCmd.startsWith("sudo ")) {
+        appendTerminalLine("🔐 ROOT PRIVILEGE ELEVATION REQUESTED...", "command-result");
+        appendTerminalLine("Nice try! This incident will be reported to Santa 🎅 (or Jeeva).");
+        appendTerminalLine("Permission denied: guest is not in the sudoers file. Jeeva is the only root user.", "terminal-muted");
+        sounds.playKeypadError();
+        return;
+      }
+
+      // 4. CALC COMMAND (Safe Math Evaluator)
+      if (cleanCmd === "calc" || cleanCmd.startsWith("calc ")) {
+        const expr = raw.slice(4).trim();
+        if (!expr) {
+          appendTerminalLine("Usage: calc <math expression>\nExamples:\n• calc (42 * 1337) / 2\n• calc sqrt(256)\n• calc 2^8\n• calc pi * 10^2");
+          return;
+        }
+
+        try {
+          let sanitizedExpr = expr
+            .replace(/\bpi\b/gi, "Math.PI")
+            .replace(/\be\b/gi, "Math.E")
+            .replace(/\bsqrt\(([^)]+)\)/gi, "Math.sqrt($1)")
+            .replace(/\babs\(([^)]+)\)/gi, "Math.abs($1)")
+            .replace(/\bround\(([^)]+)\)/gi, "Math.round($1)")
+            .replace(/\bfloor\(([^)]+)\)/gi, "Math.floor($1)")
+            .replace(/\bceil\(([^)]+)\)/gi, "Math.ceil($1)")
+            .replace(/\bsin\(([^)]+)\)/gi, "Math.sin($1)")
+            .replace(/\bcos\(([^)]+)\)/gi, "Math.cos($1)")
+            .replace(/\btan\(([^)]+)\)/gi, "Math.tan($1)")
+            .replace(/\blog\(([^)]+)\)/gi, "Math.log10($1)")
+            .replace(/\^/g, "**");
+
+          if (!/^[\d\s+\-*/%(),.MathPIEsqrtabsroundfloorceilsincostanlog]+$/.test(sanitizedExpr)) {
+            throw new Error("Invalid characters");
+          }
+
+          const result = Function(`"use strict"; return (${sanitizedExpr});`)();
+          if (typeof result !== "number" || isNaN(result)) {
+            throw new Error("Invalid calculation");
+          }
+
+          const formattedResult = Number.isInteger(result) ? result : parseFloat(result.toFixed(6));
+          appendTerminalLine(`= ${formattedResult}`, "command-result");
+          sounds.playSuccess();
+        } catch (err) {
+          appendTerminalLine(`Error: Unable to calculate "${expr}". Check math syntax (e.g. calc 25 * 4, calc sqrt(144)).`);
+        }
+        return;
+      }
+
+      // 5. HACK COMMAND (Hollywood Cyber Simulator)
+      if (cleanCmd === "hack" || cleanCmd.startsWith("hack ")) {
+        const target = raw.slice(4).trim() || "skience-mainframe";
+        appendTerminalLine(`🕶️ INITIATING CYBER INJECTION SEQUENCE [TARGET: ${target}]...`, "command-result");
+        
+        const steps = [
+          "Bypassing quantum proxy cluster (192.168.0.1 ➔ 10.0.8.254)... [OK]",
+          "Injecting neutrino packet payload into kernel memory buffer...",
+          "Decrypting 4096-bit polymorphic firewall: [████████████████] 100%",
+          "Overriding root security daemon & neutralizing defense countermeasures...",
+          `ACCESS GRANTED: ${target} compromised. Root privileges unlocked! 🎉`
+        ];
+
+        steps.forEach((step, idx) => {
+          setTimeout(() => {
+            appendTerminalLine(step, idx === steps.length - 1 ? "command-result" : "terminal-muted");
+            sounds.playKeypadTap();
+            if (idx === steps.length - 1) {
+              sounds.playSuccess();
+            }
+          }, (idx + 1) * 350);
+        });
+        return;
+      }
+
       switch (cleanCmd) {
         case "help":
           appendTerminalLine(
-            "email    --> write a note\n" +
-            "copy     --> copy my email\n" +
-            "follow   --> find me elsewhere\n" +
-            "projects --> see what I’ve built\n" +
-            "wforge   --> WForge 3D print platform\n" +
-            "skills   --> visual skill meters\n" +
-            "banner   --> neon cyber banner\n" +
-            "arcade   --> play retro asteroid blaster\n" +
-            "matrix   --> toggle matrix digital rain\n" +
-            "about    --> a little about me\n" +
-            "clear    --> a fresh terminal\n" +
-            "hello    --> say hello\n" +
-            "replay   --> play the intro again\n" +
-            "joke     --> hear a joke"
+            "email        --> write a note\n" +
+            "copy         --> copy my email\n" +
+            "follow       --> find me elsewhere\n" +
+            "projects     --> see what I’ve built\n" +
+            "wforge       --> WForge 3D print platform\n" +
+            "skills       --> visual skill meters\n" +
+            "banner       --> neon cyber banner\n" +
+            "about        --> a little about me\n" +
+            "sciencefact  --> mind-blowing science fact\n" +
+            "quote        --> inspirational pioneer quote\n" +
+            "calc <math>  --> terminal quick calculator\n" +
+            "hack         --> hollywood cyber hack simulator\n" +
+            "sudo <cmd>   --> superuser authorization check\n" +
+            "clear        --> a fresh terminal\n" +
+            "hello        --> say hello\n" +
+            "replay       --> play the intro again\n" +
+            "joke         --> hear a joke"
           );
           break;
+
+        case "sciencefact":
+        case "fact": {
+          const scienceFacts = [
+            "A teaspoon of a neutron star would weigh about 6 billion tons on Earth.",
+            "Light travels fast enough to circle the Earth approximately 7.5 times in one second (299,792 km/s).",
+            "Tardigrades (water bears) can survive the intense vacuum, extreme cold, and cosmic radiation of open space.",
+            "Venus is the hottest planet in our solar system (465°C / 869°F), hot enough to melt lead due to runaway greenhouse gases.",
+            "Honey never spoils; archaeologists discovered 3,000-year-old edible honey jars in ancient Egyptian tombs.",
+            "If you could fold a standard piece of paper 42 times, its thickness would reach the Moon.",
+            "A single bolt of lightning contains enough electrical energy to toast 100,000 slices of bread.",
+            "Saturn is the only planet in our solar system whose average density is lower than liquid water—it would float in a giant bathtub!",
+            "DNA uncoiled from all the cells in your body would stretch from Earth to Pluto and back.",
+            "Octopuses have three hearts, nine brains, and blue copper-based blood.",
+            "Bananas are naturally slightly radioactive because they contain high levels of the potassium-40 isotope."
+          ];
+          const fact = scienceFacts[Math.floor(Math.random() * scienceFacts.length)];
+          appendTerminalLine("💡 MIND-BLOWING SKIENCE FACT:", "command-result");
+          appendTerminalLine(`"${fact}"`);
+          sounds.playSuccess();
+          break;
+        }
+
+        case "quote":
+        case "wisdom": {
+          const pioneerQuotes = [
+            { quote: "The important thing is not to stop questioning. Curiosity has its own reason for existence.", author: "Albert Einstein" },
+            { quote: "I would rather have questions that can't be answered than answers that can't be questioned.", author: "Richard Feynman" },
+            { quote: "Sometimes it is the people no one imagines anything of who do the things that no one can imagine.", author: "Alan Turing" },
+            { quote: "The people who are crazy enough to think they can change the world are the ones who do.", author: "Steve Jobs" },
+            { quote: "That brain of mine is something more than merely mortal; as time will show.", author: "Ada Lovelace" },
+            { quote: "Somewhere, something incredible is waiting to be known.", author: "Carl Sagan" },
+            { quote: "The present is theirs; the future, for which I really worked, is mine.", author: "Nikola Tesla" },
+            { quote: "Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less.", author: "Marie Curie" },
+            { quote: "The most dangerous phrase in the language is, 'We've always done it this way.'", author: "Grace Hopper" }
+          ];
+          const item = pioneerQuotes[Math.floor(Math.random() * pioneerQuotes.length)];
+          appendTerminalLine("📜 PIONEER WISDOM:", "command-result");
+          appendTerminalLine(`"${item.quote}"\n— ${item.author}`);
+          sounds.playSuccess();
+          break;
+        }
 
         case "wforge":
           appendTerminalLine("⚡ WFORGE — 3D Web Printing Studio & Creative Document Platform\n• Custom physical merchandise, rapid prototyping, and automated workflows.\n• Platform URL: https://W3D.base44.app");
@@ -12589,7 +12709,7 @@ class ScienceIoApp {
             "⚡ SKILLS & TECH LOADOUT:\n" +
             "HTML5 / Liquid Glass  [████████████████] 100%\n" +
             "CSS Cyber & Neon      [████████████████] 100%\n" +
-            "JavaScript & Audio    [███████████████░]  95%\n" +
+            "JavaScript & Audio    [██████████████░]  95%\n" +
             "WForge 3D Printing    [████████████████] 100%\n" +
             "Curiosity & Code      [████████████████] 100%"
           );
@@ -12612,14 +12732,7 @@ class ScienceIoApp {
         case "arcade":
         case "game":
         case "play":
-          if (arcadePanel) {
-            arcadePanel.classList.remove("hidden");
-            initArcade();
-            cancelAnimationFrame(arcadeAnimId);
-            arcadeAnimId = requestAnimationFrame(runArcadeLoop);
-            appendTerminalLine("🚀 Retro Asteroid Blaster launched!");
-            sounds.playSuccess();
-          }
+          appendTerminalLine("🎮 Terminal games have been retired. Use 'sciencefact', 'quote', 'calc <expr>', or 'hack' instead!");
           break;
 
         case "matrix":
