@@ -9074,4 +9074,525 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   100% { height: 14px; }
 }
 
+/* ==========================================================================
+   MONOCHROME PRO UPGRADES (v77.0)
+   1. Smoked Obsidian Hairline Shimmer & Specular Bevels
+   2. Magnetic Fluid Cursor & VisionOS Hover Snapping
+   3. Sleek Global Command HUD (Cmd+K / Ctrl+K)
+   4. Monolith Grid & Perspective 3D Tilt Physics
+   ========================================================================== */
+
+/* ---- 1. Top Nav Command HUD Trigger Pill ---- */
+.nav-command-hud-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px;
+  background: rgba(18, 20, 26, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: #cdd3de;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.nav-command-hud-btn:hover {
+  background: rgba(30, 34, 44, 0.95);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), 0 0 16px rgba(255, 255, 255, 0.08);
+}
+
+.hud-svg {
+  width: 13px;
+  height: 13px;
+  opacity: 0.85;
+}
+
+.hud-kbd-pill {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: #e2e8f0;
+  letter-spacing: 0.02em;
+}
+
+/* ---- 2. Magnetic Fluid Cursor & VisionOS Snapping ---- */
+@media (pointer: coarse) or (hover: none) {
+  .fluid-cursor-dot,
+  .fluid-cursor-ring {
+    display: none !important;
+  }
+}
+
+@media (pointer: fine) and (hover: hover) {
+  .fluid-cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background: #ffffff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+    transition: opacity 0.25s ease, transform 0.12s ease;
+    will-change: left, top, transform;
+  }
+
+  .fluid-cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.08), inset 0 0 8px rgba(255, 255, 255, 0.04);
+    transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.2s ease,
+                background 0.2s ease,
+                opacity 0.25s ease,
+                transform 0.15s ease;
+    will-change: left, top, width, height, transform;
+  }
+
+  .fluid-cursor-ring.snapped {
+    width: 48px;
+    height: 48px;
+    border-color: rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.1);
+  }
+
+  .fluid-cursor-ring.clicked {
+    transform: translate(-50%, -50%) scale(0.78);
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .fluid-cursor-dot.clicked {
+    transform: translate(-50%, -50%) scale(1.4);
+  }
+
+  .fluid-cursor-dot.hidden,
+  .fluid-cursor-ring.hidden {
+    opacity: 0;
+  }
+}
+
+/* ---- 3. Smoked Obsidian Hairline Shimmer & 3D Tilt ---- */
+.pro-hairline-card {
+  position: relative;
+  background: linear-gradient(155deg, rgba(17, 19, 25, 0.88), rgba(9, 10, 14, 0.96)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  overflow: hidden;
+  transition: transform 0.18s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+  will-change: transform;
+}
+
+.pro-hairline-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(380px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.22), transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.pro-hairline-card:hover::before {
+  opacity: 1;
+}
+
+.pro-hairline-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.035), transparent 75%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.pro-hairline-card:hover::after {
+  opacity: 1;
+}
+
+/* 3D Perspective Tilt on Cards */
+.pro-tilt-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform;
+  transition: transform 0.12s ease-out;
+}
+
+/* ---- 4. Sleek Global Command HUD (Cmd+K / Ctrl+K) ---- */
+.command-hud-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99990;
+  background: rgba(4, 5, 8, 0.75);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: clamp(60px, 14vh, 120px);
+  padding-left: 16px;
+  padding-right: 16px;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.command-hud-backdrop.hidden {
+  display: none !important;
+}
+
+.command-hud-window {
+  width: 100%;
+  max-width: 640px;
+  background: #0d0e12;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 25px 70px -10px rgba(0, 0, 0, 0.85),
+              0 0 0 1px rgba(255, 255, 255, 0.06),
+              inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: hudWindowIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+}
+
+@keyframes hudWindowIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(-12px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.command-hud-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(16, 18, 24, 0.6);
+  position: relative;
+}
+
+.command-hud-search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.45);
+  width: 18px;
+  height: 18px;
+}
+
+.command-hud-search-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.command-hud-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  font-family: inherit;
+}
+
+.command-hud-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 400;
+}
+
+.command-hud-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hud-kbd {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  padding: 2px 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.hud-kbd:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.command-hud-filter-chips {
+  display: flex;
+  gap: 6px;
+  padding: 10px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(10, 11, 15, 0.4);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.command-hud-filter-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.hud-filter-chip {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 4px 11px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.hud-filter-chip:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.hud-filter-chip.active {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.command-hud-results {
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 8px 10px;
+  scroll-behavior: smooth;
+}
+
+.command-hud-results::-webkit-scrollbar {
+  width: 5px;
+}
+
+.command-hud-results::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+}
+
+.hud-result-group-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 10px 6px;
+  user-select: none;
+}
+
+.hud-result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  color: rgba(255, 255, 255, 0.85);
+  position: relative;
+  margin-bottom: 2px;
+}
+
+.hud-result-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.hud-item-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13.5px;
+  flex-shrink: 0;
+  color: #e2e8f0;
+}
+
+.hud-item-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.hud-item-title {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hud-item-sub {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.42);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hud-item-badge {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 4px;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+.hud-result-item:hover,
+.hud-result-item.selected {
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+}
+
+.hud-result-item.selected .hud-item-icon {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+}
+
+.hud-result-item.selected .hud-item-title {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.hud-result-item.selected .hud-item-badge {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.hud-empty-state {
+  padding: 36px 20px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 13px;
+}
+
+.hud-empty-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+  opacity: 0.6;
+}
+
+.command-hud-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(12, 13, 17, 0.95);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  user-select: none;
+}
+
+.command-hud-footer-left {
+  display: flex;
+  gap: 12px;
+}
+
+.hud-footer-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hud-kbd-mini {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 9.5px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  padding: 1px 4px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.hud-system-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: ui-monospace, "SF Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+
+.hud-status-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 6px #34d399;
+  display: inline-block;
+}
+
+@media (max-width: 640px) {
+  .command-hud-window {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+  .command-hud-footer-left {
+    display: none;
+  }
+}
+
 

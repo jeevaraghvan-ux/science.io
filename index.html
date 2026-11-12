@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=76.0">
+  <link rel="stylesheet" href="styles.css?v=77.0">
   <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -47,6 +47,10 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
+  <!-- Fluid Magnetic Cursor Elements -->
+  <div id="fluid-cursor-dot" class="fluid-cursor-dot" aria-hidden="true"></div>
+  <div id="fluid-cursor-ring" class="fluid-cursor-ring" aria-hidden="true"></div>
+
   <div id="mouse-spotlight"></div>
 
   <!-- Background Music Player (Default: Nico & Vinz - Am I Wrong) -->
@@ -274,6 +278,14 @@
               </div>
             </div>
           </div>
+
+          <button class="nav-command-hud-btn" id="btn-command-hud" title="Command HUD (⌘K / Ctrl+K)">
+            <svg class="icon-svg hud-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span class="hud-kbd-pill">⌘K</span>
+          </button>
         </div>
       </nav>
     </header>
@@ -1681,7 +1693,52 @@
     </button>
   </div>
 
+  <!-- ================= SLEEK GLOBAL COMMAND HUD (Cmd+K / Ctrl+K) ================= -->
+  <div id="command-hud-modal" class="command-hud-backdrop hidden" aria-modal="true" role="dialog">
+    <div class="command-hud-window" id="command-hud-window">
+      <!-- Search Input Bar -->
+      <div class="command-hud-search-bar">
+        <div class="command-hud-search-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+        <input type="text" id="command-hud-input" class="command-hud-input" placeholder="Type a command, search 5th grade notes, formulas, or tools..." autocomplete="off" spellcheck="false" />
+        <div class="command-hud-badges">
+          <kbd class="hud-kbd" id="command-hud-esc-btn" title="Close (ESC)">ESC</kbd>
+        </div>
+      </div>
+
+      <!-- Quick Category Filter Bar -->
+      <div class="command-hud-filter-chips">
+        <button type="button" class="hud-filter-chip active" data-hud-filter="all">All</button>
+        <button type="button" class="hud-filter-chip" data-hud-filter="actions">Actions</button>
+        <button type="button" class="hud-filter-chip" data-hud-filter="science">Science Topics</button>
+        <button type="button" class="hud-filter-chip" data-hud-filter="tools">Tools &amp; Audio</button>
+        <button type="button" class="hud-filter-chip" data-hud-filter="easter">Easter Eggs</button>
+      </div>
+
+      <!-- Results List Container -->
+      <div class="command-hud-results" id="command-hud-results" role="listbox">
+        <!-- Rendered via JavaScript -->
+      </div>
+
+      <!-- Bottom Hardware Telemetry Footer -->
+      <div class="command-hud-footer">
+        <div class="command-hud-footer-left">
+          <span class="hud-footer-hint"><kbd class="hud-kbd-mini">↑</kbd><kbd class="hud-kbd-mini">↓</kbd> Navigate</span>
+          <span class="hud-footer-hint"><kbd class="hud-kbd-mini">↵</kbd> Run</span>
+          <span class="hud-footer-hint"><kbd class="hud-kbd-mini">ESC</kbd> Close</span>
+        </div>
+        <div class="command-hud-footer-right">
+          <span class="hud-system-status"><span class="hud-status-led"></span> SKIENCE HUD PRO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=76.0"></script>
+  <script src="app.js?v=77.0"></script>
 </body>
 </html>

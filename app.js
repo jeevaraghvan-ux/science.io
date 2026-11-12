@@ -5865,6 +5865,7 @@ class ScienceIoApp {
     this.setupPublishSystem();
     this.readingSuite.init();
     if (this.calculator) this.calculator.init();
+    this.setupMonochromeProSystem();
 
     // 3. Fetch fresh notes from Cloud Database asynchronously in background
     await this.fetchCloudNotes();
@@ -12610,6 +12611,596 @@ class ScienceIoApp {
         const c = btn.dataset.command;
         if (c) executeCommand(c);
       });
+    });
+  }
+
+  // ================= MONOCHROME PRO UPGRADES (v77.0) =================
+  setupMonochromeProSystem() {
+    this.setupMagneticFluidCursor();
+    this.setupCommandHud();
+    this.setupExtended3DTiltAndSpecularShimmer();
+  }
+
+  setupMagneticFluidCursor() {
+    const dot = document.getElementById("fluid-cursor-dot");
+    const ring = document.getElementById("fluid-cursor-ring");
+    if (!dot || !ring) return;
+
+    // Only enable when a fine pointer (mouse/trackpad) is present
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+    let isHidden = true;
+    let isSnapped = false;
+    let isMouseDown = false;
+
+    const onMouseMove = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (isHidden) {
+        isHidden = false;
+        dot.classList.remove("hidden");
+        ring.classList.remove("hidden");
+      }
+
+      dot.style.left = `${mouseX}px`;
+      dot.style.top = `${mouseY}px`;
+
+      // Check if hovering interactive target
+      const target = e.target.closest(
+        "button, a, input, select, textarea, .deck-card, .project-card, .nav-icon-btn, .calc-key, .theme-swatch-btn, .pill-toggle-btn, .cat-pill, .hud-result-item, .hud-filter-chip, .portrait-button, .terminal-actions button, .contact-link"
+      );
+
+      if (target && !isSnapped) {
+        isSnapped = true;
+        ring.classList.add("snapped");
+      } else if (!target && isSnapped) {
+        isSnapped = false;
+        ring.classList.remove("snapped");
+      }
+    };
+
+    const onMouseDown = () => {
+      isMouseDown = true;
+      dot.classList.add("clicked");
+      ring.classList.add("clicked");
+    };
+
+    const onMouseUp = () => {
+      isMouseDown = false;
+      dot.classList.remove("clicked");
+      ring.classList.remove("clicked");
+    };
+
+    const onMouseLeaveDoc = () => {
+      isHidden = true;
+      dot.classList.add("hidden");
+      ring.classList.add("hidden");
+    };
+
+    const onMouseEnterDoc = () => {
+      isHidden = false;
+      dot.classList.remove("hidden");
+      ring.classList.remove("hidden");
+    };
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("mousedown", onMouseDown, { passive: true });
+    window.addEventListener("mouseup", onMouseUp, { passive: true });
+    document.addEventListener("mouseleave", onMouseLeaveDoc);
+    document.addEventListener("mouseenter", onMouseEnterDoc);
+
+    // Smooth spring/lerp ring follow loop
+    const tickRing = () => {
+      if (!isHidden) {
+        ringX += (mouseX - ringX) * 0.22;
+        ringY += (mouseY - ringY) * 0.22;
+        ring.style.left = `${ringX.toFixed(1)}px`;
+        ring.style.top = `${ringY.toFixed(1)}px`;
+      }
+      requestAnimationFrame(tickRing);
+    };
+    requestAnimationFrame(tickRing);
+  }
+
+  setupExtended3DTiltAndSpecularShimmer() {
+    const attachCardTilt = (card) => {
+      if (!card || card._hasExtendedTilt) return;
+      card._hasExtendedTilt = true;
+      card.classList.add("pro-hairline-card", "pro-tilt-card");
+
+      let rect = null;
+
+      const onEnter = () => {
+        rect = card.getBoundingClientRect();
+      };
+
+      const onMove = (e) => {
+        if (!rect) rect = card.getBoundingClientRect();
+        if (!rect || rect.width === 0 || rect.height === 0) return;
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const tiltX = ((y / rect.height) - 0.5) * -10;
+        const tiltY = ((x / rect.width) - 0.5) * 10;
+
+        card.style.setProperty("--mouse-x", `${x.toFixed(1)}px`);
+        card.style.setProperty("--mouse-y", `${y.toFixed(1)}px`);
+        card.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
+        card.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
+        card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateZ(4px)`;
+      };
+
+      const onLeave = () => {
+        rect = null;
+        card.style.setProperty("--tilt-x", "0deg");
+        card.style.setProperty("--tilt-y", "0deg");
+        card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)";
+      };
+
+      card.addEventListener("mouseenter", onEnter, { passive: true });
+      card.addEventListener("mousemove", onMove, { passive: true });
+      card.addEventListener("mouseleave", onLeave, { passive: true });
+    };
+
+    document.querySelectorAll(".project-card, .player-card, .table-card-glass, .admin-cmd-card").forEach(attachCardTilt);
+
+    // Also re-apply if new cards render
+    const observer = new MutationObserver(() => {
+      document.querySelectorAll(".project-card, .player-card, .table-card-glass, .admin-cmd-card").forEach(attachCardTilt);
+    });
+    const mainApp = document.getElementById("app");
+    if (mainApp) {
+      observer.observe(mainApp, { childList: true, subtree: true });
+    }
+  }
+
+  setupCommandHud() {
+    const modal = document.getElementById("command-hud-modal");
+    const input = document.getElementById("command-hud-input");
+    const resultsContainer = document.getElementById("command-hud-results");
+    const triggerBtn = document.getElementById("btn-command-hud");
+    const escBtn = document.getElementById("command-hud-esc-btn");
+    const filterChips = document.querySelectorAll(".hud-filter-chip");
+    if (!modal || !input || !resultsContainer) return;
+
+    let activeFilter = "all";
+    let selectedIndex = 0;
+    let filteredCommands = [];
+
+    const getBaseCommands = () => [
+      // Quick Actions
+      {
+        id: "nav-home",
+        category: "actions",
+        title: "Jump to Home",
+        sub: "Scroll to top hero presentation",
+        badge: "NAV",
+        icon: "🏠",
+        keywords: "home top hero start",
+        action: () => {
+          document.getElementById("nav-btn-home")?.click();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      },
+      {
+        id: "nav-notes",
+        category: "actions",
+        title: "5th Grade Notes Carousel",
+        sub: "Explore all science concept cards in 3D coverflow",
+        badge: "NOTES",
+        icon: "📓",
+        keywords: "notes cards coverflow carousel grade 5",
+        action: () => {
+          document.getElementById("nav-btn-notes")?.click();
+          document.getElementById("notes-section")?.scrollIntoView({ behavior: "smooth" });
+        }
+      },
+      {
+        id: "nav-table",
+        category: "actions",
+        title: "Catalog Table View",
+        sub: "Switch to high-density tabular index of science topics",
+        badge: "VIEW",
+        icon: "📋",
+        keywords: "table catalog list switch index",
+        action: () => {
+          document.getElementById("view-table-btn")?.click();
+          document.getElementById("notes-section")?.scrollIntoView({ behavior: "smooth" });
+        }
+      },
+      {
+        id: "nav-calc",
+        category: "actions",
+        title: "Scientific Calculator & Converter",
+        sub: "Open physical constants, units, and orbital formulas",
+        badge: "CALC",
+        icon: "🧮",
+        keywords: "calculator formulas math units constants physics",
+        action: () => {
+          document.getElementById("nav-btn-calc")?.click();
+          document.getElementById("calculator-section")?.scrollIntoView({ behavior: "smooth" });
+        }
+      },
+      {
+        id: "nav-me",
+        category: "actions",
+        title: "Jeeva Raghavan — All About Me",
+        sub: "Developer portfolio, projects, and macOS terminal",
+        badge: "DEV",
+        icon: "⚡",
+        keywords: "jeeva about me developer wforge skience portfolio terminal",
+        action: () => {
+          if (typeof this.openJeevaProfileModal === "function") {
+            this.openJeevaProfileModal();
+          } else {
+            document.getElementById("projects-modal")?.classList.remove("hidden");
+          }
+        }
+      },
+      {
+        id: "nav-vault",
+        category: "actions",
+        title: "Architect Cloud Vault",
+        sub: "Manage and publish 5th grade notes & music cloud database",
+        badge: "ADMIN",
+        icon: "🔐",
+        keywords: "vault admin publish cloud save notes password",
+        action: () => {
+          document.getElementById("vault-bubble-btn")?.click();
+        }
+      },
+      {
+        id: "nav-cheat-sheet",
+        category: "actions",
+        title: "Print Review Cheat Sheet",
+        sub: "Formatted printer-ready comprehensive study sheet",
+        badge: "PRINT",
+        icon: "🖨️",
+        keywords: "print cheat sheet pdf study review paper",
+        action: () => {
+          document.getElementById("btn-cheat-sheet")?.click();
+        }
+      },
+
+      // Tools & Audio
+      {
+        id: "toggle-sound",
+        category: "tools",
+        title: "Toggle UI Sound FX",
+        sub: "Turn synthesizer keypad clicks & celebration chimes on/off",
+        badge: "AUDIO",
+        icon: "🔊",
+        keywords: "sound fx mute unmute volume audio clicks",
+        action: () => {
+          document.getElementById("btn-sound-toggle")?.click();
+        }
+      },
+      {
+        id: "toggle-music",
+        category: "tools",
+        title: "Toggle Background Study Music",
+        sub: "Play or pause Nico & Vinz - Am I Wrong",
+        badge: "MUSIC",
+        icon: "🎵",
+        keywords: "music song nico vinz am i wrong study audio track",
+        action: () => {
+          document.getElementById("btn-music-toggle")?.click();
+        }
+      },
+      {
+        id: "theme-cyber",
+        category: "tools",
+        title: "Theme: Midnight Cyber",
+        sub: "Neon electric blue and indigo liquid glass",
+        badge: "THEME",
+        icon: "🌌",
+        keywords: "theme cyber midnight blue glass",
+        action: () => {
+          document.querySelector('[data-theme="theme-cyber-neon"]')?.click();
+        }
+      },
+      {
+        id: "theme-void",
+        category: "tools",
+        title: "Theme: Obsidian Void",
+        sub: "Stealth monochromatic deep space obsidian black",
+        badge: "THEME",
+        icon: "🌑",
+        keywords: "theme obsidian void black dark stealth monochrome",
+        action: () => {
+          document.querySelector('[data-theme="theme-quantum-void"]')?.click();
+        }
+      },
+      {
+        id: "theme-emerald",
+        category: "tools",
+        title: "Theme: Deep Navy Blue",
+        sub: "Luminous sapphire glass and celestial gradients",
+        badge: "THEME",
+        icon: "🌊",
+        keywords: "theme navy blue ocean glass",
+        action: () => {
+          document.querySelector('[data-theme="theme-bio-emerald"]')?.click();
+        }
+      },
+
+      // Easter Eggs & Power
+      {
+        id: "easter-boot",
+        category: "easter",
+        title: "Replay Retro-Cyber Kernel Boot",
+        sub: "Run Jeeva's diagnostic CRT hardware boot sequence",
+        badge: "BOOT",
+        icon: "💻",
+        keywords: "boot kernel crt sequence diagnostic hardware retro",
+        action: () => {
+          if (typeof this.playAllAboutMeBootLoader === "function") {
+            const meModal = document.getElementById("projects-modal");
+            if (meModal) meModal.classList.remove("hidden");
+            this.playAllAboutMeBootLoader();
+          }
+        }
+      },
+      {
+        id: "easter-confetti",
+        category: "easter",
+        title: "Launch Quantum Confetti Burst",
+        sub: "Trigger luminous particle fireworks across the viewport",
+        badge: "BURST",
+        icon: "✨",
+        keywords: "confetti burst celebrate fireworks quantum particles",
+        action: () => {
+          this.confetti?.burst(window.innerWidth / 2, window.innerHeight * 0.35, 100);
+          sounds.playSuccess();
+        }
+      },
+      {
+        id: "easter-riddle",
+        category: "easter",
+        title: "Daily Skience Riddle",
+        sub: "Solve today's 5th grade science brain-teaser",
+        badge: "QUIZ",
+        icon: "❓",
+        keywords: "riddle daily quiz trivia question brain teaser",
+        action: () => {
+          document.getElementById("riddle-modal")?.classList.remove("hidden");
+          sounds.playKeypadTap();
+        }
+      },
+      {
+        id: "easter-ai",
+        category: "easter",
+        title: "Ask Skience.io Assistant AI",
+        sub: "Interactive 5th grade science tutor & explanations",
+        badge: "AI",
+        icon: "🤖",
+        keywords: "ai bot chat robot assistant help tutor question",
+        action: () => {
+          document.getElementById("ai-chat-bubble")?.click();
+        }
+      }
+    ];
+
+    const getScienceTopicCommands = () => {
+      if (!Array.isArray(this.notes)) return [];
+      return this.notes.map((topic) => ({
+        id: `topic-${topic.id}`,
+        category: "science",
+        title: topic.title,
+        sub: topic.description || `Grade 5 • ${topic.category || "Science"}`,
+        badge: (topic.category || "SCIENCE").toUpperCase(),
+        icon: "🔬",
+        keywords: `${topic.title} ${topic.category || ""} ${topic.description || ""} ${topic.coreFormula || ""}`,
+        action: () => {
+          if (typeof this.openNotesViewer === "function") {
+            this.openNotesViewer(topic.id, "notes");
+          }
+        }
+      }));
+    };
+
+    const filterAndRender = () => {
+      const query = input.value.trim().toLowerCase();
+      const allCommands = [...getBaseCommands(), ...getScienceTopicCommands()];
+
+      filteredCommands = allCommands.filter((cmd) => {
+        if (activeFilter !== "all" && cmd.category !== activeFilter) {
+          return false;
+        }
+        if (!query) return true;
+        return (
+          cmd.title.toLowerCase().includes(query) ||
+          cmd.sub.toLowerCase().includes(query) ||
+          cmd.keywords.toLowerCase().includes(query) ||
+          cmd.badge.toLowerCase().includes(query)
+        );
+      });
+
+      if (selectedIndex >= filteredCommands.length) {
+        selectedIndex = 0;
+      }
+
+      renderResults();
+    };
+
+    const renderResults = () => {
+      resultsContainer.innerHTML = "";
+      if (filteredCommands.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="hud-empty-state">
+            <div class="hud-empty-icon">🔍</div>
+            <p>No commands or science topics found for "${input.value}"</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Group commands by category title
+      const categoryTitles = {
+        actions: "Quick Actions & Navigation",
+        science: "5th Grade Science Topics",
+        tools: "Tools & Audio Settings",
+        easter: "Easter Eggs & Power Tools"
+      };
+
+      let currentCat = null;
+
+      filteredCommands.forEach((cmd, idx) => {
+        if (cmd.category !== currentCat) {
+          currentCat = cmd.category;
+          const groupTitle = document.createElement("div");
+          groupTitle.className = "hud-result-group-title";
+          groupTitle.textContent = categoryTitles[currentCat] || currentCat.toUpperCase();
+          resultsContainer.appendChild(groupTitle);
+        }
+
+        const item = document.createElement("div");
+        item.className = `hud-result-item ${idx === selectedIndex ? "selected" : ""}`;
+        item.dataset.index = idx;
+
+        item.innerHTML = `
+          <div class="hud-result-item-left">
+            <div class="hud-item-icon">${cmd.icon}</div>
+            <div class="hud-item-text">
+              <span class="hud-item-title">${cmd.title}</span>
+              <span class="hud-item-sub">${cmd.sub}</span>
+            </div>
+          </div>
+          <span class="hud-item-badge">${cmd.badge}</span>
+        `;
+
+        item.addEventListener("click", () => {
+          executeCommand(idx);
+        });
+
+        item.addEventListener("mouseenter", () => {
+          selectedIndex = idx;
+          updateSelectionHighlight();
+        });
+
+        resultsContainer.appendChild(item);
+      });
+
+      scrollSelectedIntoView();
+    };
+
+    const updateSelectionHighlight = () => {
+      const items = resultsContainer.querySelectorAll(".hud-result-item");
+      items.forEach((it) => {
+        const idx = parseInt(it.dataset.index, 10);
+        it.classList.toggle("selected", idx === selectedIndex);
+      });
+      scrollSelectedIntoView();
+    };
+
+    const scrollSelectedIntoView = () => {
+      const selectedEl = resultsContainer.querySelector(".hud-result-item.selected");
+      if (selectedEl) {
+        selectedEl.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
+    };
+
+    const executeCommand = (idx) => {
+      const cmd = filteredCommands[idx];
+      if (!cmd) return;
+      closeHud();
+      sounds.playClick();
+      cmd.action();
+    };
+
+    const openHud = () => {
+      modal.classList.remove("hidden");
+      input.value = "";
+      selectedIndex = 0;
+      activeFilter = "all";
+      filterChips.forEach((c) => c.classList.toggle("active", c.dataset.hudFilter === "all"));
+      sounds.playKeypadTap();
+      filterAndRender();
+      setTimeout(() => input.focus(), 60);
+    };
+
+    const closeHud = () => {
+      modal.classList.add("hidden");
+    };
+
+    // Filter chip clicks
+    filterChips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        sounds.playKeypadTap();
+        filterChips.forEach((c) => c.classList.remove("active"));
+        chip.classList.add("active");
+        activeFilter = chip.dataset.hudFilter || "all";
+        selectedIndex = 0;
+        filterAndRender();
+        input.focus();
+      });
+    });
+
+    // Input typing listener
+    input.addEventListener("input", () => {
+      selectedIndex = 0;
+      filterAndRender();
+    });
+
+    // Keyboard navigation in HUD
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        if (filteredCommands.length > 0) {
+          selectedIndex = (selectedIndex + 1) % filteredCommands.length;
+          updateSelectionHighlight();
+          sounds.playKeypadTap();
+        }
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        if (filteredCommands.length > 0) {
+          selectedIndex = (selectedIndex - 1 + filteredCommands.length) % filteredCommands.length;
+          updateSelectionHighlight();
+          sounds.playKeypadTap();
+        }
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        executeCommand(selectedIndex);
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        closeHud();
+      }
+    });
+
+    // Trigger button and close buttons
+    triggerBtn?.addEventListener("click", () => {
+      if (modal.classList.contains("hidden")) {
+        openHud();
+      } else {
+        closeHud();
+      }
+    });
+
+    escBtn?.addEventListener("click", closeHud);
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closeHud();
+      }
+    });
+
+    // Global Cmd+K / Ctrl+K shortcut
+    window.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) {
+        e.preventDefault();
+        if (modal.classList.contains("hidden")) {
+          openHud();
+        } else {
+          closeHud();
+        }
+      } else if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+        e.preventDefault();
+        closeHud();
+      }
     });
   }
 }
