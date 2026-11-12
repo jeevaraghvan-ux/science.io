@@ -3442,488 +3442,6 @@ class ConfettiEngine {
   }
 }
 
-// ================= USER AUTHENTICATION CONTROLLER =================
-class AuthController {
-  constructor(app) {
-    this.app = app;
-    this.users = this.loadUsers();
-    this.currentUser = this.loadCurrentUser();
-    this.pendingSignUp = null; // { email, password, code, expires }
-  }
-
-  loadUsers() {
-    try {
-      const raw = localStorage.getItem("scienceio_users");
-      return raw ? JSON.parse(raw) : [];
-    } catch (e) {
-      return [];
-    }
-  }
-
-  saveUsers() {
-    try {
-      localStorage.setItem("scienceio_users", JSON.stringify(this.users));
-    } catch (e) {}
-  }
-
-  loadCurrentUser() {
-    try {
-      const raw = localStorage.getItem("scienceio_current_user");
-      return raw ? JSON.parse(raw) : null;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  saveCurrentUser(user) {
-    this.currentUser = user;
-    try {
-      if (user) {
-        localStorage.setItem("scienceio_current_user", JSON.stringify(user));
-      } else {
-        localStorage.removeItem("scienceio_current_user");
-      }
-    } catch (e) {}
-    this.updateNavAuthUI();
-    this.updateFeedbackModalState();
-  }
-
-  init() {
-    this.bindEvents();
-    this.updateNavAuthUI();
-    this.updateFeedbackModalState();
-  }
-
-  bindEvents() {
-    const trigger = document.getElementById("btn-auth-trigger");
-    const modal = document.getElementById("auth-modal");
-    const closeBtn = document.getElementById("modal-auth-close");
-
-    trigger?.addEventListener("click", () => {
-      sounds.playClick();
-      if (this.currentUser) {
-        this.open("profile");
-      } else {
-        this.open("login");
-      }
-    });
-
-    closeBtn?.addEventListener("click", () => {
-      sounds.playClick();
-      this.close();
-    });
-
-    modal?.addEventListener("click", (e) => {
-      if (e.target === modal) this.close();
-    });
-
-    // Tab buttons
-    document.getElementById("tab-auth-login")?.addEventListener("click", () => {
-      sounds.playClick();
-      this.switchTab("login");
-    });
-    document.getElementById("tab-auth-signup")?.addEventListener("click", () => {
-      sounds.playClick();
-      this.switchTab("signup");
-    });
-
-    // Switch links
-    document.getElementById("link-switch-to-signup")?.addEventListener("click", () => {
-      sounds.playClick();
-      this.switchTab("signup");
-    });
-    document.getElementById("link-switch-to-login")?.addEventListener("click", () => {
-      sounds.playClick();
-      this.switchTab("login");
-    });
-
-    // Feedback gate trigger
-    document.getElementById("btn-feedback-open-auth")?.addEventListener("click", () => {
-      sounds.playClick();
-      const fbModal = document.getElementById("feedback-modal");
-      if (fbModal) fbModal.classList.add("hidden");
-      this.open("signup");
-    });
-
-    // Log In Form
-    const loginForm = document.getElementById("auth-login-form");
-    loginForm?.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = document.getElementById("login-email")?.value.trim().toLowerCase();
-      const password = document.getElementById("login-password")?.value;
-      this.handleLogin(email, password);
-    });
-
-    // Sign Up Form (Credentials)
-    const signupForm = document.getElementById("auth-signup-form");
-    signupForm?.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = document.getElementById("signup-email")?.value.trim().toLowerCase();
-      const password = document.getElementById("signup-password")?.value;
-      const confirmPassword = document.getElementById("signup-password-confirm")?.value;
-      this.handleSignUp(email, password, confirmPassword);
-    });
-
-    // Verification Form
-    const verifyForm = document.getElementById("auth-verify-form");
-    verifyForm?.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const code = document.getElementById("verify-code-input")?.value.trim();
-      this.handleVerify(code);
-    });
-
-    // Resend Code
-    document.getElementById("btn-resend-code")?.addEventListener("click", () => {
-      sounds.playClick();
-      this.resendCode();
-    });
-
-    // Change Email
-    document.getElementById("btn-change-email")?.addEventListener("click", () => {
-      sounds.playClick();
-      this.showStep("credentials");
-    });
-
-    // Profile buttons
-    document.getElementById("btn-profile-give-feedback")?.addEventListener("click", () => {
-      sounds.playClick();
-      this.close();
-      const fbModal = document.getElementById("feedback-modal");
-      if (fbModal) {
-        this.updateFeedbackModalState();
-        fbModal.classList.remove("hidden");
-      }
-    });
-
-    document.getElementById("btn-profile-logout")?.addEventListener("click", () => {
-      sounds.playClick();
-      this.logout();
-    });
-  }
-
-  updateNavAuthUI() {
-    const trigger = document.getElementById("btn-auth-trigger");
-    const dot = document.getElementById("auth-logged-dot");
-    if (!trigger) return;
-
-    if (this.currentUser) {
-      trigger.classList.add("logged-in");
-      trigger.setAttribute("title", `Signed in as ${this.currentUser.email} (Click to view account)`);
-      if (dot) dot.classList.remove("hidden");
-    } else {
-      trigger.classList.remove("logged-in");
-      trigger.setAttribute("title", "Sign Up / Log In (Required for reviews & ideas)");
-      if (dot) dot.classList.add("hidden");
-    }
-  }
-
-  updateFeedbackModalState() {
-    const gate = document.getElementById("feedback-auth-gate");
-    const form = document.getElementById("feedback-form");
-    const emailBadge = document.getElementById("fb-user-email-badge");
-
-    if (this.currentUser) {
-      if (gate) gate.classList.add("hidden");
-      if (form) form.classList.remove("hidden");
-      if (emailBadge) emailBadge.textContent = this.currentUser.email;
-    } else {
-      if (gate) gate.classList.remove("hidden");
-      if (form) form.classList.add("hidden");
-    }
-  }
-
-  open(mode = "login") {
-    const modal = document.getElementById("auth-modal");
-    if (!modal) return;
-    this.clearAlerts();
-    modal.classList.remove("hidden");
-
-    if (this.currentUser && mode === "profile") {
-      this.switchTab("profile");
-    } else if (mode === "signup") {
-      this.switchTab("signup");
-      this.showStep("credentials");
-    } else {
-      this.switchTab("login");
-    }
-  }
-
-  close() {
-    const modal = document.getElementById("auth-modal");
-    if (modal) modal.classList.add("hidden");
-    this.clearAlerts();
-  }
-
-  switchTab(tab) {
-    this.clearAlerts();
-    const loginBtn = document.getElementById("tab-auth-login");
-    const signupBtn = document.getElementById("tab-auth-signup");
-    const tabsRow = document.getElementById("auth-tabs-row");
-
-    const paneLogin = document.getElementById("auth-pane-login");
-    const paneSignup = document.getElementById("auth-pane-signup");
-    const paneProfile = document.getElementById("auth-pane-profile");
-
-    if (tab === "profile") {
-      if (tabsRow) tabsRow.classList.add("hidden");
-      if (paneLogin) paneLogin.classList.add("hidden");
-      if (paneSignup) paneSignup.classList.add("hidden");
-      if (paneProfile) {
-        paneProfile.classList.remove("hidden");
-        const profileEmail = document.getElementById("profile-email-display");
-        if (profileEmail && this.currentUser) {
-          profileEmail.textContent = this.currentUser.email;
-        }
-      }
-      return;
-    }
-
-    if (tabsRow) tabsRow.classList.remove("hidden");
-    if (paneProfile) paneProfile.classList.add("hidden");
-
-    if (tab === "signup") {
-      loginBtn?.classList.remove("active");
-      signupBtn?.classList.add("active");
-      paneLogin?.classList.add("hidden");
-      paneSignup?.classList.remove("hidden");
-      setTimeout(() => document.getElementById("signup-email")?.focus(), 100);
-    } else {
-      loginBtn?.classList.add("active");
-      signupBtn?.classList.remove("active");
-      paneLogin?.classList.remove("hidden");
-      paneSignup?.classList.add("hidden");
-      setTimeout(() => document.getElementById("login-email")?.focus(), 100);
-    }
-  }
-
-  showStep(step) {
-    this.clearAlerts();
-    const credStep = document.getElementById("signup-step-credentials");
-    const verifyStep = document.getElementById("signup-step-verify");
-
-    if (step === "verify") {
-      credStep?.classList.add("hidden");
-      verifyStep?.classList.remove("hidden");
-      const display = document.getElementById("verify-email-display");
-      if (display && this.pendingSignUp) {
-        display.textContent = this.pendingSignUp.email;
-      }
-      const codeInput = document.getElementById("verify-code-input");
-      if (codeInput) {
-        codeInput.value = "";
-        setTimeout(() => codeInput.focus(), 150);
-      }
-    } else {
-      credStep?.classList.remove("hidden");
-      verifyStep?.classList.add("hidden");
-      setTimeout(() => document.getElementById("signup-email")?.focus(), 100);
-    }
-  }
-
-  showAlert(pane, msg) {
-    let el = null;
-    if (pane === "login") el = document.getElementById("login-error-msg");
-    else if (pane === "signup") el = document.getElementById("signup-error-msg");
-    else if (pane === "verify") el = document.getElementById("verify-error-msg");
-
-    if (el) {
-      el.textContent = msg;
-      el.classList.remove("hidden");
-    }
-  }
-
-  clearAlerts() {
-    ["login-error-msg", "signup-error-msg", "verify-error-msg"].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.textContent = "";
-        el.classList.add("hidden");
-      }
-    });
-  }
-
-  handleLogin(email, password) {
-    this.clearAlerts();
-    if (!email || !password) {
-      this.showAlert("login", "Please enter both your email and password.");
-      return;
-    }
-
-    const user = this.users.find(u => u.email.toLowerCase() === email.toLowerCase());
-    if (!user) {
-      this.showAlert("login", "No account found with that email. Please Sign Up first!");
-      return;
-    }
-
-    if (user.password !== password) {
-      this.showAlert("login", "Incorrect password. Please try again.");
-      return;
-    }
-
-    // Success
-    sounds.playSuccess();
-    this.saveCurrentUser({ email: user.email, loggedInAt: Date.now() });
-    if (this.app && this.app.confetti) {
-      this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 45);
-    }
-    this.close();
-    this.updateFeedbackModalState();
-  }
-
-  async handleSignUp(email, password, confirmPassword) {
-    this.clearAlerts();
-    if (!email || !password || !confirmPassword) {
-      this.showAlert("signup", "All fields are required.");
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      this.showAlert("signup", "Please enter a valid email address.");
-      return;
-    }
-
-    if (password.length < 6) {
-      this.showAlert("signup", "Password must be at least 6 characters.");
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      this.showAlert("signup", "Passwords do not match. Please re-enter.");
-      return;
-    }
-
-    // Check if account already exists
-    const existing = this.users.find(u => u.email.toLowerCase() === email.toLowerCase());
-    if (existing) {
-      this.showAlert("signup", "An account with this email already exists. Please Log In!");
-      return;
-    }
-
-    // Generate 6-digit code
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
-    this.pendingSignUp = {
-      email,
-      password,
-      code,
-      expires: Date.now() + 15 * 60 * 1000 // 15 mins
-    };
-
-    const submitBtn = document.getElementById("btn-signup-submit");
-    const origText = submitBtn ? submitBtn.textContent : "Send Verification Code ✉️";
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Sending Verification Code... ✉️";
-    }
-
-    // Send code to user's email via FormSubmit
-    try {
-      await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(email)}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({
-          _subject: `Your skience.io 6-Digit Verification Code: ${code}`,
-          verification_code: code,
-          message: `Your 6-digit verification code for skience.io is: ${code}. Enter this code on skience.io to activate your account.`,
-          service: "skience.io account verification",
-          _template: "box"
-        })
-      });
-    } catch (err) {
-      console.warn("Verification code email dispatch note:", err);
-    } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = origText;
-      }
-    }
-
-    sounds.playClick();
-    this.showStep("verify");
-  }
-
-  async resendCode() {
-    if (!this.pendingSignUp) return;
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
-    this.pendingSignUp.code = code;
-    this.pendingSignUp.expires = Date.now() + 15 * 60 * 1000;
-
-    const resendBtn = document.getElementById("btn-resend-code");
-    if (resendBtn) resendBtn.textContent = "Sending...";
-
-    try {
-      await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(this.pendingSignUp.email)}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({
-          _subject: `[Resent] Your skience.io 6-Digit Verification Code: ${code}`,
-          verification_code: code,
-          message: `Your new 6-digit verification code for skience.io is: ${code}.`,
-          service: "skience.io account verification"
-        })
-      });
-      alert(`A fresh 6-digit verification code has been resent to ${this.pendingSignUp.email}!`);
-    } catch (err) {
-      alert(`A fresh verification code is: ${code}`);
-    } finally {
-      if (resendBtn) resendBtn.textContent = "Resend Code";
-    }
-  }
-
-  handleVerify(enteredCode) {
-    this.clearAlerts();
-    if (!this.pendingSignUp) {
-      this.showAlert("verify", "No pending sign up found. Please restart sign up.");
-      this.showStep("credentials");
-      return;
-    }
-
-    if (Date.now() > this.pendingSignUp.expires) {
-      this.showAlert("verify", "Verification code expired. Please click 'Resend Code'.");
-      return;
-    }
-
-    if (enteredCode !== this.pendingSignUp.code) {
-      this.showAlert("verify", "Incorrect 6-digit verification code. Please check your email and try again.");
-      return;
-    }
-
-    // Code verified! Save user
-    const newUser = {
-      email: this.pendingSignUp.email,
-      password: this.pendingSignUp.password,
-      createdAt: new Date().toISOString(),
-      verified: true
-    };
-
-    this.users.push(newUser);
-    this.saveUsers();
-    this.saveCurrentUser({ email: newUser.email, loggedInAt: Date.now() });
-
-    sounds.playSuccess();
-    if (this.app && this.app.confetti) {
-      this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 60);
-    }
-
-    this.pendingSignUp = null;
-    this.close();
-    this.updateFeedbackModalState();
-  }
-
-  logout() {
-    this.saveCurrentUser(null);
-    sounds.playClick();
-    this.close();
-    this.updateFeedbackModalState();
-  }
-}
-
 // ================= ADMIN SECURITY VAULT CONTROLLER =================
 class VaultController {
   constructor(app) {
@@ -6199,7 +5717,6 @@ class ScienceIoApp {
     this.currentLabType = null;
     this.vault = new VaultController(this);
     this.calculator = new LiquidGlassCalculator(this);
-    this.auth = new AuthController(this);
 
     this.init();
   }
@@ -6341,7 +5858,6 @@ class ScienceIoApp {
     this.setupTableView();
     this.setupHolographic3DCardTilt();
     this.vault.init();
-    if (this.auth) this.auth.init();
     this.setupEventListeners();
     this.setupHeroSnowAndStars();
     this.setupHeroHeadlineRotator();
@@ -11754,9 +11270,6 @@ class ScienceIoApp {
     if (fbBubble && fbModal) {
       fbBubble.addEventListener("click", () => {
         sounds.playClick();
-        if (this.auth) {
-          this.auth.updateFeedbackModalState();
-        }
         fbModal.classList.remove("hidden");
       });
     }
@@ -11770,25 +11283,18 @@ class ScienceIoApp {
       fbForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        // Enforce Authentication Requirement
-        if (!this.auth || !this.auth.currentUser) {
-          alert("Please sign up or log in first so we have your verified email for feedback!");
-          fbModal?.classList.add("hidden");
-          if (this.auth) this.auth.open("signup");
-          return;
-        }
-
         const nameInput = document.getElementById("fb-user-name");
+        const emailInput = document.getElementById("fb-user-email");
         const msgInput = document.getElementById("fb-user-message");
         const submitBtn = fbForm.querySelector("button[type='submit']");
 
         const userName = (nameInput?.value || "").trim() || "Skience Student";
+        const userEmail = (emailInput?.value || "").trim() || "Anonymous Scholar";
         const userMsg = (msgInput?.value || "").trim();
-        const userEmail = this.auth.currentUser.email;
 
         if (!userMsg) return;
 
-        const origBtnText = submitBtn ? submitBtn.textContent : "Submit Feedback";
+        const origBtnText = submitBtn ? submitBtn.textContent : "Submit Review & Idea ✉️";
         if (submitBtn) {
           submitBtn.disabled = true;
           submitBtn.textContent = "Sending to Jeeva... 🚀";
@@ -11796,13 +11302,13 @@ class ScienceIoApp {
 
         try {
           const payload = {
-            "Student Email (REQUIRED)": userEmail,
-            "Idea / Review": userMsg,
             "Student Name": userName,
-            email: userEmail,
-            _replyto: userEmail,
-            _subject: `skience.io Idea from ${userEmail} (${userName})`,
-            message: `Student Email: ${userEmail}\nIdea / Review: ${userMsg}\nName: ${userName}\nSubmitted: ${new Date().toLocaleString()}`,
+            "Student Email": userEmail,
+            "Review / Idea": userMsg,
+            email: userEmail.includes("@") ? userEmail : undefined,
+            _replyto: userEmail.includes("@") ? userEmail : undefined,
+            _subject: `skience.io Review/Idea from ${userName} (${userEmail})`,
+            message: `Student Name: ${userName}\nEmail: ${userEmail}\nReview / Idea: ${userMsg}\nSubmitted: ${new Date().toLocaleString()}`,
             platform: "scienceio-best.vercel.app",
             _template: "table"
           };
@@ -11839,6 +11345,7 @@ class ScienceIoApp {
 
         setTimeout(() => {
           if (nameInput) nameInput.value = "";
+          if (emailInput) emailInput.value = "";
           if (msgInput) msgInput.value = "";
           if (submitBtn) {
             submitBtn.disabled = false;
