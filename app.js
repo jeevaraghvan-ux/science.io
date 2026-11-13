@@ -12614,11 +12614,12 @@ class ScienceIoApp {
     });
   }
 
-  // ================= MONOCHROME PRO UPGRADES (v77.0) =================
+  // ================= MONOCHROME PRO UPGRADES (v78.0) =================
   setupMonochromeProSystem() {
     this.setupMagneticFluidCursor();
     this.setupCommandHud();
     this.setupExtended3DTiltAndSpecularShimmer();
+    this.setupDynamicIsland();
   }
 
   setupMagneticFluidCursor() {
@@ -13202,6 +13203,268 @@ class ScienceIoApp {
         closeHud();
       }
     });
+  }
+
+  // ================= APPLE PRO "DYNAMIC ISLAND" MORPHING HEADER PILL =================
+  setupDynamicIsland() {
+    const navPill = document.getElementById("glass-pill-nav");
+    const islandPod = document.getElementById("dynamic-island-pod");
+    const islandIcon = document.getElementById("island-icon");
+    const islandEqualizer = document.getElementById("island-equalizer");
+    const islandTitle = document.getElementById("island-title");
+    const islandSubtitle = document.getElementById("island-subtitle");
+    const islandBadge = document.getElementById("island-badge");
+    const islandActionPill = document.getElementById("island-action-pill");
+    const islandActionText = document.getElementById("island-action-text");
+    if (!islandPod) return;
+
+    let collapseTimer = null;
+    let isExpanded = false;
+    let currentActionHandler = null;
+
+    const triggerIsland = ({
+      icon = "⚡",
+      title = "SKIENCE PRO",
+      subtitle = "System Nominal",
+      badge = "ACTIVE",
+      actionText = "VIEW",
+      action = null,
+      showEqualizer = false,
+      isPlaying = false,
+      duration = 3200,
+      sound = true
+    } = {}) => {
+      if (collapseTimer) {
+        clearTimeout(collapseTimer);
+        collapseTimer = null;
+      }
+
+      isExpanded = true;
+      currentActionHandler = action;
+
+      if (navPill) navPill.classList.add("island-active");
+      islandPod.classList.remove("island-idle", "island-compact");
+      islandPod.classList.add("island-expanded");
+
+      if (islandIcon) {
+        islandIcon.textContent = icon;
+        islandIcon.classList.toggle("hidden", !!showEqualizer);
+      }
+
+      if (islandEqualizer) {
+        islandEqualizer.classList.toggle("hidden", !showEqualizer);
+        islandEqualizer.classList.toggle("playing", isPlaying);
+      }
+
+      if (islandTitle) islandTitle.textContent = title;
+      if (islandSubtitle) islandSubtitle.textContent = subtitle;
+      if (islandBadge) islandBadge.textContent = badge;
+
+      if (islandActionPill && islandActionText) {
+        if (actionText) {
+          islandActionText.textContent = actionText;
+          islandActionPill.classList.remove("hidden");
+        } else {
+          islandActionPill.classList.add("hidden");
+        }
+      }
+
+      if (sound) {
+        try {
+          sounds.playKeypadTap();
+        } catch (_) {}
+      }
+
+      if (duration > 0) {
+        collapseTimer = setTimeout(() => {
+          collapseIsland();
+        }, duration);
+      }
+    };
+
+    const collapseIsland = () => {
+      if (collapseTimer) {
+        clearTimeout(collapseTimer);
+        collapseTimer = null;
+      }
+      isExpanded = false;
+
+      // If background music is playing, transition to compact ambient mode
+      const bgAudio = document.getElementById("bg-music-player");
+      const isMusicPlaying = bgAudio && !bgAudio.paused && !bgAudio.muted;
+
+      if (isMusicPlaying) {
+        if (navPill) navPill.classList.remove("island-active");
+        islandPod.classList.remove("island-expanded", "island-idle");
+        islandPod.classList.add("island-compact");
+        if (islandIcon) islandIcon.classList.add("hidden");
+        if (islandEqualizer) {
+          islandEqualizer.classList.remove("hidden");
+          islandEqualizer.classList.add("playing");
+        }
+        if (islandTitle) islandTitle.textContent = "Am I Wrong";
+        if (islandBadge) islandBadge.textContent = "PLAYING";
+        if (islandActionText) islandActionText.textContent = "PAUSE";
+        currentActionHandler = () => {
+          document.getElementById("btn-music-toggle")?.click();
+        };
+      } else {
+        if (navPill) navPill.classList.remove("island-active");
+        islandPod.classList.remove("island-expanded", "island-compact");
+        islandPod.classList.add("island-idle");
+        currentActionHandler = null;
+      }
+    };
+
+    // Clicking on action pill
+    islandActionPill?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (typeof currentActionHandler === "function") {
+        currentActionHandler();
+      }
+      collapseIsland();
+    });
+
+    // Clicking anywhere on the expanded island
+    islandPod.addEventListener("click", () => {
+      if (typeof currentActionHandler === "function") {
+        currentActionHandler();
+      } else {
+        collapseIsland();
+      }
+    });
+
+    // Hover pauses auto-collapse so user can view/click
+    islandPod.addEventListener("mouseenter", () => {
+      if (collapseTimer) {
+        clearTimeout(collapseTimer);
+        collapseTimer = null;
+      }
+    });
+
+    islandPod.addEventListener("mouseleave", () => {
+      if (isExpanded) {
+        collapseTimer = setTimeout(() => {
+          collapseIsland();
+        }, 1800);
+      }
+    });
+
+    this.dynamicIsland = {
+      trigger: triggerIsland,
+      collapse: collapseIsland
+    };
+
+    // ================= WIRE SYSTEM EVENTS INTO DYNAMIC ISLAND =================
+    // 1. Background Music Events
+    const bgAudio = document.getElementById("bg-music-player");
+    if (bgAudio) {
+      bgAudio.addEventListener("play", () => {
+        triggerIsland({
+          icon: "🎵",
+          title: "Am I Wrong • Nico & Vinz",
+          subtitle: "Background Study Music Playing",
+          badge: "MUSIC",
+          actionText: "PAUSE",
+          showEqualizer: true,
+          isPlaying: true,
+          duration: 3500,
+          action: () => {
+            document.getElementById("btn-music-toggle")?.click();
+          }
+        });
+      });
+
+      bgAudio.addEventListener("pause", () => {
+        triggerIsland({
+          icon: "⏸️",
+          title: "Study Music Paused",
+          subtitle: "Playback Stopped",
+          badge: "PAUSED",
+          actionText: "PLAY",
+          showEqualizer: false,
+          isPlaying: false,
+          duration: 2500,
+          action: () => {
+            document.getElementById("btn-music-toggle")?.click();
+          }
+        });
+      });
+    }
+
+    // 2. Sound FX Toggle
+    document.getElementById("btn-sound-toggle")?.addEventListener("click", () => {
+      setTimeout(() => {
+        const isMuted = !sounds.enabled;
+        triggerIsland({
+          icon: isMuted ? "🔇" : "🔊",
+          title: isMuted ? "Sound Effects Muted" : "Sound Effects Enabled",
+          subtitle: isMuted ? "Quiet Study Mode Active" : "Keypad Clicks & Celebration FX On",
+          badge: isMuted ? "MUTED" : "STEREO",
+          actionText: "OK",
+          duration: 2400
+        });
+      }, 50);
+    });
+
+    // 3. Theme Palette Selection
+    document.querySelectorAll(".theme-swatch-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const themeLabel = btn.querySelector("span:last-child")?.textContent || "Theme Updated";
+        triggerIsland({
+          icon: "🎨",
+          title: `Theme: ${themeLabel}`,
+          subtitle: "Liquid Glass Surface Recalibrated",
+          badge: "THEME",
+          actionText: "NICE",
+          duration: 2600
+        });
+      });
+    });
+
+    // 4. View Switcher (Carousel / Table)
+    document.getElementById("view-carousel-btn")?.addEventListener("click", () => {
+      triggerIsland({
+        icon: "🔬",
+        title: "3D Coverflow Mode",
+        subtitle: "Interactive Science Deck Active",
+        badge: "DECK",
+        actionText: "VIEW",
+        duration: 2200,
+        action: () => {
+          document.getElementById("notes-section")?.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    });
+
+    document.getElementById("view-table-btn")?.addEventListener("click", () => {
+      triggerIsland({
+        icon: "📋",
+        title: "Table Catalog View",
+        subtitle: "Grade 5 Scientific Index Active",
+        badge: "TABLE",
+        actionText: "VIEW",
+        duration: 2200,
+        action: () => {
+          document.getElementById("notes-section")?.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    });
+
+    // 5. Initial Boot Glance
+    setTimeout(() => {
+      triggerIsland({
+        icon: "⚡",
+        title: "SKIENCE PRO v78.0",
+        subtitle: "Apple Pro Dynamic Island Online",
+        badge: "READY",
+        actionText: "EXPLORE",
+        duration: 3000,
+        action: () => {
+          document.getElementById("nav-btn-notes")?.click();
+        }
+      });
+    }, 1800);
   }
 }
 

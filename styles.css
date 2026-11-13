@@ -9595,4 +9595,276 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   }
 }
 
+/* ==========================================================================
+   APPLE PRO "DYNAMIC ISLAND" MORPHING HEADER PILL (v78.0)
+   ========================================================================== */
+
+.glass-pill-nav {
+  position: relative !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25) !important;
+}
+
+.glass-pill-nav.island-active {
+  box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.95), 0 0 45px rgba(255, 255, 255, 0.12), inset 0 1.5px 2px rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.glass-pill-nav.island-active .nav-center {
+  opacity: 0.08 !important;
+  transform: scale(0.94) !important;
+  filter: blur(2px) !important;
+  pointer-events: none !important;
+}
+
+.nav-center {
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.3s ease;
+}
+
+/* Dynamic Island Pod Container */
+.dynamic-island-pod {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 9999px;
+  background: #07080b;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-top: 1px solid rgba(255, 255, 255, 0.36);
+  box-shadow: 0 14px 40px -8px rgba(0, 0, 0, 0.88),
+              0 0 25px rgba(255, 255, 255, 0.06),
+              inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transition: width 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.25),
+              height 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.2),
+              padding 0.35s ease,
+              opacity 0.25s ease,
+              transform 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+  will-change: transform, width, height, opacity;
+}
+
+/* State: Idle / Collapsed */
+.dynamic-island-pod.island-idle {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.65);
+  width: 80px;
+  height: 32px;
+  padding: 0 10px;
+}
+
+/* State: Compact Ambient (e.g. while background music is playing) */
+.dynamic-island-pod.island-compact {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+  width: auto;
+  min-width: 170px;
+  max-width: 260px;
+  height: 38px;
+  padding: 0 14px;
+}
+
+.dynamic-island-pod.island-compact .island-subtitle {
+  display: none;
+}
+
+.dynamic-island-pod.island-compact .island-action-pill {
+  padding: 3px 8px;
+  font-size: 9px;
+}
+
+/* State: Expanded Dynamic Island Alert / Banner */
+.dynamic-island-pod.island-expanded {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+  width: clamp(340px, 46vw, 540px);
+  height: 52px;
+  padding: 0 18px;
+  animation: islandLiquidSpring 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+}
+
+@keyframes islandLiquidSpring {
+  0% { transform: translate(-50%, -50%) scale(0.82, 1.18); }
+  50% { transform: translate(-50%, -50%) scale(1.04, 0.96); }
+  100% { transform: translate(-50%, -50%) scale(1, 1); }
+}
+
+.dynamic-island-pod:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.95),
+              0 0 35px rgba(255, 255, 255, 0.12),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Capsule Internal Structure */
+.island-capsule {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  gap: 12px;
+}
+
+.island-left-wing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.island-icon {
+  font-size: 13.5px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease;
+}
+
+.dynamic-island-pod:hover .island-icon {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Equalizer Visualizer */
+.island-equalizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 14px;
+}
+
+.island-equalizer.hidden {
+  display: none !important;
+}
+
+.island-equalizer .eq-bar {
+  width: 3px;
+  background: #34d399;
+  border-radius: 999px;
+  height: 3px;
+  transition: height 0.12s ease;
+}
+
+.island-equalizer.playing .eq-bar.bar-1 {
+  animation: islandEqBounce 0.5s ease-in-out infinite alternate;
+}
+.island-equalizer.playing .eq-bar.bar-2 {
+  animation: islandEqBounce 0.38s ease-in-out infinite alternate 0.1s;
+}
+.island-equalizer.playing .eq-bar.bar-3 {
+  animation: islandEqBounce 0.58s ease-in-out infinite alternate 0.2s;
+}
+.island-equalizer.playing .eq-bar.bar-4 {
+  animation: islandEqBounce 0.44s ease-in-out infinite alternate 0.15s;
+}
+
+@keyframes islandEqBounce {
+  0% { height: 3px; }
+  100% { height: 14px; }
+}
+
+/* Center Content */
+.island-center-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.island-title-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.island-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+}
+
+.island-badge {
+  font-size: 9.5px;
+  font-family: ui-monospace, "SF Mono", monospace;
+  color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  padding: 1px 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.island-subtitle {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+/* Right Wing */
+.island-right-wing {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.island-action-pill {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 10px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.18s ease;
+  font-family: ui-monospace, "SF Mono", monospace;
+}
+
+.island-action-pill:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .dynamic-island-pod.island-expanded {
+    width: calc(100vw - 32px);
+    max-width: 440px;
+    height: 50px;
+    padding: 0 14px;
+  }
+  .dynamic-island-pod.island-compact {
+    max-width: 200px;
+  }
+}
+
+
 

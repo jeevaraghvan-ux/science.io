@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=77.0">
+  <link rel="stylesheet" href="styles.css?v=78.0">
   <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -173,7 +173,38 @@
   <div id="app" class="main-wrapper">
     <!-- ================= TOP FLOATING NAVIGATION ================= -->
     <header class="top-nav-container">
-      <nav class="glass-pill-nav" style="max-width: 960px;">
+      <nav class="glass-pill-nav" id="glass-pill-nav" style="max-width: 960px;">
+        <!-- ================= APPLE PRO DYNAMIC ISLAND POD ================= -->
+        <div class="dynamic-island-pod island-idle" id="dynamic-island-pod" role="status" aria-live="polite">
+          <div class="island-capsule" id="island-capsule">
+            <div class="island-left-wing">
+              <span class="island-icon" id="island-icon">⚡</span>
+              <div class="island-equalizer hidden" id="island-equalizer" aria-hidden="true">
+                <span class="eq-bar bar-1"></span>
+                <span class="eq-bar bar-2"></span>
+                <span class="eq-bar bar-3"></span>
+                <span class="eq-bar bar-4"></span>
+              </div>
+            </div>
+
+            <div class="island-center-content">
+              <div class="island-title-row">
+                <span class="island-title" id="island-title">SKIENCE PRO</span>
+                <span class="island-badge" id="island-badge">SYSTEM NOMINAL</span>
+              </div>
+              <div class="island-sub-row">
+                <span class="island-subtitle" id="island-subtitle">Tap to interact</span>
+              </div>
+            </div>
+
+            <div class="island-right-wing">
+              <button type="button" class="island-action-pill" id="island-action-pill" title="Dynamic Island Action">
+                <span id="island-action-text">OPEN</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div class="nav-left">
           <a href="#hero" class="nav-brand-cursive" id="nav-brand-logo" aria-label="skience">
             <svg class="cursive-logo-svg" id="cursive-logo-svg" viewBox="-6 -10 92 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1739,6 +1770,6 @@
   </div>
 
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=77.0"></script>
+  <script src="app.js?v=78.0"></script>
 </body>
 </html>
