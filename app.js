@@ -2655,7 +2655,7 @@ const AudioStorage = {
 const MUSIC_PRESETS = {
   anthem: {
     id: "anthem",
-    name: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+    name: "AfterParty",
     source: "default",
     url: "background-music.mp3",
     desc: "Official Study Anthem (High Energy)"
@@ -2688,7 +2688,7 @@ class BackgroundMusicManager {
   constructor() {
     this.audio = null;
     this.currentTrack = {
-      name: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+      name: "AfterParty",
       source: "default",
       url: "background-music.mp3"
     };
@@ -2790,7 +2790,7 @@ class BackgroundMusicManager {
       if (this.audio.src && !this.audio.src.endsWith("background-music.mp3")) {
         this.audio.src = "background-music.mp3";
         this.currentTrack = {
-          name: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+          name: "AfterParty",
           source: "default",
           url: "background-music.mp3"
         };
@@ -3100,7 +3100,7 @@ class BackgroundMusicManager {
     }
 
     this.currentTrack = {
-      name: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+      name: "AfterParty",
       source: "default",
       url: "background-music.mp3"
     };
@@ -3112,7 +3112,7 @@ class BackgroundMusicManager {
     }
 
     await this.syncToFirestore({
-      trackName: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+      trackName: "AfterParty",
       trackSource: "default",
       audioUrl: "background-music.mp3",
       updated_at: new Date().toISOString()
@@ -3181,7 +3181,7 @@ class BackgroundMusicManager {
       safeUrl = "background-music.mp3";
     }
     return {
-      trackName: this.currentTrack.name || "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+      trackName: this.currentTrack.name || "AfterParty",
       trackSource: (safeUrl === "background-music.mp3") ? "default" : this.currentTrack.source,
       audioUrl: safeUrl,
       updated_at: new Date().toISOString()
@@ -3210,7 +3210,7 @@ class BackgroundMusicManager {
       if (!this.audio.src || this.audio.error) {
         this.audio.src = "background-music.mp3";
         this.currentTrack = {
-          name: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+          name: "AfterParty",
           source: "default",
           url: "background-music.mp3"
         };
@@ -3230,7 +3230,7 @@ class BackgroundMusicManager {
       try {
         this.audio.src = "background-music.mp3";
         this.currentTrack = {
-          name: "Nico & Vinz - Am I Wrong [Official Lyric Video]",
+          name: "AfterParty",
           source: "default",
           url: "background-music.mp3"
         };
@@ -3326,6 +3326,11 @@ class BackgroundMusicManager {
                            (presetKey === "synthwave" && this.currentTrack.name.includes("Synthwave"));
       card.classList.toggle("active", isCardActive);
     });
+
+    // Sync Dynamic Island instantly
+    if (window.app?.dynamicIsland?.syncMusic) {
+      window.app.dynamicIsland.syncMusic(this.currentTrack.name, isPlaying);
+    }
   }
 
   updateScrubber() {
@@ -12885,10 +12890,10 @@ class ScienceIoApp {
         id: "toggle-music",
         category: "tools",
         title: "Toggle Background Study Music",
-        sub: "Play or pause Nico & Vinz - Am I Wrong",
+        sub: "Play or pause study music (AfterParty)",
         badge: "MUSIC",
         icon: "🎵",
-        keywords: "music song nico vinz am i wrong study audio track",
+        keywords: "music song afterparty study audio track background",
         action: () => {
           document.getElementById("btn-music-toggle")?.click();
         }
@@ -13206,7 +13211,7 @@ class ScienceIoApp {
     });
   }
 
-  // ================= APPLE PRO "DYNAMIC ISLAND" MORPHING HEADER PILL =================
+  // ================= APPLE PRO "DYNAMIC ISLAND" (MACOS NOTCH DECK & CAPSULE) =================
   setupDynamicIsland() {
     const navPill = document.getElementById("glass-pill-nav");
     const islandPod = document.getElementById("dynamic-island-pod");
@@ -13217,11 +13222,147 @@ class ScienceIoApp {
     const islandBadge = document.getElementById("island-badge");
     const islandActionPill = document.getElementById("island-action-pill");
     const islandActionText = document.getElementById("island-action-text");
+
+    // Mac Notch Expanded Elements
+    const macDeckArt = document.getElementById("mac-deck-art");
+    const macTrackTitle = document.getElementById("mac-deck-title");
+    const macTrackSub = document.getElementById("mac-deck-sub");
+    const macLiveEq = document.getElementById("mac-deck-live-eq");
+    const macCloseBtn = document.getElementById("mac-deck-close-btn");
+    const macCurTime = document.getElementById("mac-deck-cur-time");
+    const macTotTime = document.getElementById("mac-deck-tot-time");
+    const macSlider = document.getElementById("mac-deck-slider");
+    const macSliderFill = document.getElementById("mac-slider-fill");
+    const macPlaypauseBtn = document.getElementById("mac-btn-playpause");
+    const macPlaypauseGlyph = document.getElementById("mac-playpause-glyph");
+    const macPrevBtn = document.getElementById("mac-btn-prev");
+    const macNextBtn = document.getElementById("mac-btn-next");
+    const macMuteBtn = document.getElementById("mac-btn-mute");
+    const macMuteGlyph = document.getElementById("mac-mute-glyph");
+    const macTravelPills = document.querySelectorAll(".mac-travel-pill");
+
     if (!islandPod) return;
 
     let collapseTimer = null;
     let isExpanded = false;
+    let isMacOpen = false;
+    let isDraggingScrubber = false;
     let currentActionHandler = null;
+
+    // Helper: Dynamic track title & metadata resolution
+    const getDynamicTrackInfo = () => {
+      const current = window.bgMusic?.currentTrack || bgMusic?.currentTrack;
+      const bgAudio = document.getElementById("bg-music-player");
+      let rawTitle = current?.name;
+
+      if (!rawTitle && bgAudio && bgAudio.src) {
+        try {
+          const parts = bgAudio.src.split("/");
+          const filename = parts[parts.length - 1].split("?")[0];
+          rawTitle = decodeURIComponent(filename).replace(/\.[^/.]+$/, "");
+        } catch (_) {}
+      }
+
+      if (!rawTitle || rawTitle === "Custom Track") {
+        rawTitle = "AfterParty";
+      }
+
+      let cleanTitle = rawTitle
+        .replace(/\.mp3$/i, "")
+        .replace(/\s*\[.*?\]|\s*\(.*?\)/g, "")
+        .replace(/_/g, " ")
+        .trim();
+
+      if (/afterparty/i.test(cleanTitle)) {
+        cleanTitle = "AfterParty";
+      }
+
+      const isPlaying = bgAudio && !bgAudio.paused && !bgAudio.muted;
+      let subtitle = isPlaying ? "Background Audio • Now Playing" : "Playback Paused • Tap to Resume";
+      if (current?.source === "preset") {
+        subtitle = `Study Beats • ${isPlaying ? "Playing" : "Paused"}`;
+      } else if (cleanTitle === "AfterParty") {
+        subtitle = `Study Anthem • ${isPlaying ? "Playing" : "Paused"}`;
+      }
+
+      return {
+        title: cleanTitle || "AfterParty",
+        subtitle,
+        isPlaying,
+        rawTitle
+      };
+    };
+
+    const formatMacTime = (seconds) => {
+      if (isNaN(seconds) || seconds < 0) return "0:00";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+    };
+
+    const syncMacDeckUI = () => {
+      const track = getDynamicTrackInfo();
+      const bgAudio = document.getElementById("bg-music-player");
+      const isPlaying = bgAudio && !bgAudio.paused && !bgAudio.muted;
+
+      if (macTrackTitle) macTrackTitle.textContent = track.title;
+      if (macTrackSub) macTrackSub.textContent = track.subtitle;
+
+      if (macPlaypauseGlyph) {
+        macPlaypauseGlyph.textContent = isPlaying ? "⏸" : "▶";
+      }
+      if (macDeckArt) {
+        macDeckArt.classList.toggle("playing", isPlaying);
+      }
+      if (macLiveEq) {
+        macLiveEq.classList.toggle("playing", isPlaying);
+      }
+      if (macMuteGlyph) {
+        const isMuted = bgAudio && (bgAudio.muted || bgAudio.volume === 0 || !sounds.enabled);
+        macMuteGlyph.textContent = isMuted ? "🔇" : "🔊";
+      }
+
+      if (!isDraggingScrubber && bgAudio && macSlider && macCurTime && macTotTime) {
+        const cur = bgAudio.currentTime || 0;
+        const dur = bgAudio.duration || 0;
+        macCurTime.textContent = formatMacTime(cur);
+        if (dur > 0) {
+          macTotTime.textContent = formatMacTime(dur);
+          const percent = Math.min(100, Math.max(0, (cur / dur) * 100));
+          macSlider.value = percent;
+          if (macSliderFill) macSliderFill.style.width = `${percent}%`;
+        }
+      }
+    };
+
+    const openMacDeck = () => {
+      if (collapseTimer) {
+        clearTimeout(collapseTimer);
+        collapseTimer = null;
+      }
+      isMacOpen = true;
+      isExpanded = false;
+
+      if (navPill) navPill.classList.add("island-active");
+      islandPod.classList.remove("island-idle", "island-compact", "island-expanded");
+      islandPod.classList.add("island-mac-open");
+
+      syncMacDeckUI();
+
+      try {
+        if (typeof sounds.playTapticClick === "function") {
+          sounds.playTapticClick();
+        } else {
+          sounds.playKeypadTap();
+        }
+      } catch (_) {}
+    };
+
+    const closeMacDeck = () => {
+      isMacOpen = false;
+      islandPod.classList.remove("island-mac-open");
+      collapseIsland();
+    };
 
     const triggerIsland = ({
       icon = "⚡",
@@ -13240,11 +13381,17 @@ class ScienceIoApp {
         collapseTimer = null;
       }
 
+      // If Mac deck is already open, do not abruptly replace unless instructed
+      if (isMacOpen) {
+        syncMacDeckUI();
+        return;
+      }
+
       isExpanded = true;
       currentActionHandler = action;
 
       if (navPill) navPill.classList.add("island-active");
-      islandPod.classList.remove("island-idle", "island-compact");
+      islandPod.classList.remove("island-idle", "island-compact", "island-mac-open");
       islandPod.classList.add("island-expanded");
 
       if (islandIcon) {
@@ -13293,29 +13440,31 @@ class ScienceIoApp {
         collapseTimer = null;
       }
       isExpanded = false;
+      isMacOpen = false;
 
       // If background music is playing, transition to compact ambient mode
       const bgAudio = document.getElementById("bg-music-player");
       const isMusicPlaying = bgAudio && !bgAudio.paused && !bgAudio.muted;
+      const track = getDynamicTrackInfo();
 
       if (isMusicPlaying) {
         if (navPill) navPill.classList.remove("island-active");
-        islandPod.classList.remove("island-expanded", "island-idle");
+        islandPod.classList.remove("island-expanded", "island-idle", "island-mac-open");
         islandPod.classList.add("island-compact");
         if (islandIcon) islandIcon.classList.add("hidden");
         if (islandEqualizer) {
           islandEqualizer.classList.remove("hidden");
           islandEqualizer.classList.add("playing");
         }
-        if (islandTitle) islandTitle.textContent = "Am I Wrong";
+        if (islandTitle) islandTitle.textContent = track.title;
         if (islandBadge) islandBadge.textContent = "PLAYING";
-        if (islandActionText) islandActionText.textContent = "PAUSE";
+        if (islandActionText) islandActionText.textContent = "CONTROLS";
         currentActionHandler = () => {
-          document.getElementById("btn-music-toggle")?.click();
+          openMacDeck();
         };
       } else {
         if (navPill) navPill.classList.remove("island-active");
-        islandPod.classList.remove("island-expanded", "island-compact");
+        islandPod.classList.remove("island-expanded", "island-compact", "island-mac-open");
         islandPod.classList.add("island-idle");
         if (islandTitle) islandTitle.textContent = "skience";
         if (islandBadge) islandBadge.textContent = "PRO";
@@ -13328,66 +13477,195 @@ class ScienceIoApp {
       e.stopPropagation();
       if (typeof currentActionHandler === "function") {
         currentActionHandler();
-      }
-      collapseIsland();
-    });
-
-    // Clicking anywhere on the island
-    islandPod.addEventListener("click", () => {
-      if (islandPod.classList.contains("island-idle")) {
-        triggerIsland({
-          icon: "⚡",
-          title: "SKIENCE PRO",
-          subtitle: "Apple Pro Dynamic Island Online",
-          badge: "ACTIVE",
-          actionText: "EXPLORE",
-          duration: 3500,
-          action: () => {
-            document.getElementById("nav-btn-notes")?.click();
-          }
-        });
-        return;
-      }
-      if (typeof currentActionHandler === "function") {
-        currentActionHandler();
       } else {
-        collapseIsland();
+        openMacDeck();
       }
     });
 
-    // Hover expands idle island, or pauses auto-collapse when already expanded
-    islandPod.addEventListener("mouseenter", () => {
-      if (islandPod.classList.contains("island-idle")) {
-        triggerIsland({
-          icon: "⚡",
-          title: "SKIENCE PRO",
-          subtitle: "Apple Pro Dynamic Island Online",
-          badge: "ACTIVE",
-          actionText: "EXPLORE",
-          duration: 3500,
-          action: () => {
-            document.getElementById("nav-btn-notes")?.click();
-          }
-        });
+    // Clicking anywhere on the island pod
+    islandPod.addEventListener("click", (e) => {
+      if (isMacOpen) {
         return;
       }
+      openMacDeck();
+    });
+
+    // Hover opens Mac deck smoothly
+    islandPod.addEventListener("mouseenter", () => {
       if (collapseTimer) {
         clearTimeout(collapseTimer);
         collapseTimer = null;
       }
+      if (islandPod.classList.contains("island-idle") || islandPod.classList.contains("island-compact")) {
+        openMacDeck();
+      }
     });
 
     islandPod.addEventListener("mouseleave", () => {
-      if (isExpanded) {
+      if (isDraggingScrubber) return;
+      if (isMacOpen || isExpanded) {
+        collapseTimer = setTimeout(() => {
+          if (!isDraggingScrubber) {
+            collapseIsland();
+          }
+        }, 2800);
+      }
+    });
+
+    // Mac Close Button
+    macCloseBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeMacDeck();
+    });
+
+    // Mac Play/Pause Button
+    macPlaypauseBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const bgAudio = document.getElementById("bg-music-player");
+      if (window.bgMusic && typeof window.bgMusic.toggle === "function") {
+        window.bgMusic.toggle();
+      } else if (bgAudio) {
+        if (bgAudio.paused) bgAudio.play().catch(() => {});
+        else bgAudio.pause();
+      }
+      setTimeout(syncMacDeckUI, 60);
+    });
+
+    // Mac Next Track / Preset Button
+    macNextBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const presets = Object.keys(MUSIC_PRESETS);
+      if (window.bgMusic && presets.length > 0) {
+        const curPreset = window.bgMusic.currentTrack?.presetKey || "anthem";
+        const curIdx = presets.indexOf(curPreset);
+        const nextIdx = (curIdx + 1) % presets.length;
+        const nextKey = presets[nextIdx];
+        window.bgMusic.selectPreset(nextKey);
+        setTimeout(syncMacDeckUI, 120);
+      }
+    });
+
+    // Mac Prev Track / Restart Button
+    macPrevBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const bgAudio = document.getElementById("bg-music-player");
+      if (bgAudio && bgAudio.currentTime > 3) {
+        bgAudio.currentTime = 0;
+        bgAudio.play().catch(() => {});
+        syncMacDeckUI();
+      } else {
+        const presets = Object.keys(MUSIC_PRESETS);
+        if (window.bgMusic && presets.length > 0) {
+          const curPreset = window.bgMusic.currentTrack?.presetKey || "anthem";
+          const curIdx = presets.indexOf(curPreset);
+          const prevIdx = (curIdx - 1 + presets.length) % presets.length;
+          const prevKey = presets[prevIdx];
+          window.bgMusic.selectPreset(prevKey);
+          setTimeout(syncMacDeckUI, 120);
+        }
+      }
+    });
+
+    // Mac Mute Button
+    macMuteBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const bgAudio = document.getElementById("bg-music-player");
+      if (bgAudio) {
+        bgAudio.muted = !bgAudio.muted;
+        syncMacDeckUI();
+      }
+    });
+
+    // Scrubber Slider
+    macSlider?.addEventListener("input", (e) => {
+      isDraggingScrubber = true;
+      const bgAudio = document.getElementById("bg-music-player");
+      const val = parseFloat(e.target.value);
+      if (macSliderFill) macSliderFill.style.width = `${val}%`;
+      if (bgAudio && bgAudio.duration) {
+        const targetTime = (val / 100) * bgAudio.duration;
+        bgAudio.currentTime = targetTime;
+        if (macCurTime) macCurTime.textContent = formatMacTime(targetTime);
+      }
+    });
+
+    macSlider?.addEventListener("change", () => {
+      isDraggingScrubber = false;
+    });
+
+    // Mac Fast-Travel Navigation Pills ("access controls while going to a certain place")
+    macTravelPills.forEach((pill) => {
+      pill.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const place = pill.dataset.place;
+        try {
+          if (typeof sounds.playTapticClick === "function") {
+            sounds.playTapticClick();
+          } else {
+            sounds.playClick();
+          }
+        } catch (_) {}
+
+        switch (place) {
+          case "notes":
+            document.getElementById("notes-section")?.scrollIntoView({ behavior: "smooth" });
+            document.getElementById("nav-btn-notes")?.click();
+            break;
+          case "calc":
+            document.getElementById("calculator-section")?.scrollIntoView({ behavior: "smooth" });
+            document.getElementById("nav-btn-calc")?.click();
+            break;
+          case "aboutme":
+            const meModal = document.getElementById("projects-modal");
+            if (meModal) {
+              meModal.classList.remove("hidden");
+              if (typeof this.playAllAboutMeBootLoader === "function") {
+                this.playAllAboutMeBootLoader();
+              }
+            }
+            break;
+          case "studio":
+            if (this.vault) {
+              this.vault.open();
+              if (typeof this.vault.switchTab === "function") {
+                this.vault.switchTab("music");
+              }
+            } else {
+              document.getElementById("vault-modal")?.classList.remove("hidden");
+            }
+            break;
+          case "top":
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            document.getElementById("nav-btn-home")?.click();
+            break;
+        }
+
+        // Music continues playing smoothly uninterrupted!
         collapseTimer = setTimeout(() => {
           collapseIsland();
-        }, 1800);
+        }, 1600);
+      });
+    });
+
+    // Keyboard ESC collapses Mac Deck
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isMacOpen) {
+        closeMacDeck();
       }
     });
 
     this.dynamicIsland = {
       trigger: triggerIsland,
-      collapse: collapseIsland
+      collapse: collapseIsland,
+      openMacDeck: openMacDeck,
+      closeMacDeck: closeMacDeck,
+      syncMusic: (trackName, isPlaying) => {
+        if (isMacOpen) {
+          syncMacDeckUI();
+        } else if (isPlaying) {
+          collapseIsland();
+        }
+      }
     };
 
     // ================= WIRE SYSTEM EVENTS INTO DYNAMIC ISLAND =================
@@ -13395,26 +13673,29 @@ class ScienceIoApp {
     const bgAudio = document.getElementById("bg-music-player");
     if (bgAudio) {
       bgAudio.addEventListener("play", () => {
+        const track = getDynamicTrackInfo();
         triggerIsland({
           icon: "🎵",
-          title: "Am I Wrong • Nico & Vinz",
-          subtitle: "Background Study Music Playing",
+          title: track.title,
+          subtitle: track.subtitle,
           badge: "MUSIC",
-          actionText: "PAUSE",
+          actionText: "CONTROLS",
           showEqualizer: true,
           isPlaying: true,
           duration: 3500,
           action: () => {
-            document.getElementById("btn-music-toggle")?.click();
+            openMacDeck();
           }
         });
+        syncMacDeckUI();
       });
 
       bgAudio.addEventListener("pause", () => {
+        const track = getDynamicTrackInfo();
         triggerIsland({
           icon: "⏸️",
-          title: "Study Music Paused",
-          subtitle: "Playback Stopped",
+          title: `${track.title} (Paused)`,
+          subtitle: "Playback Stopped • Tap for Mac Deck",
           badge: "PAUSED",
           actionText: "PLAY",
           showEqualizer: false,
@@ -13424,6 +13705,13 @@ class ScienceIoApp {
             document.getElementById("btn-music-toggle")?.click();
           }
         });
+        syncMacDeckUI();
+      });
+
+      bgAudio.addEventListener("timeupdate", () => {
+        if (isMacOpen) {
+          syncMacDeckUI();
+        }
       });
     }
 

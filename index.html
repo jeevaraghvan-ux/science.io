@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=79.0">
+  <link rel="stylesheet" href="styles.css?v=80.0">
   <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -53,7 +53,7 @@
 
   <div id="mouse-spotlight"></div>
 
-  <!-- Background Music Player (Default: Nico & Vinz - Am I Wrong) -->
+  <!-- Background Music Player (Default: AfterParty) -->
   <audio id="bg-music-player" loop preload="auto" src="background-music.mp3"></audio>
 
   <!-- Floating Study Music Toast / Indicator -->
@@ -63,7 +63,7 @@
     </div>
     <div class="toast-content">
       <span class="toast-label">BACKGROUND STUDY MUSIC</span>
-      <span class="toast-title" id="toast-music-title">Nico &amp; Vinz - Am I Wrong</span>
+      <span class="toast-title" id="toast-music-title">AfterParty</span>
     </div>
     <button type="button" class="toast-toggle-btn" id="toast-music-toggle-btn" title="Toggle Music Play/Pause">
       <span id="toast-icon">⏸️</span>
@@ -171,8 +171,9 @@
   </div>
 
   <div id="app" class="main-wrapper">
-    <!-- ================= APPLE PRO DYNAMIC ISLAND ================= -->
-    <div class="dynamic-island-pod island-idle" id="dynamic-island-pod" role="status" aria-live="polite" title="Apple Dynamic Island (Click to expand / controls)">
+    <!-- ================= APPLE PRO DYNAMIC ISLAND (MAC NOTCH & CAPSULE) ================= -->
+    <div class="dynamic-island-pod island-idle" id="dynamic-island-pod" role="region" aria-label="Apple Dynamic Island (Click to expand Mac controls)">
+      <!-- Main Capsule Pill (Always visible when idle, compact, or notification) -->
       <div class="island-capsule" id="island-capsule">
         <div class="island-left-wing">
           <div class="island-camera-lens" id="island-camera-lens" title="Sensor"></div>
@@ -191,7 +192,7 @@
             <span class="island-badge hidden" id="island-badge">PRO</span>
           </div>
           <div class="island-sub-row">
-            <span class="island-subtitle hidden" id="island-subtitle">Tap to interact</span>
+            <span class="island-subtitle hidden" id="island-subtitle">Tap for Mac Deck</span>
           </div>
         </div>
 
@@ -200,6 +201,86 @@
           <button type="button" class="island-action-pill hidden" id="island-action-pill" title="Dynamic Island Action">
             <span id="island-action-text">OPEN</span>
           </button>
+        </div>
+      </div>
+
+      <!-- Mac Dynamic Island Expanded Deck (Full Mac Music Controller & Fast-Travel Navigation) -->
+      <div class="island-mac-deck hidden" id="island-mac-deck">
+        <div class="mac-deck-top">
+          <div class="mac-deck-left">
+            <div class="mac-deck-art" id="mac-deck-art" title="Music Stream">
+              <span class="mac-art-icon" id="mac-art-icon">🎵</span>
+            </div>
+            <div class="mac-deck-info">
+              <span class="mac-deck-title" id="mac-deck-title">AfterParty</span>
+              <span class="mac-deck-sub" id="mac-deck-sub">Background Audio • Playing</span>
+            </div>
+          </div>
+          <div class="mac-deck-right">
+            <div class="mac-deck-live-eq" id="mac-deck-live-eq" aria-hidden="true">
+              <span class="mac-eq-bar bar-1"></span>
+              <span class="mac-eq-bar bar-2"></span>
+              <span class="mac-eq-bar bar-3"></span>
+              <span class="mac-eq-bar bar-4"></span>
+            </div>
+            <button type="button" class="mac-deck-close-btn" id="mac-deck-close-btn" title="Collapse Dynamic Island (Esc)">✕</button>
+          </div>
+        </div>
+
+        <!-- Scrubber and Realtime Timestamps -->
+        <div class="mac-deck-scrubber-row">
+          <span class="mac-deck-time" id="mac-deck-cur-time">0:00</span>
+          <div class="mac-scrubber-track-wrap">
+            <input type="range" class="mac-deck-slider" id="mac-deck-slider" min="0" max="100" value="0" step="0.1" aria-label="Seek track position">
+            <div class="mac-slider-fill" id="mac-slider-fill" style="width: 0%;"></div>
+          </div>
+          <span class="mac-deck-time" id="mac-deck-tot-time">3:45</span>
+        </div>
+
+        <!-- Mac Media Playback Controls -->
+        <div class="mac-deck-ctrl-row">
+          <button type="button" class="mac-ctrl-btn" id="mac-btn-prev" title="Previous / Restart Track (⏮)">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          </button>
+          <button type="button" class="mac-ctrl-btn mac-ctrl-play" id="mac-btn-playpause" title="Play / Pause">
+            <span id="mac-playpause-glyph">⏸</span>
+          </button>
+          <button type="button" class="mac-ctrl-btn" id="mac-btn-next" title="Next Preset Track (⏭)">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+          </button>
+          <button type="button" class="mac-ctrl-btn" id="mac-btn-mute" title="Toggle Sound / Mute">
+            <span id="mac-mute-glyph">🔊</span>
+          </button>
+        </div>
+
+        <!-- Fast-Travel Quick Places Deck -->
+        <div class="mac-fast-travel">
+          <div class="mac-travel-header">
+            <span class="mac-travel-label">QUICK JUMP</span>
+            <span class="mac-travel-sublabel">Navigate places while music plays</span>
+          </div>
+          <div class="mac-travel-grid">
+            <button type="button" class="mac-travel-pill" data-place="notes" title="Jump to Notes">
+              <span class="travel-icon">📓</span>
+              <span class="travel-name">Notes</span>
+            </button>
+            <button type="button" class="mac-travel-pill" data-place="calc" title="Open Calculator">
+              <span class="travel-icon">🧮</span>
+              <span class="travel-name">Calc</span>
+            </button>
+            <button type="button" class="mac-travel-pill" data-place="aboutme" title="Open Jeeva's About Me">
+              <span class="travel-icon">👤</span>
+              <span class="travel-name">About Me</span>
+            </button>
+            <button type="button" class="mac-travel-pill" data-place="studio" title="Open Music Studio">
+              <span class="travel-icon">🎧</span>
+              <span class="travel-name">Studio</span>
+            </button>
+            <button type="button" class="mac-travel-pill" data-place="top" title="Scroll to Top">
+              <span class="travel-icon">⬆️</span>
+              <span class="travel-name">Top</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -273,7 +354,7 @@
             </svg>
           </button>
           
-          <button class="nav-icon-btn" id="btn-music-toggle" title="Background Study Music (Nico &amp; Vinz - Am I Wrong)" style="color: var(--neon-purple);">
+          <button class="nav-icon-btn" id="btn-music-toggle" title="Background Study Music (AfterParty)" style="color: var(--neon-purple);">
             <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M9 18V5l12-2v13"></path>
               <circle cx="6" cy="18" r="3"></circle>
@@ -1495,7 +1576,7 @@
                 <div class="music-active-track-header">
                   <div class="music-track-meta">
                     <span class="music-badge" id="admin-music-badge">ACTIVE BACKGROUND MUSIC</span>
-                    <h3 id="admin-music-track-title">Nico &amp; Vinz - Am I Wrong [Official Lyric Video]</h3>
+                    <h3 id="admin-music-track-title">AfterParty</h3>
                     <p id="admin-music-source-desc">Playing in background for all visitors during science study sessions</p>
                   </div>
                   <div class="music-status-indicator active" id="admin-music-status-indicator">
@@ -1579,8 +1660,8 @@
                   <button type="button" class="btn-modal-action primary" id="btn-save-uploaded-music" disabled>
                     <span>🚀 Apply &amp; Set as Website Background Music</span>
                   </button>
-                  <button type="button" class="btn-modal-action secondary" id="btn-reset-default-music" title="Restore original Nico &amp; Vinz - Am I Wrong">
-                    <span>🔄 Reset to Default Anthem (Nico &amp; Vinz - Am I Wrong)</span>
+                  <button type="button" class="btn-modal-action secondary" id="btn-reset-default-music" title="Restore original AfterParty">
+                    <span>🔄 Reset to Default Anthem (AfterParty)</span>
                   </button>
                 </div>
               </div>
@@ -1597,7 +1678,7 @@
                     <div class="preset-badge">Default Study Anthem</div>
                     <div class="preset-icon">🌟</div>
                     <div class="preset-info">
-                      <h5>Nico &amp; Vinz - Am I Wrong</h5>
+                      <h5>AfterParty</h5>
                       <span>Official Study Anthem (High Energy)</span>
                     </div>
                     <button type="button" class="btn-preset-select" data-track="anthem">Select Track</button>
@@ -1828,6 +1909,6 @@
   </aside>
 
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=79.0"></script>
+  <script src="app.js?v=80.0"></script>
 </body>
 </html>

@@ -9689,7 +9689,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   pointer-events: auto !important;
   width: auto;
   min-width: 185px;
-  max-width: 270px;
+  max-width: 310px;
   height: 34px;
   padding: 0 12px;
 }
@@ -9730,6 +9730,347 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 .dynamic-island-pod.island-expanded .island-subtitle,
 .dynamic-island-pod.island-expanded .island-action-pill {
   display: inline-block !important;
+}
+
+/* State: Mac Dynamic Island Open Deck (Full macOS Notch Controller & Fast Travel) */
+.dynamic-island-pod.island-mac-open {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  width: clamp(360px, 46vw, 520px);
+  height: auto;
+  min-height: 195px;
+  border-radius: 26px;
+  padding: 16px 18px 14px 18px;
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-top: 1px solid rgba(255, 255, 255, 0.38);
+  box-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.95),
+              0 0 35px rgba(255, 255, 255, 0.08),
+              inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  animation: islandLiquidSpring 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+}
+
+.dynamic-island-pod.island-mac-open #island-capsule {
+  display: none !important;
+}
+
+.dynamic-island-pod.island-mac-open #island-mac-deck {
+  display: flex !important;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.dynamic-island-pod:not(.island-mac-open) #island-mac-deck {
+  display: none !important;
+}
+
+/* Mac Deck Header */
+.mac-deck-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+}
+
+.mac-deck-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+.mac-deck-art {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #11141c;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.1),
+              0 2px 8px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.mac-deck-art.playing .mac-art-icon {
+  animation: macDiscSpin 4s linear infinite;
+}
+
+@keyframes macDiscSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.mac-art-icon {
+  font-size: 15px;
+  display: inline-block;
+  line-height: 1;
+}
+
+.mac-deck-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.mac-deck-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+}
+
+.mac-deck-sub {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.52);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.mac-deck-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Mac Mini Live Equalizer */
+.mac-deck-live-eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 14px;
+}
+
+.mac-deck-live-eq .mac-eq-bar {
+  width: 3px;
+  background: #ffffff;
+  border-radius: 999px;
+  height: 3px;
+  transition: height 0.12s ease;
+}
+
+.mac-deck-live-eq.playing .mac-eq-bar.bar-1 {
+  animation: islandEqBounce 0.48s ease-in-out infinite alternate;
+}
+.mac-deck-live-eq.playing .mac-eq-bar.bar-2 {
+  animation: islandEqBounce 0.36s ease-in-out infinite alternate 0.1s;
+}
+.mac-deck-live-eq.playing .mac-eq-bar.bar-3 {
+  animation: islandEqBounce 0.54s ease-in-out infinite alternate 0.2s;
+}
+.mac-deck-live-eq.playing .mac-eq-bar.bar-4 {
+  animation: islandEqBounce 0.42s ease-in-out infinite alternate 0.15s;
+}
+
+.mac-deck-close-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.mac-deck-close-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+/* Scrubber Row */
+.mac-deck-scrubber-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+}
+
+.mac-deck-time {
+  font-size: 10px;
+  font-family: ui-monospace, "SF Mono", monospace;
+  color: rgba(255, 255, 255, 0.55);
+  min-width: 28px;
+}
+
+.mac-scrubber-track-wrap {
+  position: relative;
+  flex: 1;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.mac-slider-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 999px;
+  pointer-events: none;
+  transition: width 0.05s linear;
+}
+
+.mac-deck-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  margin: 0;
+  z-index: 2;
+}
+
+/* Controls Row */
+.mac-deck-ctrl-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  padding: 2px 0;
+}
+
+.mac-ctrl-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 12px;
+}
+
+.mac-ctrl-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.08);
+}
+
+.mac-ctrl-btn:active {
+  transform: scale(0.94);
+}
+
+.mac-ctrl-btn.mac-ctrl-play {
+  width: 40px;
+  height: 40px;
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.3);
+}
+
+.mac-ctrl-btn.mac-ctrl-play:hover {
+  background: #f1f5f9;
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.45);
+}
+
+/* Fast Travel Section ("access controls while going to a certain place") */
+.mac-fast-travel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mac-travel-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.mac-travel-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: ui-monospace, "SF Mono", monospace;
+  text-transform: uppercase;
+}
+
+.mac-travel-sublabel {
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.mac-travel-grid {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+}
+
+.mac-travel-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 4px 10px;
+  color: #f1f5f9;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.mac-travel-pill:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+  color: #ffffff;
+}
+
+.mac-travel-pill:active {
+  transform: translateY(0) scale(0.96);
+}
+
+.mac-travel-pill .travel-icon {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.mac-travel-pill .travel-name {
+  line-height: 1;
 }
 
 @keyframes islandLiquidSpring {
@@ -9817,7 +10158,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 
 .island-equalizer .eq-bar {
   width: 3px;
-  background: #34d399;
+  background: #ffffff;
   border-radius: 999px;
   height: 3px;
   transition: height 0.12s ease;
@@ -9924,6 +10265,11 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
     max-width: 440px;
     height: 50px;
     padding: 0 14px;
+  }
+  .dynamic-island-pod.island-mac-open {
+    width: calc(100vw - 20px);
+    max-width: 440px;
+    padding: 14px 14px 12px 14px;
   }
 }
 
