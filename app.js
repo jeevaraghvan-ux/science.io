@@ -16,7 +16,7 @@
 
 // ================= CLOUD SYNC CONFIGURATION =================
 // 100% Free Forever • Zero Credit Drain • Cross-Device Live Sync
-const CLOUD_SYNC_URL = "https://scienceio-best.vercel.app/api/sync";
+const CLOUD_SYNC_URL = "https://skienceio-best.vercel.app/api/sync";
 const DEFAULT_FIREBASE_CONFIG = {
   apiKey: "AIzaSyBuPx45kJLhoiAjP6SaJAxIuZ7dcD7seKE",
   authDomain: "science-io.firebaseapp.com",
@@ -10924,7 +10924,7 @@ class ScienceIoApp {
           <div style="font-size: 0.95rem; color: #64748b; margin-top: 4px;">Comprehensive Science Principle & Concept Guide • Total Topics: ${this.notes.length} • Made with ❤️ by Jeeva R.</div>
         </div>
         <div style="text-align: right; font-size: 0.85rem; color: #64748b; line-height: 1.4;">
-          <strong>scienceio-best.vercel.app</strong><br>
+          <strong>skienceio-best.vercel.app</strong><br>
           Student: ___________________ Date: ___________
         </div>
       </div>
@@ -11315,7 +11315,7 @@ class ScienceIoApp {
             _replyto: userEmail.includes("@") ? userEmail : undefined,
             _subject: `skience.io Review/Idea from ${userName} (${userEmail})`,
             message: `Student Name: ${userName}\nEmail: ${userEmail}\nReview / Idea: ${userMsg}\nSubmitted: ${new Date().toLocaleString()}`,
-            platform: "scienceio-best.vercel.app",
+            platform: "skienceio-best.vercel.app",
             _template: "table"
           };
 
@@ -11651,8 +11651,8 @@ class ScienceIoApp {
     const projectsData = {
       skience: {
         name: "skience",
-        domain: "scienceio-best.vercel.app",
-        url: "https://scienceio-best.vercel.app",
+        domain: "skienceio-best.vercel.app",
+        url: "https://skienceio-best.vercel.app",
         tag: "Built for learning",
         description: "5th Grade Science notes, interactive formula calculator, and study tools. Making the things you're learning a little easier to understand."
       },
@@ -12619,13 +12619,12 @@ class ScienceIoApp {
     });
   }
 
-  // ================= MONOCHROME PRO UPGRADES (v79.0) =================
+  // ================= MONOCHROME PRO UPGRADES =================
   setupMonochromeProSystem() {
     this.setupMagneticFluidCursor();
     this.setupCommandHud();
     this.setupExtended3DTiltAndSpecularShimmer();
     this.setupDynamicIsland();
-    this.setupAppleSuite();
   }
 
   setupMagneticFluidCursor() {
@@ -13778,8 +13777,8 @@ class ScienceIoApp {
     setTimeout(() => {
       triggerIsland({
         icon: "⚡",
-        title: "SKIENCE PRO v79.0",
-        subtitle: "Apple Dynamic Island Ready • Tap to Explore",
+        title: "SKIENCE PRO v81.0",
+        subtitle: "Mac Dynamic Island Ready • Tap to Explore",
         badge: "ONLINE",
         actionText: "EXPLORE",
         duration: 3500,
@@ -13788,173 +13787,6 @@ class ScienceIoApp {
         }
       });
     }, 1500);
-  }
-
-  // ================= APPLE PRO SUITE (FEATURES 2, 3, 4, 5) =================
-  setupAppleSuite() {
-    // ----------------------------------------------------
-    // FEATURE 2: VisionOS Spatial Glass Depth & Caustics
-    // ----------------------------------------------------
-    document.querySelectorAll(".glass-pill-nav, .modal-window, .command-hud-window").forEach((el) => {
-      el.classList.add("visionos-glass");
-      if (!el.querySelector(".visionos-caustic")) {
-        const caustic = document.createElement("div");
-        caustic.className = "visionos-caustic";
-        el.prepend(caustic);
-      }
-    });
-
-    // ----------------------------------------------------
-    // FEATURE 3: Apple Watch Ultra Modular Complications
-    // ----------------------------------------------------
-    const ultraDock = document.getElementById("ultra-complications-dock");
-    const togglePill = document.getElementById("complications-toggle-pill");
-    const timerVal = document.getElementById("comp-val-timer");
-    const timerRing = document.getElementById("comp-ring-timer");
-    const fpsVal = document.getElementById("comp-val-fps");
-
-    togglePill?.addEventListener("click", () => {
-      ultraDock?.classList.toggle("collapsed");
-      sounds.playKeypadTap();
-    });
-
-    // Complication Click Actions
-    document.getElementById("comp-atomic")?.addEventListener("click", () => {
-      if (this.dynamicIsland) {
-        this.dynamicIsland.trigger({
-          icon: "⚛",
-          title: "Carbon Element (6C)",
-          subtitle: "Atomic Mass: 12.011u • Valence: 4",
-          badge: "CHEMISTRY",
-          actionText: "VIEW",
-          duration: 3200
-        });
-      }
-    });
-
-    document.getElementById("comp-timer")?.addEventListener("click", () => {
-      if (this.dynamicIsland) {
-        this.dynamicIsland.trigger({
-          icon: "⏱",
-          title: "Focus Session Timer",
-          subtitle: `Active study streak: ${timerVal?.textContent || "00:00"}`,
-          badge: "STREAK",
-          actionText: "GREAT",
-          duration: 3000
-        });
-      }
-    });
-
-    document.getElementById("comp-cadence")?.addEventListener("click", () => {
-      if (this.dynamicIsland) {
-        this.dynamicIsland.trigger({
-          icon: "⚡",
-          title: "Hardware Cadence 60FPS",
-          subtitle: "GPU Canvas & Spring Physics Stable",
-          badge: "TELEMETRY",
-          actionText: "NOMINAL",
-          duration: 3000
-        });
-      }
-    });
-
-    // Live Focus Timer Loop
-    let focusSeconds = 0;
-    setInterval(() => {
-      focusSeconds++;
-      const mins = Math.floor(focusSeconds / 60).toString().padStart(2, "0");
-      const secs = (focusSeconds % 60).toString().padStart(2, "0");
-      if (timerVal) timerVal.textContent = `${mins}:${secs}`;
-      if (timerRing) {
-        const circumference = 113;
-        const progress = (focusSeconds % 3600) / 3600;
-        timerRing.style.strokeDashoffset = (circumference * (1 - progress)).toFixed(1);
-      }
-    }, 1000);
-
-    // Live Render FPS Monitor
-    let frameCount = 0;
-    let lastTime = performance.now();
-    const tickFps = () => {
-      frameCount++;
-      const now = performance.now();
-      if (now - lastTime >= 1000) {
-        const fps = Math.min(60, Math.round((frameCount * 1000) / (now - lastTime)));
-        if (fpsVal) fpsVal.textContent = `${fps} FPS`;
-        frameCount = 0;
-        lastTime = now;
-      }
-      requestAnimationFrame(tickFps);
-    };
-    requestAnimationFrame(tickFps);
-
-    // ----------------------------------------------------
-    // FEATURE 4: Apple Force Touch Haptic Taptic Micro-Physics
-    // ----------------------------------------------------
-    sounds.playTapticClick = () => {
-      if (!sounds.enabled) return;
-      try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!sounds.ctx && AudioCtx) {
-          sounds.ctx = new AudioCtx();
-        }
-        const ctx = sounds.ctx;
-        if (!ctx) return;
-        if (ctx.state === "suspended") ctx.resume();
-
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(320, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.022);
-        gain.gain.setValueAtTime(0.2, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.022);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.025);
-      } catch (_) {}
-    };
-
-    document.addEventListener("pointerdown", (e) => {
-      const btn = e.target.closest(
-        "button, .nav-link, .hero-cta-btn, .pill-toggle-btn, .cat-pill, .calc-key, .ultra-complication, .island-action-pill, .theme-swatch-btn"
-      );
-      if (btn) {
-        btn.classList.add("apple-taptic-active");
-        sounds.playTapticClick();
-      }
-    }, { passive: true });
-
-    document.addEventListener("pointerup", (e) => {
-      const btn = e.target.closest(".apple-taptic-active");
-      if (btn) {
-        btn.classList.remove("apple-taptic-active");
-      }
-    }, { passive: true });
-
-    // ----------------------------------------------------
-    // FEATURE 5: Apple Keynote "Magic Move" Seamless Morphing
-    // ----------------------------------------------------
-    const applyMagicMove = (containerEl) => {
-      if (!containerEl) return;
-      containerEl.classList.add("magic-move-morphing");
-      containerEl.style.opacity = "0.7";
-      containerEl.style.transform = "scale(0.98)";
-      setTimeout(() => {
-        containerEl.style.opacity = "1";
-        containerEl.style.transform = "scale(1)";
-        setTimeout(() => containerEl.classList.remove("magic-move-morphing"), 450);
-      }, 50);
-    };
-
-    document.getElementById("view-carousel-btn")?.addEventListener("click", () => {
-      applyMagicMove(document.getElementById("carousel-view"));
-    });
-
-    document.getElementById("view-table-btn")?.addEventListener("click", () => {
-      applyMagicMove(document.getElementById("table-view"));
-    });
   }
 }
 
