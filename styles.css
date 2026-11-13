@@ -920,7 +920,7 @@ html, body {
 /* ================= FLOATING GLASS PILL NAVIGATION (SCREENSHOT 1 & 2) ================= */
 .top-nav-container {
   position: fixed;
-  top: 22px;
+  top: 50px;
   left: 0;
   right: 0;
   display: flex;
@@ -9624,84 +9624,151 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 
 /* Dynamic Island Pod Container */
 .dynamic-island-pod {
-  position: absolute;
+  position: fixed;
+  top: 10px;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 60;
+  transform: translateX(-50%);
+  z-index: 9995;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   user-select: none;
   border-radius: 9999px;
-  background: #07080b;
+  background: #000000;
   border: 1px solid rgba(255, 255, 255, 0.16);
-  border-top: 1px solid rgba(255, 255, 255, 0.36);
-  box-shadow: 0 14px 40px -8px rgba(0, 0, 0, 0.88),
-              0 0 25px rgba(255, 255, 255, 0.06),
-              inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  border-top: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8),
+              0 0 20px rgba(255, 255, 255, 0.05),
+              inset 0 1px 0 rgba(255, 255, 255, 0.18);
   transition: width 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.25),
               height 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.2),
               padding 0.35s ease,
-              opacity 0.25s ease,
-              transform 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.25);
-  will-change: transform, width, height, opacity;
+              background 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+  will-change: width, height, transform;
 }
 
-/* State: Idle / Collapsed */
+/* State: Idle / Collapsed (ALWAYS VISIBLE SLEEK PILL) */
 .dynamic-island-pod.island-idle {
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, -50%) scale(0.65);
-  width: 80px;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  width: 145px;
   height: 32px;
-  padding: 0 10px;
+  padding: 0 12px;
+}
+
+.dynamic-island-pod.island-idle .island-camera-lens {
+  display: block;
+}
+
+.dynamic-island-pod.island-idle .island-status-dot {
+  display: block;
+}
+
+.dynamic-island-pod.island-idle .island-title {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #f1f5f9;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dynamic-island-pod.island-idle .island-badge,
+.dynamic-island-pod.island-idle .island-subtitle,
+.dynamic-island-pod.island-idle .island-action-pill,
+.dynamic-island-pod.island-idle .island-icon,
+.dynamic-island-pod.island-idle .island-equalizer {
+  display: none !important;
 }
 
 /* State: Compact Ambient (e.g. while background music is playing) */
 .dynamic-island-pod.island-compact {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
+  opacity: 1 !important;
+  pointer-events: auto !important;
   width: auto;
-  min-width: 170px;
-  max-width: 260px;
-  height: 38px;
-  padding: 0 14px;
+  min-width: 185px;
+  max-width: 270px;
+  height: 34px;
+  padding: 0 12px;
 }
 
+.dynamic-island-pod.island-compact .island-camera-lens,
+.dynamic-island-pod.island-compact .island-status-dot,
 .dynamic-island-pod.island-compact .island-subtitle {
-  display: none;
+  display: none !important;
 }
 
 .dynamic-island-pod.island-compact .island-action-pill {
   padding: 3px 8px;
   font-size: 9px;
+  display: inline-block !important;
 }
 
 /* State: Expanded Dynamic Island Alert / Banner */
 .dynamic-island-pod.island-expanded {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
-  width: clamp(340px, 46vw, 540px);
-  height: 52px;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  width: clamp(340px, 48vw, 540px);
+  height: 54px;
   padding: 0 18px;
+  background: #06070a;
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 20px 55px -10px rgba(0, 0, 0, 0.95),
+              0 0 35px rgba(255, 255, 255, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.25);
   animation: islandLiquidSpring 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.25);
 }
 
+.dynamic-island-pod.island-expanded .island-camera-lens,
+.dynamic-island-pod.island-expanded .island-status-dot {
+  display: none !important;
+}
+
+.dynamic-island-pod.island-expanded .island-badge,
+.dynamic-island-pod.island-expanded .island-subtitle,
+.dynamic-island-pod.island-expanded .island-action-pill {
+  display: inline-block !important;
+}
+
 @keyframes islandLiquidSpring {
-  0% { transform: translate(-50%, -50%) scale(0.82, 1.18); }
-  50% { transform: translate(-50%, -50%) scale(1.04, 0.96); }
-  100% { transform: translate(-50%, -50%) scale(1, 1); }
+  0% { transform: translateX(-50%) scale(0.82, 1.18); }
+  50% { transform: translateX(-50%) scale(1.04, 0.96); }
+  100% { transform: translateX(-50%) scale(1, 1); }
 }
 
 .dynamic-island-pod:hover {
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.95),
-              0 0 35px rgba(255, 255, 255, 0.12),
-              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9),
+              0 0 25px rgba(255, 255, 255, 0.12);
+}
+
+/* Optical Camera Lens Cutout */
+.island-camera-lens {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #030814;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  box-shadow: inset 0 0 3px rgba(56, 189, 248, 0.6);
+  flex-shrink: 0;
+}
+
+/* Pulsing Status Dot */
+.island-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 6px #34d399;
+  flex-shrink: 0;
+  animation: islandPulseDot 2s infinite ease-in-out;
+}
+
+@keyframes islandPulseDot {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
 }
 
 /* Capsule Internal Structure */
@@ -9711,7 +9778,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  gap: 12px;
+  gap: 10px;
 }
 
 .island-left-wing {
@@ -9734,11 +9801,6 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   color: #ffffff;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
   transition: all 0.2s ease;
-}
-
-.dynamic-island-pod:hover .island-icon {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Equalizer Visualizer */
@@ -9785,11 +9847,13 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   flex-direction: column;
   min-width: 0;
   flex: 1;
+  text-align: center;
 }
 
 .island-title-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 7px;
 }
 
@@ -9835,8 +9899,8 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 }
 
 .island-action-pill {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 999px;
   color: #ffffff;
   font-size: 10px;
@@ -9849,22 +9913,236 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 }
 
 .island-action-pill:hover {
-  background: rgba(255, 255, 255, 0.22);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.45);
   transform: scale(1.05);
 }
 
 @media (max-width: 768px) {
   .dynamic-island-pod.island-expanded {
-    width: calc(100vw - 32px);
+    width: calc(100vw - 28px);
     max-width: 440px;
     height: 50px;
     padding: 0 14px;
   }
-  .dynamic-island-pod.island-compact {
-    max-width: 200px;
+}
+
+/* ==========================================================================
+   FEATURE 2: APPLE VISIONOS SPATIAL GLASS DEPTH & EDGE CAUSTICS
+   ========================================================================== */
+.visionos-glass {
+  position: relative;
+  transform-style: preserve-3d;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.75),
+              0 0 0 1px rgba(255, 255, 255, 0.05),
+              inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+.visionos-caustic {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(400px circle at var(--specular-x, 50%) var(--specular-y, 30%), rgba(255, 255, 255, 0.06), transparent 70%);
+  z-index: 1;
+}
+
+/* ==========================================================================
+   FEATURE 3: APPLE WATCH ULTRA MODULAR COMPLICATIONS DOCK
+   ========================================================================== */
+.ultra-complications-dock {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 9980;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  user-select: none;
+  font-family: ui-monospace, "SF Mono", -apple-system, sans-serif;
+}
+
+.complications-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: rgba(10, 12, 16, 0.88);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 8px 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ultra-complications-dock.collapsed .complications-wrapper {
+  display: none !important;
+}
+
+.ultra-complication {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.ultra-complication:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.comp-ring-svg-wrap {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comp-svg-ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.comp-ring-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 3;
+}
+
+.comp-ring-progress {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 113;
+  stroke-dashoffset: 28;
+  transition: stroke-dashoffset 0.4s ease;
+}
+
+.comp-ring-progress.ring-atomic {
+  stroke: #ffffff;
+  stroke-dashoffset: 45;
+  animation: atomicOrbitPulse 3s infinite ease-in-out alternate;
+}
+
+.comp-ring-progress.ring-timer {
+  stroke: #78d98a;
+}
+
+.comp-ring-progress.ring-cadence {
+  stroke: #38bdf8;
+  stroke-dashoffset: 10;
+}
+
+@keyframes atomicOrbitPulse {
+  0% { stroke-dashoffset: 80; }
+  100% { stroke-dashoffset: 20; }
+}
+
+.comp-ring-icon {
+  position: absolute;
+  font-size: 11px;
+  color: #ffffff;
+}
+
+.comp-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.comp-val {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.comp-sub {
+  font-size: 8.5px;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.complications-toggle-pill {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(10, 12, 16, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 9px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  transition: all 0.2s ease;
+}
+
+.complications-toggle-pill:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.ultra-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ff5f56;
+  box-shadow: 0 0 6px #ff5f56;
+}
+
+@media (max-width: 600px) {
+  .ultra-complications-dock {
+    display: none !important;
   }
 }
+
+/* ==========================================================================
+   FEATURE 4: APPLE FORCE TOUCH HAPTIC TAPTIC MICRO-PHYSICS
+   ========================================================================== */
+.apple-taptic-press,
+button:not(.no-taptic),
+.nav-link,
+.hero-cta-btn,
+.pill-toggle-btn,
+.cat-pill,
+.calc-key,
+.island-action-pill {
+  transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.15s ease !important;
+  will-change: transform;
+}
+
+.apple-taptic-active {
+  transform: scale(0.95) translateY(1px) !important;
+  filter: brightness(0.92);
+}
+
+/* ==========================================================================
+   FEATURE 5: APPLE KEYNOTE "MAGIC MOVE" SEAMLESS LAYOUT MORPHING
+   ========================================================================== */
+.magic-move-morphing {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.3s ease,
+              width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
 
 
 

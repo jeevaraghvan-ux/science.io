@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=78.0">
+  <link rel="stylesheet" href="styles.css?v=79.0">
   <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -171,40 +171,42 @@
   </div>
 
   <div id="app" class="main-wrapper">
-    <!-- ================= TOP FLOATING NAVIGATION ================= -->
-    <header class="top-nav-container">
-      <nav class="glass-pill-nav" id="glass-pill-nav" style="max-width: 960px;">
-        <!-- ================= APPLE PRO DYNAMIC ISLAND POD ================= -->
-        <div class="dynamic-island-pod island-idle" id="dynamic-island-pod" role="status" aria-live="polite">
-          <div class="island-capsule" id="island-capsule">
-            <div class="island-left-wing">
-              <span class="island-icon" id="island-icon">⚡</span>
-              <div class="island-equalizer hidden" id="island-equalizer" aria-hidden="true">
-                <span class="eq-bar bar-1"></span>
-                <span class="eq-bar bar-2"></span>
-                <span class="eq-bar bar-3"></span>
-                <span class="eq-bar bar-4"></span>
-              </div>
-            </div>
-
-            <div class="island-center-content">
-              <div class="island-title-row">
-                <span class="island-title" id="island-title">SKIENCE PRO</span>
-                <span class="island-badge" id="island-badge">SYSTEM NOMINAL</span>
-              </div>
-              <div class="island-sub-row">
-                <span class="island-subtitle" id="island-subtitle">Tap to interact</span>
-              </div>
-            </div>
-
-            <div class="island-right-wing">
-              <button type="button" class="island-action-pill" id="island-action-pill" title="Dynamic Island Action">
-                <span id="island-action-text">OPEN</span>
-              </button>
-            </div>
+    <!-- ================= APPLE PRO DYNAMIC ISLAND ================= -->
+    <div class="dynamic-island-pod island-idle" id="dynamic-island-pod" role="status" aria-live="polite" title="Apple Dynamic Island (Click to expand / controls)">
+      <div class="island-capsule" id="island-capsule">
+        <div class="island-left-wing">
+          <div class="island-camera-lens" id="island-camera-lens" title="Sensor"></div>
+          <span class="island-icon hidden" id="island-icon">⚡</span>
+          <div class="island-equalizer hidden" id="island-equalizer" aria-hidden="true">
+            <span class="eq-bar bar-1"></span>
+            <span class="eq-bar bar-2"></span>
+            <span class="eq-bar bar-3"></span>
+            <span class="eq-bar bar-4"></span>
           </div>
         </div>
 
+        <div class="island-center-content">
+          <div class="island-title-row">
+            <span class="island-title" id="island-title">skience</span>
+            <span class="island-badge hidden" id="island-badge">PRO</span>
+          </div>
+          <div class="island-sub-row">
+            <span class="island-subtitle hidden" id="island-subtitle">Tap to interact</span>
+          </div>
+        </div>
+
+        <div class="island-right-wing">
+          <div class="island-status-dot" id="island-status-dot" title="System Online"></div>
+          <button type="button" class="island-action-pill hidden" id="island-action-pill" title="Dynamic Island Action">
+            <span id="island-action-text">OPEN</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TOP FLOATING NAVIGATION ================= -->
+    <header class="top-nav-container">
+      <nav class="glass-pill-nav" id="glass-pill-nav" style="max-width: 960px;">
         <div class="nav-left">
           <a href="#hero" class="nav-brand-cursive" id="nav-brand-logo" aria-label="skience">
             <svg class="cursive-logo-svg" id="cursive-logo-svg" viewBox="-6 -10 92 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1769,7 +1771,63 @@
     </div>
   </div>
 
+  <!-- ================= APPLE WATCH ULTRA MODULAR COMPLICATIONS DOCK ================= -->
+  <aside class="ultra-complications-dock" id="ultra-complications-dock" aria-label="Apple Watch Ultra Science Complications">
+    <div class="complications-wrapper" id="complications-wrapper">
+      <!-- Complication 1: Atomic Orbital Gauge -->
+      <div class="ultra-complication" id="comp-atomic" title="Atomic Orbital Frequency (Carbon 6C)">
+        <div class="comp-ring-svg-wrap">
+          <svg class="comp-svg-ring" viewBox="0 0 44 44">
+            <circle class="comp-ring-bg" cx="22" cy="22" r="18"></circle>
+            <circle class="comp-ring-progress ring-atomic" cx="22" cy="22" r="18"></circle>
+          </svg>
+          <span class="comp-ring-icon">⚛</span>
+        </div>
+        <div class="comp-info">
+          <span class="comp-val" id="comp-val-electrons">6 e⁻</span>
+          <span class="comp-sub">CARBON</span>
+        </div>
+      </div>
+
+      <!-- Complication 2: Live Focus / Study Streak Timer -->
+      <div class="ultra-complication" id="comp-timer" title="Active Study Session Timer">
+        <div class="comp-ring-svg-wrap">
+          <svg class="comp-svg-ring" viewBox="0 0 44 44">
+            <circle class="comp-ring-bg" cx="22" cy="22" r="18"></circle>
+            <circle class="comp-ring-progress ring-timer" id="comp-ring-timer" cx="22" cy="22" r="18"></circle>
+          </svg>
+          <span class="comp-ring-icon">⏱</span>
+        </div>
+        <div class="comp-info">
+          <span class="comp-val" id="comp-val-timer">00:00</span>
+          <span class="comp-sub">FOCUS TIME</span>
+        </div>
+      </div>
+
+      <!-- Complication 3: 60FPS Cadence / Telemetry -->
+      <div class="ultra-complication" id="comp-cadence" title="Render Cadence & Stability">
+        <div class="comp-ring-svg-wrap">
+          <svg class="comp-svg-ring" viewBox="0 0 44 44">
+            <circle class="comp-ring-bg" cx="22" cy="22" r="18"></circle>
+            <circle class="comp-ring-progress ring-cadence" cx="22" cy="22" r="18"></circle>
+          </svg>
+          <span class="comp-ring-icon">⚡</span>
+        </div>
+        <div class="comp-info">
+          <span class="comp-val" id="comp-val-fps">60 FPS</span>
+          <span class="comp-sub">STABLE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collapsible Toggle Pill -->
+    <button type="button" class="complications-toggle-pill" id="complications-toggle-pill" title="Toggle Watch Ultra Complications">
+      <span class="ultra-dot"></span>
+      <span class="ultra-text">ULTRA COMPLICATIONS</span>
+    </button>
+  </aside>
+
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=78.0"></script>
+  <script src="app.js?v=79.0"></script>
 </body>
 </html>
