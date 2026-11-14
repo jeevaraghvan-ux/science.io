@@ -12481,8 +12481,7 @@ class ScienceIoApp {
             "skills       --> visual skill meters\n" +
             "banner       --> neon cyber banner\n" +
             "about        --> a little about me\n" +
-            "music        --> secret code: upload your own music\n" +
-            "secret       --> unlock secret music uploader (PIN: 252525)\n" +
+            "music        --> upload your own music\n" +
             "sciencefact  --> mind-blowing science fact\n" +
             "quote        --> inspirational pioneer quote\n" +
             "calc <math>  --> terminal quick calculator\n" +
