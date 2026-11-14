@@ -1943,153 +1943,6 @@ const DEFAULT_SCIENCE_TOPICS = [
     "coreFormula": "5th Grade Scientific Principle",
     "description": "Learn about the eye",
     "redirectUrl": ""
-  },
-  {
-    "id": "science-genetics",
-    "quiz": [
-      {
-        "q": "What is the molecule shaped like a twisted double-helix ladder that carries genetic instructions inside the cell nucleus?",
-        "ans": 0,
-        "why": "DNA (Deoxyribonucleic Acid) is the double-helix molecule carrying genetic blueprints inside cell nuclei.",
-        "options": [
-          "DNA (Deoxyribonucleic Acid)",
-          "Ribosome",
-          "Chlorophyll",
-          "Hemoglobin"
-        ]
-      },
-      {
-        "q": "How many total chromosomes are normally found in a human body cell, and how are they inherited?",
-        "ans": 0,
-        "why": "Humans have 46 chromosomes in 23 pairs: 23 from biological mother and 23 from biological father.",
-        "options": [
-          "46 chromosomes (23 pairs: 23 from mother, 23 from father)",
-          "23 chromosomes total (all from mother)",
-          "100 chromosomes total (50 from each parent)",
-          "46 pairs (92 chromosomes total)"
-        ]
-      },
-      {
-        "q": "What is the fundamental difference between a Genotype and a Phenotype?",
-        "ans": 0,
-        "why": "Genotype is the genetic allele combination (e.g., Bb), while Phenotype is the physical observable trait (e.g., brown eyes).",
-        "options": [
-          "Genotype is the genetic allele combination (e.g. Bb); Phenotype is physical appearance (e.g. brown eyes)",
-          "Genotype is physical appearance, while Phenotype is the chromosome count",
-          "Genotype is learned behavior, while Phenotype is inherited from ancestors",
-          "Genotype and Phenotype are identical terms for cell division"
-        ]
-      },
-      {
-        "q": "If brown eyes (B) are dominant over blue eyes (b), what eye color will an individual with heterozygous genotype 'Bb' display?",
-        "ans": 0,
-        "why": "Dominant alleles (B) mask recessive alleles (b), so a heterozygous Bb individual displays the dominant brown eye phenotype.",
-        "options": [
-          "Brown eyes, because the dominant allele 'B' masks the recessive allele 'b'",
-          "Blue eyes, because recessive alleles override dominant alleles",
-          "One brown eye and one blue eye",
-          "Green eyes"
-        ]
-      },
-      {
-        "q": "Which of the following is an example of an ACQUIRED trait rather than an INHERITED trait?",
-        "ans": 0,
-        "why": "Speaking a language and riding a bicycle are learned or environmental behaviors (acquired traits), while eye color, hair texture, and blood type are inherited via DNA.",
-        "options": [
-          "Speaking fluent Spanish and riding a bicycle",
-          "Natural brown eye color",
-          "Naturally curly hair texture",
-          "Blood type (A, B, AB, or O)"
-        ]
-      },
-      {
-        "q": "In a Punnett square cross between two heterozygous parents (Bb × Bb), what is the probability of having an offspring with the recessive genotype 'bb'?",
-        "ans": 0,
-        "why": "Crossing Bb × Bb produces 1 BB (25%), 2 Bb (50%), and 1 bb (25%). So 'bb' is 25% (1 in 4 chance).",
-        "options": [
-          "25% (1 in 4 chance)",
-          "50% (2 in 4 chance)",
-          "75% (3 in 4 chance)",
-          "100% (guaranteed)"
-        ]
-      }
-    ],
-    "badge": "8 Concept Squares",
-    "color": "purple",
-    "grade": "5th Grade",
-    "title": "GENETICS & HEREDITY",
-    "category": "life",
-    "isCustom": true,
-    "updatedAt": "2026-11-14T12:00:00.000Z",
-    "properties": [
-      {
-        "num": 1,
-        "name": "DNA (Deoxyribonucleic Acid)",
-        "trick": "D-N-A = Directs Nature's Assembly! Shaped like a twisted spiral ladder (double helix).",
-        "example": "Operates like the master biological blueprint in every cell nucleus. For example, your DNA contains roughly 3 billion base-pair letters (A, T, C, G) dictating how to synthesize proteins and build every single organ in your body.",
-        "formula": "Double-Helix Master Code (A-T & C-G Base Pairs)",
-        "explanation": "• DNA is the molecule found inside the cell nucleus that carries the hereditary genetic instructions for all living things.\n• Shaped like a twisted ladder called a 'double helix'.\n• Built from 4 chemical bases: Adenine (A) pairs with Thymine (T), and Cytosine (C) pairs with Guanine (G)."
-      },
-      {
-        "num": 2,
-        "name": "Genes & Alleles",
-        "trick": "Gene = The Recipe for a Trait; Allele = The Different Flavors (e.g., Brown vs. Blue Eyes)!",
-        "example": "Functions like specific chapters in a recipe book. For example, humans have a gene determining earlobe attachment, and the two alleles for that gene dictate whether your earlobes hang free or are attached to the side of your head.",
-        "formula": "Gene (DNA Segment) → Alleles (Trait Variants)",
-        "explanation": "• A gene is a specific section of DNA that controls a particular characteristic or trait.\n• Humans have approximately 20,000 to 25,000 active genes.\n• Alleles are different versions or variations of the same gene.\n• You inherit one allele for each gene from your mother and one from your father."
-      },
-      {
-        "num": 3,
-        "name": "Chromosomes",
-        "trick": "46 in Every Cell: 23 from Biological Mom + 23 from Biological Dad!",
-        "example": "Functions like tightly packed storage thumb drives. If unwound, the DNA inside a single microscopic human cell would stretch about 6 feet long, but histones and chromosome packaging wind it tightly into 23 microscopic pairs.",
-        "formula": "23 Maternal + 23 Paternal = 46 Total Chromosomes",
-        "explanation": "• Chromosomes are dense, thread-like structures made of tightly coiled DNA and protective proteins in the nucleus.\n• Human body cells contain 46 chromosomes organized into 23 pairs.\n• Pair 23 consists of the sex chromosomes (XX for biological female, XY for biological male)."
-      },
-      {
-        "num": 4,
-        "name": "Heredity & Inherited vs. Acquired Traits",
-        "trick": "Inherited = Coded in DNA from Birth; Acquired = Learned or Environmental!",
-        "example": "A duckling naturally inherits webbed feet and waterproof feathers through heredity, but a pet dog learning to sit on command or a human getting a scar from falling are acquired traits that cannot be passed to offspring.",
-        "formula": "Heredity = Transmission of Genetic Traits Across Generations",
-        "explanation": "• Heredity is the biological process by which parents pass physical and physiological traits to their children.\n• Inherited Traits: Characteristics you are born with coded in DNA (eye color, hair texture, blood type, height potential).\n• Acquired Traits: Learned skills, behaviors, or physical changes resulting from the environment (speaking French, skateboarding, scars)."
-      },
-      {
-        "num": 5,
-        "name": "Dominant vs. Recessive Alleles",
-        "trick": "Dominant (Capital B) Dominates & Shows; Recessive (lowercase b) Hides unless Double (bb)!",
-        "example": "If brown fur (B) is dominant over white fur (b) in guinea pigs, a guinea pig with 'Bb' will have brown fur, but it carries the hidden white allele that can reappear in grandchildren!",
-        "formula": "Dominant: B_ (Displays Trait) | Recessive: bb (Requires 2 Copies)",
-        "explanation": "• Dominant Alleles: Represented by capital letters (e.g., 'B'). They overpower recessive alleles and show their trait whenever at least one copy is present (BB or Bb).\n• Recessive Alleles: Represented by lowercase letters (e.g., 'b'). They are masked by dominant alleles and only show up when an organism has two recessive copies (bb).\n• Homozygous = Identical allele pair (BB or bb); Heterozygous = Two different alleles (Bb)."
-      },
-      {
-        "num": 6,
-        "name": "Genotype vs. Phenotype",
-        "trick": "Geno = Genes (Letter Code: Bb); Pheno = Physical Appearance (Brown Eyes)!",
-        "example": "Two pea plants in a garden can both look tall (identical phenotype), but genetic testing reveals Plant A has genotype 'TT' while Plant B has genotype 'Tt'.",
-        "formula": "Genotype (Allele Pair) → Phenotype (Observable Trait)",
-        "explanation": "• Genotype: The internal genetic combination of alleles that an organism carries in its DNA (e.g., BB, Bb, or bb).\n• Phenotype: The observable physical appearance or expressed characteristic (e.g., tall plant, blue eyes, curly fur).\n• Two organisms can have different genotypes (BB vs. Bb) yet display the EXACT same phenotype."
-      },
-      {
-        "num": 7,
-        "name": "Punnett Square & Probability",
-        "trick": "2x2 Genetic Grid: Put Mom's alleles on top, Dad's alleles on side, Cross them!",
-        "example": "Monohybrid cross between two heterozygous parents (Bb × Bb) fills a 4-box grid: BB (25%), Bb (50%), bb (25%). This means there is a 75% chance of dominant phenotype and 25% chance of recessive phenotype.",
-        "formula": "Monohybrid Cross (4 Boxes = 25% Probability Each)",
-        "explanation": "• A visual tool created by Reginald Punnett to predict the mathematical probabilities of offspring inheriting specific genotypes.\n• Parent alleles are aligned along the top and left axes.\n• Crossing Bb × Bb produces a 3:1 phenotypic ratio (75% dominant trait : 25% recessive trait)."
-      },
-      {
-        "num": 8,
-        "name": "Genetic Mutations & Variation",
-        "trick": "Mutation = Change in DNA Code; Drives Natural Diversity and Adaptation!",
-        "example": "Thousands of years ago, a spontaneous beneficial DNA mutation in humans allowed the lactase enzyme to stay active into adulthood, enabling adults to digest dairy and thrive during cold winters.",
-        "formula": "DNA Sequence Change → Genetic Diversity → Adaptation",
-        "explanation": "• A mutation is a change or mistake in the nucleotide sequence of an organism's DNA.\n• Can happen naturally during DNA replication or be triggered by environmental factors like UV radiation and chemicals.\n• Mutations can be beneficial, neutral, or harmful.\n• Beneficial mutations create genetic variation that drives adaptation and species survival over generations."
-      }
-    ],
-    "coreFormula": "DNA → Genes (Alleles) → Chromosomes → Observable Traits (Heredity)",
-    "description": "Explore the fundamentals of genetics, heredity, DNA double helix, chromosomes, dominant vs. recessive alleles, genotypes, phenotypes, and Punnett squares.",
-    "redirectUrl": ""
   }
 ];
 
@@ -5448,91 +5301,8 @@ const SCIENCE_VOCAB_GLOSSARY = {
   "ecosystem": { pron: "EE-koh-sis-tum", def: "A community of living organisms interacting with non-living environmental factors." },
   "density": { pron: "DEN-sih-tee", def: "Mass per unit volume of a substance (how tightly matter particles are packed together)." },
   "evaporation": { pron: "ee-vap-uh-RAY-shun", def: "Phase change where liquid absorbs heat energy and turns into gaseous water vapor." },
-  "condensation": { pron: "kon-den-SAY-shun", def: "Phase change where gaseous vapor cools down and turns back into liquid droplets." },
-  "dna": { pron: "DEE-en-ay", def: "Deoxyribonucleic acid; the double-helix molecule inside the cell nucleus carrying genetic code." },
-  "gene": { pron: "JEEN", def: "A distinct segment of DNA that determines a specific biological trait or protein." },
-  "genes": { pron: "JEENZ", def: "Segments of DNA along chromosomes that instruct cells on building biological traits." },
-  "allele": { pron: "uh-LEEL", def: "One of two or more alternative versions of a gene controlling the same characteristic." },
-  "alleles": { pron: "uh-LEELZ", def: "Different variations of a specific gene (such as brown vs. blue eye alleles)." },
-  "chromosome": { pron: "KROH-muh-sohm", def: "A tightly coiled structure of DNA and protein in cell nuclei; humans have 46 in 23 pairs." },
-  "chromosomes": { pron: "KROH-muh-sohmz", def: "Tightly wound DNA structures in nuclei carrying hereditary genetic blueprints." },
-  "heredity": { pron: "huh-RED-ih-tee", def: "The biological passing of genetic physical traits from parents to their offspring." },
-  "genotype": { pron: "JEE-noh-type", def: "The underlying genetic combination of alleles that an organism carries (e.g., BB, Bb, bb)." },
-  "phenotype": { pron: "FEE-noh-type", def: "The visible physical appearance or expressed characteristic of an organism." },
-  "punnett square": { pron: "PUN-it skwair", def: "A diagrammatic grid used by biologists to calculate probabilities of offspring genotypes." },
-  "mutation": { pron: "myoo-TAY-shun", def: "A permanent change or variation in the DNA nucleotide sequence of an organism's gene." },
-  "mutations": { pron: "myoo-TAY-shunz", def: "Variations in DNA sequences that generate biological diversity across species." }
+  "condensation": { pron: "kon-den-SAY-shun", def: "Phase change where gaseous vapor cools down and turns back into liquid droplets." }
 };
-
-// Universal helper: guarantee every science topic has interactive concept squares
-function synthesizeTopicProperties(topic) {
-  if (!topic) return [];
-  if (Array.isArray(topic.properties) && topic.properties.length > 0) {
-    return topic.properties;
-  }
-
-  const synth = [];
-
-  // 1. Synthesize from takeaways if available
-  if (Array.isArray(topic.takeaways) && topic.takeaways.length > 0) {
-    topic.takeaways.forEach((t, i) => {
-      synth.push({
-        num: i + 1,
-        name: `${topic.title || 'Science'} Concept #${i + 1}`,
-        formula: topic.coreFormula || "Core Scientific Principle",
-        explanation: String(t),
-        example: `Active scientific phenomenon demonstrated in ${topic.title || 'nature'}.`,
-        trick: "Memory Tip: Key factual detail from study notes."
-      });
-    });
-  }
-
-  // 2. Synthesize from quiz questions if present
-  if (synth.length === 0 && Array.isArray(topic.quiz) && topic.quiz.length > 0) {
-    topic.quiz.forEach((qObj, i) => {
-      const correctAns = Array.isArray(qObj.options) ? qObj.options[qObj.ans || 0] : "Scientific Answer";
-      synth.push({
-        num: i + 1,
-        name: correctAns,
-        formula: topic.coreFormula || "Scientific Principle",
-        explanation: qObj.why || qObj.q || "Key scientific concept.",
-        example: `Question context: ${qObj.q}`,
-        trick: `Memory Key: ${correctAns}`
-      });
-    });
-  }
-
-  // 3. Synthesize from description lines or sentences
-  if (synth.length === 0 && topic.description) {
-    const rawLines = topic.description.split(/\n|•|;/).map(s => s.trim()).filter(s => s.length > 15);
-    if (rawLines.length > 0) {
-      rawLines.slice(0, 8).forEach((line, i) => {
-        synth.push({
-          num: i + 1,
-          name: `${topic.title || 'Science Concept'} Part #${i + 1}`,
-          formula: topic.coreFormula || "Core Observation",
-          explanation: line,
-          example: `Active scientific observation in ${topic.title || 'nature'}.`,
-          trick: "Memory Tip: Important concept to master."
-        });
-      });
-    }
-  }
-
-  // 4. Guaranteed non-empty fallback
-  if (synth.length === 0) {
-    synth.push({
-      num: 1,
-      name: topic.title || "Science Concept",
-      formula: topic.coreFormula || "Core Scientific Law",
-      explanation: topic.description || "Comprehensive scientific overview and study guide summary.",
-      example: "Demonstrated in laboratory experiments and natural observations.",
-      trick: "Review core definition for quizzes and exams."
-    });
-  }
-
-  return synth;
-}
 
 function bionicWord(word) {
   if (word.length <= 1) return `<b>${word}</b>`;
@@ -5681,20 +5451,6 @@ class ReadingEnhancementSuite {
     // 5. 3D Flashcards Mode Toggle
     document.getElementById("btn-toggle-flashcards")?.addEventListener("click", () => {
       this.toggleFlashcards();
-    });
-
-    // 5b. Open Full Apple 3D Flashcards Deck for current topic
-    document.getElementById("btn-modal-open-deck")?.addEventListener("click", () => {
-      if (this.currentTopic && typeof this.app.openAppleFlashcards === "function") {
-        this.app.openAppleFlashcards(this.currentTopic.id);
-      }
-    });
-
-    // 5c. Open Cloze-Drift Ghost Recall Game for current topic
-    document.getElementById("btn-modal-open-ghost")?.addEventListener("click", () => {
-      if (this.currentTopic && typeof this.app.openGhostRecallGame === "function") {
-        this.app.openGhostRecallGame(this.currentTopic.id);
-      }
     });
 
     // 6. Zen Focus Mode Toggle
@@ -6167,10 +5923,6 @@ class ReadingEnhancementSuite {
 
   renderFlashcards(topic, container) {
     container.innerHTML = "";
-    const props = (topic.properties && topic.properties.length > 0)
-      ? topic.properties
-      : synthesizeTopicProperties(topic);
-
     const grid = document.createElement("div");
     grid.className = "flashcards-mode-grid";
 
@@ -6179,12 +5931,12 @@ class ReadingEnhancementSuite {
     headerStrip.innerHTML = `
       <span style="font-size: 0.88rem; font-weight: 700; color: #a5f3fc;">🃏 Interactive 3D Study Flashcards (Tap card to flip)</span>
       <span id="flashcard-progress-pill" style="font-size: 0.78rem; font-weight: 800; padding: 4px 12px; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; border-radius: 999px; color: #6ee7b7;">
-        Mastered: ${this.masteredCards.size} / ${props.length}
+        Mastered: ${this.masteredCards.size} / ${(topic.properties || []).length}
       </span>
     `;
     container.appendChild(headerStrip);
 
-    props.forEach(prop => {
+    topic.properties.forEach(prop => {
       const card = document.createElement("div");
       card.className = "flashcard-card";
       card.id = `concept-square-${prop.num}`;
@@ -6470,13 +6222,8 @@ class ScienceIoApp {
         if (Array.isArray(parsed) && parsed.length > 0) {
           const merged = [...parsed];
           baseNotes.forEach(bn => {
-            const existing = merged.find(n => 
-              n.id === bn.id || 
-              (n.title && n.title.trim().toLowerCase() === bn.title.trim().toLowerCase()) ||
-              (bn.id === "science-genetics" && ((n.id || "").toLowerCase().includes("genetics") || (n.title || "").toLowerCase().includes("genetics")))
-            );
+            const existing = merged.find(n => n.id === bn.id);
             if (existing) {
-              existing.id = bn.id;
               existing.properties = bn.properties;
               existing.description = bn.description;
               existing.coreFormula = bn.coreFormula;
@@ -7584,14 +7331,6 @@ class ScienceIoApp {
               ⚡ PRACTICE QUIZ
             </button>
           </div>
-          <div class="card-dual-actions-row">
-            <button class="card-action-btn btn-card-flashcards" data-id="${topic.id}" title="Study 3D Flashcards for this unit">
-              🃏 FLASHCARDS
-            </button>
-            <button class="card-action-btn btn-card-recall" data-id="${topic.id}" title="Play Cloze-Drift Ghost Recall for this unit">
-              👻 GHOST RECALL
-            </button>
-          </div>
           ${topic.redirectUrl ? `
           <button class="card-action-btn btn-card-redirect" style="background: rgba(10, 132, 255, 0.4);" onclick="window.open('${topic.redirectUrl}', '_blank')">
             🔗 EXTERNAL LINK
@@ -7881,26 +7620,6 @@ class ScienceIoApp {
         e.stopPropagation();
         sounds.playClick();
         this.openNotesViewer(btn.dataset.id, "practice");
-      });
-    });
-
-    document.querySelectorAll(".btn-card-flashcards").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const card = btn.closest(".deck-card");
-        if (card && !card.classList.contains("pos-center")) return;
-        e.stopPropagation();
-        if (typeof sounds !== 'undefined' && sounds.playClick) sounds.playClick();
-        this.openAppleFlashcards(btn.dataset.id);
-      });
-    });
-
-    document.querySelectorAll(".btn-card-recall").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const card = btn.closest(".deck-card");
-        if (card && !card.classList.contains("pos-center")) return;
-        e.stopPropagation();
-        if (typeof sounds !== 'undefined' && sounds.playClick) sounds.playClick();
-        this.openGhostRecallGame(btn.dataset.id);
       });
     });
   }
@@ -14762,42 +14481,13 @@ class ScienceIoApp {
     };
 
     const getAvailableTopics = () => {
-      const list = [];
-      const seen = new Set();
-
-      const addTopic = (t) => {
-        if (!t || !t.title) return;
-        const key = (t.id || t.title).trim().toLowerCase();
-        if (seen.has(key)) {
-          const existing = list.find(item => (item.id || item.title).trim().toLowerCase() === key);
-          if (existing && (!existing.properties || existing.properties.length === 0) && (t.properties && t.properties.length > 0)) {
-            existing.properties = t.properties;
-            if (t.quiz) existing.quiz = t.quiz;
-          }
-          return;
-        }
-        seen.add(key);
-        const cloned = JSON.parse(JSON.stringify(t));
-        if (!Array.isArray(cloned.properties) || cloned.properties.length === 0) {
-          cloned.properties = synthesizeTopicProperties(cloned);
-        }
-        list.push(cloned);
-      };
-
-      if (Array.isArray(window.SCIENCE_IO_PUBLISHED_NOTES)) {
-        window.SCIENCE_IO_PUBLISHED_NOTES.forEach(addTopic);
+      if (Array.isArray(window.SCIENCE_IO_PUBLISHED_NOTES) && window.SCIENCE_IO_PUBLISHED_NOTES.length > 0) {
+        return window.SCIENCE_IO_PUBLISHED_NOTES;
       }
-      if (Array.isArray(this.notes)) {
-        this.notes.forEach(addTopic);
+      if (Array.isArray(this.notes) && this.notes.length > 0) {
+        return this.notes;
       }
-      try {
-        const cached = JSON.parse(localStorage.getItem("scienceio_notes_v7") || "[]");
-        if (Array.isArray(cached)) {
-          cached.forEach(addTopic);
-        }
-      } catch (_) {}
-
-      return list;
+      return [];
     };
 
     const populateTopicSelect = () => {
@@ -14824,30 +14514,30 @@ class ScienceIoApp {
 
       if (topicIndexVal === "all" || topicIndexVal === "") {
         topics.forEach(t => {
-          const props = (t.properties && t.properties.length > 0) ? t.properties : synthesizeTopicProperties(t);
-          props.forEach(p => {
-            currentCards.push({
-              topicTitle: t.title,
-              cardId: `${t.id || t.title}-${p.num || 1}`,
-              num: p.num || 1,
-              name: p.name || "Concept",
-              formula: p.formula || "Scientific Principle",
-              trick: p.trick || "Memory Trick: Read carefully!",
-              explanation: p.explanation || "Scientific concept overview.",
-              example: p.example || "Real-world science example in nature."
+          if (Array.isArray(t.properties)) {
+            t.properties.forEach(p => {
+              currentCards.push({
+                topicTitle: t.title,
+                cardId: `${t.id || t.title}-${p.num}`,
+                num: p.num,
+                name: p.name || "Concept",
+                formula: p.formula || "Scientific Principle",
+                trick: p.trick || "Memory Trick: Read carefully!",
+                explanation: p.explanation || "Scientific concept overview.",
+                example: p.example || "Real-world science example in nature."
+              });
             });
-          });
+          }
         });
       } else {
         const idx = parseInt(topicIndexVal, 10);
         const t = topics[idx] || topics[0];
-        if (t) {
-          const props = (t.properties && t.properties.length > 0) ? t.properties : synthesizeTopicProperties(t);
-          props.forEach(p => {
+        if (t && Array.isArray(t.properties)) {
+          t.properties.forEach(p => {
             currentCards.push({
               topicTitle: t.title,
-              cardId: `${t.id || t.title}-${p.num || 1}`,
-              num: p.num || 1,
+              cardId: `${t.id || t.title}-${p.num}`,
+              num: p.num,
               name: p.name || "Concept",
               formula: p.formula || "Scientific Principle",
               trick: p.trick || "Memory Trick: Read carefully!",
@@ -15036,13 +14726,7 @@ class ScienceIoApp {
     this.openAppleFlashcards = (topicId = null) => {
       populateTopicSelect();
       if (topicId) {
-        const needle = String(topicId).toLowerCase().trim();
-        const foundIdx = topics.findIndex(t => 
-          (t.id || "").toLowerCase() === needle ||
-          (t.title || "").toLowerCase() === needle ||
-          (t.title || "").toLowerCase().includes(needle) ||
-          (needle.includes("genetics") && ((t.id || "").toLowerCase().includes("genetics") || (t.title || "").toLowerCase().includes("genetics")))
-        );
+        const foundIdx = topics.findIndex(t => (t.id || "").toLowerCase() === String(topicId).toLowerCase());
         if (foundIdx >= 0) {
           topicSelect.value = String(foundIdx);
           loadTopicCards(String(foundIdx));
@@ -15092,42 +14776,13 @@ class ScienceIoApp {
     let streak = 0;
 
     const getAvailableTopics = () => {
-      const list = [];
-      const seen = new Set();
-
-      const addTopic = (t) => {
-        if (!t || !t.title) return;
-        const key = (t.id || t.title).trim().toLowerCase();
-        if (seen.has(key)) {
-          const existing = list.find(item => (item.id || item.title).trim().toLowerCase() === key);
-          if (existing && (!existing.properties || existing.properties.length === 0) && (t.properties && t.properties.length > 0)) {
-            existing.properties = t.properties;
-            if (t.quiz) existing.quiz = t.quiz;
-          }
-          return;
-        }
-        seen.add(key);
-        const cloned = JSON.parse(JSON.stringify(t));
-        if (!Array.isArray(cloned.properties) || cloned.properties.length === 0) {
-          cloned.properties = synthesizeTopicProperties(cloned);
-        }
-        list.push(cloned);
-      };
-
-      if (Array.isArray(window.SCIENCE_IO_PUBLISHED_NOTES)) {
-        window.SCIENCE_IO_PUBLISHED_NOTES.forEach(addTopic);
+      if (Array.isArray(window.SCIENCE_IO_PUBLISHED_NOTES) && window.SCIENCE_IO_PUBLISHED_NOTES.length > 0) {
+        return window.SCIENCE_IO_PUBLISHED_NOTES;
       }
-      if (Array.isArray(this.notes)) {
-        this.notes.forEach(addTopic);
+      if (Array.isArray(this.notes) && this.notes.length > 0) {
+        return this.notes;
       }
-      try {
-        const cached = JSON.parse(localStorage.getItem("scienceio_notes_v7") || "[]");
-        if (Array.isArray(cached)) {
-          cached.forEach(addTopic);
-        }
-      } catch (_) {}
-
-      return list;
+      return [];
     };
 
     const populateGhostSelect = () => {
@@ -15153,10 +14808,7 @@ class ScienceIoApp {
       arenaEl.innerHTML = "";
       chipsContainer.innerHTML = "";
 
-      const props = (currentTopic.properties && currentTopic.properties.length > 0)
-        ? currentTopic.properties
-        : synthesizeTopicProperties(currentTopic);
-
+      const props = currentTopic.properties || [];
       if (!props.length) {
         arenaEl.innerHTML = `<p style="color: #94a3b8;">No concept squares found for this unit.</p>`;
         return;
@@ -15193,7 +14845,7 @@ class ScienceIoApp {
             CONCEPT #${p.num || (pIdx + 1)} • ${formula}
           </div>
           <div>
-            The scientific term or concept known as 
+            The organelle or structure known as 
             <span class="ghost-blank" id="${blankId}" data-blank-id="${blankId}">${promptDisplay}</span> 
             is defined as: <em>"${explanation}"</em>
           </div>
@@ -15372,13 +15024,7 @@ class ScienceIoApp {
     this.openGhostRecallGame = (topicId = null) => {
       populateGhostSelect();
       if (topicId) {
-        const needle = String(topicId).toLowerCase().trim();
-        const foundIdx = topics.findIndex(t => 
-          (t.id || "").toLowerCase() === needle ||
-          (t.title || "").toLowerCase() === needle ||
-          (t.title || "").toLowerCase().includes(needle) ||
-          (needle.includes("genetics") && ((t.id || "").toLowerCase().includes("genetics") || (t.title || "").toLowerCase().includes("genetics")))
-        );
+        const foundIdx = topics.findIndex(t => (t.id || "").toLowerCase() === String(topicId).toLowerCase());
         if (foundIdx >= 0) {
           topicSelect.value = String(foundIdx);
           loadGhostTopic(String(foundIdx));
