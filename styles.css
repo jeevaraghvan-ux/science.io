@@ -9654,9 +9654,9 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 .dynamic-island-pod.island-idle {
   opacity: 1 !important;
   pointer-events: auto !important;
-  width: 145px;
+  width: 175px;
   height: 32px;
-  padding: 0 12px;
+  padding: 0 10px 0 12px;
 }
 
 .dynamic-island-pod.island-idle .island-camera-lens {
@@ -9664,7 +9664,11 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 }
 
 .dynamic-island-pod.island-idle .island-status-dot {
-  display: block;
+  display: none !important;
+}
+
+.dynamic-island-pod.island-idle .island-battery-wrap {
+  display: flex !important;
 }
 
 .dynamic-island-pod.island-idle .island-title {
@@ -9688,8 +9692,8 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   opacity: 1 !important;
   pointer-events: auto !important;
   width: auto;
-  min-width: 185px;
-  max-width: 310px;
+  min-width: 205px;
+  max-width: 325px;
   height: 34px;
   padding: 0 12px;
 }
@@ -9700,10 +9704,94 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   display: none !important;
 }
 
+.dynamic-island-pod.island-compact .island-battery-wrap {
+  display: none !important;
+}
+
 .dynamic-island-pod.island-compact .island-action-pill {
   padding: 3px 8px;
   font-size: 9px;
   display: inline-block !important;
+}
+
+/* State: Apple Silent / Ringer Switch HUD */
+.dynamic-island-pod.island-silent-hud {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  width: 220px !important;
+  height: 38px !important;
+  padding: 0 14px !important;
+  background: #000000 !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.95),
+              0 0 25px rgba(255, 255, 255, 0.08) !important;
+  animation: islandLiquidSpring 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+}
+
+.dynamic-island-pod.island-silent-hud #island-capsule {
+  display: flex !important;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dynamic-island-pod.island-silent-hud .island-camera-lens,
+.dynamic-island-pod.island-silent-hud .island-status-dot,
+.dynamic-island-pod.island-silent-hud .island-subtitle,
+.dynamic-island-pod.island-silent-hud .island-action-pill,
+.dynamic-island-pod.island-silent-hud .island-equalizer,
+.dynamic-island-pod.island-silent-hud .island-battery-wrap {
+  display: none !important;
+}
+
+.dynamic-island-pod.island-silent-hud .island-icon {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  animation: appleBellWobble 0.6s ease-in-out;
+}
+
+.dynamic-island-pod.island-silent-hud .island-title {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  letter-spacing: 0.02em !important;
+  text-transform: none !important;
+}
+
+.dynamic-island-pod.island-silent-hud .island-badge {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  padding: 2px 10px !important;
+  border-radius: 999px !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase !important;
+}
+
+.dynamic-island-pod.island-silent-hud.silent-on .island-badge {
+  background: #ea580c !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 10px rgba(234, 88, 12, 0.6) !important;
+}
+
+.dynamic-island-pod.island-silent-hud.silent-off .island-badge {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #94a3b8 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+@keyframes appleBellWobble {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(-18deg); }
+  40% { transform: rotate(14deg); }
+  60% { transform: rotate(-8deg); }
+  80% { transform: rotate(4deg); }
+  100% { transform: rotate(0deg); }
 }
 
 /* State: Expanded Dynamic Island Alert / Banner */
@@ -10094,6 +10182,133 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   border: 1px solid rgba(56, 189, 248, 0.4);
   box-shadow: inset 0 0 3px rgba(56, 189, 248, 0.6);
   flex-shrink: 0;
+}
+
+/* Optical Hardware Privacy Micro-Dots (Green = Audio stream, Amber = Voice/TTS synthesis) */
+.island-privacy-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin-left: 2px;
+  flex-shrink: 0;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.island-privacy-dot.hidden {
+  display: none !important;
+}
+
+.island-privacy-dot.dot-audio {
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981, 0 0 2px #34d399;
+}
+
+.island-privacy-dot.dot-mic {
+  background: #f59e0b;
+  box-shadow: 0 0 6px #f59e0b, 0 0 2px #fbbf24;
+  animation: privacyPulse 1.4s infinite ease-in-out;
+}
+
+@keyframes privacyPulse {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* Apple Battery Indicator */
+.island-battery-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 1px 3px;
+  border-radius: 999px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.island-battery-wrap:hover {
+  transform: scale(1.05);
+}
+
+.island-battery-pct {
+  font-size: 10px;
+  font-weight: 700;
+  color: #e2e8f0;
+  letter-spacing: -0.02em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.island-battery-shell {
+  position: relative;
+  width: 19px;
+  height: 9.5px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 1px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.island-battery-shell::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: 2px;
+  width: 1.5px;
+  height: 3.5px;
+  border-radius: 0 1px 1px 0;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.island-battery-fill {
+  height: 100%;
+  border-radius: 1.5px;
+  background: #34d399;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+}
+
+.island-battery-fill.low {
+  background: #f43f5e !important;
+}
+
+.island-battery-fill.charging {
+  background: #10b981 !important;
+}
+
+.island-battery-bolt {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 7.5px;
+  color: #ffffff;
+  text-shadow: 0 0 3px #10b981;
+  pointer-events: none;
+}
+
+.island-battery-bolt.hidden {
+  display: none !important;
+}
+
+/* Mac System Telemetry Bar (Inside Expanded Deck) */
+.mac-system-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2px 4px 8px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.mac-sys-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #cbd5e1;
 }
 
 /* Pulsing Status Dot */

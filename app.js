@@ -5857,15 +5857,23 @@ class ReadingEnhancementSuite {
       }
     };
 
+    utter.onstart = () => {
+      this.app?.dynamicIsland?.setMicPrivacy?.(true);
+    };
+
     utter.onend = () => {
       if (item.cardId) {
         document.getElementById(item.cardId)?.classList.remove("speaking-card-active");
       }
       this.ttsIndex++;
+      if (this.ttsIndex >= this.ttsQueue.length) {
+        this.app?.dynamicIsland?.setMicPrivacy?.(false);
+      }
       this.speakNextQueueItem();
     };
 
     utter.onerror = () => {
+      this.app?.dynamicIsland?.setMicPrivacy?.(false);
       this.stopAudio();
     };
 
@@ -5886,12 +5894,15 @@ class ReadingEnhancementSuite {
     const card = document.getElementById(`concept-square-${prop.num}`);
     utter.onstart = () => {
       card?.classList.add("speaking-card-active");
+      this.app?.dynamicIsland?.setMicPrivacy?.(true);
     };
     utter.onend = () => {
       card?.classList.remove("speaking-card-active");
+      this.app?.dynamicIsland?.setMicPrivacy?.(false);
     };
     utter.onerror = () => {
       card?.classList.remove("speaking-card-active");
+      this.app?.dynamicIsland?.setMicPrivacy?.(false);
     };
 
     window.speechSynthesis.speak(utter);
@@ -5899,6 +5910,7 @@ class ReadingEnhancementSuite {
 
   stopAudio() {
     this.ttsPlaying = false;
+    this.app?.dynamicIsland?.setMicPrivacy?.(false);
     if (typeof window !== "undefined" && window.speechSynthesis) {
       window.speechSynthesis.cancel();
     }
@@ -13622,6 +13634,17 @@ class ScienceIoApp {
     const macMuteGlyph = document.getElementById("mac-mute-glyph");
     const macTravelPills = document.querySelectorAll(".mac-travel-pill");
 
+    // Apple Hardware & System Telemetry Elements
+    const audioPrivacyDot = document.getElementById("island-privacy-audio");
+    const micPrivacyDot = document.getElementById("island-privacy-mic");
+    const batteryWrap = document.getElementById("island-battery-wrap");
+    const batteryPct = document.getElementById("island-battery-pct");
+    const batteryFill = document.getElementById("island-battery-fill");
+    const batteryBolt = document.getElementById("island-battery-bolt");
+    const sysBattIcon = document.getElementById("mac-sys-batt-icon");
+    const sysBattText = document.getElementById("mac-sys-batt-text");
+    const sysAudioDevice = document.getElementById("mac-sys-audio-device");
+
     if (!islandPod) return;
 
     let collapseTimer = null;
@@ -13740,6 +13763,10 @@ class ScienceIoApp {
           if (macSliderFill) macSliderFill.style.width = `${percent}%`;
         }
       }
+
+      if (audioPrivacyDot) {
+        audioPrivacyDot.classList.toggle("hidden", !isPlaying);
+      }
     };
 
     const openMacDeck = () => {
@@ -13769,6 +13796,55 @@ class ScienceIoApp {
       isMacOpen = false;
       islandPod.classList.remove("island-mac-open");
       collapseIsland();
+    };
+
+    const triggerSilentModeHUD = (isMuted) => {
+      if (collapseTimer) {
+        clearTimeout(collapseTimer);
+        collapseTimer = null;
+      }
+
+      isExpanded = true;
+      if (navPill) navPill.classList.add("island-active");
+
+      islandPod.classList.remove("island-idle", "island-compact", "island-expanded", "island-mac-open");
+      islandPod.classList.add("island-silent-hud");
+      islandPod.classList.toggle("silent-on", !!isMuted);
+      islandPod.classList.toggle("silent-off", !isMuted);
+
+      if (islandIcon) {
+        islandIcon.textContent = isMuted ? "🔕" : "🔔";
+        islandIcon.classList.remove("hidden");
+      }
+      if (islandEqualizer) {
+        islandEqualizer.classList.add("hidden");
+      }
+      if (islandTitle) {
+        islandTitle.textContent = "Silent Mode";
+      }
+      if (islandBadge) {
+        islandBadge.textContent = isMuted ? "On" : "Off";
+        islandBadge.classList.remove("hidden");
+      }
+      if (islandSubtitle) {
+        islandSubtitle.classList.add("hidden");
+      }
+      if (islandActionPill) {
+        islandActionPill.classList.add("hidden");
+      }
+
+      try {
+        if (typeof sounds.playTapticClick === "function") {
+          sounds.playTapticClick();
+        } else {
+          sounds.playKeypadTap();
+        }
+      } catch (_) {}
+
+      collapseTimer = setTimeout(() => {
+        islandPod.classList.remove("island-silent-hud", "silent-on", "silent-off");
+        collapseIsland();
+      }, 2300);
     };
 
     const triggerIsland = ({
@@ -14051,6 +14127,7 @@ class ScienceIoApp {
       const track = getDynamicTrackInfo();
 
       if (isMusicPlaying) {
+        if (audioPrivacyDot) audioPrivacyDot.classList.remove("hidden");
         if (navPill) navPill.classList.remove("island-active");
         islandPod.classList.remove("island-expanded", "island-idle", "island-mac-open");
         islandPod.classList.add("island-compact");
@@ -14066,6 +14143,7 @@ class ScienceIoApp {
           openMacDeck();
         };
       } else {
+        if (audioPrivacyDot) audioPrivacyDot.classList.add("hidden");
         if (navPill) navPill.classList.remove("island-active");
         islandPod.classList.remove("island-expanded", "island-compact", "island-mac-open");
         islandPod.classList.add("island-idle");
@@ -14201,6 +14279,7 @@ class ScienceIoApp {
       if (bgAudio) {
         bgAudio.muted = !bgAudio.muted;
         syncMacDeckUI();
+        triggerSilentModeHUD(bgAudio.muted);
       }
     });
 
@@ -14294,15 +14373,39 @@ class ScienceIoApp {
       });
     });
 
-    // Keyboard ESC collapses Mac Deck
+    // Keyboard Shortcuts (ESC closes Mac Deck, 'M' toggles Silent Mode HUD)
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && isMacOpen) {
         closeMacDeck();
+      } else if ((e.key === "m" || e.key === "M") && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : "";
+        if (activeTag !== "input" && activeTag !== "textarea") {
+          const bgAudio = document.getElementById("bg-music-player");
+          if (bgAudio) {
+            bgAudio.muted = !bgAudio.muted;
+            syncMacDeckUI();
+            triggerSilentModeHUD(bgAudio.muted);
+          } else if (typeof sounds !== "undefined") {
+            sounds.enabled = !sounds.enabled;
+            triggerSilentModeHUD(!sounds.enabled);
+          }
+        }
       }
     });
 
     this.dynamicIsland = {
       trigger: triggerIsland,
+      triggerSilentModeHUD: triggerSilentModeHUD,
+      setMicPrivacy: (isActive) => {
+        if (micPrivacyDot) {
+          micPrivacyDot.classList.toggle("hidden", !isActive);
+        }
+      },
+      setAudioPrivacy: (isActive) => {
+        if (audioPrivacyDot) {
+          audioPrivacyDot.classList.toggle("hidden", !isActive);
+        }
+      },
       collapse: collapseIsland,
       openMacDeck: openMacDeck,
       closeMacDeck: closeMacDeck,
@@ -14362,18 +14465,11 @@ class ScienceIoApp {
       });
     }
 
-    // 2. Sound FX Toggle
+    // 2. Sound FX Toggle (Triggers Apple Silent Mode HUD)
     document.getElementById("btn-sound-toggle")?.addEventListener("click", () => {
       setTimeout(() => {
         const isMuted = !sounds.enabled;
-        triggerIsland({
-          icon: isMuted ? "🔇" : "🔊",
-          title: isMuted ? "Sound Effects Muted" : "Sound Effects Enabled",
-          subtitle: isMuted ? "Quiet Study Mode Active" : "Keypad Clicks & Celebration FX On",
-          badge: isMuted ? "MUTED" : "STEREO",
-          actionText: "OK",
-          duration: 2400
-        });
+        triggerSilentModeHUD(isMuted);
       }, 50);
     });
 
@@ -14421,7 +14517,116 @@ class ScienceIoApp {
       });
     });
 
-    // 5. Initial Boot Glance
+    // 5. Native Battery & Power Telemetry Management
+    const updateBatteryUI = (battery) => {
+      const level = Math.round((battery.level !== undefined ? battery.level : 1) * 100);
+      const charging = !!battery.charging;
+
+      if (batteryPct) batteryPct.textContent = `${level}%`;
+      if (batteryFill) {
+        batteryFill.style.width = `${level}%`;
+        if (charging) {
+          batteryFill.style.backgroundColor = "#10b981"; // Apple green charging
+        } else if (level <= 20) {
+          batteryFill.style.backgroundColor = "#ef4444"; // Apple red low
+        } else {
+          batteryFill.style.backgroundColor = "#ffffff";
+        }
+      }
+      if (batteryBolt) {
+        batteryBolt.classList.toggle("hidden", !charging);
+      }
+      if (batteryWrap) {
+        batteryWrap.classList.remove("hidden");
+        batteryWrap.title = `Mac Battery: ${level}% ${charging ? "(Charging ⚡)" : ""}`;
+      }
+
+      // Update System Telemetry Bar in Mac Deck
+      if (sysBattText) {
+        sysBattText.textContent = `${level}% ${charging ? "⚡ Charging" : "Battery"}`;
+      }
+      if (sysBattIcon) {
+        sysBattIcon.textContent = charging ? "⚡" : (level <= 20 ? "🪫" : "🔋");
+      }
+    };
+
+    if (typeof navigator !== "undefined" && typeof navigator.getBattery === "function") {
+      navigator.getBattery().then((battery) => {
+        updateBatteryUI(battery);
+        battery.addEventListener("levelchange", () => {
+          updateBatteryUI(battery);
+          if (battery.level <= 0.20 && !battery.charging) {
+            triggerIsland({
+              icon: "🪫",
+              title: "Low Battery",
+              subtitle: `${Math.round(battery.level * 100)}% Remaining • Connect to Power`,
+              badge: "20%",
+              actionText: "CHARGE",
+              duration: 3500
+            });
+          }
+        });
+        battery.addEventListener("chargingchange", () => {
+          updateBatteryUI(battery);
+          triggerIsland({
+            icon: battery.charging ? "⚡" : "🔋",
+            title: battery.charging ? "Connected to Power" : "On Battery Power",
+            subtitle: `${Math.round(battery.level * 100)}% • Apple Fast Charge`,
+            badge: battery.charging ? "CHARGING" : "BATTERY",
+            actionText: "SYSTEM",
+            duration: 2800,
+            action: () => openMacDeck()
+          });
+        });
+      }).catch(() => {
+        updateBatteryUI({ level: 0.98, charging: false });
+      });
+    } else {
+      updateBatteryUI({ level: 0.98, charging: false });
+    }
+
+    batteryWrap?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      triggerIsland({
+        icon: batteryBolt && !batteryBolt.classList.contains("hidden") ? "⚡" : "🔋",
+        title: "Battery Health: Normal",
+        subtitle: `Current Charge: ${batteryPct?.textContent || "98%"} • High Efficiency`,
+        badge: "POWER",
+        actionText: "SYS INFO",
+        duration: 3000,
+        action: () => openMacDeck()
+      });
+    });
+
+    // 6. Headphones & Audio Peripheral Route Detection
+    if (typeof navigator !== "undefined" && navigator.mediaDevices && typeof navigator.mediaDevices.enumerateDevices === "function") {
+      const checkAudioDevices = async (showNotification = false) => {
+        try {
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const audioOuts = devices.filter(d => d.kind === "audiooutput");
+          const hasHeadphones = audioOuts.some(d => /headphone|airpods|earphones|bluetooth/i.test(d.label));
+          const label = hasHeadphones ? "AirPods / Headphones" : (audioOuts[0]?.label || "MacBook Pro Speakers");
+          if (sysAudioDevice) {
+            sysAudioDevice.textContent = label.length > 20 ? label.slice(0, 18) + "…" : label;
+          }
+          if (showNotification) {
+            triggerIsland({
+              icon: hasHeadphones ? "🎧" : "🔊",
+              title: hasHeadphones ? "AirPods Connected" : "Audio Output Changed",
+              subtitle: label,
+              badge: "AUDIO",
+              actionText: "SWITCH",
+              duration: 3000,
+              action: () => openMacDeck()
+            });
+          }
+        } catch (_) {}
+      };
+      checkAudioDevices(false);
+      navigator.mediaDevices.addEventListener("devicechange", () => checkAudioDevices(true));
+    }
+
+    // 7. Initial Boot Glance
     setTimeout(() => {
       triggerIsland({
         icon: "⚡",
