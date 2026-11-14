@@ -1909,5 +1909,152 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
     "coreFormula": "5th Grade Scientific Principle",
     "description": "Learn about the eye",
     "redirectUrl": ""
+  },
+  {
+    "id": "science-genetics",
+    "quiz": [
+      {
+        "q": "What is the molecule shaped like a twisted double-helix ladder that carries genetic instructions inside the cell nucleus?",
+        "ans": 0,
+        "why": "DNA (Deoxyribonucleic Acid) is the double-helix molecule carrying genetic blueprints inside cell nuclei.",
+        "options": [
+          "DNA (Deoxyribonucleic Acid)",
+          "Ribosome",
+          "Chlorophyll",
+          "Hemoglobin"
+        ]
+      },
+      {
+        "q": "How many total chromosomes are normally found in a human body cell, and how are they inherited?",
+        "ans": 0,
+        "why": "Humans have 46 chromosomes in 23 pairs: 23 from biological mother and 23 from biological father.",
+        "options": [
+          "46 chromosomes (23 pairs: 23 from mother, 23 from father)",
+          "23 chromosomes total (all from mother)",
+          "100 chromosomes total (50 from each parent)",
+          "46 pairs (92 chromosomes total)"
+        ]
+      },
+      {
+        "q": "What is the fundamental difference between a Genotype and a Phenotype?",
+        "ans": 0,
+        "why": "Genotype is the genetic allele combination (e.g., Bb), while Phenotype is the physical observable trait (e.g., brown eyes).",
+        "options": [
+          "Genotype is the genetic allele combination (e.g. Bb); Phenotype is physical appearance (e.g. brown eyes)",
+          "Genotype is physical appearance, while Phenotype is the chromosome count",
+          "Genotype is learned behavior, while Phenotype is inherited from ancestors",
+          "Genotype and Phenotype are identical terms for cell division"
+        ]
+      },
+      {
+        "q": "If brown eyes (B) are dominant over blue eyes (b), what eye color will an individual with heterozygous genotype 'Bb' display?",
+        "ans": 0,
+        "why": "Dominant alleles (B) mask recessive alleles (b), so a heterozygous Bb individual displays the dominant brown eye phenotype.",
+        "options": [
+          "Brown eyes, because the dominant allele 'B' masks the recessive allele 'b'",
+          "Blue eyes, because recessive alleles override dominant alleles",
+          "One brown eye and one blue eye",
+          "Green eyes"
+        ]
+      },
+      {
+        "q": "Which of the following is an example of an ACQUIRED trait rather than an INHERITED trait?",
+        "ans": 0,
+        "why": "Speaking a language and riding a bicycle are learned or environmental behaviors (acquired traits), while eye color, hair texture, and blood type are inherited via DNA.",
+        "options": [
+          "Speaking fluent Spanish and riding a bicycle",
+          "Natural brown eye color",
+          "Naturally curly hair texture",
+          "Blood type (A, B, AB, or O)"
+        ]
+      },
+      {
+        "q": "In a Punnett square cross between two heterozygous parents (Bb × Bb), what is the probability of having an offspring with the recessive genotype 'bb'?",
+        "ans": 0,
+        "why": "Crossing Bb × Bb produces 1 BB (25%), 2 Bb (50%), and 1 bb (25%). So 'bb' is 25% (1 in 4 chance).",
+        "options": [
+          "25% (1 in 4 chance)",
+          "50% (2 in 4 chance)",
+          "75% (3 in 4 chance)",
+          "100% (guaranteed)"
+        ]
+      }
+    ],
+    "badge": "8 Concept Squares",
+    "color": "purple",
+    "grade": "5th Grade",
+    "title": "GENETICS & HEREDITY",
+    "category": "life",
+    "isCustom": true,
+    "updatedAt": "2026-11-14T12:00:00.000Z",
+    "properties": [
+      {
+        "num": 1,
+        "name": "DNA (Deoxyribonucleic Acid)",
+        "trick": "D-N-A = Directs Nature's Assembly! Shaped like a twisted spiral ladder (double helix).",
+        "example": "Operates like the master biological blueprint in every cell nucleus. For example, your DNA contains roughly 3 billion base-pair letters (A, T, C, G) dictating how to synthesize proteins and build every single organ in your body.",
+        "formula": "Double-Helix Master Code (A-T & C-G Base Pairs)",
+        "explanation": "• DNA is the molecule found inside the cell nucleus that carries the hereditary genetic instructions for all living things.\n• Shaped like a twisted ladder called a 'double helix'.\n• Built from 4 chemical bases: Adenine (A) pairs with Thymine (T), and Cytosine (C) pairs with Guanine (G)."
+      },
+      {
+        "num": 2,
+        "name": "Genes & Alleles",
+        "trick": "Gene = The Recipe for a Trait; Allele = The Different Flavors (e.g., Brown vs. Blue Eyes)!",
+        "example": "Functions like specific chapters in a recipe book. For example, humans have a gene determining earlobe attachment, and the two alleles for that gene dictate whether your earlobes hang free or are attached to the side of your head.",
+        "formula": "Gene (DNA Segment) → Alleles (Trait Variants)",
+        "explanation": "• A gene is a specific section of DNA that controls a particular characteristic or trait.\n• Humans have approximately 20,000 to 25,000 active genes.\n• Alleles are different versions or variations of the same gene.\n• You inherit one allele for each gene from your mother and one from your father."
+      },
+      {
+        "num": 3,
+        "name": "Chromosomes",
+        "trick": "46 in Every Cell: 23 from Biological Mom + 23 from Biological Dad!",
+        "example": "Functions like tightly packed storage thumb drives. If unwound, the DNA inside a single microscopic human cell would stretch about 6 feet long, but histones and chromosome packaging wind it tightly into 23 microscopic pairs.",
+        "formula": "23 Maternal + 23 Paternal = 46 Total Chromosomes",
+        "explanation": "• Chromosomes are dense, thread-like structures made of tightly coiled DNA and protective proteins in the nucleus.\n• Human body cells contain 46 chromosomes organized into 23 pairs.\n• Pair 23 consists of the sex chromosomes (XX for biological female, XY for biological male)."
+      },
+      {
+        "num": 4,
+        "name": "Heredity & Inherited vs. Acquired Traits",
+        "trick": "Inherited = Coded in DNA from Birth; Acquired = Learned or Environmental!",
+        "example": "A duckling naturally inherits webbed feet and waterproof feathers through heredity, but a pet dog learning to sit on command or a human getting a scar from falling are acquired traits that cannot be passed to offspring.",
+        "formula": "Heredity = Transmission of Genetic Traits Across Generations",
+        "explanation": "• Heredity is the biological process by which parents pass physical and physiological traits to their children.\n• Inherited Traits: Characteristics you are born with coded in DNA (eye color, hair texture, blood type, height potential).\n• Acquired Traits: Learned skills, behaviors, or physical changes resulting from the environment (speaking French, skateboarding, scars)."
+      },
+      {
+        "num": 5,
+        "name": "Dominant vs. Recessive Alleles",
+        "trick": "Dominant (Capital B) Dominates & Shows; Recessive (lowercase b) Hides unless Double (bb)!",
+        "example": "If brown fur (B) is dominant over white fur (b) in guinea pigs, a guinea pig with 'Bb' will have brown fur, but it carries the hidden white allele that can reappear in grandchildren!",
+        "formula": "Dominant: B_ (Displays Trait) | Recessive: bb (Requires 2 Copies)",
+        "explanation": "• Dominant Alleles: Represented by capital letters (e.g., 'B'). They overpower recessive alleles and show their trait whenever at least one copy is present (BB or Bb).\n• Recessive Alleles: Represented by lowercase letters (e.g., 'b'). They are masked by dominant alleles and only show up when an organism has two recessive copies (bb).\n• Homozygous = Identical allele pair (BB or bb); Heterozygous = Two different alleles (Bb)."
+      },
+      {
+        "num": 6,
+        "name": "Genotype vs. Phenotype",
+        "trick": "Geno = Genes (Letter Code: Bb); Pheno = Physical Appearance (Brown Eyes)!",
+        "example": "Two pea plants in a garden can both look tall (identical phenotype), but genetic testing reveals Plant A has genotype 'TT' while Plant B has genotype 'Tt'.",
+        "formula": "Genotype (Allele Pair) → Phenotype (Observable Trait)",
+        "explanation": "• Genotype: The internal genetic combination of alleles that an organism carries in its DNA (e.g., BB, Bb, or bb).\n• Phenotype: The observable physical appearance or expressed characteristic (e.g., tall plant, blue eyes, curly fur).\n• Two organisms can have different genotypes (BB vs. Bb) yet display the EXACT same phenotype."
+      },
+      {
+        "num": 7,
+        "name": "Punnett Square & Probability",
+        "trick": "2x2 Genetic Grid: Put Mom's alleles on top, Dad's alleles on side, Cross them!",
+        "example": "Monohybrid cross between two heterozygous parents (Bb × Bb) fills a 4-box grid: BB (25%), Bb (50%), bb (25%). This means there is a 75% chance of dominant phenotype and 25% chance of recessive phenotype.",
+        "formula": "Monohybrid Cross (4 Boxes = 25% Probability Each)",
+        "explanation": "• A visual tool created by Reginald Punnett to predict the mathematical probabilities of offspring inheriting specific genotypes.\n• Parent alleles are aligned along the top and left axes.\n• Crossing Bb × Bb produces a 3:1 phenotypic ratio (75% dominant trait : 25% recessive trait)."
+      },
+      {
+        "num": 8,
+        "name": "Genetic Mutations & Variation",
+        "trick": "Mutation = Change in DNA Code; Drives Natural Diversity and Adaptation!",
+        "example": "Thousands of years ago, a spontaneous beneficial DNA mutation in humans allowed the lactase enzyme to stay active into adulthood, enabling adults to digest dairy and thrive during cold winters.",
+        "formula": "DNA Sequence Change → Genetic Diversity → Adaptation",
+        "explanation": "• A mutation is a change or mistake in the nucleotide sequence of an organism's DNA.\n• Can happen naturally during DNA replication or be triggered by environmental factors like UV radiation and chemicals.\n• Mutations can be beneficial, neutral, or harmful.\n• Beneficial mutations create genetic variation that drives adaptation and species survival over generations."
+      }
+    ],
+    "coreFormula": "DNA → Genes (Alleles) → Chromosomes → Observable Traits (Heredity)",
+    "description": "Explore the fundamentals of genetics, heredity, DNA double helix, chromosomes, dominant vs. recessive alleles, genotypes, phenotypes, and Punnett squares.",
+    "redirectUrl": ""
   }
 ];
