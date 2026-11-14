@@ -11244,3 +11244,820 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   gap: 8px;
 }
 
+/* ================= APPLE SPLIT VIEW: SCIENCE CONCEPT DUEL & COMPARATOR (STAGE MANAGER) ================= */
+.apple-split-window {
+  max-width: 1380px;
+  width: 95vw;
+  height: 88vh;
+  max-height: 900px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: rgba(13, 15, 23, 0.88);
+  backdrop-filter: blur(40px) saturate(190%);
+  -webkit-backdrop-filter: blur(40px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.85), 0 0 50px rgba(56, 189, 248, 0.18);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+}
+
+.apple-split-window.is-fullscreen {
+  max-width: 100vw;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  border-radius: 0;
+  border: none;
+}
+
+/* Top Window Header */
+.apple-split-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  gap: 12px;
+  flex-wrap: wrap;
+  z-index: 20;
+}
+
+.apple-split-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mac-traffic-lights {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.traffic-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  position: relative;
+}
+
+.traffic-dot:hover {
+  transform: scale(1.15);
+}
+
+.traffic-red {
+  background: #ff5f56;
+  border: 1px solid #e0443e;
+}
+
+.traffic-yellow {
+  background: #ffbd2e;
+  border: 1px solid #dea123;
+}
+
+.traffic-green {
+  background: #27c93f;
+  border: 1px solid #1aab29;
+}
+
+.apple-split-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+}
+
+.apple-split-logo-icon {
+  color: #38bdf8;
+  font-size: 15px;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+}
+
+.apple-split-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+}
+
+.apple-split-badge {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+/* Matchup Presets Bar */
+.split-presets-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  max-width: 620px;
+  scrollbar-width: none;
+  padding: 2px 0;
+}
+
+.split-presets-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.split-presets-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: #94a3b8;
+  letter-spacing: 0.08em;
+  margin-right: 2px;
+  white-space: nowrap;
+}
+
+.split-preset-chip {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  color: #e2e8f0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.split-preset-chip:hover, .split-preset-chip.active {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+}
+
+/* Freeform Mode & Snap Controls */
+.split-mode-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.split-mode-pill {
+  background: rgba(168, 85, 247, 0.14);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 999px;
+  color: #d8b4fe;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.split-mode-pill:hover, .split-mode-pill.active {
+  background: rgba(168, 85, 247, 0.35);
+  border-color: #c084fc;
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.5);
+}
+
+/* Split Arena Stage */
+.apple-split-arena {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: calc(100% - 62px);
+}
+
+.split-pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 18px;
+  gap: 14px;
+  position: relative;
+  min-width: 260px;
+  transition: flex-basis 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+}
+
+.split-pane.drag-hover {
+  background: rgba(56, 189, 248, 0.08);
+  outline: 2px dashed rgba(56, 189, 248, 0.5);
+  outline-offset: -8px;
+  border-radius: 20px;
+}
+
+.split-pane-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.split-pane-badge {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.split-pane-badge.badge-a {
+  background: rgba(56, 189, 248, 0.16);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+}
+
+.split-pane-badge.badge-b {
+  background: rgba(168, 85, 247, 0.16);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #c084fc;
+}
+
+.split-select-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.apple-split-select {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: #ffffff;
+  padding: 5px 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  max-width: 200px;
+}
+
+.apple-split-select option {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+/* ================= MOVABLE DRAGGABLE CONCEPT CARDS ================= */
+.split-hero-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 22px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, border-color 0.22s ease;
+  position: relative;
+  touch-action: none;
+}
+
+.split-hero-card.card-a {
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 25px rgba(56, 189, 248, 0.1);
+}
+
+.split-hero-card.card-b {
+  border-color: rgba(168, 85, 247, 0.3);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 25px rgba(168, 85, 247, 0.1);
+}
+
+.card-drag-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  cursor: grab;
+  user-select: none;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.06em;
+  transition: all 0.18s ease;
+}
+
+.card-drag-bar:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.card-drag-bar:active, .split-hero-card.is-dragging .card-drag-bar {
+  cursor: grabbing;
+  background: rgba(56, 189, 248, 0.25);
+  color: #38bdf8;
+}
+
+.drag-dots {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.drag-coord {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #64748b;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* Dragging & Freeform Floating State */
+.split-hero-card.is-dragging {
+  position: absolute !important;
+  z-index: 1000 !important;
+  cursor: grabbing !important;
+  transform: scale(1.03) rotate(-1.5deg) !important;
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.85), 0 0 50px rgba(56, 189, 248, 0.6) !important;
+  border-color: #38bdf8 !important;
+  pointer-events: none;
+}
+
+.split-hero-card.is-freeform {
+  position: absolute;
+  z-index: 50;
+  width: 360px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(168, 85, 247, 0.3);
+}
+
+.split-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.split-cat-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #cbd5e1;
+}
+
+.split-num-pill {
+  font-size: 11px;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: #ffffff;
+}
+
+.split-card-hero-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.split-concept-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+}
+
+.split-formula-pill {
+  font-size: 11px;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 8px;
+  padding: 4px 10px;
+  width: fit-content;
+}
+
+.card-b .split-formula-pill {
+  color: #c084fc;
+  background: rgba(168, 85, 247, 0.12);
+  border-color: rgba(168, 85, 247, 0.25);
+}
+
+.split-section-block {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.split-section-block.highlight-trick {
+  background: rgba(245, 158, 11, 0.07);
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.split-section-block.highlight-example {
+  background: rgba(16, 185, 129, 0.07);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.split-section-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+}
+
+.highlight-trick .split-section-label {
+  color: #fbbf24;
+}
+
+.highlight-example .split-section-label {
+  color: #34d399;
+}
+
+.split-section-text {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #f1f5f9;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.split-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.split-tts-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: #ffffff;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.split-tts-btn:hover {
+  background: rgba(56, 189, 248, 0.25);
+  border-color: #38bdf8;
+  transform: translateY(-1px);
+}
+
+.split-side-indicator {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #64748b;
+}
+
+/* ================= CENTER SPLIT DIVIDER & DUEL BRIDGE ================= */
+.split-divider-bridge {
+  width: 240px;
+  min-width: 210px;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 10px;
+  gap: 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.28);
+  overflow-y: auto;
+  position: relative;
+  z-index: 10;
+}
+
+.split-ratio-controls {
+  display: flex;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.split-ratio-btn {
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  color: #94a3b8;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.split-ratio-btn.active, .split-ratio-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.split-handle-bar {
+  width: 44px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  cursor: col-resize;
+  transition: all 0.2s ease;
+  margin: 2px 0;
+}
+
+.split-handle-bar:hover {
+  background: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+  transform: scaleY(1.3);
+}
+
+.split-bridge-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.split-swap-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  color: #f1f5f9;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.split-swap-btn:hover {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+}
+
+/* Quick Contrast Matrix */
+.split-contrast-matrix {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.split-contrast-header {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  text-align: center;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.split-contrast-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  padding: 4px 2px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.contrast-col-a {
+  color: #38bdf8;
+  font-weight: 700;
+  text-align: left;
+  max-width: 75px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contrast-divider {
+  font-size: 8.5px;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.08em;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.contrast-col-b {
+  color: #c084fc;
+  font-weight: 700;
+  text-align: right;
+  max-width: 75px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Concept Duel Interactive Arena */
+.split-duel-box {
+  width: 100%;
+  background: linear-gradient(145deg, rgba(56, 189, 248, 0.08), rgba(168, 85, 247, 0.08));
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 14px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.split-duel-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.split-duel-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #f8fafc;
+}
+
+.split-streak-badge {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #fb923c;
+  background: rgba(251, 146, 60, 0.16);
+  border: 1px solid rgba(251, 146, 60, 0.35);
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+
+.split-duel-prompt {
+  font-size: 10.5px;
+  line-height: 1.4;
+  color: #e2e8f0;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.split-duel-btn {
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  border: none;
+  border-radius: 999px;
+  color: #0b101b;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.split-duel-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+}
+
+.split-duel-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.duel-choice-btn {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  color: #ffffff;
+  padding: 7px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.duel-choice-btn.choice-a:hover {
+  background: rgba(56, 189, 248, 0.25);
+  border-color: #38bdf8;
+  color: #38bdf8;
+}
+
+.duel-choice-btn.choice-b:hover {
+  background: rgba(168, 85, 247, 0.25);
+  border-color: #c084fc;
+  color: #c084fc;
+}
+
+.split-duel-feedback {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 6px;
+  border-radius: 8px;
+  animation: duelBurst 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.split-duel-feedback.correct {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.split-duel-feedback.wrong {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+@keyframes duelBurst {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes appleCardSwap {
+  0% { transform: scale(0.95) rotateY(18deg); opacity: 0.6; }
+  100% { transform: scale(1) rotateY(0deg); opacity: 1; }
+}
+
+.card-swapping {
+  animation: appleCardSwap 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Mobile Responsive Layout */
+@media (max-width: 900px) {
+  .apple-split-arena {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .split-divider-bridge {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 10px 14px;
+  }
+
+  .split-bridge-panel {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .split-swap-btn, .split-contrast-matrix, .split-duel-box {
+    width: 100%;
+  }
+
+  .split-hero-card.is-freeform {
+    position: static;
+    width: 100%;
+  }
+}
+
+

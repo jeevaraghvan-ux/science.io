@@ -12976,6 +12976,7 @@ class ScienceIoApp {
     this.setupDynamicIsland();
     this.setupAppleFlashcards();
     this.setupGhostRecallGame();
+    this.setupAppleSplitView();
   }
 
   setupMagneticFluidCursor() {
@@ -13249,6 +13250,20 @@ class ScienceIoApp {
         action: () => {
           if (typeof this.openGhostRecallGame === "function") {
             this.openGhostRecallGame();
+          }
+        }
+      },
+      {
+        id: "tool-split-view",
+        category: "tools",
+        title: "Apple Split View: Concept Duel & Comparator",
+        sub: "Side-by-side Stage Manager comparison of any two science concepts with freeform drag",
+        badge: "SPLIT",
+        icon: "⚡",
+        keywords: "split view duel compare stage manager concepts notes apple freeform drag movable",
+        action: () => {
+          if (typeof this.openAppleSplitView === "function") {
+            this.openAppleSplitView();
           }
         }
       },
@@ -14328,6 +14343,11 @@ class ScienceIoApp {
               this.openGhostRecallGame();
             }
             break;
+          case "split":
+            if (typeof this.openAppleSplitView === "function") {
+              this.openAppleSplitView();
+            }
+            break;
           case "timer":
             openMacDeck();
             macTabTimer?.click();
@@ -15252,7 +15272,681 @@ class ScienceIoApp {
       } catch (_) {}
     };
   }
+
+  // ================= APPLE SPLIT VIEW: SCIENCE CONCEPT DUEL & COMPARATOR (STAGE MANAGER) =================
+  setupAppleSplitView() {
+    const modal = document.getElementById("apple-split-view-modal");
+    const windowEl = document.getElementById("apple-split-window");
+    const arenaEl = document.getElementById("apple-split-arena");
+    const closeBtn = document.getElementById("split-close-btn");
+    const trafficClose = document.getElementById("split-traffic-close");
+    const trafficReset = document.getElementById("split-traffic-reset");
+    const trafficExpand = document.getElementById("split-traffic-expand");
+    const modeToggle = document.getElementById("split-mode-toggle");
+    const modeLabel = document.getElementById("split-mode-label");
+    const resetLayoutBtn = document.getElementById("split-reset-layout-btn");
+    const presetChips = document.querySelectorAll(".split-preset-chip");
+
+    // Pane A Elements
+    const paneA = document.getElementById("split-pane-a");
+    const unitSelectA = document.getElementById("split-unit-a");
+    const conceptSelectA = document.getElementById("split-concept-a");
+    const cardA = document.getElementById("split-card-a");
+    const dragHandleA = document.getElementById("drag-handle-a");
+    const coordA = document.getElementById("drag-coord-a");
+    const catTagA = document.getElementById("split-cat-a");
+    const numPillA = document.getElementById("split-num-a");
+    const titleA = document.getElementById("split-title-a");
+    const formulaA = document.getElementById("split-formula-a");
+    const descA = document.getElementById("split-desc-a");
+    const trickA = document.getElementById("split-trick-a");
+    const exampleA = document.getElementById("split-example-a");
+    const ttsBtnA = document.getElementById("split-tts-a");
+
+    // Pane B Elements
+    const paneB = document.getElementById("split-pane-b");
+    const unitSelectB = document.getElementById("split-unit-b");
+    const conceptSelectB = document.getElementById("split-concept-b");
+    const cardB = document.getElementById("split-card-b");
+    const dragHandleB = document.getElementById("drag-handle-b");
+    const coordB = document.getElementById("drag-coord-b");
+    const catTagB = document.getElementById("split-cat-b");
+    const numPillB = document.getElementById("split-num-b");
+    const titleB = document.getElementById("split-title-b");
+    const formulaB = document.getElementById("split-formula-b");
+    const descB = document.getElementById("split-desc-b");
+    const trickB = document.getElementById("split-trick-b");
+    const exampleB = document.getElementById("split-example-b");
+    const ttsBtnB = document.getElementById("split-tts-b");
+
+    // Center Bridge & Duel Elements
+    const ratioBtns = document.querySelectorAll(".split-ratio-btn");
+    const handleBar = document.getElementById("split-handle-bar");
+    const swapBtn = document.getElementById("split-swap-btn");
+    const contrastUnitA = document.getElementById("contrast-unit-a");
+    const contrastUnitB = document.getElementById("contrast-unit-b");
+    const contrastCatA = document.getElementById("contrast-cat-a");
+    const contrastCatB = document.getElementById("contrast-cat-b");
+
+    const duelStreakBadge = document.getElementById("split-streak-badge");
+    const duelPrompt = document.getElementById("split-duel-prompt");
+    const duelStartBtn = document.getElementById("split-duel-start-btn");
+    const duelChoices = document.getElementById("split-duel-choices");
+    const duelChoiceA = document.getElementById("duel-choice-a");
+    const duelChoiceB = document.getElementById("duel-choice-b");
+    const duelFeedback = document.getElementById("split-duel-feedback");
+
+    if (!modal || !windowEl || !unitSelectA || !unitSelectB) return;
+
+    let topics = [];
+    let isFreeformMode = false;
+    let duelStreak = 0;
+    let activeDuel = null;
+    let cardAPos = { x: 0, y: 0 };
+    let cardBPos = { x: 0, y: 0 };
+
+    const getAvailableTopics = () => {
+      let list = Array.isArray(window.SCIENCE_IO_PUBLISHED_NOTES) ? [...window.SCIENCE_IO_PUBLISHED_NOTES] : [];
+      try {
+        const stored = localStorage.getItem("skience_user_notes");
+        if (stored) {
+          const userNotes = JSON.parse(stored);
+          if (Array.isArray(userNotes)) {
+            userNotes.forEach((un) => {
+              if (un && un.id && !list.some(t => t.id === un.id)) {
+                list.push(un);
+              }
+            });
+          }
+        }
+      } catch (_) {}
+      return list.filter(t => t && Array.isArray(t.properties) && t.properties.length > 0);
+    };
+
+    const populateUnitDropdowns = () => {
+      topics = getAvailableTopics();
+      if (!topics.length) return;
+
+      const html = topics.map((t, idx) => `<option value="${idx}">${t.title || `Unit ${idx + 1}`}</option>`).join("");
+      unitSelectA.innerHTML = html;
+      unitSelectB.innerHTML = html;
+
+      // Default: Unit 0 (Plant Cell) on Left, Unit 1 (Animal Cell) on Right
+      unitSelectA.value = "0";
+      unitSelectB.value = topics.length > 1 ? "1" : "0";
+
+      populateConceptDropdown("a");
+      populateConceptDropdown("b");
+    };
+
+    const populateConceptDropdown = (side) => {
+      const unitSelect = side === "a" ? unitSelectA : unitSelectB;
+      const conceptSelect = side === "a" ? conceptSelectA : conceptSelectB;
+      const unitIdx = parseInt(unitSelect.value, 10) || 0;
+      const topic = topics[unitIdx];
+      if (!topic || !Array.isArray(topic.properties)) return;
+
+      conceptSelect.innerHTML = topic.properties.map((p, idx) => {
+        return `<option value="${idx}">#${p.num || idx + 1} ${p.name || `Concept ${idx + 1}`}</option>`;
+      }).join("");
+
+      // Default selections for maximum visual comparison
+      if (side === "a") {
+        conceptSelect.value = "0"; // e.g. Chloroplast / Cell Membrane
+      } else {
+        conceptSelect.value = topic.properties.length > 2 ? "2" : "0";
+      }
+
+      renderConceptCard(side);
+      updateContrastMatrix();
+    };
+
+    const getSelectedProperty = (side) => {
+      const unitSelect = side === "a" ? unitSelectA : unitSelectB;
+      const conceptSelect = side === "a" ? conceptSelectA : conceptSelectB;
+      const unitIdx = parseInt(unitSelect.value, 10) || 0;
+      const topic = topics[unitIdx];
+      if (!topic || !Array.isArray(topic.properties)) return null;
+      const conceptIdx = parseInt(conceptSelect.value, 10) || 0;
+      return { topic, prop: topic.properties[conceptIdx] || topic.properties[0] };
+    };
+
+    const renderConceptCard = (side) => {
+      const data = getSelectedProperty(side);
+      if (!data || !data.prop) return;
+
+      const { topic, prop } = data;
+      const catEl = side === "a" ? catTagA : catTagB;
+      const numEl = side === "a" ? numPillA : numPillB;
+      const titleEl = side === "a" ? titleA : titleB;
+      const formulaEl = side === "a" ? formulaA : formulaB;
+      const descEl = side === "a" ? descA : descB;
+      const trickEl = side === "a" ? trickA : trickB;
+      const exampleEl = side === "a" ? exampleA : exampleB;
+
+      if (catEl) catEl.textContent = (topic.category || "SCIENCE").toUpperCase();
+      if (numEl) numEl.textContent = `#${prop.num || 1}`;
+      if (titleEl) titleEl.textContent = prop.name || "Concept";
+      if (formulaEl) formulaEl.textContent = prop.formula || "Key Concept Principle";
+      if (descEl) descEl.textContent = prop.explanation || "Scientific concept details and characteristics.";
+      if (trickEl) trickEl.textContent = prop.trick || "Memory Trick: Connect core idea to familiar objects!";
+      if (exampleEl) exampleEl.textContent = prop.example || "Real-world scientific application.";
+
+      // Update duel choice buttons
+      if (side === "a" && duelChoiceA) duelChoiceA.textContent = `A: ${prop.name}`;
+      if (side === "b" && duelChoiceB) duelChoiceB.textContent = `B: ${prop.name}`;
+    };
+
+    const updateContrastMatrix = () => {
+      const dataA = getSelectedProperty("a");
+      const dataB = getSelectedProperty("b");
+      if (!dataA || !dataB) return;
+
+      if (contrastUnitA) contrastUnitA.textContent = dataA.topic.title || "Unit A";
+      if (contrastUnitB) contrastUnitB.textContent = dataB.topic.title || "Unit B";
+      if (contrastCatA) contrastCatA.textContent = dataA.prop?.name || "Concept A";
+      if (contrastCatB) contrastCatB.textContent = dataB.prop?.name || "Concept B";
+    };
+
+    // ================= MOVABLE DRAG & FREEFORM ENGINE =================
+    const setupDraggableCard = (cardEl, handleEl, coordEl, isCardA) => {
+      let isDragging = false;
+      let startX = 0;
+      let startY = 0;
+      let initialPos = { x: 0, y: 0 };
+
+      const onPointerDown = (e) => {
+        // Prevent drag on text selection or clicks inside select/button
+        if (e.target.closest("select") || e.target.closest("button")) return;
+        e.preventDefault();
+
+        isDragging = true;
+        startX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        startY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+        initialPos = isCardA ? { ...cardAPos } : { ...cardBPos };
+
+        cardEl.classList.add("is-dragging");
+        try {
+          if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+        } catch (_) {}
+
+        window.addEventListener("pointermove", onPointerMove);
+        window.addEventListener("pointerup", onPointerUp);
+        window.addEventListener("touchmove", onPointerMove, { passive: false });
+        window.addEventListener("touchend", onPointerUp);
+      };
+
+      const onPointerMove = (e) => {
+        if (!isDragging) return;
+        const curX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        const curY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+        const dx = curX - startX;
+        const dy = curY - startY;
+
+        const newX = initialPos.x + dx;
+        const newY = initialPos.y + dy;
+
+        cardEl.style.transform = `translate(${newX}px, ${newY}px) scale(1.02) rotate(-1.5deg)`;
+        if (coordEl) coordEl.textContent = `X: ${Math.round(newX)} Y: ${Math.round(newY)}`;
+
+        // Detect hover over opposite pane
+        const targetPane = isCardA ? paneB : paneA;
+        if (targetPane) {
+          const rect = targetPane.getBoundingClientRect();
+          const isOver = curX >= rect.left && curX <= rect.right && curY >= rect.top && curY <= rect.bottom;
+          targetPane.classList.toggle("drag-hover", isOver);
+        }
+      };
+
+      const onPointerUp = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        cardEl.classList.remove("is-dragging");
+
+        window.removeEventListener("pointermove", onPointerMove);
+        window.removeEventListener("pointerup", onPointerUp);
+        window.removeEventListener("touchmove", onPointerMove);
+        window.removeEventListener("touchend", onPointerUp);
+
+        const curX = e.clientX || (e.changedTouches && e.changedTouches[0]?.clientX) || 0;
+        const curY = e.clientY || (e.changedTouches && e.changedTouches[0]?.clientY) || 0;
+        const targetPane = isCardA ? paneB : paneA;
+        let droppedOnOpposite = false;
+
+        if (targetPane) {
+          const rect = targetPane.getBoundingClientRect();
+          if (curX >= rect.left && curX <= rect.right && curY >= rect.top && curY <= rect.bottom) {
+            droppedOnOpposite = true;
+          }
+          targetPane.classList.remove("drag-hover");
+        }
+
+        if (droppedOnOpposite) {
+          // Dropped on opposite pane: SWAP!
+          swapSides();
+          snapToGrid();
+          try {
+            if (typeof sounds.playSuccess === "function") sounds.playSuccess();
+          } catch (_) {}
+        } else if (isFreeformMode) {
+          // Freeform mode: remember position
+          const dx = curX - startX;
+          const dy = curY - startY;
+          const newPos = { x: initialPos.x + dx, y: initialPos.y + dy };
+          if (isCardA) cardAPos = newPos;
+          else cardBPos = newPos;
+
+          cardEl.classList.add("is-freeform");
+          cardEl.style.transform = `translate(${newPos.x}px, ${newPos.y}px)`;
+          if (coordEl) coordEl.textContent = "Custom Pinned";
+        } else {
+          // Standard split: spring back to column
+          cardEl.style.transform = "";
+          if (isCardA) cardAPos = { x: 0, y: 0 };
+          else cardBPos = { x: 0, y: 0 };
+          if (coordEl) coordEl.textContent = "Auto Column";
+        }
+      };
+
+      handleEl.addEventListener("pointerdown", onPointerDown);
+      handleEl.addEventListener("touchstart", onPointerDown, { passive: false });
+    };
+
+    setupDraggableCard(cardA, dragHandleA, coordA, true);
+    setupDraggableCard(cardB, dragHandleB, coordB, false);
+
+    // Freeform Mode Toggle
+    modeToggle?.addEventListener("click", () => {
+      isFreeformMode = !isFreeformMode;
+      modeToggle.classList.toggle("active", isFreeformMode);
+      if (modeLabel) modeLabel.textContent = isFreeformMode ? "Freeform: Active" : "Freeform Move";
+      try {
+        if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+      } catch (_) {}
+    });
+
+    // Snap to Grid Reset
+    const snapToGrid = () => {
+      cardAPos = { x: 0, y: 0 };
+      cardBPos = { x: 0, y: 0 };
+      cardA.style.transform = "";
+      cardB.style.transform = "";
+      cardA.classList.remove("is-freeform");
+      cardB.classList.remove("is-freeform");
+      if (coordA) coordA.textContent = "Auto Column";
+      if (coordB) coordB.textContent = "Auto Column";
+    };
+
+    resetLayoutBtn?.addEventListener("click", () => {
+      snapToGrid();
+      try {
+        if (typeof sounds.playKeypadTap === "function") sounds.playKeypadTap();
+      } catch (_) {}
+    });
+
+    // ================= SWAP SIDES =================
+    const swapSides = () => {
+      const uA = unitSelectA.value;
+      const cA = conceptSelectA.value;
+      const uB = unitSelectB.value;
+      const cB = conceptSelectB.value;
+
+      cardA.classList.add("card-swapping");
+      cardB.classList.add("card-swapping");
+
+      unitSelectA.value = uB;
+      populateConceptDropdown("a");
+      conceptSelectA.value = cB;
+      renderConceptCard("a");
+
+      unitSelectB.value = uA;
+      populateConceptDropdown("b");
+      conceptSelectB.value = cA;
+      renderConceptCard("b");
+
+      updateContrastMatrix();
+      setTimeout(() => {
+        cardA.classList.remove("card-swapping");
+        cardB.classList.remove("card-swapping");
+      }, 350);
+    };
+
+    swapBtn?.addEventListener("click", () => {
+      swapSides();
+      try {
+        if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+      } catch (_) {}
+    });
+
+    // ================= SPLIT RATIO & DRAGGABLE DIVIDER =================
+    ratioBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        ratioBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const ratio = btn.dataset.ratio;
+        if (ratio === "30-70") {
+          paneA.style.flex = "0 0 30%";
+          paneB.style.flex = "0 0 70%";
+        } else if (ratio === "70-30") {
+          paneA.style.flex = "0 0 70%";
+          paneB.style.flex = "0 0 30%";
+        } else {
+          paneA.style.flex = "1 1 0";
+          paneB.style.flex = "1 1 0";
+        }
+        try {
+          if (typeof sounds.playKeypadTap === "function") sounds.playKeypadTap();
+        } catch (_) {}
+      });
+    });
+
+    let isResizingDivider = false;
+    handleBar?.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      isResizingDivider = true;
+      const arenaRect = arenaEl.getBoundingClientRect();
+
+      const onMove = (me) => {
+        if (!isResizingDivider) return;
+        const clientX = me.clientX || (me.touches && me.touches[0].clientX);
+        const percent = Math.min(80, Math.max(20, ((clientX - arenaRect.left) / arenaRect.width) * 100));
+        paneA.style.flex = `0 0 ${percent}%`;
+        paneB.style.flex = `0 0 ${100 - percent}%`;
+      };
+
+      const onUp = () => {
+        isResizingDivider = false;
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onUp);
+      };
+
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onUp);
+    });
+
+    // ================= MATCHUP PRESETS =================
+    presetChips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        presetChips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        const preset = chip.dataset.preset;
+
+        const findUnitIndex = (pattern) => {
+          return topics.findIndex(t => {
+            const str = `${t.id} ${t.title}`.toLowerCase();
+            return str.includes(pattern);
+          });
+        };
+
+        if (preset === "plant-vs-animal") {
+          const idxA = Math.max(0, findUnitIndex("plant"));
+          const idxB = Math.max(0, findUnitIndex("animal"));
+          unitSelectA.value = String(idxA);
+          populateConceptDropdown("a");
+          unitSelectB.value = String(idxB);
+          populateConceptDropdown("b");
+        } else if (preset === "wall-vs-membrane") {
+          const idxA = Math.max(0, findUnitIndex("plant"));
+          unitSelectA.value = String(idxA);
+          populateConceptDropdown("a");
+          conceptSelectA.value = "7"; // Cell Wall in Plant Cell
+          renderConceptCard("a");
+
+          const idxB = Math.max(0, findUnitIndex("animal"));
+          unitSelectB.value = String(idxB);
+          populateConceptDropdown("b");
+          conceptSelectB.value = "0"; // Cell Membrane in Animal Cell
+          renderConceptCard("b");
+        } else if (preset === "artery-vs-vein") {
+          const idxCirc = Math.max(0, findUnitIndex("circulatory"));
+          unitSelectA.value = String(idxCirc);
+          populateConceptDropdown("a");
+          conceptSelectA.value = "1"; // Artery
+          renderConceptCard("a");
+
+          unitSelectB.value = String(idxCirc);
+          populateConceptDropdown("b");
+          conceptSelectB.value = "2"; // Vein
+          renderConceptCard("b");
+        } else if (preset === "voluntary-vs-involuntary") {
+          const idxMusc = Math.max(0, findUnitIndex("muscular"));
+          unitSelectA.value = String(idxMusc);
+          populateConceptDropdown("a");
+          conceptSelectA.value = "0"; // Skeletal / Voluntary
+          renderConceptCard("a");
+
+          unitSelectB.value = String(idxMusc);
+          populateConceptDropdown("b");
+          conceptSelectB.value = "1"; // Smooth / Involuntary
+          renderConceptCard("b");
+        } else if (preset === "random") {
+          const randA = Math.floor(Math.random() * topics.length);
+          let randB = Math.floor(Math.random() * topics.length);
+          if (topics.length > 1 && randB === randA) randB = (randA + 1) % topics.length;
+
+          unitSelectA.value = String(randA);
+          populateConceptDropdown("a");
+          const propsA = topics[randA]?.properties || [];
+          if (propsA.length) conceptSelectA.value = String(Math.floor(Math.random() * propsA.length));
+          renderConceptCard("a");
+
+          unitSelectB.value = String(randB);
+          populateConceptDropdown("b");
+          const propsB = topics[randB]?.properties || [];
+          if (propsB.length) conceptSelectB.value = String(Math.floor(Math.random() * propsB.length));
+          renderConceptCard("b");
+        }
+
+        updateContrastMatrix();
+        try {
+          if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+        } catch (_) {}
+      });
+    });
+
+    // ================= CONCEPT DUEL QUIZ ENGINE =================
+    const startConceptDuel = () => {
+      const dataA = getSelectedProperty("a");
+      const dataB = getSelectedProperty("b");
+      if (!dataA || !dataB) return;
+
+      const targetIsA = Math.random() < 0.5;
+      const targetData = targetIsA ? dataA : dataB;
+      const prop = targetData.prop;
+
+      // Extract a punchy clue
+      const clues = [
+        prop.formula ? `Principle: "${prop.formula}"` : null,
+        prop.explanation ? `Teacher Definition: "${prop.explanation}"` : null,
+        prop.example ? `Real-World: "${prop.example}"` : null,
+        prop.trick ? `Clue: "${prop.trick}"` : null
+      ].filter(Boolean);
+
+      const clue = clues[Math.floor(Math.random() * clues.length)] || prop.explanation;
+
+      activeDuel = {
+        targetIsA,
+        nameA: dataA.prop.name,
+        nameB: dataB.prop.name,
+        targetName: prop.name
+      };
+
+      if (duelPrompt) {
+        duelPrompt.innerHTML = `<strong>Which concept does this describe?</strong><br/><em style="color:#38bdf8;">${clue}</em>`;
+      }
+
+      if (duelStartBtn) duelStartBtn.textContent = "⚡ Next Duel Question";
+      if (duelChoices) duelChoices.classList.remove("hidden");
+      if (duelFeedback) duelFeedback.classList.add("hidden");
+
+      // Card highlight prompts
+      cardA.style.borderColor = targetIsA ? "rgba(56, 189, 248, 0.6)" : "rgba(255, 255, 255, 0.15)";
+      cardB.style.borderColor = !targetIsA ? "rgba(168, 85, 247, 0.6)" : "rgba(255, 255, 255, 0.15)";
+    };
+
+    const handleDuelAnswer = (choseA) => {
+      if (!activeDuel) return;
+      const isCorrect = choseA === activeDuel.targetIsA;
+
+      if (duelFeedback) {
+        duelFeedback.classList.remove("hidden", "correct", "wrong");
+        if (isCorrect) {
+          duelStreak++;
+          duelFeedback.classList.add("correct");
+          duelFeedback.textContent = `✅ Brilliant! That describes ${activeDuel.targetName}!`;
+          try {
+            if (typeof sounds.playSuccess === "function") sounds.playSuccess();
+          } catch (_) {}
+        } else {
+          duelStreak = 0;
+          duelFeedback.classList.add("wrong");
+          duelFeedback.textContent = `❌ Almost! That was ${activeDuel.targetName}.`;
+          try {
+            if (typeof sounds.playKeypadTap === "function") sounds.playKeypadTap();
+          } catch (_) {}
+        }
+      }
+
+      if (duelStreakBadge) {
+        duelStreakBadge.textContent = `🔥 Streak: ${duelStreak}`;
+      }
+
+      activeDuel = null;
+    };
+
+    duelStartBtn?.addEventListener("click", () => startConceptDuel());
+    duelChoiceA?.addEventListener("click", () => handleDuelAnswer(true));
+    duelChoiceB?.addEventListener("click", () => handleDuelAnswer(false));
+    cardA?.addEventListener("click", (e) => {
+      if (activeDuel && !e.target.closest("select") && !e.target.closest("button") && !e.target.closest(".card-drag-bar")) {
+        handleDuelAnswer(true);
+      }
+    });
+    cardB?.addEventListener("click", (e) => {
+      if (activeDuel && !e.target.closest("select") && !e.target.closest("button") && !e.target.closest(".card-drag-bar")) {
+        handleDuelAnswer(false);
+      }
+    });
+
+    // ================= AUDIO READ ALOUD (TTS) =================
+    const speakConcept = (side) => {
+      const data = getSelectedProperty(side);
+      if (!data || !data.prop || typeof window.speechSynthesis === "undefined") return;
+
+      window.speechSynthesis.cancel();
+      const text = `${data.prop.name}. ${data.prop.formula || ""}. Explanation: ${data.prop.explanation}. ${data.prop.trick || ""}. Real world example: ${data.prop.example || ""}`;
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.rate = 0.96;
+      utter.pitch = 1.0;
+
+      utter.onstart = () => {
+        this.dynamicIsland?.setMicPrivacy?.(true);
+      };
+      utter.onend = () => {
+        this.dynamicIsland?.setMicPrivacy?.(false);
+      };
+      utter.onerror = () => {
+        this.dynamicIsland?.setMicPrivacy?.(false);
+      };
+
+      window.speechSynthesis.speak(utter);
+      try {
+        if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+      } catch (_) {}
+    };
+
+    ttsBtnA?.addEventListener("click", () => speakConcept("a"));
+    ttsBtnB?.addEventListener("click", () => speakConcept("b"));
+
+    // Dropdown change events
+    unitSelectA?.addEventListener("change", () => populateConceptDropdown("a"));
+    conceptSelectA?.addEventListener("change", () => {
+      renderConceptCard("a");
+      updateContrastMatrix();
+    });
+
+    unitSelectB?.addEventListener("change", () => populateConceptDropdown("b"));
+    conceptSelectB?.addEventListener("change", () => {
+      renderConceptCard("b");
+      updateContrastMatrix();
+    });
+
+    // Traffic light window actions
+    trafficClose?.addEventListener("click", () => this.closeAppleSplitView());
+    trafficReset?.addEventListener("click", () => {
+      paneA.style.flex = "1 1 0";
+      paneB.style.flex = "1 1 0";
+      ratioBtns.forEach(b => b.classList.toggle("active", b.dataset.ratio === "50-50"));
+      snapToGrid();
+    });
+    trafficExpand?.addEventListener("click", () => {
+      windowEl.classList.toggle("is-fullscreen");
+      try {
+        if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+      } catch (_) {}
+    });
+
+    closeBtn?.addEventListener("click", () => this.closeAppleSplitView());
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) this.closeAppleSplitView();
+    });
+
+    // Wire navbar trigger button
+    document.getElementById("nav-btn-split-view")?.addEventListener("click", () => {
+      this.openAppleSplitView();
+    });
+
+    // Public Open / Close Methods
+    this.openAppleSplitView = (unitA = null, conceptA = null, unitB = null, conceptB = null) => {
+      populateUnitDropdowns();
+
+      if (unitA !== null) {
+        unitSelectA.value = String(unitA);
+        populateConceptDropdown("a");
+        if (conceptA !== null) conceptSelectA.value = String(conceptA);
+        renderConceptCard("a");
+      }
+
+      if (unitB !== null) {
+        unitSelectB.value = String(unitB);
+        populateConceptDropdown("b");
+        if (conceptB !== null) conceptSelectB.value = String(conceptB);
+        renderConceptCard("b");
+      }
+
+      updateContrastMatrix();
+      snapToGrid();
+      modal.classList.remove("hidden");
+
+      if (this.dynamicIsland?.trigger) {
+        this.dynamicIsland.trigger({
+          icon: "⚡",
+          title: "Apple Split View Active",
+          subtitle: "Stage Manager Dual Concept Lab • Drag to Arrange",
+          badge: "STAGE MGR",
+          actionText: "EXPLORE",
+          duration: 3200
+        });
+      }
+
+      try {
+        if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+      } catch (_) {}
+    };
+
+    this.closeAppleSplitView = () => {
+      modal.classList.add("hidden");
+      if (typeof window.speechSynthesis !== "undefined") {
+        window.speechSynthesis.cancel();
+      }
+      this.dynamicIsland?.setMicPrivacy?.(false);
+      try {
+        if (typeof sounds.playClick === "function") sounds.playClick();
+      } catch (_) {}
+    };
+  }
 }
+
 
 // ================= SCIENCE.IO AI CHATBOT =================
 class Chatbot {

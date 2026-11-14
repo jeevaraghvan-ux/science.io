@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=88.0">
+  <link rel="stylesheet" href="styles.css?v=89.0">
   <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -332,6 +332,10 @@
               <span class="travel-icon">⏱️</span>
               <span class="travel-name">Timer</span>
             </button>
+            <button type="button" class="mac-travel-pill" data-place="split" title="Open Apple Split View (Concept Duel & Comparator)">
+              <span class="travel-icon">⚡</span>
+              <span class="travel-name">Split View</span>
+            </button>
             <button type="button" class="mac-travel-pill" data-place="calc" title="Open Calculator">
               <span class="travel-icon">🧮</span>
               <span class="travel-name">Calc</span>
@@ -401,6 +405,7 @@
           <button class="nav-link" id="nav-btn-calc" data-scroll="calculator-section">CALCULATOR</button>
           <button class="nav-link" id="nav-btn-cards" title="Apple 3D Interactive Flashcards">CARDS</button>
           <button class="nav-link" id="nav-btn-ghost-recall" title="Cloze-Drift Ghost Recall Game">RECALL</button>
+          <button class="nav-link" id="nav-btn-split-view" title="Apple Split View: Science Concept Duel & Comparator">SPLIT VIEW</button>
         </div>
 
         <div class="nav-right" style="gap: 10px;">
@@ -2032,6 +2037,216 @@
     </div>
   </div>
 
+  <!-- ================= APPLE SPLIT VIEW: SCIENCE CONCEPT DUEL & COMPARATOR (STAGE MANAGER) ================= -->
+  <div id="apple-split-view-modal" class="modal-backdrop hidden" aria-modal="true" role="dialog">
+    <div class="modal-window glass-modal apple-split-window" id="apple-split-window">
+      <!-- Apple Window Header with macOS Traffic Lights & Presets -->
+      <div class="apple-split-header">
+        <div class="apple-split-title-group">
+          <div class="mac-traffic-lights" aria-hidden="true">
+            <span class="traffic-dot traffic-red" id="split-traffic-close" title="Close Split View (Esc)"></span>
+            <span class="traffic-dot traffic-yellow" id="split-traffic-reset" title="Reset 50:50 Split"></span>
+            <span class="traffic-dot traffic-green" id="split-traffic-expand" title="Toggle Full Window"></span>
+          </div>
+          <div class="apple-split-brand">
+            <span class="apple-split-logo-icon">⚡</span>
+            <span class="apple-split-title">APPLE SPLIT VIEW</span>
+            <span class="apple-split-badge">STAGE MANAGER</span>
+          </div>
+        </div>
+
+        <!-- Featured Matchup Presets Bar -->
+        <div class="split-presets-bar">
+          <span class="split-presets-label">MATCHUPS:</span>
+          <button type="button" class="split-preset-chip active" data-preset="plant-vs-animal">🌿 Plant vs 🐾 Animal</button>
+          <button type="button" class="split-preset-chip" data-preset="wall-vs-membrane">🧱 Wall vs 🚪 Membrane</button>
+          <button type="button" class="split-preset-chip" data-preset="artery-vs-vein">🩸 Artery vs 🔵 Vein</button>
+          <button type="button" class="split-preset-chip" data-preset="voluntary-vs-involuntary">💪 Voluntary vs ⚡ Involuntary</button>
+          <button type="button" class="split-preset-chip" data-preset="random">🔀 Surprise Matchup</button>
+        </div>
+
+        <!-- Freeform Mode & Snap Controls -->
+        <div class="split-mode-group">
+          <button type="button" class="split-mode-pill" id="split-mode-toggle" title="Toggle Freeform Move Mode">
+            <span class="mode-icon">🖐️</span>
+            <span id="split-mode-label">Freeform Move</span>
+          </button>
+          <button type="button" class="split-mode-pill" id="split-reset-layout-btn" title="Snap cards back to default columns">
+            <span>⊞ Snap to Grid</span>
+          </button>
+        </div>
+
+        <button type="button" class="modal-close-btn" id="split-close-btn" title="Close Split View (Esc)">&times;</button>
+      </div>
+
+      <!-- Split Arena Stage: Left Pane, Center Bridge/Divider, Right Pane -->
+      <div class="apple-split-arena" id="apple-split-arena">
+        <!-- PANE A (Left) -->
+        <div class="split-pane split-pane-a" id="split-pane-a">
+          <div class="split-pane-header">
+            <div class="split-pane-badge badge-a">CONCEPT A</div>
+            <div class="split-select-group">
+              <select id="split-unit-a" class="apple-split-select" title="Select Unit A"></select>
+              <select id="split-concept-a" class="apple-split-select concept-select" title="Select Concept A"></select>
+            </div>
+          </div>
+
+          <!-- Hero 3D Concept Card A (Draggable & Repositionable) -->
+          <div class="split-hero-card card-a" id="split-card-a">
+            <div class="card-drag-bar" id="drag-handle-a" title="Click and drag to move this note anywhere">
+              <span class="drag-dots">⠿</span>
+              <span class="drag-label">DRAG TO MOVE NOTE</span>
+              <span class="drag-coord" id="drag-coord-a">Auto Column</span>
+            </div>
+
+            <div class="split-card-top">
+              <span class="split-cat-tag" id="split-cat-a">LIFE SCIENCE</span>
+              <span class="split-num-pill" id="split-num-a">#1</span>
+            </div>
+            
+            <div class="split-card-hero-body">
+              <h3 class="split-concept-title" id="split-title-a">Chloroplast</h3>
+              <div class="split-formula-pill" id="split-formula-a">Photosynthesis Solar Power Plant</div>
+              
+              <div class="split-section-block">
+                <span class="split-section-label">TEACHER EXPLANATION</span>
+                <p class="split-section-text" id="split-desc-a">Converts light energy from the sun into sugars that can be used for energy in a process called photosynthesis.</p>
+              </div>
+
+              <div class="split-section-block highlight-trick">
+                <span class="split-section-label">💡 MEMORY TRICK</span>
+                <p class="split-section-text" id="split-trick-a">Memory Trick: Chloro = Green pigment, Plast = Factory!</p>
+              </div>
+
+              <div class="split-section-block highlight-example">
+                <span class="split-section-label">🔬 REAL-WORLD SCIENCE</span>
+                <p class="split-section-text" id="split-example-a">Acts like a micro solar panel inside green plant leaves...</p>
+              </div>
+            </div>
+
+            <div class="split-card-footer">
+              <button type="button" class="split-tts-btn" id="split-tts-a" title="Listen Aloud (Speech Synthesis)">
+                <span>🔊 Read Aloud</span>
+              </button>
+              <span class="split-side-indicator">LEFT PANE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CENTER APPLE SPLIT DIVIDER & DUEL BRIDGE -->
+        <div class="split-divider-bridge" id="split-divider-bridge">
+          <!-- Split Ratio Adjuster Pills -->
+          <div class="split-ratio-controls">
+            <button type="button" class="split-ratio-btn" data-ratio="30-70" title="30% Left / 70% Right">30:70</button>
+            <button type="button" class="split-ratio-btn active" data-ratio="50-50" title="Balanced 50:50 Split">50:50</button>
+            <button type="button" class="split-ratio-btn" data-ratio="70-30" title="70% Left / 30% Right">70:30</button>
+          </div>
+
+          <!-- Draggable Center Handle -->
+          <div class="split-handle-bar" id="split-handle-bar" title="Drag or click ratios to adjust split width">
+            <span class="split-handle-grip"></span>
+          </div>
+
+          <!-- Interactive Centerpiece: Swap & Quick Contrast Matrix -->
+          <div class="split-bridge-panel">
+            <button type="button" class="split-swap-btn" id="split-swap-btn" title="Swap Left and Right Concepts (⇄)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16">
+                <path d="M8 3L4 7l4 4M4 7h16M16 21l4-4-4-4M20 17H4"/>
+              </svg>
+              <span>SWAP SIDES</span>
+            </button>
+
+            <!-- Quick Contrast Matrix -->
+            <div class="split-contrast-matrix">
+              <div class="split-contrast-header">⚖️ QUICK CONTRAST</div>
+              <div class="split-contrast-row">
+                <span class="contrast-col-a" id="contrast-unit-a">Plant Cell</span>
+                <span class="contrast-divider">UNIT</span>
+                <span class="contrast-col-b" id="contrast-unit-b">Animal Cell</span>
+              </div>
+              <div class="split-contrast-row">
+                <span class="contrast-col-a" id="contrast-cat-a">Photosynthesis</span>
+                <span class="contrast-divider">FOCUS</span>
+                <span class="contrast-col-b" id="contrast-cat-b">Cellular Energy</span>
+              </div>
+            </div>
+
+            <!-- Concept Duel Interactive Challenge -->
+            <div class="split-duel-box" id="split-duel-box">
+              <div class="split-duel-top">
+                <span class="split-duel-label">🎯 CONCEPT DUEL</span>
+                <span class="split-streak-badge" id="split-streak-badge">🔥 Streak: 0</span>
+              </div>
+              <div class="split-duel-prompt" id="split-duel-prompt">
+                Tap <strong>Start Duel</strong> to test yourself on the difference between these two concepts!
+              </div>
+              <div class="split-duel-actions">
+                <button type="button" class="split-duel-btn" id="split-duel-start-btn">⚡ Start Duel</button>
+                <div class="split-duel-choices hidden" id="split-duel-choices">
+                  <button type="button" class="duel-choice-btn choice-a" id="duel-choice-a">Concept A</button>
+                  <button type="button" class="duel-choice-btn choice-b" id="duel-choice-b">Concept B</button>
+                </div>
+              </div>
+              <div class="split-duel-feedback hidden" id="split-duel-feedback"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE B (Right) -->
+        <div class="split-pane split-pane-b" id="split-pane-b">
+          <div class="split-pane-header">
+            <div class="split-pane-badge badge-b">CONCEPT B</div>
+            <div class="split-select-group">
+              <select id="split-unit-b" class="apple-split-select" title="Select Unit B"></select>
+              <select id="split-concept-b" class="apple-split-select concept-select" title="Select Concept B"></select>
+            </div>
+          </div>
+
+          <!-- Hero 3D Concept Card B (Draggable & Repositionable) -->
+          <div class="split-hero-card card-b" id="split-card-b">
+            <div class="card-drag-bar" id="drag-handle-b" title="Click and drag to move this note anywhere">
+              <span class="drag-dots">⠿</span>
+              <span class="drag-label">DRAG TO MOVE NOTE</span>
+              <span class="drag-coord" id="drag-coord-b">Auto Column</span>
+            </div>
+
+            <div class="split-card-top">
+              <span class="split-cat-tag" id="split-cat-b">LIFE SCIENCE</span>
+              <span class="split-num-pill" id="split-num-b">#3</span>
+            </div>
+            
+            <div class="split-card-hero-body">
+              <h3 class="split-concept-title" id="split-title-b">Mitochondria</h3>
+              <div class="split-formula-pill" id="split-formula-b">Cellular Respiration Powerhouse</div>
+              
+              <div class="split-section-block">
+                <span class="split-section-label">TEACHER EXPLANATION</span>
+                <p class="split-section-text" id="split-desc-b">Nicknamed the powerhouse of the cell because they provide energy for the cell. The site of cellular respiration.</p>
+              </div>
+
+              <div class="split-section-block highlight-trick">
+                <span class="split-section-label">💡 MEMORY TRICK</span>
+                <p class="split-section-text" id="split-trick-b">Memory Trick: Mighty Mitochondria makes ATP power!</p>
+              </div>
+
+              <div class="split-section-block highlight-example">
+                <span class="split-section-label">🔬 REAL-WORLD SCIENCE</span>
+                <p class="split-section-text" id="split-example-b">Functions like an engine generator inside your body cells...</p>
+              </div>
+            </div>
+
+            <div class="split-card-footer">
+              <button type="button" class="split-tts-btn" id="split-tts-b" title="Listen Aloud (Speech Synthesis)">
+                <span>🔊 Read Aloud</span>
+              </button>
+              <span class="split-side-indicator">RIGHT PANE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ================= SLEEK GLOBAL COMMAND HUD (Cmd+K / Ctrl+K) ================= -->
   <div id="command-hud-modal" class="command-hud-backdrop hidden" aria-modal="true" role="dialog">
     <div class="command-hud-window" id="command-hud-window">
@@ -2078,6 +2293,6 @@
   </div>
 
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=88.0"></script>
+  <script src="app.js?v=89.0"></script>
 </body>
 </html>
