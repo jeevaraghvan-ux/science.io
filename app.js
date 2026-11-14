@@ -2651,6 +2651,236 @@ const AudioStorage = {
   }
 };
 
+// ==========================================
+// AUDIO METADATA PARSER (ID3v1, ID3v2, M4A/AAC)
+// Extracts real full song title & artist from audio files
+// eliminating raw track numbers (e.g. "01", "1.mp3") in Dynamic Island
+// ==========================================
+const AudioMetadataParser = {
+  decodeString(bytes, encoding) {
+    if (!bytes || !bytes.length) return "";
+    try {
+      if (encoding === 0) { // ISO-8859-1 / Latin-1
+        let str = "";
+        for (let i = 0; i < bytes.length; i++) {
+          if (bytes[i] === 0) break;
+          str += String.fromCharCode(bytes[i]);
+        }
+        return str.trim();
+      } else if (encoding === 1) { // UTF-16 with BOM
+        if (bytes.length < 2) return "";
+        const isLE = !(bytes[0] === 0xfe && bytes[1] === 0xff);
+        const start = ((bytes[0] === 0xfe && bytes[1] === 0xff) || (bytes[0] === 0xff && bytes[1] === 0xfe)) ? 2 : 0;
+        let str = "";
+        for (let i = start; i + 1 < bytes.length; i += 2) {
+          const code = isLE ? bytes[i] | (bytes[i + 1] << 8) : (bytes[i] << 8) | bytes[i + 1];
+          if (code === 0) break;
+          str += String.fromCharCode(code);
+        }
+        return str.trim();
+      } else if (encoding === 2) { // UTF-16BE without BOM
+        let str = "";
+        for (let i = 0; i + 1 < bytes.length; i += 2) {
+          const code = (bytes[i] << 8) | bytes[i + 1];
+          if (code === 0) break;
+          str += String.fromCharCode(code);
+        }
+        return str.trim();
+      } else { // UTF-8
+        if (typeof TextDecoder !== "undefined") {
+          return new TextDecoder("utf-8").decode(bytes).replace(/\0.*$/g, "").trim();
+        }
+        let str = "";
+        for (let i = 0; i < bytes.length; i++) {
+          if (bytes[i] === 0) break;
+          str += String.fromCharCode(bytes[i]);
+        }
+        return str.trim();
+      }
+    } catch (_) {
+      return "";
+    }
+  },
+
+  cleanNoise(str) {
+    if (!str) return "";
+    return str
+      .replace(/\s*\[(?:official\s*(?:video|audio|lyric\s*video|music\s*video|visualizer|hd|hq)?|lyrics?|visualizer|remastered|audio|hq|hd|4k)\]/gi, "")
+      .replace(/\s*\((?:official\s*(?:video|audio|lyric\s*video|music\s*video|visualizer|hd|hq)?|lyrics?|visualizer|remastered|audio|hq|hd|4k)\)/gi, "")
+      .replace(/\s*-\s*official\s*(?:audio|video|lyrics?)/gi, "")
+      .replace(/\s{2,}/g, " ")
+      .trim();
+  },
+
+  parseID3v2(u8) {
+    if (!u8 || u8.length < 10) return null;
+    if (u8[0] !== 0x49 || u8[1] !== 0x44 || u8[2] !== 0x33) return null; // 'ID3'
+    const major = u8[3];
+    if (major < 2 || major > 4) return null;
+
+    const tagSize = ((u8[6] & 0x7f) << 21) | ((u8[7] & 0x7f) << 14) | ((u8[8] & 0x7f) << 7) | (u8[9] & 0x7f);
+    const end = Math.min(u8.length, 10 + tagSize);
+    let offset = 10;
+    const tags = {};
+
+    if (major === 2) {
+      while (offset + 6 <= end) {
+        if (u8[offset] === 0) break;
+        const frameId = String.fromCharCode(u8[offset], u8[offset + 1], u8[offset + 2]);
+        const frameSize = (u8[offset + 3] << 16) | (u8[offset + 4] << 8) | u8[offset + 5];
+        if (frameSize <= 0 || offset + 6 + frameSize > end) break;
+        const enc = u8[offset + 6];
+        const raw = u8.subarray(offset + 7, offset + 6 + frameSize);
+        tags[frameId] = this.decodeString(raw, enc);
+        offset += 6 + frameSize;
+      }
+    } else {
+      while (offset + 10 <= end) {
+        if (u8[offset] === 0) break;
+        const frameId = String.fromCharCode(u8[offset], u8[offset + 1], u8[offset + 2], u8[offset + 3]);
+        let frameSize = 0;
+        if (major === 4) {
+          frameSize = ((u8[offset + 4] & 0x7f) << 21) | ((u8[offset + 5] & 0x7f) << 14) | ((u8[offset + 6] & 0x7f) << 7) | (u8[offset + 7] & 0x7f);
+        } else {
+          frameSize = (u8[offset + 4] << 24) | (u8[offset + 5] << 16) | (u8[offset + 6] << 8) | u8[offset + 7];
+        }
+        if (frameSize <= 0 || offset + 10 + frameSize > end) break;
+        const enc = u8[offset + 10];
+        const raw = u8.subarray(offset + 11, offset + 10 + frameSize);
+        tags[frameId] = this.decodeString(raw, enc);
+        offset += 10 + frameSize;
+      }
+    }
+
+    const title = tags["TIT2"] || tags["TT2"] || tags["TIT1"] || tags["TIT3"] || "";
+    const artist = tags["TPE1"] || tags["TP1"] || tags["TPE2"] || "";
+    return { title, artist };
+  },
+
+  parseID3v1(u8) {
+    if (!u8 || u8.length < 128) return null;
+    const start = u8.length - 128;
+    if (u8[start] !== 0x54 || u8[start + 1] !== 0x41 || u8[start + 2] !== 0x47) return null; // 'TAG'
+    const titleBytes = u8.subarray(start + 3, start + 33);
+    const artistBytes = u8.subarray(start + 33, start + 63);
+    const title = this.decodeString(titleBytes, 0);
+    const artist = this.decodeString(artistBytes, 0);
+    return { title, artist };
+  },
+
+  parseM4A(u8) {
+    if (!u8 || u8.length < 32) return null;
+    const searchAtom = (fourCC) => {
+      for (let i = 0; i < u8.length - 24; i++) {
+        if (u8[i] === fourCC[0] && u8[i + 1] === fourCC[1] && u8[i + 2] === fourCC[2] && u8[i + 3] === fourCC[3]) {
+          let atomLen = (u8[i - 4] << 24) | (u8[i - 3] << 16) | (u8[i - 2] << 8) | u8[i - 1];
+          if (atomLen <= 8 || atomLen > 10000) atomLen = 512;
+          for (let j = i + 4; j < i + atomLen && j < u8.length - 16; j++) {
+            if (u8[j] === 0x64 && u8[j + 1] === 0x61 && u8[j + 2] === 0x74 && u8[j + 3] === 0x61) { // 'data'
+              const dataLen = (u8[j - 4] << 24) | (u8[j - 3] << 16) | (u8[j - 2] << 8) | u8[j - 1];
+              const textStart = j + 12;
+              const textLen = Math.max(0, dataLen - 16);
+              if (textStart + textLen <= u8.length) {
+                const raw = u8.subarray(textStart, textStart + textLen);
+                return this.decodeString(raw, 3);
+              }
+            }
+          }
+        }
+      }
+      return "";
+    };
+    const title = searchAtom([0xa9, 0x6e, 0x61, 0x6d]); // ©nam
+    const artist = searchAtom([0xa9, 0x41, 0x52, 0x54]); // ©ART
+    return { title, artist };
+  },
+
+  cleanFilename(fileName) {
+    if (!fileName) return "";
+    let name = fileName.replace(/\.[^/.]+$/, "").trim();
+    name = name.replace(/_/g, " ");
+    // Remove leading track numbers: '01 - ', '01. ', '1 - ', 'Track 01 - ', '[01] ', '01_ '
+    name = name.replace(/^(\d{1,3}[\s.\-_]+|track\s*\d+[\s.\-_]+|\[\d+\][\s.\-_]*)/i, "").trim();
+    name = this.cleanNoise(name);
+    return name;
+  },
+
+  async parseAudioFile(fileOrBlob, fileName = "") {
+    const fallbackName = fileName || (fileOrBlob && fileOrBlob.name) || "";
+    let title = "";
+    let artist = "";
+
+    try {
+      if (fileOrBlob && typeof fileOrBlob.slice === "function") {
+        const headBlob = fileOrBlob.slice(0, 262144);
+        const headBuffer = await headBlob.arrayBuffer();
+        const headU8 = new Uint8Array(headBuffer);
+
+        // 1. Try ID3v2
+        const v2 = this.parseID3v2(headU8);
+        if (v2 && (v2.title || v2.artist)) {
+          title = v2.title || "";
+          artist = v2.artist || "";
+        }
+
+        // 2. Try M4A / AAC if not found
+        if (!title && !artist) {
+          const m4a = this.parseM4A(headU8);
+          if (m4a && (m4a.title || m4a.artist)) {
+            title = m4a.title || "";
+            artist = m4a.artist || "";
+          }
+        }
+
+        // 3. Try ID3v1 at end of file if still not found
+        if (!title && fileOrBlob.size > 128) {
+          const tailBlob = fileOrBlob.slice(-128);
+          const tailBuffer = await tailBlob.arrayBuffer();
+          const tailU8 = new Uint8Array(tailBuffer);
+          const v1 = this.parseID3v1(tailU8);
+          if (v1 && (v1.title || v1.artist)) {
+            title = v1.title || "";
+            artist = v1.artist || "";
+          }
+        }
+      }
+    } catch (e) {
+      console.warn("Audio metadata parse notice:", e);
+    }
+
+    title = this.cleanNoise(title);
+    artist = this.cleanNoise(artist);
+
+    // If metadata tags gave us a title
+    if (title) {
+      if (artist && !title.toLowerCase().includes(artist.toLowerCase())) {
+        return `${artist} - ${title}`;
+      }
+      return title;
+    }
+
+    // Fallback: clean filename
+    let cleaned = this.cleanFilename(fallbackName);
+
+    // If cleaned filename is still purely numeric (e.g. "01" or "1")
+    if (!cleaned || /^\d+$/.test(cleaned)) {
+      if (typeof window !== "undefined" && typeof window.prompt === "function") {
+        try {
+          const userEntered = window.prompt(`Detected audio track "${fallbackName}". What is the song title?`, "");
+          if (userEntered && userEntered.trim()) {
+            return userEntered.trim();
+          }
+        } catch (_) {}
+      }
+      if (/^\d+$/.test(cleaned)) {
+        return `Custom Track ${cleaned}`;
+      }
+    }
+
+    return cleaned || "Custom Audio Track";
+  }
+};
+
 // Preset library
 const MUSIC_PRESETS = {
   anthem: {
@@ -2721,8 +2951,16 @@ class BackgroundMusicManager {
       const storedTrack = await AudioStorage.getTrack("active_custom_track");
       if (storedTrack && storedTrack.blob) {
         this.customBlobUrl = URL.createObjectURL(storedTrack.blob);
+        let trackName = storedTrack.name;
+        // Re-parse if stored name is missing or is just a track number from legacy upload
+        if (!trackName || /^\d+$/.test(trackName.trim()) || /^custom\s*track\s*\d*$/i.test(trackName.trim())) {
+          try {
+            const parsed = await AudioMetadataParser.parseAudioFile(storedTrack.blob, storedTrack.name || "custom.mp3");
+            if (parsed) trackName = parsed;
+          } catch (_) {}
+        }
         this.currentTrack = {
-          name: storedTrack.name || "Custom Uploaded Track",
+          name: trackName || "Custom Uploaded Track",
           source: "custom",
           url: this.customBlobUrl
         };
@@ -2940,7 +3178,7 @@ class BackgroundMusicManager {
     });
   }
 
-  handleFileSelected(file) {
+  async handleFileSelected(file) {
     if (!file || !file.type.startsWith("audio/")) {
       alert("Please select a valid audio file (MP3, WAV, OGG, M4A, etc.)");
       return;
@@ -2951,13 +3189,20 @@ class BackgroundMusicManager {
     const sizeEl = document.getElementById("selected-audio-size");
     const saveBtn = document.getElementById("btn-save-uploaded-music");
 
-    if (nameEl) nameEl.textContent = file.name;
+    let displayTitle = file.name;
+    try {
+      displayTitle = await AudioMetadataParser.parseAudioFile(file, file.name);
+    } catch (_) {
+      displayTitle = AudioMetadataParser.cleanFilename(file.name);
+    }
+
+    if (nameEl) nameEl.textContent = displayTitle;
     if (sizeEl) sizeEl.textContent = `(${(file.size / (1024 * 1024)).toFixed(2)} MB)`;
     if (filePill) filePill.classList.remove("hidden");
     if (saveBtn) saveBtn.disabled = false;
   }
 
-  async playCustomUploadedFile(file) {
+  async playCustomUploadedFile(file, customTitle = null) {
     if (!file) return;
 
     // Immediately stop whatever audio is playing
@@ -2967,10 +3212,15 @@ class BackgroundMusicManager {
       } catch (_) {}
     }
 
-    const cleanTitle = file.name
-      .replace(/\.[^/.]+$/, "")
-      .replace(/_/g, " ")
-      .trim() || "Custom Uploaded Song";
+    let cleanTitle = customTitle;
+    if (!cleanTitle) {
+      try {
+        cleanTitle = await AudioMetadataParser.parseAudioFile(file, file.name);
+      } catch (_) {
+        cleanTitle = AudioMetadataParser.cleanFilename(file.name);
+      }
+    }
+    if (!cleanTitle) cleanTitle = "Custom Uploaded Song";
 
     // 1. Save to local IndexedDB for permanent persistence across refreshes
     try {
@@ -3068,9 +3318,15 @@ class BackgroundMusicManager {
     }
 
     try {
-      await this.playCustomUploadedFile(file);
+      let cleanTitle = "";
+      try {
+        cleanTitle = await AudioMetadataParser.parseAudioFile(file, file.name);
+      } catch (_) {
+        cleanTitle = AudioMetadataParser.cleanFilename(file.name);
+      }
+      await this.playCustomUploadedFile(file, cleanTitle);
       sounds.playSuccess();
-      alert(`🎉 Background music successfully set to "${file.name}"! It is now playing in the background for all study sessions.`);
+      alert(`🎉 Background music successfully set to "${cleanTitle}"! It is now playing in the background for all study sessions.`);
       this.updateUI();
     } catch (err) {
       alert(`⚠️ Failed to set background audio: ${err.message}`);
@@ -12252,16 +12508,19 @@ class ScienceIoApp {
         clearInterval(customAudioInterval);
       }
 
-      const cleanName = file.name
-        .replace(/\.[^/.]+$/, "")
-        .replace(/_/g, " ")
-        .trim() || "Custom Audio";
+      let cleanName = "";
+      try {
+        cleanName = await AudioMetadataParser.parseAudioFile(file, file.name);
+      } catch (_) {
+        cleanName = AudioMetadataParser.cleanFilename(file.name);
+      }
+      if (!cleanName) cleanName = "Custom Audio";
 
       // 1. Automatically stop Am I Wrong / default anthem and play custom uploaded track on background player
       if (window.bgMusic && typeof window.bgMusic.playCustomUploadedFile === "function") {
-        await window.bgMusic.playCustomUploadedFile(file);
+        await window.bgMusic.playCustomUploadedFile(file, cleanName);
       } else if (bgMusic && typeof bgMusic.playCustomUploadedFile === "function") {
-        await bgMusic.playCustomUploadedFile(file);
+        await bgMusic.playCustomUploadedFile(file, cleanName);
       }
 
       appendTerminalLine(`🎵 Now Playing: "${cleanName}"`, "command-result");
@@ -13343,12 +13602,18 @@ class ScienceIoApp {
       const isCustom = current && (current.source === "custom" || current.source === "custom_upload" || current.source === "remote_sync");
 
       if (isCustom && rawTitle) {
-        const cleanTitle = rawTitle
+        let cleanTitle = rawTitle
           .replace(/\.mp3$/i, "")
           .replace(/\.[^/.]+$/, "")
           .replace(/\s*\[.*?\]|\s*\(.*?\)/g, "")
           .replace(/_/g, " ")
           .trim() || "Custom Track";
+
+        // Strip leading track numbers e.g. "01 - ", "01. ", "Track 01 - ", "[01] ", "01_ "
+        cleanTitle = cleanTitle.replace(/^(\d{1,3}[\s.\-_]+|track\s*\d+[\s.\-_]+|\[\d+\][\s.\-_]*)/i, "").trim() || cleanTitle;
+        if (/^\d+$/.test(cleanTitle)) {
+          cleanTitle = `Custom Track ${cleanTitle}`;
+        }
 
         const isPlaying = bgAudio && !bgAudio.paused && !bgAudio.muted;
         const subtitle = `Custom Audio • ${isPlaying ? "Playing" : "Paused"}`;
