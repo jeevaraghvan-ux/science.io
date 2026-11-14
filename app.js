@@ -2957,6 +2957,109 @@ class BackgroundMusicManager {
     if (saveBtn) saveBtn.disabled = false;
   }
 
+  async playCustomUploadedFile(file) {
+    if (!file) return;
+
+    // Immediately stop whatever audio is playing
+    if (this.audio) {
+      try {
+        this.audio.pause();
+      } catch (_) {}
+    }
+
+    const cleanTitle = file.name
+      .replace(/\.[^/.]+$/, "")
+      .replace(/_/g, " ")
+      .trim() || "Custom Uploaded Song";
+
+    // 1. Save to local IndexedDB for permanent persistence across refreshes
+    try {
+      await AudioStorage.saveTrack("active_custom_track", file, {
+        name: cleanTitle,
+        size: file.size,
+        type: file.type
+      });
+    } catch (e) {
+      console.warn("AudioStorage save notice:", e);
+    }
+
+    // 2. Revoke previous blob if any
+    if (this.customBlobUrl) {
+      URL.revokeObjectURL(this.customBlobUrl);
+      this.customBlobUrl = null;
+    }
+
+    this.customBlobUrl = URL.createObjectURL(file);
+    this.currentTrack = {
+      name: cleanTitle,
+      rawName: file.name,
+      source: "custom_upload",
+      url: this.customBlobUrl
+    };
+
+    if (!this.audio) {
+      this.audio = document.getElementById("bg-music-player") || new Audio(this.customBlobUrl);
+      this.audio.id = "bg-music-player";
+      this.audio.loop = true;
+      document.body.appendChild(this.audio);
+    }
+
+    this.audio.src = this.customBlobUrl;
+    this.audio.currentTime = 0;
+    this.hasStarted = true;
+    this.isMuted = false;
+    sounds.enabled = true;
+    localStorage.setItem("scienceio_sound_muted", "false");
+
+    try {
+      await this.audio.play();
+    } catch (err) {
+      console.warn("Custom audio play notice:", err);
+    }
+
+    this.updateUI();
+
+    // Trigger Dynamic Island immediately with custom song name
+    if (window.app?.dynamicIsland) {
+      if (typeof window.app.dynamicIsland.trigger === "function") {
+        window.app.dynamicIsland.trigger({
+          icon: "🎵",
+          title: cleanTitle,
+          subtitle: "Custom Audio • Now Playing",
+          badge: "CUSTOM",
+          actionText: "CONTROLS",
+          showEqualizer: true,
+          isPlaying: true,
+          duration: 4000,
+          action: () => {
+            if (typeof window.app.dynamicIsland.openMacDeck === "function") {
+              window.app.dynamicIsland.openMacDeck();
+            }
+          }
+        });
+      }
+      if (typeof window.app.dynamicIsland.syncMusic === "function") {
+        window.app.dynamicIsland.syncMusic(cleanTitle, true);
+      }
+    }
+
+    // Background sync metadata to Firestore
+    const musicConfig = {
+      trackName: cleanTitle,
+      trackSource: "custom_upload",
+      audioUrl: "custom_upload",
+      fileSize: file.size,
+      updated_at: new Date().toISOString()
+    };
+    if (file.size <= 700 * 1024) {
+      try {
+        const base64 = await this.fileToBase64(file);
+        musicConfig.audioData = base64;
+      } catch (_) {}
+    }
+    await this.syncToFirestore(musicConfig);
+  }
+
   async applyUploadedFile(file) {
     const saveBtn = document.getElementById("btn-save-uploaded-music");
     if (saveBtn) {
@@ -2965,50 +3068,7 @@ class BackgroundMusicManager {
     }
 
     try {
-      // 1. Save to local IndexedDB
-      await AudioStorage.saveTrack("active_custom_track", file, {
-        name: file.name,
-        size: file.size,
-        type: file.type
-      });
-
-      // 2. Revoke previous blob if any
-      if (this.customBlobUrl) {
-        URL.revokeObjectURL(this.customBlobUrl);
-      }
-
-      this.customBlobUrl = URL.createObjectURL(file);
-      this.currentTrack = {
-        name: file.name,
-        source: "custom_upload",
-        url: this.customBlobUrl
-      };
-
-      if (this.audio) {
-        this.audio.src = this.customBlobUrl;
-        this.audio.currentTime = 0;
-        await this.play(true);
-      }
-
-      // 3. Sync metadata to Firestore
-      const musicConfig = {
-        trackName: file.name,
-        trackSource: "custom_upload",
-        audioUrl: "custom_upload",
-        fileSize: file.size,
-        updated_at: new Date().toISOString()
-      };
-
-      // If file is <= 700KB, base64 sync directly into Firestore
-      if (file.size <= 700 * 1024) {
-        try {
-          const base64 = await this.fileToBase64(file);
-          musicConfig.audioData = base64;
-        } catch (e) {}
-      }
-
-      await this.syncToFirestore(musicConfig);
-
+      await this.playCustomUploadedFile(file);
       sounds.playSuccess();
       alert(`🎉 Background music successfully set to "${file.name}"! It is now playing in the background for all study sessions.`);
       this.updateUI();
@@ -12180,7 +12240,7 @@ class ScienceIoApp {
     let currentCustomAudio = null;
     let customAudioInterval = null;
 
-    const setupCustomMusicPlayer = (file) => {
+    const setupCustomMusicPlayer = async (file) => {
       if (!file) return;
       if (!file.type.startsWith("audio/")) {
         appendTerminalLine("Error: Please select a valid audio file (.mp3, .wav, .m4a, .ogg).");
@@ -12188,13 +12248,25 @@ class ScienceIoApp {
       }
 
       if (currentCustomAudio) {
-        currentCustomAudio.pause();
+        try { currentCustomAudio.pause(); } catch (_) {}
         clearInterval(customAudioInterval);
       }
 
-      const fileUrl = URL.createObjectURL(file);
-      currentCustomAudio = new Audio(fileUrl);
-      currentCustomAudio.volume = 0.8;
+      const cleanName = file.name
+        .replace(/\.[^/.]+$/, "")
+        .replace(/_/g, " ")
+        .trim() || "Custom Audio";
+
+      // 1. Automatically stop Am I Wrong / default anthem and play custom uploaded track on background player
+      if (window.bgMusic && typeof window.bgMusic.playCustomUploadedFile === "function") {
+        await window.bgMusic.playCustomUploadedFile(file);
+      } else if (bgMusic && typeof bgMusic.playCustomUploadedFile === "function") {
+        await bgMusic.playCustomUploadedFile(file);
+      }
+
+      appendTerminalLine(`🎵 Now Playing: "${cleanName}"`, "command-result");
+      appendTerminalLine(`✓ Study anthem stopped. Background music set to "${cleanName}".`, "terminal-muted");
+      appendTerminalLine(`✓ Mac Dynamic Island updated with real-time scrubber and controls!`, "terminal-muted");
 
       const card = document.createElement("div");
       card.className = "terminal-audio-card";
@@ -12203,7 +12275,7 @@ class ScienceIoApp {
           <span>🎵 CUSTOM CYBER AUDIO</span>
           <span class="terminal-audio-time" id="terminal-audio-timer">0:00 / 0:00</span>
         </div>
-        <div class="terminal-audio-track">File: <strong>${file.name}</strong> (${(file.size / 1024 / 1024).toFixed(2)} MB)</div>
+        <div class="terminal-audio-track">Track: <strong>${cleanName}</strong> (${(file.size / 1024 / 1024).toFixed(2)} MB)</div>
         <div class="terminal-audio-controls">
           <button type="button" class="terminal-audio-btn" id="terminal-btn-playpause">⏸️ Pause</button>
           <button type="button" class="terminal-audio-btn" id="terminal-btn-stop" style="background:#ff7a3d; color:#0c0d0b;">⏹️ Stop</button>
@@ -12233,51 +12305,43 @@ class ScienceIoApp {
         return `${m}:${s < 10 ? "0" : ""}${s}`;
       };
 
-      currentCustomAudio.play().then(() => {
-        showToast("🎵 Playing: " + file.name);
-        sounds.playCoin();
-      }).catch((e) => {
-        appendTerminalLine("Autoplay blocked. Click Play to start listening.");
-        if (playPauseBtn) playPauseBtn.textContent = "▶️ Play";
-        bars.forEach(b => b.classList.remove("playing"));
-      });
+      showToast("🎵 Playing: " + cleanName);
+      sounds.playCoin();
 
+      const bgAudio = document.getElementById("bg-music-player");
       customAudioInterval = setInterval(() => {
-        if (!currentCustomAudio) return;
-        const cur = formatTime(currentCustomAudio.currentTime);
-        const dur = formatTime(currentCustomAudio.duration || 0);
+        if (!bgAudio) return;
+        const cur = formatTime(bgAudio.currentTime);
+        const dur = formatTime(bgAudio.duration || 0);
         if (timerEl) timerEl.textContent = `${cur} / ${dur}`;
-      }, 500);
+        const isPlaying = !bgAudio.paused;
+        if (playPauseBtn) playPauseBtn.textContent = isPlaying ? "⏸️ Pause" : "▶️ Play";
+        bars.forEach(b => b.classList.toggle("playing", isPlaying));
+      }, 400);
 
       playPauseBtn?.addEventListener("click", () => {
         sounds.playClick();
-        if (currentCustomAudio.paused) {
-          currentCustomAudio.play();
-          playPauseBtn.textContent = "⏸️ Pause";
-          bars.forEach(b => b.classList.add("playing"));
-        } else {
-          currentCustomAudio.pause();
-          playPauseBtn.textContent = "▶️ Play";
-          bars.forEach(b => b.classList.remove("playing"));
+        if (window.bgMusic && typeof window.bgMusic.toggle === "function") {
+          window.bgMusic.toggle();
+        } else if (bgAudio) {
+          if (bgAudio.paused) bgAudio.play().catch(() => {});
+          else bgAudio.pause();
         }
       });
 
       stopBtn?.addEventListener("click", () => {
         sounds.playClick();
-        currentCustomAudio.pause();
-        currentCustomAudio.currentTime = 0;
-        playPauseBtn.textContent = "▶️ Play";
+        if (bgAudio) {
+          bgAudio.pause();
+          bgAudio.currentTime = 0;
+        }
+        if (playPauseBtn) playPauseBtn.textContent = "▶️ Play";
         bars.forEach(b => b.classList.remove("playing"));
       });
 
       reuploadBtn?.addEventListener("click", () => {
         sounds.playClick();
         customAudioFileInput?.click();
-      });
-
-      currentCustomAudio.addEventListener("ended", () => {
-        playPauseBtn.textContent = "▶️ Replay";
-        bars.forEach(b => b.classList.remove("playing"));
       });
     };
 
@@ -12299,7 +12363,7 @@ class ScienceIoApp {
       if (terminalOutput) {
         const line = document.createElement("div");
         line.className = "command-line";
-        const sanitized = raw.replace(/[&<>'"]/g, tag => ({
+        const sanitized = raw.replace(/[&<>'\"]/g, tag => ({
           '&': '&amp;',
           '<': '&lt;',
           '>': '&gt;',
@@ -12352,42 +12416,17 @@ class ScienceIoApp {
         appendTerminalLine("🎵 SECRET MUSIC STUDIO & UPLOADER UNLOCKED", "command-result");
         appendTerminalLine("Secret Code Validated! Upload your own audio file (.mp3, .wav, .m4a, .ogg) to play on skience.io:", "terminal-muted");
         
-        const btnRow = document.createElement("div");
-        btnRow.style.display = "flex";
-        btnRow.style.gap = "8px";
-        btnRow.style.flexWrap = "wrap";
-        btnRow.style.marginTop = "8px";
-
         const uploadBtn = document.createElement("button");
         uploadBtn.type = "button";
         uploadBtn.className = "terminal-audio-btn";
+        uploadBtn.style.marginTop = "8px";
         uploadBtn.textContent = "📁 Select Music File";
         uploadBtn.addEventListener("click", () => {
           sounds.playClick();
           customAudioFileInput?.click();
         });
 
-        const vaultMusicBtn = document.createElement("button");
-        vaultMusicBtn.type = "button";
-        vaultMusicBtn.className = "terminal-audio-btn";
-        vaultMusicBtn.style.background = "#9d4edd";
-        vaultMusicBtn.style.color = "#ffffff";
-        vaultMusicBtn.textContent = "🔐 Open Vault Music Studio (PIN: 252525)";
-        vaultMusicBtn.addEventListener("click", () => {
-          sounds.playVaultRedirect();
-          document.getElementById("projects-modal")?.classList.add("hidden");
-          if (window.app && window.app.vault) {
-            window.app.vault.isUnlocked = true;
-            window.app.vault.open();
-            if (typeof window.app.vault.switchTab === "function") {
-              window.app.vault.switchTab("music");
-            }
-          }
-        });
-
-        btnRow.appendChild(uploadBtn);
-        btnRow.appendChild(vaultMusicBtn);
-        terminalOutput?.appendChild(btnRow);
+        terminalOutput?.appendChild(uploadBtn);
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
         customAudioFileInput?.click();
@@ -13301,6 +13340,26 @@ class ScienceIoApp {
         } catch (_) {}
       }
 
+      const isCustom = current && (current.source === "custom" || current.source === "custom_upload" || current.source === "remote_sync");
+
+      if (isCustom && rawTitle) {
+        const cleanTitle = rawTitle
+          .replace(/\.mp3$/i, "")
+          .replace(/\.[^/.]+$/, "")
+          .replace(/\s*\[.*?\]|\s*\(.*?\)/g, "")
+          .replace(/_/g, " ")
+          .trim() || "Custom Track";
+
+        const isPlaying = bgAudio && !bgAudio.paused && !bgAudio.muted;
+        const subtitle = `Custom Audio • ${isPlaying ? "Playing" : "Paused"}`;
+        return {
+          title: cleanTitle,
+          subtitle,
+          isPlaying,
+          rawTitle
+        };
+      }
+
       if (!rawTitle || rawTitle === "Custom Track") {
         rawTitle = "Am I Wrong";
       }
@@ -13569,25 +13628,50 @@ class ScienceIoApp {
       setTimeout(syncMacDeckUI, 60);
     });
 
-    // Mac Next Track / Preset Button
+    // Mac Next Track / Preset Button (Fast Forward for Custom Songs)
     macNextBtn?.addEventListener("click", (e) => {
       e.stopPropagation();
-      const presets = Object.keys(MUSIC_PRESETS);
-      if (window.bgMusic && presets.length > 0) {
-        const curPreset = window.bgMusic.currentTrack?.presetKey || "anthem";
-        const curIdx = presets.indexOf(curPreset);
-        const nextIdx = (curIdx + 1) % presets.length;
-        const nextKey = presets[nextIdx];
-        window.bgMusic.selectPreset(nextKey);
-        setTimeout(syncMacDeckUI, 120);
+      const bgAudio = document.getElementById("bg-music-player");
+      const current = window.bgMusic?.currentTrack || bgMusic?.currentTrack;
+      const isCustom = current && (current.source === "custom" || current.source === "custom_upload");
+
+      if (isCustom && bgAudio && bgAudio.duration) {
+        bgAudio.currentTime = Math.min(bgAudio.duration, bgAudio.currentTime + 10);
+        syncMacDeckUI();
+        try {
+          if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+        } catch (_) {}
+      } else {
+        const presets = Object.keys(MUSIC_PRESETS);
+        if (window.bgMusic && presets.length > 0) {
+          const curPreset = window.bgMusic.currentTrack?.presetKey || "anthem";
+          const curIdx = presets.indexOf(curPreset);
+          const nextIdx = (curIdx + 1) % presets.length;
+          const nextKey = presets[nextIdx];
+          window.bgMusic.selectPreset(nextKey);
+          setTimeout(syncMacDeckUI, 120);
+        }
       }
     });
 
-    // Mac Prev Track / Restart Button
+    // Mac Prev Track / Restart Button (Rewind for Custom Songs)
     macPrevBtn?.addEventListener("click", (e) => {
       e.stopPropagation();
       const bgAudio = document.getElementById("bg-music-player");
-      if (bgAudio && bgAudio.currentTime > 3) {
+      const current = window.bgMusic?.currentTrack || bgMusic?.currentTrack;
+      const isCustom = current && (current.source === "custom" || current.source === "custom_upload");
+
+      if (isCustom && bgAudio) {
+        if (bgAudio.currentTime > 3) {
+          bgAudio.currentTime = Math.max(0, bgAudio.currentTime - 10);
+        } else {
+          bgAudio.currentTime = 0;
+        }
+        syncMacDeckUI();
+        try {
+          if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+        } catch (_) {}
+      } else if (bgAudio && bgAudio.currentTime > 3) {
         bgAudio.currentTime = 0;
         bgAudio.play().catch(() => {});
         syncMacDeckUI();
@@ -13663,13 +13747,18 @@ class ScienceIoApp {
             }
             break;
           case "studio":
-            if (this.vault) {
-              this.vault.open();
-              if (typeof this.vault.switchTab === "function") {
-                this.vault.switchTab("music");
+            const meStudioModal = document.getElementById("projects-modal");
+            if (meStudioModal) {
+              meStudioModal.classList.remove("hidden");
+              if (typeof this.playAllAboutMeBootLoader === "function") {
+                this.playAllAboutMeBootLoader();
               }
-            } else {
-              document.getElementById("vault-modal")?.classList.remove("hidden");
+              setTimeout(() => {
+                const termInput = document.getElementById("me-terminal-command");
+                const termCard = document.getElementById("me-mac-terminal") || document.querySelector(".terminal-window-mac");
+                if (termCard) termCard.scrollIntoView({ behavior: "smooth" });
+                if (termInput) termInput.focus();
+              }, 300);
             }
             break;
           case "top":
