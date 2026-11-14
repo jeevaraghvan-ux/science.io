@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=81.0">
+  <link rel="stylesheet" href="styles.css?v=82.0">
   <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -53,7 +53,7 @@
 
   <div id="mouse-spotlight"></div>
 
-  <!-- Background Music Player (Default: AfterParty) -->
+  <!-- Background Music Player (Default: Am I Wrong) -->
   <audio id="bg-music-player" loop preload="auto" src="background-music.mp3"></audio>
 
   <!-- Floating Study Music Toast / Indicator -->
@@ -63,7 +63,7 @@
     </div>
     <div class="toast-content">
       <span class="toast-label">BACKGROUND STUDY MUSIC</span>
-      <span class="toast-title" id="toast-music-title">AfterParty</span>
+      <span class="toast-title" id="toast-music-title">Am I Wrong</span>
     </div>
     <button type="button" class="toast-toggle-btn" id="toast-music-toggle-btn" title="Toggle Music Play/Pause">
       <span id="toast-icon">⏸️</span>
@@ -212,7 +212,7 @@
               <span class="mac-art-icon" id="mac-art-icon">🎵</span>
             </div>
             <div class="mac-deck-info">
-              <span class="mac-deck-title" id="mac-deck-title">AfterParty</span>
+              <span class="mac-deck-title" id="mac-deck-title">Am I Wrong</span>
               <span class="mac-deck-sub" id="mac-deck-sub">Background Audio • Playing</span>
             </div>
           </div>
@@ -354,7 +354,7 @@
             </svg>
           </button>
           
-          <button class="nav-icon-btn" id="btn-music-toggle" title="Background Study Music (AfterParty)" style="color: var(--neon-purple);">
+          <button class="nav-icon-btn" id="btn-music-toggle" title="Background Study Music (Am I Wrong)" style="color: var(--neon-purple);">
             <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M9 18V5l12-2v13"></path>
               <circle cx="6" cy="18" r="3"></circle>
@@ -992,6 +992,7 @@
                 <button type="button" data-command="help"><span class="term-key">⌘4</span> help</button>
                 <button type="button" data-command="wforge"><span class="term-key">⌘5</span> wforge</button>
                 <button type="button" data-command="quote"><span class="term-key">⌘6</span> quote 📜</button>
+                <button type="button" data-command="music"><span class="term-key">⌘7</span> music 🎵</button>
               </div>
             </div>
 
@@ -1576,7 +1577,7 @@
                 <div class="music-active-track-header">
                   <div class="music-track-meta">
                     <span class="music-badge" id="admin-music-badge">ACTIVE BACKGROUND MUSIC</span>
-                    <h3 id="admin-music-track-title">AfterParty</h3>
+                    <h3 id="admin-music-track-title">Am I Wrong</h3>
                     <p id="admin-music-source-desc">Playing in background for all visitors during science study sessions</p>
                   </div>
                   <div class="music-status-indicator active" id="admin-music-status-indicator">
@@ -1660,8 +1661,8 @@
                   <button type="button" class="btn-modal-action primary" id="btn-save-uploaded-music" disabled>
                     <span>🚀 Apply &amp; Set as Website Background Music</span>
                   </button>
-                  <button type="button" class="btn-modal-action secondary" id="btn-reset-default-music" title="Restore original AfterParty">
-                    <span>🔄 Reset to Default Anthem (AfterParty)</span>
+                  <button type="button" class="btn-modal-action secondary" id="btn-reset-default-music" title="Restore original Am I Wrong">
+                    <span>🔄 Reset to Default Anthem (Am I Wrong)</span>
                   </button>
                 </div>
               </div>
@@ -1678,7 +1679,7 @@
                     <div class="preset-badge">Default Study Anthem</div>
                     <div class="preset-icon">🌟</div>
                     <div class="preset-info">
-                      <h5>AfterParty</h5>
+                      <h5>Am I Wrong</h5>
                       <span>Official Study Anthem (High Energy)</span>
                     </div>
                     <button type="button" class="btn-preset-select" data-track="anthem">Select Track</button>
@@ -1853,6 +1854,6 @@
   </div>
 
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=81.0"></script>
+  <script src="app.js?v=82.0"></script>
 </body>
 </html>

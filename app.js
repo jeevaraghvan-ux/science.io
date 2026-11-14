@@ -2655,7 +2655,7 @@ const AudioStorage = {
 const MUSIC_PRESETS = {
   anthem: {
     id: "anthem",
-    name: "AfterParty",
+    name: "Am I Wrong",
     source: "default",
     url: "background-music.mp3",
     desc: "Official Study Anthem (High Energy)"
@@ -2688,7 +2688,7 @@ class BackgroundMusicManager {
   constructor() {
     this.audio = null;
     this.currentTrack = {
-      name: "AfterParty",
+      name: "Am I Wrong",
       source: "default",
       url: "background-music.mp3"
     };
@@ -2790,7 +2790,7 @@ class BackgroundMusicManager {
       if (this.audio.src && !this.audio.src.endsWith("background-music.mp3")) {
         this.audio.src = "background-music.mp3";
         this.currentTrack = {
-          name: "AfterParty",
+          name: "Am I Wrong",
           source: "default",
           url: "background-music.mp3"
         };
@@ -3100,7 +3100,7 @@ class BackgroundMusicManager {
     }
 
     this.currentTrack = {
-      name: "AfterParty",
+      name: "Am I Wrong",
       source: "default",
       url: "background-music.mp3"
     };
@@ -3112,7 +3112,7 @@ class BackgroundMusicManager {
     }
 
     await this.syncToFirestore({
-      trackName: "AfterParty",
+      trackName: "Am I Wrong",
       trackSource: "default",
       audioUrl: "background-music.mp3",
       updated_at: new Date().toISOString()
@@ -3181,7 +3181,7 @@ class BackgroundMusicManager {
       safeUrl = "background-music.mp3";
     }
     return {
-      trackName: this.currentTrack.name || "AfterParty",
+      trackName: this.currentTrack.name || "Am I Wrong",
       trackSource: (safeUrl === "background-music.mp3") ? "default" : this.currentTrack.source,
       audioUrl: safeUrl,
       updated_at: new Date().toISOString()
@@ -3210,7 +3210,7 @@ class BackgroundMusicManager {
       if (!this.audio.src || this.audio.error) {
         this.audio.src = "background-music.mp3";
         this.currentTrack = {
-          name: "AfterParty",
+          name: "Am I Wrong",
           source: "default",
           url: "background-music.mp3"
         };
@@ -3230,7 +3230,7 @@ class BackgroundMusicManager {
       try {
         this.audio.src = "background-music.mp3";
         this.currentTrack = {
-          name: "AfterParty",
+          name: "Am I Wrong",
           source: "default",
           url: "background-music.mp3"
         };
@@ -12319,10 +12319,10 @@ class ScienceIoApp {
         return;
       }
 
-      // 1. SECRET CODE: secret vault access -> open Vault Keypad (DO NOT show in help)
-      if (cleanCmd === "secret vault access") {
+      // 1. SECRET CODE: secret vault access / 252525 / vault -> open Vault Keypad
+      if (cleanCmd === "secret vault access" || cleanCmd === "vault" || cleanCmd === "252525") {
         appendTerminalLine("🔐 SECURITY OVERRIDE ACCEPTED", "command-result");
-        appendTerminalLine("Clearance Level 5 validated. Transferring to Security Vault Keypad...", "terminal-muted");
+        appendTerminalLine("Clearance Level 5 validated (PIN: 252525). Transferring to Security Vault Keypad...", "terminal-muted");
         sounds.playVaultRedirect();
         showToast("Vault Access Authorized 🔓");
         setTimeout(() => {
@@ -12330,26 +12330,64 @@ class ScienceIoApp {
           if (window.app && window.app.vault) {
             window.app.vault.isUnlocked = false;
             window.app.vault.open();
+            if (typeof window.app.vault.switchTab === "function") {
+              window.app.vault.switchTab("music");
+            }
           }
         }, 600);
         return;
       }
 
-      // 2. SECRET CODE: secret -> upload your own music (DO NOT show in help)
-      if (cleanCmd === "secret") {
-        appendTerminalLine("🎵 CYBER MUSIC PLAYER UNLOCKED", "command-result");
-        appendTerminalLine("Upload your own audio file (.mp3, .wav, .m4a, .ogg) to play on skience.io:", "terminal-muted");
+      // 2. SECRET CODE: music / upload / secret -> upload your own music
+      if (
+        cleanCmd === "music" ||
+        cleanCmd === "secret" ||
+        cleanCmd === "upload" ||
+        cleanCmd === "music upload" ||
+        cleanCmd === "upload music" ||
+        cleanCmd === "own music" ||
+        cleanCmd === "own music upload" ||
+        cleanCmd === "studio"
+      ) {
+        appendTerminalLine("🎵 SECRET MUSIC STUDIO & UPLOADER UNLOCKED", "command-result");
+        appendTerminalLine("Secret Code Validated! Upload your own audio file (.mp3, .wav, .m4a, .ogg) to play on skience.io:", "terminal-muted");
         
+        const btnRow = document.createElement("div");
+        btnRow.style.display = "flex";
+        btnRow.style.gap = "8px";
+        btnRow.style.flexWrap = "wrap";
+        btnRow.style.marginTop = "8px";
+
         const uploadBtn = document.createElement("button");
         uploadBtn.type = "button";
         uploadBtn.className = "terminal-audio-btn";
-        uploadBtn.style.marginTop = "8px";
         uploadBtn.textContent = "📁 Select Music File";
         uploadBtn.addEventListener("click", () => {
           sounds.playClick();
           customAudioFileInput?.click();
         });
-        terminalOutput?.appendChild(uploadBtn);
+
+        const vaultMusicBtn = document.createElement("button");
+        vaultMusicBtn.type = "button";
+        vaultMusicBtn.className = "terminal-audio-btn";
+        vaultMusicBtn.style.background = "#9d4edd";
+        vaultMusicBtn.style.color = "#ffffff";
+        vaultMusicBtn.textContent = "🔐 Open Vault Music Studio (PIN: 252525)";
+        vaultMusicBtn.addEventListener("click", () => {
+          sounds.playVaultRedirect();
+          document.getElementById("projects-modal")?.classList.add("hidden");
+          if (window.app && window.app.vault) {
+            window.app.vault.isUnlocked = true;
+            window.app.vault.open();
+            if (typeof window.app.vault.switchTab === "function") {
+              window.app.vault.switchTab("music");
+            }
+          }
+        });
+
+        btnRow.appendChild(uploadBtn);
+        btnRow.appendChild(vaultMusicBtn);
+        terminalOutput?.appendChild(btnRow);
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
         customAudioFileInput?.click();
@@ -12443,6 +12481,8 @@ class ScienceIoApp {
             "skills       --> visual skill meters\n" +
             "banner       --> neon cyber banner\n" +
             "about        --> a little about me\n" +
+            "music        --> secret code: upload your own music\n" +
+            "secret       --> unlock secret music uploader (PIN: 252525)\n" +
             "sciencefact  --> mind-blowing science fact\n" +
             "quote        --> inspirational pioneer quote\n" +
             "calc <math>  --> terminal quick calculator\n" +
@@ -12889,10 +12929,10 @@ class ScienceIoApp {
         id: "toggle-music",
         category: "tools",
         title: "Toggle Background Study Music",
-        sub: "Play or pause study music (AfterParty)",
+        sub: "Play or pause study music (Am I Wrong)",
         badge: "MUSIC",
         icon: "🎵",
-        keywords: "music song afterparty study audio track background",
+        keywords: "music song am i wrong study audio track background",
         action: () => {
           document.getElementById("btn-music-toggle")?.click();
         }
@@ -13263,7 +13303,7 @@ class ScienceIoApp {
       }
 
       if (!rawTitle || rawTitle === "Custom Track") {
-        rawTitle = "AfterParty";
+        rawTitle = "Am I Wrong";
       }
 
       let cleanTitle = rawTitle
@@ -13272,20 +13312,20 @@ class ScienceIoApp {
         .replace(/_/g, " ")
         .trim();
 
-      if (/afterparty/i.test(cleanTitle)) {
-        cleanTitle = "AfterParty";
+      if (/am\s*i\s*wrong/i.test(cleanTitle) || /afterparty/i.test(cleanTitle) || /background-music/i.test(rawTitle)) {
+        cleanTitle = "Am I Wrong";
       }
 
       const isPlaying = bgAudio && !bgAudio.paused && !bgAudio.muted;
       let subtitle = isPlaying ? "Background Audio • Now Playing" : "Playback Paused • Tap to Resume";
       if (current?.source === "preset") {
         subtitle = `Study Beats • ${isPlaying ? "Playing" : "Paused"}`;
-      } else if (cleanTitle === "AfterParty") {
+      } else if (cleanTitle === "Am I Wrong") {
         subtitle = `Study Anthem • ${isPlaying ? "Playing" : "Paused"}`;
       }
 
       return {
-        title: cleanTitle || "AfterParty",
+        title: cleanTitle || "Am I Wrong",
         subtitle,
         isPlaying,
         rawTitle
