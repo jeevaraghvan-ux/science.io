@@ -10273,3 +10273,759 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   }
 }
 
+/* ========================================================
+   1. MAC DYNAMIC ISLAND LIVE STUDY TIMER DECK
+   ======================================================== */
+.mac-deck-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 4px;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.mac-deck-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.mac-deck-tab.active {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.mac-deck-view.hidden {
+  display: none !important;
+}
+
+.mac-timer-display-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle at center, rgba(56, 189, 248, 0.12) 0%, rgba(0, 0, 0, 0.4) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 20px;
+  padding: 16px 14px 14px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mac-timer-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.mac-timer-badge {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.16);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-family: ui-monospace, "SF Mono", monospace;
+  text-transform: uppercase;
+}
+
+.mac-timer-digits {
+  font-size: 44px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  text-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+  font-variant-numeric: tabular-nums;
+  margin: 4px 0;
+}
+
+.mac-timer-sub {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.mac-timer-presets {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.mac-timer-preset {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 4px 10px;
+  color: #e2e8f0;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.mac-timer-preset:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+}
+
+.mac-timer-preset.active {
+  background: #38bdf8;
+  color: #030814;
+  border-color: #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+}
+
+.mac-timer-ctrls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+/* ========================================================
+   2. APPLE 3D INTERACTIVE FLASHCARDS (VISIONOS CARD STACK)
+   ======================================================== */
+.apple-flashcards-window {
+  max-width: 640px;
+  width: 92vw;
+  background: rgba(13, 16, 27, 0.88);
+  backdrop-filter: blur(35px) saturate(190%);
+  -webkit-backdrop-filter: blur(35px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 28px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.15);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.apple-fc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.apple-fc-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.apple-fc-select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  color: #ffffff;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  max-width: 240px;
+}
+
+.apple-fc-select option {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.apple-fc-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.apple-fc-score-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.apple-fc-mastery-tag {
+  color: #34d399;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+/* 3D Card Arena */
+.apple-fc-stage {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  perspective: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+/* Stacked Ghost Cards for Apple VisionOS Depth */
+.apple-fc-ghost-card {
+  position: absolute;
+  width: calc(100% - 30px);
+  max-width: 500px;
+  height: 290px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.apple-fc-ghost-card.ghost-1 {
+  transform: translateY(12px) scale(0.95);
+  opacity: 0.7;
+  z-index: 1;
+}
+
+.apple-fc-ghost-card.ghost-2 {
+  transform: translateY(22px) scale(0.90);
+  opacity: 0.35;
+  z-index: 0;
+}
+
+/* Active 3D Card */
+.apple-fc-card-container {
+  position: relative;
+  width: 100%;
+  max-width: 530px;
+  height: 310px;
+  z-index: 2;
+  cursor: pointer;
+  outline: none;
+}
+
+.apple-fc-card-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 26px;
+}
+
+.apple-fc-card-container.flipped .apple-fc-card-3d {
+  transform: rotateY(180deg);
+}
+
+.apple-fc-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 26px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.apple-fc-front {
+  z-index: 2;
+}
+
+.apple-fc-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(15, 23, 42, 0.95) 100%);
+  border-color: rgba(52, 211, 153, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(52, 211, 153, 0.15);
+}
+
+.apple-fc-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.apple-fc-category-badge {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 3px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  font-family: ui-monospace, "SF Mono", monospace;
+}
+
+.apple-fc-num-badge {
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: ui-monospace, "SF Mono", monospace;
+}
+
+.apple-fc-prompt-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  margin: auto 0;
+}
+
+.apple-fc-term {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+}
+
+.apple-fc-formula {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-family: ui-monospace, "SF Mono", monospace;
+}
+
+.apple-fc-question {
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 4px 0 0;
+  line-height: 1.4;
+  max-width: 440px;
+}
+
+.apple-fc-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.apple-fc-trick-pill {
+  font-size: 11px;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  max-width: 65%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.apple-fc-flip-hint {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: ui-monospace, "SF Mono", monospace;
+}
+
+/* Back Face */
+.apple-fc-explanation-area {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: auto 0;
+}
+
+.apple-fc-back-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #34d399;
+  margin: 0;
+}
+
+.apple-fc-definition {
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.apple-fc-example-box {
+  background: rgba(255, 255, 255, 0.06);
+  border-left: 3px solid #34d399;
+  padding: 8px 12px;
+  border-radius: 0 10px 10px 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+  max-height: 85px;
+  overflow-y: auto;
+}
+
+.apple-fc-back-footer {
+  gap: 10px;
+}
+
+.apple-fc-rate-btn {
+  flex: 1;
+  padding: 9px 12px;
+  border-radius: 12px;
+  border: none;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.apple-fc-rate-btn.rate-practice {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+.apple-fc-rate-btn.rate-practice:hover {
+  background: rgba(239, 68, 68, 0.35);
+  color: #ffffff;
+}
+
+.apple-fc-rate-btn.rate-mastered {
+  background: rgba(16, 185, 129, 0.25);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.5);
+}
+.apple-fc-rate-btn.rate-mastered:hover {
+  background: rgba(16, 185, 129, 0.45);
+  color: #ffffff;
+}
+
+/* Toolbar */
+.apple-fc-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.apple-fc-nav-btn, .apple-fc-flip-btn, .apple-fc-shuffle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  color: #ffffff;
+  padding: 8px 18px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.apple-fc-flip-btn {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  font-weight: 700;
+}
+.apple-fc-flip-btn:hover {
+  background: #e2e8f0;
+  transform: scale(1.04);
+}
+
+.apple-fc-nav-btn:hover, .apple-fc-shuffle-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* ========================================================
+   3. CLOZE-DRIFT: GHOST RECALL GAME
+   ======================================================== */
+.ghost-recall-window {
+  max-width: 680px;
+  width: 92vw;
+  background: rgba(13, 16, 27, 0.9);
+  backdrop-filter: blur(35px) saturate(190%);
+  -webkit-backdrop-filter: blur(35px) saturate(190%);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 28px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(168, 85, 247, 0.2);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ghost-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ghost-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ghost-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ghost-score-badge {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 999px;
+  padding: 4px 14px;
+}
+
+.ghost-pct {
+  font-size: 16px;
+  font-weight: 800;
+  color: #c084fc;
+  font-family: ui-monospace, "SF Mono", monospace;
+}
+
+.ghost-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ghost-mode-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.ghost-mode-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: ui-monospace, "SF Mono", monospace;
+}
+
+.ghost-mode-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  color: #e2e8f0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.ghost-mode-btn.active {
+  background: #a855f7;
+  color: #ffffff;
+  border-color: #a855f7;
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.5);
+}
+
+.ghost-streak-pill {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fb923c;
+  background: rgba(251, 146, 60, 0.15);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+/* Flow Arena */
+.ghost-flow-arena {
+  min-height: 180px;
+  max-height: 280px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 20px;
+  line-height: 2.1;
+  font-size: 16px;
+  color: #e2e8f0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.ghost-blank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 65px;
+  height: 30px;
+  padding: 0 12px;
+  margin: 0 4px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px dashed rgba(168, 85, 247, 0.6);
+  color: #c084fc;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  vertical-align: middle;
+}
+
+.ghost-blank:hover {
+  background: rgba(168, 85, 247, 0.2);
+  border-color: #c084fc;
+  transform: translateY(-1px);
+}
+
+.ghost-blank.active {
+  background: rgba(168, 85, 247, 0.3);
+  border-color: #a855f7;
+  border-style: solid;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+  color: #ffffff;
+}
+
+.ghost-blank.solved {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid #10b981;
+  color: #6ee7b7;
+  cursor: default;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
+}
+
+.ghost-tray {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.ghost-tray-hint {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.ghost-chips-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ghost-chip {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  padding: 6px 14px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.ghost-chip:hover {
+  background: rgba(168, 85, 247, 0.35);
+  border-color: #a855f7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+}
+
+.ghost-chip.used {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.ghost-footer-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.ghost-progress-bar-wrap {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.ghost-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #a855f7, #38bdf8);
+  border-radius: 999px;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ghost-footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+

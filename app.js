@@ -12962,6 +12962,8 @@ class ScienceIoApp {
     this.setupCommandHud();
     this.setupExtended3DTiltAndSpecularShimmer();
     this.setupDynamicIsland();
+    this.setupAppleFlashcards();
+    this.setupGhostRecallGame();
   }
 
   setupMagneticFluidCursor() {
@@ -13210,6 +13212,49 @@ class ScienceIoApp {
       },
 
       // Tools & Audio
+      {
+        id: "tool-flashcards",
+        category: "tools",
+        title: "Apple 3D Interactive Flashcards",
+        sub: "Flip through stacked 3D visionOS study cards with spacebar haptics",
+        badge: "CARDS",
+        icon: "🃏",
+        keywords: "flashcards cards 3d flip deck study test practice apple",
+        action: () => {
+          if (typeof this.openAppleFlashcards === "function") {
+            this.openAppleFlashcards();
+          }
+        }
+      },
+      {
+        id: "tool-ghost-recall",
+        category: "tools",
+        title: "Cloze-Drift Ghost Recall Game",
+        sub: "Fill in frosted ghost blanks to memorize all science notes",
+        badge: "RECALL",
+        icon: "👻",
+        keywords: "ghost recall cloze fill blanks memory game drift test flow",
+        action: () => {
+          if (typeof this.openGhostRecallGame === "function") {
+            this.openGhostRecallGame();
+          }
+        }
+      },
+      {
+        id: "tool-study-timer",
+        category: "tools",
+        title: "Live Study Activity & Pomodoro Timer",
+        sub: "Start 25m focus sprint with Mac Dynamic Island live tracking",
+        badge: "TIMER",
+        icon: "⏱️",
+        keywords: "timer pomodoro focus sprint countdown break island study",
+        action: () => {
+          if (this.dynamicIsland?.openMacDeck) {
+            this.dynamicIsland.openMacDeck();
+            document.getElementById("mac-tab-timer")?.click();
+          }
+        }
+      },
       {
         id: "toggle-sound",
         category: "tools",
@@ -13796,6 +13841,182 @@ class ScienceIoApp {
       }
     };
 
+    // ================= LIVE STUDY ACTIVITY & POMODORO TIMER =================
+    let studyTimerInterval = null;
+    let studyTimerSeconds = 1500; // default 25m
+    let studyTimerTotal = 1500;
+    let isStudyTimerRunning = false;
+    let studyTimerMode = "25m Focus";
+
+    const macTabMusic = document.getElementById("mac-tab-music");
+    const macTabTimer = document.getElementById("mac-tab-timer");
+    const macViewMusic = document.getElementById("mac-view-music");
+    const macViewTimer = document.getElementById("mac-view-timer");
+    const macTimerDigits = document.getElementById("mac-timer-digits");
+    const macTimerGlyph = document.getElementById("mac-timer-glyph");
+    const macTimerToggle = document.getElementById("mac-timer-toggle");
+    const macTimerReset = document.getElementById("mac-timer-reset");
+    const macTimerInc = document.getElementById("mac-timer-inc");
+    const macTimerDec = document.getElementById("mac-timer-dec");
+    const macTimerBadge = document.getElementById("mac-timer-badge");
+    const macTimerSub = document.getElementById("mac-timer-sub");
+    const macTimerPresets = document.querySelectorAll(".mac-timer-preset");
+    const macTimerCloseBtn = document.getElementById("mac-timer-close-btn");
+
+    const formatTimerDigits = (sec) => {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${m < 10 ? "0" : ""}${m}:${s < 10 ? "0" : ""}${s}`;
+    };
+
+    const updateStudyTimerUI = () => {
+      if (macTimerDigits) macTimerDigits.textContent = formatTimerDigits(studyTimerSeconds);
+      if (macTimerGlyph) macTimerGlyph.textContent = isStudyTimerRunning ? "⏸" : "▶";
+
+      // If timer is running and Island is collapsed or compact, live-stream countdown into Dynamic Island!
+      if (isStudyTimerRunning && !isMacOpen) {
+        if (islandTitle) islandTitle.textContent = formatTimerDigits(studyTimerSeconds);
+        if (islandBadge) islandBadge.textContent = "FOCUS";
+        if (islandIcon) {
+          islandIcon.textContent = "⏱️";
+          islandIcon.classList.remove("hidden");
+        }
+        if (islandEqualizer) islandEqualizer.classList.add("hidden");
+      }
+    };
+
+    const toggleStudyTimer = () => {
+      if (isStudyTimerRunning) {
+        clearInterval(studyTimerInterval);
+        studyTimerInterval = null;
+        isStudyTimerRunning = false;
+        updateStudyTimerUI();
+        triggerIsland({
+          icon: "⏸️",
+          title: `Paused: ${formatTimerDigits(studyTimerSeconds)}`,
+          subtitle: "Study Focus Sprint Paused",
+          badge: "PAUSED",
+          duration: 2500
+        });
+      } else {
+        isStudyTimerRunning = true;
+        studyTimerInterval = setInterval(() => {
+          if (studyTimerSeconds > 0) {
+            studyTimerSeconds--;
+            updateStudyTimerUI();
+          } else {
+            clearInterval(studyTimerInterval);
+            studyTimerInterval = null;
+            isStudyTimerRunning = false;
+            updateStudyTimerUI();
+            try {
+              if (typeof sounds.playSuccess === "function") sounds.playSuccess();
+              else sounds.playCoin();
+            } catch (_) {}
+            triggerIsland({
+              icon: "🎉",
+              title: "TIME'S UP! Focus Complete",
+              subtitle: "Great study sprint! Take a 5-minute brain break.",
+              badge: "COMPLETE",
+              duration: 6000,
+              action: () => {
+                openMacDeck();
+                macTabTimer?.click();
+              }
+            });
+          }
+        }, 1000);
+        updateStudyTimerUI();
+        try {
+          if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+        } catch (_) {}
+        triggerIsland({
+          icon: "⏱️",
+          title: `Focus Sprint: ${formatTimerDigits(studyTimerSeconds)}`,
+          subtitle: `${studyTimerMode} Active • Stay in the zone!`,
+          badge: "FOCUS",
+          duration: 2500
+        });
+      }
+    };
+
+    // Tab switching between Music Deck and Study Timer
+    macTabMusic?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      macTabMusic.classList.add("active");
+      macTabTimer?.classList.remove("active");
+      macViewMusic?.classList.remove("hidden");
+      macViewTimer?.classList.add("hidden");
+      try {
+        if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+      } catch (_) {}
+    });
+
+    macTabTimer?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      macTabTimer.classList.add("active");
+      macTabMusic?.classList.remove("active");
+      macViewTimer?.classList.remove("hidden");
+      macViewMusic?.classList.add("hidden");
+      updateStudyTimerUI();
+      try {
+        if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+      } catch (_) {}
+    });
+
+    macTimerToggle?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleStudyTimer();
+    });
+
+    macTimerReset?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (studyTimerInterval) {
+        clearInterval(studyTimerInterval);
+        studyTimerInterval = null;
+      }
+      isStudyTimerRunning = false;
+      studyTimerSeconds = studyTimerTotal;
+      updateStudyTimerUI();
+      try {
+        if (typeof sounds.playClick === "function") sounds.playClick();
+      } catch (_) {}
+    });
+
+    macTimerInc?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      studyTimerSeconds = Math.min(7200, studyTimerSeconds + 60);
+      updateStudyTimerUI();
+    });
+
+    macTimerDec?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      studyTimerSeconds = Math.max(60, studyTimerSeconds - 60);
+      updateStudyTimerUI();
+    });
+
+    macTimerPresets.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        macTimerPresets.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const sec = parseInt(btn.dataset.time, 10) || 1500;
+        studyTimerTotal = sec;
+        studyTimerSeconds = sec;
+        studyTimerMode = btn.textContent.trim();
+        if (macTimerSub) macTimerSub.textContent = `${studyTimerMode} • Tap start when ready`;
+        updateStudyTimerUI();
+        try {
+          if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+        } catch (_) {}
+      });
+    });
+
+    macTimerCloseBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeMacDeck();
+    });
+
     const collapseIsland = () => {
       if (collapseTimer) {
         clearTimeout(collapseTimer);
@@ -13804,7 +14025,27 @@ class ScienceIoApp {
       isExpanded = false;
       isMacOpen = false;
 
-      // If background music is playing, transition to compact ambient mode
+      // Priority 1: If Study Timer is running, stream timer into Dynamic Island!
+      if (isStudyTimerRunning) {
+        if (navPill) navPill.classList.remove("island-active");
+        islandPod.classList.remove("island-expanded", "island-idle", "island-mac-open");
+        islandPod.classList.add("island-compact");
+        if (islandIcon) {
+          islandIcon.textContent = "⏱️";
+          islandIcon.classList.remove("hidden");
+        }
+        if (islandEqualizer) islandEqualizer.classList.add("hidden");
+        if (islandTitle) islandTitle.textContent = formatTimerDigits(studyTimerSeconds);
+        if (islandBadge) islandBadge.textContent = "FOCUS";
+        if (islandActionText) islandActionText.textContent = "TIMER";
+        currentActionHandler = () => {
+          openMacDeck();
+          macTabTimer?.click();
+        };
+        return;
+      }
+
+      // Priority 2: If background music is playing, transition to compact ambient mode
       const bgAudio = document.getElementById("bg-music-player");
       const isMusicPlaying = bgAudio && !bgAudio.paused && !bgAudio.muted;
       const track = getDynamicTrackInfo();
@@ -13998,6 +14239,20 @@ class ScienceIoApp {
             document.getElementById("notes-section")?.scrollIntoView({ behavior: "smooth" });
             document.getElementById("nav-btn-notes")?.click();
             break;
+          case "cards":
+            if (typeof this.openAppleFlashcards === "function") {
+              this.openAppleFlashcards();
+            }
+            break;
+          case "ghost":
+            if (typeof this.openGhostRecallGame === "function") {
+              this.openGhostRecallGame();
+            }
+            break;
+          case "timer":
+            openMacDeck();
+            macTabTimer?.click();
+            return;
           case "calc":
             document.getElementById("calculator-section")?.scrollIntoView({ behavior: "smooth" });
             document.getElementById("nav-btn-calc")?.click();
@@ -14180,6 +14435,617 @@ class ScienceIoApp {
         }
       });
     }, 1500);
+  }
+
+  // ================= APPLE 3D INTERACTIVE FLASHCARD DECKS =================
+  setupAppleFlashcards() {
+    const modal = document.getElementById("apple-flashcards-modal");
+    const closeBtn = document.getElementById("apple-fc-close-btn");
+    const topicSelect = document.getElementById("apple-fc-topic-select");
+    const cardContainer = document.getElementById("apple-fc-card-container");
+    const prevBtn = document.getElementById("apple-fc-prev-btn");
+    const nextBtn = document.getElementById("apple-fc-next-btn");
+    const flipBtn = document.getElementById("apple-fc-flip-btn");
+    const shuffleBtn = document.getElementById("apple-fc-shuffle-btn");
+    const practiceBtn = document.getElementById("apple-fc-btn-practice");
+    const masteredBtn = document.getElementById("apple-fc-btn-mastered");
+
+    const catEl = document.getElementById("apple-fc-cat");
+    const numEl = document.getElementById("apple-fc-num");
+    const backNumEl = document.getElementById("apple-fc-back-num");
+    const termEl = document.getElementById("apple-fc-term");
+    const backTitleEl = document.getElementById("apple-fc-back-title");
+    const formulaEl = document.getElementById("apple-fc-formula");
+    const trickEl = document.getElementById("apple-fc-trick");
+    const defEl = document.getElementById("apple-fc-definition");
+    const exampleEl = document.getElementById("apple-fc-example");
+    const counterEl = document.getElementById("apple-fc-counter");
+    const masteryTagEl = document.getElementById("apple-fc-mastery-tag");
+
+    if (!modal || !cardContainer) return;
+
+    let topics = [];
+    let currentCards = [];
+    let currentIndex = 0;
+    let isFlipped = false;
+    let masteredCards = new Set();
+    try {
+      const saved = JSON.parse(localStorage.getItem("scienceio_apple_fc_mastered") || "[]");
+      if (Array.isArray(saved)) masteredCards = new Set(saved);
+    } catch (_) {}
+
+    const saveMastery = () => {
+      try {
+        localStorage.setItem("scienceio_apple_fc_mastered", JSON.stringify([...masteredCards]));
+      } catch (_) {}
+    };
+
+    const getAvailableTopics = () => {
+      if (Array.isArray(window.SCIENCE_IO_PUBLISHED_NOTES) && window.SCIENCE_IO_PUBLISHED_NOTES.length > 0) {
+        return window.SCIENCE_IO_PUBLISHED_NOTES;
+      }
+      if (Array.isArray(this.notes) && this.notes.length > 0) {
+        return this.notes;
+      }
+      return [];
+    };
+
+    const populateTopicSelect = () => {
+      topics = getAvailableTopics();
+      if (!topicSelect || !topics.length) return;
+      topicSelect.innerHTML = "";
+
+      const allOpt = document.createElement("option");
+      allOpt.value = "all";
+      allOpt.textContent = "🌟 All Topics Mixed Shuffle";
+      topicSelect.appendChild(allOpt);
+
+      topics.forEach((t, i) => {
+        const opt = document.createElement("option");
+        opt.value = String(i);
+        opt.textContent = `${t.title} (${(t.properties || []).length} Cards)`;
+        topicSelect.appendChild(opt);
+      });
+    };
+
+    const loadTopicCards = (topicIndexVal) => {
+      topics = getAvailableTopics();
+      currentCards = [];
+
+      if (topicIndexVal === "all" || topicIndexVal === "") {
+        topics.forEach(t => {
+          if (Array.isArray(t.properties)) {
+            t.properties.forEach(p => {
+              currentCards.push({
+                topicTitle: t.title,
+                cardId: `${t.id || t.title}-${p.num}`,
+                num: p.num,
+                name: p.name || "Concept",
+                formula: p.formula || "Scientific Principle",
+                trick: p.trick || "Memory Trick: Read carefully!",
+                explanation: p.explanation || "Scientific concept overview.",
+                example: p.example || "Real-world science example in nature."
+              });
+            });
+          }
+        });
+      } else {
+        const idx = parseInt(topicIndexVal, 10);
+        const t = topics[idx] || topics[0];
+        if (t && Array.isArray(t.properties)) {
+          t.properties.forEach(p => {
+            currentCards.push({
+              topicTitle: t.title,
+              cardId: `${t.id || t.title}-${p.num}`,
+              num: p.num,
+              name: p.name || "Concept",
+              formula: p.formula || "Scientific Principle",
+              trick: p.trick || "Memory Trick: Read carefully!",
+              explanation: p.explanation || "Scientific concept overview.",
+              example: p.example || "Real-world science example in nature."
+            });
+          });
+        }
+      }
+
+      currentIndex = 0;
+      isFlipped = false;
+      cardContainer.classList.remove("flipped");
+      renderActiveCard();
+    };
+
+    const renderActiveCard = () => {
+      if (!currentCards.length) return;
+      if (currentIndex < 0) currentIndex = 0;
+      if (currentIndex >= currentCards.length) currentIndex = currentCards.length - 1;
+
+      const card = currentCards[currentIndex];
+      const isMastered = masteredCards.has(card.cardId);
+
+      isFlipped = false;
+      cardContainer.classList.remove("flipped");
+
+      if (catEl) catEl.textContent = card.topicTitle.toUpperCase();
+      if (numEl) numEl.textContent = `#${currentIndex + 1}`;
+      if (backNumEl) backNumEl.textContent = `#${currentIndex + 1}`;
+      if (termEl) termEl.textContent = card.name;
+      if (backTitleEl) backTitleEl.textContent = card.name;
+      if (formulaEl) formulaEl.textContent = card.formula;
+      if (trickEl) trickEl.textContent = card.trick.startsWith("Memory Trick:") ? `💡 ${card.trick}` : `💡 ${card.trick}`;
+      if (defEl) defEl.textContent = card.explanation;
+      if (exampleEl) {
+        exampleEl.innerHTML = `<strong>Real-World Science:</strong> ${card.example}`;
+      }
+
+      const total = currentCards.length;
+      let masteredInDeck = 0;
+      currentCards.forEach(c => {
+        if (masteredCards.has(c.cardId)) masteredInDeck++;
+      });
+      const pct = Math.round((masteredInDeck / total) * 100);
+
+      if (counterEl) counterEl.textContent = `Card ${currentIndex + 1} / ${total}`;
+      if (masteryTagEl) {
+        masteryTagEl.textContent = `${pct}% Mastered`;
+        masteryTagEl.style.color = pct >= 80 ? "#34d399" : pct >= 40 ? "#38bdf8" : "#fbbf24";
+      }
+
+      // Sync Dynamic Island
+      if (window.app?.dynamicIsland?.trigger) {
+        window.app.dynamicIsland.trigger({
+          icon: "🃏",
+          title: `Card ${currentIndex + 1}/${total}: ${card.name}`,
+          subtitle: `${card.topicTitle} • ${pct}% Mastered`,
+          badge: isMastered ? "MASTERED" : "STUDY",
+          duration: 2500
+        });
+      }
+    };
+
+    const flipCard = () => {
+      isFlipped = !isFlipped;
+      cardContainer.classList.toggle("flipped", isFlipped);
+      try {
+        if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+        else sounds.playClick();
+      } catch (_) {}
+    };
+
+    const nextCard = () => {
+      if (currentIndex < currentCards.length - 1) {
+        currentIndex++;
+        renderActiveCard();
+      } else {
+        currentIndex = 0;
+        renderActiveCard();
+      }
+      try {
+        if (typeof sounds.playKeypadTap === "function") sounds.playKeypadTap();
+      } catch (_) {}
+    };
+
+    const prevCard = () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderActiveCard();
+      } else {
+        currentIndex = currentCards.length - 1;
+        renderActiveCard();
+      }
+      try {
+        if (typeof sounds.playKeypadTap === "function") sounds.playKeypadTap();
+      } catch (_) {}
+    };
+
+    const shuffleDeck = () => {
+      for (let i = currentCards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [currentCards[i], currentCards[j]] = [currentCards[j], currentCards[i]];
+      }
+      currentIndex = 0;
+      renderActiveCard();
+      try {
+        if (typeof sounds.playMechanicalKey === "function") sounds.playMechanicalKey();
+      } catch (_) {}
+      if (window.app?.dynamicIsland?.trigger) {
+        window.app.dynamicIsland.trigger({
+          icon: "🔀",
+          title: "Deck Shuffled!",
+          subtitle: "Cards randomized for active recall testing",
+          badge: "SHUFFLE",
+          duration: 2200
+        });
+      }
+    };
+
+    cardContainer.addEventListener("click", () => flipCard());
+    flipBtn?.addEventListener("click", () => flipCard());
+    nextBtn?.addEventListener("click", () => nextCard());
+    prevBtn?.addEventListener("click", () => prevCard());
+    shuffleBtn?.addEventListener("click", () => shuffleDeck());
+
+    practiceBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const card = currentCards[currentIndex];
+      if (card) {
+        masteredCards.delete(card.cardId);
+        saveMastery();
+      }
+      nextCard();
+    });
+
+    masteredBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const card = currentCards[currentIndex];
+      if (card) {
+        masteredCards.add(card.cardId);
+        saveMastery();
+        try {
+          if (typeof sounds.playSuccess === "function") sounds.playSuccess();
+        } catch (_) {}
+      }
+      nextCard();
+    });
+
+    topicSelect?.addEventListener("change", (e) => {
+      loadTopicCards(e.target.value);
+    });
+
+    closeBtn?.addEventListener("click", () => {
+      this.closeAppleFlashcards();
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) this.closeAppleFlashcards();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (modal.classList.contains("hidden")) return;
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT") return;
+
+      if (e.key === " " || e.code === "Space") {
+        e.preventDefault();
+        flipCard();
+      } else if (e.key === "ArrowRight" || e.key === "l" || e.key === "L") {
+        nextCard();
+      } else if (e.key === "ArrowLeft" || e.key === "h" || e.key === "H") {
+        prevCard();
+      } else if (e.key === "1") {
+        practiceBtn?.click();
+      } else if (e.key === "2") {
+        masteredBtn?.click();
+      } else if (e.key === "Escape") {
+        this.closeAppleFlashcards();
+      }
+    });
+
+    document.getElementById("nav-btn-cards")?.addEventListener("click", () => {
+      this.openAppleFlashcards();
+    });
+
+    this.openAppleFlashcards = (topicId = null) => {
+      populateTopicSelect();
+      if (topicId) {
+        const foundIdx = topics.findIndex(t => (t.id || "").toLowerCase() === String(topicId).toLowerCase());
+        if (foundIdx >= 0) {
+          topicSelect.value = String(foundIdx);
+          loadTopicCards(String(foundIdx));
+        } else {
+          loadTopicCards("0");
+        }
+      } else {
+        loadTopicCards(topicSelect.value || "0");
+      }
+      modal.classList.remove("hidden");
+      cardContainer.focus();
+      try {
+        if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+      } catch (_) {}
+    };
+
+    this.closeAppleFlashcards = () => {
+      modal.classList.add("hidden");
+      try {
+        if (typeof sounds.playClick === "function") sounds.playClick();
+      } catch (_) {}
+    };
+  }
+
+  // ================= CLOZE-DRIFT: GHOST RECALL GAME =================
+  setupGhostRecallGame() {
+    const modal = document.getElementById("ghost-recall-modal");
+    const closeBtn = document.getElementById("ghost-close-btn");
+    const topicSelect = document.getElementById("ghost-topic-select");
+    const arenaEl = document.getElementById("ghost-flow-arena");
+    const chipsContainer = document.getElementById("ghost-chips-container");
+    const progressBar = document.getElementById("ghost-progress-bar");
+    const pctEl = document.getElementById("ghost-pct-display");
+    const streakText = document.getElementById("ghost-streak-text");
+    const hintBtn = document.getElementById("ghost-btn-hint");
+    const resetBtn = document.getElementById("ghost-btn-reset");
+    const nextTopicBtn = document.getElementById("ghost-btn-next-topic");
+    const modeBtns = document.querySelectorAll(".ghost-mode-btn");
+
+    if (!modal || !arenaEl) return;
+
+    let topics = [];
+    let currentTopic = null;
+    let difficulty = 1; // 1: Gentle (chips), 2: Intense (first letter), 3: Master (pure blank)
+    let currentBlanks = [];
+    let activeBlankId = null;
+    let streak = 0;
+
+    const getAvailableTopics = () => {
+      if (Array.isArray(window.SCIENCE_IO_PUBLISHED_NOTES) && window.SCIENCE_IO_PUBLISHED_NOTES.length > 0) {
+        return window.SCIENCE_IO_PUBLISHED_NOTES;
+      }
+      if (Array.isArray(this.notes) && this.notes.length > 0) {
+        return this.notes;
+      }
+      return [];
+    };
+
+    const populateGhostSelect = () => {
+      topics = getAvailableTopics();
+      if (!topicSelect || !topics.length) return;
+      topicSelect.innerHTML = "";
+      topics.forEach((t, i) => {
+        const opt = document.createElement("option");
+        opt.value = String(i);
+        opt.textContent = `${t.title} (${(t.properties || []).length} Concepts)`;
+        topicSelect.appendChild(opt);
+      });
+    };
+
+    const loadGhostTopic = (topicIdx) => {
+      topics = getAvailableTopics();
+      const idx = parseInt(topicIdx, 10) || 0;
+      currentTopic = topics[idx] || topics[0];
+      if (!currentTopic) return;
+
+      currentBlanks = [];
+      activeBlankId = null;
+      arenaEl.innerHTML = "";
+      chipsContainer.innerHTML = "";
+
+      const props = currentTopic.properties || [];
+      if (!props.length) {
+        arenaEl.innerHTML = `<p style="color: #94a3b8;">No concept squares found for this unit.</p>`;
+        return;
+      }
+
+      const allAnswers = [];
+
+      props.forEach((p, pIdx) => {
+        const termName = p.name || "Concept";
+        const explanation = p.explanation || "";
+        const formula = p.formula || "";
+
+        const pPara = document.createElement("div");
+        pPara.style.cssText = "margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.06);";
+
+        const blankId = `ghost-blank-${pIdx}`;
+        allAnswers.push(termName);
+        currentBlanks.push({
+          id: blankId,
+          answer: termName,
+          hint: p.trick || p.formula || "Key concept",
+          solved: false
+        });
+
+        let promptDisplay = "[ ? ]";
+        if (difficulty === 2) {
+          promptDisplay = `[ ${termName.charAt(0)}... ]`;
+        } else if (difficulty === 3) {
+          promptDisplay = "[ ___ ]";
+        }
+
+        pPara.innerHTML = `
+          <div style="font-size: 0.85rem; color: #38bdf8; font-weight: 700; margin-bottom: 4px; font-family: ui-monospace, monospace;">
+            CONCEPT #${p.num || (pIdx + 1)} • ${formula}
+          </div>
+          <div>
+            The organelle or structure known as 
+            <span class="ghost-blank" id="${blankId}" data-blank-id="${blankId}">${promptDisplay}</span> 
+            is defined as: <em>"${explanation}"</em>
+          </div>
+        `;
+        arenaEl.appendChild(pPara);
+      });
+
+      const shuffledOptions = [...allAnswers].sort(() => Math.random() - 0.5);
+      shuffledOptions.forEach((term) => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "ghost-chip";
+        chip.textContent = term;
+        chip.dataset.term = term;
+        chip.addEventListener("click", () => handleChipSelected(term, chip));
+        chipsContainer.appendChild(chip);
+      });
+
+      if (currentBlanks.length > 0) {
+        activateBlank(currentBlanks[0].id);
+      }
+
+      updateGhostScoreUI();
+    };
+
+    const activateBlank = (blankId) => {
+      activeBlankId = blankId;
+      document.querySelectorAll(".ghost-blank").forEach(el => {
+        el.classList.toggle("active", el.id === blankId);
+      });
+      const el = document.getElementById(blankId);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    };
+
+    const handleChipSelected = (selectedTerm, chipEl) => {
+      if (!activeBlankId) {
+        const firstUnsolved = currentBlanks.find(b => !b.solved);
+        if (firstUnsolved) activeBlankId = firstUnsolved.id;
+        else return;
+      }
+
+      const blankData = currentBlanks.find(b => b.id === activeBlankId);
+      if (!blankData) return;
+
+      if (blankData.answer.trim().toLowerCase() === selectedTerm.trim().toLowerCase()) {
+        blankData.solved = true;
+        const blankEl = document.getElementById(activeBlankId);
+        if (blankEl) {
+          blankEl.textContent = blankData.answer;
+          blankEl.classList.remove("active");
+          blankEl.classList.add("solved");
+        }
+        if (chipEl) chipEl.classList.add("used");
+
+        streak++;
+        streakText.textContent = `🔥 Streak: ${streak}`;
+        try {
+          if (typeof sounds.playCoin === "function") sounds.playCoin();
+          else sounds.playClick();
+        } catch (_) {}
+
+        updateGhostScoreUI();
+
+        const nextUnsolved = currentBlanks.find(b => !b.solved);
+        if (nextUnsolved) {
+          activateBlank(nextUnsolved.id);
+        } else {
+          activeBlankId = null;
+          try {
+            if (typeof sounds.playSuccess === "function") sounds.playSuccess();
+          } catch (_) {}
+          if (window.app?.dynamicIsland?.trigger) {
+            window.app.dynamicIsland.trigger({
+              icon: "🎉",
+              title: "100% RECALL MASTERED!",
+              subtitle: `Flawless retention on ${currentTopic?.title || "science unit"}!`,
+              badge: "MASTER",
+              duration: 5000
+            });
+          }
+        }
+      } else {
+        streak = 0;
+        streakText.textContent = `🔥 Streak: 0`;
+        const blankEl = document.getElementById(activeBlankId);
+        if (blankEl) {
+          blankEl.style.borderColor = "#ef4444";
+          blankEl.style.transform = "translateX(4px)";
+          setTimeout(() => {
+            blankEl.style.borderColor = "";
+            blankEl.style.transform = "";
+          }, 400);
+        }
+        try {
+          if (typeof sounds.playVaultError === "function") sounds.playVaultError();
+        } catch (_) {}
+      }
+    };
+
+    const updateGhostScoreUI = () => {
+      const total = currentBlanks.length || 1;
+      const solved = currentBlanks.filter(b => b.solved).length;
+      const pct = Math.round((solved / total) * 100);
+
+      if (pctEl) pctEl.textContent = `${pct}%`;
+      if (progressBar) progressBar.style.width = `${pct}%`;
+
+      if (window.app?.dynamicIsland?.trigger && solved > 0) {
+        window.app.dynamicIsland.trigger({
+          icon: "👻",
+          title: `${pct}% Memorized`,
+          subtitle: `Ghost Recall • Streak: ${streak} • ${currentTopic?.title || ""}`,
+          badge: "RECALL",
+          duration: 2200
+        });
+      }
+    };
+
+    arenaEl.addEventListener("click", (e) => {
+      const blankEl = e.target.closest(".ghost-blank");
+      if (blankEl && !blankEl.classList.contains("solved")) {
+        activateBlank(blankEl.id);
+        try {
+          if (typeof sounds.playClick === "function") sounds.playClick();
+        } catch (_) {}
+      }
+    });
+
+    hintBtn?.addEventListener("click", () => {
+      if (!activeBlankId) return;
+      const blankData = currentBlanks.find(b => b.id === activeBlankId);
+      if (blankData) {
+        const hintText = blankData.hint || `Starts with "${blankData.answer.charAt(0)}"`;
+        alert(`💡 Hint:\n\n${hintText}`);
+      }
+    });
+
+    resetBtn?.addEventListener("click", () => {
+      streak = 0;
+      streakText.textContent = `🔥 Streak: 0`;
+      loadGhostTopic(topicSelect.value || "0");
+    });
+
+    nextTopicBtn?.addEventListener("click", () => {
+      const curIdx = parseInt(topicSelect.value, 10) || 0;
+      const nextIdx = (curIdx + 1) % topics.length;
+      topicSelect.value = String(nextIdx);
+      loadGhostTopic(String(nextIdx));
+    });
+
+    modeBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        modeBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        difficulty = parseInt(btn.dataset.level, 10) || 1;
+        loadGhostTopic(topicSelect.value || "0");
+      });
+    });
+
+    topicSelect?.addEventListener("change", (e) => {
+      loadGhostTopic(e.target.value);
+    });
+
+    closeBtn?.addEventListener("click", () => {
+      this.closeGhostRecallGame();
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) this.closeGhostRecallGame();
+    });
+
+    document.getElementById("nav-btn-ghost-recall")?.addEventListener("click", () => {
+      this.openGhostRecallGame();
+    });
+
+    this.openGhostRecallGame = (topicId = null) => {
+      populateGhostSelect();
+      if (topicId) {
+        const foundIdx = topics.findIndex(t => (t.id || "").toLowerCase() === String(topicId).toLowerCase());
+        if (foundIdx >= 0) {
+          topicSelect.value = String(foundIdx);
+          loadGhostTopic(String(foundIdx));
+        } else {
+          loadGhostTopic("0");
+        }
+      } else {
+        loadGhostTopic(topicSelect.value || "0");
+      }
+      modal.classList.remove("hidden");
+      try {
+        if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+      } catch (_) {}
+    };
+
+    this.closeGhostRecallGame = () => {
+      modal.classList.add("hidden");
+      try {
+        if (typeof sounds.playClick === "function") sounds.playClick();
+      } catch (_) {}
+    };
   }
 }
 

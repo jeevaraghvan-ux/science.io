@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=85.0">
+  <link rel="stylesheet" href="styles.css?v=86.0">
   <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -204,65 +204,112 @@
         </div>
       </div>
 
-      <!-- Mac Dynamic Island Expanded Deck (Full Mac Music Controller & Fast-Travel Navigation) -->
+      <!-- Mac Dynamic Island Expanded Deck (Full Mac Music Controller & Live Study Activity Deck) -->
       <div class="island-mac-deck hidden" id="island-mac-deck">
-        <div class="mac-deck-top">
-          <div class="mac-deck-left">
-            <div class="mac-deck-art" id="mac-deck-art" title="Music Stream">
-              <span class="mac-art-icon" id="mac-art-icon">🎵</span>
+        <!-- Deck Mode Switcher Tabs (Music vs Live Study Timer) -->
+        <div class="mac-deck-tabs">
+          <button type="button" class="mac-deck-tab active" id="mac-tab-music">🎵 Music Deck</button>
+          <button type="button" class="mac-deck-tab" id="mac-tab-timer">⏱️ Study Timer</button>
+        </div>
+
+        <!-- VIEW A: MUSIC PLAYER -->
+        <div id="mac-view-music" class="mac-deck-view">
+          <div class="mac-deck-top">
+            <div class="mac-deck-left">
+              <div class="mac-deck-art" id="mac-deck-art" title="Music Stream">
+                <span class="mac-art-icon" id="mac-art-icon">🎵</span>
+              </div>
+              <div class="mac-deck-info">
+                <span class="mac-deck-title" id="mac-deck-title">Am I Wrong</span>
+                <span class="mac-deck-sub" id="mac-deck-sub">Background Audio • Playing</span>
+              </div>
             </div>
-            <div class="mac-deck-info">
-              <span class="mac-deck-title" id="mac-deck-title">Am I Wrong</span>
-              <span class="mac-deck-sub" id="mac-deck-sub">Background Audio • Playing</span>
+            <div class="mac-deck-right">
+              <div class="mac-deck-live-eq" id="mac-deck-live-eq" aria-hidden="true">
+                <span class="mac-eq-bar bar-1"></span>
+                <span class="mac-eq-bar bar-2"></span>
+                <span class="mac-eq-bar bar-3"></span>
+                <span class="mac-eq-bar bar-4"></span>
+              </div>
+              <button type="button" class="mac-deck-close-btn" id="mac-deck-close-btn" title="Collapse Dynamic Island (Esc)">✕</button>
             </div>
           </div>
-          <div class="mac-deck-right">
-            <div class="mac-deck-live-eq" id="mac-deck-live-eq" aria-hidden="true">
-              <span class="mac-eq-bar bar-1"></span>
-              <span class="mac-eq-bar bar-2"></span>
-              <span class="mac-eq-bar bar-3"></span>
-              <span class="mac-eq-bar bar-4"></span>
+
+          <!-- Scrubber and Realtime Timestamps -->
+          <div class="mac-deck-scrubber-row">
+            <span class="mac-deck-time" id="mac-deck-cur-time">0:00</span>
+            <div class="mac-scrubber-track-wrap">
+              <input type="range" class="mac-deck-slider" id="mac-deck-slider" min="0" max="100" value="0" step="0.1" aria-label="Seek track position">
+              <div class="mac-slider-fill" id="mac-slider-fill" style="width: 0%;"></div>
             </div>
-            <button type="button" class="mac-deck-close-btn" id="mac-deck-close-btn" title="Collapse Dynamic Island (Esc)">✕</button>
+            <span class="mac-deck-time" id="mac-deck-tot-time">3:45</span>
+          </div>
+
+          <!-- Mac Media Playback Controls -->
+          <div class="mac-deck-ctrl-row">
+            <button type="button" class="mac-ctrl-btn" id="mac-btn-prev" title="Previous / Restart Track (⏮)">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+            </button>
+            <button type="button" class="mac-ctrl-btn mac-ctrl-play" id="mac-btn-playpause" title="Play / Pause">
+              <span id="mac-playpause-glyph">⏸</span>
+            </button>
+            <button type="button" class="mac-ctrl-btn" id="mac-btn-next" title="Next Preset Track (⏭)">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+            </button>
+            <button type="button" class="mac-ctrl-btn" id="mac-btn-mute" title="Toggle Sound / Mute">
+              <span id="mac-mute-glyph">🔊</span>
+            </button>
           </div>
         </div>
 
-        <!-- Scrubber and Realtime Timestamps -->
-        <div class="mac-deck-scrubber-row">
-          <span class="mac-deck-time" id="mac-deck-cur-time">0:00</span>
-          <div class="mac-scrubber-track-wrap">
-            <input type="range" class="mac-deck-slider" id="mac-deck-slider" min="0" max="100" value="0" step="0.1" aria-label="Seek track position">
-            <div class="mac-slider-fill" id="mac-slider-fill" style="width: 0%;"></div>
+        <!-- VIEW B: LIVE STUDY TIMER -->
+        <div id="mac-view-timer" class="mac-deck-view hidden">
+          <div class="mac-timer-display-box">
+            <div class="mac-timer-badge-row">
+              <span class="mac-timer-badge" id="mac-timer-badge">POMODORO FOCUS</span>
+              <button type="button" class="mac-deck-close-btn" id="mac-timer-close-btn" title="Collapse Dynamic Island (Esc)">✕</button>
+            </div>
+            <div class="mac-timer-digits" id="mac-timer-digits">25:00</div>
+            <div class="mac-timer-sub" id="mac-timer-sub">Study Sprint • Tap presets or start</div>
           </div>
-          <span class="mac-deck-time" id="mac-deck-tot-time">3:45</span>
-        </div>
-
-        <!-- Mac Media Playback Controls -->
-        <div class="mac-deck-ctrl-row">
-          <button type="button" class="mac-ctrl-btn" id="mac-btn-prev" title="Previous / Restart Track (⏮)">
-            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-          </button>
-          <button type="button" class="mac-ctrl-btn mac-ctrl-play" id="mac-btn-playpause" title="Play / Pause">
-            <span id="mac-playpause-glyph">⏸</span>
-          </button>
-          <button type="button" class="mac-ctrl-btn" id="mac-btn-next" title="Next Preset Track (⏭)">
-            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-          </button>
-          <button type="button" class="mac-ctrl-btn" id="mac-btn-mute" title="Toggle Sound / Mute">
-            <span id="mac-mute-glyph">🔊</span>
-          </button>
+          <div class="mac-timer-presets">
+            <button type="button" class="mac-timer-preset active" data-time="1500">25m Focus</button>
+            <button type="button" class="mac-timer-preset" data-time="900">15m Review</button>
+            <button type="button" class="mac-timer-preset" data-time="2700">45m Deep</button>
+            <button type="button" class="mac-timer-preset" data-time="300">5m Break</button>
+          </div>
+          <div class="mac-timer-ctrls">
+            <button type="button" class="mac-ctrl-btn" id="mac-timer-dec" title="-1 Minute">-1m</button>
+            <button type="button" class="mac-ctrl-btn mac-ctrl-play" id="mac-timer-toggle" title="Start/Pause Timer">
+              <span id="mac-timer-glyph">▶</span>
+            </button>
+            <button type="button" class="mac-ctrl-btn" id="mac-timer-inc" title="+1 Minute">+1m</button>
+            <button type="button" class="mac-ctrl-btn" id="mac-timer-reset" title="Reset Timer">↺</button>
+          </div>
         </div>
 
         <!-- Fast-Travel Quick Places Deck -->
         <div class="mac-fast-travel">
           <div class="mac-travel-header">
             <span class="mac-travel-label">QUICK JUMP</span>
-            <span class="mac-travel-sublabel">Navigate places while music plays</span>
+            <span class="mac-travel-sublabel">Navigate study tools seamlessly</span>
           </div>
           <div class="mac-travel-grid">
             <button type="button" class="mac-travel-pill" data-place="notes" title="Jump to Notes">
               <span class="travel-icon">📓</span>
               <span class="travel-name">Notes</span>
+            </button>
+            <button type="button" class="mac-travel-pill" data-place="cards" title="Open 3D Flashcard Deck">
+              <span class="travel-icon">🃏</span>
+              <span class="travel-name">Cards</span>
+            </button>
+            <button type="button" class="mac-travel-pill" data-place="ghost" title="Open Cloze-Drift Ghost Recall">
+              <span class="travel-icon">👻</span>
+              <span class="travel-name">Recall</span>
+            </button>
+            <button type="button" class="mac-travel-pill" data-place="timer" title="Toggle Live Study Timer">
+              <span class="travel-icon">⏱️</span>
+              <span class="travel-name">Timer</span>
             </button>
             <button type="button" class="mac-travel-pill" data-place="calc" title="Open Calculator">
               <span class="travel-icon">🧮</span>
@@ -331,6 +378,8 @@
           <button class="nav-link active" id="nav-btn-home" data-scroll="hero">HOME</button>
           <button class="nav-link" id="nav-btn-notes" data-scroll="notes-section">NOTES</button>
           <button class="nav-link" id="nav-btn-calc" data-scroll="calculator-section">CALCULATOR</button>
+          <button class="nav-link" id="nav-btn-cards" title="Apple 3D Interactive Flashcards">CARDS</button>
+          <button class="nav-link" id="nav-btn-ghost-recall" title="Cloze-Drift Ghost Recall Game">RECALL</button>
         </div>
 
         <div class="nav-right" style="gap: 10px;">
@@ -1808,6 +1857,160 @@
     </button>
   </div>
 
+  <!-- ================= APPLE 3D INTERACTIVE FLASHCARDS MODAL ================= -->
+  <div id="apple-flashcards-modal" class="modal-backdrop hidden" aria-modal="true" role="dialog">
+    <div class="modal-window glass-modal apple-flashcards-window">
+      <!-- Modal Header -->
+      <div class="modal-header apple-fc-header">
+        <div class="apple-fc-title-group">
+          <span class="modal-cat-badge">🍎 APPLE 3D STUDY DECK</span>
+          <select id="apple-fc-topic-select" class="apple-fc-select" title="Choose Science Study Topic">
+            <!-- Dynamically populated from SCIENCE_IO_PUBLISHED_NOTES -->
+          </select>
+        </div>
+        <div class="apple-fc-header-actions">
+          <div class="apple-fc-score-pill" id="apple-fc-score-pill">
+            <span id="apple-fc-counter">Card 1 / 10</span>
+            <span class="apple-fc-mastery-tag" id="apple-fc-mastery-tag">0% Mastered</span>
+          </div>
+          <button type="button" class="modal-close-btn" id="apple-fc-close-btn" title="Close Flashcards (Esc)">&times;</button>
+        </div>
+      </div>
+
+      <!-- 3D Card Stage Arena -->
+      <div class="apple-fc-stage">
+        <!-- Background Stack Ghost Cards for Depth Perspective -->
+        <div class="apple-fc-ghost-card ghost-2"></div>
+        <div class="apple-fc-ghost-card ghost-1"></div>
+
+        <!-- Active 3D Flippable Card -->
+        <div class="apple-fc-card-container" id="apple-fc-card-container" tabindex="0" title="Click or press Space to flip">
+          <div class="apple-fc-card-3d" id="apple-fc-card-3d">
+            <!-- FRONT SIDE -->
+            <div class="apple-fc-face apple-fc-front">
+              <div class="apple-fc-card-top">
+                <span class="apple-fc-category-badge" id="apple-fc-cat">PLANT CELL</span>
+                <span class="apple-fc-num-badge" id="apple-fc-num">#1</span>
+              </div>
+              <div class="apple-fc-prompt-area">
+                <h3 class="apple-fc-term" id="apple-fc-term">Cell Membrane</h3>
+                <span class="apple-fc-formula" id="apple-fc-formula">Semi-Permeable Boundary Layer</span>
+                <p class="apple-fc-question">What is the scientific function and role of this structure?</p>
+              </div>
+              <div class="apple-fc-card-footer">
+                <span class="apple-fc-trick-pill" id="apple-fc-trick">💡 Memory Trick: The security gatekeeper of the cell!</span>
+                <span class="apple-fc-flip-hint">Space or Tap to Flip ↻</span>
+              </div>
+            </div>
+
+            <!-- BACK SIDE -->
+            <div class="apple-fc-face apple-fc-back">
+              <div class="apple-fc-card-top">
+                <span class="apple-fc-category-badge">EXPLANATION &amp; DETAILS</span>
+                <span class="apple-fc-num-badge" id="apple-fc-back-num">#1</span>
+              </div>
+              <div class="apple-fc-explanation-area">
+                <h4 class="apple-fc-back-title" id="apple-fc-back-title">Cell Membrane</h4>
+                <p class="apple-fc-definition" id="apple-fc-definition">Thin layer that surrounds the cell. It provides structure and protection and it is semi-permeable.</p>
+                <div class="apple-fc-example-box" id="apple-fc-example">
+                  <strong>Real-World Science:</strong> Acts like a smart security gatekeeper with turnstiles...
+                </div>
+              </div>
+              <div class="apple-fc-card-footer apple-fc-back-footer">
+                <button type="button" class="apple-fc-rate-btn rate-practice" id="apple-fc-btn-practice" title="Mark as Still Practicing (Key 1)">
+                  <span>🔴 Still Practicing [1]</span>
+                </button>
+                <button type="button" class="apple-fc-rate-btn rate-mastered" id="apple-fc-btn-mastered" title="Mark as Mastered (Key 2)">
+                  <span>🟢 Mastered! [2]</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Navigation Toolbar -->
+      <div class="apple-fc-toolbar">
+        <button type="button" class="apple-fc-nav-btn" id="apple-fc-prev-btn" title="Previous Card (Left Arrow)">
+          <span>◀ Previous</span>
+        </button>
+        <button type="button" class="apple-fc-flip-btn" id="apple-fc-flip-btn" title="Flip Card (Spacebar)">
+          <span>🔄 Flip Card (Space)</span>
+        </button>
+        <button type="button" class="apple-fc-nav-btn" id="apple-fc-next-btn" title="Next Card (Right Arrow)">
+          <span>Next ▶</span>
+        </button>
+        <button type="button" class="apple-fc-shuffle-btn" id="apple-fc-shuffle-btn" title="Shuffle Deck">
+          <span>🔀 Shuffle</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CLOZE-DRIFT: GHOST RECALL MODAL ================= -->
+  <div id="ghost-recall-modal" class="modal-backdrop hidden" aria-modal="true" role="dialog">
+    <div class="modal-window glass-modal ghost-recall-window">
+      <!-- Modal Header -->
+      <div class="modal-header ghost-header">
+        <div class="ghost-title-group">
+          <span class="modal-cat-badge">👻 CLOZE-DRIFT GHOST RECALL</span>
+          <select id="ghost-topic-select" class="apple-fc-select" title="Choose Science Study Topic">
+            <!-- Dynamically populated from SCIENCE_IO_PUBLISHED_NOTES -->
+          </select>
+        </div>
+        <div class="ghost-header-right">
+          <div class="ghost-score-badge" id="ghost-score-badge">
+            <span class="ghost-pct" id="ghost-pct-display">0%</span>
+            <span class="ghost-lbl">MEMORIZED</span>
+          </div>
+          <button type="button" class="modal-close-btn" id="ghost-close-btn" title="Close Ghost Recall (Esc)">&times;</button>
+        </div>
+      </div>
+
+      <!-- Difficulty Mode Segmented Pills -->
+      <div class="ghost-mode-row">
+        <span class="ghost-mode-label">DIFFICULTY:</span>
+        <button type="button" class="ghost-mode-btn active" data-level="1" id="ghost-lvl-1">🌱 Gentle (Option Chips)</button>
+        <button type="button" class="ghost-mode-btn" data-level="2" id="ghost-lvl-2">⚡ Intense (First Letter)</button>
+        <button type="button" class="ghost-mode-btn" data-level="3" id="ghost-lvl-3">🧠 Master (Blank Recall)</button>
+        <div class="ghost-streak-pill" id="ghost-streak-pill">
+          <span id="ghost-streak-text">🔥 Streak: 0</span>
+        </div>
+      </div>
+
+      <!-- Main Interactive Text Flow Arena -->
+      <div class="ghost-flow-arena" id="ghost-flow-arena">
+        <!-- Sentences with interactive [ ? ] ghost blanks rendered via JS -->
+      </div>
+
+      <!-- Option Chips Selection Tray (For Gentle Level 1) -->
+      <div class="ghost-tray" id="ghost-tray">
+        <span class="ghost-tray-hint">Click an active ghost blank above, then pick the matching term:</span>
+        <div class="ghost-chips-container" id="ghost-chips-container">
+          <!-- Option chips dynamically rendered -->
+        </div>
+      </div>
+
+      <!-- Bottom Action Row -->
+      <div class="ghost-footer-row">
+        <div class="ghost-progress-bar-wrap">
+          <div class="ghost-progress-bar" id="ghost-progress-bar" style="width: 0%;"></div>
+        </div>
+        <div class="ghost-footer-actions">
+          <button type="button" class="apple-fc-nav-btn" id="ghost-btn-hint" title="Reveal Next Hint">
+            <span>💡 Hint</span>
+          </button>
+          <button type="button" class="apple-fc-nav-btn" id="ghost-btn-reset" title="Reset Topic Blanks">
+            <span>↺ Reset</span>
+          </button>
+          <button type="button" class="apple-fc-nav-btn" id="ghost-btn-next-topic" title="Load Next Science Unit">
+            <span>Next Topic ❯</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ================= SLEEK GLOBAL COMMAND HUD (Cmd+K / Ctrl+K) ================= -->
   <div id="command-hud-modal" class="command-hud-backdrop hidden" aria-modal="true" role="dialog">
     <div class="command-hud-window" id="command-hud-window">
@@ -1854,6 +2057,6 @@
   </div>
 
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=85.0"></script>
+  <script src="app.js?v=86.0"></script>
 </body>
 </html>
