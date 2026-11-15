@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=97.0">
+  <link rel="stylesheet" href="styles.css?v=98.0">
   <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -1454,6 +1454,14 @@
                 </div>
               </div>
 
+              <!-- Manual Scan Trigger Button -->
+              <div class="faceid-action-row">
+                <button type="button" class="btn-start-faceid" id="btn-start-faceid" title="Click to begin Face ID verification">
+                  <span class="btn-scan-icon"></span>
+                  <span class="btn-scan-label">Start Scanning Face</span>
+                </button>
+              </div>
+
               <!-- Security Lockout Banner (Active when unauthorized access detected) -->
               <div class="faceid-lockout-alert hidden" id="faceid-lockout-alert">
                 <span class="lockout-alert-icon">🚫</span>
@@ -2406,6 +2414,6 @@
   </div>
 
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=97.0"></script>
+  <script src="app.js?v=98.0"></script>
 </body>
 </html>

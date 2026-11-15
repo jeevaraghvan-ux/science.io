@@ -3843,6 +3843,7 @@ class VaultController {
     this.isLockedOut = false;
     this.lockoutUntil = 0;
     this.lockoutInterval = null;
+    this.failedScanAttempts = 0;
   }
 
   init() {
@@ -3867,6 +3868,7 @@ class VaultController {
         sessionStorage.removeItem("scienceio_vault_lockout");
         this.isLockedOut = false;
         this.lockoutUntil = 0;
+        this.failedScanAttempts = 0;
         const alertBox = document.getElementById("faceid-lockout-alert");
         if (alertBox) alertBox.classList.add("hidden");
       }
@@ -3884,6 +3886,12 @@ class VaultController {
     const challengeText = document.getElementById("faceid-challenge-text");
     const viewport = document.getElementById("faceid-scanner-viewport");
     const lockSvg = document.getElementById("faceid-lock-svg");
+    const startBtn = document.getElementById("btn-start-faceid");
+
+    if (startBtn) {
+      startBtn.disabled = true;
+      startBtn.innerHTML = `<span class="btn-scan-icon">🚫</span><span class="btn-scan-label">Locked Out (${remainingSec}s)</span>`;
+    }
 
     if (lockoutAlert) lockoutAlert.classList.remove("hidden");
     if (lockoutTimer) lockoutTimer.textContent = `${remainingSec}s`;
@@ -3910,6 +3918,7 @@ class VaultController {
           this.lockoutInterval = null;
           this.isLockedOut = false;
           this.lockoutUntil = 0;
+          this.failedScanAttempts = 0;
           sessionStorage.removeItem("scienceio_vault_lockout");
           const alertEl = document.getElementById("faceid-lockout-alert");
           if (alertEl) alertEl.classList.add("hidden");
@@ -3918,6 +3927,9 @@ class VaultController {
           if (lockoutTimer) lockoutTimer.textContent = `${left}s`;
           if (statusText) statusText.textContent = `SYSTEM LOCKED OUT (${left}s)`;
           if (challengeText) challengeText.textContent = `SECURITY LOCKOUT: Unauthorized attempt. Retry in ${left}s`;
+          if (startBtn) {
+            startBtn.innerHTML = `<span class="btn-scan-icon">🚫</span><span class="btn-scan-label">Locked Out (${left}s)</span>`;
+          }
         }
       }, 1000);
     }
@@ -3969,17 +3981,23 @@ class VaultController {
     const cueRight = document.getElementById("faceid-tilt-cue-right");
     const contourSvg = document.getElementById("faceid-depth-contour-svg");
     const lockoutAlert = document.getElementById("faceid-lockout-alert");
+    const startBtn = document.getElementById("btn-start-faceid");
 
     if (lockoutAlert) lockoutAlert.classList.add("hidden");
     if (viewport) viewport.className = "faceid-scanner-viewport";
     if (challengeBar) challengeBar.className = "faceid-challenge-bar";
     if (challengeIcon) challengeIcon.textContent = "🎯";
-    if (challengeText) challengeText.textContent = "Step 1 of 3: Look directly at sensor (Center Face)";
-    if (statusText) statusText.textContent = "TRUEDEPTH SENSOR ACTIVE";
+    if (challengeText) challengeText.textContent = "Ready. Tap 'Start Scanning Face' to authenticate";
+    if (statusText) statusText.textContent = "TRUEDEPTH SENSOR READY";
     if (reticleBox) reticleBox.className = "faceid-reticle-box";
     if (contourSvg) contourSvg.style.transform = "rotate(0deg) scale(1)";
     if (cueLeft) cueLeft.classList.remove("active");
     if (cueRight) cueRight.classList.remove("active");
+
+    if (startBtn) {
+      startBtn.disabled = false;
+      startBtn.innerHTML = `<span class="btn-scan-icon"></span><span class="btn-scan-label">Start Scanning Face</span>`;
+    }
 
     if (lockSvg) {
       lockSvg.innerHTML = `<rect x="4" y="11" width="16" height="11" rx="2.5" ry="2.5"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>`;
@@ -4004,9 +4022,17 @@ class VaultController {
   }
 
   setupFaceId() {
+    const startBtn = document.getElementById("btn-start-faceid");
+    startBtn?.addEventListener("click", () => {
+      if (!this.isUnlocked && !this.faceIdScanning && !this.checkLockoutStatus()) {
+        this.resetFaceIdUI();
+        this.triggerFaceIdScan();
+      }
+    });
+
     const viewport = document.getElementById("faceid-scanner-viewport");
     viewport?.addEventListener("click", () => {
-      if (!this.isUnlocked && !this.faceIdScanning) {
+      if (!this.isUnlocked && !this.faceIdScanning && !this.checkLockoutStatus()) {
         this.resetFaceIdUI();
         this.triggerFaceIdScan();
       }
@@ -4064,34 +4090,19 @@ class VaultController {
         this.faceIdStream = stream;
         video.srcObject = stream;
         video.classList.remove("hidden");
-        if (statusText) statusText.textContent = "TRUEDEPTH SENSOR ACTIVE";
+        if (statusText) statusText.textContent = "CAMERA READY • TAP START SCANNING";
         if (pulseDot) pulseDot.style.background = "#10b981";
-
-        this.scheduleAutoScan(400);
       } catch (err) {
         // Fallback to TrueDepth neural infrared sensor without webcam permissions
         video.classList.add("hidden");
-        if (statusText) statusText.textContent = "INFRARED SENSOR ACTIVE";
+        if (statusText) statusText.textContent = "OPTICAL SENSOR READY • TAP START SCANNING";
         if (pulseDot) pulseDot.style.background = "#38bdf8";
-
-        this.scheduleAutoScan(350);
       }
     } else {
       video.classList.add("hidden");
-      if (statusText) statusText.textContent = "INFRARED SENSOR ACTIVE";
+      if (statusText) statusText.textContent = "OPTICAL SENSOR READY • TAP START SCANNING";
       if (pulseDot) pulseDot.style.background = "#38bdf8";
-      this.scheduleAutoScan(350);
     }
-  }
-
-  scheduleAutoScan(delayMs = 350) {
-    if (this.faceIdAutoTimer) clearTimeout(this.faceIdAutoTimer);
-    this.faceIdAutoTimer = setTimeout(() => {
-      if (!this.isUnlocked && !this.faceIdScanning) {
-        this.resetFaceIdUI();
-        this.triggerFaceIdScan();
-      }
-    }, delayMs);
   }
 
   stopFaceIdCamera() {
@@ -4316,9 +4327,43 @@ class VaultController {
               this.unlockVault();
             }, 800);
           } else {
-            // BIOMETRIC MISMATCH! UNAUTHORIZED FACE REJECTED & LOCKED OUT!
+            // Biometric mismatch branch
             this.faceIdScanning = false;
-            this.triggerBiometricLockout(biometricResult.message || "Unauthorized Face Biometric Mismatch");
+            this.failedScanAttempts++;
+
+            if (this.failedScanAttempts >= 2) {
+              // 2 consecutive mismatches: Lock out intruder
+              this.triggerBiometricLockout(biometricResult.message || "Unauthorized Face Biometric Mismatch");
+            } else {
+              // First attempt failed: Warn and allow clean retry without lockout
+              if (viewport) {
+                viewport.classList.remove("scanning", "verified");
+                viewport.classList.add("denied");
+              }
+              if (challengeBar) {
+                challengeBar.className = "faceid-challenge-bar error";
+                challengeIcon.textContent = "⚠️";
+                challengeText.textContent = `${biometricResult.message || "Face angle not verified"}. Tap 'Start Scanning Face' to retry (1 attempt left).`;
+              }
+              if (statusText) statusText.textContent = "VERIFICATION FAILED • 1 RETRY REMAINING";
+              if (lockSvg) {
+                lockSvg.innerHTML = `<rect x="4" y="11" width="16" height="11" rx="2.5" ry="2.5"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>`;
+                lockSvg.style.stroke = "#f59e0b";
+              }
+
+              sounds.playVaultError();
+
+              setTimeout(() => {
+                if (viewport) viewport.classList.remove("denied");
+                this.resetFaceIdUI();
+                const bar = document.getElementById("faceid-challenge-bar");
+                const text = document.getElementById("faceid-challenge-text");
+                const icon = document.getElementById("faceid-challenge-icon");
+                if (bar) bar.className = "faceid-challenge-bar";
+                if (icon) icon.textContent = "🎯";
+                if (text) text.textContent = "1 attempt remaining: Align face with good lighting, then tap 'Start Scanning Face'";
+              }, 2500);
+            }
           }
         }
       }
@@ -4525,47 +4570,47 @@ class VaultController {
 
       // Factor 1: Face Shape & Contour Geometry Match (Max 40 pts - MANDATORY)
       // Anyone with a different jaw taper, wide forehead, or round/square head is penalized
-      if (shapeDist <= 0.28) {
+      if (shapeDist <= 0.35) {
         matchScore += 40;
         shapePassed = true;
-      } else if (shapeDist <= 0.42) {
-        matchScore += 26;
+      } else if (shapeDist <= 0.52) {
+        matchScore += 30;
         shapePassed = true;
-      } else if (shapeDist <= 0.58) {
-        matchScore += 10;
-        shapePassed = false;
+      } else if (shapeDist <= 0.68) {
+        matchScore += 18;
+        shapePassed = true; // Natural tolerance for camera tilt/distance
       } else {
-        matchScore -= 35; // Severe face shape mismatch: round/long/heart shape detected
+        matchScore -= 25; // Severe face shape mismatch: round/long/heart shape detected
         shapePassed = false;
       }
 
       // Factor 2: Chromaticity vector match (Max 30 pts)
-      if (chromaDist <= 0.022) {
+      if (chromaDist <= 0.030) {
         matchScore += 30;
-      } else if (chromaDist <= 0.038) {
+      } else if (chromaDist <= 0.052) {
         matchScore += 24;
-      } else if (chromaDist <= 0.050) {
-        matchScore += 12;
+      } else if (chromaDist <= 0.075) {
+        matchScore += 14;
       } else {
-        matchScore -= 20; // Clear skin undertone mismatch
+        matchScore -= 18; // Clear skin undertone mismatch
       }
 
       // Factor 3: Hair tone and contrast ratio (Max 20 pts)
-      if (hairContrastRatio <= 0.60 && hairLuma <= 65) {
+      if (hairContrastRatio <= 0.65 && hairLuma <= 75) {
         matchScore += 20;
-      } else if (hairContrastRatio <= 0.70 && hairLuma <= 78) {
-        matchScore += 14;
+      } else if (hairContrastRatio <= 0.82 && hairLuma <= 92) {
+        matchScore += 15;
       } else {
-        matchScore -= 20; // Hair contrast mismatch
+        matchScore -= 15; // Hair contrast mismatch
       }
 
       // Factor 4: 3D Facial surface texture / depth variance (Max 10 pts)
-      if (skinLumaStdDev >= 7 && skinLumaStdDev <= 45) {
+      if (skinLumaStdDev >= 5 && skinLumaStdDev <= 55) {
         matchScore += 10;
       }
 
-      // Strict Acceptance Rule: Must score >= 75 AND face shape geometry must pass
-      const isMatch = (matchScore >= 75 && shapePassed);
+      // Balanced Acceptance Rule: Must score >= 62 AND face shape geometry must pass
+      const isMatch = (matchScore >= 62 && shapePassed);
       const confidence = Math.min(99.6, Math.max(18.0, matchScore));
 
       const mismatchReason = !shapePassed 
