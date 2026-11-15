@@ -4145,6 +4145,14 @@ html, body {
   margin-bottom: 12px;
 }
 
+.faceid-angle-matrix.single-center {
+  max-width: 220px;
+}
+
+.faceid-angle-matrix.single-center .angle-card {
+  padding: 8px 14px;
+}
+
 .angle-card {
   flex: 1;
   background: rgba(15, 23, 42, 0.65);
