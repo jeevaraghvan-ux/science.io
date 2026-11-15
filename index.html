@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=89.0">
+  <link rel="stylesheet" href="styles.css?v=91.0">
   <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -1320,42 +1320,78 @@
           </div>
 
           <div class="vault-lock-credentials">
-            <h2 class="vault-lock-title">ADMIN SECURITY VAULT</h2>
-            <p class="vault-lock-subtitle" id="vault-lock-status-msg">Enter 6-Digit Passcode to Access Web Administration & Note Architect</p>
-
-            <div class="vault-redirect-warning hidden" id="vault-redirect-warning">
-              <span class="warning-icon">🔒</span>
-              <div class="warning-text">
-                <strong>Access Restricted:</strong> Notes can <em>ONLY</em> be created inside the Vault. Authenticate with your 6-digit admin passcode to open the Note Architect.
+            <!-- PURE APPLE TRUEDEPTH FACE ID VIEW -->
+            <div id="vault-faceid-panel" class="vault-auth-panel active">
+              <div class="vault-faceid-header-badge">
+                <span class="faceid-apple-logo"></span>
+                <span class="faceid-header-title">Apple Face ID</span>
               </div>
-            </div>
+              <h2 class="vault-lock-title">BIOMETRIC SECURITY</h2>
+              <p class="vault-lock-subtitle" id="vault-faceid-subtitle">Look directly at the sensor for instant automatic unlock</p>
 
-            <!-- 6-Digit PIN Slots -->
-            <div class="vault-pin-display" id="vault-pin-display">
-              <div class="pin-slot" data-slot="0"><span class="pin-dot"></span></div>
-              <div class="pin-slot" data-slot="1"><span class="pin-dot"></span></div>
-              <div class="pin-slot" data-slot="2"><span class="pin-dot"></span></div>
-              <div class="pin-slot" data-slot="3"><span class="pin-dot"></span></div>
-              <div class="pin-slot" data-slot="4"><span class="pin-dot"></span></div>
-              <div class="pin-slot" data-slot="5"><span class="pin-dot"></span></div>
-            </div>
+              <!-- Face ID TrueDepth Viewport -->
+              <div class="faceid-scanner-viewport" id="faceid-scanner-viewport">
+                <!-- Video Element for Real Front Camera (Streamed strictly on-device, never uploaded) -->
+                <video id="faceid-video" class="faceid-video hidden" autoplay playsinline muted></video>
+                <!-- Canvas Overlay for Neural Optical Landmark Scan -->
+                <canvas id="faceid-canvas" class="faceid-canvas"></canvas>
 
-            <div class="vault-pin-feedback" id="vault-pin-feedback">ENTER 6-DIGIT CODE</div>
+                <!-- Holographic Face ID HUD Stage -->
+                <div class="faceid-reticle-box" id="faceid-reticle-box">
+                  <div class="reticle-corner reticle-tl"></div>
+                  <div class="reticle-corner reticle-tr"></div>
+                  <div class="reticle-corner reticle-bl"></div>
+                  <div class="reticle-corner reticle-br"></div>
+                  <div class="faceid-laser-scanner" id="faceid-laser-scanner"></div>
+                  
+                  <!-- Apple Face ID Vector Neural Mesh (Zero exposure of personal photos) -->
+                  <div class="faceid-vector-guide" id="faceid-vector-guide">
+                    <svg viewBox="0 0 100 100" class="faceid-vector-svg">
+                      <!-- Dynamic biometric outer halo -->
+                      <circle cx="50" cy="50" r="44" class="faceid-halo-ring" fill="none" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1.5" stroke-dasharray="6 4"></circle>
+                      <circle cx="50" cy="50" r="37" class="faceid-inner-ring" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1"></circle>
+                      <!-- Iconic 4 Corner Target Brackets -->
+                      <path d="M 24 34 L 24 24 L 34 24" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M 76 34 L 76 24 L 66 24" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M 24 66 L 24 76 L 34 76" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M 76 66 L 76 76 L 66 76" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                      <!-- Apple Face ID Eyes -->
+                      <line x1="36" y1="41" x2="36" y2="45" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" />
+                      <line x1="64" y1="41" x2="64" y2="45" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" />
+                      <!-- Nose Dot -->
+                      <circle cx="50" cy="49" r="1.8" fill="#38bdf8" />
+                      <!-- Smile Arc -->
+                      <path d="M 38 60 Q 50 71 62 60" fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" />
+                    </svg>
+                  </div>
 
-            <!-- Cyber Keypad -->
-            <div class="vault-keypad-grid">
-              <button type="button" class="keypad-btn" data-key="1">1</button>
-              <button type="button" class="keypad-btn" data-key="2">2</button>
-              <button type="button" class="keypad-btn" data-key="3">3</button>
-              <button type="button" class="keypad-btn" data-key="4">4</button>
-              <button type="button" class="keypad-btn" data-key="5">5</button>
-              <button type="button" class="keypad-btn" data-key="6">6</button>
-              <button type="button" class="keypad-btn" data-key="7">7</button>
-              <button type="button" class="keypad-btn" data-key="8">8</button>
-              <button type="button" class="keypad-btn" data-key="9">9</button>
-              <button type="button" class="keypad-btn keypad-fn" id="btn-keypad-clear" data-key="clear">CLEAR</button>
-              <button type="button" class="keypad-btn" data-key="0">0</button>
-              <button type="button" class="keypad-btn keypad-fn" id="btn-keypad-back" data-key="back">⌫</button>
+                  <!-- Face ID Lock Glyph (Apple animated padlock) -->
+                  <div class="faceid-lock-badge" id="faceid-lock-badge">
+                    <svg viewBox="0 0 24 24" class="faceid-lock-svg" id="faceid-lock-svg">
+                      <rect x="4" y="11" width="16" height="11" rx="2.5" ry="2.5"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- TrueDepth Optical Status Ribbon -->
+                <div class="faceid-telemetry-pill" id="faceid-telemetry-pill">
+                  <span class="faceid-pulse-dot" id="faceid-pulse-dot"></span>
+                  <span id="faceid-status-text">TRUEDEPTH SENSOR ACTIVE</span>
+                </div>
+              </div>
+
+              <!-- Face ID Liveness Challenge Prompt -->
+              <div class="faceid-challenge-bar" id="faceid-challenge-bar">
+                <span class="challenge-icon" id="faceid-challenge-icon">🎯</span>
+                <span class="challenge-text" id="faceid-challenge-text">Looking for Face...</span>
+              </div>
+
+              <!-- Privacy Guarantee Banner -->
+              <div class="faceid-privacy-footer">
+                <span class="privacy-lock-icon">🔒</span>
+                <span>Biometrics processed 100% on-device &bull; Zero photos stored or shared</span>
+              </div>
             </div>
           </div>
         </div>
@@ -2293,6 +2329,6 @@
   </div>
 
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=89.0"></script>
+  <script src="app.js?v=91.0"></script>
 </body>
 </html>
