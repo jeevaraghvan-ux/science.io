@@ -12878,10 +12878,18 @@ class ScienceIoApp {
         return;
       }
 
-      // 1. SECRET CODE: secret vault access / 252525 / vault -> open Vault Keypad
-      if (cleanCmd === "secret vault access" || cleanCmd === "vault" || cleanCmd === "252525") {
+      // 1. SECRET CODE: Exclusive gateway to Admin Vault via Terminal in All About Me
+      if (
+        cleanCmd === "vault" ||
+        cleanCmd === "admin vault" ||
+        cleanCmd === "admin" ||
+        cleanCmd === "secret vault access" ||
+        cleanCmd === "252525" ||
+        cleanCmd === "faceid" ||
+        cleanCmd === "face id"
+      ) {
         appendTerminalLine("🔐 SECURITY OVERRIDE ACCEPTED", "command-result");
-        appendTerminalLine("Clearance Level 5 validated (PIN: 252525). Transferring to Security Vault Keypad...", "terminal-muted");
+        appendTerminalLine("Clearance Level 5 validated. Initializing Apple TrueDepth Face ID Biometrics...", "terminal-muted");
         sounds.playVaultRedirect();
         showToast("Vault Access Authorized 🔓");
         setTimeout(() => {
@@ -12889,9 +12897,6 @@ class ScienceIoApp {
           if (window.app && window.app.vault) {
             window.app.vault.isUnlocked = false;
             window.app.vault.open();
-            if (typeof window.app.vault.switchTab === "function") {
-              window.app.vault.switchTab("music");
-            }
           }
         }, 600);
         return;
@@ -13421,18 +13426,6 @@ class ScienceIoApp {
           } else {
             document.getElementById("projects-modal")?.classList.remove("hidden");
           }
-        }
-      },
-      {
-        id: "nav-vault",
-        category: "actions",
-        title: "Architect Cloud Vault (Apple Face ID)",
-        sub: "Biometric TrueDepth Face ID & Admin Cloud Note Architect",
-        badge: "ADMIN",
-        icon: "👤",
-        keywords: "vault admin publish cloud save notes password face id biometrics truedepth",
-        action: () => {
-          document.getElementById("vault-bubble-btn")?.click();
         }
       },
       {
