@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=95.0">
+  <link rel="stylesheet" href="styles.css?v=96.0">
   <link rel="stylesheet" href="ios27.css?v=63.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -1344,9 +1344,15 @@
                   <div class="reticle-corner reticle-br"></div>
                   <div class="faceid-laser-scanner" id="faceid-laser-scanner"></div>
 
-                  <!-- Dynamic Enrolled Angle Target Ghost Guide -->
+                  <!-- Dynamic Biometric Depth Mesh & Tilt Guide (No photos displayed) -->
                   <div class="faceid-angle-ghost-wrap" id="faceid-angle-ghost-wrap">
-                    <img id="faceid-angle-ghost-img" class="faceid-angle-ghost-img" src="assets/face-front.jpg" alt="Target Pose Guide">
+                    <svg viewBox="0 0 100 100" class="faceid-depth-contour-svg" id="faceid-depth-contour-svg">
+                      <ellipse cx="50" cy="50" rx="34" ry="44" fill="none" stroke="rgba(56, 189, 248, 0.45)" stroke-width="1.6" stroke-dasharray="4 3" class="depth-mesh-oval" />
+                      <path d="M 32 40 Q 50 48 68 40" fill="none" stroke="rgba(56, 189, 248, 0.5)" stroke-width="1.2" stroke-dasharray="2 2" />
+                      <path d="M 34 58 Q 50 68 66 58" fill="none" stroke="rgba(56, 189, 248, 0.5)" stroke-width="1.2" stroke-dasharray="2 2" />
+                      <line x1="50" y1="20" x2="50" y2="82" stroke="rgba(56, 189, 248, 0.35)" stroke-width="1" stroke-dasharray="3 3" />
+                      <circle id="faceid-depth-tilt-dot" cx="50" cy="22" r="3" fill="#38bdf8" />
+                    </svg>
                   </div>
                   
                   <!-- Apple Face ID Vector Neural Mesh -->
@@ -1402,42 +1408,66 @@
                 <span class="challenge-text" id="faceid-challenge-text">Step 1 of 3: Center Face in Reticle</span>
               </div>
 
-              <!-- Multi-Angle Pose Verification Matrix (Matching Jeeva's Enrolled Photos) -->
+              <!-- Multi-Angle Pose Verification Matrix (Apple Vector Glyphs) -->
               <div class="faceid-angle-matrix" id="faceid-angle-matrix">
                 <div class="angle-card current" id="angle-card-front" data-angle="front" title="Look directly at the sensor">
                   <div class="angle-thumb-wrap">
-                    <img src="assets/face-front.jpg" alt="Jeeva Front Profile" class="angle-thumb-img">
+                    <div class="angle-glyph-wrap front">
+                      <svg viewBox="0 0 36 36" class="angle-glyph-svg">
+                        <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 2" />
+                        <circle cx="13" cy="16" r="1.6" fill="currentColor" />
+                        <circle cx="23" cy="16" r="1.6" fill="currentColor" />
+                        <path d="M 13 23 Q 18 26 23 23" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                      </svg>
+                    </div>
                     <span class="angle-check-badge" id="angle-check-front">🎯</span>
                   </div>
                   <span class="angle-label">1. CENTER</span>
                 </div>
                 <div class="angle-card" id="angle-card-left" data-angle="left" title="Tilt head to the left">
                   <div class="angle-thumb-wrap">
-                    <img src="assets/face-left.jpg" alt="Jeeva Left Profile" class="angle-thumb-img">
+                    <div class="angle-glyph-wrap left">
+                      <svg viewBox="0 0 36 36" class="angle-glyph-svg">
+                        <ellipse cx="17" cy="18" rx="12" ry="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 2" transform="rotate(-15 18 18)" />
+                        <circle cx="11" cy="16" r="1.6" fill="currentColor" />
+                        <circle cx="19" cy="15" r="1.6" fill="currentColor" />
+                        <path d="M 11 23 Q 15 25 20 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                      </svg>
+                    </div>
                     <span class="angle-check-badge" id="angle-check-left">⬅️</span>
                   </div>
                   <span class="angle-label">2. TILT LEFT</span>
                 </div>
                 <div class="angle-card" id="angle-card-right" data-angle="right" title="Tilt head to the right">
                   <div class="angle-thumb-wrap">
-                    <img src="assets/face-right.jpg" alt="Jeeva Right Profile" class="angle-thumb-img">
+                    <div class="angle-glyph-wrap right">
+                      <svg viewBox="0 0 36 36" class="angle-glyph-svg">
+                        <ellipse cx="19" cy="18" rx="12" ry="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 2" transform="rotate(15 18 18)" />
+                        <circle cx="17" cy="15" r="1.6" fill="currentColor" />
+                        <circle cx="25" cy="16" r="1.6" fill="currentColor" />
+                        <path d="M 16 22 Q 21 25 25 23" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                      </svg>
+                    </div>
                     <span class="angle-check-badge" id="angle-check-right">➡️</span>
                   </div>
                   <span class="angle-label">3. TILT RIGHT</span>
                 </div>
               </div>
 
+              <!-- Security Lockout Banner (Active when unauthorized access detected) -->
+              <div class="faceid-lockout-alert hidden" id="faceid-lockout-alert">
+                <span class="lockout-alert-icon">🚫</span>
+                <div class="lockout-alert-body">
+                  <span class="lockout-alert-title">BIOMETRIC LOCKOUT ACTIVE</span>
+                  <span class="lockout-alert-msg" id="faceid-lockout-msg">Unauthorized face detected. Vault access restricted.</span>
+                </div>
+                <span class="lockout-alert-timer" id="faceid-lockout-timer">45s</span>
+              </div>
+
               <!-- Privacy Guarantee Banner -->
               <div class="faceid-privacy-footer">
                 <span class="privacy-lock-icon">🔒</span>
-                <span>Enrolled Biometric Template: <strong>Jeeva Raghavan</strong> &bull; TrueDepth Protected</span>
-              </div>
-
-              <!-- Enrolled Multi-Angle Reference Profile (For On-Device Facial Verification) -->
-              <div class="faceid-profile-reference hidden" id="faceid-profile-reference" style="display: none;">
-                <img src="assets/face-front.jpg" alt="Jeeva Reference Front" id="faceid-ref-front">
-                <img src="assets/face-left.jpg" alt="Jeeva Reference Left" id="faceid-ref-left">
-                <img src="assets/face-right.jpg" alt="Jeeva Reference Right" id="faceid-ref-right">
+                <span>Enrolled Biometric Signature: <strong>Jeeva Raghavan</strong> &bull; TrueDepth Protected</span>
               </div>
             </div>
           </div>
@@ -2376,6 +2406,6 @@
   </div>
 
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=95.0"></script>
+  <script src="app.js?v=96.0"></script>
 </body>
 </html>

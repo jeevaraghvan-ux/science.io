@@ -3889,25 +3889,35 @@ html, body {
   z-index: 12;
 }
 
-/* Enrolled Target Pose Ghost Overlay */
+/* Biometric Target Pose Depth Contour Overlay */
 .faceid-angle-ghost-wrap {
   position: absolute;
   width: 124px;
   height: 124px;
   border-radius: 50%;
   overflow: hidden;
-  opacity: 0.38;
-  filter: contrast(1.15) brightness(1.05) drop-shadow(0 0 10px rgba(56, 189, 248, 0.6));
+  opacity: 0.75;
   z-index: 11;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.faceid-angle-ghost-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
+.faceid-depth-contour-svg {
+  width: 120px;
+  height: 120px;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.7));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faceid-reticle-box.tilting-left .faceid-depth-contour-svg {
+  transform: rotate(-14deg) scale(1.04);
+}
+
+.faceid-reticle-box.tilting-right .faceid-depth-contour-svg {
+  transform: rotate(14deg) scale(1.04);
 }
 
 /* Reticle Tilt Animations */
@@ -4189,15 +4199,43 @@ html, body {
   transition: all 0.25s ease;
 }
 
-.angle-thumb-img {
+.angle-glyph-wrap {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  background: radial-gradient(circle at center, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+  transition: all 0.3s ease;
 }
 
-.angle-card:hover .angle-thumb-img {
-  transform: scale(1.08);
+.angle-glyph-svg {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+.angle-card:hover .angle-glyph-svg {
+  transform: scale(1.1);
+}
+
+.angle-card.current .angle-glyph-wrap {
+  color: #38bdf8;
+  background: radial-gradient(circle at center, rgba(14, 165, 233, 0.25), rgba(15, 23, 42, 0.95));
+}
+
+.angle-card.current .angle-glyph-svg {
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.7));
+}
+
+.angle-card.matched .angle-glyph-wrap {
+  color: #10b981;
+  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.25), rgba(15, 23, 42, 0.95));
+}
+
+.angle-card.matched .angle-glyph-svg {
+  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.7));
 }
 
 .angle-check-badge {
@@ -4235,6 +4273,60 @@ html, body {
 
 .angle-card.matched .angle-label {
   color: #a7f3d0;
+}
+
+/* Security Lockout Banner */
+.faceid-lockout-alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+  animation: pulseLockout 2s infinite ease-in-out;
+}
+
+.lockout-alert-icon {
+  font-size: 1.35rem;
+}
+
+.lockout-alert-body {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  flex: 1;
+}
+
+.lockout-alert-title {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #f87171;
+}
+
+.lockout-alert-msg {
+  font-size: 0.72rem;
+  color: #e2e8f0;
+}
+
+.lockout-alert-timer {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #ef4444;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+@keyframes pulseLockout {
+  0%, 100% { box-shadow: 0 4px 18px rgba(239, 68, 68, 0.25); border-color: rgba(239, 68, 68, 0.45); }
+  50% { box-shadow: 0 4px 28px rgba(239, 68, 68, 0.6); border-color: rgba(239, 68, 68, 0.9); }
 }
 
 /* Privacy Footer */
