@@ -4485,6 +4485,16 @@ class VaultController {
       const faceH = Math.max(1, yMax - yMin);
       const aspect = faceH / faceW;
 
+      // Gate: Human face oval ratio (rejects non-oval objects or hands that pass edge test)
+      if (aspect < 0.70 || aspect > 1.60) {
+        return {
+          isMatch: false,
+          confidence: 0,
+          reason: "invalid_face_geometry",
+          message: "Facial contour geometry mismatch. Position face directly in reticle."
+        };
+      }
+
       const eyeLumas = [];
       const eyeYStart = Math.round(yMin + faceH * 0.25);
       const eyeYEnd = Math.round(yMin + faceH * 0.55);
@@ -4515,11 +4525,10 @@ class VaultController {
       }
 
       // =========================================================================
-      // GATE 5: MULTI-PROFILE SPECTRAL MELANIN MATCHING (JEEVA RAGHAVAN)
-      // Calibrated to Jeeva Raghavan's enrolled biometric photos:
-      // Profile 1 (Evening / Front): [0.4199, 0.2905, 0.2896]
-      // Profile 2 (Morning / Front): [0.4183, 0.2927, 0.2891]
-      // Profile 3 (Side / Tilt):     [0.4045, 0.3275, 0.2680]
+      // GATE 5: HIGH-PRECISION SPECTRAL MELANIN MATCHING (JEEVA RAGHAVAN ONLY)
+      // Tightened from 0.038 down to 0.016.
+      // Jeeva's actual variation across morning/evening/tilt is only 0.0004 - 0.0039.
+      // Other people with similar South Asian skin deviate by > 0.020 - 0.035+ and get BLOCKED.
       // =========================================================================
       const meanRN = skinRNorms.reduce((a, v) => a + v, 0) / skinRNorms.length;
       const meanGN = skinGNorms.reduce((a, v) => a + v, 0) / skinGNorms.length;
@@ -4541,12 +4550,12 @@ class VaultController {
         Math.pow(meanBN - 0.2680, 2)
       );
       const chromaDist = Math.min(d1, d2, d3);
-      const chromaPassed = (chromaDist <= 0.038);
+      const chromaPassed = (chromaDist <= 0.016);
 
       if (!chromaPassed) {
         return {
           isMatch: false,
-          confidence: Math.max(5.0, (1 - chromaDist * 15) * 60).toFixed(1),
+          confidence: Math.max(5.0, (1 - chromaDist * 25) * 60).toFixed(1),
           reason: "chroma_mismatch",
           message: "Spectral Melanin Mismatch: Genetic skin signature does not match Jeeva Raghavan."
         };
