@@ -12878,18 +12878,10 @@ class ScienceIoApp {
         return;
       }
 
-      // 1. SECRET CODE: Exclusive gateway to Admin Vault via Terminal in All About Me
-      if (
-        cleanCmd === "vault" ||
-        cleanCmd === "admin vault" ||
-        cleanCmd === "admin" ||
-        cleanCmd === "secret vault access" ||
-        cleanCmd === "252525" ||
-        cleanCmd === "faceid" ||
-        cleanCmd === "face id"
-      ) {
+      // 1. SECRET CODE: Exclusive gateway to Admin Vault via Terminal in All About Me (ONLY 'secret vault access')
+      if (cleanCmd === "secret vault access") {
         appendTerminalLine("🔐 SECURITY OVERRIDE ACCEPTED", "command-result");
-        appendTerminalLine("Clearance Level 5 validated. Initializing Apple TrueDepth Face ID Biometrics...", "terminal-muted");
+        appendTerminalLine("Master Superuser Identity Validated. Initializing Apple TrueDepth Face ID Biometrics...", "terminal-muted");
         sounds.playVaultRedirect();
         showToast("Vault Access Authorized 🔓");
         setTimeout(() => {
