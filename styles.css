@@ -3886,6 +3886,85 @@ html, body {
   align-items: center;
   justify-content: center;
   transition: all 0.35s ease;
+  z-index: 12;
+}
+
+/* Enrolled Target Pose Ghost Overlay */
+.faceid-angle-ghost-wrap {
+  position: absolute;
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  overflow: hidden;
+  opacity: 0.38;
+  filter: contrast(1.15) brightness(1.05) drop-shadow(0 0 10px rgba(56, 189, 248, 0.6));
+  z-index: 11;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faceid-angle-ghost-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Reticle Tilt Animations */
+.faceid-reticle-box.tilting-left {
+  transform: rotate(-12deg) translateX(-8px);
+}
+
+.faceid-reticle-box.tilting-right {
+  transform: rotate(12deg) translateX(8px);
+}
+
+/* Directional Tilt Prompt Cues */
+.faceid-tilt-cue {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(2, 132, 199, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.7);
+  box-shadow: 0 4px 18px rgba(56, 189, 248, 0.6);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  z-index: 25;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faceid-tilt-cue.left {
+  left: 8px;
+  animation: tiltPulseLeft 1.2s infinite ease-in-out;
+}
+
+.faceid-tilt-cue.right {
+  right: 8px;
+  animation: tiltPulseRight 1.2s infinite ease-in-out;
+}
+
+.faceid-tilt-cue.active {
+  opacity: 1;
+}
+
+@keyframes tiltPulseLeft {
+  0%, 100% { transform: translateY(-50%) translateX(0); box-shadow: 0 4px 14px rgba(56, 189, 248, 0.5); }
+  50% { transform: translateY(-50%) translateX(-6px); box-shadow: 0 4px 22px rgba(56, 189, 248, 0.9); }
+}
+
+@keyframes tiltPulseRight {
+  0%, 100% { transform: translateY(-50%) translateX(0); box-shadow: 0 4px 14px rgba(56, 189, 248, 0.5); }
+  50% { transform: translateY(-50%) translateX(6px); box-shadow: 0 4px 22px rgba(56, 189, 248, 0.9); }
 }
 
 .faceid-vector-svg {
@@ -4043,6 +4122,119 @@ html, body {
   background: rgba(239, 68, 68, 0.14);
   border-color: rgba(239, 68, 68, 0.45);
   color: #fecaca;
+}
+
+/* Multi-Angle Biometric Challenge Matrix */
+.faceid-angle-matrix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 330px;
+  margin-bottom: 12px;
+}
+
+.angle-card {
+  flex: 1;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.angle-card:hover {
+  background: rgba(30, 41, 59, 0.85);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.angle-card.current {
+  border-color: #38bdf8;
+  background: rgba(2, 132, 199, 0.18);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+  transform: translateY(-2px);
+}
+
+.angle-card.current .angle-thumb-wrap {
+  border-color: #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+}
+
+.angle-card.matched {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.14);
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.35);
+}
+
+.angle-card.matched .angle-thumb-wrap {
+  border-color: #10b981;
+}
+
+.angle-thumb-wrap {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  background: #0f172a;
+  transition: all 0.25s ease;
+}
+
+.angle-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.angle-card:hover .angle-thumb-img {
+  transform: scale(1.08);
+}
+
+.angle-check-badge {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 0.72rem;
+  background: rgba(15, 23, 42, 0.85);
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.angle-card.matched .angle-check-badge {
+  background: #10b981;
+  border-color: #34d399;
+}
+
+.angle-label {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  transition: color 0.2s ease;
+}
+
+.angle-card.current .angle-label {
+  color: #38bdf8;
+}
+
+.angle-card.matched .angle-label {
+  color: #a7f3d0;
 }
 
 /* Privacy Footer */

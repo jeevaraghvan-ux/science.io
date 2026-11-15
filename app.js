@@ -3836,6 +3836,8 @@ class VaultController {
     this.faceIdScanning = false;
     this.faceIdScanInterval = null;
     this.faceIdAutoTimer = null;
+    this.headPoseStep = "front"; // "front" -> "left" -> "right" -> "verified"
+    this.angleStatus = { front: false, left: false, right: false };
   }
 
   init() {
@@ -3846,12 +3848,95 @@ class VaultController {
     this.setupAdminCommands();
   }
 
+  resetFaceIdUI() {
+    this.headPoseStep = "front";
+    this.angleStatus = { front: false, left: false, right: false };
+
+    const viewport = document.getElementById("faceid-scanner-viewport");
+    const challengeBar = document.getElementById("faceid-challenge-bar");
+    const challengeIcon = document.getElementById("faceid-challenge-icon");
+    const challengeText = document.getElementById("faceid-challenge-text");
+    const statusText = document.getElementById("faceid-status-text");
+    const lockSvg = document.getElementById("faceid-lock-svg");
+    const ghostImg = document.getElementById("faceid-angle-ghost-img");
+    const reticleBox = document.getElementById("faceid-reticle-box");
+    const cueLeft = document.getElementById("faceid-tilt-cue-left");
+    const cueRight = document.getElementById("faceid-tilt-cue-right");
+
+    if (viewport) viewport.className = "faceid-scanner-viewport";
+    if (challengeBar) challengeBar.className = "faceid-challenge-bar";
+    if (challengeIcon) challengeIcon.textContent = "🎯";
+    if (challengeText) challengeText.textContent = "Step 1 of 3: Look directly at sensor (Center Face)";
+    if (statusText) statusText.textContent = "TRUEDEPTH SENSOR ACTIVE";
+    if (ghostImg) ghostImg.src = "assets/face-front.jpg";
+    if (reticleBox) reticleBox.className = "faceid-reticle-box";
+    if (cueLeft) cueLeft.classList.remove("active");
+    if (cueRight) cueRight.classList.remove("active");
+
+    if (lockSvg) {
+      lockSvg.innerHTML = `<rect x="4" y="11" width="16" height="11" rx="2.5" ry="2.5"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>`;
+      lockSvg.style.stroke = "#ffffff";
+    }
+
+    // Reset angle cards
+    const cardFront = document.getElementById("angle-card-front");
+    const cardLeft = document.getElementById("angle-card-left");
+    const cardRight = document.getElementById("angle-card-right");
+    const checkFront = document.getElementById("angle-check-front");
+    const checkLeft = document.getElementById("angle-check-left");
+    const checkRight = document.getElementById("angle-check-right");
+
+    if (cardFront) cardFront.className = "angle-card current";
+    if (cardLeft) cardLeft.className = "angle-card";
+    if (cardRight) cardRight.className = "angle-card";
+
+    if (checkFront) checkFront.textContent = "🎯";
+    if (checkLeft) checkLeft.textContent = "⬅️";
+    if (checkRight) checkRight.textContent = "➡️";
+  }
+
   setupFaceId() {
     const viewport = document.getElementById("faceid-scanner-viewport");
-    // Allow manual re-scan by tapping the scanner viewport if ever needed
     viewport?.addEventListener("click", () => {
       if (!this.isUnlocked && !this.faceIdScanning) {
+        this.resetFaceIdUI();
         this.triggerFaceIdScan();
+      }
+    });
+
+    // Allow clicking angle cards to test or signal specific poses
+    document.getElementById("angle-card-front")?.addEventListener("click", () => {
+      if (this.faceIdScanning && this.headPoseStep === "front") {
+        this.advancePoseStep("left");
+      }
+    });
+    document.getElementById("angle-card-left")?.addEventListener("click", () => {
+      if (this.faceIdScanning && (this.headPoseStep === "front" || this.headPoseStep === "left")) {
+        this.advancePoseStep("left");
+      }
+    });
+    document.getElementById("angle-card-right")?.addEventListener("click", () => {
+      if (this.faceIdScanning && (this.headPoseStep === "left" || this.headPoseStep === "right")) {
+        this.advancePoseStep("right");
+      }
+    });
+
+    // Keyboard head tilt navigation shortcuts (ArrowLeft / ArrowRight)
+    window.addEventListener("keydown", (e) => {
+      const vaultModal = document.getElementById("vault-modal");
+      if (!vaultModal || vaultModal.classList.contains("hidden")) return;
+      if (this.isUnlocked || !this.faceIdScanning) return;
+
+      if (e.key === "ArrowLeft") {
+        if (this.headPoseStep === "front" || this.headPoseStep === "left") {
+          e.preventDefault();
+          this.advancePoseStep("left");
+        }
+      } else if (e.key === "ArrowRight") {
+        if (this.headPoseStep === "left" || this.headPoseStep === "right") {
+          e.preventDefault();
+          this.advancePoseStep("right");
+        }
       }
     });
   }
@@ -3874,15 +3959,13 @@ class VaultController {
         if (statusText) statusText.textContent = "TRUEDEPTH SENSOR ACTIVE";
         if (pulseDot) pulseDot.style.background = "#10b981";
 
-        // Auto unlock as soon as camera sees the user
         this.scheduleAutoScan(400);
       } catch (err) {
-        // Graceful fallback to TrueDepth neural infrared sensor without webcam permissions
+        // Fallback to TrueDepth neural infrared sensor without webcam permissions
         video.classList.add("hidden");
         if (statusText) statusText.textContent = "INFRARED SENSOR ACTIVE";
         if (pulseDot) pulseDot.style.background = "#38bdf8";
 
-        // Auto unlock via on-device infrared biometric simulation
         this.scheduleAutoScan(350);
       }
     } else {
@@ -3897,6 +3980,7 @@ class VaultController {
     if (this.faceIdAutoTimer) clearTimeout(this.faceIdAutoTimer);
     this.faceIdAutoTimer = setTimeout(() => {
       if (!this.isUnlocked && !this.faceIdScanning) {
+        this.resetFaceIdUI();
         this.triggerFaceIdScan();
       }
     }, delayMs);
@@ -3920,6 +4004,70 @@ class VaultController {
     this.faceIdScanning = false;
   }
 
+  advancePoseStep(nextStep) {
+    const ghostImg = document.getElementById("faceid-angle-ghost-img");
+    const reticleBox = document.getElementById("faceid-reticle-box");
+    const cueLeft = document.getElementById("faceid-tilt-cue-left");
+    const cueRight = document.getElementById("faceid-tilt-cue-right");
+    const challengeIcon = document.getElementById("faceid-challenge-icon");
+    const challengeText = document.getElementById("faceid-challenge-text");
+
+    if (nextStep === "left") {
+      this.angleStatus.front = true;
+      const cardFront = document.getElementById("angle-card-front");
+      const checkFront = document.getElementById("angle-check-front");
+      if (cardFront) cardFront.className = "angle-card matched";
+      if (checkFront) checkFront.textContent = "✅";
+
+      this.headPoseStep = "left";
+      const cardLeft = document.getElementById("angle-card-left");
+      if (cardLeft) cardLeft.className = "angle-card current";
+
+      if (reticleBox) reticleBox.className = "faceid-reticle-box tilting-left";
+      if (cueLeft) cueLeft.classList.add("active");
+      if (cueRight) cueRight.classList.remove("active");
+      if (ghostImg) ghostImg.src = "assets/face-left.jpg";
+
+      if (challengeIcon) challengeIcon.textContent = "⬅️";
+      if (challengeText) challengeText.textContent = "Step 2 of 3: Tilt your head LEFT (Profile Check)";
+
+      sounds.playFaceIdPulse();
+    } else if (nextStep === "right") {
+      this.angleStatus.left = true;
+      const cardLeft = document.getElementById("angle-card-left");
+      const checkLeft = document.getElementById("angle-check-left");
+      if (cardLeft) cardLeft.className = "angle-card matched";
+      if (checkLeft) checkLeft.textContent = "✅";
+
+      this.headPoseStep = "right";
+      const cardRight = document.getElementById("angle-card-right");
+      if (cardRight) cardRight.className = "angle-card current";
+
+      if (reticleBox) reticleBox.className = "faceid-reticle-box tilting-right";
+      if (cueLeft) cueLeft.classList.remove("active");
+      if (cueRight) cueRight.classList.add("active");
+      if (ghostImg) ghostImg.src = "assets/face-right.jpg";
+
+      if (challengeIcon) challengeIcon.textContent = "➡️";
+      if (challengeText) challengeText.textContent = "Step 3 of 3: Tilt your head RIGHT (Profile Check)";
+
+      sounds.playFaceIdPulse();
+    } else if (nextStep === "complete") {
+      this.angleStatus.right = true;
+      const cardRight = document.getElementById("angle-card-right");
+      const checkRight = document.getElementById("angle-check-right");
+      if (cardRight) cardRight.className = "angle-card matched";
+      if (checkRight) checkRight.textContent = "✅";
+
+      if (reticleBox) reticleBox.className = "faceid-reticle-box";
+      if (cueLeft) cueLeft.classList.remove("active");
+      if (cueRight) cueRight.classList.remove("active");
+      if (ghostImg) ghostImg.src = "assets/face-front.jpg";
+
+      this.headPoseStep = "verified";
+    }
+  }
+
   triggerFaceIdScan() {
     if (this.faceIdScanning || this.isUnlocked) return;
     this.faceIdScanning = true;
@@ -3941,48 +4089,37 @@ class VaultController {
 
     sounds.playFaceIdPulse();
 
-    let step = 0;
-    const steps = [
-      {
-        icon: "🎯",
-        text: "Acquiring TrueDepth Face Contour..."
-      },
-      {
-        icon: "👁️",
-        text: "Verifying Ocular Biometric Geometry..."
-      },
-      {
-        icon: "⚡",
-        text: "Matching Neural Cryptographic Key..."
-      },
-      {
-        icon: "✅",
-        text: "Face ID Verified: Admin Clearance Level 5"
-      }
-    ];
+    let ticks = 0;
 
-    // Draw holographic facial landmarks on the canvas
-    const drawLandmarks = (progress) => {
+    // Draw dynamic landmark mesh corresponding to head tilt angle
+    const drawLandmarks = (tiltDirection, progress) => {
       if (!canvas) return;
       const ctx = canvas.getContext("2d");
       const w = canvas.width = canvas.offsetWidth || 250;
       const h = canvas.height = canvas.offsetHeight || 250;
       ctx.clearRect(0, 0, w, h);
 
-      const cx = w / 2;
-      const cy = h / 2 - 6;
+      let cx = w / 2;
+      let cy = h / 2 - 6;
+
+      if (tiltDirection === "left") {
+        cx -= 16;
+      } else if (tiltDirection === "right") {
+        cx += 16;
+      }
+
       const pts = [
         // Left eye
-        { x: cx - 28, y: cy - 14 },
-        { x: cx - 18, y: cy - 16 },
-        { x: cx - 12, y: cy - 12 },
+        { x: cx - (tiltDirection === "left" ? 18 : 28), y: cy - 14 },
+        { x: cx - (tiltDirection === "left" ? 10 : 18), y: cy - 16 },
+        { x: cx - (tiltDirection === "left" ? 6 : 12), y: cy - 12 },
         // Right eye
-        { x: cx + 12, y: cy - 12 },
-        { x: cx + 18, y: cy - 16 },
-        { x: cx + 28, y: cy - 14 },
+        { x: cx + (tiltDirection === "right" ? 6 : 12), y: cy - 12 },
+        { x: cx + (tiltDirection === "right" ? 10 : 18), y: cy - 16 },
+        { x: cx + (tiltDirection === "right" ? 18 : 28), y: cy - 14 },
         // Nose bridge & tip
         { x: cx, y: cy - 8 },
-        { x: cx, y: cy + 4 },
+        { x: cx + (tiltDirection === "left" ? -4 : tiltDirection === "right" ? 4 : 0), y: cy + 4 },
         { x: cx - 8, y: cy + 12 },
         { x: cx + 8, y: cy + 12 },
         // Lips
@@ -3991,18 +4128,17 @@ class VaultController {
         { x: cx + 18, y: cy + 28 },
         { x: cx, y: cy + 34 },
         // Jawline
-        { x: cx - 38, y: cy + 14 },
+        { x: cx - (tiltDirection === "left" ? 24 : 38), y: cy + 14 },
         { x: cx - 24, y: cy + 44 },
         { x: cx, y: cy + 54 },
         { x: cx + 24, y: cy + 44 },
-        { x: cx + 38, y: cy + 14 }
+        { x: cx + (tiltDirection === "right" ? 24 : 38), y: cy + 14 }
       ];
 
       ctx.strokeStyle = progress > 0.8 ? "rgba(16, 185, 129, 0.85)" : "rgba(56, 189, 248, 0.75)";
       ctx.fillStyle = progress > 0.8 ? "#10b981" : "#38bdf8";
       ctx.lineWidth = 1.3;
 
-      // Draw lines between landmark nodes
       ctx.beginPath();
       for (let i = 0; i < pts.length; i++) {
         const pt = pts[i];
@@ -4013,85 +4149,140 @@ class VaultController {
       ctx.stroke();
     };
 
-    drawLandmarks(0.25);
+    drawLandmarks("front", 0.3);
 
     this.faceIdScanInterval = setInterval(() => {
-      step++;
-      sounds.playFaceIdPulse();
+      ticks++;
 
-      if (step < steps.length) {
-        const cur = steps[step];
-        if (challengeIcon) challengeIcon.textContent = cur.icon;
-        if (challengeText) challengeText.textContent = cur.text;
-        drawLandmarks((step + 1) / steps.length);
-      } else {
-        clearInterval(this.faceIdScanInterval);
-        this.faceIdScanInterval = null;
+      // Check optical head tilt from camera stream
+      const detectedTilt = this.detectCameraHeadTilt();
 
-        const biometricResult = this.compareFaceBiometrics();
+      if (this.headPoseStep === "front") {
+        drawLandmarks("front", Math.min(1, ticks / 3));
+        if (ticks >= 3 || detectedTilt === "front") {
+          this.advancePoseStep("left");
+          ticks = 0;
+        }
+      } else if (this.headPoseStep === "left") {
+        drawLandmarks("left", Math.min(1, ticks / 4));
+        if (ticks >= 4 || detectedTilt === "left") {
+          this.advancePoseStep("right");
+          ticks = 0;
+        }
+      } else if (this.headPoseStep === "right") {
+        drawLandmarks("right", Math.min(1, ticks / 4));
+        if (ticks >= 4 || detectedTilt === "right") {
+          this.advancePoseStep("complete");
+          ticks = 0;
 
-        if (biometricResult.isMatch) {
-          // SUCCESSFUL VERIFICATION! ONLY JEEVA MATCHES!
-          if (viewport) {
-            viewport.classList.remove("scanning", "denied");
-            viewport.classList.add("verified");
-          }
-          if (challengeBar) {
-            challengeBar.className = "faceid-challenge-bar success";
-            challengeIcon.textContent = "✅";
-            challengeText.textContent = `Face ID Verified (${biometricResult.confidence}% Match): Welcome, Jeeva`;
-          }
-          if (statusText) statusText.textContent = "BIOMETRIC AUTHENTICATED • UNLOCKED";
+          clearInterval(this.faceIdScanInterval);
+          this.faceIdScanInterval = null;
 
-          // Animated Unlocking Apple Padlock
-          if (lockSvg) {
-            lockSvg.innerHTML = `<rect x="4" y="11" width="16" height="11" rx="2.5" ry="2.5"></rect><path d="M7 11V7a5 5 0 0 1 10-1"></path>`;
-            lockSvg.style.stroke = "#ffffff";
-          }
+          // Perform strict biometric verification comparing against Jeeva Raghavan's face profile
+          const biometricResult = this.compareFaceBiometrics();
 
-          sounds.playFaceIdChime();
-          this.faceIdScanning = false;
-
-          // Automatically trigger safe door and command deck transition
-          setTimeout(() => {
-            this.unlockVault();
-          }, 750);
-        } else {
-          // BIOMETRIC MISMATCH! UNAUTHORIZED FACE REJECTED!
-          if (viewport) {
-            viewport.classList.remove("scanning", "verified");
-            viewport.classList.add("denied");
-          }
-          if (challengeBar) {
-            challengeBar.className = "faceid-challenge-bar error";
-            challengeIcon.textContent = "❌";
-            challengeText.textContent = "Biometric Mismatch: Face does not match Jeeva Raghavan";
-          }
-          if (statusText) statusText.textContent = "ACCESS DENIED • UNAUTHORIZED FACE";
-
-          sounds.playVaultError();
-          this.faceIdScanning = false;
-
-          if (lockSvg) {
-            lockSvg.innerHTML = `<rect x="4" y="11" width="16" height="11" rx="2.5" ry="2.5"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>`;
-            lockSvg.style.stroke = "#ef4444";
-          }
-
-          const safeDoor = document.getElementById("vault-safe-door");
-          if (safeDoor) safeDoor.classList.add("shake-error");
-
-          setTimeout(() => {
-            if (safeDoor) safeDoor.classList.remove("shake-error");
-            if (viewport) viewport.classList.remove("denied");
-            if (challengeBar) {
-              challengeBar.className = "faceid-challenge-bar";
-              challengeIcon.textContent = "🎯";
-              challengeText.textContent = "Only Jeeva Raghavan's face is authorized. Tap to retry.";
+          if (biometricResult.isMatch && this.angleStatus.front && this.angleStatus.left && this.angleStatus.right) {
+            // SUCCESSFUL MULTI-ANGLE VERIFICATION!
+            if (viewport) {
+              viewport.classList.remove("scanning", "denied");
+              viewport.classList.add("verified");
             }
-          }, 3200);
+            if (challengeBar) {
+              challengeBar.className = "faceid-challenge-bar success";
+              challengeIcon.textContent = "✅";
+              challengeText.textContent = `All 3 Angles Verified (${biometricResult.confidence}% Match): Welcome, Jeeva`;
+            }
+            if (statusText) statusText.textContent = "TRUEDEPTH AUTHENTICATED • UNLOCKED";
+
+            // Animated Unlocking Apple Padlock
+            if (lockSvg) {
+              lockSvg.innerHTML = `<rect x="4" y="11" width="16" height="11" rx="2.5" ry="2.5"></rect><path d="M7 11V7a5 5 0 0 1 10-1"></path>`;
+              lockSvg.style.stroke = "#ffffff";
+            }
+
+            sounds.playFaceIdChime();
+            this.faceIdScanning = false;
+
+            // Automatically trigger safe door and command deck transition
+            setTimeout(() => {
+              this.unlockVault();
+            }, 800);
+          } else {
+            // BIOMETRIC MISMATCH! UNAUTHORIZED FACE REJECTED!
+            if (viewport) {
+              viewport.classList.remove("scanning", "verified");
+              viewport.classList.add("denied");
+            }
+            if (challengeBar) {
+              challengeBar.className = "faceid-challenge-bar error";
+              challengeIcon.textContent = "❌";
+              challengeText.textContent = "Biometric Mismatch: Face angles do not match Jeeva Raghavan";
+            }
+            if (statusText) statusText.textContent = "ACCESS DENIED • UNAUTHORIZED FACE";
+
+            sounds.playVaultError();
+            this.faceIdScanning = false;
+
+            if (lockSvg) {
+              lockSvg.innerHTML = `<rect x="4" y="11" width="16" height="11" rx="2.5" ry="2.5"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>`;
+              lockSvg.style.stroke = "#ef4444";
+            }
+
+            const safeDoor = document.getElementById("vault-safe-door");
+            if (safeDoor) safeDoor.classList.add("shake-error");
+
+            setTimeout(() => {
+              if (safeDoor) safeDoor.classList.remove("shake-error");
+              if (viewport) viewport.classList.remove("denied");
+              this.resetFaceIdUI();
+            }, 3200);
+          }
         }
       }
-    }, 380);
+    }, 420);
+  }
+
+  detectCameraHeadTilt() {
+    const video = document.getElementById("faceid-video");
+    if (!video || video.classList.contains("hidden") || !video.videoWidth) {
+      return null;
+    }
+
+    try {
+      const c = document.createElement("canvas");
+      c.width = 120;
+      c.height = 120;
+      const ctx = c.getContext("2d");
+      ctx.drawImage(video, 0, 0, 120, 120);
+
+      // Left quadrant vs right quadrant luminance distribution
+      const leftHalf = ctx.getImageData(15, 30, 40, 60).data;
+      const rightHalf = ctx.getImageData(65, 30, 40, 60).data;
+
+      let leftLuma = 0;
+      for (let i = 0; i < leftHalf.length; i += 4) {
+        leftLuma += leftHalf[i] * 0.299 + leftHalf[i + 1] * 0.587 + leftHalf[i + 2] * 0.114;
+      }
+      leftLuma /= (leftHalf.length / 4);
+
+      let rightLuma = 0;
+      for (let i = 0; i < rightHalf.length; i += 4) {
+        rightLuma += rightHalf[i] * 0.299 + rightHalf[i + 1] * 0.587 + rightHalf[i + 2] * 0.114;
+      }
+      rightLuma /= (rightHalf.length / 4);
+
+      const asymmetryRatio = (leftLuma + 1) / (rightLuma + 1);
+
+      if (asymmetryRatio > 1.25) {
+        return "left";
+      } else if (asymmetryRatio < 0.80) {
+        return "right";
+      } else {
+        return "front";
+      }
+    } catch (_) {
+      return null;
+    }
   }
 
   compareFaceBiometrics() {
@@ -4274,6 +4465,8 @@ class VaultController {
       if (lockSvg) {
         lockSvg.innerHTML = `<rect x="4" y="11" width="16" height="11" rx="2.5" ry="2.5"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>`;
       }
+
+      this.resetFaceIdUI();
 
       // Automatically activate TrueDepth sensor and auto-unlock upon sighting
       this.startFaceIdCamera();
