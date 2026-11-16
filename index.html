@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=103.0">
-  <link rel="stylesheet" href="ios27.css?v=63.0">
+  <link rel="stylesheet" href="ios27.css?v=64.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
   <script>
@@ -1920,27 +1920,60 @@
   <!-- Confetti Canvas for celebrations -->
   <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
 
-  <!-- ================= AI CHATBOT (BOTTOM RIGHT) ================= -->
+    <!-- ================= AI CHATBOT (APPLE INTELLIGENCE SIRI UI) ================= -->
   <div id="ai-chatbot-container" class="ai-chatbot-container">
-    <div id="ai-chat-window" class="ai-chat-window hidden">
-      <div class="ai-chat-header">
-        <div class="ai-avatar-glow">
-          <span class="ai-robot-icon">🤖</span>
+    <div id="ai-chat-window" class="ai-chat-window hidden siri-chat-window">
+      <!-- Apple Intelligence Siri Ambient Flow Edge -->
+      <div class="siri-glow-edge"></div>
+
+      <div class="ai-chat-header siri-header">
+        <!-- Spinning Siri AI Neural Orb -->
+        <div class="siri-orb-wrapper">
+          <div class="siri-orb" id="siri-orb-header">
+            <div class="siri-orb-core"></div>
+            <div class="siri-orb-ring ring-1"></div>
+            <div class="siri-orb-ring ring-2"></div>
+            <div class="siri-orb-ring ring-3"></div>
+          </div>
         </div>
         <div class="ai-header-text">
           <h4>skience.io Assistant</h4>
-          <span class="ai-status">Online • Ready to help!</span>
+          <span class="ai-status siri-status" id="siri-status-text">Apple Intelligence &bull; Ready to help</span>
         </div>
-        <button id="ai-close-btn" class="modal-close-btn">&times;</button>
+        <div class="ai-header-actions">
+          <button type="button" id="ai-clear-chat-btn" class="ai-tool-btn" title="Clear Conversation">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </button>
+          <button id="ai-close-btn" class="modal-close-btn siri-close-btn" title="Close (Esc)">&times;</button>
+        </div>
       </div>
+
+      <!-- Messages Body -->
       <div id="ai-chat-messages" class="ai-chat-messages">
         <div class="chat-msg ai-msg">
-          <div class="msg-bubble">Hi there! I'm the skience.io AI. Need help with 5th grade skience concepts (Matter, Ecosystems, Skientific Method) or saving and publishing your notes?</div>
+          <div class="msg-bubble siri-bubble">
+            <strong>&#x2728; Apple Intelligence Assistant:</strong><br>
+            Hello! I am your <strong>skience.io</strong> copilot. Ask me how to use any tool on this website, explore 5th-grade science topics, or tap a suggestion below!
+          </div>
         </div>
       </div>
-      <div class="ai-chat-input-area">
-        <input type="text" id="ai-chat-input" placeholder="Ask a skience question..." autocomplete="off" />
-        <button id="ai-send-btn" class="ai-send-btn">
+
+      <!-- Suggested Prompts Tray (Apple Intelligence Quick Chips) -->
+      <div class="siri-prompt-tray" id="siri-prompt-tray">
+        <button type="button" class="siri-chip" data-query="how do I use this website?">&#x1F9ED; How to use site</button>
+        <button type="button" class="siri-chip" data-query="explain photosynthesis">&#x1F343; Photosynthesis</button>
+        <button type="button" class="siri-chip" data-query="how does the calculator work?">&#x1F9EE; Calculator</button>
+        <button type="button" class="siri-chip" data-query="how do I change or toggle background music?">&#x1F3B5; Study Music</button>
+        <button type="button" class="siri-chip" data-query="quiz me on cells">&#x1F3AF; Quiz Me</button>
+        <button type="button" class="siri-chip" data-query="how to print review notes">&#x1F4C4; Print Notes</button>
+      </div>
+
+      <div class="ai-chat-input-area siri-input-area">
+        <input type="text" id="ai-chat-input" placeholder="Ask about the website, topics, or features..." autocomplete="off" />
+        <button id="ai-send-btn" class="ai-send-btn siri-send-btn" title="Send Question (Enter)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <line x1="22" y1="2" x2="11" y2="13"></line>
             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
@@ -1948,9 +1981,14 @@
         </button>
       </div>
     </div>
-    <button id="ai-chat-bubble" class="ai-chat-bubble" title="Need help?">
-      <div class="bubble-pulse"></div>
-      <span class="bubble-icon">✨</span>
+
+    <!-- Siri Glowing Holographic Floating Bubble -->
+    <button id="ai-chat-bubble" class="ai-chat-bubble siri-floating-bubble" title="Ask skience.io Assistant (Apple Intelligence)">
+      <div class="siri-bubble-orb">
+        <span class="siri-orb-inner"></span>
+      </div>
+      <div class="bubble-pulse siri-pulse"></div>
+      <span class="bubble-icon">&#x2728;</span>
     </button>
   </div>
 
@@ -2000,6 +2038,6 @@
   </div>
 
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=111.0"></script>
+  <script src="app.js?v=112.0"></script>
 </body>
 </html>

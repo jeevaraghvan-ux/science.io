@@ -16739,15 +16739,18 @@ class ScienceIoApp {
 }
 
 
-// ================= SCIENCE.IO AI CHATBOT =================
+// ================= SCIENCE.IO AI CHATBOT (APPLE INTELLIGENCE SIRI ENGINE) =================
 class Chatbot {
   constructor() {
     this.bubble = document.getElementById("ai-chat-bubble");
     this.window = document.getElementById("ai-chat-window");
     this.closeBtn = document.getElementById("ai-close-btn");
+    this.clearBtn = document.getElementById("ai-clear-chat-btn");
     this.input = document.getElementById("ai-chat-input");
     this.sendBtn = document.getElementById("ai-send-btn");
     this.messagesContainer = document.getElementById("ai-chat-messages");
+    this.promptTray = document.getElementById("siri-prompt-tray");
+    this.isResponding = false;
 
     if (this.bubble && this.window) {
       this.init();
@@ -16757,18 +16760,95 @@ class Chatbot {
   init() {
     this.bubble.addEventListener("click", () => this.toggleChat());
     this.closeBtn.addEventListener("click", () => this.toggleChat());
+    if (this.clearBtn) {
+      this.clearBtn.addEventListener("click", () => this.clearChat());
+    }
     this.sendBtn.addEventListener("click", () => this.handleSend());
     this.input.addEventListener("keypress", (e) => {
       if (e.key === "Enter") this.handleSend();
     });
 
+    if (this.promptTray) {
+      this.promptTray.addEventListener("click", (e) => {
+        const chip = e.target.closest(".siri-chip");
+        if (chip && !this.isResponding) {
+          const query = chip.dataset.query;
+          if (query) {
+            this.input.value = query;
+            this.handleSend();
+          }
+        }
+      });
+    }
+
     this.messagesContainer.addEventListener("click", (e) => {
       const pill = e.target.closest(".chat-prompt-pill");
-      if (pill) {
+      if (pill && !this.isResponding) {
         const query = pill.dataset.query;
         if (query) {
           this.input.value = query;
           this.handleSend();
+        }
+        return;
+      }
+
+      // Quiz Choice Selection
+      const choiceBtn = e.target.closest(".quiz-choice-btn");
+      if (choiceBtn && !choiceBtn.disabled) {
+        const parent = choiceBtn.closest(".chat-quiz-box");
+        if (parent) {
+          const isCorrect = choiceBtn.dataset.correct === "true";
+          const explanation = choiceBtn.dataset.explanation || "";
+          parent.querySelectorAll(".quiz-choice-btn").forEach(b => {
+            b.disabled = true;
+            if (b.dataset.correct === "true") {
+              b.style.background = "#10b981";
+              b.style.borderColor = "#34d399";
+              b.style.color = "#fff";
+            } else if (b === choiceBtn && !isCorrect) {
+              b.style.background = "#ef4444";
+              b.style.borderColor = "#f87171";
+              b.style.color = "#fff";
+            }
+          });
+
+          const feedbackEl = parent.querySelector(".quiz-feedback-box");
+          if (feedbackEl) {
+            feedbackEl.classList.remove("hidden");
+            feedbackEl.style.display = "block";
+            feedbackEl.innerHTML = isCorrect 
+              ? `<strong style="color: #34d399;">✅ Correct!</strong> ${this.escapeHTML(explanation)}`
+              : `<strong style="color: #f87171;">❌ Incorrect.</strong> ${this.escapeHTML(explanation)}`;
+            sounds.playSuccess();
+          }
+        }
+        return;
+      }
+
+      // Interactive Action Button
+      const actionBtn = e.target.closest(".chat-action-btn");
+      if (actionBtn) {
+        const action = actionBtn.dataset.action;
+        const targetId = actionBtn.dataset.targetId;
+        this.closeChat();
+        sounds.playClick();
+
+        if (action === "open-notes" && targetId && window.app && typeof window.app.openNotesViewer === "function") {
+          window.app.openNotesViewer(targetId, "notes");
+        } else if (action === "open-quiz" && targetId && window.app && typeof window.app.openNotesViewer === "function") {
+          window.app.openNotesViewer(targetId, "practice");
+        } else if (action === "scroll") {
+          const el = document.getElementById(targetId);
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        } else if (action === "toggle-music") {
+          const musicBtn = document.getElementById("toast-music-toggle-btn");
+          if (musicBtn) musicBtn.click();
+        } else if (action === "print-all") {
+          const printBtn = document.getElementById("btn-cheat-sheet");
+          if (printBtn) printBtn.click();
+        } else if (action === "command-hud") {
+          const hudBtn = document.getElementById("btn-command-hud");
+          if (hudBtn) hudBtn.click();
         }
         return;
       }
@@ -16786,6 +16866,17 @@ class Chatbot {
         }
       }
     });
+  }
+
+  clearChat() {
+    this.messagesContainer.innerHTML = `
+      <div class="chat-msg ai-msg">
+        <div class="msg-bubble siri-bubble">
+          <strong>✨ Apple Intelligence:</strong> Conversation cleared. How can I assist you with skience.io today?
+        </div>
+      </div>
+    `;
+    sounds.playClick();
   }
 
   toggleChat() {
@@ -17120,139 +17211,212 @@ class Chatbot {
 
   handleSend() {
     const text = this.input.value.trim();
-    if (!text) return;
+    if (!text || this.isResponding) return;
 
+    this.isResponding = true;
     this.appendMessage(text, "user-msg");
     this.input.value = "";
     sounds.playClick();
 
+    // Siri AI Spinning Thinking Indicator
+    const statusText = document.getElementById("siri-status-text");
+    if (statusText) statusText.textContent = "Siri AI • Processing Query...";
+
+    const thinkingHTML = `
+      <div class="siri-thinking-container">
+        <div class="siri-thinking-orb"></div>
+        <div class="siri-thinking-text">Siri AI is thinking...</div>
+      </div>
+    `;
+    const thinkingNode = this.appendRawHTML(thinkingHTML, "ai-msg");
+
     setTimeout(() => {
-      this.appendRawHTML('<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>', "ai-msg");
+      if (thinkingNode && thinkingNode.parentNode) {
+        thinkingNode.remove();
+      }
 
-      setTimeout(() => {
-        if (this.messagesContainer.lastChild) {
-          this.messagesContainer.lastChild.remove();
-        }
+      if (statusText) statusText.textContent = "Apple Intelligence • Ready to help";
 
-        const t = text.trim().toLowerCase();
-        const cleanT = t.replace(/\s+/g, ' ');
-        let replyHTML = "";
+      const t = text.trim().toLowerCase();
+      let replyHTML = "";
 
-        // Vault access is not available via the AI Chatbot
-        if (cleanT === "access j33v4" || cleanT.includes("vault")) {
-          replyHTML = `<div class="msg-bubble" style="background: rgba(255, 55, 95, 0.15); border-color: #ff375f; color: #ff5f56; font-weight: 600;">Vault access is restricted and cannot be requested through the AI Chatbot.</div>`;
-        }
-        // Memorization & Dynamic Note Summarization (checks published notes and curriculum body systems)
-        else if (
-          t.includes("memoriz") || t.includes("summar") || t.includes("study") || 
-          t.includes("explain") || t.includes("breakdown") || t.includes("review") || 
-          t.includes("how to remember") || t.includes("respirat") || t.includes("circulat") || 
-          t.includes("digest") || t.includes("nervous") || t.includes("cell") || t.includes("matter")
-        ) {
-          const matchedNote = this.findNoteMatch(text);
-          if (matchedNote) {
-            replyHTML = this.buildMemorizationHTML(matchedNote);
-          } else if (this.getCurriculumFallback(text)) {
-            replyHTML = this.buildMemorizationHTML(this.getCurriculumFallback(text));
-          } else {
-            // General memorization guide listing available topics
-            const avail = this.getAvailableNotes();
-            const titles = avail.map(n => n.title).filter(Boolean);
-            const pillsHTML = [
-              ...titles.map(title => `<button type="button" class="chat-prompt-pill" data-query="memorize ${this.escapeHTML(title)}">🔬 ${this.escapeHTML(title)}</button>`),
-              `<button type="button" class="chat-prompt-pill" data-query="memorize respiratory system">🫁 Respiratory System</button>`,
-              `<button type="button" class="chat-prompt-pill" data-query="memorize circulatory system">❤️ Circulatory System</button>`,
-              `<button type="button" class="chat-prompt-pill" data-query="memorize digestive system">🍎 Digestive System</button>`,
-              `<button type="button" class="chat-prompt-pill" data-query="memorize nervous system">🧠 Nervous System</button>`
-            ].join(' ');
-
-            replyHTML = `
-              <div class="msg-bubble">
-                <strong>🧠 Ultra-Memorization Engine:</strong><br>
-                I auto-read all your published study sheets! Tap any topic below or ask me to memorize any system or note to generate a complete concept breakdown and memory mnemonics:
-                <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;">
-                  ${pillsHTML}
+      // 1. Website Navigation / How to use website
+      if (t.includes("how do i use") || t.includes("how to use") || t.includes("guide") || t.includes("help") || t.includes("features") || t.includes("what is this site") || t.includes("overview")) {
+        replyHTML = `
+          <div class="msg-bubble siri-bubble">
+            <strong>🧭 skience.io Navigation Guide:</strong><br>
+            Welcome to the ultimate 5th-grade science study hub! Here is how to navigate:
+            <ul style="margin: 6px 0 8px 16px; padding: 0; font-size: 0.85rem; line-height: 1.5;">
+              <li><strong>3D Carousel:</strong> Scroll or drag cards in coverflow 3D to explore all 19 science topics.</li>
+              <li><strong>Study Notes & Quiz:</strong> Tap any card to open the structured notes viewer with flash memorization tricks and quizzes.</li>
+              <li><strong>Formula Calculator:</strong> Solve density, speed, force, and kinetic energy formulas instantly.</li>
+              <li><strong>Background Music:</strong> Focus while studying with curated lo-fi audio tracks.</li>
+            </ul>
+            <div class="chat-action-card">
+              <span class="chat-action-card-header">Jump To Feature</span>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="notes-section">📓 Notes Carousel</button>
+                <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="calculator-section">🧮 Calculator</button>
+                <button type="button" class="chat-action-btn" data-action="print-all">📄 Print Notes</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      // 2. Study Music / Background Audio
+      else if (t.includes("music") || t.includes("song") || t.includes("audio") || t.includes("sound") || t.includes("lo-fi") || t.includes("player")) {
+        replyHTML = `
+          <div class="msg-bubble siri-bubble">
+            <strong>🎵 Study Music Studio:</strong><br>
+            Background music helps you lock into a study flow-state!
+            <ul style="margin: 6px 0 8px 16px; padding: 0; font-size: 0.85rem; line-height: 1.5;">
+              <li>Click the <strong>equalizer toast</strong> at the top right of the page to play, pause, or switch audio tracks.</li>
+              <li>Supports tracks like <em>Am I Wrong</em> with responsive equalizer animation.</li>
+            </ul>
+            <div class="chat-action-card">
+              <button type="button" class="chat-action-btn" data-action="toggle-music">🎧 Toggle Music Play/Pause</button>
+            </div>
+          </div>
+        `;
+      }
+      // 3. Calculator / Scientific Formulas
+      else if (t.includes("calc") || t.includes("formula") || t.includes("density") || t.includes("speed") || t.includes("kinetic") || t.includes("math")) {
+        replyHTML = `
+          <div class="msg-bubble siri-bubble">
+            <strong>🧮 Liquid Glass Scientific Calculator:</strong><br>
+            Built right into the page below the notes section!
+            <ul style="margin: 6px 0 8px 16px; padding: 0; font-size: 0.85rem; line-height: 1.5;">
+              <li><strong>Density:</strong> D = M / V (Mass / Volume)</li>
+              <li><strong>Speed:</strong> S = d / t (Distance / Time)</li>
+              <li><strong>Force:</strong> F = m * a (Mass x Acceleration)</li>
+              <li><strong>Kinetic Energy:</strong> KE = 0.5 * m * v²</li>
+            </ul>
+            <div class="chat-action-card">
+              <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="calculator-section">⚡ Launch Calculator</button>
+            </div>
+          </div>
+        `;
+      }
+      // 4. Print / Cheat Sheet / PDF
+      else if (t.includes("print") || t.includes("cheat sheet") || t.includes("pdf") || t.includes("review sheet") || t.includes("download")) {
+        replyHTML = `
+          <div class="msg-bubble siri-bubble">
+            <strong>📄 Ultimate Science Review Sheet:</strong><br>
+            You can print a clean, comprehensive study guide containing all 5th-grade notes, formulas, and diagrams with a single click.
+            <div class="chat-action-card">
+              <button type="button" class="chat-action-btn" data-action="print-all">🖨️ Print All Science Notes</button>
+            </div>
+          </div>
+        `;
+      }
+      // 5. Quiz / Test / Interactive Challenge
+      else if (t.includes("quiz") || t.includes("test me") || t.includes("challenge") || t.includes("question")) {
+        replyHTML = `
+          <div class="msg-bubble siri-bubble">
+            <div class="chat-quiz-box" style="margin-top: 4px;">
+              <span style="font-size: 0.72rem; font-family: monospace; color: #a855f7; font-weight: 700;">⚡ MINI POP QUIZ: PLANT CELL BIOLOGY</span>
+              <p style="font-size: 0.88rem; font-weight: 600; margin: 6px 0 10px;">Which organelle is known as the "solar power plant" of plant cells, converting sunlight into sugars?</p>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <button type="button" class="quiz-choice-btn siri-chip" style="justify-content: flex-start; padding: 8px 12px; font-size: 0.8rem;" data-correct="false" data-explanation="Mitochondria are the powerhouses of cellular respiration, not solar photosynthesis!">A) Mitochondria</button>
+                <button type="button" class="quiz-choice-btn siri-chip" style="justify-content: flex-start; padding: 8px 12px; font-size: 0.8rem;" data-correct="true" data-explanation="Chloroplasts contain chlorophyll pigment to absorb sunlight and conduct photosynthesis!">B) Chloroplast</button>
+                <button type="button" class="quiz-choice-btn siri-chip" style="justify-content: flex-start; padding: 8px 12px; font-size: 0.8rem;" data-correct="false" data-explanation="The nucleus stores the genetic DNA blueprints of the cell!">C) Nucleus</button>
+              </div>
+              <div class="quiz-feedback-box hidden" style="margin-top: 10px; padding: 8px 10px; border-radius: 8px; background: rgba(0,0,0,0.4); font-size: 0.8rem; line-height: 1.4;"></div>
+            </div>
+          </div>
+        `;
+      }
+      // 6. Cloud Sync / Saving / Multi-device
+      else if (t.includes("save") || t.includes("publish") || t.includes("cloud") || t.includes("firestore") || t.includes("phone")) {
+        replyHTML = `
+          <div class="msg-bubble siri-bubble">
+            <strong>☁️ Real-Time Cloud Notes Sync:</strong><br>
+            skience.io is powered by a live <strong>Firebase Firestore</strong> database:
+            <ul style="margin: 6px 0 8px 16px; padding: 0; font-size: 0.85rem; line-height: 1.5;">
+              <li>When notes are published, they upload to the cloud in real-time.</li>
+              <li>When you open skience.io on your iPhone, iPad, or another computer, your notes sync automatically!</li>
+            </ul>
+          </div>
+        `;
+      }
+      // 7. Creator / Developer
+      else if (t.includes("who created") || t.includes("developer") || t.includes("creator") || t.includes("who made") || t.includes("jeeva") || t.includes("project")) {
+        replyHTML = `
+          <div class="msg-bubble siri-bubble">
+            <strong style="color: #38bdf8;">Jeeva Raghavan • Lead Creator</strong><br>
+            Jeeva built <strong>skience.io</strong> and <strong>W PRINTS</strong>. Click "made with love by Jeeva R." in the footer or visit <a href="https://haunt.gg/reallyjgr" target="_blank" style="color: #38bdf8; text-decoration: underline;">haunt.gg/reallyjgr</a>!
+            <div class="chat-action-card">
+              <a href="https://haunt.gg/reallyjgr" target="_blank" class="chat-action-btn">🚀 Visit haunt.gg/reallyjgr</a>
+            </div>
+          </div>
+        `;
+      }
+      // 8. Scientific Method
+      else if (t.includes("scientific method") || t.includes("skientific method") || t.includes("hypothesis") || t.includes("experiment") || t.includes("variable")) {
+        replyHTML = `
+          <div class="msg-bubble siri-bubble">
+            <strong>🔬 The 5 Steps of the Scientific Method:</strong>
+            <ol style="margin: 6px 0 8px 16px; padding: 0; font-size: 0.85rem; line-height: 1.5;">
+              <li><strong>Question:</strong> Identify the phenomenon you want to investigate.</li>
+              <li><strong>Hypothesis:</strong> Form an "If... then... because" testable prediction.</li>
+              <li><strong>Experiment:</strong> Test with independent, dependent, and controlled variables.</li>
+              <li><strong>Data Collection:</strong> Record precise qualitative & quantitative observations.</li>
+              <li><strong>Conclusion:</strong> Determine if your hypothesis was supported or rejected.</li>
+            </ol>
+            <div class="chat-action-card">
+              <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="notes-section">📓 View Scientific Method Notes</button>
+            </div>
+          </div>
+        `;
+      }
+      // 9. Science Concept & Curriculum Note Matching
+      else {
+        const matchedNote = this.findNoteMatch(text);
+        if (matchedNote) {
+          replyHTML = this.buildMemorizationHTML(matchedNote);
+        } else if (this.getCurriculumFallback && this.getCurriculumFallback(text)) {
+          replyHTML = this.buildMemorizationHTML(this.getCurriculumFallback(text));
+        } else if (t.includes("photosynth")) {
+          replyHTML = `
+            <div class="msg-bubble siri-bubble">
+              <strong style="color: #38bdf8; font-size: 1rem;">🍃 Photosynthesis Explained</strong><br>
+              <div style="font-size: 0.8rem; font-family: monospace; background: rgba(0,0,0,0.3); padding: 6px 10px; border-radius: 6px; margin: 8px 0; color: #a5f3fc;">
+                Formula: Sunlight + Water (H₂O) + Carbon Dioxide (CO₂) &rarr; Glucose (Sugar) + Oxygen (O₂)
+              </div>
+              Plants absorb sunlight through <strong>chlorophyll</strong> inside chloroplasts to create food energy for growth while releasing oxygen into the atmosphere!
+              <div class="chat-action-card">
+                <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="notes-section">📓 Explore Cells in Carousel</button>
+              </div>
+            </div>
+          `;
+        } else {
+          replyHTML = `
+            <div class="msg-bubble siri-bubble">
+              <strong>✨ Apple Intelligence Copilot:</strong><br>
+              I can answer any question about <strong>skience.io</strong>, study tools, or science concepts! Here are great questions to try:
+              <ul style="margin: 6px 0 8px 16px; padding: 0; font-size: 0.85rem; line-height: 1.5;">
+                <li><em>"How do I use this website?"</em></li>
+                <li><em>"Explain Photosynthesis or Plant Cells"</em></li>
+                <li><em>"How does the Calculator work?"</em></li>
+                <li><em>"How do I toggle background music?"</em></li>
+                <li><em>"Quiz me on science topics"</em></li>
+              </ul>
+              <div class="chat-action-card">
+                <span class="chat-action-card-header">Popular Quick Jumps</span>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="notes-section">📓 Notes Carousel</button>
+                  <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="calculator-section">🧮 Calculator</button>
                 </div>
               </div>
-            `;
-          }
-        }
-        // Navigation: Take me to notes / notes area / scroll to notes
-        else if (t.includes("note") || t.includes("take me") || t.includes("go to") || t.includes("show me") || t.includes("navigate") || t.includes("area") || t.includes("scroll") || t.includes("carousel") || t.includes("table")) {
-          replyHTML = `<div class="msg-bubble">Taking you directly to the <strong>5th Grade Skience Notes & 3D Coverflow Carousel</strong>! 🔬✨</div>`;
-          setTimeout(() => {
-            const target = document.getElementById("notes-section");
-            if (target) {
-              target.scrollIntoView({ behavior: "smooth" });
-            }
-          }, 400);
-        }
-        // Navigation: Calculator / Scientific Formula Calculator
-        else if (t.includes("calc") || t.includes("formula") || t.includes("density") || t.includes("speed") || t.includes("math") || t.includes("equation") || t.includes("kinetic")) {
-          replyHTML = `<div class="msg-bubble">Taking you directly to the <strong>Liquid Glass Scientific Formula Calculator</strong>! 🧪⚡ Compute density, force, speed, kinetic energy, or evaluate scientific expressions.</div>`;
-          setTimeout(() => {
-            const target = document.getElementById("calculator-section");
-            if (target) {
-              target.scrollIntoView({ behavior: "smooth" });
-            }
-          }, 400);
-        }
-        // Save / Publish question
-        else if (t.includes("save") || t.includes("publish") || t.includes("phone") || t.includes("database") || t.includes("different device")) {
-          replyHTML = `
-            <div class="msg-bubble">
-              <strong>How to save notes across all devices:</strong><br>
-              1. Add and architect your notes in the <strong>Admin Vault</strong>.<br>
-              2. Click <strong>🚀 Publish All Notes to Cloud</strong> inside the Vault.<br>
-              3. All your notes are instantly uploaded to the secure skience.io Cloud Database (zero credit drain, 100% free)!<br>
-              4. When you open skience.io on your phone, tablet, or another computer, your notes will be right there!
             </div>
           `;
         }
-        // Scientific method
-        else if (t.includes("scientific method") || t.includes("skientific method") || t.includes("hypothesis") || t.includes("experiment") || t.includes("variable")) {
-          replyHTML = `<div class="msg-bubble">The 5 steps of the <strong>Skientific Method</strong> are:<br>1. Ask a Question<br>2. Form a Hypothesis (If... then...)<br>3. Conduct a Controlled Experiment (change only 1 variable!)<br>4. Collect & Analyze Data<br>5. Draw Conclusions!</div>`;
-        }
-        // Practice quiz
-        else if (t.includes("quiz") || t.includes("test") || t.includes("practice")) {
-          replyHTML = `<div class="msg-bubble">Every skience topic has an interactive <strong>⚡ Practice Quiz</strong> directly on its carousel card and inside the notes viewer! Test your mastery with instant scoring and feedback.</div>`;
-        }
-        // Creator Bio & Projects
-        else if (t.includes("who created") || t.includes("developer") || t.includes("creator") || t.includes("who made") || t.includes("jeeva") || t.includes("project")) {
-          replyHTML = `
-            <div class="creator-plaque">
-              <div class="plaque-title">Jeeva Raghavan • Developer</div>
-              I built <strong>skience.io</strong> and <strong>W PRINTS</strong>. Click "made with love by Jeeva R." in the footer or visit <a href="https://haunt.gg/reallyjgr" target="_blank" style="color: #38bdf8; text-decoration: underline;">haunt.gg/reallyjgr</a>!
-              <div style="margin-top: 10px;">
-                <button type="button" class="hero-cta-btn" id="chat-view-projects-btn" style="padding: 6px 14px; font-size: 0.78rem;">🚀 Visit haunt.gg/reallyjgr</button>
-              </div>
-            </div>
-          `;
-          setTimeout(() => {
-            document.getElementById("chat-view-projects-btn")?.addEventListener("click", () => {
-              this.closeChat();
-              sounds.playSuccess();
-              window.location.href = "https://haunt.gg/reallyjgr";
-            });
-          }, 60);
-        }
-        // Passcode Protection
-        else if (t.includes("passcode") || t.includes("password") || t.includes("vault code") || t.includes("pin")) {
-          replyHTML = `<div class="msg-bubble" style="background: rgba(255, 55, 95, 0.2); border-color: #FF375F; color: #FF375F; font-weight: bold;">The Admin Vault requires confidential passcode clearance authorized by the site administrator. Passcodes are strictly classified!</div>`;
-        }
-        // Greeting
-        else if (t.includes("hi") || t.includes("hello") || t.includes("hey") || t.includes("help")) {
-          replyHTML = `<div class="msg-bubble">Hello! 👋 I'm the skience.io assistant. I can help explain 5th grade skience concepts (Cells, Respiratory System, Circulatory System, Matter, Ecosystems), summarize any of your notes for memorization, or guide you through your study sheets!</div>`;
-        }
-        // Fallback
-        else {
-          replyHTML = `<div class="msg-bubble">I am the skience.io assistant! Ask me "memorize respiratory system", "summarize plant cell", "explain the circulatory system", or ask about any of your published study notes!</div>`;
-        }
+      }
 
-        this.appendRawHTML(replyHTML, "ai-msg");
-        sounds.playSuccess();
-      }, 700);
-    }, 250);
+      this.appendRawHTML(replyHTML, "ai-msg");
+      sounds.playSuccess();
+      this.isResponding = false;
+    }, 900);
   }
 
   appendRawHTML(html, className) {
