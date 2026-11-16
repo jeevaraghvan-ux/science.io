@@ -3823,836 +3823,110 @@ class ConfettiEngine {
 class VaultController {
   constructor(app) {
     this.app = app;
-    this.code = atob("MjUyNTI1");
+    this.code = "11182015";
     this.currentPin = "";
     this.isUnlocked = false;
     this.openCreatorAfterUnlock = false;
     this.activeTab = "architect";
     this.architectSquares = [];
     this.editingNoteId = null;
-
-    // Apple Face ID TrueDepth Biometrics State
-    this.faceIdStream = null;
-    this.faceIdScanning = false;
-    this.faceIdScanInterval = null;
-    this.faceIdAutoTimer = null;
-    this.headPoseStep = "front"; // "front" -> "verified"
-    this.angleStatus = { front: false };
-
-    // Apple Security Lockout Protocol State
-    this.isLockedOut = false;
-    this.lockoutUntil = 0;
-    this.lockoutInterval = null;
-    this.failedScanAttempts = 0;
   }
 
   init() {
-    this.setupFaceId();
+    this.setupKeypad();
     this.setupVaultTriggers();
     this.setupAdminTabs();
     this.setupArchitectForm();
     this.setupAdminCommands();
-    this.checkLockoutStatus();
   }
 
-  checkLockoutStatus() {
-    const savedExpiry = sessionStorage.getItem("scienceio_vault_lockout");
-    if (savedExpiry) {
-      const exp = parseInt(savedExpiry, 10);
-      if (Date.now() < exp) {
-        this.isLockedOut = true;
-        this.lockoutUntil = exp;
-        this.renderLockoutUI();
-        return true;
-      } else {
-        sessionStorage.removeItem("scienceio_vault_lockout");
-        this.isLockedOut = false;
-        this.lockoutUntil = 0;
-        this.failedScanAttempts = 0;
-        const alertBox = document.getElementById("faceid-lockout-alert");
-        if (alertBox) alertBox.classList.add("hidden");
-      }
-    }
-    return false;
-  }
+  setupKeypad() {
+    const keypadBtns = document.querySelectorAll(".keypad-btn");
+    keypadBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.key;
+        sounds.playKeypadTap();
 
-  renderLockoutUI() {
-    const remainingSec = Math.max(1, Math.ceil((this.lockoutUntil - Date.now()) / 1000));
-    const lockoutAlert = document.getElementById("faceid-lockout-alert");
-    const lockoutTimer = document.getElementById("faceid-lockout-timer");
-    const statusText = document.getElementById("faceid-status-text");
-    const challengeBar = document.getElementById("faceid-challenge-bar");
-    const challengeIcon = document.getElementById("faceid-challenge-icon");
-    const challengeText = document.getElementById("faceid-challenge-text");
-    const viewport = document.getElementById("faceid-scanner-viewport");
-    const lockSvg = document.getElementById("faceid-lock-svg");
-    const startBtn = document.getElementById("btn-start-faceid");
+        if (key === "clear") {
+          this.currentPin = "";
+        } else if (key === "back") {
+          this.currentPin = this.currentPin.slice(0, -1);
+        } else if (this.currentPin.length < 8) {
+          this.currentPin += key;
+        }
 
-    if (startBtn) {
-      startBtn.disabled = true;
-      startBtn.innerHTML = `<span class="btn-scan-icon">🚫</span><span class="btn-scan-label">Locked Out (${remainingSec}s)</span>`;
-    }
+        this.updatePinDisplay();
 
-    if (lockoutAlert) lockoutAlert.classList.remove("hidden");
-    if (lockoutTimer) lockoutTimer.textContent = `${remainingSec}s`;
-    if (viewport) {
-      viewport.classList.remove("scanning", "verified");
-      viewport.classList.add("denied");
-    }
-    if (challengeBar) {
-      challengeBar.className = "faceid-challenge-bar error";
-      if (challengeIcon) challengeIcon.textContent = "🚫";
-      if (challengeText) challengeText.textContent = `SECURITY LOCKOUT: Unauthorized attempt. Retry in ${remainingSec}s`;
-    }
-    if (statusText) statusText.textContent = `SYSTEM LOCKED OUT (${remainingSec}s)`;
-    if (lockSvg) {
-      lockSvg.innerHTML = `<rect x="4" y="11" width="16" height="11" rx="2.5" ry="2.5"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>`;
-      lockSvg.style.stroke = "#ef4444";
-    }
+        if (this.currentPin.length === 8) {
+          this.verifyPin();
+        }
+      });
+    });
 
-    if (!this.lockoutInterval) {
-      this.lockoutInterval = setInterval(() => {
-        const left = Math.ceil((this.lockoutUntil - Date.now()) / 1000);
-        if (left <= 0) {
-          clearInterval(this.lockoutInterval);
-          this.lockoutInterval = null;
-          this.isLockedOut = false;
-          this.lockoutUntil = 0;
-          this.failedScanAttempts = 0;
-          sessionStorage.removeItem("scienceio_vault_lockout");
-          const alertEl = document.getElementById("faceid-lockout-alert");
-          if (alertEl) alertEl.classList.add("hidden");
-          this.resetFaceIdUI();
-        } else {
-          if (lockoutTimer) lockoutTimer.textContent = `${left}s`;
-          if (statusText) statusText.textContent = `SYSTEM LOCKED OUT (${left}s)`;
-          if (challengeText) challengeText.textContent = `SECURITY LOCKOUT: Unauthorized attempt. Retry in ${left}s`;
-          if (startBtn) {
-            startBtn.innerHTML = `<span class="btn-scan-icon">🚫</span><span class="btn-scan-label">Locked Out (${left}s)</span>`;
+    window.addEventListener("keydown", (e) => {
+      const vaultModal = document.getElementById("vault-modal");
+      if (!vaultModal || vaultModal.classList.contains("hidden")) return;
+      if (this.isUnlocked) return;
+
+      if (e.key >= "0" && e.key <= "9") {
+        if (this.currentPin.length < 8) {
+          sounds.playKeypadTap();
+          this.currentPin += e.key;
+          this.updatePinDisplay();
+          if (this.currentPin.length === 8) {
+            this.verifyPin();
           }
         }
-      }, 1000);
+      } else if (e.key === "Backspace") {
+        sounds.playKeypadTap();
+        this.currentPin = this.currentPin.slice(0, -1);
+        this.updatePinDisplay();
+      } else if (e.key === "Escape") {
+        this.close();
+      }
+    });
+  }
+
+  updatePinDisplay() {
+    const slots = document.querySelectorAll(".pin-slot");
+    slots.forEach((slot, idx) => {
+      slot.classList.toggle("filled", idx < this.currentPin.length);
+    });
+
+    const feedback = document.getElementById("vault-pin-feedback");
+    if (feedback) {
+      if (this.currentPin.length === 0) {
+        feedback.textContent = "ENTER 8-DIGIT CODE";
+        feedback.className = "vault-pin-feedback";
+      } else {
+        feedback.textContent = `AUTHENTICATING [${this.currentPin.length}/8]`;
+        feedback.className = "vault-pin-feedback checking";
+      }
     }
   }
 
-  triggerBiometricLockout(reason = "Unauthorized face signature detected") {
-    this.isLockedOut = true;
-    this.lockoutUntil = Date.now() + 45000; // 45 second lockout
-    sessionStorage.setItem("scienceio_vault_lockout", this.lockoutUntil.toString());
-
-    this.stopFaceIdCamera();
-
+  verifyPin() {
     const safeDoor = document.getElementById("vault-safe-door");
-    if (safeDoor) safeDoor.classList.add("shake-error");
-    setTimeout(() => safeDoor?.classList.remove("shake-error"), 1500);
+    const pinDisplay = document.getElementById("vault-pin-display");
+    const feedback = document.getElementById("vault-pin-feedback");
 
-    sounds.playVaultError();
-
-    if (this.app?.dynamicIsland?.trigger) {
-      this.app.dynamicIsland.trigger({
-        icon: "🚫",
-        title: "Apple Face ID Lockout",
-        subtitle: "Unauthorized Face Detected • Lockout 45s",
-        badge: "LOCKOUT",
-        actionText: "ALERT",
-        duration: 4000
-      });
-    }
-
-    this.renderLockoutUI();
-  }
-
-  resetFaceIdUI() {
-    this.headPoseStep = "front";
-    this.angleStatus = { front: false };
-
-    if (this.checkLockoutStatus()) {
-      return;
-    }
-
-    const viewport = document.getElementById("faceid-scanner-viewport");
-    const challengeBar = document.getElementById("faceid-challenge-bar");
-    const challengeIcon = document.getElementById("faceid-challenge-icon");
-    const challengeText = document.getElementById("faceid-challenge-text");
-    const statusText = document.getElementById("faceid-status-text");
-    const lockSvg = document.getElementById("faceid-lock-svg");
-    const reticleBox = document.getElementById("faceid-reticle-box");
-    const contourSvg = document.getElementById("faceid-depth-contour-svg");
-    const lockoutAlert = document.getElementById("faceid-lockout-alert");
-    const startBtn = document.getElementById("btn-start-faceid");
-
-    if (lockoutAlert) lockoutAlert.classList.add("hidden");
-    if (viewport) viewport.className = "faceid-scanner-viewport";
-    if (challengeBar) challengeBar.className = "faceid-challenge-bar";
-    if (challengeIcon) challengeIcon.textContent = "🎯";
-    if (challengeText) challengeText.textContent = "Ultra-Sensitive Biometrics Ready • Center face in reticle";
-    if (statusText) statusText.textContent = "TRUEDEPTH SENSOR ACTIVE • JEEVA RAGHAVAN ONLY";
-    if (reticleBox) reticleBox.className = "faceid-reticle-box";
-    if (contourSvg) contourSvg.style.transform = "rotate(0deg) scale(1)";
-
-    if (startBtn) {
-      startBtn.disabled = false;
-      startBtn.innerHTML = `<span class="btn-scan-icon"></span><span class="btn-scan-label">Start Scanning Face</span>`;
-    }
-
-    if (lockSvg) {
-      lockSvg.innerHTML = `<rect x="4" y="11" width="16" height="11" rx="2.5" ry="2.5"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>`;
-      lockSvg.style.stroke = "#ffffff";
-    }
-
-    // Reset center face card
-    const cardFront = document.getElementById("angle-card-front");
-    const checkFront = document.getElementById("angle-check-front");
-
-    if (cardFront) cardFront.className = "angle-card current";
-    if (checkFront) checkFront.textContent = "🎯";
-  }
-
-  setupFaceId() {
-    const startBtn = document.getElementById("btn-start-faceid");
-    startBtn?.addEventListener("click", () => {
-      if (!this.isUnlocked && !this.faceIdScanning) {
-        this.resetFaceIdUI();
-        this.triggerFaceIdScan();
-      }
-    });
-
-    const viewport = document.getElementById("faceid-scanner-viewport");
-    viewport?.addEventListener("click", () => {
-      if (!this.isUnlocked && !this.faceIdScanning) {
-        this.resetFaceIdUI();
-        this.triggerFaceIdScan();
-      }
-    });
-  }
-
-  async startFaceIdCamera() {
-    const video = document.getElementById("faceid-video");
-    const statusText = document.getElementById("faceid-status-text");
-    const pulseDot = document.getElementById("faceid-pulse-dot");
-    if (!video) return;
-
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "user", width: { ideal: 640 }, height: { ideal: 640 } },
-          audio: false
-        });
-        this.faceIdStream = stream;
-        video.srcObject = stream;
-        video.classList.remove("hidden");
-        if (statusText) statusText.textContent = "LIVE CAMERA READY • ALIGN FACE IN RETICLE";
-        if (pulseDot) pulseDot.style.background = "#10b981";
-
-        // Auto-scan after brief optical settle
-        if (this.faceIdAutoTimer) clearTimeout(this.faceIdAutoTimer);
-        this.faceIdAutoTimer = setTimeout(() => {
-          if (!this.isUnlocked && !this.faceIdScanning) {
-            this.triggerFaceIdScan();
-          }
-        }, 1100);
-      } catch (err) {
-        video.classList.add("hidden");
-        if (statusText) statusText.textContent = "OPTICAL SENSOR READY • TAP START SCANNING";
-        if (pulseDot) pulseDot.style.background = "#38bdf8";
-      }
+    if (this.currentPin === this.code) {
+      this.unlockVault();
     } else {
-      video.classList.add("hidden");
-      if (statusText) statusText.textContent = "OPTICAL SENSOR READY • TAP START SCANNING";
-      if (pulseDot) pulseDot.style.background = "#38bdf8";
-    }
-  }
-
-  stopFaceIdCamera() {
-    if (this.faceIdAutoTimer) {
-      clearTimeout(this.faceIdAutoTimer);
-      this.faceIdAutoTimer = null;
-    }
-    if (this.faceIdStream) {
-      this.faceIdStream.getTracks().forEach(track => track.stop());
-      this.faceIdStream = null;
-    }
-    const video = document.getElementById("faceid-video");
-    if (video) video.srcObject = null;
-    if (this.faceIdScanInterval) {
-      clearInterval(this.faceIdScanInterval);
-      this.faceIdScanInterval = null;
-    }
-    this.faceIdScanning = false;
-  }
-
-  triggerFaceIdScan() {
-    if (this.faceIdScanning || this.isUnlocked) return;
-    this.faceIdScanning = true;
-
-    const viewport = document.getElementById("faceid-scanner-viewport");
-    const statusText = document.getElementById("faceid-status-text");
-    const challengeBar = document.getElementById("faceid-challenge-bar");
-    const challengeIcon = document.getElementById("faceid-challenge-icon");
-    const challengeText = document.getElementById("faceid-challenge-text");
-    const lockSvg = document.getElementById("faceid-lock-svg");
-    const canvas = document.getElementById("faceid-canvas");
-    const startBtn = document.getElementById("btn-start-faceid");
-
-    if (startBtn) {
-      startBtn.disabled = true;
-      startBtn.innerHTML = `<span class="btn-scan-icon">⏳</span><span class="btn-scan-label">Analyzing Micro-Biometrics...</span>`;
-    }
-
-    if (viewport) {
-      viewport.classList.remove("verified", "denied");
-      viewport.classList.add("scanning");
-    }
-    if (statusText) statusText.textContent = "TRUEDEPTH 3D LASER ARRAY ENGAGED...";
-    if (challengeBar) challengeBar.className = "faceid-challenge-bar";
-    if (challengeIcon) challengeIcon.textContent = "🔍";
-    if (challengeText) challengeText.textContent = "Hold still in center frame • Strict biometric verification active...";
-
-    sounds.playFaceIdPulse();
-
-    let ticks = 0;
-    const totalTicks = 8;
-
-    const drawLandmarks = (progress, tickCount) => {
-      if (!canvas) return;
-      const ctx = canvas.getContext("2d");
-      const w = canvas.width = canvas.offsetWidth || 250;
-      const h = canvas.height = canvas.offsetHeight || 250;
-      ctx.clearRect(0, 0, w, h);
-
-      const cx = w / 2;
-      const cy = h / 2 - 6;
-
-      // Iris & pupillary tracking reticles
-      const eyeL = { x: cx - 20, y: cy - 14 };
-      const eyeR = { x: cx + 20, y: cy - 14 };
-
-      ctx.save();
-      ctx.strokeStyle = progress > 0.85 ? "rgba(16, 185, 129, 0.9)" : "rgba(56, 189, 248, 0.85)";
-      ctx.lineWidth = 1.4;
-      [eyeL, eyeR].forEach(eye => {
-        ctx.beginPath();
-        ctx.arc(eye.x, eye.y, 7 + Math.sin(tickCount * 0.8) * 1.5, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.fillStyle = progress > 0.85 ? "#10b981" : "#38bdf8";
-        ctx.beginPath();
-        ctx.arc(eye.x, eye.y, 2, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      // Pupillary inter-distance measurement axis
-      ctx.setLineDash([3, 2]);
-      ctx.beginPath();
-      ctx.moveTo(eyeL.x, eyeL.y);
-      ctx.lineTo(eyeR.x, eyeR.y);
-      ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.restore();
-
-      // High-precision 19 facial landmark topology nodes
-      const pts = [
-        { x: cx - 28, y: cy - 14 },
-        { x: cx - 18, y: cy - 16 },
-        { x: cx - 12, y: cy - 12 },
-        { x: cx + 12, y: cy - 12 },
-        { x: cx + 18, y: cy - 16 },
-        { x: cx + 28, y: cy - 14 },
-        { x: cx, y: cy - 8 },
-        { x: cx, y: cy + 4 },
-        { x: cx - 8, y: cy + 12 },
-        { x: cx + 8, y: cy + 12 },
-        { x: cx - 18, y: cy + 28 },
-        { x: cx, y: cy + 25 },
-        { x: cx + 18, y: cy + 28 },
-        { x: cx, y: cy + 34 },
-        { x: cx - 38, y: cy + 14 },
-        { x: cx - 24, y: cy + 44 },
-        { x: cx, y: cy + 54 },
-        { x: cx + 24, y: cy + 44 },
-        { x: cx + 38, y: cy + 14 }
-      ];
-
-      ctx.strokeStyle = progress > 0.85 ? "rgba(16, 185, 129, 0.9)" : "rgba(56, 189, 248, 0.8)";
-      ctx.fillStyle = progress > 0.85 ? "#10b981" : "#38bdf8";
-      ctx.lineWidth = 1.3;
-
-      ctx.beginPath();
-      for (let i = 0; i < pts.length; i++) {
-        const pt = pts[i];
-        if (i === 0) ctx.moveTo(pt.x, pt.y);
-        else ctx.lineTo(pt.x, pt.y);
-        ctx.fillRect(pt.x - 1.5, pt.y - 1.5, 3, 3);
+      if (safeDoor) safeDoor.classList.add("shake-error");
+      if (pinDisplay) pinDisplay.classList.add("shake");
+      if (feedback) {
+        feedback.textContent = "ACCESS DENIED • INVALID PASSCODE";
+        feedback.className = "vault-pin-feedback error";
       }
-      ctx.stroke();
+      sounds.playVaultError();
 
-      // TrueDepth 3D Infrared Dot Matrix
-      ctx.save();
-      const dotColor = progress > 0.85 ? "rgba(16, 185, 129, " : "rgba(56, 189, 248, ";
-      for (let row = -3; row <= 3; row++) {
-        for (let col = -3; col <= 3; col++) {
-          if (Math.abs(row) + Math.abs(col) <= 5) {
-            const dx = cx + col * 15 + Math.sin(tickCount + row) * 1.5;
-            const dy = cy + row * 15 + Math.cos(tickCount + col) * 1.5;
-            const dotAlpha = 0.25 + 0.35 * Math.sin(tickCount * 1.2 + row * 0.7 + col * 0.5);
-            ctx.fillStyle = dotColor + Math.max(0.1, dotAlpha) + ")";
-            ctx.beginPath();
-            ctx.arc(dx, dy, 1.2, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        }
-      }
-      ctx.restore();
-
-      // Laser scan line
-      const scanY = cy - 50 + ((tickCount % 5) / 5) * 100;
-      ctx.save();
-      ctx.strokeStyle = progress > 0.85 ? "rgba(16, 185, 129, 0.85)" : "rgba(56, 189, 248, 0.8)";
-      ctx.lineWidth = 1.8;
-      ctx.shadowColor = progress > 0.85 ? "#10b981" : "#38bdf8";
-      ctx.shadowBlur = 8;
-      ctx.beginPath();
-      ctx.moveTo(cx - 56, scanY);
-      ctx.lineTo(cx + 56, scanY);
-      ctx.stroke();
-      ctx.restore();
-    };
-
-    drawLandmarks(0.15, 0);
-
-    if (this.faceIdScanInterval) {
-      clearInterval(this.faceIdScanInterval);
-    }
-
-    this.faceIdScanInterval = setInterval(() => {
-      ticks++;
-      const progress = Math.min(1, ticks / totalTicks);
-      drawLandmarks(progress, ticks);
-      sounds.playFaceIdPulse();
-
-      if (ticks <= 2) {
-        if (statusText) statusText.textContent = `PHASE 1/4: DUAL IRIS & PUPIL ALIGNMENT [${Math.round(progress * 100)}%]`;
-        if (challengeIcon) challengeIcon.textContent = "👁️";
-        if (challengeText) challengeText.textContent = "Tracking optical landmarks & pupillary distance...";
-      } else if (ticks <= 4) {
-        if (statusText) statusText.textContent = `PHASE 2/4: 3D CRANIAL TOPOLOGY & JAW TAPER [${Math.round(progress * 100)}%]`;
-        if (challengeIcon) challengeIcon.textContent = "📐";
-        if (challengeText) challengeText.textContent = "Verifying facial contour aspect ratio & cheekbone depth...";
-      } else if (ticks <= 6) {
-        if (statusText) statusText.textContent = `PHASE 3/4: HIGH-PRECISION SPECTRAL MELANIN & CROWN HAIR [${Math.round(progress * 100)}%]`;
-        if (challengeIcon) challengeIcon.textContent = "🔬";
-        if (challengeText) challengeText.textContent = "Ultra-sensitive melanin absorption & crown hair contrast test...";
-      } else {
-        if (statusText) statusText.textContent = `PHASE 4/4: JEEVA RAGHAVAN CRYPTOGRAPHIC MATCH [${Math.round(progress * 100)}%]`;
-        if (challengeIcon) challengeIcon.textContent = "🔐";
-        if (challengeText) challengeText.textContent = "Executing cryptographic match against Jeeva's profile...";
-      }
-
-      if (ticks >= totalTicks) {
-        clearInterval(this.faceIdScanInterval);
-        this.faceIdScanInterval = null;
-
-        const biometricResult = this.compareFaceBiometrics();
-
-        if (biometricResult.isMatch) {
-          this.angleStatus.front = true;
-          this.headPoseStep = "verified";
-
-          const cardFront = document.getElementById("angle-card-front");
-          const checkFront = document.getElementById("angle-check-front");
-          if (cardFront) cardFront.className = "angle-card matched";
-          if (checkFront) checkFront.textContent = "✅";
-
-          if (viewport) {
-            viewport.classList.remove("scanning", "denied");
-            viewport.classList.add("verified");
-          }
-          if (challengeBar) {
-            challengeBar.className = "faceid-challenge-bar success";
-            if (challengeIcon) challengeIcon.textContent = "✅";
-            if (challengeText) challengeText.textContent = `Center Biometrics Verified (${biometricResult.confidence}% Match): Welcome, Jeeva`;
-          }
-          if (statusText) statusText.textContent = "TRUEDEPTH AUTHENTICATED • UNLOCKED";
-
-          if (lockSvg) {
-            lockSvg.innerHTML = `<rect x="4" y="11" width="16" height="11" rx="2.5" ry="2.5"></rect><path d="M7 11V7a5 5 0 0 1 10-1"></path>`;
-            lockSvg.style.stroke = "#ffffff";
-          }
-
-          if (startBtn) {
-            startBtn.disabled = true;
-            startBtn.innerHTML = `<span class="btn-scan-icon">✅</span><span class="btn-scan-label">Authenticated (Jeeva Raghavan)</span>`;
-          }
-
-          sounds.playFaceIdChime();
-          this.faceIdScanning = false;
-          this.failedScanAttempts = 0;
-
-          setTimeout(() => {
-            this.unlockVault();
-          }, 800);
-        } else {
-          this.faceIdScanning = false;
-          this.failedScanAttempts++;
-
-          if (viewport) {
-            viewport.classList.remove("scanning", "verified");
-            viewport.classList.add("denied");
-          }
-          if (challengeBar) {
-            challengeBar.className = "faceid-challenge-bar error";
-            if (challengeIcon) challengeIcon.textContent = "⚠️";
-            if (challengeText) challengeText.textContent = `${biometricResult.message || "Face biometrics not matched"}. Tap 'Start Scanning Face' to retry.`;
-          }
-          if (statusText) statusText.textContent = `BIOMETRIC MISMATCH • ACCESS RESTRICTED TO JEEVA`;
-          if (lockSvg) {
-            lockSvg.innerHTML = `<rect x="4" y="11" width="16" height="11" rx="2.5" ry="2.5"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>`;
-            lockSvg.style.stroke = "#f59e0b";
-          }
-
-          sounds.playVaultError();
-
-          setTimeout(() => {
-            if (viewport) viewport.classList.remove("denied");
-            this.resetFaceIdUI();
-          }, 3000);
-        }
-      }
-    }, 400);
-  }
-
-  compareFaceBiometrics() {
-    // If user arrived through the secret chatbot passphrase gateway, grant full biometric authorization to Jeeva
-    if (this.chatbotAuthorized) {
-      return {
-        isMatch: true,
-        confidence: "99.9",
-        score: 100,
-        shapePassed: true,
-        chromaPassed: true,
-        hairPassed: true,
-        depthPassed: true,
-        shapeDist: "1.20",
-        chromaDist: "0.0008",
-        hairContrast: "0.00",
-        reason: "chatbot_gateway_jeeva_match",
-        message: "Jeeva Raghavan Biometrics Verified (TrueDepth Confirmed)"
-      };
-    }
-
-    const video = document.getElementById("faceid-video");
-    
-    // 1. Live camera feed strictly required. If blocked, covered, or unavailable, access is DENIED.
-    if (!video || video.classList.contains("hidden") || !video.videoWidth || !video.videoHeight) {
-      return { 
-        isMatch: false, 
-        confidence: "0.0", 
-        reason: "sensor_offline", 
-        message: "Live optical camera sensor required for Face ID." 
-      };
-    }
-
-    try {
-      const offCanvas = document.createElement("canvas");
-      offCanvas.width = 160;
-      offCanvas.height = 160;
-      const ctx = offCanvas.getContext("2d");
-
-      // Center square-crop the video feed to match the user's on-screen viewfinder reticle
-      const vw = video.videoWidth || 640;
-      const vh = video.videoHeight || 480;
-      const minDim = Math.min(vw, vh);
-      const sx = (vw - minDim) / 2;
-      const sy = (vh - minDim) / 2;
-      ctx.drawImage(video, sx, sy, minDim, minDim, 0, 0, 160, 160);
-
-      const frameData = ctx.getImageData(0, 0, 160, 160).data;
-
-      // Check for covered lens / pitch black room or blinding glare
-      let totalLuma = 0;
-      for (let i = 0; i < frameData.length; i += 16) {
-        totalLuma += frameData[i] * 0.299 + frameData[i + 1] * 0.587 + frameData[i + 2] * 0.114;
-      }
-      const avgSceneLuma = totalLuma / (frameData.length / 16);
-      if (avgSceneLuma < 14) {
-        return { 
-          isMatch: false, 
-          confidence: "0.0", 
-          reason: "sensor_dark", 
-          message: "Sensor obscured or lighting too dark. Live face must be visible." 
-        };
-      }
-      if (avgSceneLuma > 245) {
-        return { 
-          isMatch: false, 
-          confidence: "0.0", 
-          reason: "sensor_glare", 
-          message: "Sensor blinded by direct glare. Adjust ambient lighting." 
-        };
-      }
-
-      // =========================================================================
-      // GATE 1: SCENE COMPLEXITY & ANTI-BLANK-WALL FILTER
-      // =========================================================================
-      let gradSum = 0;
-      let gradSamples = 0;
-      for (let y = 10; y < 150; y += 2) {
-        for (let x = 10; x < 150; x += 2) {
-          const idx = (y * 160 + x) * 4;
-          const idxRight = idx + 8;
-          const idxDown = ((y + 2) * 160 + x) * 4;
-          const lumaCurrent = frameData[idx] * 0.299 + frameData[idx + 1] * 0.587 + frameData[idx + 2] * 0.114;
-          const lumaRight = frameData[idxRight] * 0.299 + frameData[idxRight + 1] * 0.587 + frameData[idxRight + 2] * 0.114;
-          const lumaDown = frameData[idxDown] * 0.299 + frameData[idxDown + 1] * 0.587 + frameData[idxDown + 2] * 0.114;
-          gradSum += Math.abs(lumaCurrent - lumaRight) + Math.abs(lumaCurrent - lumaDown);
-          gradSamples++;
-        }
-      }
-      const edgeEnergy = gradSum / Math.max(1, gradSamples);
-      if (edgeEnergy < 3.2) {
-        return {
-          isMatch: false,
-          confidence: "0.0",
-          reason: "blank_wall_detected",
-          message: "No human subject detected. Position face directly in scanner."
-        };
-      }
-
-      // =========================================================================
-      // GATE 2: HUMAN SKIN DETECTION (RELIABLE PIXEL COLLECTION)
-      // =========================================================================
-      const skinRNorms = [];
-      const skinGNorms = [];
-      const skinBNorms = [];
-      const skinLumas = [];
-      const facePixelsX = [];
-      const facePixelsY = [];
-      let facePixelCount = 0;
-
-      for (let y = 20; y < 140; y++) {
-        for (let x = 20; x < 140; x++) {
-          const idx = (y * 160 + x) * 4;
-          const r = frameData[idx];
-          const g = frameData[idx + 1];
-          const b = frameData[idx + 2];
-          const tot = Math.max(1, r + g + b);
-          const rn = r / tot;
-          const gn = g / tot;
-          const bn = b / tot;
-          const luma = r * 0.299 + g * 0.587 + b * 0.114;
-
-          const isSkin = (
-            luma > 25 && luma < 235 &&
-            rn > 0.355 && rn < 0.515 &&
-            gn > 0.245 && gn < 0.365
-          );
-
-          if (isSkin) {
-            skinRNorms.push(rn);
-            skinGNorms.push(gn);
-            skinBNorms.push(bn);
-            skinLumas.push(luma);
-            facePixelsX.push(x);
-            facePixelsY.push(y);
-            facePixelCount++;
-          }
-        }
-      }
-
-      // Must have substantial face presence in reticle (at least 550 pixels)
-      if (facePixelCount < 550) {
-        return {
-          isMatch: false,
-          confidence: "0.0",
-          reason: "no_face_detected",
-          message: "Face too far or not centered. Align face directly in reticle."
-        };
-      }
-
-      // =========================================================================
-      // GATE 3: MELANIN & LUMINANCE ABSORPTION FILTER (JEEVA COMPLEXION ONLY)
-      // Jeeva's skin tone under webcam reflects mean luma strictly 75 to 142.
-      // Rejects Caucasian/pale skin (> 145) and excessively dark rooms (< 70).
-      // =========================================================================
-      const meanSkinLuma = skinLumas.reduce((a, v) => a + v, 0) / skinLumas.length;
-      if (meanSkinLuma < 70 || meanSkinLuma > 145) {
-        return {
-          isMatch: false,
-          confidence: "0.0",
-          reason: "melanin_absorption_mismatch",
-          message: "Complexion mismatch: Subject skin tone does not match Jeeva Raghavan."
-        };
-      }
-
-      // =========================================================================
-      // GATE 4: FACIAL LANDMARKS & CRANIAL OVAL RATIO
-      // =========================================================================
-      let yMin = 160, yMax = 0, xMin = 160, xMax = 0;
-      for (let i = 0; i < facePixelsX.length; i++) {
-        const px = facePixelsX[i];
-        const py = facePixelsY[i];
-        if (px < xMin) xMin = px;
-        if (px > xMax) xMax = px;
-        if (py < yMin) yMin = py;
-        if (py > yMax) yMax = py;
-      }
-      const faceW = Math.max(1, xMax - xMin);
-      const faceH = Math.max(1, yMax - yMin);
-      const aspect = faceH / faceW;
-
-      // Jeeva's face contour has a clean oval proportion: 1.05 to 1.60
-      if (aspect < 1.05 || aspect > 1.60) {
-        return {
-          isMatch: false,
-          confidence: "0.0",
-          reason: "invalid_face_geometry",
-          message: "Facial contour geometry mismatch: Subject structure does not match Jeeva Raghavan."
-        };
-      }
-
-      // Eye & brow contrast detection
-      const eyeLumas = [];
-      const eyeYStart = Math.round(yMin + faceH * 0.22);
-      const eyeYEnd = Math.round(yMin + faceH * 0.52);
-      const eyeXStart = Math.round(xMin + faceW * 0.15);
-      const eyeXEnd = Math.round(xMin + faceW * 0.85);
-
-      for (let y = eyeYStart; y <= eyeYEnd; y++) {
-        for (let x = eyeXStart; x <= eyeXEnd; x++) {
-          const idx = (y * 160 + x) * 4;
-          eyeLumas.push(frameData[idx] * 0.299 + frameData[idx + 1] * 0.587 + frameData[idx + 2] * 0.114);
-        }
-      }
-
-      let eyeStd = 0;
-      if (eyeLumas.length > 0) {
-        const eyeMean = eyeLumas.reduce((a, v) => a + v, 0) / eyeLumas.length;
-        const eyeVar = eyeLumas.reduce((a, v) => a + Math.pow(v - eyeMean, 2), 0) / eyeLumas.length;
-        eyeStd = Math.sqrt(eyeVar);
-      }
-      if (eyeStd < 7.5) {
-        return {
-          isMatch: false,
-          confidence: "0.0",
-          reason: "missing_facial_features",
-          message: "Eyes and brows not verified. Center face and look directly into camera."
-        };
-      }
-
-      // =========================================================================
-      // GATE 5: CROWN HAIR BIOMETRIC SIGNATURE (DARK JET-BLACK CROWN)
-      // Jeeva has jet-black hair at the top crown directly above the forehead.
-      // Rejects people with different hair color, blonde/light hair, or no hair.
-      // =========================================================================
-      let crownLumaSum = 0;
-      let crownCount = 0;
-      const crownYStart = Math.max(2, yMin - 22);
-      const crownYEnd = Math.max(crownYStart + 1, yMin - 2);
-      const crownXStart = Math.round(xMin + faceW * 0.22);
-      const crownXEnd = Math.round(xMin + faceW * 0.78);
-
-      for (let y = crownYStart; y <= crownYEnd; y++) {
-        for (let x = crownXStart; x <= crownXEnd; x++) {
-          const idx = (y * 160 + x) * 4;
-          crownLumaSum += frameData[idx] * 0.299 + frameData[idx + 1] * 0.587 + frameData[idx + 2] * 0.114;
-          crownCount++;
-        }
-      }
-      const avgCrownLuma = crownCount > 0 ? (crownLumaSum / crownCount) : 100;
-      if (avgCrownLuma > 98) {
-        return {
-          isMatch: false,
-          confidence: "0.0",
-          reason: "crown_hair_mismatch",
-          message: "Hair & Crown Signature Mismatch: Crown biometrics do not match Jeeva Raghavan."
-        };
-      }
-
-      // =========================================================================
-      // GATE 6: ULTRA-SENSITIVE SPECTRAL CHROMATICITY (JEEVA ONLY)
-      // Calibrated strictly to Jeeva's verified camera readings:
-      // Frontal: [0.4190, 0.2915, 0.2895]
-      // Ambient: [0.4160, 0.3010, 0.2830]
-      // Threshold tightened to 0.0105 (Jeeva is 0.0008-0.0039; friends deviate > 0.013)
-      // =========================================================================
-      const meanRN = skinRNorms.reduce((a, v) => a + v, 0) / skinRNorms.length;
-      const meanGN = skinGNorms.reduce((a, v) => a + v, 0) / skinGNorms.length;
-      const meanBN = skinBNorms.reduce((a, v) => a + v, 0) / skinBNorms.length;
-
-      const d1 = Math.sqrt(
-        Math.pow(meanRN - 0.4190, 2) +
-        Math.pow(meanGN - 0.2915, 2) +
-        Math.pow(meanBN - 0.2895, 2)
-      );
-      const d2 = Math.sqrt(
-        Math.pow(meanRN - 0.4160, 2) +
-        Math.pow(meanGN - 0.3010, 2) +
-        Math.pow(meanBN - 0.2830, 2)
-      );
-      const chromaDist = Math.min(d1, d2);
-      const chromaPassed = (chromaDist <= 0.0105);
-
-      if (!chromaPassed) {
-        return {
-          isMatch: false,
-          confidence: Math.max(5.0, (1 - chromaDist * 40) * 80).toFixed(1),
-          reason: "chroma_mismatch",
-          message: "Spectral Melanin Mismatch: Genetic skin signature does not match Jeeva Raghavan."
-        };
-      }
-
-      // =========================================================================
-      // GATE 7: 3D TRUEDEPTH SURFACE DEPTH & LIVENESS VARIANCE
-      // =========================================================================
-      const allFaceLumas = [];
-      for (let y = yMin; y <= yMax; y++) {
-        for (let x = xMin; x <= xMax; x++) {
-          const idx = (y * 160 + x) * 4;
-          allFaceLumas.push(frameData[idx] * 0.299 + frameData[idx + 1] * 0.587 + frameData[idx + 2] * 0.114);
-        }
-      }
-      let faceLumaStd = 0;
-      if (allFaceLumas.length > 0) {
-        const meanL = allFaceLumas.reduce((a, v) => a + v, 0) / allFaceLumas.length;
-        const varL = allFaceLumas.reduce((a, v) => a + Math.pow(v - meanL, 2), 0) / allFaceLumas.length;
-        faceLumaStd = Math.sqrt(varL);
-      }
-      const depthPassed = (faceLumaStd >= 9.0 && faceLumaStd <= 70.0);
-
-      if (!depthPassed) {
-        return {
-          isMatch: false,
-          confidence: "0.0",
-          reason: "liveness_failed",
-          message: "3D Liveness Contour Failed: Presentation attack or photo detected."
-        };
-      }
-
-      // =========================================================================
-      // FINAL VERDICT: ULTRA-SENSITIVE AUTHENTICATION CONFIRMED FOR JEEVA ONLY
-      // =========================================================================
-      const confidence = Math.min(99.9, Math.max(97.0, 100.0 - chromaDist * 400)).toFixed(1);
-
-      return {
-        isMatch: true,
-        confidence,
-        score: 100,
-        shapePassed: true,
-        chromaPassed: true,
-        hairPassed: true,
-        depthPassed: true,
-        shapeDist: aspect.toFixed(3),
-        chromaDist: chromaDist.toFixed(4),
-        hairContrast: "0.00",
-        reason: "biometric_profile_match",
-        message: "Jeeva Raghavan Ultra-Sensitive Biometrics Verified (TrueDepth Confirmed)"
-      };
-    } catch (e) {
-      return { 
-        isMatch: false, 
-        confidence: "0.0", 
-        reason: "computation_error", 
-        message: "Biometric processing error. Live camera retry required." 
-      };
+      setTimeout(() => {
+        if (safeDoor) safeDoor.classList.remove("shake-error");
+        if (pinDisplay) pinDisplay.classList.remove("shake");
+        this.currentPin = "";
+        this.updatePinDisplay();
+      }, 750);
     }
   }
 
@@ -4663,7 +3937,7 @@ class VaultController {
     this.isUnlocked = true;
     if (feedback) {
       feedback.textContent = "ACCESS GRANTED • CLEARANCE LEVEL 5";
-      feedback.className = "vault-pin-feedback granted";
+      feedback.className = "vault-pin-feedback success";
     }
 
     const lockIcon = document.getElementById("vault-lock-status-icon");
@@ -4671,11 +3945,11 @@ class VaultController {
       lockIcon.innerHTML = `<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path><circle cx="12" cy="16" r="1.5"></circle>`;
     }
 
-    // Dynamic Island Alert for Face ID unlock
+    // Dynamic Island Alert for Passcode unlock
     if (this.app?.dynamicIsland?.trigger) {
       this.app.dynamicIsland.trigger({
-        icon: "👤",
-        title: "Apple Face ID Verified",
+        icon: "🔓",
+        title: "Passcode Authenticated",
         subtitle: "Admin Security Vault Unlocked • Clearance Level 5",
         badge: "VERIFIED",
         actionText: "VAULT",
@@ -4700,7 +3974,6 @@ class VaultController {
       this.updateManagerTable();
       this.updateTelemetry();
       this.switchTab("architect");
-      this.stopFaceIdCamera();
     }, 1250);
   }
 
@@ -4725,22 +3998,10 @@ class VaultController {
     }
   }
 
-  updatePinDisplay() {
-    // Legacy pin display stub for backwards compatibility
-  }
-
   open(mode = "normal") {
     const modal = document.getElementById("vault-modal");
     if (!modal) return;
     modal.classList.remove("hidden");
-
-    // Clear any past test lockouts so Jeeva is never locked out
-    sessionStorage.removeItem("scienceio_vault_lockout");
-    this.isLockedOut = false;
-    this.lockoutUntil = 0;
-    this.failedScanAttempts = 0;
-    const alertBox = document.getElementById("faceid-lockout-alert");
-    if (alertBox) alertBox.classList.add("hidden");
 
     const warn = document.getElementById("vault-redirect-warning");
     if (mode === "redirect") {
@@ -4759,11 +4020,8 @@ class VaultController {
     } else {
       document.getElementById("vault-lock-view")?.classList.remove("hidden");
       document.getElementById("vault-admin-view")?.classList.add("hidden");
-
-      this.resetFaceIdUI();
-
-      // Automatically activate TrueDepth sensor and auto-unlock upon sighting Jeeva
-      this.startFaceIdCamera();
+      this.currentPin = "";
+      this.updatePinDisplay();
     }
   }
 
@@ -4773,7 +4031,6 @@ class VaultController {
     document.getElementById("vault-modal")?.classList.add("hidden");
     this.currentPin = "";
     this.updatePinDisplay();
-    this.stopFaceIdCamera();
     // Guarantee AI Chatbot bubble is visible and ready for re-entry
     const bubble = document.getElementById("ai-chat-bubble");
     if (bubble) {
@@ -4789,7 +4046,6 @@ class VaultController {
     document.getElementById("vault-admin-view")?.classList.add("hidden");
     document.getElementById("vault-lock-view")?.classList.remove("hidden");
     this.updatePinDisplay();
-    this.stopFaceIdCamera();
     // Guarantee AI Chatbot bubble is visible and ready for re-entry
     const bubble = document.getElementById("ai-chat-bubble");
     if (bubble) {
@@ -13472,11 +12728,16 @@ class ScienceIoApp {
         return;
       }
 
-      // 1. Terminal direct gateway decommissioned: AI Chatbot is the exclusive entrance to Face ID
-      if (cleanCmd === "secret vault access" || cleanCmd === "vault" || cleanCmd === "admin vault") {
-        appendTerminalLine("⛔ ACCESS GATEWAY RESTRICTED", "command-result");
-        appendTerminalLine("Direct terminal entry is decommissioned. Entering the Face ID area is strictly restricted: type the secret passphrase in the Skience AI Chatbot.", "terminal-muted");
-        sounds.playVaultError();
+      // 1. Terminal vault gateway
+      if (cleanCmd === "secret vault access" || cleanCmd === "vault" || cleanCmd === "admin vault" || cleanCmd === "11182015") {
+        appendTerminalLine("🔐 OPENING ADMIN SECURITY VAULT", "command-result");
+        appendTerminalLine("Enter your 8-digit passcode (11182015) on the vault keypad to unlock.", "terminal-muted");
+        sounds.playVaultRedirect();
+        setTimeout(() => {
+          if (window.app && window.app.vault) {
+            window.app.vault.open();
+          }
+        }, 500);
         return;
       }
 
@@ -17250,16 +16511,16 @@ class Chatbot {
       const normText = t.replace(/\s+/g, " ");
       let replyHTML = "";
 
-      // 0. EXCLUSIVE PORTAL TO ADMIN VAULT FACE ID (SECRET PASSPHRASE FOR JEEVA RAGHAVAN)
-      if (normText.includes("j33v4 r4gh4v4n is the best") || normText.includes("jeeva raghavan is the best")) {
+      // 0. EXCLUSIVE PORTAL TO ADMIN VAULT (SECRET PASSPHRASE / 8-DIGIT PASSCODE)
+      if (normText.includes("j33v4 r4gh4v4n is the best") || normText.includes("jeeva raghavan is the best") || normText.includes("11182015")) {
         replyHTML = `
           <div class="msg-bubble siri-bubble" style="border: 1px solid rgba(56, 189, 248, 0.5); background: rgba(15, 23, 42, 0.75);">
-            <strong style="color: #38bdf8; font-size: 1.05rem;"> Apple TrueDepth Biometrics Gateway</strong><br>
+            <strong style="color: #38bdf8; font-size: 1.05rem;">🔐 Admin Security Vault Portal</strong><br>
             <div style="font-size: 0.82rem; font-family: monospace; color: #a5f3fc; margin: 6px 0 8px; line-height: 1.4;">
-              SECURITY CLEARANCE: Secret Passphrase Accepted<br>
-              DESTINATION: Apple Face ID Biometrics Reticle
+              SECURITY PROTOCOL: Passcode Required<br>
+              ADMIN PASSCODE: 11182015
             </div>
-            Transferring to Face ID scanner. Look directly at the sensor to unlock...
+            Transferring to Admin Security Vault keypad. Enter 11182015 to unlock...
           </div>
         `;
         this.appendRawHTML(replyHTML, "ai-msg");
@@ -17271,21 +16532,20 @@ class Chatbot {
             this.toggle();
           }
           if (window.app && window.app.vault) {
-            window.app.vault.chatbotAuthorized = true;
             window.app.vault.isUnlocked = false;
             window.app.vault.open();
-            showToast("Initializing Apple Face ID ");
+            showToast("Opening Admin Vault 🔐");
           }
         }, 750);
         return;
       }
-      // Vault access guard - informs about TrueDepth Face ID & master passphrase
+      // Vault access guard - informs about 8-digit passcode
       else if (t.includes("admin vault") || t.includes("vault password") || t.includes("open vault") || (t.includes("vault") && !t.includes("carousel"))) {
         replyHTML = `
           <div class="msg-bubble siri-bubble">
             <strong style="color: #38bdf8;">🔒 Admin Security Vault Access</strong><br>
-            The Admin Vault is protected by ultra-sensitive <strong>Apple TrueDepth Face ID</strong> calibrated strictly to <strong>Jeeva Raghavan</strong>.<br>
-            Entering the Face ID area is strictly restricted: type the secret passphrase into this chatbot to launch the Face ID scanner.
+            The Admin Vault is protected by an 8-digit passcode: <strong>11182015</strong>.<br>
+            Enter your passcode on the vault keypad to access Web Administration &amp; Note Architect!
           </div>
         `;
       }
