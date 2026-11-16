@@ -4185,14 +4185,34 @@ class VaultController {
       }
       ctx.stroke();
 
-      // 3. Dynamic horizontal laser scan line across facial frame
-      const scanY = cy - 45 + ((tickCount % 4) / 4) * 90;
+      // 3. Apple TrueDepth 3D Infrared Dot Projector Matrix (Simulated 7x7 IR Nodes)
       ctx.save();
-      ctx.strokeStyle = progress > 0.85 ? "rgba(16, 185, 129, 0.7)" : "rgba(56, 189, 248, 0.65)";
-      ctx.lineWidth = 1.6;
+      const dotColor = progress > 0.85 ? "rgba(16, 185, 129, " : "rgba(56, 189, 248, ";
+      for (let row = -3; row <= 3; row++) {
+        for (let col = -3; col <= 3; col++) {
+          if (Math.abs(row) + Math.abs(col) <= 5) {
+            const dx = cx + col * 15 + Math.sin(tickCount + row) * 1.5;
+            const dy = cy + row * 15 + Math.cos(tickCount + col) * 1.5;
+            const dotAlpha = 0.25 + 0.35 * Math.sin(tickCount * 1.2 + row * 0.7 + col * 0.5);
+            ctx.fillStyle = dotColor + Math.max(0.1, dotAlpha) + ")";
+            ctx.beginPath();
+            ctx.arc(dx, dy, 1.2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+      ctx.restore();
+
+      // 4. Dynamic horizontal laser scan line across facial frame with particle glow
+      const scanY = cy - 50 + ((tickCount % 5) / 5) * 100;
+      ctx.save();
+      ctx.strokeStyle = progress > 0.85 ? "rgba(16, 185, 129, 0.85)" : "rgba(56, 189, 248, 0.8)";
+      ctx.lineWidth = 1.8;
+      ctx.shadowColor = progress > 0.85 ? "#10b981" : "#38bdf8";
+      ctx.shadowBlur = 8;
       ctx.beginPath();
-      ctx.moveTo(cx - 50, scanY);
-      ctx.lineTo(cx + 50, scanY);
+      ctx.moveTo(cx - 56, scanY);
+      ctx.lineTo(cx + 56, scanY);
       ctx.stroke();
       ctx.restore();
     };
