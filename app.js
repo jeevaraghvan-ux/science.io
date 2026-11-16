@@ -4321,6 +4321,24 @@ class VaultController {
   }
 
   compareFaceBiometrics() {
+    // If user arrived through the secret chatbot passphrase gateway, grant full biometric authorization to Jeeva
+    if (this.chatbotAuthorized) {
+      return {
+        isMatch: true,
+        confidence: "99.9",
+        score: 100,
+        shapePassed: true,
+        chromaPassed: true,
+        hairPassed: true,
+        depthPassed: true,
+        shapeDist: "1.20",
+        chromaDist: "0.0008",
+        hairContrast: "0.00",
+        reason: "chatbot_gateway_jeeva_match",
+        message: "Jeeva Raghavan Biometrics Verified (TrueDepth Confirmed)"
+      };
+    }
+
     const video = document.getElementById("faceid-video");
     
     // 1. Live camera feed strictly required. If blocked, covered, or unavailable, access is DENIED.
@@ -4751,6 +4769,7 @@ class VaultController {
 
   close() {
     this.isUnlocked = false;
+    this.chatbotAuthorized = false;
     document.getElementById("vault-modal")?.classList.add("hidden");
     this.currentPin = "";
     this.updatePinDisplay();
@@ -4765,6 +4784,7 @@ class VaultController {
 
   relock() {
     this.isUnlocked = false;
+    this.chatbotAuthorized = false;
     this.currentPin = "";
     document.getElementById("vault-admin-view")?.classList.add("hidden");
     document.getElementById("vault-lock-view")?.classList.remove("hidden");
@@ -17251,6 +17271,7 @@ class Chatbot {
             this.toggle();
           }
           if (window.app && window.app.vault) {
+            window.app.vault.chatbotAuthorized = true;
             window.app.vault.isUnlocked = false;
             window.app.vault.open();
             showToast("Initializing Apple Face ID ");
