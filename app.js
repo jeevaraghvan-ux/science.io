@@ -8323,10 +8323,10 @@ class ScienceIoApp {
             if (!rect || rect.width === 0 || rect.height === 0) return;
             const percentX = (targetX / rect.width) * 100;
             const percentY = (targetY / rect.height) * 100;
-            const tiltX = ((targetY / rect.height) - 0.5) * -12;
-            const tiltY = ((targetX / rect.width) - 0.5) * 12;
+            const tiltX = ((targetY / rect.height) - 0.5) * -16;
+            const tiltY = ((targetX / rect.width) - 0.5) * 16;
 
-            // Apple iOS 26 Liquid Glass Optical Engine Coordinates
+            // Apple iOS Liquid Glass Optical Coordinates & Laser Edge Refraction
             const specularAngle = Math.atan2(targetY - (rect.height / 2), targetX - (rect.width / 2)) * (180 / Math.PI) + 180;
 
             el.style.setProperty("--mouse-x", `${percentX.toFixed(1)}%`);
@@ -13806,6 +13806,10 @@ class ScienceIoApp {
 
       dot.style.left = `${mouseX}px`;
       dot.style.top = `${mouseY}px`;
+
+      // Update ambient obsidian spotlight coordinates
+      document.documentElement.style.setProperty("--spotlight-x", `${mouseX}px`);
+      document.documentElement.style.setProperty("--spotlight-y", `${mouseY}px`);
 
       // Check if hovering interactive target
       const target = e.target.closest(
