@@ -12731,7 +12731,7 @@ class ScienceIoApp {
       // 1. Terminal vault gateway
       if (cleanCmd === "secret vault access" || cleanCmd === "vault" || cleanCmd === "admin vault" || cleanCmd === "11182015") {
         appendTerminalLine("🔐 OPENING ADMIN SECURITY VAULT", "command-result");
-        appendTerminalLine("Enter your 8-digit passcode (11182015) on the vault keypad to unlock.", "terminal-muted");
+        appendTerminalLine("Enter your 8-digit passcode on the vault keypad to unlock.", "terminal-muted");
         sounds.playVaultRedirect();
         setTimeout(() => {
           if (window.app && window.app.vault) {
@@ -16517,10 +16517,10 @@ class Chatbot {
           <div class="msg-bubble siri-bubble" style="border: 1px solid rgba(56, 189, 248, 0.5); background: rgba(15, 23, 42, 0.75);">
             <strong style="color: #38bdf8; font-size: 1.05rem;">🔐 Admin Security Vault Portal</strong><br>
             <div style="font-size: 0.82rem; font-family: monospace; color: #a5f3fc; margin: 6px 0 8px; line-height: 1.4;">
-              SECURITY PROTOCOL: Passcode Required<br>
-              ADMIN PASSCODE: 11182015
+              SECURITY CLEARANCE: Secret Passphrase Accepted<br>
+              DESTINATION: Admin Security Vault Keypad
             </div>
-            Transferring to Admin Security Vault keypad. Enter 11182015 to unlock...
+            Transferring to Admin Security Vault keypad. Enter your 8-digit passcode to unlock...
           </div>
         `;
         this.appendRawHTML(replyHTML, "ai-msg");
@@ -16544,7 +16544,7 @@ class Chatbot {
         replyHTML = `
           <div class="msg-bubble siri-bubble">
             <strong style="color: #38bdf8;">🔒 Admin Security Vault Access</strong><br>
-            The Admin Vault is protected by an 8-digit passcode: <strong>11182015</strong>.<br>
+            The Admin Vault is protected by a classified 8-digit security passcode.<br>
             Enter your passcode on the vault keypad to access Web Administration &amp; Note Architect!
           </div>
         `;
