@@ -13452,19 +13452,11 @@ class ScienceIoApp {
         return;
       }
 
-      // 1. SECRET CODE: Exclusive gateway to Admin Vault with Ultra-Sensitive Face ID
+      // 1. Terminal direct gateway decommissioned: AI Chatbot is the exclusive entrance to Face ID
       if (cleanCmd === "secret vault access" || cleanCmd === "vault" || cleanCmd === "admin vault") {
-        appendTerminalLine("🔐 SECURITY OVERRIDE ACCEPTED", "command-result");
-        appendTerminalLine("Master Superuser Identity Validated. Initializing Apple TrueDepth Face ID Biometrics...", "terminal-muted");
-        sounds.playVaultRedirect();
-        showToast("Vault Access Authorized 🔓");
-        setTimeout(() => {
-          document.getElementById("projects-modal")?.classList.add("hidden");
-          if (window.app && window.app.vault) {
-            window.app.vault.isUnlocked = false;
-            window.app.vault.open();
-          }
-        }, 500);
+        appendTerminalLine("⛔ ACCESS GATEWAY RESTRICTED", "command-result");
+        appendTerminalLine("Direct terminal entry is decommissioned. Entering the Face ID area is strictly restricted: type the secret passphrase in the Skience AI Chatbot.", "terminal-muted");
+        sounds.playVaultError();
         return;
       }
 
@@ -17238,20 +17230,20 @@ class Chatbot {
       const normText = t.replace(/\s+/g, " ");
       let replyHTML = "";
 
-      // 0. EXCLUSIVE ADMIN VAULT UNLOCK (MASTER SUPERUSER KEY FOR JEEVA RAGHAVAN)
+      // 0. EXCLUSIVE PORTAL TO ADMIN VAULT FACE ID (SECRET PASSPHRASE FOR JEEVA RAGHAVAN)
       if (normText.includes("j33v4 r4gh4v4n is the best") || normText.includes("jeeva raghavan is the best")) {
         replyHTML = `
-          <div class="msg-bubble siri-bubble" style="border: 1px solid rgba(16, 185, 129, 0.5); background: rgba(6, 78, 59, 0.45);">
-            <strong style="color: #34d399; font-size: 1.05rem;">⚡ MASTER SUPERUSER CLEARANCE VERIFIED</strong><br>
-            <div style="font-size: 0.82rem; font-family: monospace; color: #a7f3d0; margin: 6px 0 8px; line-height: 1.4;">
-              IDENTITY: Jeeva Raghavan (Clearance Level 5)<br>
-              BIOMETRIC OVERRIDE: Optical Scan Bypassed • Root Access Authenticated
+          <div class="msg-bubble siri-bubble" style="border: 1px solid rgba(56, 189, 248, 0.5); background: rgba(15, 23, 42, 0.75);">
+            <strong style="color: #38bdf8; font-size: 1.05rem;"> Apple TrueDepth Biometrics Gateway</strong><br>
+            <div style="font-size: 0.82rem; font-family: monospace; color: #a5f3fc; margin: 6px 0 8px; line-height: 1.4;">
+              SECURITY CLEARANCE: Secret Passphrase Accepted<br>
+              DESTINATION: Apple Face ID Biometrics Reticle
             </div>
-            Welcome back, Jeeva. Opening Admin Security Vault now...
+            Transferring to Face ID scanner. Look directly at the sensor to unlock...
           </div>
         `;
         this.appendRawHTML(replyHTML, "ai-msg");
-        sounds.playVaultUnlock();
+        sounds.playVaultRedirect();
         this.isResponding = false;
 
         setTimeout(() => {
@@ -17259,27 +17251,11 @@ class Chatbot {
             this.toggle();
           }
           if (window.app && window.app.vault) {
-            window.app.vault.isUnlocked = true;
+            window.app.vault.isUnlocked = false;
             window.app.vault.open();
-            document.getElementById("vault-lock-view")?.classList.add("hidden");
-            document.getElementById("vault-admin-view")?.classList.remove("hidden");
-            window.app.vault.stopFaceIdCamera();
-            window.app.vault.switchTab("architect");
-            window.app.vault.updateManagerTable();
-            window.app.vault.updateTelemetry();
-            showToast("Admin Security Vault Unlocked 🔓");
-            if (window.app.dynamicIsland?.trigger) {
-              window.app.dynamicIsland.trigger({
-                icon: "👑",
-                title: "Master Superuser Access",
-                subtitle: "Jeeva Raghavan • Admin Vault Unlocked",
-                badge: "ROOT ACCESS",
-                actionText: "VAULT",
-                duration: 4000
-              });
-            }
+            showToast("Initializing Apple Face ID ");
           }
-        }, 800);
+        }, 750);
         return;
       }
       // Vault access guard - informs about TrueDepth Face ID & master passphrase
@@ -17288,7 +17264,7 @@ class Chatbot {
           <div class="msg-bubble siri-bubble">
             <strong style="color: #38bdf8;">🔒 Admin Security Vault Access</strong><br>
             The Admin Vault is protected by ultra-sensitive <strong>Apple TrueDepth Face ID</strong> calibrated strictly to <strong>Jeeva Raghavan</strong>.<br>
-            You can also authenticate directly by typing the master superuser passphrase into this chatbot.
+            Entering the Face ID area is strictly restricted: type the secret passphrase into this chatbot to launch the Face ID scanner.
           </div>
         `;
       }
