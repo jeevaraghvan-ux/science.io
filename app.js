@@ -12768,14 +12768,7 @@ class ScienceIoApp {
         return;
       }
 
-      // 3. SUDO COMMAND (Humorous Easter Egg)
-      if (cleanCmd === "sudo" || cleanCmd.startsWith("sudo ")) {
-        appendTerminalLine("🔐 ROOT PRIVILEGE ELEVATION REQUESTED...", "command-result");
-        appendTerminalLine("Nice try! This incident will be reported to Santa 🎅 (or Jeeva).");
-        appendTerminalLine("Permission denied: guest is not in the sudoers file. Jeeva is the only root user.", "terminal-muted");
-        sounds.playKeypadError();
-        return;
-      }
+
 
       // 4. CALC COMMAND (Safe Math Evaluator)
       if (cleanCmd === "calc" || cleanCmd.startsWith("calc ")) {
@@ -12818,30 +12811,7 @@ class ScienceIoApp {
         return;
       }
 
-      // 5. HACK COMMAND (Hollywood Cyber Simulator)
-      if (cleanCmd === "hack" || cleanCmd.startsWith("hack ")) {
-        const target = raw.slice(4).trim() || "skience-mainframe";
-        appendTerminalLine(`🕶️ INITIATING CYBER INJECTION SEQUENCE [TARGET: ${target}]...`, "command-result");
-        
-        const steps = [
-          "Bypassing quantum proxy cluster (192.168.0.1 ➔ 10.0.8.254)... [OK]",
-          "Injecting neutrino packet payload into kernel memory buffer...",
-          "Decrypting 4096-bit polymorphic firewall: [████████████████] 100%",
-          "Overriding root security daemon & neutralizing defense countermeasures...",
-          `ACCESS GRANTED: ${target} compromised. Root privileges unlocked! 🎉`
-        ];
 
-        steps.forEach((step, idx) => {
-          setTimeout(() => {
-            appendTerminalLine(step, idx === steps.length - 1 ? "command-result" : "terminal-muted");
-            sounds.playKeypadTap();
-            if (idx === steps.length - 1) {
-              sounds.playSuccess();
-            }
-          }, (idx + 1) * 350);
-        });
-        return;
-      }
 
       switch (cleanCmd) {
         case "help":
@@ -12858,8 +12828,6 @@ class ScienceIoApp {
             "sciencefact  --> mind-blowing science fact\n" +
             "quote        --> inspirational pioneer quote\n" +
             "calc <math>  --> terminal quick calculator\n" +
-            "hack         --> hollywood cyber hack simulator\n" +
-            "sudo <cmd>   --> superuser authorization check\n" +
             "clear        --> a fresh terminal\n" +
             "hello        --> say hello\n" +
             "replay       --> play the intro again\n" +
@@ -13038,7 +13006,6 @@ class ScienceIoApp {
     this.setupExtended3DTiltAndSpecularShimmer();
     this.setupDynamicIsland();
     this.setupAppleFlashcards();
-    this.setupGhostRecallGame();
     this.setupAppleSplitView();
   }
 
@@ -13291,20 +13258,6 @@ class ScienceIoApp {
         action: () => {
           if (typeof this.openAppleFlashcards === "function") {
             this.openAppleFlashcards();
-          }
-        }
-      },
-      {
-        id: "tool-ghost-recall",
-        category: "tools",
-        title: "Cloze-Drift Ghost Recall Game",
-        sub: "Fill in frosted ghost blanks to memorize all science notes",
-        badge: "RECALL",
-        icon: "👻",
-        keywords: "ghost recall cloze fill blanks memory game drift test flow",
-        action: () => {
-          if (typeof this.openGhostRecallGame === "function") {
-            this.openGhostRecallGame();
           }
         }
       },
@@ -14393,11 +14346,6 @@ class ScienceIoApp {
               this.openAppleFlashcards();
             }
             break;
-          case "ghost":
-            if (typeof this.openGhostRecallGame === "function") {
-              this.openGhostRecallGame();
-            }
-            break;
           case "split":
             if (typeof this.openAppleSplitView === "function") {
               this.openAppleSplitView();
@@ -15024,303 +14972,6 @@ class ScienceIoApp {
     };
 
     this.closeAppleFlashcards = () => {
-      modal.classList.add("hidden");
-      try {
-        if (typeof sounds.playClick === "function") sounds.playClick();
-      } catch (_) {}
-    };
-  }
-
-  // ================= CLOZE-DRIFT: GHOST RECALL GAME =================
-  setupGhostRecallGame() {
-    const modal = document.getElementById("ghost-recall-modal");
-    const closeBtn = document.getElementById("ghost-close-btn");
-    const topicSelect = document.getElementById("ghost-topic-select");
-    const arenaEl = document.getElementById("ghost-flow-arena");
-    const chipsContainer = document.getElementById("ghost-chips-container");
-    const progressBar = document.getElementById("ghost-progress-bar");
-    const pctEl = document.getElementById("ghost-pct-display");
-    const streakText = document.getElementById("ghost-streak-text");
-    const hintBtn = document.getElementById("ghost-btn-hint");
-    const resetBtn = document.getElementById("ghost-btn-reset");
-    const nextTopicBtn = document.getElementById("ghost-btn-next-topic");
-    const modeBtns = document.querySelectorAll(".ghost-mode-btn");
-
-    if (!modal || !arenaEl) return;
-
-    let topics = [];
-    let currentTopic = null;
-    let difficulty = 1; // 1: Gentle (chips), 2: Intense (first letter), 3: Master (pure blank)
-    let currentBlanks = [];
-    let activeBlankId = null;
-    let streak = 0;
-
-    const getAvailableTopics = () => {
-      if (Array.isArray(window.SCIENCE_IO_PUBLISHED_NOTES) && window.SCIENCE_IO_PUBLISHED_NOTES.length > 0) {
-        return window.SCIENCE_IO_PUBLISHED_NOTES;
-      }
-      if (Array.isArray(this.notes) && this.notes.length > 0) {
-        return this.notes;
-      }
-      return [];
-    };
-
-    const populateGhostSelect = () => {
-      topics = getAvailableTopics();
-      if (!topicSelect || !topics.length) return;
-      topicSelect.innerHTML = "";
-      topics.forEach((t, i) => {
-        const opt = document.createElement("option");
-        opt.value = String(i);
-        opt.textContent = `${t.title} (${(t.properties || []).length} Concepts)`;
-        topicSelect.appendChild(opt);
-      });
-    };
-
-    const loadGhostTopic = (topicIdx) => {
-      topics = getAvailableTopics();
-      const idx = parseInt(topicIdx, 10) || 0;
-      currentTopic = topics[idx] || topics[0];
-      if (!currentTopic) return;
-
-      currentBlanks = [];
-      activeBlankId = null;
-      arenaEl.innerHTML = "";
-      chipsContainer.innerHTML = "";
-
-      const props = currentTopic.properties || [];
-      if (!props.length) {
-        arenaEl.innerHTML = `<p style="color: #94a3b8;">No concept squares found for this unit.</p>`;
-        return;
-      }
-
-      const allAnswers = [];
-
-      props.forEach((p, pIdx) => {
-        const termName = p.name || "Concept";
-        const explanation = p.explanation || "";
-        const formula = p.formula || "";
-
-        const pPara = document.createElement("div");
-        pPara.style.cssText = "margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.06);";
-
-        const blankId = `ghost-blank-${pIdx}`;
-        allAnswers.push(termName);
-        currentBlanks.push({
-          id: blankId,
-          answer: termName,
-          hint: p.trick || p.formula || "Key concept",
-          solved: false
-        });
-
-        let promptDisplay = "[ ? ]";
-        if (difficulty === 2) {
-          promptDisplay = `[ ${termName.charAt(0)}... ]`;
-        } else if (difficulty === 3) {
-          promptDisplay = "[ ___ ]";
-        }
-
-        pPara.innerHTML = `
-          <div style="font-size: 0.85rem; color: #38bdf8; font-weight: 700; margin-bottom: 4px; font-family: ui-monospace, monospace;">
-            CONCEPT #${p.num || (pIdx + 1)} • ${formula}
-          </div>
-          <div>
-            The organelle or structure known as 
-            <span class="ghost-blank" id="${blankId}" data-blank-id="${blankId}">${promptDisplay}</span> 
-            is defined as: <em>"${explanation}"</em>
-          </div>
-        `;
-        arenaEl.appendChild(pPara);
-      });
-
-      const shuffledOptions = [...allAnswers].sort(() => Math.random() - 0.5);
-      shuffledOptions.forEach((term) => {
-        const chip = document.createElement("button");
-        chip.type = "button";
-        chip.className = "ghost-chip";
-        chip.textContent = term;
-        chip.dataset.term = term;
-        chip.addEventListener("click", () => handleChipSelected(term, chip));
-        chipsContainer.appendChild(chip);
-      });
-
-      if (currentBlanks.length > 0) {
-        activateBlank(currentBlanks[0].id);
-      }
-
-      updateGhostScoreUI();
-    };
-
-    const activateBlank = (blankId) => {
-      activeBlankId = blankId;
-      document.querySelectorAll(".ghost-blank").forEach(el => {
-        el.classList.toggle("active", el.id === blankId);
-      });
-      const el = document.getElementById(blankId);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    };
-
-    const handleChipSelected = (selectedTerm, chipEl) => {
-      if (!activeBlankId) {
-        const firstUnsolved = currentBlanks.find(b => !b.solved);
-        if (firstUnsolved) activeBlankId = firstUnsolved.id;
-        else return;
-      }
-
-      const blankData = currentBlanks.find(b => b.id === activeBlankId);
-      if (!blankData) return;
-
-      if (blankData.answer.trim().toLowerCase() === selectedTerm.trim().toLowerCase()) {
-        blankData.solved = true;
-        const blankEl = document.getElementById(activeBlankId);
-        if (blankEl) {
-          blankEl.textContent = blankData.answer;
-          blankEl.classList.remove("active");
-          blankEl.classList.add("solved");
-        }
-        if (chipEl) chipEl.classList.add("used");
-
-        streak++;
-        streakText.textContent = `🔥 Streak: ${streak}`;
-        try {
-          if (typeof sounds.playCoin === "function") sounds.playCoin();
-          else sounds.playClick();
-        } catch (_) {}
-
-        updateGhostScoreUI();
-
-        const nextUnsolved = currentBlanks.find(b => !b.solved);
-        if (nextUnsolved) {
-          activateBlank(nextUnsolved.id);
-        } else {
-          activeBlankId = null;
-          try {
-            if (typeof sounds.playSuccess === "function") sounds.playSuccess();
-          } catch (_) {}
-          if (window.app?.dynamicIsland?.trigger) {
-            window.app.dynamicIsland.trigger({
-              icon: "🎉",
-              title: "100% RECALL MASTERED!",
-              subtitle: `Flawless retention on ${currentTopic?.title || "science unit"}!`,
-              badge: "MASTER",
-              duration: 5000
-            });
-          }
-        }
-      } else {
-        streak = 0;
-        streakText.textContent = `🔥 Streak: 0`;
-        const blankEl = document.getElementById(activeBlankId);
-        if (blankEl) {
-          blankEl.style.borderColor = "#ef4444";
-          blankEl.style.transform = "translateX(4px)";
-          setTimeout(() => {
-            blankEl.style.borderColor = "";
-            blankEl.style.transform = "";
-          }, 400);
-        }
-        try {
-          if (typeof sounds.playVaultError === "function") sounds.playVaultError();
-        } catch (_) {}
-      }
-    };
-
-    const updateGhostScoreUI = () => {
-      const total = currentBlanks.length || 1;
-      const solved = currentBlanks.filter(b => b.solved).length;
-      const pct = Math.round((solved / total) * 100);
-
-      if (pctEl) pctEl.textContent = `${pct}%`;
-      if (progressBar) progressBar.style.width = `${pct}%`;
-
-      if (window.app?.dynamicIsland?.trigger && solved > 0) {
-        window.app.dynamicIsland.trigger({
-          icon: "👻",
-          title: `${pct}% Memorized`,
-          subtitle: `Ghost Recall • Streak: ${streak} • ${currentTopic?.title || ""}`,
-          badge: "RECALL",
-          duration: 2200
-        });
-      }
-    };
-
-    arenaEl.addEventListener("click", (e) => {
-      const blankEl = e.target.closest(".ghost-blank");
-      if (blankEl && !blankEl.classList.contains("solved")) {
-        activateBlank(blankEl.id);
-        try {
-          if (typeof sounds.playClick === "function") sounds.playClick();
-        } catch (_) {}
-      }
-    });
-
-    hintBtn?.addEventListener("click", () => {
-      if (!activeBlankId) return;
-      const blankData = currentBlanks.find(b => b.id === activeBlankId);
-      if (blankData) {
-        const hintText = blankData.hint || `Starts with "${blankData.answer.charAt(0)}"`;
-        alert(`💡 Hint:\n\n${hintText}`);
-      }
-    });
-
-    resetBtn?.addEventListener("click", () => {
-      streak = 0;
-      streakText.textContent = `🔥 Streak: 0`;
-      loadGhostTopic(topicSelect.value || "0");
-    });
-
-    nextTopicBtn?.addEventListener("click", () => {
-      const curIdx = parseInt(topicSelect.value, 10) || 0;
-      const nextIdx = (curIdx + 1) % topics.length;
-      topicSelect.value = String(nextIdx);
-      loadGhostTopic(String(nextIdx));
-    });
-
-    modeBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        modeBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        difficulty = parseInt(btn.dataset.level, 10) || 1;
-        loadGhostTopic(topicSelect.value || "0");
-      });
-    });
-
-    topicSelect?.addEventListener("change", (e) => {
-      loadGhostTopic(e.target.value);
-    });
-
-    closeBtn?.addEventListener("click", () => {
-      this.closeGhostRecallGame();
-    });
-
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) this.closeGhostRecallGame();
-    });
-
-    document.getElementById("nav-btn-ghost-recall")?.addEventListener("click", () => {
-      this.openGhostRecallGame();
-    });
-
-    this.openGhostRecallGame = (topicId = null) => {
-      populateGhostSelect();
-      if (topicId) {
-        const foundIdx = topics.findIndex(t => (t.id || "").toLowerCase() === String(topicId).toLowerCase());
-        if (foundIdx >= 0) {
-          topicSelect.value = String(foundIdx);
-          loadGhostTopic(String(foundIdx));
-        } else {
-          loadGhostTopic("0");
-        }
-      } else {
-        loadGhostTopic(topicSelect.value || "0");
-      }
-      modal.classList.remove("hidden");
-      try {
-        if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
-      } catch (_) {}
-    };
-
-    this.closeGhostRecallGame = () => {
       modal.classList.add("hidden");
       try {
         if (typeof sounds.playClick === "function") sounds.playClick();
