@@ -4152,8 +4152,14 @@ class VaultController {
       formula: "Observation / Principle",
       explanation: "Explain this scientific concept clearly for 5th graders...",
       example: "Real-world experiment or demonstration...",
-      trick: "Lab Memory Tip"
+      trick: "Lab Memory Tip",
+      image: ""
     };
+    if (data && data.image) {
+      defaultData.image = data.image;
+    } else if (!defaultData.image) {
+      defaultData.image = "";
+    }
 
     this.architectSquares.push(defaultData);
     sounds.playClick();
@@ -4177,6 +4183,26 @@ class VaultController {
     const list = document.getElementById("vault-squares-list");
     const countBadge = document.getElementById("squares-count-badge");
     if (!list) return;
+
+    // Snapshot existing square inputs before re-rendering so typed text is never lost
+    const existingCards = document.querySelectorAll("#vault-squares-list .architect-square-card");
+    if (existingCards.length > 0) {
+      existingCards.forEach((c) => {
+        const cIdx = parseInt(c.dataset.index, 10);
+        if (this.architectSquares[cIdx]) {
+          const nameVal = c.querySelector(".sq-input-name")?.value;
+          const formVal = c.querySelector(".sq-input-formula")?.value;
+          const explVal = c.querySelector(".sq-input-explanation")?.value;
+          const exVal = c.querySelector(".sq-input-example")?.value;
+          const trkVal = c.querySelector(".sq-input-trick")?.value;
+          if (nameVal !== undefined) this.architectSquares[cIdx].name = nameVal;
+          if (formVal !== undefined) this.architectSquares[cIdx].formula = formVal;
+          if (explVal !== undefined) this.architectSquares[cIdx].explanation = explVal;
+          if (exVal !== undefined) this.architectSquares[cIdx].example = exVal;
+          if (trkVal !== undefined) this.architectSquares[cIdx].trick = trkVal;
+        }
+      });
+    }
 
     list.innerHTML = "";
     if (countBadge) {
@@ -4249,6 +4275,40 @@ class VaultController {
             <input type="text" class="sq-input-trick" value="${sq.trick || ""}" placeholder="e.g. Solids hold their ground; liquids flow around!" />
           </div>
         </div>
+
+        <!-- Concept Picture Device Import -->
+        <div class="sq-image-group">
+          <div class="field-label-row">
+            <label>Concept Picture / Diagram <span class="sq-img-hint">(Import picture from your computer/device)</span></label>
+            ${sq.image ? `<span class="sq-image-attached-badge">✓ Picture Attached</span>` : ""}
+          </div>
+          <div class="sq-image-uploader-box ${sq.image ? "has-image" : "empty"}">
+            <input type="file" class="sq-image-file-input" accept="image/*" style="display: none;" />
+            ${sq.image ? `
+              <div class="sq-image-preview-wrap">
+                <div class="sq-image-preview-thumb">
+                  <img src="${sq.image}" alt="Concept picture preview" />
+                </div>
+                <div class="sq-image-preview-info">
+                  <span class="sq-image-filename">📷 Device Picture Loaded</span>
+                  <div class="sq-image-btn-row">
+                    <button type="button" class="btn-change-sq-img">🔄 Change Picture</button>
+                    <button type="button" class="btn-remove-sq-img">🗑️ Remove</button>
+                  </div>
+                </div>
+              </div>
+            ` : `
+              <div class="sq-image-dropzone">
+                <div class="sq-drop-icon">🖼️</div>
+                <div class="sq-drop-text">
+                  <strong>Click to import a picture</strong> or drag & drop image here
+                </div>
+                <div class="sq-drop-subtext">Supports PNG, JPG, JPEG, WebP, GIF from your computer/device</div>
+                <button type="button" class="btn-choose-sq-img">📂 Import Picture From Device</button>
+              </div>
+            `}
+          </div>
+        </div>
       `;
 
       card.querySelector(".sq-remove-btn")?.addEventListener("click", () => {
@@ -4296,6 +4356,107 @@ class VaultController {
           }
         });
       });
+
+      // Device Picture Import Handlers (FileReader + Canvas Optimization)
+      const fileInput = card.querySelector(".sq-image-file-input");
+      const dropzone = card.querySelector(".sq-image-dropzone");
+      const chooseBtn = card.querySelector(".btn-choose-sq-img");
+      const changeBtn = card.querySelector(".btn-change-sq-img");
+      const removeBtn = card.querySelector(".btn-remove-sq-img");
+
+      const processDeviceImage = (file) => {
+        if (!file || !file.type.startsWith("image/")) {
+          alert("Please select a valid image file (PNG, JPG, WebP, GIF).");
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (re) => {
+          const rawData = re.target.result;
+          const img = new Image();
+          img.onload = () => {
+            const maxDim = 1200;
+            let width = img.width;
+            let height = img.height;
+            if (width > maxDim || height > maxDim) {
+              if (width > height) {
+                height = Math.round((height * maxDim) / width);
+                width = maxDim;
+              } else {
+                width = Math.round((width * maxDim) / height);
+                height = maxDim;
+              }
+            }
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            let dataUrl = canvas.toDataURL(file.type === "image/png" ? "image/png" : "image/jpeg", 0.88);
+            if (file.type === "image/png" && dataUrl.length > 500000) {
+              const testJpeg = canvas.toDataURL("image/jpeg", 0.86);
+              if (testJpeg.length < dataUrl.length) dataUrl = testJpeg;
+            }
+
+            this.architectSquares[idx].image = dataUrl;
+            if (window.sounds) window.sounds.playSuccess();
+            if (typeof showToast === "function") showToast("✅ Concept picture imported from device!");
+            this.renderSquares();
+          };
+          img.src = rawData;
+        };
+        reader.readAsDataURL(file);
+      };
+
+      if (fileInput) {
+        fileInput.addEventListener("change", (e) => {
+          if (e.target.files && e.target.files[0]) {
+            processDeviceImage(e.target.files[0]);
+          }
+        });
+      }
+
+      if (chooseBtn) {
+        chooseBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          fileInput?.click();
+        });
+      }
+
+      if (dropzone) {
+        dropzone.addEventListener("click", () => fileInput?.click());
+        dropzone.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          dropzone.classList.add("dragover");
+        });
+        dropzone.addEventListener("dragleave", () => {
+          dropzone.classList.remove("dragover");
+        });
+        dropzone.addEventListener("drop", (e) => {
+          e.preventDefault();
+          dropzone.classList.remove("dragover");
+          if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+            processDeviceImage(e.dataTransfer.files[0]);
+          }
+        });
+      }
+
+      if (changeBtn) {
+        changeBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          fileInput?.click();
+        });
+      }
+
+      if (removeBtn) {
+        removeBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          this.architectSquares[idx].image = "";
+          if (window.sounds) window.sounds.playClick();
+          this.renderSquares();
+        });
+      }
 
       list.appendChild(card);
     });
@@ -4414,7 +4575,8 @@ class VaultController {
         formula: card.querySelector(".sq-input-formula")?.value || this.architectSquares[idx]?.formula || "",
         explanation: card.querySelector(".sq-input-explanation")?.value || this.architectSquares[idx]?.explanation || "",
         example: card.querySelector(".sq-input-example")?.value || this.architectSquares[idx]?.example || "",
-        trick: card.querySelector(".sq-input-trick")?.value || this.architectSquares[idx]?.trick || ""
+        trick: card.querySelector(".sq-input-trick")?.value || this.architectSquares[idx]?.trick || "",
+        image: this.architectSquares[idx]?.image || ""
       }));
     }
 
@@ -4424,7 +4586,8 @@ class VaultController {
       formula: sq.formula || formula,
       explanation: sq.explanation || desc,
       example: sq.example || "Demonstrated in Jeeva's notebook.",
-      trick: sq.trick || "5th Grade Science Concept"
+      trick: sq.trick || "5th Grade Science Concept",
+      image: sq.image || ""
     }));
 
     const newNote = {
@@ -4773,7 +4936,8 @@ class VaultController {
       formula: p.formula || "",
       explanation: p.explanation || "",
       example: p.example || "",
-      trick: p.trick || ""
+      trick: p.trick || "",
+      image: p.image || ""
     }));
 
     this.renderSquares();
@@ -6050,6 +6214,7 @@ class ReadingEnhancementSuite {
                 <button class="prop-tts-btn" data-sq="${prop.num}" title="Hear definition">🔊</button>
               </div>
               <h4 style="font-size: 1.1rem; color: #38bdf8; margin-bottom: 8px;">${prop.name}</h4>
+              ${prop.image ? `<div style="text-align: center; margin: 6px 0;"><img src="${prop.image}" alt="${prop.name}" style="max-height: 80px; max-width: 100%; border-radius: 6px; object-fit: contain; border: 1px solid rgba(255,255,255,0.25);" /></div>` : ""}
               <p style="font-size: 0.88rem; line-height: 1.5; color: #e2e8f0; margin-bottom: 12px;">${prop.explanation}</p>
               ${prop.example ? `<div style="font-size: 0.82rem; background: rgba(6, 182, 212, 0.15); padding: 8px 12px; border-radius: 8px; border-left: 2px solid #06b6d4; margin-bottom: 8px;"><strong>Observation:</strong> ${prop.example}</div>` : ""}
             </div>
@@ -7814,6 +7979,26 @@ class ScienceIoApp {
     if (modal) modal.classList.add("hidden");
   }
 
+  openImageLightbox(src, caption = "") {
+    const lightbox = document.getElementById("concept-image-lightbox");
+    const img = document.getElementById("lightbox-img");
+    const cap = document.getElementById("lightbox-caption");
+    if (!lightbox || !img) return;
+
+    img.src = src;
+    if (cap) cap.textContent = caption || "Concept Square Diagram / Observation";
+    lightbox.classList.remove("hidden");
+    if (window.sounds) window.sounds.playClick();
+  }
+
+  closeImageLightbox() {
+    const lightbox = document.getElementById("concept-image-lightbox");
+    if (!lightbox) return;
+    lightbox.classList.add("hidden");
+    const img = document.getElementById("lightbox-img");
+    if (img) img.src = "";
+  }
+
   switchModalTab(tabName) {
     const tabs = ["notes", "interactive", "practice"];
     tabs.forEach((tab) => {
@@ -7949,6 +8134,15 @@ class ScienceIoApp {
           </div>
         </div>
 
+        ${prop.image ? `
+        <div class="prop-image-wrap" data-img="${prop.image.replace(/"/g, '&quot;')}" data-caption="${(prop.name || '').replace(/"/g, '&quot;')}">
+          <img src="${prop.image}" alt="${(prop.name || 'Concept Square').replace(/"/g, '&quot;')}" class="prop-concept-image" loading="lazy" />
+          <div class="prop-image-overlay">
+            <span class="prop-zoom-badge">🔍 Click to Enlarge Picture</span>
+          </div>
+        </div>
+        ` : ""}
+
         <div class="prop-explanation">${expHtml}</div>
 
         <div class="prop-example-box">
@@ -7970,6 +8164,18 @@ class ScienceIoApp {
     copyrightFooter.style.cssText = "grid-column: 1 / -1; text-align: center; padding: 18px 12px; margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.65); font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px;";
     copyrightFooter.innerHTML = `<span>© Copyright Protected • 5th Grade Skience Curriculum by Jeeva R.</span>`;
     container.appendChild(copyrightFooter);
+
+    // Lightbox click delegation on concept images
+    container.querySelectorAll(".prop-image-wrap").forEach((wrap) => {
+      wrap.addEventListener("click", () => {
+        const imgSrc = wrap.getAttribute("data-img");
+        const caption = wrap.getAttribute("data-caption");
+        if (imgSrc) {
+          this.openImageLightbox(imgSrc, caption);
+        }
+      });
+    });
+
     this.setupHolographic3DCardTilt();
   }
 
@@ -11361,6 +11567,7 @@ class ScienceIoApp {
               <div style="font-size: 0.85rem; color: #0369a1; font-weight: 700; margin-bottom: 4px;">
                 Rule: ${formatBulletText(p.formula)}
               </div>
+              ${p.image ? `<div style="text-align: center; margin: 6px 0;"><img src="${p.image}" alt="${p.name}" style="max-height: 100px; max-width: 100%; border-radius: 4px; border: 1px solid #e2e8f0; object-fit: contain;" /></div>` : ""}
               <div style="font-size: 0.85rem; color: #334155; margin-bottom: 4px; line-height: 1.4;">
                 ${formatBulletText(p.explanation)}
               </div>
@@ -11405,6 +11612,7 @@ class ScienceIoApp {
           <div style="margin-bottom: 16px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;">
             <h3 style="font-size: 1.05rem; margin-bottom: 4px;">#${p.num} — ${formatBulletText(p.name)}</h3>
             <div style="font-weight: bold; color: #1e293b;">Formula / Rule: ${formatBulletText(p.formula)}</div>
+            ${p.image ? `<div style="text-align: center; margin: 8px 0;"><img src="${p.image}" alt="${p.name}" style="max-height: 120px; max-width: 100%; border-radius: 6px; border: 1px solid #cbd5e1; object-fit: contain;" /></div>` : ""}
             <div style="margin: 4px 0;">${formatBulletText(p.explanation)}</div>
             <div style="color: #475569; font-size: 0.95rem;">Observation: ${formatBulletText(p.example)}</div>
             ${p.trick ? `<div style="color: #d97706; font-size: 0.9rem;">💡 ${formatBulletText(p.trick)}</div>` : ""}
@@ -11543,6 +11751,10 @@ class ScienceIoApp {
     });
 
     // Modals
+    document.getElementById("lightbox-close-btn")?.addEventListener("click", () => {
+      this.closeImageLightbox();
+    });
+
     document.getElementById("modal-notes-close")?.addEventListener("click", () => {
       this.closeNotesViewer();
     });

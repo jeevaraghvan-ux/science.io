@@ -1950,6 +1950,17 @@
   </div>
 
   <script src="published_notes.js?v=63.0"></script>
-  <script src="app.js?v=121.0"></script>
+    <!-- ================= MODAL: CONCEPT PICTURE LIGHTBOX ================= -->
+  <div id="concept-image-lightbox" class="modal-backdrop hidden" style="z-index: 100000;">
+    <div class="lightbox-modal-content">
+      <button type="button" class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close Lightbox">&times;</button>
+      <div class="lightbox-img-container">
+        <img id="lightbox-img" src="" alt="Enlarged Concept Picture" />
+      </div>
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <script src="app.js?v=122.0"></script>
 </body>
 </html>
