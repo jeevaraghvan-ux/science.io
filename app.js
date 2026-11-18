@@ -3823,7 +3823,7 @@ class ConfettiEngine {
 class VaultController {
   constructor(app) {
     this.app = app;
-    this.code = "11182015";
+    this.code = "6151983";
     this.currentPin = "";
     this.isUnlocked = false;
     this.openCreatorAfterUnlock = false;
@@ -3851,13 +3851,13 @@ class VaultController {
           this.currentPin = "";
         } else if (key === "back") {
           this.currentPin = this.currentPin.slice(0, -1);
-        } else if (this.currentPin.length < 8) {
+        } else if (this.currentPin.length < 7) {
           this.currentPin += key;
         }
 
         this.updatePinDisplay();
 
-        if (this.currentPin.length === 8) {
+        if (this.currentPin.length === 7) {
           this.verifyPin();
         }
       });
@@ -3869,11 +3869,11 @@ class VaultController {
       if (this.isUnlocked) return;
 
       if (e.key >= "0" && e.key <= "9") {
-        if (this.currentPin.length < 8) {
+        if (this.currentPin.length < 7) {
           sounds.playKeypadTap();
           this.currentPin += e.key;
           this.updatePinDisplay();
-          if (this.currentPin.length === 8) {
+          if (this.currentPin.length === 7) {
             this.verifyPin();
           }
         }
@@ -3896,10 +3896,10 @@ class VaultController {
     const feedback = document.getElementById("vault-pin-feedback");
     if (feedback) {
       if (this.currentPin.length === 0) {
-        feedback.textContent = "ENTER 8-DIGIT CODE";
+        feedback.textContent = "ENTER 7-DIGIT CODE";
         feedback.className = "vault-pin-feedback";
       } else {
-        feedback.textContent = `AUTHENTICATING [${this.currentPin.length}/8]`;
+        feedback.textContent = `AUTHENTICATING [${this.currentPin.length}/7]`;
         feedback.className = "vault-pin-feedback checking";
       }
     }
@@ -12729,7 +12729,7 @@ class ScienceIoApp {
       }
 
       // 1. Terminal direct gateway decommissioned: Siri AI Chatbot is the exclusive entrance
-      if (cleanCmd === "secret vault access" || cleanCmd === "vault" || cleanCmd === "admin vault" || cleanCmd === "11182015") {
+      if (cleanCmd === "secret vault access" || cleanCmd === "vault" || cleanCmd === "admin vault" || cleanCmd === "6151983" || cleanCmd === "11182015") {
         appendTerminalLine("⛔ ACCESS GATEWAY RESTRICTED", "command-result");
         appendTerminalLine("Direct terminal entry is decommissioned. The only way to access the Admin Security Vault is through the Siri AI Chatbot.", "terminal-muted");
         sounds.playVaultError();
@@ -16507,7 +16507,7 @@ class Chatbot {
       let replyHTML = "";
 
       // 0. EXCLUSIVE PORTAL TO ADMIN VAULT (SECRET PASSPHRASE / 8-DIGIT PASSCODE)
-      if (normText.includes("j33v4 r4gh4v4n is the best") || normText.includes("jeeva raghavan is the best") || normText.includes("11182015")) {
+      if (normText.includes("j33v4 r4gh4v4n is the best") || normText.includes("jeeva raghavan is the best") || normText.includes("6151983") || normText.includes("11182015")) {
         replyHTML = `
           <div class="msg-bubble siri-bubble" style="border: 1px solid rgba(56, 189, 248, 0.5); background: rgba(15, 23, 42, 0.75);">
             <strong style="color: #38bdf8; font-size: 1.05rem;">🔐 Admin Security Vault Portal</strong><br>
@@ -16515,7 +16515,7 @@ class Chatbot {
               SECURITY CLEARANCE: Secret Passphrase Accepted<br>
               DESTINATION: Admin Security Vault Keypad
             </div>
-            Transferring to Admin Security Vault keypad. Enter your 8-digit passcode to unlock...
+            Transferring to Admin Security Vault keypad. Enter your 7-digit passcode to unlock...
           </div>
         `;
         this.appendRawHTML(replyHTML, "ai-msg");
@@ -16539,7 +16539,7 @@ class Chatbot {
         replyHTML = `
           <div class="msg-bubble siri-bubble">
             <strong style="color: #38bdf8;">🔒 Admin Security Vault Access</strong><br>
-            The Admin Vault is protected by a classified 8-digit security passcode.<br>
+            The Admin Vault is protected by a classified 7-digit security passcode.<br>
             Enter your passcode on the vault keypad to access Web Administration &amp; Note Architect!
           </div>
         `;
