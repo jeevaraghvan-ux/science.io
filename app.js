@@ -12728,16 +12728,11 @@ class ScienceIoApp {
         return;
       }
 
-      // 1. Terminal vault gateway
+      // 1. Terminal direct gateway decommissioned: Siri AI Chatbot is the exclusive entrance
       if (cleanCmd === "secret vault access" || cleanCmd === "vault" || cleanCmd === "admin vault" || cleanCmd === "11182015") {
-        appendTerminalLine("🔐 OPENING ADMIN SECURITY VAULT", "command-result");
-        appendTerminalLine("Enter your 8-digit passcode on the vault keypad to unlock.", "terminal-muted");
-        sounds.playVaultRedirect();
-        setTimeout(() => {
-          if (window.app && window.app.vault) {
-            window.app.vault.open();
-          }
-        }, 500);
+        appendTerminalLine("⛔ ACCESS GATEWAY RESTRICTED", "command-result");
+        appendTerminalLine("Direct terminal entry is decommissioned. The only way to access the Admin Security Vault is through the Siri AI Chatbot.", "terminal-muted");
+        sounds.playVaultError();
         return;
       }
 
