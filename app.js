@@ -7957,6 +7957,25 @@ class ScienceIoApp {
     }
     if (catBadge) catBadge.textContent = `5TH GRADE ${((topic.category || "SKIENCE").replace(/science|sk1ence/gi, 'SKIENCE')).toUpperCase()}`;
 
+    const collapsedTitleEl = document.getElementById("collapsed-title-text");
+    if (collapsedTitleEl) {
+      collapsedTitleEl.textContent = (topic.title || "").replace(/^[•\s*-]+/, '').trim() || "Scientific Principles";
+    }
+
+    const notesWindow = modal ? modal.querySelector(".notes-detail-window") : null;
+    if (notesWindow) {
+      notesWindow.classList.remove("header-collapsed");
+      delete notesWindow.dataset.userPinnedExpanded;
+    }
+    const collapseBtn = document.getElementById("btn-collapse-header");
+    if (collapseBtn) {
+      collapseBtn.setAttribute("title", "Collapse header for more reading space");
+    }
+    const scrollBody = modal ? modal.querySelector(".modal-body-scrollable") : null;
+    if (scrollBody) {
+      scrollBody.scrollTop = 0;
+    }
+
     if (this.readingSuite) {
       this.readingSuite.onOpenTopic(topic);
     }
@@ -8783,6 +8802,43 @@ class ScienceIoApp {
 
     document.getElementById("modal-tab-notes")?.addEventListener("click", () => this.switchModalTab("notes"));
     document.getElementById("modal-tab-practice")?.addEventListener("click", () => this.switchModalTab("practice"));
+
+    // Collapsible notes viewer header
+    const notesModalEl = document.getElementById("notes-viewer-modal");
+    const notesWindowEl = notesModalEl?.querySelector(".notes-detail-window");
+    const notesScrollEl = notesModalEl?.querySelector(".modal-body-scrollable");
+    const collapseHeaderBtn = document.getElementById("btn-collapse-header");
+
+    if (collapseHeaderBtn && notesWindowEl) {
+      collapseHeaderBtn.addEventListener("click", () => {
+        if (window.sounds) window.sounds.playClick();
+        const isCollapsed = notesWindowEl.classList.toggle("header-collapsed");
+        if (isCollapsed) {
+          collapseHeaderBtn.setAttribute("title", "Expand header");
+          delete notesWindowEl.dataset.userPinnedExpanded;
+        } else {
+          collapseHeaderBtn.setAttribute("title", "Collapse header for more reading space");
+          notesWindowEl.dataset.userPinnedExpanded = "true";
+        }
+      });
+    }
+
+    if (notesScrollEl && notesWindowEl) {
+      notesScrollEl.addEventListener("scroll", () => {
+        if (notesScrollEl.scrollTop > 45) {
+          if (!notesWindowEl.classList.contains("header-collapsed") && !notesWindowEl.dataset.userPinnedExpanded) {
+            notesWindowEl.classList.add("header-collapsed");
+            if (collapseHeaderBtn) collapseHeaderBtn.setAttribute("title", "Expand header");
+          }
+        } else if (notesScrollEl.scrollTop < 15) {
+          if (notesWindowEl.classList.contains("header-collapsed")) {
+            notesWindowEl.classList.remove("header-collapsed");
+            delete notesWindowEl.dataset.userPinnedExpanded;
+            if (collapseHeaderBtn) collapseHeaderBtn.setAttribute("title", "Collapse header for more reading space");
+          }
+        }
+      }, { passive: true });
+    }
 
     // View toggle: Carousel vs Table
     const viewCarouselBtn = document.getElementById("view-carousel-btn");

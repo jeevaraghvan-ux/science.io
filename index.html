@@ -1108,17 +1108,27 @@
   <!-- ================= MODAL: DETAILED SCIENCE NOTES VIEWER ================= -->
   <div id="notes-viewer-modal" class="modal-backdrop hidden">
     <div class="modal-window glass-modal notes-detail-window">
-      <div class="modal-header">
-        <div class="modal-header-badge-row">
-          <span class="modal-cat-badge" id="modal-cat-badge">5TH GRADE SKIENCE</span>
-          <span class="modal-domain-tag">skience.io / notes</span>
+      <div class="modal-header" id="modal-header-collapsible">
+        <div class="modal-header-top-row">
+          <div class="modal-header-badge-row">
+            <span class="modal-cat-badge" id="modal-cat-badge">5TH GRADE SKIENCE</span>
+            <span class="modal-domain-tag">skience.io / notes</span>
+          </div>
+          <div class="modal-collapsed-title" id="modal-collapsed-title">
+            <span class="collapsed-title-text" id="collapsed-title-text">Scientific Principles</span>
+          </div>
+          <div class="modal-header-right-actions">
+            <button type="button" class="modal-collapse-btn" id="btn-collapse-header" title="Collapse header for more reading space" aria-label="Collapse header">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+            </button>
+            <button class="modal-close-btn" id="modal-notes-close" title="Close notes">&times;</button>
+          </div>
         </div>
-        <button class="modal-close-btn" id="modal-notes-close">&times;</button>
-      </div>
 
-      <div class="modal-title-area">
-        <h2 class="modal-topic-title" id="modal-topic-title">Scientific Principles</h2>
-        <p class="modal-topic-desc" id="modal-topic-desc">The fundamental laws and observations for 5th grade scientists.</p>
+        <div class="modal-title-area" id="modal-title-area">
+          <h2 class="modal-topic-title" id="modal-topic-title">Scientific Principles</h2>
+          <p class="modal-topic-desc" id="modal-topic-desc">The fundamental laws and observations for 5th grade scientists.</p>
+        </div>
       </div>
 
       <!-- INTERACTIVE TABS INSIDE MODAL (NOTES, VISUAL EXPLORER, QUIZ) -->
@@ -1955,6 +1965,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=123.0"></script>
+  <script src="app.js?v=124.0"></script>
 </body>
 </html>
