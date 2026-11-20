@@ -9372,19 +9372,16 @@ class ScienceIoApp {
       neonWord.classList.add("word-exit");
 
       setTimeout(() => {
-        // 2. Advance index and update text
+        // 3. Advance index and update text
         wordIndex = (wordIndex + 1) % words.length;
         neonWord.textContent = words[wordIndex];
 
-        // 3. Position below center with transition temporarily disabled
+        // 4. Animate back smoothly without layout thrashing
         neonWord.classList.remove("word-exit");
         neonWord.classList.add("word-enter-from-bottom");
-
-        // 4. Force browser reflow so the starting transform registers
-        void neonWord.offsetWidth;
-
-        // 5. Animate back into center position
-        neonWord.classList.remove("word-enter-from-bottom");
+        requestAnimationFrame(() => {
+          neonWord.classList.remove("word-enter-from-bottom");
+        });
       }, 450);
     }, 5000);
   }
