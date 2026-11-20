@@ -3973,6 +3973,7 @@ class VaultController {
       this.updatePinDisplay();
       this.updateManagerTable();
       this.updateTelemetry();
+      this.loadFeedback();
       this.switchTab("architect");
     }, 1250);
   }
@@ -3983,6 +3984,11 @@ class VaultController {
 
     document.getElementById("btn-vault-relock")?.addEventListener("click", () => {
       this.relock();
+    });
+
+    document.getElementById("btn-refresh-feedback")?.addEventListener("click", () => {
+      sounds.playClick();
+      this.loadFeedback();
     });
   }
 
@@ -4082,7 +4088,94 @@ class VaultController {
       this.updateManagerTable();
     } else if (tabName === "telemetry") {
       this.updateTelemetry();
+    } else if (tabName === "feedback") {
+      this.loadFeedback();
     }
+  }
+
+  async loadFeedback() {
+    const listContainer = document.getElementById("admin-feedback-list");
+    const countBadge = document.getElementById("admin-fb-count");
+
+    if (listContainer) {
+      listContainer.innerHTML = '<div class="feedback-empty-state">Loading messages from cloud storage...</div>';
+    }
+
+    let items = [];
+    // 1. Try serverless API
+    try {
+      const res = await fetch("/api/feedback");
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data.feedback)) items = data.feedback;
+      }
+    } catch (_) {}
+
+    // 2. Direct Supabase fallback
+    if (items.length === 0) {
+      try {
+        const SUPABASE_URL = "https://nidkkbsmptiyixvealum.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_VIbgYVwvFU2bcPJNLWg4Qg_Be4paQ_6";
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/science_notes?id=eq.feedback&select=notes`, {
+          headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`
+          }
+        });
+        if (res.ok) {
+          const rows = await res.json();
+          if (Array.isArray(rows) && rows[0]?.notes) items = rows[0].notes;
+        }
+      } catch (_) {}
+    }
+
+    // 3. Fallback to localStorage if any
+    if (items.length === 0) {
+      try {
+        const local = JSON.parse(localStorage.getItem("skience_local_feedback") || "[]");
+        if (Array.isArray(local) && local.length > 0) items = local;
+      } catch (_) {}
+    }
+
+    if (countBadge) {
+      countBadge.textContent = items.length;
+    }
+
+    if (!listContainer) return;
+
+    if (items.length === 0) {
+      listContainer.innerHTML = `
+        <div class="feedback-empty-state">
+          <div style="font-size: 1.8rem; margin-bottom: 8px;">📬</div>
+          <strong>No student feedback or ideas received yet.</strong><br>
+          <span style="font-size: 0.85rem; opacity: 0.7;">When students submit suggestions via "Help Us Improve", they will appear here instantly!</span>
+        </div>
+      `;
+      return;
+    }
+
+    listContainer.innerHTML = items.map((item) => {
+      const name = item.name || item["Student Name"] || "Anonymous Scholar";
+      const email = item.email || item["Student Email"] || "";
+      const msg = item.message || item["Review / Idea"] || "";
+      const dateStr = item.createdAt ? new Date(item.createdAt).toLocaleString() : "Recently submitted";
+
+      return `
+        <div class="admin-fb-item-card">
+          <div class="admin-fb-header">
+            <div class="admin-fb-author-row">
+              <span class="admin-fb-author">${name}</span>
+              ${email && email.includes("@") ? `<a href="mailto:${email}?subject=Regarding%20your%20skience.io%20feedback" class="admin-fb-email-badge">✉️ ${email}</a>` : `<span style="font-size: 0.78rem; opacity: 0.6;">(No email provided)</span>`}
+            </div>
+            <span class="admin-fb-date">${dateStr}</span>
+          </div>
+          <div class="admin-fb-message">${(msg || "").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+          <div class="admin-fb-actions-row">
+            ${email && email.includes("@") ? `<a href="mailto:${email}?subject=Thank%20you%20for%20your%20skience.io%20feedback!" class="admin-fb-reply-btn">Reply via Email ✉️</a>` : ""}
+          </div>
+        </div>
+      `;
+    }).join("");
   }
 
   // ================= NOTE ARCHITECT LOGIC =================
@@ -8979,8 +9072,8 @@ class ScienceIoApp {
         const msgInput = document.getElementById("fb-user-message");
         const submitBtn = fbForm.querySelector("button[type='submit']");
 
-        const userName = (nameInput?.value || "").trim() || "Skience Student";
-        const userEmail = (emailInput?.value || "").trim() || "Anonymous Scholar";
+        const userName = (nameInput?.value || "").trim() || "Anonymous Scholar";
+        const userEmail = (emailInput?.value || "").trim() || "No email provided";
         const userMsg = (msgInput?.value || "").trim();
 
         if (!userMsg) return;
@@ -8988,50 +9081,103 @@ class ScienceIoApp {
         const origBtnText = submitBtn ? submitBtn.textContent : "Submit Review & Idea ✉️";
         if (submitBtn) {
           submitBtn.disabled = true;
-          submitBtn.textContent = "Sending to Jeeva... 🚀";
+          submitBtn.textContent = "Delivering to Jeeva... 🚀";
         }
 
+        const submissionData = {
+          name: userName,
+          email: userEmail,
+          message: userMsg,
+          platform: window.location.hostname || "skience.io",
+          createdAt: new Date().toISOString()
+        };
+
+        // 1. Send to serverless API /api/feedback
+        const apiPromise = fetch("/api/feedback", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(submissionData)
+        }).catch(err => console.warn("API delivery fallback:", err));
+
+        // 2. Direct Supabase cloud persistence backup (guaranteed storage in cloud)
+        const supabasePromise = (async () => {
+          try {
+            const SUPABASE_URL = "https://nidkkbsmptiyixvealum.supabase.co";
+            const SUPABASE_KEY = "sb_publishable_VIbgYVwvFU2bcPJNLWg4Qg_Be4paQ_6";
+            let existing = [];
+            const r = await fetch(`${SUPABASE_URL}/rest/v1/science_notes?id=eq.feedback&select=notes`, {
+              headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` }
+            });
+            if (r.ok) {
+              const rows = await r.json();
+              if (Array.isArray(rows) && rows[0]?.notes) existing = rows[0].notes;
+            }
+            existing.unshift({
+              id: "fb_" + Date.now(),
+              name: userName,
+              email: userEmail,
+              message: userMsg,
+              createdAt: new Date().toISOString()
+            });
+            if (existing.length > 300) existing = existing.slice(0, 300);
+
+            await fetch(`${SUPABASE_URL}/rest/v1/science_notes`, {
+              method: "POST",
+              headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`,
+                "Content-Type": "application/json",
+                "Prefer": "resolution=merge-duplicates"
+              },
+              body: JSON.stringify({
+                id: "feedback",
+                notes: existing,
+                updated_at: new Date().toISOString()
+              })
+            });
+          } catch (e) {
+            console.warn("Supabase backup delivery:", e);
+          }
+        })();
+
+        // 3. Multi-target email dispatch to Jeeva's personal and school inboxes
+        const formSubmitPayload = {
+          "Student Name": userName,
+          "Student Email": userEmail,
+          "Review / Idea": userMsg,
+          email: userEmail.includes("@") ? userEmail : undefined,
+          _replyto: userEmail.includes("@") ? userEmail : undefined,
+          _subject: `skience.io Review/Idea from ${userName} (${userEmail})`,
+          message: `Student Name: ${userName}\nEmail: ${userEmail}\nReview / Idea: ${userMsg}\nSubmitted: ${new Date().toLocaleString()}`,
+          _template: "table"
+        };
+        const emails = [
+          "jvrghvn0@gmail.com",
+          "jeeva.raghvan@gmail.com",
+          "jeev.rag914@scholarsacademy.org"
+        ];
+        const emailDispatches = emails.map(addr =>
+          fetch(`https://formsubmit.co/ajax/${addr}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify(formSubmitPayload)
+          }).catch(err => console.warn(`FormSubmit ${addr}:`, err))
+        );
+
+        // 4. Save to localStorage cache
         try {
-          const payload = {
-            "Student Name": userName,
-            "Student Email": userEmail,
-            "Review / Idea": userMsg,
-            email: userEmail.includes("@") ? userEmail : undefined,
-            _replyto: userEmail.includes("@") ? userEmail : undefined,
-            _subject: `skience.io Review/Idea from ${userName} (${userEmail})`,
-            message: `Student Name: ${userName}\nEmail: ${userEmail}\nReview / Idea: ${userMsg}\nSubmitted: ${new Date().toLocaleString()}`,
-            platform: "skienceio-best.vercel.app",
-            _template: "table"
-          };
+          const localFb = JSON.parse(localStorage.getItem("skience_local_feedback") || "[]");
+          localFb.unshift(submissionData);
+          localStorage.setItem("skience_local_feedback", JSON.stringify(localFb.slice(0, 50)));
+        } catch (_) {}
 
-          const sendPrimary1 = fetch("https://formsubmit.co/ajax/jeev.rag914@scholarsacademy.org", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json"
-            },
-            body: JSON.stringify(payload)
-          });
-
-          const sendPrimary2 = fetch("https://formsubmit.co/ajax/jeeva.raghvan@gmail.com", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json"
-            },
-            body: JSON.stringify(payload)
-          });
-
-          await Promise.allSettled([sendPrimary1, sendPrimary2]);
-        } catch (err) {
-          console.warn("Feedback delivery attempted:", err);
-        }
+        await Promise.allSettled([apiPromise, supabasePromise, ...emailDispatches]);
 
         sounds.playSuccess();
-        this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 55);
+        this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 60);
 
         if (submitBtn) {
-          submitBtn.textContent = "Sent to Jeeva! ✨";
+          submitBtn.textContent = "Delivered to Jeeva! ✨";
         }
 
         setTimeout(() => {
@@ -11075,6 +11221,26 @@ class ScienceIoApp {
       }
     };
 
+    const onIslandDocMouseMove = (e) => {
+      if (!isMacOpen || isDraggingScrubber) return;
+      const rect = islandPod.getBoundingClientRect();
+      const dx = Math.max(rect.left - e.clientX, 0, e.clientX - rect.right);
+      const dy = Math.max(rect.top - e.clientY, 0, e.clientY - rect.bottom);
+      const dist = Math.hypot(dx, dy);
+
+      // Closes automatically when user drags/moves mouse far enough away (> 55px)
+      if (dist > 55) {
+        closeMacDeck();
+      }
+    };
+
+    const onIslandDocPointerDown = (e) => {
+      if (!isMacOpen || isDraggingScrubber) return;
+      if (!islandPod.contains(e.target)) {
+        closeMacDeck();
+      }
+    };
+
     const openMacDeck = () => {
       if (collapseTimer) {
         clearTimeout(collapseTimer);
@@ -11089,6 +11255,10 @@ class ScienceIoApp {
 
       syncMacDeckUI();
 
+      // Listen for pointer moving away or tapping outside
+      document.addEventListener("mousemove", onIslandDocMouseMove, { passive: true });
+      document.addEventListener("pointerdown", onIslandDocPointerDown, { passive: true });
+
       try {
         if (typeof sounds.playTapticClick === "function") {
           sounds.playTapticClick();
@@ -11100,6 +11270,8 @@ class ScienceIoApp {
 
     const closeMacDeck = () => {
       isMacOpen = false;
+      document.removeEventListener("mousemove", onIslandDocMouseMove);
+      document.removeEventListener("pointerdown", onIslandDocPointerDown);
       islandPod.classList.remove("island-mac-open");
       collapseIsland();
     };
@@ -11483,26 +11655,22 @@ class ScienceIoApp {
         clearTimeout(collapseTimer);
         collapseTimer = null;
       }
-      if (islandPod.classList.contains("island-idle") || islandPod.classList.contains("island-compact")) {
+      if (!isMacOpen) {
         openMacDeck();
       }
     });
 
+    // When mouse leaves the pod, check distance; if paused nearby, close after brief buffer
     islandPod.addEventListener("mouseleave", () => {
       if (isDraggingScrubber) return;
-      if (isMacOpen || isExpanded) {
+      if (isMacOpen) {
+        if (collapseTimer) clearTimeout(collapseTimer);
         collapseTimer = setTimeout(() => {
-          if (!isDraggingScrubber) {
-            collapseIsland();
+          if (!isDraggingScrubber && isMacOpen) {
+            closeMacDeck();
           }
-        }, 2800);
+        }, 750);
       }
-    });
-
-    // Mac Close Button
-    macCloseBtn?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      closeMacDeck();
     });
 
     // Mac Play/Pause Button

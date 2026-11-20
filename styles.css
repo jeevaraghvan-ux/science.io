@@ -10900,18 +10900,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 }
 
 .mac-deck-close-btn {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 11px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.18s ease;
+  display: none !important;
 }
 
 .mac-deck-close-btn:hover {
@@ -11482,9 +11471,9 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 .mac-timer-badge-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .mac-timer-badge {
@@ -13093,4 +13082,123 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   max-width: 80vw;
   font-family: var(--font-display, inherit);
   letter-spacing: 0.02em;
+}
+
+
+/* ================= ADMIN COMMAND DECK: STUDENT FEEDBACK LIST ================= */
+.admin-feedback-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.feedback-empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+}
+
+.admin-fb-item-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(15, 23, 42, 0.6) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 3px solid #38bdf8;
+  border-radius: 16px;
+  padding: 18px 22px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-fb-item-card:hover {
+  border-color: rgba(56, 189, 248, 0.55);
+  transform: translateY(-2px);
+}
+
+.admin-fb-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.admin-fb-author-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-fb-author {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.admin-fb-email-badge {
+  font-size: 0.78rem;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 2px 10px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.admin-fb-email-badge:hover {
+  background: rgba(56, 189, 248, 0.25);
+  color: #ffffff;
+}
+
+.admin-fb-date {
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: ui-monospace, "SF Mono", monospace;
+}
+
+.admin-fb-message {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.92);
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.admin-fb-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.admin-fb-reply-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-fb-reply-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
 }
