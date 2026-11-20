@@ -7097,7 +7097,18 @@ class ScienceIoApp {
   // ================= SKIENCE QUANTUM LETTER ZOOM-OUT OPENING CONTROLLER =================
   setupLoadingScreen() {
     const loader = document.getElementById("loader-screen");
-    if (!loader) return;
+    if (loader) {
+      loader.style.display = "none";
+    }
+    const svg = document.getElementById("cursive-logo-svg");
+    if (svg) {
+      svg.classList.add("cursive-complete");
+    }
+    const spark = document.getElementById("cursive-spark");
+    if (spark) {
+      spark.style.opacity = "0";
+    }
+    return;
     const soloStage = document.getElementById("solo-letter-stage");
     const soloLetter = document.getElementById("solo-zoom-letter");
     const aperture = document.getElementById("quantum-aperture-core");
@@ -7458,106 +7469,11 @@ class ScienceIoApp {
   playCursiveHandwriting() {
     const svg = document.getElementById("cursive-logo-svg");
     if (!svg) return;
-    const strokes = Array.from(svg.querySelectorAll(".cursive-stroke"));
-    const dots = Array.from(svg.querySelectorAll(".cursive-dot"));
+    svg.classList.add("cursive-complete");
     const spark = document.getElementById("cursive-spark");
-
-    if (this._cursiveAnimId) {
-      cancelAnimationFrame(this._cursiveAnimId);
-      this._cursiveAnimId = null;
-    }
-
-    svg.classList.remove("cursive-complete");
-
-    // Measure each stroke and initialize dasharray
-    const strokeData = strokes.map((s) => {
-      const len = s.getTotalLength ? s.getTotalLength() : 30;
-      s.style.strokeDasharray = `${len} ${len}`;
-      s.style.strokeDashoffset = `${len}`;
-      return { el: s, len: len };
-    });
-
-    // Reset dots to scale 0
-    dots.forEach((d) => {
-      d.style.transform = "scale(0)";
-      d.style.opacity = "0";
-    });
-
     if (spark) {
-      spark.style.opacity = "1";
+      spark.style.opacity = "0";
     }
-
-    const totalLen = strokeData.reduce((acc, curr) => acc + curr.len, 0);
-    // Deliberate, relaxed human pace (takes time for each curve and letter)
-    const duration = 5800;
-    const startTime = performance.now();
-
-    // Exact cumulative thresholds for dotting the letters
-    let cum = 0;
-    const strokeCumFractions = strokeData.map(({ len }) => {
-      cum += len;
-      return cum / totalLen;
-    });
-    const dot1Threshold = strokeCumFractions[5] || 0.35; // dot on 'i' in 'skience'
-    const dot2Threshold = strokeCumFractions[11] || 0.78; // period '.' after 'skience'
-    const dot3Threshold = strokeCumFractions[12] || 0.86; // dot on 'i' in '.io'
-
-    const frame = (now) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(1, elapsed / duration);
-      // Uniform constant pace throughout the entire word: strictly linear velocity (no speed up or slow down)
-      const targetDistance = progress * totalLen;
-      let accumulated = 0;
-      let currentSparkPoint = null;
-
-      strokeData.forEach(({ el, len }) => {
-        if (targetDistance <= accumulated) {
-          el.style.strokeDashoffset = `${len}`;
-        } else if (targetDistance >= accumulated + len) {
-          el.style.strokeDashoffset = "0";
-        } else {
-          const segProgress = (targetDistance - accumulated) / len;
-          el.style.strokeDashoffset = `${len * (1 - segProgress)}`;
-          try {
-            if (el.getPointAtLength) {
-              currentSparkPoint = el.getPointAtLength(len * segProgress);
-            }
-          } catch (e) {}
-        }
-        accumulated += len;
-      });
-
-      // Animate dots based on exact linear progress (3 dots in skience.io)
-      dots.forEach((dot, idx) => {
-        const threshold = idx === 0 ? dot1Threshold : idx === 1 ? dot2Threshold : dot3Threshold;
-        if (progress >= threshold) {
-          dot.style.transform = "scale(1)";
-          dot.style.opacity = "1";
-        } else {
-          dot.style.transform = "scale(0)";
-          dot.style.opacity = "0";
-        }
-      });
-
-      // Move glowing pen-tip spark
-      if (spark && currentSparkPoint) {
-        spark.setAttribute("cx", currentSparkPoint.x.toFixed(2));
-        spark.setAttribute("cy", currentSparkPoint.y.toFixed(2));
-        spark.style.opacity = "1";
-      }
-
-      if (progress < 1) {
-        this._cursiveAnimId = requestAnimationFrame(frame);
-      } else {
-        if (spark) {
-          spark.style.opacity = "0";
-        }
-        svg.classList.add("cursive-complete");
-        this._cursiveAnimId = null;
-      }
-    };
-
-    this._cursiveAnimId = requestAnimationFrame(frame);
   }
 
   // ================= FILTERED NOTES =================

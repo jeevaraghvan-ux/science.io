@@ -47,15 +47,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: 
-    /* Deep Navy Blue Aura */
-    radial-gradient(circle at 14% 16%, rgba(30, 58, 138, 0.5) 0%, rgba(15, 23, 42, 0.22) 35%, transparent 65%),
-    /* Royal Purple / Violet Aura */
-    radial-gradient(circle at 86% 16%, rgba(109, 40, 217, 0.45) 0%, rgba(76, 29, 149, 0.18) 35%, transparent 65%),
-    /* Deep Indigo Bottom-Center */
-    radial-gradient(circle at 50% 88%, rgba(67, 56, 202, 0.38) 0%, rgba(30, 27, 75, 0.18) 35%, transparent 65%),
-    /* Center Midnight Void */
-    radial-gradient(circle at 50% 45%, rgba(20, 20, 48, 0.3) 0%, transparent 60%);
+  background: radial-gradient(circle at 50% 20%, rgba(30, 58, 138, 0.35) 0%, rgba(2, 3, 8, 0.98) 80%);
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   z-index: -2;
@@ -71,17 +63,17 @@ body {
   animation: none !important;
 }
 
-/* 2. Glassmorphism for Components */
+/* 2. Glassmorphism for Components - 95% removed, reserved for flagship centerpieces */
 
-/* Top Nav Pill - Crystal Liquid Glass with Specular Rim & Dark Blue/Purple Tone */
+/* Flagship Centerpiece 1: Top Nav Pill (Retains true, lightweight liquid glass) */
 .glass-pill-nav {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(10, 16, 38, 0.4) 45%, rgba(46, 16, 101, 0.25) 100%) !important;
-  backdrop-filter: blur(20px) saturate(180%) brightness(1.05) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) brightness(1.05) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
   border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
   border-top: 1.5px solid rgba(255, 255, 255, 0.75) !important;
   border-left: 1.5px solid rgba(255, 255, 255, 0.5) !important;
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55), 0 0 25px rgba(79, 70, 229, 0.2), inset 0 1.5px 2px rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 1.5px rgba(255, 255, 255, 0.4) !important;
   border-radius: 999px !important;
 }
 
@@ -96,7 +88,7 @@ body {
 .hero-cta-btn, .btn-modal-action.primary, .cmd-exec-btn {
   background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 35%, #4f46e5 70%, #7c3aed 100%) !important;
   border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
-  box-shadow: 0 12px 30px rgba(30, 58, 138, 0.5), 0 0 22px rgba(124, 58, 237, 0.35), inset 0 1.5px 2px rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 8px 20px rgba(30, 58, 138, 0.4) !important;
   border-radius: 999px !important;
   color: #fff !important;
   font-weight: 600 !important;
@@ -106,14 +98,15 @@ body {
 .hero-cta-btn:hover, .btn-modal-action.primary:hover, .cmd-exec-btn:hover {
   background: linear-gradient(135deg, #2563eb 0%, #3b82f6 35%, #6366f1 70%, #8b5cf6 100%) !important;
   transform: translateY(-2px) scale(1.02) !important;
-  box-shadow: 0 16px 40px rgba(37, 99, 235, 0.6), 0 0 30px rgba(139, 92, 246, 0.5), inset 0 2px 2.5px rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.5) !important;
 }
 
 .hero-secondary-btn {
-  background: rgba(10, 16, 38, 0.45) !important;
+  background: rgba(10, 16, 38, 0.75) !important;
   border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
   border-radius: 999px !important;
-  backdrop-filter: blur(14px) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 /* Hero Text - Dark Blue & Royal Purple Neon Glow */
@@ -123,7 +116,6 @@ body {
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  text-shadow: 0 0 25px rgba(99, 102, 241, 0.75), 0 0 50px rgba(124, 58, 237, 0.5) !important;
   filter: none !important;
   font-family: var(--font-display) !important;
 }
@@ -136,56 +128,55 @@ body {
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  text-shadow: 0 0 20px rgba(129, 140, 248, 0.6) !important;
   filter: none !important;
 }
 
-/* Modals & Vault Glass - Ultra-Transparent Crystal Liquid Glass with Specular Edge */
+/* Modals & Vault Glass - Clean High-Performance Solid Paneling */
 .glass-modal, .table-card-glass, .admin-cmd-card, .cmd-cmd-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(10, 16, 38, 0.45) 45%, rgba(20, 12, 38, 0.5) 100%) !important;
-  backdrop-filter: blur(24px) saturate(180%) brightness(1.04) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.04) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
-  border-top: 2px solid rgba(255, 255, 255, 0.75) !important;
-  border-left: 2px solid rgba(255, 255, 255, 0.5) !important;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 35px rgba(79, 70, 229, 0.2), inset 0 1.5px 2px rgba(255, 255, 255, 0.5) !important;
-  border-radius: 32px !important;
+  background: rgba(10, 16, 38, 0.94) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75) !important;
+  border-radius: 28px !important;
 }
 
-/* Note Detail Window Override - Crystalline Transparent Liquid Glass */
+/* Flagship Centerpiece 2: Note Detail Window (Retains sleek liquid glass) */
 .notes-detail-window {
   width: 95vw !important;
   max-width: 1220px !important;
   max-height: 94vh !important;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 30%, rgba(8, 14, 34, 0.55) 75%, rgba(46, 16, 101, 0.15) 100%) !important;
-  backdrop-filter: blur(24px) saturate(180%) brightness(1.04) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.04) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 30%, rgba(8, 14, 34, 0.85) 75%, rgba(46, 16, 101, 0.2) 100%) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
   border-top: 2px solid rgba(255, 255, 255, 0.75) !important;
   border-left: 2px solid rgba(255, 255, 255, 0.5) !important;
-  box-shadow: 0 35px 95px -15px rgba(0, 0, 0, 0.9), 0 0 40px rgba(79, 70, 229, 0.2), inset 0 2px 2.5px rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85) !important;
   contain: layout;
 }
 
-/* Vault Floating Glass Button with Specular Glow */
+/* Vault Floating Glass Button */
 .vault-bubble-btn {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(10, 16, 38, 0.45) 100%) !important;
-  backdrop-filter: blur(16px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  background: rgba(14, 20, 48, 0.88) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border: 1.5px solid rgba(129, 140, 248, 0.5) !important;
   border-top: 1.5px solid rgba(255, 255, 255, 0.75) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
 }
 
 .vault-bubble-btn:hover {
   border-color: rgba(129, 140, 248, 0.9) !important;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(99, 102, 241, 0.45), inset 0 2px 2.5px rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55) !important;
 }
 
-/* Inputs and Forms */
+/* Inputs and Forms - Zero Blur Lag */
 input, select, textarea {
-  background: rgba(8, 14, 34, 0.45) !important;
-  backdrop-filter: blur(14px) !important;
+  background: rgba(8, 14, 34, 0.88) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
   border-radius: 16px !important;
@@ -195,7 +186,7 @@ input, select, textarea {
 }
 
 input:focus, select:focus, textarea:focus {
-  background: rgba(12, 20, 48, 0.55) !important;
+  background: rgba(12, 20, 48, 0.95) !important;
   border-color: rgba(129, 140, 248, 0.7) !important;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
   outline: none !important;
@@ -227,7 +218,7 @@ input:focus, select:focus, textarea:focus {
   background: rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Loading Overlay tweaks - Pure GPU Accelerated, No full-screen backdrop blur lag */
+/* Loading Overlay tweaks */
 .loader-overlay {
   background: #020308 !important;
   backdrop-filter: none !important;
@@ -244,9 +235,9 @@ input:focus, select:focus, textarea:focus {
 
 /* Search bar styling */
 .search-input-wrap {
-  background: rgba(255, 255, 255, 0.1) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
   border-radius: 999px !important;
 }
@@ -365,14 +356,13 @@ STYLES
   height: 500px;
   max-height: calc(100vh - 140px);
   margin-bottom: 16px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(8, 14, 34, 0.5) 55%, rgba(18, 12, 36, 0.6) 100%);
-  backdrop-filter: blur(28px) saturate(180%) brightness(1.05);
-  -webkit-backdrop-filter: blur(28px) saturate(180%) brightness(1.05);
-  border: 1.5px solid rgba(255, 255, 255, 0.25);
-  border-top: 2px solid rgba(255, 255, 255, 0.75);
-  border-left: 2px solid rgba(255, 255, 255, 0.5);
+  background: rgba(8, 14, 34, 0.95);
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-top: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 28px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(79, 70, 229, 0.2), inset 0 1.5px 2px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -925,11 +915,11 @@ body.cinematic-mode .app-main {
 }
 .mk-btn:hover { background: var(--neon-magenta); }
 
-/* Reading Enhancement Bar - Crystal Liquid Glass */
+/* Reading Enhancement Bar - Clean Solid Bar */
 .reading-controls-bar {
-  background: rgba(18, 12, 28, 0.55) !important;
-  backdrop-filter: blur(12px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+  background: rgba(18, 12, 28, 0.92) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .reading-pill-btn {
@@ -982,11 +972,7 @@ body.theme-bio-emerald .ambient-fluid-canvas-wrap {
 }
 
 body.theme-bio-emerald .ambient-fluid-canvas-wrap::before {
-  background: 
-    radial-gradient(circle at 14% 18%, rgba(37, 99, 235, 0.45) 0%, rgba(30, 58, 138, 0.22) 30%, transparent 65%),
-    radial-gradient(circle at 86% 14%, rgba(29, 78, 216, 0.4) 0%, rgba(15, 23, 42, 0.2) 30%, transparent 65%),
-    radial-gradient(circle at 50% 88%, rgba(30, 58, 138, 0.45) 0%, transparent 65%),
-    radial-gradient(circle at 50% 45%, rgba(15, 23, 42, 0.35) 0%, transparent 65%) !important;
+  background: radial-gradient(circle at 50% 20%, rgba(30, 58, 138, 0.35) 0%, #020617 80%) !important;
 }
 
 body.theme-bio-emerald .hero-cta-btn,
@@ -1064,11 +1050,7 @@ body.theme-solar-flare .ambient-fluid-canvas-wrap {
 }
 
 body.theme-solar-flare .ambient-fluid-canvas-wrap::before {
-  background: 
-    radial-gradient(circle at 14% 18%, rgba(124, 58, 237, 0.45) 0%, rgba(76, 29, 149, 0.22) 30%, transparent 65%),
-    radial-gradient(circle at 86% 14%, rgba(109, 40, 217, 0.4) 0%, rgba(59, 7, 100, 0.2) 30%, transparent 65%),
-    radial-gradient(circle at 50% 88%, rgba(88, 28, 135, 0.45) 0%, transparent 65%),
-    radial-gradient(circle at 50% 45%, rgba(46, 16, 101, 0.35) 0%, transparent 65%) !important;
+  background: radial-gradient(circle at 50% 20%, rgba(109, 40, 217, 0.35) 0%, #090314 80%) !important;
 }
 
 body.theme-solar-flare .hero-cta-btn,
@@ -1146,11 +1128,7 @@ body.theme-quantum-void .ambient-fluid-canvas-wrap {
 }
 
 body.theme-quantum-void .ambient-fluid-canvas-wrap::before {
-  background: 
-    radial-gradient(circle at 14% 18%, rgba(49, 46, 129, 0.35) 0%, rgba(15, 10, 30, 0.18) 30%, transparent 65%),
-    radial-gradient(circle at 86% 14%, rgba(67, 56, 202, 0.3) 0%, rgba(8, 6, 16, 0.15) 30%, transparent 65%),
-    radial-gradient(circle at 50% 88%, rgba(30, 27, 75, 0.35) 0%, transparent 65%),
-    radial-gradient(circle at 50% 45%, rgba(15, 12, 30, 0.25) 0%, transparent 65%) !important;
+  background: radial-gradient(circle at 50% 20%, rgba(49, 46, 129, 0.3) 0%, #020205 80%) !important;
 }
 
 body.theme-quantum-void .hero-cta-btn,
@@ -1449,7 +1427,8 @@ body.theme-quantum-void ::selection {
   overflow: hidden !important;
   border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
   box-shadow: 0 0 25px rgba(6, 182, 212, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.6) !important;
-  backdrop-filter: blur(16px) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .loader-bar-fill {
@@ -1797,38 +1776,23 @@ body.theme-quantum-void .chat-memo-jump-btn {
   --gyro-tilt-y: 0deg;
   --specular-angle: 135deg;
 
-  /* Multi-pass optical substrate: high-clarity lens, zero milky haze */
-  --liquid-glass-lens: blur(28px) saturate(230%) brightness(1.12) contrast(1.04);
-  --liquid-glass-subtle: blur(18px) saturate(190%) brightness(1.08);
+  /* Multi-pass optical substrate: 95% reduced, zero milky haze */
+  --liquid-glass-lens: none;
+  --liquid-glass-subtle: none;
 
   /* Meniscus Specular Bevels */
-  --glass-specular-top: rgba(255, 255, 255, 0.95);
-  --glass-specular-side: rgba(255, 255, 255, 0.55);
-  --glass-specular-bottom: rgba(255, 255, 255, 0.2);
-  --glass-border-base: rgba(255, 255, 255, 0.35);
+  --glass-specular-top: rgba(255, 255, 255, 0.7);
+  --glass-specular-side: rgba(255, 255, 255, 0.35);
+  --glass-specular-bottom: rgba(255, 255, 255, 0.15);
+  --glass-border-base: rgba(255, 255, 255, 0.25);
 
   /* Apple Liquid Glass Fills (.regular & .clear variants) */
-  --glass-acrylic-fill: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.24) 0%,
-    rgba(255, 255, 255, 0.05) 32%,
-    rgba(8, 20, 44, 0.28) 72%,
-    rgba(0, 245, 212, 0.12) 100%
-  );
-  --glass-acrylic-fill-clear: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.18) 0%,
-    rgba(255, 255, 255, 0.03) 40%,
-    rgba(6, 18, 38, 0.2) 100%
-  );
-  --glass-acrylic-blur: var(--liquid-glass-lens);
+  --glass-acrylic-fill: rgba(10, 16, 38, 0.88);
+  --glass-acrylic-fill-clear: rgba(8, 14, 34, 0.75);
+  --glass-acrylic-blur: none;
   
-  /* Dual-Bevel Liquid Surface Tension & Caustic Ambient Shadow */
-  --glass-ambient-shadow: 
-    0 30px 80px -12px rgba(0, 0, 0, 0.8),
-    0 0 50px rgba(0, 245, 212, 0.28),
-    inset 0 1.5px 2px rgba(255, 255, 255, 0.9),
-    inset 0 -1.5px 2px rgba(0, 0, 0, 0.35);
+  /* Dual-Bevel Liquid Surface Tension & Clean Shadow */
+  --glass-ambient-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
 
   /* Apple Visco-Elastic Fluid Spring Physics */
   --spring-liquid: cubic-bezier(0.16, 1, 0.3, 1);
@@ -1911,23 +1875,19 @@ body.theme-quantum-void .chat-memo-jump-btn {
 
 /* 2. Top Nav & Glass Pill Nav Upgrade */
 .top-nav-container {
-  backdrop-filter: blur(16px) saturate(190%);
-  -webkit-backdrop-filter: blur(16px) saturate(190%);
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .glass-pill-nav {
   background: var(--glass-acrylic-fill) !important;
-  backdrop-filter: var(--liquid-glass-lens) !important;
-  -webkit-backdrop-filter: var(--liquid-glass-lens) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
   border: 1.5px solid var(--glass-border-base) !important;
   border-top: 1.8px solid var(--glass-specular-top) !important;
   border-left: 1.5px solid var(--glass-specular-side) !important;
   border-bottom: 1px solid var(--glass-specular-bottom) !important;
-  box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.45),
-    0 0 35px rgba(0, 245, 212, 0.28),
-    inset 0 1.5px 2px rgba(255, 255, 255, 0.85),
-    inset 0 -1.5px 2px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 1.5px rgba(255, 255, 255, 0.4) !important;
 }
 
 .nav-link {
@@ -1947,14 +1907,14 @@ body.theme-quantum-void .chat-memo-jump-btn {
   color: #fff !important;
 }
 
-/* 3. Hero Section Glassmorphism & Colorful Typography */
+/* 3. Hero Section & Typography */
 .hero-badge-pill {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 245, 212, 0.22) 50%, rgba(99, 102, 241, 0.2) 100%) !important;
-  backdrop-filter: var(--glass-acrylic-blur) !important;
-  -webkit-backdrop-filter: var(--glass-acrylic-blur) !important;
+  background: rgba(14, 22, 48, 0.88) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border: 1.5px solid rgba(0, 245, 212, 0.55) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 25px rgba(0, 245, 212, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3) !important;
   color: #ffffff !important;
 }
 
@@ -1996,20 +1956,21 @@ body.theme-quantum-void .chat-memo-jump-btn {
 }
 
 .cue-pill {
-  background: rgba(255, 255, 255, 0.14) !important;
-  backdrop-filter: blur(14px) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
   box-shadow: 0 0 18px rgba(0, 245, 212, 0.35) !important;
 }
 
-/* 4. Notes Controls & Filter Bar Glassmorphism */
+/* 4. Notes Controls & Filter Bar */
 .pill-toggle-container {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(8, 20, 44, 0.35) 100%) !important;
-  backdrop-filter: var(--glass-acrylic-blur) !important;
-  -webkit-backdrop-filter: var(--glass-acrylic-blur) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.32) !important;
+  background: rgba(10, 16, 38, 0.88) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35) !important;
   border-radius: 9999px !important;
 }
 
@@ -2020,28 +1981,28 @@ body.theme-quantum-void .chat-memo-jump-btn {
 }
 
 .search-input-wrap {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(8, 20, 44, 0.35) 100%) !important;
-  backdrop-filter: var(--glass-acrylic-blur) !important;
-  -webkit-backdrop-filter: var(--glass-acrylic-blur) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  background: rgba(10, 16, 38, 0.88) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35) !important;
   border-radius: 9999px !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .search-input-wrap:focus-within {
   border-color: #00f5d4 !important;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 30px rgba(0, 245, 212, 0.55), inset 0 1px 1.5px rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 245, 212, 0.45) !important;
 }
 
 .cat-pill {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(8, 20, 44, 0.28) 100%) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.6) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+  background: rgba(12, 18, 40, 0.85) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
   color: rgba(255, 255, 255, 0.9) !important;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
@@ -2088,44 +2049,31 @@ body.theme-quantum-void .chat-memo-jump-btn {
   transform: scale(1.1) !important;
 }
 
-/* 6. Deck Carousel Cards - Apple iOS 26 Pure Liquid Glass */
+/* 6. Deck Carousel Cards - High Performance Clean Styling */
 .deck-card {
-  background: var(--glass-acrylic-fill) !important;
-  backdrop-filter: var(--liquid-glass-subtle) !important;
-  -webkit-backdrop-filter: var(--liquid-glass-subtle) !important;
+  background: rgba(10, 16, 38, 0.9) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border: 1.5px solid var(--glass-border-base) !important;
   border-top: 2px solid var(--glass-specular-top) !important;
   border-left: 1.5px solid var(--glass-specular-side) !important;
-  border-bottom: 1px solid var(--glass-specular-bottom) !important;
-  box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.75), 0 0 45px rgba(0, 245, 212, 0.22), inset 0 1.5px 2px rgba(255, 255, 255, 0.8), inset 0 -1.5px 2px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6) !important;
   transition: transform 0.4s var(--spring-liquid), box-shadow 0.4s ease, border-color 0.4s ease !important;
 }
 
 .deck-card.pos-center {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.32) 0%,
-    rgba(255, 255, 255, 0.08) 28%,
-    rgba(10, 26, 56, 0.32) 70%,
-    rgba(0, 245, 212, 0.16) 100%
-  ) !important;
-  backdrop-filter: var(--liquid-glass-lens) !important;
-  -webkit-backdrop-filter: var(--liquid-glass-lens) !important;
+  background: rgba(14, 22, 50, 0.94) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border-color: rgba(0, 245, 212, 0.8) !important;
   border-top: 2.5px solid rgba(255, 255, 255, 0.98) !important;
   border-left: 2px solid rgba(255, 255, 255, 0.8) !important;
-  border-bottom: 1.5px solid rgba(255, 255, 255, 0.3) !important;
-  box-shadow: 
-    0 35px 95px -10px rgba(0, 0, 0, 0.85),
-    0 0 60px rgba(0, 245, 212, 0.45),
-    0 0 30px rgba(99, 102, 241, 0.35),
-    inset 0 2px 3px rgba(255, 255, 255, 0.95),
-    inset 0 -2px 3px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(0, 245, 212, 0.35) !important;
 }
 
 .deck-card:not(.pos-center) {
-  backdrop-filter: blur(10px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(140%) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .card-header-meta {
@@ -2156,13 +2104,13 @@ body.theme-quantum-void .chat-memo-jump-btn {
 }
 
 .organelles-preview-box {
-  background: rgba(8, 20, 44, 0.35) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
+  background: rgba(8, 20, 44, 0.75) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border: 1px solid rgba(255, 255, 255, 0.22) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.5) !important;
   border-radius: 18px !important;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3) !important;
 }
 
 .organelle-chip {
@@ -2220,15 +2168,15 @@ body.theme-quantum-void .chat-memo-jump-btn {
   transform: translateY(-2px) !important;
 }
 
-/* 7. Notes Catalog Table View Glassmorphism */
+/* 7. Notes Catalog Table View */
 .table-card-glass {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.03) 30%, rgba(14, 10, 32, 0.6) 80%, rgba(6, 182, 212, 0.08) 100%) !important;
-  backdrop-filter: var(--glass-acrylic-blur) !important;
-  -webkit-backdrop-filter: var(--glass-acrylic-blur) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+  background: rgba(10, 16, 38, 0.92) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
   border-left: 1.5px solid var(--glass-specular-side) !important;
-  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.7), 0 0 40px rgba(6, 182, 212, 0.2), inset 0 1.5px 2px rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7) !important;
   border-radius: 28px !important;
 }
 
@@ -2250,7 +2198,8 @@ body.theme-quantum-void .chat-memo-jump-btn {
 
 .notes-data-table thead th {
   background: rgba(255, 255, 255, 0.06) !important;
-  backdrop-filter: blur(10px) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border-bottom: 1.5px solid rgba(255, 255, 255, 0.16) !important;
   color: #94a3b8 !important;
 }
@@ -2290,8 +2239,9 @@ body.theme-quantum-void .chat-memo-jump-btn {
 }
 
 .calc-pill {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(14, 10, 30, 0.4) 100%) !important;
-  backdrop-filter: blur(14px) !important;
+  background: rgba(14, 20, 48, 0.85) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
@@ -2313,36 +2263,36 @@ body.theme-quantum-void .chat-memo-jump-btn {
 }
 
 .liquid-calc-container {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.04) 30%, rgba(8, 20, 44, 0.42) 75%, rgba(0, 245, 212, 0.12) 100%) !important;
-  backdrop-filter: blur(30px) saturate(220%) brightness(1.1) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  background: rgba(8, 20, 44, 0.92) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
   border-top: 2px solid var(--glass-specular-top) !important;
-  border-left: 2px solid var(--glass-specular-side) !important;
-  box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.9), 0 0 60px rgba(0, 245, 212, 0.3), inset 0 2px 2.5px rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8) !important;
 }
 
 .calc-solver-panel {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(8, 20, 44, 0.4) 100%) !important;
-  backdrop-filter: blur(16px) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
-  border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.5), 0 12px 30px rgba(0, 0, 0, 0.4) !important;
+  background: rgba(10, 16, 38, 0.85) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
 }
 
 .calc-btn {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(8, 20, 44, 0.35) 100%) !important;
-  backdrop-filter: blur(14px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.26) !important;
-  border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+  background: rgba(14, 22, 48, 0.8) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
   color: #fff !important;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .calc-btn:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(0, 245, 212, 0.25) 100%) !important;
+  background: rgba(30, 45, 90, 0.9) !important;
   border-color: #00f5d4 !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 245, 212, 0.5) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4) !important;
   transform: translateY(-2px) scale(1.03) !important;
 }
 
@@ -2364,16 +2314,16 @@ body.theme-quantum-void .chat-memo-jump-btn {
   box-shadow: 0 8px 25px rgba(0, 245, 212, 0.6), 0 0 30px rgba(99, 102, 241, 0.5) !important;
 }
 
-/* 9. Universal Modals Glassmorphism & Concept Squares */
+/* 9. Universal Modals & Concept Squares - Clean Solid Structure */
 .modal-window,
 .glass-modal {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(10, 24, 48, 0.35) 45%, rgba(18, 12, 40, 0.45) 100%) !important;
-  backdrop-filter: blur(28px) saturate(220%) brightness(1.08) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(220%) brightness(1.08) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  background: rgba(10, 16, 38, 0.95) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
   border-top: 2px solid var(--glass-specular-top) !important;
   border-left: 2px solid var(--glass-specular-side) !important;
-  box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 245, 212, 0.25), inset 0 2px 2.5px rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85) !important;
   border-radius: 32px !important;
 }
 
@@ -2394,16 +2344,17 @@ body.theme-quantum-void .chat-memo-jump-btn {
 }
 
 .modal-tab-btn {
-  background: rgba(255, 255, 255, 0.1) !important;
-  backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
   border-radius: 9999px !important;
   color: rgba(255, 255, 255, 0.85) !important;
   transition: all 0.25s ease !important;
 }
 
 .modal-tab-btn:hover {
-  background: rgba(255, 255, 255, 0.22) !important;
+  background: rgba(255, 255, 255, 0.18) !important;
   color: #fff !important;
 }
 
@@ -2414,32 +2365,33 @@ body.theme-quantum-void .chat-memo-jump-btn {
   box-shadow: 0 6px 20px rgba(0, 245, 212, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.7) !important;
 }
 
-/* Concept Squares Detail Cards inside Notes Viewer */
+/* Concept Squares Detail Cards inside Notes Viewer - High Speed Solid Panel */
 .property-detail-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.04) 30%, rgba(8, 20, 44, 0.42) 75%, rgba(0, 245, 212, 0.1) 100%) !important;
-  backdrop-filter: blur(16px) saturate(190%) brightness(1.06) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(190%) brightness(1.06) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.32) !important;
+  background: rgba(14, 20, 48, 0.92) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
   border-left: 1.5px solid var(--glass-specular-side) !important;
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 245, 212, 0.2), inset 0 1.5px 2px rgba(255, 255, 255, 0.65) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5) !important;
   border-radius: 24px !important;
   padding: 30px 34px !important;
 }
 
 .property-detail-card:hover {
   transform: translateY(-3px) scale(1.01) !important;
-  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.6), 0 0 45px rgba(0, 245, 212, 0.4), inset 0 2px 2.5px rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6) !important;
   border-color: rgba(0, 245, 212, 0.75) !important;
 }
 
 /* Project Cards in Showcase Modal */
 .project-card.glass-project-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(8, 20, 44, 0.38) 100%) !important;
-  backdrop-filter: blur(20px) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.32) !important;
+  background: rgba(12, 18, 42, 0.9) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 245, 212, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45) !important;
   border-radius: 24px !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
@@ -2447,27 +2399,28 @@ body.theme-quantum-void .chat-memo-jump-btn {
 .project-card.glass-project-card:hover {
   transform: translateY(-4px) scale(1.02) !important;
   border-color: #00f5d4 !important;
-  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.65), 0 0 45px rgba(0, 245, 212, 0.45) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55) !important;
 }
 
 /* Admin Vault Telemetry & Command Cards */
 .admin-cmd-card,
 .telem-stat-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(8, 20, 44, 0.38) 100%) !important;
-  backdrop-filter: blur(18px) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.28) !important;
+  background: rgba(12, 18, 42, 0.92) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
   border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
   border-radius: 20px !important;
 }
 
-/* 10. Footer Liquid Glass Deck */
+/* 10. Footer Deck */
 .app-footer {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(6, 14, 30, 0.55) 50%, rgba(10, 22, 48, 0.7) 100%) !important;
-  backdrop-filter: blur(24px) saturate(200%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
-  border-top: 1.5px solid var(--glass-specular-top) !important;
-  box-shadow: 0 -15px 45px rgba(0, 0, 0, 0.6), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  background: #040814 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5) !important;
 }
 
 /* 11. Theme Overrides for Universal Liquid Glass & Gradients */
@@ -2575,9 +2528,9 @@ body.theme-quantum-void .modal-tab-btn.active {
   border: 1.5px solid rgba(255, 255, 255, 0.22);
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85), inset 0 0 40px rgba(56, 189, 248, 0.12);
-  backdrop-filter: blur(10px) saturate(150%);
-  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85);
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .diagram-svg-canvas {
@@ -2684,13 +2637,13 @@ body.theme-quantum-void .modal-tab-btn.active {
 .diagram-hud-card {
   width: 100%;
   max-width: 680px;
-  background: rgba(15, 23, 42, 0.75);
+  background: rgba(15, 23, 42, 0.92);
   border: 1.5px solid rgba(56, 189, 248, 0.35);
   border-radius: 20px;
   padding: 18px 22px;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 30px rgba(56, 189, 248, 0.15);
-  backdrop-filter: blur(20px) saturate(220%);
-  -webkit-backdrop-filter: blur(20px) saturate(220%);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65);
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   transition: all 0.3s ease;
 }
 
