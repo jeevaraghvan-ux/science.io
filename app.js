@@ -7825,6 +7825,8 @@ class ScienceIoApp {
   }
 
   setupHolographic3DCardTilt() {
+    // Disabled in Full Performance Overhaul: stops continuous mousemove calculations & gyro style invalidations
+    return;
     const attachTilt = (el, isCarousel = false) => {
       if (!el || el._hasTiltListener) return;
       el._hasTiltListener = true;
@@ -9304,14 +9306,12 @@ class ScienceIoApp {
     });
   }
 
-  // ================= HOME PAGE BACKGROUND: PITCH BLACK WITH SNOW AND SHOOTING STARS =================
+  // ================= HOME PAGE BACKGROUND: PITCH BLACK (OPTIMIZED FOR 60FPS) =================
   setupHeroSnowAndStars() {
+    // Disabled in Full Performance Overhaul: stops heavy canvas loop, shooting stars, and shadowBlur repaints
     const canvas = document.getElementById("hero-snow-stars-canvas");
-    if (!canvas) return;
-    const hero = document.getElementById("hero");
-    if (!hero) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (canvas) canvas.style.display = "none";
+    return;
 
     let width = 0;
     let height = 0;
@@ -10439,9 +10439,14 @@ class ScienceIoApp {
   }
 
   setupMagneticFluidCursor() {
+    // Disabled in Full Performance Overhaul: restores native fast cursor, stops tickRing RAF loop & spotlight recalcs
     const dot = document.getElementById("fluid-cursor-dot");
     const ring = document.getElementById("fluid-cursor-ring");
-    if (!dot || !ring) return;
+    const spotlight = document.getElementById("mouse-spotlight");
+    if (dot) dot.style.display = "none";
+    if (ring) ring.style.display = "none";
+    if (spotlight) spotlight.style.display = "none";
+    return;
 
     // Only enable when a fine pointer (mouse/trackpad) is present
     if (!window.matchMedia("(pointer: fine)").matches) return;
@@ -10529,6 +10534,8 @@ class ScienceIoApp {
   }
 
   setupExtended3DTiltAndSpecularShimmer() {
+    // Disabled in Full Performance Overhaul: eliminates whole-app MutationObserver and 3D card tilt lag
+    return;
     const attachCardTilt = (card) => {
       if (!card || card._hasExtendedTilt) return;
       card._hasExtendedTilt = true;

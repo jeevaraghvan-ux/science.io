@@ -81,23 +81,7 @@ html, body {
 
 /* Ambient Cursor-Tracking Obsidian Spotlight */
 #mouse-spotlight {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 1;
-  background: radial-gradient(
-    650px circle at var(--spotlight-x, 50vw) var(--spotlight-y, 50vh),
-    rgba(56, 189, 248, 0.075) 0%,
-    rgba(99, 102, 241, 0.04) 35%,
-    rgba(16, 185, 129, 0.02) 55%,
-    transparent 75%
-  );
-  opacity: 1;
-  transition: opacity 0.4s ease;
-  will-change: background;
+  display: none !important;
 }
 
 /* Custom Dark Blue & Purple Scrollbar & Selection */
@@ -929,10 +913,7 @@ html, body {
 }
 
 .ambient-noise-layer {
-  position: absolute;
-  inset: 0;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  display: none !important;
 }
 
 /* ================= MAIN WRAPPER ================= */
@@ -13201,4 +13182,63 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 .admin-fb-reply-btn:hover {
   transform: scale(1.04);
   box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+}
+
+/* ================= PERFORMANCE OVERHAUL OVERRIDES ================= */
+#hero-snow-stars-canvas,
+.hero-snow-stars-canvas,
+.fluid-cursor-dot,
+.fluid-cursor-ring,
+#fluid-cursor-dot,
+#fluid-cursor-ring,
+#mouse-spotlight {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* Optimize center deck card: clean GPU-friendly rendering without mix-blend-mode */
+.deck-card.pos-center {
+  background: rgba(15, 23, 42, 0.92) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.2) !important;
+  transform: translate3d(0, 0, 60px) scale(1.03) !important;
+}
+
+.deck-card.pos-center:hover {
+  transform: translate3d(0, -6px, 65px) scale(1.04) !important;
+}
+
+.deck-card.pos-center::after,
+.property-detail-card::after {
+  display: none !important;
+}
+
+/* Tone down heavy modal blur from 24px saturate(200%) to performant 8px */
+.notes-detail-window,
+.glass-modal {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  background: rgba(11, 17, 33, 0.94) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Optimize concept squares in Notes modal for silky-smooth scrolling */
+.property-detail-card {
+  transform: none !important;
+  background: rgba(18, 26, 48, 0.85) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 220px;
+}
+
+.property-detail-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55) !important;
+}
+
+/* Smooth native scroll performance */
+html, body {
+  scroll-behavior: smooth;
+  overscroll-behavior-y: none;
 }
