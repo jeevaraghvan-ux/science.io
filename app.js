@@ -5899,14 +5899,6 @@ class ReadingEnhancementSuite {
       }
     });
 
-    container.addEventListener("mouseover", (e) => {
-      const vocabSpan = e.target.closest(".vocab-term");
-      if (vocabSpan) {
-        const term = vocabSpan.dataset.term;
-        this.showVocabPopover(term, vocabSpan);
-      }
-    });
-
     document.addEventListener("click", (e) => {
       if (!e.target.closest(".vocab-popover") && !e.target.closest(".vocab-term")) {
         this.hideVocabPopover();
