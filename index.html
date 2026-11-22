@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=129.0">
+  <link rel="stylesheet" href="styles.css?v=130.0">
   <link rel="stylesheet" href="ios27.css?v=65.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -452,6 +452,28 @@
               </div>
             </div>
           </div>
+
+          <button class="nav-icon-btn nav-rings-btn" id="btn-apple-activity-rings" title="Apple Activity Rings & Concept Widget">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9" stroke="url(#ring-grad-red)" stroke-width="2.2" stroke-linecap="round"></circle>
+              <circle cx="12" cy="12" r="6" stroke="url(#ring-grad-cyan)" stroke-width="2.2" stroke-linecap="round"></circle>
+              <circle cx="12" cy="12" r="3" stroke="url(#ring-grad-gold)" stroke-width="2.2" stroke-linecap="round"></circle>
+              <defs>
+                <linearGradient id="ring-grad-red" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#fa114f"></stop>
+                  <stop offset="100%" stop-color="#ff5277"></stop>
+                </linearGradient>
+                <linearGradient id="ring-grad-cyan" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#00f5d4"></stop>
+                  <stop offset="100%" stop-color="#00b4d8"></stop>
+                </linearGradient>
+                <linearGradient id="ring-grad-gold" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#ffd166"></stop>
+                  <stop offset="100%" stop-color="#ffb703"></stop>
+                </linearGradient>
+              </defs>
+            </svg>
+          </button>
 
           <button class="nav-command-hud-btn" id="btn-command-hud" title="Command HUD (⌘K / Ctrl+K)">
             <svg class="icon-svg hud-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1931,6 +1953,119 @@
     </button>
   </div>
 
+  <!-- ================= APPLE ACTIVITY RINGS & DAILY CONCEPT WIDGET ================= -->
+  <div id="apple-rings-modal" class="apple-rings-backdrop hidden" aria-modal="true" role="dialog" aria-label="Apple Activity Rings & Study Widget">
+    <div class="apple-rings-window" id="apple-rings-window">
+      <!-- Widget Top Bar -->
+      <div class="apple-rings-header">
+        <div class="apple-rings-title-group">
+          <div class="apple-rings-app-icon">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="apple-rings-title">ACTIVITY &amp; WIDGETS</div>
+            <div class="apple-rings-sub">Study Streak • Apple Watch Style</div>
+          </div>
+        </div>
+        <button type="button" class="apple-rings-close-btn" id="apple-rings-close-btn" title="Close (ESC)">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Main Widget Body: Rings on Left, Metrics on Right -->
+      <div class="apple-rings-body">
+        <!-- Triple Concentric Activity Rings SVG -->
+        <div class="apple-rings-display" title="Triple Activity Rings">
+          <svg class="rings-svg" viewBox="0 0 140 140" width="140" height="140">
+            <!-- Background Tracks -->
+            <circle class="ring-bg ring-bg-outer" cx="70" cy="70" r="54" stroke-width="12"></circle>
+            <circle class="ring-bg ring-bg-middle" cx="70" cy="70" r="39" stroke-width="12"></circle>
+            <circle class="ring-bg ring-bg-inner" cx="70" cy="70" r="24" stroke-width="12"></circle>
+
+            <!-- Active Colored Rings (stroke-dashoffset driven) -->
+            <circle id="ring-outer" class="ring-active ring-outer" cx="70" cy="70" r="54" stroke-width="12" stroke-linecap="round"></circle>
+            <circle id="ring-middle" class="ring-active ring-middle" cx="70" cy="70" r="39" stroke-width="12" stroke-linecap="round"></circle>
+            <circle id="ring-inner" class="ring-active ring-inner" cx="70" cy="70" r="24" stroke-width="12" stroke-linecap="round"></circle>
+          </svg>
+          <div class="rings-center-flair" id="rings-flair-icon">⚡</div>
+        </div>
+
+        <!-- Ring Metric Legends -->
+        <div class="apple-rings-metrics">
+          <div class="ring-metric-row metric-red">
+            <span class="metric-indicator-dot dot-red"></span>
+            <div class="metric-info">
+              <span class="metric-name">TOPICS EXPLORED</span>
+              <span class="metric-val" id="metric-topics-val">0 / 19</span>
+            </div>
+            <span class="metric-pct" id="metric-topics-pct">0%</span>
+          </div>
+
+          <div class="ring-metric-row metric-cyan">
+            <span class="metric-indicator-dot dot-cyan"></span>
+            <div class="metric-info">
+              <span class="metric-name">CARDS MASTERED</span>
+              <span class="metric-val" id="metric-cards-val">0</span>
+            </div>
+            <span class="metric-pct" id="metric-cards-pct">Active</span>
+          </div>
+
+          <div class="ring-metric-row metric-gold">
+            <span class="metric-indicator-dot dot-gold"></span>
+            <div class="metric-info">
+              <span class="metric-name">PRACTICE STREAK</span>
+              <span class="metric-val" id="metric-quiz-val">0 Solved</span>
+            </div>
+            <span class="metric-pct" id="metric-quiz-pct">Ready</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive 3D Concept Card Flip Widget (iOS 18 Widget) -->
+      <div class="apple-concept-widget-wrap">
+        <div class="concept-widget-header">
+          <span class="widget-pill-badge">DAILY CONCEPT WIDGET</span>
+          <button type="button" class="concept-shuffle-btn" id="concept-shuffle-btn" title="Shuffle New Concept">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4">
+              <polyline points="16 3 21 3 21 8"></polyline>
+              <line x1="4" y1="20" x2="21" y2="3"></line>
+              <polyline points="21 16 21 21 16 21"></polyline>
+              <line x1="15" y1="15" x2="21" y2="21"></line>
+              <line x1="4" y1="4" x2="9" y2="9"></line>
+            </svg>
+            <span>Next</span>
+          </button>
+        </div>
+
+        <!-- 3D Flip Card Container -->
+        <div class="concept-flip-card" id="concept-flip-card" role="button" tabindex="0" title="Click or tap to flip card">
+          <div class="concept-flip-inner" id="concept-flip-inner">
+            <!-- FRONT: Title + Law + Explanation -->
+            <div class="concept-face concept-face-front">
+              <div class="concept-category-badge" id="widget-card-cat">PHYSICAL SCIENCE</div>
+              <h4 class="concept-card-title" id="widget-card-title">Photosynthesis Engine</h4>
+              <p class="concept-card-desc" id="widget-card-desc">Plants absorb solar photon energy to synthesize glucose and release oxygen.</p>
+              <div class="concept-flip-hint">Tap to flip for Memory Trick ↻</div>
+            </div>
+
+            <!-- BACK: Flash Trick + Formula + Jump Button -->
+            <div class="concept-face concept-face-back">
+              <div class="concept-category-badge back-badge">5TH GRADE MEMORY TRICK</div>
+              <div class="concept-card-trick" id="widget-card-trick">💡 Sunlight + Water + CO₂ = Plant Power Sugar!</div>
+              <div class="concept-card-formula" id="widget-card-formula">6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂</div>
+              <button type="button" class="concept-jump-btn" id="widget-jump-notes-btn">Open Full Topic Notes →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ================= SLEEK GLOBAL COMMAND HUD (Cmd+K / Ctrl+K) ================= -->
   <div id="command-hud-modal" class="command-hud-backdrop hidden" aria-modal="true" role="dialog">
     <div class="command-hud-window" id="command-hud-window">
@@ -1988,6 +2123,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=129.0"></script>
+  <script src="app.js?v=130.0"></script>
 </body>
 </html>

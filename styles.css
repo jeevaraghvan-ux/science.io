@@ -13226,3 +13226,433 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 html, body {
   scroll-behavior: smooth;
 }
+
+/* ========================================================
+   APPLE WATCH ACTIVITY RINGS & IOS 18 WIDGET DECK
+   Ultra-fast, zero-lag, hardware-accelerated CSS
+   ======================================================== */
+.nav-rings-btn {
+  border-color: rgba(250, 17, 79, 0.4) !important;
+  box-shadow: 0 0 14px rgba(250, 17, 79, 0.25) !important;
+}
+
+.nav-rings-btn:hover {
+  border-color: rgba(250, 17, 79, 0.7) !important;
+  box-shadow: 0 0 20px rgba(250, 17, 79, 0.4) !important;
+  transform: scale(1.08) !important;
+}
+
+.apple-rings-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99980;
+  background: rgba(3, 5, 12, 0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: appleRingsFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-rings-backdrop.hidden {
+  display: none !important;
+}
+
+@keyframes appleRingsFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.apple-rings-window {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(14, 18, 30, 0.96);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-radius: 28px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.85), 0 0 40px rgba(250, 17, 79, 0.15);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 20px;
+  animation: appleRingsScaleUp 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateZ(0);
+}
+
+@keyframes appleRingsScaleUp {
+  from { opacity: 0; transform: scale(0.92) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.apple-rings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.apple-rings-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.apple-rings-app-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #fa114f, #ff5277);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(250, 17, 79, 0.45);
+}
+
+.apple-rings-title {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.apple-rings-sub {
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+.apple-rings-close-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.apple-rings-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transform: scale(1.08);
+}
+
+.apple-rings-body {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: rgba(8, 12, 22, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 16px 18px;
+}
+
+.apple-rings-display {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rings-svg {
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.ring-bg {
+  fill: none;
+  opacity: 0.18;
+}
+
+.ring-bg-outer { stroke: #fa114f; }
+.ring-bg-middle { stroke: #00f5d4; }
+.ring-bg-inner { stroke: #ffd166; }
+
+.ring-active {
+  fill: none;
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ring-outer {
+  stroke: #fa114f;
+  stroke-dasharray: 339.29;
+  stroke-dashoffset: 339.29;
+  filter: drop-shadow(0 0 6px rgba(250, 17, 79, 0.5));
+}
+
+.ring-middle {
+  stroke: #00f5d4;
+  stroke-dasharray: 245.04;
+  stroke-dashoffset: 245.04;
+  filter: drop-shadow(0 0 6px rgba(0, 245, 212, 0.5));
+}
+
+.ring-inner {
+  stroke: #ffd166;
+  stroke-dasharray: 150.80;
+  stroke-dashoffset: 150.80;
+  filter: drop-shadow(0 0 6px rgba(255, 209, 102, 0.5));
+}
+
+.rings-center-flair {
+  position: absolute;
+  font-size: 1.25rem;
+  color: #ffd166;
+  pointer-events: none;
+  animation: pulseFlair 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulseFlair {
+  from { transform: scale(0.9); opacity: 0.8; }
+  to { transform: scale(1.15); opacity: 1; }
+}
+
+.apple-rings-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.ring-metric-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.ring-metric-row:hover {
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateX(2px);
+}
+
+.metric-indicator-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-red { background: #fa114f; box-shadow: 0 0 8px #fa114f; }
+.dot-cyan { background: #00f5d4; box-shadow: 0 0 8px #00f5d4; }
+.dot-gold { background: #ffd166; box-shadow: 0 0 8px #ffd166; }
+
+.metric-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.metric-name {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.metric-val {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.metric-pct {
+  font-size: 0.78rem;
+  font-weight: 800;
+  font-family: ui-monospace, "SF Mono", monospace;
+}
+
+.metric-red .metric-pct { color: #fa114f; }
+.metric-cyan .metric-pct { color: #00f5d4; }
+.metric-gold .metric-pct { color: #ffd166; }
+
+/* Interactive 3D Concept Card Flip Widget (iOS 18 Widget) */
+.apple-concept-widget-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.concept-widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.widget-pill-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #00f5d4;
+  background: rgba(0, 245, 212, 0.12);
+  border: 1px solid rgba(0, 245, 212, 0.3);
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.concept-shuffle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.concept-shuffle-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.concept-flip-card {
+  perspective: 1000px;
+  width: 100%;
+  height: 180px;
+  cursor: pointer;
+  outline: none;
+}
+
+.concept-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 20px;
+}
+
+.concept-flip-card.flipped .concept-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.concept-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 20px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+}
+
+.concept-face-front {
+  background: linear-gradient(145deg, rgba(30, 41, 69, 0.95), rgba(15, 23, 42, 0.95));
+  border-top: 1.5px solid rgba(0, 245, 212, 0.45);
+}
+
+.concept-face-back {
+  background: linear-gradient(145deg, rgba(38, 24, 58, 0.95), rgba(18, 12, 32, 0.95));
+  border-top: 1.5px solid rgba(255, 209, 102, 0.45);
+  transform: rotateY(180deg);
+}
+
+.concept-category-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #38bdf8;
+  text-transform: uppercase;
+}
+
+.concept-category-badge.back-badge {
+  color: #ffd166;
+}
+
+.concept-card-title {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.concept-card-desc {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.concept-flip-hint {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  text-align: right;
+}
+
+.concept-card-trick {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fef08a;
+  line-height: 1.45;
+}
+
+.concept-card-formula {
+  font-family: ui-monospace, "SF Mono", monospace;
+  font-size: 0.78rem;
+  color: #67e8f9;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: fit-content;
+}
+
+.concept-jump-btn {
+  background: linear-gradient(135deg, #00f5d4, #00b4d8);
+  border: none;
+  border-radius: 10px;
+  padding: 7px 14px;
+  color: #06101e;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+  width: fit-content;
+  align-self: flex-end;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.concept-jump-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 245, 212, 0.45);
+}
+
+@media (max-width: 520px) {
+  .apple-rings-body {
+    flex-direction: column;
+    align-items: center;
+  }
+  .apple-rings-metrics {
+    width: 100%;
+  }
+}
+

@@ -7938,6 +7938,10 @@ class ScienceIoApp {
     const topic = this.notes.find((t) => t.id === topicId);
     if (!topic) return;
 
+    if (typeof this.recordTopicExplored === "function") {
+      this.recordTopicExplored(topicId);
+    }
+
     this.currentModalTopic = topic;
     const modal = document.getElementById("notes-viewer-modal");
     const titleEl = document.getElementById("modal-topic-title");
@@ -8534,6 +8538,9 @@ class ScienceIoApp {
           btn.classList.add("correct");
           sounds.playSuccess();
           this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 40);
+          if (typeof this.recordQuizSolved === "function") {
+            this.recordQuizSolved();
+          }
           if (fb) {
             fb.classList.remove("hidden");
             fb.style.color = "#86efac";
@@ -10341,6 +10348,7 @@ class ScienceIoApp {
     this.setupDynamicIsland();
     this.setupAppleFlashcards();
     this.setupAppleSplitView();
+    this.setupAppleActivityRings();
   }
 
   setupMagneticFluidCursor() {
@@ -10588,6 +10596,20 @@ class ScienceIoApp {
       },
 
       // Tools & Audio
+      {
+        id: "tool-activity-rings",
+        category: "tools",
+        title: "Apple Activity Rings & Concept Widget",
+        sub: "Track your 5th-grade study streaks, explored units, and interactive 3D daily concept cards",
+        badge: "RINGS",
+        icon: "⚡",
+        keywords: "rings activity streak apple watch widget daily concept flip cards progress",
+        action: () => {
+          if (typeof this.openAppleActivityRings === "function") {
+            this.openAppleActivityRings();
+          }
+        }
+      },
       {
         id: "tool-flashcards",
         category: "tools",
@@ -13013,6 +13035,197 @@ class ScienceIoApp {
         if (typeof sounds.playClick === "function") sounds.playClick();
       } catch (_) {}
     };
+  }
+
+  // ================= APPLE WATCH ACTIVITY RINGS & IOS 18 WIDGET DECK =================
+  setupAppleActivityRings() {
+    const modal = document.getElementById("apple-rings-modal");
+    const openBtn = document.getElementById("btn-apple-activity-rings");
+    const closeBtn = document.getElementById("apple-rings-close-btn");
+    const flipCard = document.getElementById("concept-flip-card");
+    const shuffleBtn = document.getElementById("concept-shuffle-btn");
+    const jumpBtn = document.getElementById("widget-jump-notes-btn");
+
+    if (!modal) return;
+
+    // Ring SVG Elements
+    const ringOuter = document.getElementById("ring-outer");
+    const ringMiddle = document.getElementById("ring-middle");
+    const ringInner = document.getElementById("ring-inner");
+
+    // Metric Displays
+    const topicsVal = document.getElementById("metric-topics-val");
+    const topicsPct = document.getElementById("metric-topics-pct");
+    const cardsVal = document.getElementById("metric-cards-val");
+    const cardsPct = document.getElementById("metric-cards-pct");
+    const quizVal = document.getElementById("metric-quiz-val");
+    const quizPct = document.getElementById("metric-quiz-pct");
+
+    // Widget Card Face Elements
+    const cardCat = document.getElementById("widget-card-cat");
+    const cardTitle = document.getElementById("widget-card-title");
+    const cardDesc = document.getElementById("widget-card-desc");
+    const cardTrick = document.getElementById("widget-card-trick");
+    const cardFormula = document.getElementById("widget-card-formula");
+
+    // Circumference constants (2 * PI * r)
+    const C_OUTER = 339.29; // r = 54
+    const C_MIDDLE = 245.04; // r = 39
+    const C_INNER = 150.80; // r = 24
+
+    // Local Storage Progress State
+    let exploredTopics = new Set();
+    let quizSolvedCount = 0;
+    try {
+      const savedTopics = JSON.parse(localStorage.getItem("scienceio_explored_topics") || "[]");
+      if (Array.isArray(savedTopics)) exploredTopics = new Set(savedTopics);
+      quizSolvedCount = parseInt(localStorage.getItem("scienceio_quizzes_solved") || "0", 10);
+      if (isNaN(quizSolvedCount)) quizSolvedCount = 0;
+    } catch (_) {}
+
+    this.recordTopicExplored = (topicId) => {
+      if (!topicId) return;
+      exploredTopics.add(String(topicId));
+      try {
+        localStorage.setItem("scienceio_explored_topics", JSON.stringify([...exploredTopics]));
+      } catch (_) {}
+      this.updateAppleActivityRings();
+    };
+
+    this.recordQuizSolved = () => {
+      quizSolvedCount++;
+      try {
+        localStorage.setItem("scienceio_quizzes_solved", String(quizSolvedCount));
+      } catch (_) {}
+      this.updateAppleActivityRings();
+    };
+
+    // Public Update Method (Pure SVG stroke-dashoffset math, 0% CPU lag)
+    this.updateAppleActivityRings = () => {
+      const totalTopics = (Array.isArray(this.notes) && this.notes.length > 0) ? this.notes.length : 19;
+      const exploredCount = Math.min(totalTopics, exploredTopics.size);
+      const ratioTopics = Math.min(1, exploredCount / totalTopics);
+
+      // Cards Mastered (from Apple Flashcards storage)
+      let masteredCount = 0;
+      try {
+        const savedCards = JSON.parse(localStorage.getItem("scienceio_apple_fc_mastered") || "[]");
+        if (Array.isArray(savedCards)) masteredCount = savedCards.length;
+      } catch (_) {}
+      const ratioCards = Math.min(1, masteredCount / 25);
+
+      // Quiz Streak
+      const ratioQuiz = Math.min(1, quizSolvedCount / 10);
+
+      // Apply stroke-dashoffsets with smooth CSS transition
+      if (ringOuter) {
+        ringOuter.style.strokeDashoffset = (C_OUTER * (1 - ratioTopics)).toFixed(2);
+      }
+      if (ringMiddle) {
+        ringMiddle.style.strokeDashoffset = (C_MIDDLE * (1 - ratioCards)).toFixed(2);
+      }
+      if (ringInner) {
+        ringInner.style.strokeDashoffset = (C_INNER * (1 - ratioQuiz)).toFixed(2);
+      }
+
+      // Update text values
+      if (topicsVal) topicsVal.textContent = `${exploredCount} / ${totalTopics}`;
+      if (topicsPct) topicsPct.textContent = `${Math.round(ratioTopics * 100)}%`;
+
+      if (cardsVal) cardsVal.textContent = `${masteredCount} Mastered`;
+      if (cardsPct) cardsPct.textContent = masteredCount > 0 ? `${Math.round(ratioCards * 100)}%` : "Active";
+
+      if (quizVal) quizVal.textContent = `${quizSolvedCount} Solved`;
+      if (quizPct) quizPct.textContent = quizSolvedCount > 0 ? `${Math.round(ratioQuiz * 100)}%` : "Ready";
+    };
+
+    // 3D Concept Card Shuffle
+    let currentTopicId = null;
+    const shuffleConceptCard = () => {
+      if (!Array.isArray(this.notes) || this.notes.length === 0) return;
+      const randomTopic = this.notes[Math.floor(Math.random() * this.notes.length)];
+      if (!randomTopic) return;
+      currentTopicId = randomTopic.id;
+
+      // Extract a representative property or topic info
+      let prop = null;
+      if (Array.isArray(randomTopic.properties) && randomTopic.properties.length > 0) {
+        prop = randomTopic.properties[Math.floor(Math.random() * randomTopic.properties.length)];
+      }
+
+      if (cardCat) cardCat.textContent = (randomTopic.category || "PHYSICAL SCIENCE").toUpperCase();
+      if (cardTitle) cardTitle.textContent = prop ? prop.name : randomTopic.title;
+      if (cardDesc) cardDesc.textContent = prop ? prop.explanation : (randomTopic.description || "Core 5th Grade Science Principle.");
+      if (cardTrick) cardTrick.textContent = prop?.trick ? `💡 ${prop.trick}` : `💡 Master ${randomTopic.title} for guaranteed science honors!`;
+      if (cardFormula) cardFormula.textContent = prop?.formula || randomTopic.coreFormula || "Observable Science Law";
+
+      // Reset flip state on shuffle
+      if (flipCard) flipCard.classList.remove("flipped");
+      try {
+        if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+      } catch (_) {}
+    };
+
+    // Flip Card Toggle
+    flipCard?.addEventListener("click", (e) => {
+      if (e.target.closest("button")) return;
+      flipCard.classList.toggle("flipped");
+      try {
+        if (typeof sounds.playClick === "function") sounds.playClick();
+      } catch (_) {}
+    });
+
+    flipCard?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        flipCard.classList.toggle("flipped");
+      }
+    });
+
+    shuffleBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      shuffleConceptCard();
+    });
+
+    jumpBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      this.closeAppleActivityRings();
+      if (currentTopicId && typeof this.openNotesViewer === "function") {
+        this.openNotesViewer(currentTopicId, "notes");
+      }
+    });
+
+    // Open / Close Handlers
+    this.openAppleActivityRings = () => {
+      this.updateAppleActivityRings();
+      shuffleConceptCard();
+      modal.classList.remove("hidden");
+      try {
+        if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
+      } catch (_) {}
+    };
+
+    this.closeAppleActivityRings = () => {
+      modal.classList.add("hidden");
+      try {
+        if (typeof sounds.playClick === "function") sounds.playClick();
+      } catch (_) {}
+    };
+
+    openBtn?.addEventListener("click", () => this.openAppleActivityRings());
+    closeBtn?.addEventListener("click", () => this.closeAppleActivityRings());
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) this.closeAppleActivityRings();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (!modal.classList.contains("hidden") && e.key === "Escape") {
+        this.closeAppleActivityRings();
+      }
+    });
+
+    // Initial load
+    this.updateAppleActivityRings();
   }
 }
 
