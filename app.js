@@ -9607,31 +9607,48 @@ class ScienceIoApp {
     requestAnimationFrame(render);
   }
 
-  // ================= HERO HEADLINE ROTATOR (5s INTERVAL: REIMAGINED <-> DECODED) =================
+  // ================= HERO HEADLINE ROTATOR (3s INTERVAL: REIMAGINED -> DECODED -> SIMPLIFIED -> CLARIFIED -> REFINED -> DECONSTRUCTED) =================
   setupHeroHeadlineRotator() {
     const neonWord = document.getElementById("hero-neon-word");
     if (!neonWord) return;
 
-    const words = ["REIMAGINED.", "DECODED."];
+    const words = [
+      "REIMAGINED.",
+      "DECODED.",
+      "SIMPLIFIED.",
+      "CLARIFIED.",
+      "REFINED.",
+      "DECONSTRUCTED."
+    ];
     let wordIndex = 0;
 
-    setInterval(() => {
-      // 1. Exit animation (smooth slide up + cyber glow blur)
-      neonWord.classList.add("word-exit");
-
+    const rotateWord = () => {
       setTimeout(() => {
-        // 3. Advance index and update text
-        wordIndex = (wordIndex + 1) % words.length;
-        neonWord.textContent = words[wordIndex];
+        // 1. Exit animation (smooth slide up + cyber glow blur)
+        neonWord.classList.add("word-exit");
 
-        // 4. Animate back smoothly without layout thrashing
-        neonWord.classList.remove("word-exit");
-        neonWord.classList.add("word-enter-from-bottom");
-        requestAnimationFrame(() => {
-          neonWord.classList.remove("word-enter-from-bottom");
-        });
-      }, 450);
-    }, 5000);
+        setTimeout(() => {
+          // 2. Advance index in exact continuous order and update text
+          wordIndex = (wordIndex + 1) % words.length;
+          neonWord.textContent = words[wordIndex];
+
+          // 3. Prepare entry from bottom with reflow
+          neonWord.classList.remove("word-exit");
+          neonWord.classList.add("word-enter-from-bottom");
+          void neonWord.offsetWidth;
+
+          // 4. Animate smoothly to resting position
+          requestAnimationFrame(() => {
+            neonWord.classList.remove("word-enter-from-bottom");
+          });
+
+          // 5. Schedule next rotation after 3 full seconds of visibility
+          rotateWord();
+        }, 360);
+      }, 3000);
+    };
+
+    rotateWord();
   }
 
   // ================= ME.SKIENCE.IO PORTFOLIO & macOS TERMINAL ENGINE =================

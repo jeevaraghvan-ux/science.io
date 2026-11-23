@@ -1180,9 +1180,9 @@ html, body {
   filter: drop-shadow(0 0 25px rgba(6, 182, 212, 0.75))
           drop-shadow(0 0 55px rgba(99, 102, 241, 0.55));
   animation: subtleNeonFlicker 6s infinite;
-  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity, filter;
 }
 
