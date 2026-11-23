@@ -2778,6 +2778,8 @@ const AudioMetadataParser = {
     const end = Math.min(u8.length, 10 + tagSize);
     let offset = 10;
     const tags = {};
+    let coverArtBlob = null;
+    let coverArtUrl = null;
 
     if (major === 2) {
       while (offset + 6 <= end) {
@@ -2786,8 +2788,31 @@ const AudioMetadataParser = {
         const frameSize = (u8[offset + 3] << 16) | (u8[offset + 4] << 8) | u8[offset + 5];
         if (frameSize <= 0 || offset + 6 + frameSize > end) break;
         const enc = u8[offset + 6];
-        const raw = u8.subarray(offset + 7, offset + 6 + frameSize);
-        tags[frameId] = this.decodeString(raw, enc);
+
+        if (frameId === "PIC" && !coverArtUrl && frameSize > 6) {
+          try {
+            const format = String.fromCharCode(u8[offset + 7], u8[offset + 8], u8[offset + 9]).toUpperCase();
+            const mime = (format === "PNG") ? "image/png" : "image/jpeg";
+            let descPos = offset + 11;
+            const frameEnd = offset + 6 + frameSize;
+            if (enc === 1 || enc === 2) {
+              while (descPos + 1 < frameEnd && !(u8[descPos] === 0 && u8[descPos + 1] === 0)) descPos += 2;
+              descPos += 2;
+            } else {
+              while (descPos < frameEnd && u8[descPos] !== 0) descPos++;
+              descPos += 1;
+            }
+            if (descPos < frameEnd) {
+              const imgBytes = u8.subarray(descPos, frameEnd);
+              coverArtBlob = new Blob([imgBytes], { type: mime });
+              coverArtUrl = URL.createObjectURL(coverArtBlob);
+            }
+          } catch (_) {}
+        } else {
+          const raw = u8.subarray(offset + 7, offset + 6 + frameSize);
+          tags[frameId] = this.decodeString(raw, enc);
+        }
+
         offset += 6 + frameSize;
       }
     } else {
@@ -2802,15 +2827,50 @@ const AudioMetadataParser = {
         }
         if (frameSize <= 0 || offset + 10 + frameSize > end) break;
         const enc = u8[offset + 10];
-        const raw = u8.subarray(offset + 11, offset + 10 + frameSize);
-        tags[frameId] = this.decodeString(raw, enc);
+
+        if (frameId === "APIC" && !coverArtUrl && frameSize > 6) {
+          try {
+            let cur = offset + 11;
+            const frameEnd = offset + 10 + frameSize;
+            let mime = "";
+            while (cur < frameEnd && u8[cur] !== 0) {
+              mime += String.fromCharCode(u8[cur]);
+              cur++;
+            }
+            cur++; // skip null terminator
+            mime = (mime || "").trim().toLowerCase();
+            if (!mime || mime === "image/" || mime === "-->") mime = "image/jpeg";
+            if (mime === "jpg" || mime === "jpeg") mime = "image/jpeg";
+            if (mime === "png") mime = "image/png";
+
+            if (cur < frameEnd) {
+              cur++; // skip picture type (1 byte)
+              if (enc === 1 || enc === 2) {
+                while (cur + 1 < frameEnd && !(u8[cur] === 0 && u8[cur + 1] === 0)) cur += 2;
+                cur += 2;
+              } else {
+                while (cur < frameEnd && u8[cur] !== 0) cur++;
+                cur += 1;
+              }
+              if (cur < frameEnd) {
+                const imgBytes = u8.subarray(cur, frameEnd);
+                coverArtBlob = new Blob([imgBytes], { type: mime });
+                coverArtUrl = URL.createObjectURL(coverArtBlob);
+              }
+            }
+          } catch (_) {}
+        } else {
+          const raw = u8.subarray(offset + 11, offset + 10 + frameSize);
+          tags[frameId] = this.decodeString(raw, enc);
+        }
+
         offset += 10 + frameSize;
       }
     }
 
     const title = tags["TIT2"] || tags["TT2"] || tags["TIT1"] || tags["TIT3"] || "";
     const artist = tags["TPE1"] || tags["TP1"] || tags["TPE2"] || "";
-    return { title, artist };
+    return { title, artist, coverArtBlob, coverArtUrl };
   },
 
   parseID3v1(u8) {
@@ -2824,13 +2884,94 @@ const AudioMetadataParser = {
     return { title, artist };
   },
 
+  parseFLAC(u8) {
+    if (!u8 || u8.length < 42) return null;
+    if (u8[0] !== 0x66 || u8[1] !== 0x4c || u8[2] !== 0x61 || u8[3] !== 0x43) return null; // 'fLaC'
+    let offset = 4;
+    let isLast = false;
+    let title = "";
+    let artist = "";
+    let coverArtBlob = null;
+    let coverArtUrl = null;
+
+    while (offset + 4 <= u8.length && !isLast) {
+      const header = u8[offset];
+      isLast = (header & 0x80) !== 0;
+      const blockType = header & 0x7f;
+      const blockLen = (u8[offset + 1] << 16) | (u8[offset + 2] << 8) | u8[offset + 3];
+      const blockDataStart = offset + 4;
+      const blockEnd = blockDataStart + blockLen;
+      if (blockEnd > u8.length) break;
+
+      // Type 4: VORBIS_COMMENT
+      if (blockType === 4 && blockLen > 8) {
+        try {
+          let pos = blockDataStart;
+          const vendorLen = (u8[pos] | (u8[pos + 1] << 8) | (u8[pos + 2] << 16) | (u8[pos + 3] << 24)) >>> 0;
+          pos += 4 + vendorLen;
+          if (pos + 4 <= blockEnd) {
+            const commentCount = (u8[pos] | (u8[pos + 1] << 8) | (u8[pos + 2] << 16) | (u8[pos + 3] << 24)) >>> 0;
+            pos += 4;
+            for (let c = 0; c < commentCount && pos + 4 <= blockEnd; c++) {
+              const cLen = (u8[pos] | (u8[pos + 1] << 8) | (u8[pos + 2] << 16) | (u8[pos + 3] << 24)) >>> 0;
+              pos += 4;
+              if (pos + cLen <= blockEnd) {
+                const commentStr = this.decodeString(u8.subarray(pos, pos + cLen), 3);
+                pos += cLen;
+                const eqIdx = commentStr.indexOf("=");
+                if (eqIdx > 0) {
+                  const key = commentStr.substring(0, eqIdx).toUpperCase();
+                  const val = commentStr.substring(eqIdx + 1);
+                  if (key === "TITLE") title = val;
+                  if (key === "ARTIST") artist = val;
+                }
+              }
+            }
+          }
+        } catch (_) {}
+      }
+
+      // Type 6: PICTURE
+      if (blockType === 6 && blockLen > 32 && !coverArtUrl) {
+        try {
+          let pos = blockDataStart + 4; // skip picture type
+          const mimeLen = (u8[pos] << 24) | (u8[pos + 1] << 16) | (u8[pos + 2] << 8) | u8[pos + 3];
+          pos += 4;
+          let mime = this.decodeString(u8.subarray(pos, pos + mimeLen), 0) || "image/jpeg";
+          pos += mimeLen;
+          const descLen = (u8[pos] << 24) | (u8[pos + 1] << 16) | (u8[pos + 2] << 8) | u8[pos + 3];
+          pos += 4 + descLen;
+          pos += 16; // width (4), height (4), depth (4), colors (4)
+          if (pos + 4 <= blockEnd) {
+            const dataLen = (u8[pos] << 24) | (u8[pos + 1] << 16) | (u8[pos + 2] << 8) | u8[pos + 3];
+            pos += 4;
+            if (pos + dataLen <= blockEnd) {
+              const imgBytes = u8.subarray(pos, pos + dataLen);
+              coverArtBlob = new Blob([imgBytes], { type: mime });
+              coverArtUrl = URL.createObjectURL(coverArtBlob);
+            }
+          }
+        } catch (_) {}
+      }
+
+      offset = blockEnd;
+    }
+
+    return { title, artist, coverArtBlob, coverArtUrl };
+  },
+
   parseM4A(u8) {
     if (!u8 || u8.length < 32) return null;
+    let title = "";
+    let artist = "";
+    let coverArtBlob = null;
+    let coverArtUrl = null;
+
     const searchAtom = (fourCC) => {
       for (let i = 0; i < u8.length - 24; i++) {
         if (u8[i] === fourCC[0] && u8[i + 1] === fourCC[1] && u8[i + 2] === fourCC[2] && u8[i + 3] === fourCC[3]) {
           let atomLen = (u8[i - 4] << 24) | (u8[i - 3] << 16) | (u8[i - 2] << 8) | u8[i - 1];
-          if (atomLen <= 8 || atomLen > 10000) atomLen = 512;
+          if (atomLen <= 8 || atomLen > 10000000) atomLen = 512;
           for (let j = i + 4; j < i + atomLen && j < u8.length - 16; j++) {
             if (u8[j] === 0x64 && u8[j + 1] === 0x61 && u8[j + 2] === 0x74 && u8[j + 3] === 0x61) { // 'data'
               const dataLen = (u8[j - 4] << 24) | (u8[j - 3] << 16) | (u8[j - 2] << 8) | u8[j - 1];
@@ -2846,9 +2987,47 @@ const AudioMetadataParser = {
       }
       return "";
     };
-    const title = searchAtom([0xa9, 0x6e, 0x61, 0x6d]); // ©nam
-    const artist = searchAtom([0xa9, 0x41, 0x52, 0x54]); // ©ART
-    return { title, artist };
+
+    const searchCover = () => {
+      for (let i = 0; i < u8.length - 24; i++) {
+        // 'covr' = [0x63, 0x6f, 0x76, 0x72]
+        if (u8[i] === 0x63 && u8[i + 1] === 0x6f && u8[i + 2] === 0x76 && u8[i + 3] === 0x72) {
+          let atomLen = (u8[i - 4] << 24) | (u8[i - 3] << 16) | (u8[i - 2] << 8) | u8[i - 1];
+          if (atomLen <= 8 || atomLen > 12000000) atomLen = 4000000;
+          const searchEnd = Math.min(u8.length - 16, i + atomLen);
+          for (let j = i + 4; j < searchEnd; j++) {
+            // 'data' = [0x64, 0x61, 0x74, 0x61]
+            if (u8[j] === 0x64 && u8[j + 1] === 0x61 && u8[j + 2] === 0x74 && u8[j + 3] === 0x61) {
+              const dataLen = (u8[j - 4] << 24) | (u8[j - 3] << 16) | (u8[j - 2] << 8) | u8[j - 1];
+              const dataType = (u8[j + 4] << 24) | (u8[j + 5] << 16) | (u8[j + 6] << 8) | u8[j + 7];
+              const mime = (dataType === 14) ? "image/png" : "image/jpeg";
+              const imgStart = j + 12;
+              const imgLen = Math.max(0, dataLen - 16);
+              if (imgStart + imgLen <= u8.length && imgLen > 0) {
+                const imgBytes = u8.subarray(imgStart, imgStart + imgLen);
+                try {
+                  const blob = new Blob([imgBytes], { type: mime });
+                  return {
+                    coverArtBlob: blob,
+                    coverArtUrl: URL.createObjectURL(blob)
+                  };
+                } catch (_) {}
+              }
+            }
+          }
+        }
+      }
+      return null;
+    };
+
+    title = searchAtom([0xa9, 0x6e, 0x61, 0x6d]); // ©nam
+    artist = searchAtom([0xa9, 0x41, 0x52, 0x54]); // ©ART
+    const cov = searchCover();
+    if (cov) {
+      coverArtBlob = cov.coverArtBlob;
+      coverArtUrl = cov.coverArtUrl;
+    }
+    return { title, artist, coverArtBlob, coverArtUrl };
   },
 
   cleanFilename(fileName) {
@@ -2861,42 +3040,78 @@ const AudioMetadataParser = {
     return name;
   },
 
-  async parseAudioFile(fileOrBlob, fileName = "") {
+  async parseAudioMetadata(fileOrBlob, fileName = "") {
     const fallbackName = fileName || (fileOrBlob && fileOrBlob.name) || "";
     let title = "";
     let artist = "";
+    let coverArtUrl = null;
+    let coverArtBlob = null;
 
     try {
       if (fileOrBlob && typeof fileOrBlob.slice === "function") {
-        const headBlob = fileOrBlob.slice(0, 262144);
+        // Read header first (first 10 bytes) to get accurate ID3v2 tag size
+        const first10Blob = fileOrBlob.slice(0, 10);
+        const first10Buf = await first10Blob.arrayBuffer();
+        const first10 = new Uint8Array(first10Buf);
+
+        let sliceSize = 262144; // default 256KB
+        if (first10[0] === 0x49 && first10[1] === 0x44 && first10[2] === 0x33) {
+          const tagSize = ((first10[6] & 0x7f) << 21) | ((first10[7] & 0x7f) << 14) | ((first10[8] & 0x7f) << 7) | (first10[9] & 0x7f);
+          sliceSize = Math.min(fileOrBlob.size, Math.min(10 + tagSize, 12 * 1024 * 1024)); // cap at 12MB
+        } else if (fileOrBlob.size > 262144) {
+          sliceSize = Math.min(fileOrBlob.size, 4 * 1024 * 1024); // 4MB for M4A/FLAC to catch cover art
+        }
+
+        const headBlob = fileOrBlob.slice(0, sliceSize);
         const headBuffer = await headBlob.arrayBuffer();
         const headU8 = new Uint8Array(headBuffer);
 
         // 1. Try ID3v2
         const v2 = this.parseID3v2(headU8);
-        if (v2 && (v2.title || v2.artist)) {
-          title = v2.title || "";
-          artist = v2.artist || "";
-        }
-
-        // 2. Try M4A / AAC if not found
-        if (!title && !artist) {
-          const m4a = this.parseM4A(headU8);
-          if (m4a && (m4a.title || m4a.artist)) {
-            title = m4a.title || "";
-            artist = m4a.artist || "";
+        if (v2) {
+          if (v2.title) title = v2.title;
+          if (v2.artist) artist = v2.artist;
+          if (v2.coverArtUrl) {
+            coverArtUrl = v2.coverArtUrl;
+            coverArtBlob = v2.coverArtBlob;
           }
         }
 
-        // 3. Try ID3v1 at end of file if still not found
+        // 2. Try FLAC if not found
+        if (!title && !artist && !coverArtUrl) {
+          const flac = this.parseFLAC(headU8);
+          if (flac) {
+            if (flac.title) title = flac.title;
+            if (flac.artist) artist = flac.artist;
+            if (flac.coverArtUrl) {
+              coverArtUrl = flac.coverArtUrl;
+              coverArtBlob = flac.coverArtBlob;
+            }
+          }
+        }
+
+        // 3. Try M4A / AAC if not found
+        if (!title && !artist && !coverArtUrl) {
+          const m4a = this.parseM4A(headU8);
+          if (m4a) {
+            if (m4a.title) title = m4a.title;
+            if (m4a.artist) artist = m4a.artist;
+            if (m4a.coverArtUrl) {
+              coverArtUrl = m4a.coverArtUrl;
+              coverArtBlob = m4a.coverArtBlob;
+            }
+          }
+        }
+
+        // 4. Try ID3v1 at tail if title is still missing
         if (!title && fileOrBlob.size > 128) {
           const tailBlob = fileOrBlob.slice(-128);
           const tailBuffer = await tailBlob.arrayBuffer();
           const tailU8 = new Uint8Array(tailBuffer);
           const v1 = this.parseID3v1(tailU8);
           if (v1 && (v1.title || v1.artist)) {
-            title = v1.title || "";
-            artist = v1.artist || "";
+            if (!title) title = v1.title || "";
+            if (!artist) artist = v1.artist || "";
           }
         }
       }
@@ -2907,33 +3122,43 @@ const AudioMetadataParser = {
     title = this.cleanNoise(title);
     artist = this.cleanNoise(artist);
 
-    // If metadata tags gave us a title
+    let cleanTitle = "";
     if (title) {
       if (artist && !title.toLowerCase().includes(artist.toLowerCase())) {
-        return `${artist} - ${title}`;
+        cleanTitle = `${artist} - ${title}`;
+      } else {
+        cleanTitle = title;
       }
-      return title;
+    } else {
+      let cleaned = this.cleanFilename(fallbackName);
+      if (!cleaned || /^\d+$/.test(cleaned)) {
+        if (typeof window !== "undefined" && typeof window.prompt === "function") {
+          try {
+            const userEntered = window.prompt(`Detected audio track "${fallbackName}". What is the song title?`, "");
+            if (userEntered && userEntered.trim()) {
+              cleaned = userEntered.trim();
+            }
+          } catch (_) {}
+        }
+        if (/^\d+$/.test(cleaned)) {
+          cleaned = `Custom Track ${cleaned}`;
+        }
+      }
+      cleanTitle = cleaned || "Custom Audio Track";
     }
 
-    // Fallback: clean filename
-    let cleaned = this.cleanFilename(fallbackName);
+    return {
+      title,
+      artist,
+      cleanTitle,
+      coverArtUrl,
+      coverArtBlob
+    };
+  },
 
-    // If cleaned filename is still purely numeric (e.g. "01" or "1")
-    if (!cleaned || /^\d+$/.test(cleaned)) {
-      if (typeof window !== "undefined" && typeof window.prompt === "function") {
-        try {
-          const userEntered = window.prompt(`Detected audio track "${fallbackName}". What is the song title?`, "");
-          if (userEntered && userEntered.trim()) {
-            return userEntered.trim();
-          }
-        } catch (_) {}
-      }
-      if (/^\d+$/.test(cleaned)) {
-        return `Custom Track ${cleaned}`;
-      }
-    }
-
-    return cleaned || "Custom Audio Track";
+  async parseAudioFile(fileOrBlob, fileName = "") {
+    const meta = await this.parseAudioMetadata(fileOrBlob, fileName);
+    return meta.cleanTitle || "Custom Audio Track";
   }
 };
 
@@ -3008,17 +3233,21 @@ class BackgroundMusicManager {
       if (storedTrack && storedTrack.blob) {
         this.customBlobUrl = URL.createObjectURL(storedTrack.blob);
         let trackName = storedTrack.name;
-        // Re-parse if stored name is missing or is just a track number from legacy upload
-        if (!trackName || /^\d+$/.test(trackName.trim()) || /^custom\s*track\s*\d*$/i.test(trackName.trim())) {
-          try {
-            const parsed = await AudioMetadataParser.parseAudioFile(storedTrack.blob, storedTrack.name || "custom.mp3");
-            if (parsed) trackName = parsed;
-          } catch (_) {}
-        }
+        let coverArtUrl = null;
+        try {
+          const meta = await AudioMetadataParser.parseAudioMetadata(storedTrack.blob, storedTrack.name || "custom.mp3");
+          if (meta.cleanTitle && (!trackName || /^\d+$/.test(trackName.trim()) || /^custom\s*track\s*\d*$/i.test(trackName.trim()))) {
+            trackName = meta.cleanTitle;
+          }
+          if (meta.coverArtUrl) {
+            coverArtUrl = meta.coverArtUrl;
+          }
+        } catch (_) {}
         this.currentTrack = {
           name: trackName || "Custom Uploaded Track",
           source: "custom",
-          url: this.customBlobUrl
+          url: this.customBlobUrl,
+          coverArt: coverArtUrl
         };
         this.audio.src = this.customBlobUrl;
       }
@@ -3269,12 +3498,13 @@ class BackgroundMusicManager {
     }
 
     let cleanTitle = customTitle;
-    if (!cleanTitle) {
-      try {
-        cleanTitle = await AudioMetadataParser.parseAudioFile(file, file.name);
-      } catch (_) {
-        cleanTitle = AudioMetadataParser.cleanFilename(file.name);
-      }
+    let coverArtUrl = null;
+    try {
+      const meta = await AudioMetadataParser.parseAudioMetadata(file, file.name);
+      if (!cleanTitle) cleanTitle = meta.cleanTitle;
+      coverArtUrl = meta.coverArtUrl;
+    } catch (_) {
+      if (!cleanTitle) cleanTitle = AudioMetadataParser.cleanFilename(file.name);
     }
     if (!cleanTitle) cleanTitle = "Custom Uploaded Song";
 
@@ -3294,13 +3524,17 @@ class BackgroundMusicManager {
       URL.revokeObjectURL(this.customBlobUrl);
       this.customBlobUrl = null;
     }
+    if (this.currentTrack?.coverArt && this.currentTrack.coverArt.startsWith("blob:")) {
+      try { URL.revokeObjectURL(this.currentTrack.coverArt); } catch (_) {}
+    }
 
     this.customBlobUrl = URL.createObjectURL(file);
     this.currentTrack = {
       name: cleanTitle,
       rawName: file.name,
       source: "custom_upload",
-      url: this.customBlobUrl
+      url: this.customBlobUrl,
+      coverArt: coverArtUrl
     };
 
     if (!this.audio) {
@@ -3325,7 +3559,7 @@ class BackgroundMusicManager {
 
     this.updateUI();
 
-    // Trigger Dynamic Island immediately with custom song name
+    // Trigger Dynamic Island immediately with custom song name and embedded cover art
     if (window.app?.dynamicIsland) {
       if (typeof window.app.dynamicIsland.trigger === "function") {
         window.app.dynamicIsland.trigger({
@@ -3334,8 +3568,9 @@ class BackgroundMusicManager {
           subtitle: "Custom Audio • Now Playing",
           badge: "CUSTOM",
           actionText: "CONTROLS",
-          showEqualizer: true,
+          showEqualizer: !coverArtUrl,
           isPlaying: true,
+          coverArt: coverArtUrl,
           duration: 4000,
           action: () => {
             if (typeof window.app.dynamicIsland.openMacDeck === "function") {
@@ -3412,10 +3647,15 @@ class BackgroundMusicManager {
       return;
     }
 
+    if (this.currentTrack?.coverArt && this.currentTrack.coverArt.startsWith("blob:")) {
+      try { URL.revokeObjectURL(this.currentTrack.coverArt); } catch (_) {}
+    }
+
     this.currentTrack = {
       name: preset.name,
       source: "preset",
-      url: preset.url
+      url: preset.url,
+      coverArt: null
     };
 
     if (this.audio) {
@@ -3440,10 +3680,15 @@ class BackgroundMusicManager {
     let cleanUrl = url.trim();
     let trackTitle = cleanUrl.split("/").pop().split("?")[0] || "Custom Cloud Audio Stream";
 
+    if (this.currentTrack?.coverArt && this.currentTrack.coverArt.startsWith("blob:")) {
+      try { URL.revokeObjectURL(this.currentTrack.coverArt); } catch (_) {}
+    }
+
     this.currentTrack = {
       name: trackTitle,
       source: "direct_url",
-      url: cleanUrl
+      url: cleanUrl,
+      coverArt: null
     };
 
     if (this.audio) {
@@ -3470,11 +3715,15 @@ class BackgroundMusicManager {
       URL.revokeObjectURL(this.customBlobUrl);
       this.customBlobUrl = null;
     }
+    if (this.currentTrack?.coverArt && this.currentTrack.coverArt.startsWith("blob:")) {
+      try { URL.revokeObjectURL(this.currentTrack.coverArt); } catch (_) {}
+    }
 
     this.currentTrack = {
       name: "Am I Wrong",
       source: "default",
-      url: "background-music.mp3"
+      url: "background-music.mp3",
+      coverArt: null
     };
 
     if (this.audio) {
@@ -9936,8 +10185,11 @@ class ScienceIoApp {
       }
 
       let cleanName = "";
+      let coverArtUrl = null;
       try {
-        cleanName = await AudioMetadataParser.parseAudioFile(file, file.name);
+        const meta = await AudioMetadataParser.parseAudioMetadata(file, file.name);
+        cleanName = meta.cleanTitle;
+        coverArtUrl = meta.coverArtUrl;
       } catch (_) {
         cleanName = AudioMetadataParser.cleanFilename(file.name);
       }
@@ -9951,15 +10203,25 @@ class ScienceIoApp {
       }
 
       appendTerminalLine(`🎵 Now Playing: "${cleanName}"`, "command-result");
+      if (coverArtUrl) {
+        appendTerminalLine(`✓ Extracted embedded album cover art for Dynamic Island!`, "terminal-muted");
+      }
       appendTerminalLine(`✓ Study anthem stopped. Background music set to "${cleanName}".`, "terminal-muted");
       appendTerminalLine(`✓ Mac Dynamic Island updated with real-time scrubber and controls!`, "terminal-muted");
+
+      const coverThumb = coverArtUrl
+        ? `<img src="${coverArtUrl}" alt="Album Art" style="width:38px;height:38px;border-radius:6px;object-fit:cover;border:1px solid rgba(0,245,212,0.6);box-shadow:0 0 10px rgba(0,245,212,0.3);flex-shrink:0;">`
+        : "";
 
       const card = document.createElement("div");
       card.className = "terminal-audio-card";
       card.innerHTML = `
-        <div class="terminal-audio-header">
-          <span>🎵 CUSTOM CYBER AUDIO</span>
-          <span class="terminal-audio-time" id="terminal-audio-timer">0:00 / 0:00</span>
+        <div class="terminal-audio-header" style="display:flex;align-items:center;gap:10px;">
+          ${coverThumb}
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:700;color:#00f5d4;">🎵 CUSTOM CYBER AUDIO</div>
+            <div class="terminal-audio-time" id="terminal-audio-timer" style="font-size:11px;color:#94a3b8;">0:00 / 0:00</div>
+          </div>
         </div>
         <div class="terminal-audio-track">Track: <strong>${cleanName}</strong> (${(file.size / 1024 / 1024).toFixed(2)} MB)</div>
         <div class="terminal-audio-controls">
@@ -11044,6 +11306,7 @@ class ScienceIoApp {
       const current = window.bgMusic?.currentTrack || bgMusic?.currentTrack;
       const bgAudio = document.getElementById("bg-music-player");
       let rawTitle = current?.name;
+      const coverArt = current?.coverArt || null;
 
       if (!rawTitle && bgAudio && bgAudio.src) {
         try {
@@ -11075,7 +11338,8 @@ class ScienceIoApp {
           title: cleanTitle,
           subtitle,
           isPlaying,
-          rawTitle
+          rawTitle,
+          coverArt
         };
       }
 
@@ -11105,7 +11369,8 @@ class ScienceIoApp {
         title: cleanTitle || "Am I Wrong",
         subtitle,
         isPlaying,
-        rawTitle
+        rawTitle,
+        coverArt
       };
     };
 
@@ -11129,6 +11394,23 @@ class ScienceIoApp {
       }
       if (macDeckArt) {
         macDeckArt.classList.toggle("playing", isPlaying);
+      }
+      const macCoverImg = document.getElementById("mac-deck-cover-img");
+      const macArtIcon = document.getElementById("mac-art-icon");
+      if (track.coverArt) {
+        if (macCoverImg) {
+          macCoverImg.src = track.coverArt;
+          macCoverImg.classList.remove("hidden");
+        }
+        if (macDeckArt) macDeckArt.classList.add("has-cover");
+        if (macArtIcon) macArtIcon.classList.add("hidden");
+      } else {
+        if (macCoverImg) {
+          macCoverImg.classList.add("hidden");
+          macCoverImg.src = "";
+        }
+        if (macDeckArt) macDeckArt.classList.remove("has-cover");
+        if (macArtIcon) macArtIcon.classList.remove("hidden");
       }
       if (macLiveEq) {
         macLiveEq.classList.toggle("playing", isPlaying);
@@ -11224,6 +11506,9 @@ class ScienceIoApp {
       islandPod.classList.toggle("silent-on", !!isMuted);
       islandPod.classList.toggle("silent-off", !isMuted);
 
+      const islandMiniCover = document.getElementById("island-cover-art-mini");
+      if (islandMiniCover) islandMiniCover.classList.add("hidden");
+
       if (islandIcon) {
         islandIcon.textContent = isMuted ? "🔕" : "🔔";
         islandIcon.classList.remove("hidden");
@@ -11268,6 +11553,7 @@ class ScienceIoApp {
       action = null,
       showEqualizer = false,
       isPlaying = false,
+      coverArt = null,
       duration = 3200,
       sound = true
     } = {}) => {
@@ -11289,14 +11575,26 @@ class ScienceIoApp {
       islandPod.classList.remove("island-idle", "island-compact", "island-mac-open");
       islandPod.classList.add("island-expanded");
 
-      if (islandIcon) {
-        islandIcon.textContent = icon;
-        islandIcon.classList.toggle("hidden", !!showEqualizer);
-      }
+      const currentCover = coverArt || (window.bgMusic?.currentTrack?.coverArt);
+      const islandMiniCover = document.getElementById("island-cover-art-mini");
 
-      if (islandEqualizer) {
-        islandEqualizer.classList.toggle("hidden", !showEqualizer);
-        islandEqualizer.classList.toggle("playing", isPlaying);
+      if (currentCover) {
+        if (islandMiniCover) {
+          islandMiniCover.src = currentCover;
+          islandMiniCover.classList.remove("hidden");
+        }
+        if (islandIcon) islandIcon.classList.add("hidden");
+        if (islandEqualizer) islandEqualizer.classList.add("hidden");
+      } else {
+        if (islandMiniCover) islandMiniCover.classList.add("hidden");
+        if (islandIcon) {
+          islandIcon.textContent = icon;
+          islandIcon.classList.toggle("hidden", !!showEqualizer);
+        }
+        if (islandEqualizer) {
+          islandEqualizer.classList.toggle("hidden", !showEqualizer);
+          islandEqualizer.classList.toggle("playing", isPlaying);
+        }
       }
 
       if (islandTitle) islandTitle.textContent = title;
@@ -11513,8 +11811,11 @@ class ScienceIoApp {
       isExpanded = false;
       isMacOpen = false;
 
+      const islandMiniCover = document.getElementById("island-cover-art-mini");
+
       // Priority 1: If Study Timer is running, stream timer into Dynamic Island!
       if (isStudyTimerRunning) {
+        if (islandMiniCover) islandMiniCover.classList.add("hidden");
         if (navPill) navPill.classList.remove("island-active");
         islandPod.classList.remove("island-expanded", "island-idle", "island-mac-open");
         islandPod.classList.add("island-compact");
@@ -11543,10 +11844,20 @@ class ScienceIoApp {
         if (navPill) navPill.classList.remove("island-active");
         islandPod.classList.remove("island-expanded", "island-idle", "island-mac-open");
         islandPod.classList.add("island-compact");
-        if (islandIcon) islandIcon.classList.add("hidden");
-        if (islandEqualizer) {
-          islandEqualizer.classList.remove("hidden");
-          islandEqualizer.classList.add("playing");
+        if (track.coverArt) {
+          if (islandMiniCover) {
+            islandMiniCover.src = track.coverArt;
+            islandMiniCover.classList.remove("hidden");
+          }
+          if (islandIcon) islandIcon.classList.add("hidden");
+          if (islandEqualizer) islandEqualizer.classList.add("hidden");
+        } else {
+          if (islandMiniCover) islandMiniCover.classList.add("hidden");
+          if (islandIcon) islandIcon.classList.add("hidden");
+          if (islandEqualizer) {
+            islandEqualizer.classList.remove("hidden");
+            islandEqualizer.classList.add("playing");
+          }
         }
         if (islandTitle) islandTitle.textContent = track.title;
         if (islandBadge) islandBadge.textContent = "PLAYING";
@@ -11555,6 +11866,7 @@ class ScienceIoApp {
           openMacDeck();
         };
       } else {
+        if (islandMiniCover) islandMiniCover.classList.add("hidden");
         if (audioPrivacyDot) audioPrivacyDot.classList.add("hidden");
         if (navPill) navPill.classList.remove("island-active");
         islandPod.classList.remove("island-expanded", "island-compact", "island-mac-open");
@@ -11838,8 +12150,9 @@ class ScienceIoApp {
           subtitle: track.subtitle,
           badge: "MUSIC",
           actionText: "CONTROLS",
-          showEqualizer: true,
+          showEqualizer: !track.coverArt,
           isPlaying: true,
+          coverArt: track.coverArt,
           duration: 3500,
           action: () => {
             openMacDeck();
