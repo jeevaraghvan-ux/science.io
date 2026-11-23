@@ -3122,35 +3122,57 @@ const AudioMetadataParser = {
     title = this.cleanNoise(title);
     artist = this.cleanNoise(artist);
 
-    let cleanTitle = "";
+    let trackTitle = "";
+    let trackArtist = artist || "";
+
     if (title) {
-      if (artist && !title.toLowerCase().includes(artist.toLowerCase())) {
-        cleanTitle = `${artist} - ${title}`;
-      } else {
-        cleanTitle = title;
+      trackTitle = title;
+      // If title includes "Artist - Track" or artist is at the beginning, isolate the track name!
+      if (trackArtist && trackTitle.toLowerCase().startsWith(trackArtist.toLowerCase())) {
+        trackTitle = trackTitle.substring(trackArtist.length).replace(/^[\s\-_:]+/, "").trim();
+      } else if (trackTitle.includes(" - ")) {
+        const parts = trackTitle.split(/\s+-\s+/);
+        if (parts.length >= 2) {
+          if (!trackArtist) trackArtist = parts[0].trim();
+          trackTitle = parts.slice(1).join(" - ").trim();
+        }
       }
     } else {
       let cleaned = this.cleanFilename(fallbackName);
-      if (!cleaned || /^\d+$/.test(cleaned)) {
-        if (typeof window !== "undefined" && typeof window.prompt === "function") {
-          try {
-            const userEntered = window.prompt(`Detected audio track "${fallbackName}". What is the song title?`, "");
-            if (userEntered && userEntered.trim()) {
-              cleaned = userEntered.trim();
-            }
-          } catch (_) {}
+      if (cleaned.includes(" - ")) {
+        const parts = cleaned.split(/\s+-\s+/);
+        if (parts.length >= 2) {
+          if (!trackArtist) trackArtist = parts[0].trim();
+          trackTitle = parts.slice(1).join(" - ").trim();
+        } else {
+          trackTitle = cleaned;
         }
-        if (/^\d+$/.test(cleaned)) {
-          cleaned = `Custom Track ${cleaned}`;
-        }
+      } else {
+        trackTitle = cleaned;
       }
-      cleanTitle = cleaned || "Custom Audio Track";
+    }
+
+    trackTitle = this.cleanNoise(trackTitle);
+    trackArtist = this.cleanNoise(trackArtist);
+
+    if (!trackTitle || /^\d+$/.test(trackTitle)) {
+      if (typeof window !== "undefined" && typeof window.prompt === "function") {
+        try {
+          const userEntered = window.prompt(`Detected audio track "${fallbackName}". What is the song title?`, "");
+          if (userEntered && userEntered.trim()) {
+            trackTitle = userEntered.trim();
+          }
+        } catch (_) {}
+      }
+      if (!trackTitle || /^\d+$/.test(trackTitle)) {
+        trackTitle = `Custom Track ${trackTitle || "1"}`;
+      }
     }
 
     return {
-      title,
-      artist,
-      cleanTitle,
+      title: trackTitle,
+      artist: trackArtist,
+      cleanTitle: trackTitle,
       coverArtUrl,
       coverArtBlob
     };
@@ -3234,10 +3256,14 @@ class BackgroundMusicManager {
         this.customBlobUrl = URL.createObjectURL(storedTrack.blob);
         let trackName = storedTrack.name;
         let coverArtUrl = null;
+        let trackArtist = storedTrack.artist || "";
         try {
           const meta = await AudioMetadataParser.parseAudioMetadata(storedTrack.blob, storedTrack.name || "custom.mp3");
-          if (meta.cleanTitle && (!trackName || /^\d+$/.test(trackName.trim()) || /^custom\s*track\s*\d*$/i.test(trackName.trim()))) {
+          if (meta.cleanTitle) {
             trackName = meta.cleanTitle;
+          }
+          if (meta.artist) {
+            trackArtist = meta.artist;
           }
           if (meta.coverArtUrl) {
             coverArtUrl = meta.coverArtUrl;
@@ -3245,6 +3271,8 @@ class BackgroundMusicManager {
         } catch (_) {}
         this.currentTrack = {
           name: trackName || "Custom Uploaded Track",
+          title: trackName || "Custom Uploaded Track",
+          artist: trackArtist,
           source: "custom",
           url: this.customBlobUrl,
           coverArt: coverArtUrl
@@ -3499,12 +3527,14 @@ class BackgroundMusicManager {
 
     let cleanTitle = customTitle;
     let coverArtUrl = null;
+    let trackArtist = "";
     try {
       const meta = await AudioMetadataParser.parseAudioMetadata(file, file.name);
-      if (!cleanTitle) cleanTitle = meta.cleanTitle;
+      cleanTitle = meta.cleanTitle;
       coverArtUrl = meta.coverArtUrl;
+      trackArtist = meta.artist || "";
     } catch (_) {
-      if (!cleanTitle) cleanTitle = AudioMetadataParser.cleanFilename(file.name);
+      cleanTitle = AudioMetadataParser.cleanFilename(file.name);
     }
     if (!cleanTitle) cleanTitle = "Custom Uploaded Song";
 
@@ -3512,6 +3542,7 @@ class BackgroundMusicManager {
     try {
       await AudioStorage.saveTrack("active_custom_track", file, {
         name: cleanTitle,
+        artist: trackArtist,
         size: file.size,
         type: file.type
       });
@@ -3531,6 +3562,8 @@ class BackgroundMusicManager {
     this.customBlobUrl = URL.createObjectURL(file);
     this.currentTrack = {
       name: cleanTitle,
+      title: cleanTitle,
+      artist: trackArtist,
       rawName: file.name,
       source: "custom_upload",
       url: this.customBlobUrl,
@@ -9607,7 +9640,7 @@ class ScienceIoApp {
     requestAnimationFrame(render);
   }
 
-  // ================= HERO HEADLINE ROTATOR (3s INTERVAL: REIMAGINED -> DECODED -> SIMPLIFIED -> CLARIFIED -> REFINED -> DECONSTRUCTED) =================
+  // ================= HERO HEADLINE ROTATOR (3s INTERVAL PER PHRASE) =================
   setupHeroHeadlineRotator() {
     const neonWord = document.getElementById("hero-neon-word");
     if (!neonWord) return;
@@ -9618,7 +9651,24 @@ class ScienceIoApp {
       "SIMPLIFIED.",
       "CLARIFIED.",
       "REFINED.",
-      "DECONSTRUCTED."
+      "DECONSTRUCTED.",
+      "INDEXED.",
+      "SYNTHESIZED.",
+      "CONDENSED.",
+      "UNTANGLED.",
+      "DECIPHERED.",
+      "CRYSTALIZED.",
+      "NEXUS.",
+      "ATLAS.",
+      "LAB.",
+      "PRISM.",
+      "MATRIX.",
+      "STREAMLINED.",
+      "ACCELERATED.",
+      "DEMYSTIFIED.",
+      "UNPACKED.",
+      "TERMINAL.",
+      "FLUX."
     ];
     let wordIndex = 0;
 
@@ -11322,8 +11372,9 @@ class ScienceIoApp {
     const getDynamicTrackInfo = () => {
       const current = window.bgMusic?.currentTrack || bgMusic?.currentTrack;
       const bgAudio = document.getElementById("bg-music-player");
-      let rawTitle = current?.name;
+      let rawTitle = current?.title || current?.name;
       const coverArt = current?.coverArt || null;
+      const artist = current?.artist || "";
 
       if (!rawTitle && bgAudio && bgAudio.src) {
         try {
@@ -11345,18 +11396,30 @@ class ScienceIoApp {
 
         // Strip leading track numbers e.g. "01 - ", "01. ", "Track 01 - ", "[01] ", "01_ "
         cleanTitle = cleanTitle.replace(/^(\d{1,3}[\s.\-_]+|track\s*\d+[\s.\-_]+|\[\d+\][\s.\-_]*)/i, "").trim() || cleanTitle;
+
+        // If title still contains "Artist - Track", isolate strictly the Track Name!
+        if (artist && cleanTitle.toLowerCase().startsWith(artist.toLowerCase())) {
+          cleanTitle = cleanTitle.substring(artist.length).replace(/^[\s\-_:]+/, "").trim();
+        } else if (cleanTitle.includes(" - ")) {
+          const parts = cleanTitle.split(/\s+-\s+/);
+          if (parts.length >= 2) {
+            cleanTitle = parts.slice(1).join(" - ").trim();
+          }
+        }
+
         if (/^\d+$/.test(cleanTitle)) {
           cleanTitle = `Custom Track ${cleanTitle}`;
         }
 
         const isPlaying = bgAudio && !bgAudio.paused && !bgAudio.muted;
-        const subtitle = `Custom Audio • ${isPlaying ? "Playing" : "Paused"}`;
+        const subtitle = artist ? `${artist} • ${isPlaying ? "Playing" : "Paused"}` : `Custom Audio • ${isPlaying ? "Playing" : "Paused"}`;
         return {
           title: cleanTitle,
           subtitle,
           isPlaying,
           rawTitle,
-          coverArt
+          coverArt,
+          artist
         };
       }
 
