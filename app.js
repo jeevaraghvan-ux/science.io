@@ -1,3 +1,124 @@
+/* ============================================================
+   HIGH-CRAFT VECTOR SVG SYSTEM (ZERO EMOJI RUNTIME)
+   Standardized 24x24 SVG icons with stroke-width 2, round caps
+   ============================================================ */
+const UI_SVG = {
+  play: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+  pause: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>',
+  stop: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>',
+  prev: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>',
+  next: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>',
+  music: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
+  bolt: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+  timer: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  volume: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>',
+  mute: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>',
+  bell: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+  bellOff: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.66 8.66A6 6 0 0 0 6 8c0 7-3 9-3 9h14M10.3 4.2A6 6 0 0 1 18 8c0 3.3.6 5.3 1.2 6.5"/><line x1="1" y1="1" x2="23" y2="23"/></svg>',
+  battery: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="16" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>',
+  batteryLow: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="16" height="10" rx="2"/><line x1="6" y1="10" x2="6" y2="14"/><line x1="22" y1="11" x2="22" y2="13"/></svg>',
+  headphones: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>',
+  book: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+  calc: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/></svg>',
+  user: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+  check: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
+  sparkle: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg>',
+  atom: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(30 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-30 12 12)"/></svg>',
+  flask: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.31L4.69 18.25A2 2 0 0 0 6.4 21h11.2a2 2 0 0 0 1.71-2.75L14 9.31V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/><line x1="14" y1="9.3" x2="10" y2="9.3"/></svg>',
+  lock: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  unlock: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>',
+  rocket: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>',
+  bulb: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"/></svg>',
+  microscope: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0-14 0"/><circle cx="9" cy="9" r="2"/></svg>',
+  flame: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
+  cloud: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>',
+  save: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>',
+  sync: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>',
+  folder: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
+  file: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+  mail: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
+  printer: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>',
+  search: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+  camera: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>',
+  image: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
+  fullscreen: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>',
+  chart: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
+  trash: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+  shuffle: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>',
+  cards: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="14" height="14" rx="2"/><path d="M6 3h14a2 2 0 0 1 2 2v14"/></svg>',
+  home: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+  cosmos: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>',
+  planet: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="7"/><ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(-20 12 12)"/></svg>',
+  wave: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c2.5-4 5.5-4 8 0s5.5 4 8 0 4-2.5 4-2.5"/></svg>',
+  terminal: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>',
+  help: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  bot: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><line x1="12" y1="7" x2="12" y2="11"/><circle cx="9" cy="16" r="1"/><circle cx="15" cy="16" r="1"/></svg>',
+  link: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+  sprout: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>'
+};
+
+function getIconSVG(name) {
+  if (!name) return "";
+  if (typeof name !== "string") return "";
+  if (name.startsWith("<svg")) return name;
+  const map = {
+    "\u26A1": UI_SVG.bolt, "bolt": UI_SVG.bolt, "zap": UI_SVG.bolt,
+    "\u{1F3B5}": UI_SVG.music, "\u{1F3B6}": UI_SVG.music, "music": UI_SVG.music,
+    "\u25B6": UI_SVG.play, "\u25B6\uFE0F": UI_SVG.play, "play": UI_SVG.play,
+    "\u23F8": UI_SVG.pause, "\u23F8\uFE0F": UI_SVG.pause, "pause": UI_SVG.pause,
+    "\u23F9": UI_SVG.stop, "stop": UI_SVG.stop,
+    "\u23EE": UI_SVG.prev, "\u23EE\uFE0F": UI_SVG.prev, "prev": UI_SVG.prev,
+    "\u23ED": UI_SVG.next, "\u23ED\uFE0F": UI_SVG.next, "next": UI_SVG.next,
+    "\u23F1": UI_SVG.timer, "\u23F1\uFE0F": UI_SVG.timer, "timer": UI_SVG.timer, "clock": UI_SVG.timer,
+    "\u{1F50B}": UI_SVG.battery, "battery": UI_SVG.battery,
+    "\u{1FAAB}": UI_SVG.batteryLow, "batteryLow": UI_SVG.batteryLow,
+    "\u{1F3A7}": UI_SVG.headphones, "headphones": UI_SVG.headphones,
+    "\u{1F50A}": UI_SVG.volume, "volume": UI_SVG.volume,
+    "\u{1F507}": UI_SVG.mute, "mute": UI_SVG.mute,
+    "\u{1F515}": UI_SVG.bellOff, "bellOff": UI_SVG.bellOff,
+    "\u{1F514}": UI_SVG.bell, "bell": UI_SVG.bell,
+    "book": UI_SVG.book, "notes": UI_SVG.book, "\u{1F4D3}": UI_SVG.book, "\u{1F4DA}": UI_SVG.book,
+    "\u{1F9EE}": UI_SVG.calc, "calc": UI_SVG.calc, "calculator": UI_SVG.calc,
+    "\u{1F464}": UI_SVG.user, "user": UI_SVG.user, "me": UI_SVG.user,
+    "\u269B": UI_SVG.atom, "\u269B\uFE0F": UI_SVG.atom, "atom": UI_SVG.atom, "science": UI_SVG.atom,
+    "\u{1F9EA}": UI_SVG.flask, "flask": UI_SVG.flask, "chem": UI_SVG.flask,
+    "\u{1F680}": UI_SVG.rocket, "rocket": UI_SVG.rocket, "launch": UI_SVG.rocket,
+    "\u{1F4A1}": UI_SVG.bulb, "bulb": UI_SVG.bulb, "idea": UI_SVG.bulb, "trick": UI_SVG.bulb,
+    "\u{1F52C}": UI_SVG.microscope, "microscope": UI_SVG.microscope,
+    "lock": UI_SVG.lock, "\u{1F512}": UI_SVG.lock, "\u{1F510}": UI_SVG.lock,
+    "\u{1F513}": UI_SVG.unlock, "unlock": UI_SVG.unlock,
+    "\u{1F525}": UI_SVG.flame, "flame": UI_SVG.flame, "fire": UI_SVG.flame,
+    "\u2601": UI_SVG.cloud, "\u2601\uFE0F": UI_SVG.cloud, "cloud": UI_SVG.cloud,
+    "\u{1F4BE}": UI_SVG.save, "save": UI_SVG.save,
+    "\u{1F504}": UI_SVG.sync, "sync": UI_SVG.sync, "refresh": UI_SVG.sync,
+    "\u{1F4C1}": UI_SVG.folder, "\u{1F4C2}": UI_SVG.folder, "folder": UI_SVG.folder,
+    "file": UI_SVG.file, "\u{1F4C4}": UI_SVG.file, "\u{1F4CB}": UI_SVG.file,
+    "mail": UI_SVG.mail, "\u2709": UI_SVG.mail, "\u2709\uFE0F": UI_SVG.mail, "\u{1F4EC}": UI_SVG.mail, "inbox": UI_SVG.mail,
+    "\u{1F5A8}": UI_SVG.printer, "\u{1F5A8}\uFE0F": UI_SVG.printer, "print": UI_SVG.printer,
+    "\u{1F50D}": UI_SVG.search, "search": UI_SVG.search,
+    "\u{1F4F7}": UI_SVG.camera, "camera": UI_SVG.camera,
+    "\u{1F5BC}": UI_SVG.image, "\u{1F5BC}\uFE0F": UI_SVG.image, "image": UI_SVG.image,
+    "\u26F6": UI_SVG.fullscreen, "fullscreen": UI_SVG.fullscreen,
+    "\u{1F4CA}": UI_SVG.chart, "chart": UI_SVG.chart, "telemetry": UI_SVG.chart,
+    "\u{1F5D1}": UI_SVG.trash, "\u{1F5D1}\uFE0F": UI_SVG.trash, "trash": UI_SVG.trash, "clear": UI_SVG.trash,
+    "\u{1F500}": UI_SVG.shuffle, "shuffle": UI_SVG.shuffle,
+    "\u{1F0CF}": UI_SVG.cards, "cards": UI_SVG.cards, "flashcards": UI_SVG.cards,
+    "\u{1F3E0}": UI_SVG.home, "home": UI_SVG.home,
+    "\u{1F30C}": UI_SVG.cosmos, "cosmos": UI_SVG.cosmos, "space": UI_SVG.cosmos,
+    "\u{1F311}": UI_SVG.planet, "planet": UI_SVG.planet, "earth": UI_SVG.planet,
+    "\u{1F30A}": UI_SVG.wave, "wave": UI_SVG.wave,
+    "\u{1F4BB}": UI_SVG.terminal, "terminal": UI_SVG.terminal, "dev": UI_SVG.terminal,
+    "\u2753": UI_SVG.help, "help": UI_SVG.help,
+    "\u{1F916}": UI_SVG.bot, "ai": UI_SVG.bot,
+    "\u{1F517}": UI_SVG.link, "link": UI_SVG.link,
+    "\u{1F331}": UI_SVG.sprout, "\u{1F33F}": UI_SVG.sprout, "\u{1F343}": UI_SVG.sprout, "sprout": UI_SVG.sprout, "plant": UI_SVG.sprout,
+    "\u{1F31F}": UI_SVG.sparkle, "\u2728": UI_SVG.sparkle, "\u2726": UI_SVG.sparkle, "sparkle": UI_SVG.sparkle, "star": UI_SVG.sparkle,
+    "\u2705": UI_SVG.check, "\u2713": UI_SVG.check, "check": UI_SVG.check,
+    "\u{1F3A8}": UI_SVG.sparkle
+  };
+  return map[name] || name;
+}
+
 /**
  * science.io — 5th Grade Science Notes Application
  * Made with love from Jeeva R.
@@ -3596,7 +3717,7 @@ class BackgroundMusicManager {
     if (window.app?.dynamicIsland) {
       if (typeof window.app.dynamicIsland.trigger === "function") {
         window.app.dynamicIsland.trigger({
-          icon: "🎵",
+          icon: "music",
           title: cleanTitle,
           subtitle: "Custom Audio • Now Playing",
           badge: "CUSTOM",
@@ -3638,7 +3759,7 @@ class BackgroundMusicManager {
     const saveBtn = document.getElementById("btn-save-uploaded-music");
     if (saveBtn) {
       saveBtn.disabled = true;
-      saveBtn.innerHTML = `<span>⏳ Storing & Syncing Audio...</span>`;
+      saveBtn.innerHTML = `<span>Storing & Syncing Audio...</span>`;
     }
 
     try {
@@ -3650,14 +3771,14 @@ class BackgroundMusicManager {
       }
       await this.playCustomUploadedFile(file, cleanTitle);
       sounds.playSuccess();
-      alert(`🎉 Background music successfully set to "${cleanTitle}"! It is now playing in the background for all study sessions.`);
+      alert(`Background music successfully set to "${cleanTitle}"! It is now playing in the background for all study sessions.`);
       this.updateUI();
     } catch (err) {
-      alert(`⚠️ Failed to set background audio: ${err.message}`);
+      alert(`Failed to set background audio: ${err.message}`);
     } finally {
       if (saveBtn) {
         saveBtn.disabled = false;
-        saveBtn.innerHTML = `<span>🚀 Apply & Set as Website Background Music</span>`;
+        saveBtn.innerHTML = `<span>Apply & Set as Website Background Music</span>`;
       }
     }
   }
@@ -3738,7 +3859,7 @@ class BackgroundMusicManager {
     });
 
     sounds.playSuccess();
-    alert(`🎉 Cloud audio URL applied! Now playing "${trackTitle}" for all visitors.`);
+    alert(`Cloud audio URL applied! Now playing "${trackTitle}" for all visitors.`);
     this.updateUI();
   }
 
@@ -3960,7 +4081,7 @@ class BackgroundMusicManager {
 
     const playPauseIcon = document.getElementById("admin-playpause-icon");
     const playPauseText = document.getElementById("admin-playpause-text");
-    if (playPauseIcon) playPauseIcon.textContent = isPlaying ? "⏸️" : "▶️";
+    if (playPauseIcon) playPauseIcon.innerHTML = isPlaying ? UI_SVG.pause : UI_SVG.play;
     if (playPauseText) playPauseText.textContent = isPlaying ? "Pause Music" : "Play Music";
 
     // Update Floating Toast
@@ -3968,7 +4089,7 @@ class BackgroundMusicManager {
     const toastTitle = document.getElementById("toast-music-title");
     const toastIcon = document.getElementById("toast-icon");
     if (toastTitle) toastTitle.textContent = this.currentTrack.name;
-    if (toastIcon) toastIcon.textContent = isPlaying ? "⏸️" : "▶️";
+    if (toastIcon) toastIcon.innerHTML = isPlaying ? UI_SVG.pause : UI_SVG.play;
     if (toast) toast.classList.toggle("paused", !isPlaying);
 
     // Update active preset card
@@ -4230,7 +4351,7 @@ class VaultController {
     // Dynamic Island Alert for Passcode unlock
     if (this.app?.dynamicIsland?.trigger) {
       this.app.dynamicIsland.trigger({
-        icon: "🔓",
+        icon: "unlock",
         title: "Passcode Authenticated",
         subtitle: "Admin Security Vault Unlocked • Clearance Level 5",
         badge: "VERIFIED",
@@ -4428,7 +4549,7 @@ class VaultController {
     if (items.length === 0) {
       listContainer.innerHTML = `
         <div class="feedback-empty-state">
-          <div style="font-size: 1.8rem; margin-bottom: 8px;">📬</div>
+          <div style="font-size: 1.8rem; margin-bottom: 8px;">${UI_SVG.mail}</div>
           <strong>No student feedback or ideas received yet.</strong><br>
           <span style="font-size: 0.85rem; opacity: 0.7;">When students submit suggestions via "Help Us Improve", they will appear here instantly!</span>
         </div>
@@ -4447,13 +4568,13 @@ class VaultController {
           <div class="admin-fb-header">
             <div class="admin-fb-author-row">
               <span class="admin-fb-author">${name}</span>
-              ${email && email.includes("@") ? `<a href="mailto:${email}?subject=Regarding%20your%20skience.io%20feedback" class="admin-fb-email-badge">✉️ ${email}</a>` : `<span style="font-size: 0.78rem; opacity: 0.6;">(No email provided)</span>`}
+              ${email && email.includes("@") ? `<a href="mailto:${email}?subject=Regarding%20your%20skience.io%20feedback" class="admin-fb-email-badge">${UI_SVG.mail} ${email}</a>` : `<span style="font-size: 0.78rem; opacity: 0.6;">(No email provided)</span>`}
             </div>
             <span class="admin-fb-date">${dateStr}</span>
           </div>
           <div class="admin-fb-message">${(msg || "").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
           <div class="admin-fb-actions-row">
-            ${email && email.includes("@") ? `<a href="mailto:${email}?subject=Thank%20you%20for%20your%20skience.io%20feedback!" class="admin-fb-reply-btn">Reply via Email ✉️</a>` : ""}
+            ${email && email.includes("@") ? `<a href="mailto:${email}?subject=Thank%20you%20for%20your%20skience.io%20feedback!" class="admin-fb-reply-btn">Reply via Email ${UI_SVG.mail}</a>` : ""}
           </div>
         </div>
       `;
@@ -4511,7 +4632,7 @@ class VaultController {
         this.renderSquares();
         const saveBtn = document.getElementById("btn-save-vault-note");
         if (saveBtn) {
-          saveBtn.innerHTML = "<span>🚀 Publish to Website & Cloud</span>";
+          saveBtn.innerHTML = "<span>Publish to Website & Cloud</span>";
           saveBtn.style.background = "";
         }
       }
@@ -4603,7 +4724,7 @@ class VaultController {
       card.innerHTML = `
         <div class="sq-card-top-bar">
           <div class="sq-pill-badge">
-            <span class="sq-drag-handle">☰</span>
+            <span class="sq-drag-handle">:::</span>
             <span>CONCEPT SQUARE #${idx + 1}</span>
           </div>
           <button type="button" class="sq-remove-btn" data-index="${idx}" title="Remove this square">&times;</button>
@@ -4655,7 +4776,7 @@ class VaultController {
         <div class="sq-image-group">
           <div class="field-label-row">
             <label>Concept Picture / Diagram <span class="sq-img-hint">(Import picture from your computer/device)</span></label>
-            ${sq.image ? `<span class="sq-image-attached-badge">✓ Picture Attached</span>` : ""}
+            ${sq.image ? `<span class="sq-image-attached-badge">Picture Attached</span>` : ""}
           </div>
           <div class="sq-image-uploader-box ${sq.image ? "has-image" : "empty"}">
             <input type="file" class="sq-image-file-input" accept="image/*" style="display: none;" />
@@ -4665,21 +4786,21 @@ class VaultController {
                   <img src="${sq.image}" alt="Concept picture preview" />
                 </div>
                 <div class="sq-image-preview-info">
-                  <span class="sq-image-filename">📷 Device Picture Loaded</span>
+                  <span class="sq-image-filename">Device Picture Loaded</span>
                   <div class="sq-image-btn-row">
-                    <button type="button" class="btn-change-sq-img">🔄 Change Picture</button>
-                    <button type="button" class="btn-remove-sq-img">🗑️ Remove</button>
+                    <button type="button" class="btn-change-sq-img">Change Picture</button>
+                    <button type="button" class="btn-remove-sq-img">Remove</button>
                   </div>
                 </div>
               </div>
             ` : `
               <div class="sq-image-dropzone">
-                <div class="sq-drop-icon">🖼️</div>
+                <div class="sq-drop-icon">${UI_SVG.image}</div>
                 <div class="sq-drop-text">
                   <strong>Click to import a picture</strong> or drag & drop image here
                 </div>
                 <div class="sq-drop-subtext">Supports PNG, JPG, JPEG, WebP, GIF from your computer/device</div>
-                <button type="button" class="btn-choose-sq-img">📂 Import Picture From Device</button>
+                <button type="button" class="btn-choose-sq-img">Import Picture From Device</button>
               </div>
             `}
           </div>
@@ -4776,7 +4897,7 @@ class VaultController {
 
             this.architectSquares[idx].image = dataUrl;
             if (window.sounds) window.sounds.playSuccess();
-            if (typeof showToast === "function") showToast("✅ Concept picture imported from device!");
+            if (typeof showToast === "function") showToast("Concept picture imported from device!");
             this.renderSquares();
           };
           img.src = rawData;
@@ -5001,15 +5122,15 @@ class VaultController {
     const saveBtn = document.getElementById("btn-save-vault-note");
     if (saveBtn) {
       saveBtn.disabled = true;
-      saveBtn.innerHTML = "<span>⏳ Publishing to Website & Cloud...</span>";
+      saveBtn.innerHTML = "<span>Publishing to Website & Cloud...</span>";
     }
 
     // Automatically publish to Cloud Database across all devices
-    await this.app.publishAllNotes(true, `🎉 Unit "${newNote.title}" published live to website & cloud database!`);
+    await this.app.publishAllNotes(true, `Unit "${newNote.title}" published live to website & cloud database!`);
 
     if (saveBtn) {
       saveBtn.disabled = false;
-      saveBtn.innerHTML = "<span>🚀 Publish to Website & Cloud</span>";
+      saveBtn.innerHTML = "<span>Publish to Website & Cloud</span>";
       saveBtn.style.background = "";
     }
 
@@ -5139,7 +5260,7 @@ class VaultController {
     // Toggle Sound
     document.getElementById("cmd-btn-toggle-sound")?.addEventListener("click", () => {
       sounds.enabled = !sounds.enabled;
-      alert(`Sound effects are now ${sounds.enabled ? "ENABLED 🔊" : "MUTED 🔇"}`);
+      alert(`Sound effects are now ${sounds.enabled ? "ENABLED" : "MUTED"}`);
       const soundOn = document.getElementById("sound-icon-on");
       const soundOff = document.getElementById("sound-icon-off");
       if (soundOn && soundOff) {
@@ -5256,7 +5377,7 @@ class VaultController {
           this.updateManagerTable();
           this.updateTelemetry();
           sounds.playClick();
-          await this.app.publishAllNotes(true, `🗑️ Unit "${topic.title}" deleted and changes synced live to all devices!`);
+          await this.app.publishAllNotes(true, `Unit "${topic.title}" deleted and changes synced live to all devices!`);
         }
       });
 
@@ -5333,7 +5454,7 @@ class VaultController {
 
     const saveBtn = document.getElementById("btn-save-vault-note");
     if (saveBtn) {
-      saveBtn.innerHTML = "<span>🚀 Update & Publish to Website & Cloud</span>";
+      saveBtn.innerHTML = "<span>Update & Publish to Website & Cloud</span>";
       saveBtn.style.background = "linear-gradient(135deg, #10b981, #06b6d4)";
     }
 
@@ -5664,7 +5785,7 @@ class LiquidGlassCalculator {
       this.ans = outcome.result;
       this.updateDisplay(outcome.result.toLocaleString());
       if (this.unitTag) this.unitTag.textContent = outcome.unit;
-      if (this.historyText) this.historyText.textContent = `${f.code}  ➔  ${outcome.step}`;
+      if (this.historyText) this.historyText.textContent = `${f.code}  ->  ${outcome.step}`;
       if (this.insightText) this.insightText.textContent = outcome.insight;
 
       if (triggerFeedback) {
@@ -6299,7 +6420,7 @@ class ReadingEnhancementSuite {
     }
     const mins = Math.max(1, Math.ceil(totalWords / 175));
     const timeEl = document.getElementById("reading-time-pill");
-    if (timeEl) timeEl.textContent = `⏱️ ${mins} min read`;
+    if (timeEl) timeEl.textContent = `${mins} min read`;
 
     // 2. Render Sticky Jump Bar (TOC)
     this.renderTOC(topic);
@@ -6351,7 +6472,7 @@ class ReadingEnhancementSuite {
     const btn = document.getElementById("btn-toggle-flashcards");
     if (btn) {
       btn.classList.toggle("active", this.isFlashcard);
-      btn.innerHTML = this.isFlashcard ? `<span>📄</span> Full Notes` : `<span>🃏</span> Flashcards`;
+      btn.innerHTML = this.isFlashcard ? `${UI_SVG.file} Full Notes` : `${UI_SVG.cards} Flashcards`;
     }
     if (window.sounds) window.sounds.playClick();
     if (this.app && this.currentTopic) {
@@ -6366,7 +6487,7 @@ class ReadingEnhancementSuite {
     if (modal) modal.classList.toggle("zen-mode-active", this.isZen);
     if (btn) {
       btn.classList.toggle("active", this.isZen);
-      btn.innerHTML = this.isZen ? `<span>✕</span> Exit Fullscreen` : `<span>⛶</span> Fullscreen`;
+      btn.innerHTML = this.isZen ? "Exit Fullscreen" : `${UI_SVG.fullscreen} Fullscreen`;
     }
     if (window.sounds) window.sounds.playClick();
   }
@@ -6378,7 +6499,7 @@ class ReadingEnhancementSuite {
     if (modal) modal.classList.remove("zen-mode-active");
     if (btn) {
       btn.classList.remove("active");
-      btn.innerHTML = `<span>⛶</span> Fullscreen`;
+      btn.innerHTML = `${UI_SVG.fullscreen} Fullscreen`;
     }
   }
 
@@ -6420,7 +6541,7 @@ class ReadingEnhancementSuite {
     const playIcon = document.getElementById("tts-icon");
     const playLabel = document.getElementById("tts-label");
     if (playBtn) playBtn.classList.add("playing");
-    if (playIcon) playIcon.textContent = "⏹";
+    if (playIcon) playIcon.innerHTML = UI_SVG.stop;
     if (playLabel) playLabel.textContent = "Stop";
 
     // Build speech queue
@@ -6523,7 +6644,7 @@ class ReadingEnhancementSuite {
     const playIcon = document.getElementById("tts-icon");
     const playLabel = document.getElementById("tts-label");
     if (playBtn) playBtn.classList.remove("playing");
-    if (playIcon) playIcon.textContent = "▶";
+    if (playIcon) playIcon.innerHTML = UI_SVG.play;
     if (playLabel) playLabel.textContent = "Listen";
     document.querySelectorAll(".speaking-card-active").forEach(el => el.classList.remove("speaking-card-active"));
   }
@@ -6567,10 +6688,10 @@ class ReadingEnhancementSuite {
           <!-- FRONT OF FLASHCARD -->
           <div class="flashcard-front">
             <span class="prop-number-tag">CONCEPT SQUARE #${prop.num}</span>
-            <div style="font-size: 2.5rem; margin: 16px 0;">🔬</div>
+            <div style="display:flex;justify-content:center;margin:16px 0;">${UI_SVG.microscope}</div>
             <h3 style="font-size: 1.35rem; color: #fff; font-weight: 800; font-family: var(--font-display);">${prop.name}</h3>
             <span class="prop-formula-box" style="margin: 10px 0;">${prop.formula}</span>
-            <span style="font-size: 0.76rem; color: rgba(255, 255, 255, 0.6); margin-top: auto;">🔄 Tap card to flip definition</span>
+            <span style="font-size: 0.76rem; color: rgba(255, 255, 255, 0.6); margin-top: auto;">Tap card to flip definition</span>
           </div>
 
           <!-- BACK OF FLASHCARD -->
@@ -6578,7 +6699,7 @@ class ReadingEnhancementSuite {
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                 <span class="prop-number-tag">#${prop.num} DEFINITION</span>
-                <button class="prop-tts-btn" data-sq="${prop.num}" title="Hear definition">🔊</button>
+                <button class="prop-tts-btn" data-sq="${prop.num}" title="Hear definition">${UI_SVG.volume}</button>
               </div>
               <h4 style="font-size: 1.1rem; color: #38bdf8; margin-bottom: 8px;">${prop.name}</h4>
               ${prop.image ? `<div style="text-align: center; margin: 6px 0;"><img src="${prop.image}" alt="${prop.name}" style="max-height: 80px; max-width: 100%; border-radius: 6px; object-fit: contain; border: 1px solid rgba(255,255,255,0.25);" /></div>` : ""}
@@ -6586,8 +6707,8 @@ class ReadingEnhancementSuite {
               ${prop.example ? `<div style="font-size: 0.82rem; background: rgba(6, 182, 212, 0.15); padding: 8px 12px; border-radius: 8px; border-left: 2px solid #06b6d4; margin-bottom: 8px;"><strong>Observation:</strong> ${prop.example}</div>` : ""}
             </div>
             <div class="flashcard-review-bar">
-              <button class="fc-btn review">🔄 Review Later</button>
-              <button class="fc-btn mastered">✅ Mastered</button>
+              <button class="fc-btn review">Review Later</button>
+              <button class="fc-btn mastered">Mastered</button>
             </div>
           </div>
         </div>
@@ -7003,7 +7124,7 @@ class ScienceIoApp {
     publishBtns.forEach(btn => {
       btn.disabled = true;
       btn.dataset.prevHtml = btn.innerHTML;
-      btn.innerHTML = `<span>⏳ Publishing ${this.notes.length} Unit(s)...</span>`;
+      btn.innerHTML = `<span>Publishing ${this.notes.length} Unit(s)...</span>`;
     });
 
     let publishedSuccessfully = false;
@@ -7110,7 +7231,7 @@ class ScienceIoApp {
 
     publishBtns.forEach(btn => {
       btn.disabled = false;
-      btn.innerHTML = btn.dataset.prevHtml || `<span>🚀 Publish All Notes to Cloud</span>`;
+      btn.innerHTML = btn.dataset.prevHtml || `<span>Publish All Notes to Cloud</span>`;
     });
 
     const cloudDot = document.getElementById("cloud-status-dot");
@@ -7122,12 +7243,12 @@ class ScienceIoApp {
       sounds.playSuccess();
       this.confetti?.burst(window.innerWidth / 2, window.innerHeight / 2, 85);
 
-      const msg = customMessage || `🎉 SUCCESS! All ${this.notes.length} note unit(s) were published live!\n\n✓ Live across all devices (Desktop, Mobile, Tablet).\n✓ 100% Free Forever • Zero API Token Usage.`;
+      const msg = customMessage || `SUCCESS! All ${this.notes.length} note unit(s) were published live!\n\n• Live across all devices (Desktop, Mobile, Tablet).\n• 100% Free Forever • Zero API Token Usage.`;
       alert(msg);
     } else {
       if (cloudDot) cloudDot.className = "cloud-dot error";
       if (cloudText) cloudText.textContent = "Sync Offline";
-      alert(`⚠️ Could not sync to live Cloud Database (${publishError || "Network Offline"}).\nChanges saved locally on this device.`);
+      alert(`Could not sync to live Cloud Database (${publishError || "Network Offline"}).\nChanges saved locally on this device.`);
     }
 
     this.updatePublishModalInfo();
@@ -7180,8 +7301,8 @@ class ScienceIoApp {
       if (btn) btn.textContent = "Pulling from cloud...";
       await this.fetchCloudNotes();
       sounds.playSuccess();
-      if (btn) btn.textContent = "🔄 Pull Latest Notes from Cloud";
-      alert("✅ Notes refreshed from Cloud Database!");
+      if (btn) btn.textContent = "Pull Latest Notes from Cloud";
+      alert("Notes refreshed from Cloud Database!");
     });
 
     // Close publish modal
@@ -7260,7 +7381,7 @@ class ScienceIoApp {
       }
 
       if (!parsedConfig || typeof parsedConfig !== "object" || (!parsedConfig.apiKey && !parsedConfig.projectId)) {
-        alert("⚠️ Could not parse a valid Firebase configuration. Please ensure it contains 'apiKey' and 'projectId'.");
+        alert("Could not parse a valid Firebase configuration. Please ensure it contains 'apiKey' and 'projectId'.");
         return;
       }
 
@@ -7273,10 +7394,10 @@ class ScienceIoApp {
           fbBadge.style.color = "#fcd34d";
         }
         sounds.playSuccess();
-        alert("🔥 Firebase successfully connected! Syncing current notes now...");
-        await this.publishAllNotes(true, "🎉 All notes synced to Firebase Firestore database in real-time!");
+        alert("Firebase successfully connected! Syncing current notes now...");
+        await this.publishAllNotes(true, "All notes synced to Firebase Firestore database in real-time!");
       } else {
-        alert("⚠️ Failed to initialize Firebase. Please check your config parameters.");
+        alert("Failed to initialize Firebase. Please check your config parameters.");
       }
     });
 
@@ -7319,10 +7440,10 @@ class ScienceIoApp {
           supaBadge.style.color = "#6ee7b7";
         }
         sounds.playSuccess();
-        alert("⚡ Supabase successfully connected! Syncing current notes now...");
-        await this.publishAllNotes(true, "🎉 All notes synced to Supabase database in real-time!");
+        alert("Supabase successfully connected! Syncing current notes now...");
+        await this.publishAllNotes(true, "All notes synced to Supabase database in real-time!");
       } else {
-        alert("⚠️ Failed to initialize Supabase. Please check your URL and Key.");
+        alert("Failed to initialize Supabase. Please check your URL and Key.");
       }
     });
 
@@ -7623,13 +7744,13 @@ class ScienceIoApp {
 
     // The sequence of letters with rich creative domains and chromatic gradients:
     const letterData = [
-      { char: "s", theme: "s", icon: "⚛️", title: "QUANTUM STRUCTURE // ATOMS & MATTER", color: "#00f5d4" },
-      { char: "k", theme: "k", icon: "⚡", title: "KINETIC DYNAMICS // ENERGY & FORCES", color: "#ffb703" },
-      { char: "i", theme: "i", icon: "🌌", title: "INTERSTELLAR COSMOS // ASTRONOMY", color: "#c084fc" },
-      { char: "e", theme: "e1", icon: "🌿", title: "BIOSPHERE // ECOSYSTEMS & LIFE", color: "#10b981" },
-      { char: "n", theme: "n", icon: "🍎", title: "NEWTONIAN MOTION // GRAVITY LAWS", color: "#38bdf8" },
-      { char: "c", theme: "c", icon: "🧪", title: "MOLECULAR BONDS // CHEMICAL REACTIONS", color: "#f43f5e" },
-      { char: "e", theme: "e2", icon: "🌍", title: "PLANETARY SCIENCE // EARTH SYSTEMS", color: "#eab308" }
+      { char: "s", theme: "s", icon: "atom", title: "QUANTUM STRUCTURE // ATOMS & MATTER", color: "#00f5d4" },
+      { char: "k", theme: "k", icon: "bolt", title: "KINETIC DYNAMICS // ENERGY & FORCES", color: "#ffb703" },
+      { char: "i", theme: "i", icon: "cosmos", title: "INTERSTELLAR COSMOS // ASTRONOMY", color: "#c084fc" },
+      { char: "e", theme: "e1", icon: "sprout", title: "BIOSPHERE // ECOSYSTEMS & LIFE", color: "#10b981" },
+      { char: "n", theme: "n", icon: "atom", title: "NEWTONIAN MOTION // GRAVITY LAWS", color: "#38bdf8" },
+      { char: "c", theme: "c", icon: "flask", title: "MOLECULAR BONDS // CHEMICAL REACTIONS", color: "#f43f5e" },
+      { char: "e", theme: "e2", icon: "planet", title: "PLANETARY SCIENCE // EARTH SYSTEMS", color: "#eab308" }
     ];
 
     const letterDurationMs = 380; // Crisp, zero-lag kinetic zoom timing
@@ -7784,7 +7905,7 @@ class ScienceIoApp {
         // Welcoming Empty Notebook (No notes added yet)
         track.innerHTML = `
           <div class="empty-notebook-card">
-            <div class="empty-notebook-icon">🔬</div>
+            <div class="empty-notebook-icon">${UI_SVG.microscope}</div>
             <h3 class="empty-notebook-title">Your Skience Notebook is Ready!</h3>
             <p class="empty-notebook-desc">
               No notes have been published yet. Skience units and concept squares will appear here once published from the Vault.
@@ -7859,15 +7980,15 @@ class ScienceIoApp {
           </button>
           <div class="card-dual-actions-row">
             <button class="card-action-btn btn-card-pdf" data-id="${topic.id}">
-              📄 SKIENCE SHEET
+              SKIENCE SHEET
             </button>
             <button class="card-action-btn btn-card-quiz" data-id="${topic.id}">
-              ⚡ PRACTICE QUIZ
+              PRACTICE QUIZ
             </button>
           </div>
           ${topic.redirectUrl ? `
           <button class="card-action-btn btn-card-redirect" style="background: rgba(10, 132, 255, 0.4);" onclick="window.open('${topic.redirectUrl}', '_blank')">
-            🔗 EXTERNAL LINK
+            EXTERNAL LINK
           </button>` : ""}
         </div>
       `;
@@ -8426,7 +8547,7 @@ class ScienceIoApp {
             <h4 class="prop-card-title">${nameHtml}</h4>
           </div>
           <div style="display: flex; align-items: center; gap: 8px;">
-            <button class="prop-tts-btn" data-sq="${prop.num}" title="Listen to Concept #${prop.num}">🔊</button>
+            <button class="prop-tts-btn" data-sq="${prop.num}" title="Listen to Concept #${prop.num}">${UI_SVG.volume}</button>
             <div class="prop-formula-box">${formulaHtml}</div>
           </div>
         </div>
@@ -8435,7 +8556,7 @@ class ScienceIoApp {
         <div class="prop-image-wrap" data-img="${prop.image.replace(/"/g, '&quot;')}" data-caption="${(prop.name || '').replace(/"/g, '&quot;')}">
           <img src="${prop.image}" alt="${(prop.name || 'Concept Square').replace(/"/g, '&quot;')}" class="prop-concept-image" loading="lazy" />
           <div class="prop-image-overlay">
-            <span class="prop-zoom-badge">🔍 Click to Enlarge Picture</span>
+            <span class="prop-zoom-badge">Click to Enlarge Picture</span>
           </div>
         </div>
         ` : ""}
@@ -8448,8 +8569,8 @@ class ScienceIoApp {
         </div>
 
         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
-          ${trickHtml ? `<span class="prop-trick-badge">💡 ${trickHtml}</span>` : ""}
-          <span class="prop-trick-badge" style="background: rgba(0, 240, 255, 0.15); border-color: rgba(0, 240, 255, 0.3); color: #a5f3fc;">🔬 Verified 5th Grade Skience</span>
+          ${trickHtml ? `<span class="prop-trick-badge">${UI_SVG.bulb} ${trickHtml}</span>` : ""}
+          <span class="prop-trick-badge" style="background: rgba(0, 240, 255, 0.15); border-color: rgba(0, 240, 255, 0.3); color: #a5f3fc;">${UI_SVG.microscope} Verified 5th Grade Skience</span>
         </div>
       `;
 
@@ -8826,7 +8947,7 @@ class ScienceIoApp {
           if (fb) {
             fb.classList.remove("hidden");
             fb.style.color = "#86efac";
-            fb.textContent = `🎉 Correct! ${qData.why}`;
+            fb.textContent = `Correct! ${qData.why}`;
           }
         } else {
           btn.classList.add("incorrect");
@@ -8856,7 +8977,7 @@ class ScienceIoApp {
       <div class="print-meta-banner" style="margin-bottom: 24px; border-bottom: 2.5px solid #0284c7; padding-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-end;">
         <div>
           <h1 style="font-size: 1.8rem; margin: 0; color: #0f172a; font-weight: 800;">skience.io — 5th Grade Ultimate Science Review</h1>
-          <div style="font-size: 0.95rem; color: #64748b; margin-top: 4px;">Comprehensive Science Principle & Concept Guide • Total Topics: ${this.notes.length} • Made with ❤️ by Jeeva R.</div>
+          <div style="font-size: 0.95rem; color: #64748b; margin-top: 4px;">Comprehensive Science Principle & Concept Guide • Total Topics: ${this.notes.length} • Made with love by Jeeva R.</div>
         </div>
         <div style="text-align: right; font-size: 0.85rem; color: #64748b; line-height: 1.4;">
           <strong>skienceio-best.vercel.app</strong><br>
@@ -8878,7 +8999,7 @@ class ScienceIoApp {
           <div style="font-size: 0.95rem; color: #334155; margin-bottom: 8px; line-height: 1.5;">${formatBulletText(topic.description)}</div>
           
           <div style="background: #f8fafc; border-left: 4px solid #0284c7; padding: 8px 12px; margin-bottom: 14px; font-weight: 700; color: #0f172a; font-size: 0.95rem;">
-            🔬 Core Principle / Formula: <span style="font-weight: 600; color: #0369a1;">${formatBulletText(topic.coreFormula)}</span>
+            Core Principle / Formula: <span style="font-weight: 600; color: #0369a1;">${formatBulletText(topic.coreFormula)}</span>
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">
@@ -8899,7 +9020,7 @@ class ScienceIoApp {
                 ${formatBulletText(p.explanation)}
               </div>
               ${p.example ? `<div style="font-size: 0.8rem; color: #64748b; font-style: italic;">Observation: ${formatBulletText(p.example)}</div>` : ''}
-              ${p.trick ? `<div style="font-size: 0.8rem; color: #b45309; font-weight: 600; margin-top: 3px;">💡 Trick: ${formatBulletText(p.trick)}</div>` : ''}
+              ${p.trick ? `<div style="font-size: 0.8rem; color: #b45309; font-weight: 600; margin-top: 3px;">${UI_SVG.bulb} Trick: ${formatBulletText(p.trick)}</div>` : ''}
             </div>
           `;
         });
@@ -8942,7 +9063,7 @@ class ScienceIoApp {
             ${p.image ? `<div style="text-align: center; margin: 8px 0;"><img src="${p.image}" alt="${p.name}" style="max-height: 120px; max-width: 100%; border-radius: 6px; border: 1px solid #cbd5e1; object-fit: contain;" /></div>` : ""}
             <div style="margin: 4px 0;">${formatBulletText(p.explanation)}</div>
             <div style="color: #475569; font-size: 0.95rem;">Observation: ${formatBulletText(p.example)}</div>
-            ${p.trick ? `<div style="color: #d97706; font-size: 0.9rem;">💡 ${formatBulletText(p.trick)}</div>` : ""}
+            ${p.trick ? `<div style="color: #d97706; font-size: 0.9rem;">${UI_SVG.bulb} ${formatBulletText(p.trick)}</div>` : ""}
           </div>
         `;
       });
@@ -9277,10 +9398,10 @@ class ScienceIoApp {
 
         if (!userMsg) return;
 
-        const origBtnText = submitBtn ? submitBtn.textContent : "Submit Review & Idea ✉️";
+        const origBtnText = submitBtn ? submitBtn.textContent : "Submit Review & Idea";
         if (submitBtn) {
           submitBtn.disabled = true;
-          submitBtn.textContent = "Delivering to Jeeva... 🚀";
+          submitBtn.textContent = "Delivering to Jeeva...";
         }
 
         const submissionData = {
@@ -9376,7 +9497,7 @@ class ScienceIoApp {
         this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 60);
 
         if (submitBtn) {
-          submitBtn.textContent = "Delivered to Jeeva! ✨";
+          submitBtn.textContent = "Delivered to Jeeva!";
         }
 
         setTimeout(() => {
@@ -9432,7 +9553,7 @@ class ScienceIoApp {
           const textEl = document.getElementById("copy-email-text");
           if (textEl) {
             const original = textEl.textContent;
-            textEl.textContent = "Copied! ✓";
+            textEl.textContent = "Copied!";
             setTimeout(() => {
               textEl.textContent = original;
             }, 2000);
@@ -9495,7 +9616,7 @@ class ScienceIoApp {
       if (val.includes("fossil")) {
         sounds.playSuccess();
         this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 60);
-        if (fb) fb.textContent = "🎉 Brilliant! A fossil preserves prehistoric life inside rock!";
+        if (fb) fb.textContent = "Brilliant! A fossil preserves prehistoric life inside rock!";
       } else {
         sounds.playClick();
         if (fb) fb.textContent = "Not quite! Think of prehistoric remains preserved in stone...";
@@ -9817,11 +9938,11 @@ class ScienceIoApp {
     // Avatar speech bubbles & greeting
     const speechBubble = document.getElementById("avatar-speech-bubble");
     const avatarQuotes = [
-      "Hi, player 2! 👋",
-      "Building the future at skience! 🚀",
-      "Skience.io is live in neon! ⚡",
-      "Curiosity is power! 🔬",
-      "Every line coded by hand! 💻",
+      "Hi, player 2!",
+      "Building the future at skience!",
+      "Skience.io is live in neon!",
+      "Curiosity is power!",
+      "Every line coded by hand!",
       "Making things that matter!"
     ];
     let quoteIndex = 0;
@@ -9935,7 +10056,7 @@ class ScienceIoApp {
 
       if (bootFill) bootFill.style.width = "100%";
       if (bootPct) bootPct.textContent = "100%";
-      if (bootStatus) bootStatus.textContent = ">> SYSTEM READY. WELCOME, PLAYER 2. ✨";
+      if (bootStatus) bootStatus.textContent = ">> SYSTEM READY. WELCOME, PLAYER 2.";
 
       sounds.playCoin();
       sounds.playSuccess();
@@ -10004,7 +10125,7 @@ class ScienceIoApp {
         if (!isBooting) return;
         if (bootFill) bootFill.style.width = "100%";
         if (bootPct) bootPct.textContent = "100%";
-        if (bootStatus) bootStatus.textContent = ">> SYSTEM READY. WELCOME, PLAYER 2. ✨";
+        if (bootStatus) bootStatus.textContent = ">> SYSTEM READY. WELCOME, PLAYER 2.";
         addBootLog("ALL SUBSYSTEMS NOMINAL. LAUNCHING PORTFOLIO.", "[ READY ]");
       }, 1080));
 
@@ -10136,7 +10257,7 @@ class ScienceIoApp {
         const ctx = matrixCanvas.getContext("2d");
         const cols = Math.floor(matrixCanvas.width / 14);
         const ypos = Array(cols).fill(0);
-        const chars = "0123456789ABCDEF⚡🔬⚙️SKIENCE";
+        const chars = "0123456789ABCDEFSKIENCE";
 
         const stepMatrix = () => {
           if (!matrixRunning) return;
@@ -10269,12 +10390,12 @@ class ScienceIoApp {
         await bgMusic.playCustomUploadedFile(file, cleanName);
       }
 
-      appendTerminalLine(`🎵 Now Playing: "${cleanName}"`, "command-result");
+      appendTerminalLine(`Now Playing: "${cleanName}"`, "command-result");
       if (coverArtUrl) {
-        appendTerminalLine(`✓ Extracted embedded album cover art for Dynamic Island!`, "terminal-muted");
+        appendTerminalLine(`Extracted embedded album cover art for Dynamic Island!`, "terminal-muted");
       }
-      appendTerminalLine(`✓ Study anthem stopped. Background music set to "${cleanName}".`, "terminal-muted");
-      appendTerminalLine(`✓ Mac Dynamic Island updated with real-time scrubber and controls!`, "terminal-muted");
+      appendTerminalLine(`Study anthem stopped. Background music set to "${cleanName}".`, "terminal-muted");
+      appendTerminalLine(`Mac Dynamic Island updated with real-time scrubber and controls!`, "terminal-muted");
 
       const coverThumb = coverArtUrl
         ? `<img src="${coverArtUrl}" alt="Album Art" style="width:38px;height:38px;border-radius:6px;object-fit:cover;border:1px solid rgba(0,245,212,0.6);box-shadow:0 0 10px rgba(0,245,212,0.3);flex-shrink:0;">`
@@ -10286,15 +10407,15 @@ class ScienceIoApp {
         <div class="terminal-audio-header" style="display:flex;align-items:center;gap:10px;">
           ${coverThumb}
           <div style="flex:1;min-width:0;">
-            <div style="font-weight:700;color:#00f5d4;">🎵 CUSTOM CYBER AUDIO</div>
+            <div style="font-weight:700;color:#00f5d4;">CUSTOM CYBER AUDIO</div>
             <div class="terminal-audio-time" id="terminal-audio-timer" style="font-size:11px;color:#94a3b8;">0:00 / 0:00</div>
           </div>
         </div>
         <div class="terminal-audio-track">Track: <strong>${cleanName}</strong> (${(file.size / 1024 / 1024).toFixed(2)} MB)</div>
         <div class="terminal-audio-controls">
-          <button type="button" class="terminal-audio-btn" id="terminal-btn-playpause">⏸️ Pause</button>
-          <button type="button" class="terminal-audio-btn" id="terminal-btn-stop" style="background:#ff7a3d; color:#0c0d0b;">⏹️ Stop</button>
-          <button type="button" class="terminal-audio-btn" id="terminal-btn-reupload" style="background:#5e6b57; color:#fff;">📁 Change Track</button>
+          <button type="button" class="terminal-audio-btn" id="terminal-btn-playpause">Pause</button>
+          <button type="button" class="terminal-audio-btn" id="terminal-btn-stop" style="background:#ff7a3d; color:#0c0d0b;">Stop</button>
+          <button type="button" class="terminal-audio-btn" id="terminal-btn-reupload" style="background:#5e6b57; color:#fff;">Change Track</button>
           <div class="terminal-audio-bars">
             <span class="terminal-audio-bar playing"></span>
             <span class="terminal-audio-bar playing"></span>
@@ -10320,7 +10441,7 @@ class ScienceIoApp {
         return `${m}:${s < 10 ? "0" : ""}${s}`;
       };
 
-      showToast("🎵 Playing: " + cleanName);
+      showToast("Playing: " + cleanName);
       sounds.playCoin();
 
       const bgAudio = document.getElementById("bg-music-player");
@@ -10330,7 +10451,7 @@ class ScienceIoApp {
         const dur = formatTime(bgAudio.duration || 0);
         if (timerEl) timerEl.textContent = `${cur} / ${dur}`;
         const isPlaying = !bgAudio.paused;
-        if (playPauseBtn) playPauseBtn.textContent = isPlaying ? "⏸️ Pause" : "▶️ Play";
+        if (playPauseBtn) playPauseBtn.textContent = isPlaying ? "Pause" : "Play";
         bars.forEach(b => b.classList.toggle("playing", isPlaying));
       }, 400);
 
@@ -10350,7 +10471,7 @@ class ScienceIoApp {
           bgAudio.pause();
           bgAudio.currentTime = 0;
         }
-        if (playPauseBtn) playPauseBtn.textContent = "▶️ Play";
+        if (playPauseBtn) playPauseBtn.textContent = "Play";
         bars.forEach(b => b.classList.remove("playing"));
       });
 
@@ -10400,7 +10521,7 @@ class ScienceIoApp {
 
       // 1. Terminal direct gateway decommissioned: Siri AI Chatbot is the exclusive entrance
       if (cleanCmd === "secret vault access" || cleanCmd === "vault" || cleanCmd === "admin vault" || cleanCmd === "6151983" || cleanCmd === "11182015") {
-        appendTerminalLine("⛔ ACCESS GATEWAY RESTRICTED", "command-result");
+        appendTerminalLine("ACCESS GATEWAY RESTRICTED", "command-result");
         appendTerminalLine("Direct terminal entry is decommissioned. The only way to access the Admin Security Vault is through the Siri AI Chatbot.", "terminal-muted");
         sounds.playVaultError();
         return;
@@ -10417,14 +10538,14 @@ class ScienceIoApp {
         cleanCmd === "own music upload" ||
         cleanCmd === "studio"
       ) {
-        appendTerminalLine("🎵 SECRET MUSIC STUDIO & UPLOADER UNLOCKED", "command-result");
+        appendTerminalLine("SECRET MUSIC STUDIO & UPLOADER UNLOCKED", "command-result");
         appendTerminalLine("Secret Code Validated! Upload your own audio file (.mp3, .wav, .m4a, .ogg) to play on skience.io:", "terminal-muted");
         
         const uploadBtn = document.createElement("button");
         uploadBtn.type = "button";
         uploadBtn.className = "terminal-audio-btn";
         uploadBtn.style.marginTop = "8px";
-        uploadBtn.textContent = "📁 Select Music File";
+        uploadBtn.textContent = "Select Music File";
         uploadBtn.addEventListener("click", () => {
           sounds.playClick();
           customAudioFileInput?.click();
@@ -10521,7 +10642,7 @@ class ScienceIoApp {
             "Bananas are naturally slightly radioactive because they contain high levels of the potassium-40 isotope."
           ];
           const fact = scienceFacts[Math.floor(Math.random() * scienceFacts.length)];
-          appendTerminalLine("💡 MIND-BLOWING SKIENCE FACT:", "command-result");
+          appendTerminalLine("MIND-BLOWING SKIENCE FACT:", "command-result");
           appendTerminalLine(`"${fact}"`);
           sounds.playSuccess();
           break;
@@ -10541,21 +10662,21 @@ class ScienceIoApp {
             { quote: "The most dangerous phrase in the language is, 'We've always done it this way.'", author: "Grace Hopper" }
           ];
           const item = pioneerQuotes[Math.floor(Math.random() * pioneerQuotes.length)];
-          appendTerminalLine("📜 PIONEER WISDOM:", "command-result");
+          appendTerminalLine("PIONEER WISDOM:", "command-result");
           appendTerminalLine(`"${item.quote}"\n— ${item.author}`);
           sounds.playSuccess();
           break;
         }
 
         case "wforge":
-          appendTerminalLine("⚡ WFORGE — 3D Web Printing Studio & Creative Document Platform\n• Custom physical merchandise, rapid prototyping, and automated workflows.\n• Platform URL: https://W3D.base44.app");
+          appendTerminalLine("WFORGE — 3D Web Printing Studio & Creative Document Platform\n• Custom physical merchandise, rapid prototyping, and automated workflows.\n• Platform URL: https://W3D.base44.app");
           appendTerminalLink("Visit WForge (W3D.base44.app) ↗", "https://W3D.base44.app");
           sounds.playSuccess();
           break;
 
         case "skills":
           appendTerminalLine(
-            "⚡ SKILLS & TECH LOADOUT:\n" +
+            "SKILLS & TECH LOADOUT:\n" +
             "HTML5 / Liquid Glass  [████████████████] 100%\n" +
             "CSS Cyber & Neon      [████████████████] 100%\n" +
             "JavaScript & Audio    [██████████████░]  95%\n" +
@@ -10849,7 +10970,7 @@ class ScienceIoApp {
         title: "Jump to Home",
         sub: "Scroll to top hero presentation",
         badge: "NAV",
-        icon: "🏠",
+        icon: "home",
         keywords: "home top hero start",
         action: () => {
           document.getElementById("nav-btn-home")?.click();
@@ -10862,7 +10983,7 @@ class ScienceIoApp {
         title: "5th Grade Notes Carousel",
         sub: "Explore all science concept cards in 3D coverflow",
         badge: "NOTES",
-        icon: "📓",
+        icon: "book",
         keywords: "notes cards coverflow carousel grade 5",
         action: () => {
           document.getElementById("nav-btn-notes")?.click();
@@ -10875,7 +10996,7 @@ class ScienceIoApp {
         title: "Catalog Table View",
         sub: "Switch to high-density tabular index of science topics",
         badge: "VIEW",
-        icon: "📋",
+        icon: "file",
         keywords: "table catalog list switch index",
         action: () => {
           document.getElementById("view-table-btn")?.click();
@@ -10888,7 +11009,7 @@ class ScienceIoApp {
         title: "Scientific Calculator & Converter",
         sub: "Open physical constants, units, and orbital formulas",
         badge: "CALC",
-        icon: "🧮",
+        icon: "calc",
         keywords: "calculator formulas math units constants physics",
         action: () => {
           document.getElementById("nav-btn-calc")?.click();
@@ -10901,7 +11022,7 @@ class ScienceIoApp {
         title: "Jeeva Raghavan — All About Me",
         sub: "Developer portfolio, projects, and macOS terminal",
         badge: "DEV",
-        icon: "⚡",
+        icon: "bolt",
         keywords: "jeeva about me developer wforge skience portfolio terminal",
         action: () => {
           if (typeof this.openJeevaProfileModal === "function") {
@@ -10917,7 +11038,7 @@ class ScienceIoApp {
         title: "Print Review Cheat Sheet",
         sub: "Formatted printer-ready comprehensive study sheet",
         badge: "PRINT",
-        icon: "🖨️",
+        icon: "printer",
         keywords: "print cheat sheet pdf study review paper",
         action: () => {
           document.getElementById("btn-cheat-sheet")?.click();
@@ -10931,7 +11052,7 @@ class ScienceIoApp {
         title: "Apple Activity Rings & Concept Widget",
         sub: "Track your 5th-grade study streaks, explored units, and interactive 3D daily concept cards",
         badge: "RINGS",
-        icon: "⚡",
+        icon: "bolt",
         keywords: "rings activity streak apple watch widget daily concept flip cards progress",
         action: () => {
           if (typeof this.openAppleActivityRings === "function") {
@@ -10959,7 +11080,7 @@ class ScienceIoApp {
         title: "Apple Split View: Concept Duel & Comparator",
         sub: "Side-by-side Stage Manager comparison of any two science concepts with freeform drag",
         badge: "SPLIT",
-        icon: "⚡",
+        icon: "bolt",
         keywords: "split view duel compare stage manager concepts notes apple freeform drag movable",
         action: () => {
           if (typeof this.openAppleSplitView === "function") {
@@ -10973,7 +11094,7 @@ class ScienceIoApp {
         title: "Live Study Activity & Pomodoro Timer",
         sub: "Start 25m focus sprint with Mac Dynamic Island live tracking",
         badge: "TIMER",
-        icon: "⏱️",
+        icon: "timer",
         keywords: "timer pomodoro focus sprint countdown break island study",
         action: () => {
           if (this.dynamicIsland?.openMacDeck) {
@@ -10988,7 +11109,7 @@ class ScienceIoApp {
         title: "Toggle UI Sound FX",
         sub: "Turn synthesizer keypad clicks & celebration chimes on/off",
         badge: "AUDIO",
-        icon: "🔊",
+        icon: "volume",
         keywords: "sound fx mute unmute volume audio clicks",
         action: () => {
           document.getElementById("btn-sound-toggle")?.click();
@@ -11000,7 +11121,7 @@ class ScienceIoApp {
         title: "Toggle Background Study Music",
         sub: "Play or pause study music (Am I Wrong)",
         badge: "MUSIC",
-        icon: "🎵",
+        icon: "music",
         keywords: "music song am i wrong study audio track background",
         action: () => {
           document.getElementById("btn-music-toggle")?.click();
@@ -11012,7 +11133,7 @@ class ScienceIoApp {
         title: "Theme: Midnight Cyber",
         sub: "Neon electric blue and indigo liquid glass",
         badge: "THEME",
-        icon: "🌌",
+        icon: "cosmos",
         keywords: "theme cyber midnight blue glass",
         action: () => {
           document.querySelector('[data-theme="theme-cyber-neon"]')?.click();
@@ -11024,7 +11145,7 @@ class ScienceIoApp {
         title: "Theme: Obsidian Void",
         sub: "Stealth monochromatic deep space obsidian black",
         badge: "THEME",
-        icon: "🌑",
+        icon: "planet",
         keywords: "theme obsidian void black dark stealth monochrome",
         action: () => {
           document.querySelector('[data-theme="theme-quantum-void"]')?.click();
@@ -11036,7 +11157,7 @@ class ScienceIoApp {
         title: "Theme: Deep Navy Blue",
         sub: "Luminous sapphire glass and celestial gradients",
         badge: "THEME",
-        icon: "🌊",
+        icon: "wave",
         keywords: "theme navy blue ocean glass",
         action: () => {
           document.querySelector('[data-theme="theme-bio-emerald"]')?.click();
@@ -11050,7 +11171,7 @@ class ScienceIoApp {
         title: "Replay Retro-Cyber Kernel Boot",
         sub: "Run Jeeva's diagnostic CRT hardware boot sequence",
         badge: "BOOT",
-        icon: "💻",
+        icon: "terminal",
         keywords: "boot kernel crt sequence diagnostic hardware retro",
         action: () => {
           if (typeof this.playAllAboutMeBootLoader === "function") {
@@ -11066,7 +11187,7 @@ class ScienceIoApp {
         title: "Launch Quantum Confetti Burst",
         sub: "Trigger luminous particle fireworks across the viewport",
         badge: "BURST",
-        icon: "✨",
+        icon: "sparkle",
         keywords: "confetti burst celebrate fireworks quantum particles",
         action: () => {
           this.confetti?.burst(window.innerWidth / 2, window.innerHeight * 0.35, 100);
@@ -11079,7 +11200,7 @@ class ScienceIoApp {
         title: "Daily Skience Riddle",
         sub: "Solve today's 5th grade science brain-teaser",
         badge: "QUIZ",
-        icon: "❓",
+        icon: "help",
         keywords: "riddle daily quiz trivia question brain teaser",
         action: () => {
           document.getElementById("riddle-modal")?.classList.remove("hidden");
@@ -11092,7 +11213,7 @@ class ScienceIoApp {
         title: "Ask Skience.io Assistant AI",
         sub: "Interactive 5th grade science tutor & explanations",
         badge: "AI",
-        icon: "🤖",
+        icon: "bot",
         keywords: "ai bot chat robot assistant help tutor question",
         action: () => {
           document.getElementById("ai-chat-bubble")?.click();
@@ -11108,7 +11229,7 @@ class ScienceIoApp {
         title: topic.title,
         sub: topic.description || `Grade 5 • ${topic.category || "Science"}`,
         badge: (topic.category || "SCIENCE").toUpperCase(),
-        icon: "🔬",
+        icon: "microscope",
         keywords: `${topic.title} ${topic.category || ""} ${topic.description || ""} ${topic.coreFormula || ""}`,
         action: () => {
           if (typeof this.openNotesViewer === "function") {
@@ -11147,7 +11268,7 @@ class ScienceIoApp {
       if (filteredCommands.length === 0) {
         resultsContainer.innerHTML = `
           <div class="hud-empty-state">
-            <div class="hud-empty-icon">🔍</div>
+            <div class="hud-empty-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
             <p>No commands or science topics found for "${input.value}"</p>
           </div>
         `;
@@ -11179,7 +11300,7 @@ class ScienceIoApp {
 
         item.innerHTML = `
           <div class="hud-result-item-left">
-            <div class="hud-item-icon">${cmd.icon}</div>
+            <div class="hud-item-icon">${getIconSVG(cmd.icon)}</div>
             <div class="hud-item-text">
               <span class="hud-item-title">${cmd.title}</span>
               <span class="hud-item-sub">${cmd.sub}</span>
@@ -11470,7 +11591,7 @@ class ScienceIoApp {
       if (macTrackSub) macTrackSub.textContent = track.subtitle;
 
       if (macPlaypauseGlyph) {
-        macPlaypauseGlyph.textContent = isPlaying ? "⏸" : "▶";
+        macPlaypauseGlyph.innerHTML = isPlaying ? UI_SVG.pause : UI_SVG.play;
       }
       if (macDeckArt) {
         macDeckArt.classList.toggle("playing", isPlaying);
@@ -11497,7 +11618,7 @@ class ScienceIoApp {
       }
       if (macMuteGlyph) {
         const isMuted = bgAudio && (bgAudio.muted || bgAudio.volume === 0 || !sounds.enabled);
-        macMuteGlyph.textContent = isMuted ? "🔇" : "🔊";
+        macMuteGlyph.innerHTML = isMuted ? UI_SVG.mute : UI_SVG.volume;
       }
 
       if (!isDraggingScrubber && bgAudio && macSlider && macCurTime && macTotTime) {
@@ -11590,7 +11711,7 @@ class ScienceIoApp {
       if (islandMiniCover) islandMiniCover.classList.add("hidden");
 
       if (islandIcon) {
-        islandIcon.textContent = isMuted ? "🔕" : "🔔";
+        islandIcon.innerHTML = isMuted ? UI_SVG.bellOff : UI_SVG.bell;
         islandIcon.classList.remove("hidden");
       }
       if (islandEqualizer) {
@@ -11625,7 +11746,7 @@ class ScienceIoApp {
     };
 
     const triggerIsland = ({
-      icon = "⚡",
+      icon = "bolt",
       title = "SKIENCE PRO",
       subtitle = "System Nominal",
       badge = "ACTIVE",
@@ -11668,7 +11789,7 @@ class ScienceIoApp {
       } else {
         if (islandMiniCover) islandMiniCover.classList.add("hidden");
         if (islandIcon) {
-          islandIcon.textContent = icon;
+          islandIcon.innerHTML = getIconSVG(icon);
           islandIcon.classList.toggle("hidden", !!showEqualizer);
         }
         if (islandEqualizer) {
@@ -11737,14 +11858,14 @@ class ScienceIoApp {
 
     const updateStudyTimerUI = () => {
       if (macTimerDigits) macTimerDigits.textContent = formatTimerDigits(studyTimerSeconds);
-      if (macTimerGlyph) macTimerGlyph.textContent = isStudyTimerRunning ? "⏸" : "▶";
+      if (macTimerGlyph) macTimerGlyph.innerHTML = isStudyTimerRunning ? UI_SVG.pause : UI_SVG.play;
 
       // If timer is running and Island is collapsed or compact, live-stream countdown into Dynamic Island!
       if (isStudyTimerRunning && !isMacOpen) {
         if (islandTitle) islandTitle.textContent = formatTimerDigits(studyTimerSeconds);
         if (islandBadge) islandBadge.textContent = "FOCUS";
         if (islandIcon) {
-          islandIcon.textContent = "⏱️";
+          islandIcon.innerHTML = UI_SVG.timer;
           islandIcon.classList.remove("hidden");
         }
         if (islandEqualizer) islandEqualizer.classList.add("hidden");
@@ -11758,7 +11879,7 @@ class ScienceIoApp {
         isStudyTimerRunning = false;
         updateStudyTimerUI();
         triggerIsland({
-          icon: "⏸️",
+          icon: "pause",
           title: `Paused: ${formatTimerDigits(studyTimerSeconds)}`,
           subtitle: "Study Focus Sprint Paused",
           badge: "PAUSED",
@@ -11780,7 +11901,7 @@ class ScienceIoApp {
               else sounds.playCoin();
             } catch (_) {}
             triggerIsland({
-              icon: "🎉",
+              icon: "sparkle",
               title: "TIME'S UP! Focus Complete",
               subtitle: "Great study sprint! Take a 5-minute brain break.",
               badge: "COMPLETE",
@@ -11797,7 +11918,7 @@ class ScienceIoApp {
           if (typeof sounds.playTapticClick === "function") sounds.playTapticClick();
         } catch (_) {}
         triggerIsland({
-          icon: "⏱️",
+          icon: "timer",
           title: `Focus Sprint: ${formatTimerDigits(studyTimerSeconds)}`,
           subtitle: `${studyTimerMode} Active • Stay in the zone!`,
           badge: "FOCUS",
@@ -11900,7 +12021,7 @@ class ScienceIoApp {
         islandPod.classList.remove("island-expanded", "island-idle", "island-mac-open");
         islandPod.classList.add("island-compact");
         if (islandIcon) {
-          islandIcon.textContent = "⏱️";
+          islandIcon.innerHTML = UI_SVG.timer;
           islandIcon.classList.remove("hidden");
         }
         if (islandEqualizer) islandEqualizer.classList.add("hidden");
@@ -12225,7 +12346,7 @@ class ScienceIoApp {
       bgAudio.addEventListener("play", () => {
         const track = getDynamicTrackInfo();
         triggerIsland({
-          icon: "🎵",
+          icon: "music",
           title: track.title,
           subtitle: track.subtitle,
           badge: "MUSIC",
@@ -12244,7 +12365,7 @@ class ScienceIoApp {
       bgAudio.addEventListener("pause", () => {
         const track = getDynamicTrackInfo();
         triggerIsland({
-          icon: "⏸️",
+          icon: "pause",
           title: `${track.title} (Paused)`,
           subtitle: "Playback Stopped • Tap for Mac Deck",
           badge: "PAUSED",
@@ -12279,7 +12400,7 @@ class ScienceIoApp {
       btn.addEventListener("click", () => {
         const themeLabel = btn.querySelector("span:last-child")?.textContent || "Theme Updated";
         triggerIsland({
-          icon: "🎨",
+          icon: "sparkle",
           title: `Theme: ${themeLabel}`,
           subtitle: "Liquid Glass Surface Recalibrated",
           badge: "THEME",
@@ -12292,7 +12413,7 @@ class ScienceIoApp {
     // 4. View Switcher (Carousel / Table)
     document.getElementById("view-carousel-btn")?.addEventListener("click", () => {
       triggerIsland({
-        icon: "🔬",
+        icon: "microscope",
         title: "3D Coverflow Mode",
         subtitle: "Interactive Science Deck Active",
         badge: "DECK",
@@ -12306,7 +12427,7 @@ class ScienceIoApp {
 
     document.getElementById("view-table-btn")?.addEventListener("click", () => {
       triggerIsland({
-        icon: "📋",
+        icon: "file",
         title: "Table Catalog View",
         subtitle: "Grade 5 Scientific Index Active",
         badge: "TABLE",
@@ -12339,15 +12460,15 @@ class ScienceIoApp {
       }
       if (batteryWrap) {
         batteryWrap.classList.remove("hidden");
-        batteryWrap.title = `Mac Battery: ${level}% ${charging ? "(Charging ⚡)" : ""}`;
+        batteryWrap.title = `Mac Battery: ${level}% ${charging ? "(Charging)" : ""}`;
       }
 
       // Update System Telemetry Bar in Mac Deck
       if (sysBattText) {
-        sysBattText.textContent = `${level}% ${charging ? "⚡ Charging" : "Battery"}`;
+        sysBattText.textContent = `${level}% ${charging ? "Charging" : "Battery"}`;
       }
       if (sysBattIcon) {
-        sysBattIcon.textContent = charging ? "⚡" : (level <= 20 ? "🪫" : "🔋");
+        sysBattIcon.innerHTML = charging ? UI_SVG.bolt : (level <= 20 ? UI_SVG.batteryLow : UI_SVG.battery);
       }
     };
 
@@ -12358,7 +12479,7 @@ class ScienceIoApp {
           updateBatteryUI(battery);
           if (battery.level <= 0.20 && !battery.charging) {
             triggerIsland({
-              icon: "🪫",
+              icon: "batteryLow",
               title: "Low Battery",
               subtitle: `${Math.round(battery.level * 100)}% Remaining • Connect to Power`,
               badge: "20%",
@@ -12370,7 +12491,7 @@ class ScienceIoApp {
         battery.addEventListener("chargingchange", () => {
           updateBatteryUI(battery);
           triggerIsland({
-            icon: battery.charging ? "⚡" : "🔋",
+            icon: battery.charging ? "bolt" : "battery",
             title: battery.charging ? "Connected to Power" : "On Battery Power",
             subtitle: `${Math.round(battery.level * 100)}% • Apple Fast Charge`,
             badge: battery.charging ? "CHARGING" : "BATTERY",
@@ -12389,7 +12510,7 @@ class ScienceIoApp {
     batteryWrap?.addEventListener("click", (e) => {
       e.stopPropagation();
       triggerIsland({
-        icon: batteryBolt && !batteryBolt.classList.contains("hidden") ? "⚡" : "🔋",
+        icon: batteryBolt && !batteryBolt.classList.contains("hidden") ? "bolt" : "battery",
         title: "Battery Health: Normal",
         subtitle: `Current Charge: ${batteryPct?.textContent || "98%"} • High Efficiency`,
         badge: "POWER",
@@ -12412,7 +12533,7 @@ class ScienceIoApp {
           }
           if (showNotification) {
             triggerIsland({
-              icon: hasHeadphones ? "🎧" : "🔊",
+              icon: hasHeadphones ? "headphones" : "volume",
               title: hasHeadphones ? "AirPods Connected" : "Audio Output Changed",
               subtitle: label,
               badge: "AUDIO",
@@ -12430,7 +12551,7 @@ class ScienceIoApp {
     // 7. Initial Boot Glance
     setTimeout(() => {
       triggerIsland({
-        icon: "⚡",
+        icon: "bolt",
         title: "SKIENCE PRO v81.0",
         subtitle: "Mac Dynamic Island Ready • Tap to Explore",
         badge: "ONLINE",
@@ -12503,7 +12624,7 @@ class ScienceIoApp {
 
       const allOpt = document.createElement("option");
       allOpt.value = "all";
-      allOpt.textContent = "🌟 All Topics Mixed Shuffle";
+      allOpt.textContent = "All Topics Mixed Shuffle";
       topicSelect.appendChild(allOpt);
 
       topics.forEach((t, i) => {
@@ -12577,7 +12698,7 @@ class ScienceIoApp {
       if (termEl) termEl.textContent = card.name;
       if (backTitleEl) backTitleEl.textContent = card.name;
       if (formulaEl) formulaEl.textContent = card.formula;
-      if (trickEl) trickEl.textContent = card.trick.startsWith("Memory Trick:") ? `💡 ${card.trick}` : `💡 ${card.trick}`;
+      if (trickEl) trickEl.textContent = card.trick.startsWith("Memory Trick:") ? `${card.trick}` : `${card.trick}`;
       if (defEl) defEl.textContent = card.explanation;
       if (exampleEl) {
         exampleEl.innerHTML = `<strong>Real-World Science:</strong> ${card.example}`;
@@ -12655,7 +12776,7 @@ class ScienceIoApp {
       } catch (_) {}
       if (window.app?.dynamicIsland?.trigger) {
         window.app.dynamicIsland.trigger({
-          icon: "🔀",
+          icon: "shuffle",
           title: "Deck Shuffled!",
           subtitle: "Cards randomized for active recall testing",
           badge: "SHUFFLE",
@@ -13259,7 +13380,7 @@ class ScienceIoApp {
         duelPrompt.innerHTML = `<strong>Which concept does this describe?</strong><br/><em style="color:#38bdf8;">${clue}</em>`;
       }
 
-      if (duelStartBtn) duelStartBtn.textContent = "⚡ Next Duel Question";
+      if (duelStartBtn) duelStartBtn.textContent = "Next Duel Question";
       if (duelChoices) duelChoices.classList.remove("hidden");
       if (duelFeedback) duelFeedback.classList.add("hidden");
 
@@ -13277,14 +13398,14 @@ class ScienceIoApp {
         if (isCorrect) {
           duelStreak++;
           duelFeedback.classList.add("correct");
-          duelFeedback.textContent = `✅ Brilliant! That describes ${activeDuel.targetName}!`;
+          duelFeedback.textContent = `Brilliant! That describes ${activeDuel.targetName}!`;
           try {
             if (typeof sounds.playSuccess === "function") sounds.playSuccess();
           } catch (_) {}
         } else {
           duelStreak = 0;
           duelFeedback.classList.add("wrong");
-          duelFeedback.textContent = `❌ Almost! That was ${activeDuel.targetName}.`;
+          duelFeedback.textContent = `Almost! That was ${activeDuel.targetName}.`;
           try {
             if (typeof sounds.playKeypadTap === "function") sounds.playKeypadTap();
           } catch (_) {}
@@ -13292,7 +13413,7 @@ class ScienceIoApp {
       }
 
       if (duelStreakBadge) {
-        duelStreakBadge.textContent = `🔥 Streak: ${duelStreak}`;
+        duelStreakBadge.textContent = `Streak: ${duelStreak}`;
       }
 
       activeDuel = null;
@@ -13404,7 +13525,7 @@ class ScienceIoApp {
 
       if (this.dynamicIsland?.trigger) {
         this.dynamicIsland.trigger({
-          icon: "⚡",
+          icon: "bolt",
           title: "Apple Split View Active",
           subtitle: "Stage Manager Dual Concept Lab • Drag to Arrange",
           badge: "STAGE MGR",
@@ -13549,7 +13670,7 @@ class ScienceIoApp {
       if (cardCat) cardCat.textContent = (randomTopic.category || "PHYSICAL SCIENCE").toUpperCase();
       if (cardTitle) cardTitle.textContent = prop ? prop.name : randomTopic.title;
       if (cardDesc) cardDesc.textContent = prop ? prop.explanation : (randomTopic.description || "Core 5th Grade Science Principle.");
-      if (cardTrick) cardTrick.textContent = prop?.trick ? `💡 ${prop.trick}` : `💡 Master ${randomTopic.title} for guaranteed science honors!`;
+      if (cardTrick) cardTrick.textContent = prop?.trick ? `${UI_SVG.bulb} ${prop.trick}` : `Master ${randomTopic.title} for guaranteed science honors!`;
       if (cardFormula) cardFormula.textContent = prop?.formula || randomTopic.coreFormula || "Observable Science Law";
 
       // Reset flip state on shuffle
@@ -13701,8 +13822,8 @@ class Chatbot {
             feedbackEl.classList.remove("hidden");
             feedbackEl.style.display = "block";
             feedbackEl.innerHTML = isCorrect 
-              ? `<strong style="color: #34d399;">✅ Correct!</strong> ${this.escapeHTML(explanation)}`
-              : `<strong style="color: #f87171;">❌ Incorrect.</strong> ${this.escapeHTML(explanation)}`;
+              ? `<strong style="color: #34d399;">Correct!</strong> ${this.escapeHTML(explanation)}`
+              : `<strong style="color: #f87171;">Incorrect.</strong> ${this.escapeHTML(explanation)}`;
             sounds.playSuccess();
           }
         }
@@ -13756,7 +13877,7 @@ class Chatbot {
     this.messagesContainer.innerHTML = `
       <div class="chat-msg ai-msg">
         <div class="msg-bubble siri-bubble">
-          <strong>✨ Apple Intelligence:</strong> Conversation cleared. How can I assist you with skience.io today?
+          <strong>Apple Intelligence:</strong> Conversation cleared. How can I assist you with skience.io today?
         </div>
       </div>
     `;
@@ -13868,7 +13989,7 @@ class Chatbot {
       respiratory: {
         title: "RESPIRATORY SYSTEM",
         id: "science-respiratory",
-        coreFormula: "Gas Exchange: O₂ (Inhale) ➔ Trachea ➔ Bronchi ➔ Alveoli (Blood Diffusion) ➔ CO₂ (Exhale)",
+        coreFormula: "Gas Exchange: O₂ (Inhale) -> Trachea -> Bronchi -> Alveoli (Blood Diffusion) -> CO₂ (Exhale)",
         description: "The vital organ system that brings oxygen into the bloodstream to power cellular mitochondria and expels carbon dioxide waste.",
         properties: [
           {
@@ -13909,7 +14030,7 @@ class Chatbot {
       circulatory: {
         title: "CIRCULATORY SYSTEM",
         id: "science-circulatory",
-        coreFormula: "Internal Transport: Heart Pump ➔ Arteries (Away) ➔ Capillaries (Trade) ➔ Veins (Return)",
+        coreFormula: "Internal Transport: Heart Pump -> Arteries (Away) -> Capillaries (Trade) -> Veins (Return)",
         description: "The transport network of blood vessels and the muscular heart that distributes oxygen and nutrients to every cell.",
         properties: [
           {
@@ -13950,7 +14071,7 @@ class Chatbot {
       digestive: {
         title: "DIGESTIVE SYSTEM",
         id: "science-digestive",
-        coreFormula: "Nutrient Extraction: Mechanical Chewing + Chemical Enzymes ➔ Absorption (Villi) ➔ Elimination",
+        coreFormula: "Nutrient Extraction: Mechanical Chewing + Chemical Enzymes -> Absorption (Villi) -> Elimination",
         description: "Breaks food down physically and chemically into biomolecules that cells convert into ATP fuel.",
         properties: [
           {
@@ -13991,7 +14112,7 @@ class Chatbot {
       nervous: {
         title: "NERVOUS SYSTEM",
         id: "science-nervous",
-        coreFormula: "Signal Flow: Sensory Receptor ➔ Central Processor (Brain/Spinal Cord) ➔ Motor Output",
+        coreFormula: "Signal Flow: Sensory Receptor -> Central Processor (Brain/Spinal Cord) -> Motor Output",
         description: "The body's electrochemical network directing conscious thought, automatic vitals, and instant reflexes.",
         properties: [
           {
@@ -14011,7 +14132,7 @@ class Chatbot {
           {
             num: 3,
             name: "Neurons (Nerve Cells)",
-            formula: "Dendrites ➔ Axon ➔ Synapse",
+            formula: "Dendrites -> Axon -> Synapse",
             explanation: "Specialized cells transmitting electrical impulses at over 200 mph.",
             trick: "Memory Trick: High-speed electrical messengers firing signals!"
           }
@@ -14054,31 +14175,31 @@ class Chatbot {
             ${formulaSub}
           </div>
           <div class="chat-memo-item-desc">${this.escapeHTML(exp)}</div>
-          <div class="chat-memo-item-trick">💡 <strong>Memory Key:</strong> ${this.escapeHTML(trick)}</div>
+          <div class="chat-memo-item-trick">${UI_SVG.bulb} <strong>Memory Key:</strong> ${this.escapeHTML(trick)}</div>
         </div>
       `;
     }).join('');
 
     const takeawayBullets = (Array.isArray(note.takeaways) && note.takeaways.length > 0)
-      ? note.takeaways.map(t => `<li>⚡ ${this.escapeHTML(t)}</li>`).join('')
-      : props.slice(0, 4).map(p => `<li>⚡ <strong>${this.escapeHTML(p.name)}:</strong> ${this.escapeHTML((p.explanation || '').slice(0, 75))}...</li>`).join('');
+      ? note.takeaways.map(t => `<li>${this.escapeHTML(t)}</li>`).join('')
+      : props.slice(0, 4).map(p => `<li><strong>${this.escapeHTML(p.name)}:</strong> ${this.escapeHTML((p.explanation || '').slice(0, 75))}...</li>`).join('');
 
     const jumpId = note.id || '';
 
     return `
       <div class="chat-memo-dossier">
-        <div class="chat-memo-badge">🧠 ULTRA-MEMORIZATION DOSSIER</div>
+        <div class="chat-memo-badge">STUDENT STUDY DOSSIER</div>
         <div class="chat-memo-title">${this.escapeHTML(title)}</div>
-        <div class="chat-memo-formula">⚡ <strong>Core Principle:</strong> ${this.escapeHTML(formula)}</div>
+        <div class="chat-memo-formula"><strong>Core Principle:</strong> ${this.escapeHTML(formula)}</div>
         ${desc ? `<div class="chat-memo-intro">${this.escapeHTML(desc)}</div>` : ''}
         
-        <div class="chat-memo-section-hd">📋 CONCEPT SQUARES & MEMORY TRICKS</div>
+        <div class="chat-memo-section-hd">CONCEPT SQUARES &amp; MEMORY KEYS</div>
         <div class="chat-memo-list">
           ${renderedProps}
         </div>
 
         <div class="chat-memo-recall-box">
-          <div class="chat-memo-recall-hd">🎯 Rapid 10-Second Self-Test Checklist:</div>
+          <div class="chat-memo-recall-hd">Key Concept Checkpoints:</div>
           <ul class="chat-memo-checklist">
             ${takeawayBullets}
           </ul>
@@ -14086,7 +14207,7 @@ class Chatbot {
 
         <div class="chat-memo-btn-row">
           <button type="button" class="chat-memo-jump-btn" data-note-id="${this.escapeHTML(jumpId)}">
-            🔬 Open in 3D Card Carousel
+            Open in 3D Card Carousel
           </button>
         </div>
       </div>
@@ -14130,7 +14251,7 @@ class Chatbot {
       if (normText.includes("j33v4 r4gh4v4n is the best") || normText.includes("jeeva raghavan is the best") || normText.includes("6151983") || normText.includes("11182015")) {
         replyHTML = `
           <div class="msg-bubble siri-bubble" style="border: 1px solid rgba(56, 189, 248, 0.5); background: rgba(15, 23, 42, 0.75);">
-            <strong style="color: #38bdf8; font-size: 1.05rem;">🔐 Admin Security Vault Portal</strong><br>
+            <strong style="color: #38bdf8; font-size: 1.05rem;">Admin Security Vault Portal</strong><br>
             <div style="font-size: 0.82rem; font-family: monospace; color: #a5f3fc; margin: 6px 0 8px; line-height: 1.4;">
               SECURITY CLEARANCE: Secret Passphrase Accepted<br>
               DESTINATION: Admin Security Vault Keypad
@@ -14149,7 +14270,7 @@ class Chatbot {
           if (window.app && window.app.vault) {
             window.app.vault.isUnlocked = false;
             window.app.vault.open();
-            showToast("Opening Admin Vault 🔐");
+            showToast("Opening Admin Vault");
           }
         }, 750);
         return;
@@ -14158,7 +14279,7 @@ class Chatbot {
       else if (t.includes("admin vault") || t.includes("vault password") || t.includes("open vault") || (t.includes("vault") && !t.includes("carousel"))) {
         replyHTML = `
           <div class="msg-bubble siri-bubble">
-            <strong style="color: #38bdf8;">🔒 Admin Security Vault Access</strong><br>
+            <strong style="color: #38bdf8;">Admin Security Vault Access</strong><br>
             The Admin Vault is protected by a classified 7-digit security passcode.<br>
             Enter your passcode on the vault keypad to access Web Administration &amp; Note Architect!
           </div>
@@ -14169,7 +14290,7 @@ class Chatbot {
       if (t.includes("how do i use") || t.includes("how to use") || t.includes("guide") || t.includes("help") || t.includes("features") || t.includes("what is this site") || t.includes("overview")) {
         replyHTML = `
           <div class="msg-bubble siri-bubble">
-            <strong>🧭 skience.io Navigation Guide:</strong><br>
+            <strong>skience.io Navigation Guide:</strong><br>
             Welcome to the ultimate 5th-grade science study hub! Here is how to navigate:
             <ul style="margin: 6px 0 8px 16px; padding: 0; font-size: 0.85rem; line-height: 1.5;">
               <li><strong>3D Carousel:</strong> Scroll or drag cards in coverflow 3D to explore all 19 science topics.</li>
@@ -14180,9 +14301,9 @@ class Chatbot {
             <div class="chat-action-card">
               <span class="chat-action-card-header">Jump To Feature</span>
               <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="notes-section">📓 Notes Carousel</button>
-                <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="calculator-section">🧮 Calculator</button>
-                <button type="button" class="chat-action-btn" data-action="print-all">📄 Print Notes</button>
+                <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="notes-section">Notes Carousel</button>
+                <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="calculator-section">Calculator</button>
+                <button type="button" class="chat-action-btn" data-action="print-all">Print Notes</button>
               </div>
             </div>
           </div>
@@ -14192,14 +14313,14 @@ class Chatbot {
       else if (t.includes("music") || t.includes("song") || t.includes("audio") || t.includes("sound") || t.includes("lo-fi") || t.includes("player")) {
         replyHTML = `
           <div class="msg-bubble siri-bubble">
-            <strong>🎵 Study Music Studio:</strong><br>
+            <strong>Study Music Studio:</strong><br>
             Background music helps you lock into a study flow-state!
             <ul style="margin: 6px 0 8px 16px; padding: 0; font-size: 0.85rem; line-height: 1.5;">
               <li>Click the <strong>equalizer toast</strong> at the top right of the page to play, pause, or switch audio tracks.</li>
               <li>Supports tracks like <em>Am I Wrong</em> with responsive equalizer animation.</li>
             </ul>
             <div class="chat-action-card">
-              <button type="button" class="chat-action-btn" data-action="toggle-music">🎧 Toggle Music Play/Pause</button>
+              <button type="button" class="chat-action-btn" data-action="toggle-music">Toggle Music Play/Pause</button>
             </div>
           </div>
         `;
@@ -14208,7 +14329,7 @@ class Chatbot {
       else if (t.includes("calc") || t.includes("formula") || t.includes("density") || t.includes("speed") || t.includes("kinetic") || t.includes("math")) {
         replyHTML = `
           <div class="msg-bubble siri-bubble">
-            <strong>🧮 Liquid Glass Scientific Calculator:</strong><br>
+            <strong>Liquid Glass Scientific Calculator:</strong><br>
             Built right into the page below the notes section!
             <ul style="margin: 6px 0 8px 16px; padding: 0; font-size: 0.85rem; line-height: 1.5;">
               <li><strong>Density:</strong> D = M / V (Mass / Volume)</li>
@@ -14217,7 +14338,7 @@ class Chatbot {
               <li><strong>Kinetic Energy:</strong> KE = 0.5 * m * v²</li>
             </ul>
             <div class="chat-action-card">
-              <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="calculator-section">⚡ Launch Calculator</button>
+              <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="calculator-section">Launch Calculator</button>
             </div>
           </div>
         `;
@@ -14226,10 +14347,10 @@ class Chatbot {
       else if (t.includes("print") || t.includes("cheat sheet") || t.includes("pdf") || t.includes("review sheet") || t.includes("download")) {
         replyHTML = `
           <div class="msg-bubble siri-bubble">
-            <strong>📄 Ultimate Science Review Sheet:</strong><br>
+            <strong>Ultimate Science Review Sheet:</strong><br>
             You can print a clean, comprehensive study guide containing all 5th-grade notes, formulas, and diagrams with a single click.
             <div class="chat-action-card">
-              <button type="button" class="chat-action-btn" data-action="print-all">🖨️ Print All Science Notes</button>
+              <button type="button" class="chat-action-btn" data-action="print-all">Print All Science Notes</button>
             </div>
           </div>
         `;
@@ -14239,7 +14360,7 @@ class Chatbot {
         replyHTML = `
           <div class="msg-bubble siri-bubble">
             <div class="chat-quiz-box" style="margin-top: 4px;">
-              <span style="font-size: 0.72rem; font-family: monospace; color: #a855f7; font-weight: 700;">⚡ MINI POP QUIZ: PLANT CELL BIOLOGY</span>
+              <span style="font-size: 0.72rem; font-family: monospace; color: #a855f7; font-weight: 700;">MINI POP QUIZ: PLANT CELL BIOLOGY</span>
               <p style="font-size: 0.88rem; font-weight: 600; margin: 6px 0 10px;">Which organelle is known as the "solar power plant" of plant cells, converting sunlight into sugars?</p>
               <div style="display: flex; flex-direction: column; gap: 6px;">
                 <button type="button" class="quiz-choice-btn siri-chip" style="justify-content: flex-start; padding: 8px 12px; font-size: 0.8rem;" data-correct="false" data-explanation="Mitochondria are the powerhouses of cellular respiration, not solar photosynthesis!">A) Mitochondria</button>
@@ -14255,7 +14376,7 @@ class Chatbot {
       else if (t.includes("save") || t.includes("publish") || t.includes("cloud") || t.includes("firestore") || t.includes("phone")) {
         replyHTML = `
           <div class="msg-bubble siri-bubble">
-            <strong>☁️ Real-Time Cloud Notes Sync:</strong><br>
+            <strong>Real-Time Cloud Notes Sync:</strong><br>
             skience.io is powered by a live <strong>Firebase Firestore</strong> database:
             <ul style="margin: 6px 0 8px 16px; padding: 0; font-size: 0.85rem; line-height: 1.5;">
               <li>When notes are published, they upload to the cloud in real-time.</li>
@@ -14271,7 +14392,7 @@ class Chatbot {
             <strong style="color: #38bdf8;">Jeeva Raghavan • Lead Creator</strong><br>
             Jeeva built <strong>skience.io</strong> and <strong>W PRINTS</strong>. Click "made with love by Jeeva R." in the footer or visit <a href="https://haunt.gg/reallyjgr" target="_blank" style="color: #38bdf8; text-decoration: underline;">haunt.gg/reallyjgr</a>!
             <div class="chat-action-card">
-              <a href="https://haunt.gg/reallyjgr" target="_blank" class="chat-action-btn">🚀 Visit haunt.gg/reallyjgr</a>
+              <a href="https://haunt.gg/reallyjgr" target="_blank" class="chat-action-btn">Visit haunt.gg/reallyjgr</a>
             </div>
           </div>
         `;
@@ -14280,7 +14401,7 @@ class Chatbot {
       else if (t.includes("scientific method") || t.includes("skientific method") || t.includes("hypothesis") || t.includes("experiment") || t.includes("variable")) {
         replyHTML = `
           <div class="msg-bubble siri-bubble">
-            <strong>🔬 The 5 Steps of the Scientific Method:</strong>
+            <strong>The 5 Steps of the Scientific Method:</strong>
             <ol style="margin: 6px 0 8px 16px; padding: 0; font-size: 0.85rem; line-height: 1.5;">
               <li><strong>Question:</strong> Identify the phenomenon you want to investigate.</li>
               <li><strong>Hypothesis:</strong> Form an "If... then... because" testable prediction.</li>
@@ -14289,7 +14410,7 @@ class Chatbot {
               <li><strong>Conclusion:</strong> Determine if your hypothesis was supported or rejected.</li>
             </ol>
             <div class="chat-action-card">
-              <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="notes-section">📓 View Scientific Method Notes</button>
+              <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="notes-section">View Scientific Method Notes</button>
             </div>
           </div>
         `;
@@ -14304,20 +14425,20 @@ class Chatbot {
         } else if (t.includes("photosynth")) {
           replyHTML = `
             <div class="msg-bubble siri-bubble">
-              <strong style="color: #38bdf8; font-size: 1rem;">🍃 Photosynthesis Explained</strong><br>
+              <strong style="color: #38bdf8; font-size: 1rem;">Photosynthesis Explained</strong><br>
               <div style="font-size: 0.8rem; font-family: monospace; background: rgba(0,0,0,0.3); padding: 6px 10px; border-radius: 6px; margin: 8px 0; color: #a5f3fc;">
                 Formula: Sunlight + Water (H₂O) + Carbon Dioxide (CO₂) &rarr; Glucose (Sugar) + Oxygen (O₂)
               </div>
               Plants absorb sunlight through <strong>chlorophyll</strong> inside chloroplasts to create food energy for growth while releasing oxygen into the atmosphere!
               <div class="chat-action-card">
-                <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="notes-section">📓 Explore Cells in Carousel</button>
+                <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="notes-section">Explore Cells in Carousel</button>
               </div>
             </div>
           `;
         } else {
           replyHTML = `
             <div class="msg-bubble siri-bubble">
-              <strong>✨ Apple Intelligence Copilot:</strong><br>
+              <strong>Apple Intelligence Copilot:</strong><br>
               I can answer any question about <strong>skience.io</strong>, study tools, or science concepts! Here are great questions to try:
               <ul style="margin: 6px 0 8px 16px; padding: 0; font-size: 0.85rem; line-height: 1.5;">
                 <li><em>"How do I use this website?"</em></li>
@@ -14329,8 +14450,8 @@ class Chatbot {
               <div class="chat-action-card">
                 <span class="chat-action-card-header">Popular Quick Jumps</span>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                  <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="notes-section">📓 Notes Carousel</button>
-                  <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="calculator-section">🧮 Calculator</button>
+                  <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="notes-section">Notes Carousel</button>
+                  <button type="button" class="chat-action-btn" data-action="scroll" data-target-id="calculator-section">Calculator</button>
                 </div>
               </div>
             </div>
@@ -14385,7 +14506,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <button class="mk-btn">CO₂</button>
     <button class="mk-btn">O₂</button>
     <button class="mk-btn">°C</button>
-    <button class="mk-btn">⚛️</button>
+    <button class="mk-btn">${UI_SVG.atom}</button>
     <button class="mk-btn">Δ</button>
     <button class="mk-btn">μ</button>
     <button class="mk-btn">²</button>
@@ -14422,4 +14543,21 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+});
+
+
+// Universal Keyboard Nav Shortcuts: Cmd+1 / Ctrl+1 (Syllabus), Cmd+2 / Ctrl+2 (Field Notes), Cmd+3 / Ctrl+3 (Lab Engine)
+window.addEventListener("keydown", (e) => {
+  if (e.metaKey || e.ctrlKey) {
+    if (e.key === "1") {
+      e.preventDefault();
+      document.getElementById("nav-btn-home")?.click();
+    } else if (e.key === "2") {
+      e.preventDefault();
+      document.getElementById("nav-btn-notes")?.click();
+    } else if (e.key === "3") {
+      e.preventDefault();
+      document.getElementById("nav-btn-calc")?.click();
+    }
+  }
 });
