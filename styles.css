@@ -1,5 +1,5 @@
 /* ============================================================
-   math.io — Ultra-Vibrant 5th Grade Math Notes Styling
+   math.io  //  Ultra-Vibrant 5th Grade Math Notes Styling
    Designed with high-fidelity glassmorphism, 3D coverflow,
    neon psychedelic fluid gradients & customized for Jeeva
    ============================================================ */
@@ -1684,7 +1684,7 @@ html, body {
   transform-style: preserve-3d;
 }
 
-/* INDIVIDUAL CAROUSEL CARD — CRYSTAL LIQUID GLASS & ASMR SMOOTH TRANSITIONS */
+/* INDIVIDUAL CAROUSEL CARD  //  CRYSTAL LIQUID GLASS & ASMR SMOOTH TRANSITIONS */
 .deck-card {
   position: absolute;
   width: 335px;
@@ -1727,7 +1727,7 @@ html, body {
   z-index: 1;
 }
 
-/* Card Radial Atmospheric Glow — Dark Blue & Purple Palette */
+/* Card Radial Atmospheric Glow  //  Dark Blue & Purple Palette */
 .card-glow-layer {
   position: absolute;
   inset: 0;
@@ -1765,7 +1765,7 @@ html, body {
   background: radial-gradient(ellipse at 50% 65%, rgba(99, 102, 241, 0.4) 0%, rgba(67, 56, 202, 0.2) 45%, transparent 75%);
 }
 
-/* 3D Positions in Carousel — Front Coverflow */
+/* 3D Positions in Carousel  //  Front Coverflow */
 .deck-card.pos-center {
   transform: translate3d(0, 0, 85px) scale(1.04) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
   z-index: 40;
@@ -13778,4 +13778,48 @@ html, body {
   background: rgba(22, 30, 50, 0.9) !important;
   box-shadow: 0 0 16px rgba(var(--pill-accent-rgb, 56, 189, 248), 0.3) !important;
   color: #ffffff !important;
+}
+
+/* Scientific Editorial Badges & Monospace Index Tokens */
+.chip-badge, .term-tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #38bdf8;
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: 1px;
+}
+
+.siri-chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  font-family: var(--font-display, var(--font-sans)) !important;
+  font-size: 0.76rem !important;
+  letter-spacing: 0.04em !important;
+  padding: 6px 12px !important;
+  background: rgba(14, 20, 36, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #e2e8f0 !important;
+}
+
+.siri-chip:hover {
+  background: rgba(22, 32, 54, 0.95) !important;
+  border-color: #38bdf8 !important;
+  color: #ffffff !important;
+}
+
+/* Rich Architectural Obsidian Surfaces */
+:root {
+  --surface-obsidian-0: #080b12;
+  --surface-obsidian-1: #0e1422;
+  --surface-obsidian-2: #141c2e;
+  --surface-obsidian-3: #1c273e;
+  --hairline-border: rgba(255, 255, 255, 0.09);
+  --hairline-accent: rgba(56, 189, 248, 0.28);
 }

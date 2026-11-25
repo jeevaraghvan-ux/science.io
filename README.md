@@ -22,13 +22,13 @@
 
 ## ✨ Features
 
-- 🌈 **Vibrant Neon Dark Mode & High-Tech Science Loader** — 3D gyroscopic orbital rings, quantum core orb, cyber grid, floating scientific glyphs (`⚛️`, `🧬`, `🔬`, `🪐`), and telemetry diagnostic logs.
-- 🔒 **Admin Security Vault** — High-security animated safe door with 4-digit PIN authentication (Confidential clearance required), web administration deck, and Note Architect.
-- 🔬 **Structured Science Unit Architect** — Build customized units with individual concept squares (hypothesis, formulas, definitions, observations, and tips).
-- ☁️ **Instant Multi-Device Cloud Database Sync (Zero Credit Drain)** — Add notes on your computer, click **"PUBLISH ALL NOTES"**, and your notes are instantly available on your phone, tablet, or any other computer worldwide!
-- 🎧 **Smooth ASMR Carousel Transitions** — Buttery cubic-bezier easing, motion depth, and tactile synthesized slide acoustic chimes.
-- 🤖 **Interactive science.io AI Assistant** — Ask science questions, get help navigating, or explore 5th grade topics.
-- 💡 **Science Cheat Sheet & Lab Tools** — Print-ready cheat sheet generator and scientific keyboard.
+- 🌈 **Vibrant Neon Dark Mode & High-Tech Science Loader**  //  3D gyroscopic orbital rings, quantum core orb, cyber grid, floating scientific glyphs (`⚛️`, `🧬`, `🔬`, `🪐`), and telemetry diagnostic logs.
+- 🔒 **Admin Security Vault**  //  High-security animated safe door with 4-digit PIN authentication (Confidential clearance required), web administration deck, and Note Architect.
+- 🔬 **Structured Science Unit Architect**  //  Build customized units with individual concept squares (hypothesis, formulas, definitions, observations, and tips).
+- ☁️ **Instant Multi-Device Cloud Database Sync (Zero Credit Drain)**  //  Add notes on your computer, click **"PUBLISH ALL NOTES"**, and your notes are instantly available on your phone, tablet, or any other computer worldwide!
+- 🎧 **Smooth ASMR Carousel Transitions**  //  Buttery cubic-bezier easing, motion depth, and tactile synthesized slide acoustic chimes.
+- 🤖 **Interactive science.io AI Assistant**  //  Ask science questions, get help navigating, or explore 5th grade topics.
+- 💡 **Science Cheat Sheet & Lab Tools**  //  Print-ready cheat sheet generator and scientific keyboard.
 
 ---
 

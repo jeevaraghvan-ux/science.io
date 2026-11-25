@@ -120,7 +120,7 @@ function getIconSVG(name) {
 }
 
 /**
- * science.io — 5th Grade Science Notes Application
+ * science.io  //  5th Grade Science Notes Application
  * Made with love from Jeeva R.
  * 
  * Features:
@@ -526,7 +526,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Multicellular Organisms",
         "trick": "Multi = many cells working together to survive!",
-        "example": "Functions through teamwork and division of labor between specialized cells. For example, inside a human body or an oak tree, billions of specialized cells work together: red blood cells deliver oxygen, muscle cells contract to create motion, and root cells absorb water—no single cell could survive alone, but together they form living tissues, organs, and body systems that keep the entire organism alive!",
+        "example": "Functions through teamwork and division of labor between specialized cells. For example, inside a human body or an oak tree, billions of specialized cells work together: red blood cells deliver oxygen, muscle cells contract to create motion, and root cells absorb water // no single cell could survive alone, but together they form living tissues, organs, and body systems that keep the entire organism alive!",
         "formula": "an organism made with two or more cells",
         "explanation": "• These organisms are able to be seen with the naked eye\n• These organisms need all parts of themselves to survive\n• Plants belong to the category of autotrophs, meaning self feeders\n• In the kingdom Animalia; Heterotrophic - other feeder, organisms that eat other organisms."
       }
@@ -4977,7 +4977,7 @@ class VaultController {
           formula: "If... then... because...",
           explanation: "An educated prediction of what you expect to occur based on prior scientific research and reasoning.",
           example: "If a plant receives 8 hours of light, then it will grow faster because photosynthesis produces more energy.",
-          trick: "Tip: A hypothesis is not just a guess—it must be testable!"
+          trick: "Tip: A hypothesis is not just a guess // it must be testable!"
         },
         {
           name: "Step 3: Conduct a Controlled Experiment",
@@ -6667,7 +6667,7 @@ class ReadingEnhancementSuite {
     const headerStrip = document.createElement("div");
     headerStrip.style.cssText = "grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; padding: 6px 4px 12px;";
     headerStrip.innerHTML = `
-      <span style="font-size: 0.88rem; font-weight: 700; color: #a5f3fc;">🃏 Interactive 3D Study Flashcards (Tap card to flip)</span>
+      <span style="font-size: 0.88rem; font-weight: 700; color: #a5f3fc;"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Interactive 3D Study Flashcards (Tap card to flip)</span>
       <span id="flashcard-progress-pill" style="font-size: 0.78rem; font-weight: 800; padding: 4px 12px; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; border-radius: 999px; color: #6ee7b7;">
         Mastered: ${this.masteredCards.size} / ${(topic.properties || []).length}
       </span>
@@ -8976,7 +8976,7 @@ class ScienceIoApp {
     let html = `
       <div class="print-meta-banner" style="margin-bottom: 24px; border-bottom: 2.5px solid #0284c7; padding-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-end;">
         <div>
-          <h1 style="font-size: 1.8rem; margin: 0; color: #0f172a; font-weight: 800;">skience.io — 5th Grade Ultimate Science Review</h1>
+          <h1 style="font-size: 1.8rem; margin: 0; color: #0f172a; font-weight: 800;">skience.io  //  5th Grade Ultimate Science Review</h1>
           <div style="font-size: 0.95rem; color: #64748b; margin-top: 4px;">Comprehensive Science Principle & Concept Guide • Total Topics: ${this.notes.length} • Made with love by Jeeva R.</div>
         </div>
         <div style="text-align: right; font-size: 0.85rem; color: #64748b; line-height: 1.4;">
@@ -9010,7 +9010,7 @@ class ScienceIoApp {
           html += `
             <div style="border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 12px; background: #ffffff; break-inside: avoid; page-break-inside: avoid;">
               <div style="font-weight: 800; color: #0f172a; font-size: 0.92rem; margin-bottom: 3px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 2px;">
-                #${p.num} — ${formatBulletText(p.name)}
+                #${p.num}  //  ${formatBulletText(p.name)}
               </div>
               <div style="font-size: 0.85rem; color: #0369a1; font-weight: 700; margin-bottom: 4px;">
                 Rule: ${formatBulletText(p.formula)}
@@ -9058,7 +9058,7 @@ class ScienceIoApp {
       topic.properties.forEach((p) => {
         html += `
           <div style="margin-bottom: 16px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;">
-            <h3 style="font-size: 1.05rem; margin-bottom: 4px;">#${p.num} — ${formatBulletText(p.name)}</h3>
+            <h3 style="font-size: 1.05rem; margin-bottom: 4px;">#${p.num}  //  ${formatBulletText(p.name)}</h3>
             <div style="font-weight: bold; color: #1e293b;">Formula / Rule: ${formatBulletText(p.formula)}</div>
             ${p.image ? `<div style="text-align: center; margin: 8px 0;"><img src="${p.image}" alt="${p.name}" style="max-height: 120px; max-width: 100%; border-radius: 6px; border: 1px solid #cbd5e1; object-fit: contain;" /></div>` : ""}
             <div style="margin: 4px 0;">${formatBulletText(p.explanation)}</div>
@@ -10201,8 +10201,8 @@ class ScienceIoApp {
         const titleText = document.getElementById("terminal-title-display");
         if (titleText) {
           titleText.textContent = macTerminal.classList.contains("is-maximized")
-            ? "jeeva — -zsh — 140×36 (Zoomed)"
-            : "jeeva — -zsh — 80×24";
+            ? "jeeva  //  -zsh  //  140×36 (Zoomed)"
+            : "jeeva  //  -zsh  //  80×24";
         }
       }
     });
@@ -10636,7 +10636,7 @@ class ScienceIoApp {
             "Honey never spoils; archaeologists discovered 3,000-year-old edible honey jars in ancient Egyptian tombs.",
             "If you could fold a standard piece of paper 42 times, its thickness would reach the Moon.",
             "A single bolt of lightning contains enough electrical energy to toast 100,000 slices of bread.",
-            "Saturn is the only planet in our solar system whose average density is lower than liquid water—it would float in a giant bathtub!",
+            "Saturn is the only planet in our solar system whose average density is lower than liquid water // it would float in a giant bathtub!",
             "DNA uncoiled from all the cells in your body would stretch from Earth to Pluto and back.",
             "Octopuses have three hearts, nine brains, and blue copper-based blood.",
             "Bananas are naturally slightly radioactive because they contain high levels of the potassium-40 isotope."
@@ -10663,13 +10663,13 @@ class ScienceIoApp {
           ];
           const item = pioneerQuotes[Math.floor(Math.random() * pioneerQuotes.length)];
           appendTerminalLine("PIONEER WISDOM:", "command-result");
-          appendTerminalLine(`"${item.quote}"\n— ${item.author}`);
+          appendTerminalLine(`"${item.quote}"\n //  ${item.author}`);
           sounds.playSuccess();
           break;
         }
 
         case "wforge":
-          appendTerminalLine("WFORGE — 3D Web Printing Studio & Creative Document Platform\n• Custom physical merchandise, rapid prototyping, and automated workflows.\n• Platform URL: https://W3D.base44.app");
+          appendTerminalLine("WFORGE  //  3D Web Printing Studio & Creative Document Platform\n• Custom physical merchandise, rapid prototyping, and automated workflows.\n• Platform URL: https://W3D.base44.app");
           appendTerminalLink("Visit WForge (W3D.base44.app) ↗", "https://W3D.base44.app");
           sounds.playSuccess();
           break;
@@ -11019,7 +11019,7 @@ class ScienceIoApp {
       {
         id: "nav-me",
         category: "actions",
-        title: "Jeeva Raghavan — All About Me",
+        title: "Jeeva Raghavan  //  All About Me",
         sub: "Developer portfolio, projects, and macOS terminal",
         badge: "DEV",
         icon: "bolt",
@@ -11066,7 +11066,7 @@ class ScienceIoApp {
         title: "Apple 3D Interactive Flashcards",
         sub: "Flip through stacked 3D visionOS study cards with spacebar haptics",
         badge: "CARDS",
-        icon: "🃏",
+        icon: "cards",
         keywords: "flashcards cards 3d flip deck study test practice apple",
         action: () => {
           if (typeof this.openAppleFlashcards === "function") {
@@ -12720,7 +12720,7 @@ class ScienceIoApp {
       // Sync Dynamic Island
       if (window.app?.dynamicIsland?.trigger) {
         window.app.dynamicIsland.trigger({
-          icon: "🃏",
+          icon: "cards",
           title: `Card ${currentIndex + 1}/${total}: ${card.name}`,
           subtitle: `${card.topicTitle} • ${pct}% Mastered`,
           badge: isMastered ? "MASTERED" : "STUDY",

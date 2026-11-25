@@ -371,7 +371,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 1,
         "name": "Multicellular Organisms",
         "trick": "Multi = many cells working together to survive!",
-        "example": "Functions through teamwork and division of labor between specialized cells. For example, inside a human body or an oak tree, billions of specialized cells work together: red blood cells deliver oxygen, muscle cells contract to create motion, and root cells absorb water—no single cell could survive alone, but together they form living tissues, organs, and body systems that keep the entire organism alive!",
+        "example": "Functions through teamwork and division of labor between specialized cells. For example, inside a human body or an oak tree, billions of specialized cells work together: red blood cells deliver oxygen, muscle cells contract to create motion, and root cells absorb water // no single cell could survive alone, but together they form living tissues, organs, and body systems that keep the entire organism alive!",
         "formula": "an organism made with two or more cells",
         "explanation": "• These organisms are able to be seen with the naked eye\n• These organisms need all parts of themselves to survive\n• Plants belong to the category of autotrophs, meaning self feeders\n• In the kingdom Animalia; Heterotrophic - other feeder, organisms that eat other organisms."
       }
