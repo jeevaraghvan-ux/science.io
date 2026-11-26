@@ -261,7 +261,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Cell Membrane",
-        "trick": "Memory Trick: The security gatekeeper of the cell!",
+        "trick": "",
         "example": "Think of a screen door. When you water a plant, water can get in, while bad stuff stays out.",
         "formula": "Semi-Permeable Boundary Layer",
         "explanation": "Thin layer that surrounds the cell. It provides structure and protection and it is semi-permeable."
@@ -269,7 +269,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Cytoplasm",
-        "trick": "Memory Trick: Cyto = Cell, Plasm = Fluid matrix!",
+        "trick": "",
         "example": "It's the clear jelly filling the cell so the organelles don't just bang into each other.",
         "formula": "Gel-Like Organelle Suspension",
         "explanation": "The fluid in which organelles are suspended. It maintains the pressure inside of the cell."
@@ -277,7 +277,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Mitochondria",
-        "trick": "Memory Trick: Mighty Mitochondria = Powerhouse!",
+        "trick": "",
         "example": "Whenever a plant needs energy to grow roots or bloom, mitochondria turn sugar + oxygen into fuel.",
         "formula": "Cellular Respiration: Glucose + O₂ → ATP Energy",
         "explanation": "Nicknamed the powerhouse of the cell because they provide energy for the cell. The site of cellular respiration."
@@ -285,7 +285,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Endoplasmic Reticulum",
-        "trick": "Memory Trick: Smooth ER makes smooth lipids and highways!",
+        "trick": "",
         "example": "You get waxy leaf coatings because Smooth ER makes fats and moves them along tiny tubes.",
         "formula": "Smooth ER: Lipid Synthesis & Transport",
         "explanation": "Smooth endoplasmic reticulum makes lipids (fats), modifies proteins and transports them throughout the cell."
@@ -293,7 +293,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "Golgi Body",
-        "trick": "Memory Trick: Golgi = 'Go' deliver the packages!",
+        "trick": "",
         "example": "After proteins are made, the Golgi body packs them up in bubbles and sends them where the cell needs them.",
         "formula": "Cellular Packaging & Shipping Center",
         "explanation": "Packages proteins and carbohydrates into vesicles for transport outside of the cell."
@@ -301,7 +301,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 6,
         "name": "Nucleus & Nucleolus",
-        "trick": "Memory Trick: Nucleus = Brain / Boss of the cell!",
+        "trick": "",
         "example": "All the cell's DNA sits here. The nucleolus inside helps build ribosomes too.",
         "formula": "Command Center • Genetic DNA Storage",
         "explanation": "The control center of the cell that directs functions and contains DNA. The nucleolus aids in the production of ribosomes."
@@ -309,7 +309,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 7,
         "name": "Rough ER & Ribosomes",
-        "trick": "Memory Trick: Ribosomes make Ribs (Proteins)!",
+        "trick": "",
         "example": "Little ribosomes sit right on the rough ER snapping together proteins for the cell.",
         "formula": "Protein Synthesis Factory",
         "explanation": "Rough endoplasmic reticulum has ribosomes bound to its membranes. Ribosomes are the site of protein synthesis."
@@ -317,7 +317,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 8,
         "name": "Cell Wall",
-        "trick": "Memory Trick: Like a fortress wall outside a castle!",
+        "trick": "",
         "example": "Plants don't have bones, so their stiff cellulose cell walls are what let sunflowers and trees stand up.",
         "formula": "Rigid Cellulose Outer Shield (Plant Only)",
         "explanation": "Found only in plant cells, cell walls provide extra structure and protection for the cell's internal structures."
@@ -325,7 +325,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 9,
         "name": "Central Vacuole",
-        "trick": "Memory Trick: Vacuole is like a giant water reservoir!",
+        "trick": "",
         "example": "Have you noticed a wilted plant stand back up after watering? That's the central vacuole filling up again.",
         "formula": "Water & Nutrient Storage Sac",
         "explanation": "Vacuoles provide storage for materials such as water. A plant cell's vacuole is larger than in an animal cell."
@@ -333,7 +333,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 10,
         "name": "Chloroplast",
-        "trick": "Memory Trick: Solar panels of the plant world!",
+        "trick": "",
         "example": "Green chlorophyll inside catches sun rays and mixes them with water + CO2 to make sugar and oxygen.",
         "formula": "Photosynthesis: 6CO₂ + 6H₂O + Sunlight → C₆H₁₂O₆ + 6O₂",
         "explanation": "Convert light energy from the sun into sugars that can be used for energy in a process called photosynthesis."
@@ -379,7 +379,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Cell Membrane",
-        "trick": "Remember key scientific terms!",
+        "trick": "",
         "example": "Your muscle and skin cells let sugar and oxygen pass inside while pushing waste back out.",
         "formula": "Semi-Permeable Boundary",
         "explanation": "Thin layer that surrounds the cell . It provides structure and protection and it is semi-permeable."
@@ -387,7 +387,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Cytoplasm",
-        "trick": "Remember key scientific terms!",
+        "trick": "",
         "example": "When you're running or jumping, cytoplasm cushions the insides of your cells so parts stay safe.",
         "formula": "Internal Fluid",
         "explanation": "The fluid in which organelles are suspended. It maintains the pressure inside of the cell."
@@ -395,7 +395,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Mitochondria",
-        "trick": "Remember key scientific terms!",
+        "trick": "",
         "example": "During P.E. when you sprint, your heart and muscle mitochondria burn sugar fast to keep you going.",
         "formula": "Powerhouse of the Cell",
         "explanation": "Nicknamed the powerhouse of the cell because they provide the energy for the cell. The site of cellular respiration."
@@ -403,7 +403,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Endoplasmic Reticulum",
-        "trick": "Remember key scientific terms!",
+        "trick": "",
         "example": "In your liver, smooth ER helps clean out medicines or toxins and makes cell lipids.",
         "formula": "Transport System",
         "explanation": "Smooth endoplasmic reticulum makes lipids (fats), modifies protein and transports them throughout the cell."
@@ -411,7 +411,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "Golgi Body",
-        "trick": "Remember key scientific terms!",
+        "trick": "",
         "example": "Saliva cells use their Golgi body to pack digestive juices into tiny sacs and send them into your mouth.",
         "formula": "Packaging Center",
         "explanation": "Packages proteins and carbohydrates into vesicles for transport outside of the cell."
@@ -419,7 +419,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 6,
         "name": "Nucleus & Nucleolus",
-        "trick": "Remember key scientific terms!",
+        "trick": "",
         "example": "Your DNA lives in here — it controls things like your eye color, hair type, and cell growth.",
         "formula": "Control Center & DNA",
         "explanation": "Control center of the cell that directs functions and contains DNA. The nucleolus aids in the production of ribosomes."
@@ -427,7 +427,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 7,
         "name": "Rough ER & Ribosomes",
-        "trick": "Remember key scientific terms!",
+        "trick": "",
         "example": "Need new skin over a scrape? Rough ER and ribosomes make proteins like collagen to patch you up.",
         "formula": "Protein Synthesis",
         "explanation": "Rough Endoplasmic Reticulum has ribosomes bound to its membranes. Ribosomes are the site of protein synthesis."
@@ -435,7 +435,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 8,
         "name": "Lysosome",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "When white blood cells catch bacteria, lysosomes break the germs down with strong enzymes.",
         "formula": "Digestive System of the Cell",
         "explanation": "The lysosome is the digestive system of the cell. They help to break down waste molecules."
@@ -443,7 +443,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 9,
         "name": "Vacoules & Vesicles",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Small storage pockets inside animal cells hold water, salt, or molecules waiting to move.",
         "formula": "Cell = Basic Unit of Life",
         "explanation": "Vacoules provide storage for materials such as water. Smaller vesicles move stuff in and out of the cell. "
@@ -451,7 +451,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 10,
         "name": "Centrosome & Centrioles",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Right before skin cells divide to heal a cut, centrioles pull copied chromosomes apart evenly.",
         "formula": "Cell = Basic Unit of Life",
         "explanation": "Centrosomes serve as the main microtuble organizing center. Centrioles in the centrosomes help the cell divide during mitosis."
@@ -508,7 +508,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Multicellular Organisms",
-        "trick": "Multi = many cells working together to survive!",
+        "trick": "",
         "example": "One single cell couldn't run a human body or an oak tree, so blood, muscle, and root cells split the work.",
         "formula": "an organism made with two or more cells",
         "explanation": "• These organisms are able to be seen with the naked eye\n• These organisms need all parts of themselves to survive\n• Plants belong to the category of autotrophs, meaning self feeders\n• In the kingdom Animalia; Heterotrophic - other feeder, organisms that eat other organisms."
@@ -586,7 +586,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Euglena",
-        "trick": "Flagellum whips like a propeller!",
+        "trick": "",
         "example": "Has a red eyespot to spot sunlight and swims using its whip-like flagellum. Can make food with light or eat in the dark.",
         "formula": "an organism made of only 1 cell.",
         "explanation": "Move by using  a flagellum (thread like structures that whip around)."
@@ -594,7 +594,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Volvox",
-        "trick": "Volvox colonies roll with flagella!",
+        "trick": "",
         "example": "Hundreds of green algae cells stick together as a round ball and roll through pond water.",
         "formula": "an organism made of only 1 cell.",
         "explanation": "They move by using a flagellum ( thread like structures that whip around)."
@@ -602,7 +602,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Paramecium",
-        "trick": "Cilia paddle like tiny oars!",
+        "trick": "",
         "example": "Tiny hairs called cilia cover the outside and paddle like little oars to swim and push food in.",
         "formula": "an organism made of only 1 cell.",
         "explanation": "A paramecium moves by cillia (hair like)"
@@ -610,7 +610,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Amoeba",
-        "trick": "Pseudopodia means false feet!",
+        "trick": "",
         "example": "It stretches part of its body out like false feet (pseudopodia) to crawl and wrap around bacteria.",
         "formula": "an organism made of only 1 cell.",
         "explanation": "An amoeba moves by projecting out its cytoplasm. These projections are called pseudopodia (false feet)."
@@ -700,7 +700,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Functions of the muscular system",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Ever shiver when you're freezing? Rapid tiny muscle twitches actually warm your body up, while posture muscles hold you straight.",
         "formula": "There is no scientific formula",
         "explanation": "Functions of the muscular system are to provide posture, generate heat, and provide movement. "
@@ -708,7 +708,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Skeletal Muscle",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "These are muscles you mean to move, like kicking a soccer ball or holding a pencil.",
         "formula": "No formula",
         "explanation": "A skeletal msucle is a voluntary muscle which means you can control what you do. It is found on one end of a bone. Its function is to give your body power and strength. "
@@ -716,7 +716,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Smooth Muscle",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Works even while you sleep — smooth muscles keep squeezing food down your stomach and gut automatically.",
         "formula": "NO FORMULA",
         "explanation": "A smooth muscle is a involuntary muscle which means you can't control what you do. This is muscles typically like the heart. Smooth muscles are found in your bladder, stomach, and uterus and in other places."
@@ -724,7 +724,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Cardiac Muscle",
-        "trick": "Lab Memory Tip",
+        "trick": "",
         "example": "Only found in the heart. Beats over 100,000 times a day without you thinking about it.",
         "formula": "No FORMULA",
         "explanation": "A cardiac muscle is the heart muscle. It is found in the heart. The function is to pump blood out."
@@ -732,7 +732,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "Tendons",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Touch the thick cord above your heel — that Achilles tendon hooks your calf muscle to your heel bone.",
         "formula": "NO FORMULA",
         "explanation": "Tendons are helping for your skeletal muscle to stick to your bones. Their functions is to attach your muscles to your bones."
@@ -740,7 +740,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 6,
         "name": "Biceps v Triceps",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Muscles only pull, never push. Bend your arm up and your bicep tightens while your tricep relaxes; switch to straighten.",
         "formula": "NO FORMULA!",
         "explanation": "The bicep is when you contract your muscles and you can see it when you contract it. The function is for to help you pick up simple things. The tricep straightens your elbow. The difference is the triceps straightens the elbow and the biceps contract it. "
@@ -763,7 +763,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "What are Bones Made Of?",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Hard compact bone on the outside keeps bones from snapping, spongy bone keeps them light, and marrow makes blood cells.",
         "formula": "NO FORMULA",
         "explanation": "Bones are made out of periosteum, compact bone , cancellous bone, and bone marrow."
@@ -771,7 +771,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Cartilage & Ligaments",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "In your knees, cartilage pads the ends so bones don't grind, while ligaments tie the bones together.",
         "formula": "No FORMULA",
         "explanation": "Cartilage is soft and flexible and as your growing your bones slowly replaces it. Ligaments are things that hold bones together in the joints, and they are like strong rubber bands."
@@ -779,7 +779,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Types of Joints ",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Elbows bend one way like a door hinge, while your shoulder ball-and-socket joint swings all the way around.",
         "formula": "NO FORMULA",
         "explanation": "The hinge joint helps you bend your arms and legs. It also helps you straighten them. The ball-and-socket joint helps you swing your arms and your legs. Synovial fluid is like oiling the valves of a brass instrument; it lets your bones move freely. "
@@ -787,7 +787,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Where is the smallest bone in your body? What is it called? Size?",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Inside your middle ear sits the stapes (stirrup bone), about 2 to 3 mm wide — smaller than a grain of rice!",
         "formula": "NO FORMULA",
         "explanation": "The smallest bone in your body is the stapes, and it is 2 to 3 millimeters long."
@@ -795,7 +795,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "What are the different jobs of the vertebrae?",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Your spine is 33 stacked bones. Together they hold your upper body up, bend, and protect your spinal cord.",
         "formula": "NO FORMULA",
         "explanation": "Your vertebrae help bend your neck, and they carry the weight of your upper body."
@@ -818,7 +818,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Mouth",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Front teeth bite off apple chunks, back molars mash them up, and spit starts breaking starch into sugar right away.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Your mouth has teeth that tear up and chop your food. Your saliva enzymes break it down even more."
@@ -826,7 +826,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Esophagus",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Muscle waves called peristalsis push swallowed food down to your stomach — it still works even upside down!",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• (Pushes food down to the stomach by Peristalsis)\n• The tube that connects your mouth and the stomach"
@@ -834,7 +834,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Stomach",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Stomach muscles churn food with strong acid that kills germs and starts breaking protein apart.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• (Smooth Muscles churn and mix the food.)\n• Chemicals, like acids, break down the food\n"
@@ -842,7 +842,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Small Intestine",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Around 20 feet coiled up! Most sugar, vitamins, and minerals soak into your blood right here.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "(Tube that is 20 feet long. Food stays in your small intestine for 4 to 8 hours.)\n• Continues to break down food   \n• Absorbs nutrients into the blood\n"
@@ -850,7 +850,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "Large Intestine",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Soaks water back out of leftover food so you don't get dehydrated and packs waste together.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "(Tube that is 5 feet long. Gets waste from the small intestine. Waste stays for 10 to 12 hours.)\n• Absorbs (soaks up) water from the remaining food\n• Contains bacteria that breaks down food\n"
@@ -858,7 +858,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 6,
         "name": "Rectum",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Holds solid waste at the end until nerves tell your brain it's time to go.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Rectum (Stores waste until it leaves the body through the anus)\n"
@@ -866,7 +866,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 7,
         "name": "Gall Bladder",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Eat greasy pizza or fries and the gallbladder squirts bile into your small intestine to break up fats.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "(Storage tank for bile - a greenish-yellow liquid, that helps your body break down and use fats. Located under your liver. Shaped like a pear.)\n"
@@ -874,7 +874,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 8,
         "name": "Liver",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Cleans toxins out of blood, makes bile, and stores extra sugar for energy later.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "(Factory for antibodies and bile. Store vitamins and sugars until your body needs them.)\n"
@@ -882,7 +882,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 9,
         "name": "Pancreas",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Makes enzymes to digest food and releases insulin so blood sugar can enter your cells.",
         "formula": "5th Grade Scientific Principle",
         "explanation": " (Helps you digest food by breaking down sugars.)\n"
@@ -890,7 +890,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 10,
         "name": "Summary",
-        "trick": "Lab Memory Tip",
+        "trick": "",
         "example": "Two steps in our notes: mechanical (chewing/mashing) and chemical (stomach acid and enzymes).",
         "formula": "NO FORMULA",
         "explanation": "• Mechanical digestion breaks food down into smaller pieces   \n• Chemical digestion breaks food down into nutrients "
@@ -898,7 +898,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 11,
         "name": "Role of villi",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Little finger-shaped villi cover the small intestine so nutrients absorb way faster.",
         "formula": "NO FORMULA",
         "explanation": "Villi breaks down food into nutrients"
@@ -906,7 +906,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 12,
         "name": "What is gut flora?",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Friendly bacteria living in your gut that help break down fiber and make Vitamin K.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Gut flora are bacteria inside your gut. It makes up 30% of your body weight and it helps turn food into nutrients.  "
@@ -914,7 +914,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 13,
         "name": "Who is a gasteroentologist?",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "That's the doctor who specializes in stomach, intestine, and digestive tract problems.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Gastroentologists are people that specialize in the digestive system"
@@ -937,7 +937,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Urine",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Pale yellow usually means you drank enough water; dark yellow means drink up because kidneys are dumping waste with less water.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Goes into the kidneys' waste products. If your urine is yellow, then you need to drink more liquids and fluids."
@@ -945,7 +945,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Puss",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "When a cut gets germs inside, white blood cells fight them off and leave behind pus (dead germs + dead white cells).",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Pus is dead skin cells that form when you get a cut and bacteria get in. Pus is produced from cells."
@@ -953,7 +953,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "CO2",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Cells make CO2 waste after burning sugar, blood carries it back to your lungs, and you breathe it out.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "When you breathe in, it goes through your lungs and you breathe out CO2"
@@ -961,7 +961,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Poop",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Solid leftover food parts your body couldn't absorb plus old gut bacteria.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Takes 24 hours to get rid of. Getting rid of it keeps you healthy."
@@ -969,7 +969,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "Fart",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Gut bacteria break down beans or broccoli and leave extra nitrogen/methane gas behind.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Farts are caused by bacteria, and they can escape as a burp or a fart."
@@ -992,7 +992,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Mucus",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Walk past dust or pollen and sticky nose mucus catches the particles before they hit your lungs.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "Mucus protects you by catching any dirt from entering your nose. When you get sick, mucus membranes go overload."
@@ -1000,7 +1000,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Vomit",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "If you eat spoiled food, your stomach throws everything back up fast before poison enters your blood.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "When you eat too much food it wants to throw up. You vomit because your body wants to get rid of something."
@@ -1008,7 +1008,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Earwax",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Sticky earwax traps dust and bugs near your ear opening while keeping the skin inside from drying out.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "Earwax helps you by catching dirt and helps protect  the skin. You shouldn't put Q-tips into the ear canal because Q-tips are used for medicine. (Credit to Clifford for teaching me this)"
@@ -1016,7 +1016,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Tears",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Every blink spreads salty tears across your eyeball to rinse out dust specks and germs.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "You get tears to help keep your eyes moist and to wash off dirt from your face."
@@ -1024,7 +1024,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "Sweat",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Running outside on a hot day? Sweat drops dry off your skin and carry heat away to cool you.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "You sweat to regulate your body temperature"
@@ -1047,7 +1047,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Other Excretory Organs",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Not just kidneys — your lungs breathe out CO2, sweat pushes out salt, and your liver filters blood wastes.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Lungs remove water vapor and carbon dioxide from the body each time you exhale\n• Skin excretes water and salts when the body is overheated\n• The liver filters blood to remove harmful chemicals and bacteria"
@@ -1070,7 +1070,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Kidneys",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Two bean-shaped organs near your lower back that clean your blood over and over all day.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Major organs of the urinary system remove excess water and other waste materials by filtering blood."
@@ -1078,7 +1078,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Nephrons",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "About a million microscopic nephron filters inside each kidney keep red blood cells in while straining waste out.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Tiny structures in the kidneys that filter liquid waste from blood to produce urine"
@@ -1086,7 +1086,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Ureters",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Two narrow tubes moving urine drop by drop from kidneys down into the bladder.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Tubes that carry wastes from the kidneys to the urinary bladder."
@@ -1094,7 +1094,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Urinary Bladder",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Stretchy holding sac that swells up as urine fills it until nerves say it's full.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Muscular organ that stores urine until it passes out of the body"
@@ -1102,7 +1102,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "Urethra",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "The small tube at the bottom where urine leaves your body.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Tube that opens to release urine out of the body."
@@ -1182,7 +1182,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Alveoli",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Millions of tiny air pockets inside your lungs where fresh oxygen enters your blood and CO2 comes out.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Small air sacs where gases are exchanged"
@@ -1190,7 +1190,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Larynx",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Your voice box vibrates when air passes over vocal cords; the epiglottis flap closes so food stays out of your windpipe.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Routes air and food into proper channels"
@@ -1198,7 +1198,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Pharynx",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Your throat hallway — both inhaled air and swallowed food pass through here.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Muscular passage from the nasal cavity to the larynx. "
@@ -1206,7 +1206,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Trachea",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Your windpipe has C-shaped cartilage rings holding it open even when you bend your neck.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Connects the larynx with the bronchi"
@@ -1214,7 +1214,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "Lungs",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Take a deep breath: your diaphragm drops down, lungs fill with air, and blood grabs oxygen.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "The lung is the essential respiratory organ in air-breathing vertebrates. Its principal function is to transport oxygen from the atmosphere into the bloodstream and to excrete carbon dioxide from the bloodstream into the atmosphere. This exchange of gases is accomplished in the mosaic of specialized cells that form millions of tiny, exceptionally thin-walled air sacs called alveoli."
@@ -1250,7 +1250,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Layers of the Skin",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Top epidermis blocks germs, middle dermis holds sweat glands and touch nerves, and bottom fat layer pads falls.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Epidermis\n• Dermis\n• Hypodermis"
@@ -1363,7 +1363,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Homeostasis",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Sweating when hot or shivering when cold are both examples of your body keeping internal balance near 98.6 F.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Key to life and failures in homeostasis can lead to disease\n• Keeping things constant\n• Hunger & Thirst are examples\n\n\nHomeostasis includes the regulation of\n\n• oxygen & carbon dioxide levels \n• nutrient & waste product levels\n• water balance\n• body temperature\n"
@@ -1371,7 +1371,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Pituitary Gland",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Tiny gland at the base of the brain that makes growth hormone and tells other glands when to work.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• This is considered the \"master gland.\"\n• Growth harmonies get produced there and they get sent to other organs"
@@ -1379,7 +1379,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Pineal Gland",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Releases melatonin once it gets dark at night so you start feeling sleepy.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Secretes hormones that control the other glands\n• Middle of the Brain\n• Secretes melatonin\n• Helps to regulate when you sleep and when you wake up"
@@ -1387,7 +1387,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Thyroid Gland",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "In your neck — sets how fast or slow your cells burn energy from food.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Front of the lower neck\n• Controls the rate at which our cells burn food to produce energy"
@@ -1395,7 +1395,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "Adrenal Gland",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Right before a race or when something scares you, adrenal glands pump adrenaline so your heart beats faster.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Two glands\n• Produces adrenaline\n• Controls the body's response to stress"
@@ -1403,7 +1403,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 6,
         "name": "Reproductive Glands",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Release hormones that start growth spurts and body changes as kids grow up.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Hormones secreted are called Gonads\n• Produces hormones called androgens, most importantly testosterone"
@@ -1411,7 +1411,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 7,
         "name": "Pancreas",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "After eating lunch, pancreas insulin helps blood sugar get into cells; between meals glucagon brings blood sugar back up.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Long flat gland\n• Produces insulin and glucagon\n• Helps controls the levels of glucose in the body"
@@ -1419,7 +1419,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 8,
         "name": "Summary",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Unlike fast electrical nerve signals, hormones travel slower through blood to run growth, sleep, and mood.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "The purpose of the endocrine system is to control body functions. It works with tthe nervous system and the circulatory system. Each gland an organ that makes chemical substances/ hormones in the endocrine system has a different job. Glands are controlled by the hypothalamus which acts like a thermostat."
@@ -1554,7 +1554,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Functions of the nervous system",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Senses hot, cold, pain, or sound and tells muscles how to react in split seconds.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Recieves info from inside & outside of the body\n• Controls & directs body's functions and responses\n• Helps maintain homeostasis"
@@ -1562,7 +1562,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Divided into 2 parts",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Central is brain + spinal cord; Peripheral is all the nerves branching out to arms, legs, and fingers.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Peripheral Nervous System\n• Central Nervous System (Brain and Spinal Cord)"
@@ -1570,7 +1570,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Peripheral nervous system",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Waving your hand is voluntary (somatic); your heart beating and breathing automatically is autonomic.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Somatic NS- carries messages between brain & body to control voluntary muscles\n• Autonomic NS- controls organs & involuntary muscles"
@@ -1578,7 +1578,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Central Nervous System: The Spinal Cord ",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Touch a hot pan and spinal cord nerves yank your hand back fast even before you think about it.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Bundle of nerves that runs down the spine to carry messages between the brain and the rest of the body\n"
@@ -1586,7 +1586,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "Central Nervous System: Nerve cells (neurons)",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Neurons pick up messages on dendrites, zip the electric spark down the axon, and jump the gap to the next nerve.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Basic functioning units of the nervous system that carry messages called impulses"
@@ -1594,7 +1594,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 6,
         "name": "Central Nervous System: The Brain",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Has ~100 billion neurons handling thoughts, school memories, breathing, balance, and dreams.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Coordinates body activities made up of approximately 100 billion neurons"
@@ -1602,7 +1602,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 7,
         "name": "The brain is divided into 3 main parts",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Three main sections from our notes: Cerebrum (thinking), Cerebellum (balance), and Brain Stem (vitals).",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Cerebrum\n• Cerebellum\n• Brain stem"
@@ -1610,7 +1610,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 8,
         "name": "Cerebrum",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "What you're using right now to read notes, solve math, or remember your friend's name.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Coordinates\n• Thinking and learning\n• Creativity\n• Five Senses\n• Memory and Emotion\n• Problem Solving"
@@ -1618,7 +1618,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 9,
         "name": "Cerebellum",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Keeps your balance steady when riding a bike, shooting hoops, or playing piano.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Most voluntary muscles movements\n• Helps maintain balance and muscle tone"
@@ -1626,7 +1626,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 10,
         "name": "Brain Stem",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Connects brain to spinal cord and runs breathing, heartbeat, and swallowing 24/7.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Connects brain to the spinal cord\n• Coordinates involuntary actions"
@@ -1706,7 +1706,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Aorta",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Big main artery arching out of the left ventricle to send oxygen-packed blood around the body.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "The main artery in the human body starts from the left ventricle to the stomach"
@@ -1714,7 +1714,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Right Atrium",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Top right pocket of the heart where tired, low-oxygen blood comes back in from veins.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Receives blood from all the parts of the body. Blood is high in CO2 and low in oxygen."
@@ -1722,7 +1722,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Right Ventricle",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Bottom right chamber that pushes low-oxygen blood straight over to the lungs.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Pumps blood to the lungs. Blood is high in carbon dioxide and low in oxygen"
@@ -1730,7 +1730,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Left Atrium",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Top left pocket catching fresh oxygen-rich blood coming back from the lungs.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Recieves blood from the lungs. Blood is high in oxygen and low in CO2"
@@ -1738,7 +1738,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "Left Ventricle",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Strongest, thickest chamber — has to squeeze hard enough to shoot blood all the way from your brain to your toes.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Pumps blood to all parts of the body except the lungs. Blood is high in oxygen and low in CO2"
@@ -1840,7 +1840,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Artery",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Thick elastic blood vessels carrying oxygen-rich blood away from the heart.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Largest of all blood vessels\n• Carries blood away from the heart\n• Arteries, except those that go to the lungs, are rich in oxygen\n• Carry materials that the cells need\n• "
@@ -1848,7 +1848,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Vein",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Bring low-oxygen blood back toward your heart with little one-way flaps so blood doesn't slide backward in your legs.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Carry blood back to the heart\n• Veins, except those that go to the lungs carry blood with dissolved materials\n• Medium sized"
@@ -1856,7 +1856,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Capilary",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Super narrow tubes (only one red blood cell wide!) where oxygen and glucose squeeze into cells.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Connects the arteries and the veins\n• They are tiny in size -- some as thin as one strand of hair\n• Most numerous in your body"
@@ -1864,7 +1864,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Blood vessels",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "All your arteries, veins, and capillaries looping blood from heart to organs and back.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Blood vessels carry blood to and from the heart and other parts of the body\n• Blood circulates throughout the blood vessels to reach all areas of the body. It transports nutrients and oxygens to the heart and carries away waste.\n"
@@ -1872,7 +1872,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "White Blood Cell",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "If germs sneak into a scrape, white blood cells squeeze through capillary walls to swallow and wipe them out.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Fight disease and infection\n• Destroy harmful germs in the body\n• Largest of blood cells"
@@ -1880,7 +1880,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 6,
         "name": "Red Blood Cell",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Red iron protein (hemoglobin) inside lets red blood cells carry oxygen from lungs and trade it for CO2.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Contains hemoglobin that gives it that red color\n• Most numerous\n• Carries oxygen to all parts of the body\n• Picks up carbon dioide waste from the cells"
@@ -1888,7 +1888,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 7,
         "name": "Platelets ",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Get a papercut and platelets clump together fast to form a sticky clot so bleeding stops.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Tiny colorless pieces of blood\n• Help stop bleeding by giving off a chemical that helps blood clot\n• Smallest of the blood cells"
@@ -1990,7 +1990,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 1,
         "name": "Cornea",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Clear front window over your eye that blocks dust and starts bending light inward.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Helps the eye focus as light enters"
@@ -1998,7 +1998,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 2,
         "name": "Pupil",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Dark hole in the middle — widens in a dark movie theater and shrinks outside in bright sun.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• It lets light enter the eye\n"
@@ -2006,7 +2006,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 3,
         "name": "Iris",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "The colored circle (blue, brown, or green) made of tiny muscles that open and shrink the pupil.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• The iris determines how much light should go through the pupil"
@@ -2014,7 +2014,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 4,
         "name": "Lens",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Look from your notebook up to the classroom clock — your lens flexes instantly to keep both sharp.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Lens job is to focus the light rays at the back of the eyeballs"
@@ -2022,7 +2022,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 5,
         "name": "Retina",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Back wall of your eyeball covered in rods and cones; light hits it upside-down before turning into signals.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Takes the light and turns it into nerve signals\n• In the retina, the light makes an upside-down and backwards picture.\n• The retina contains light sensitive cells (called rods and cones) that change the picture into messages that your brain understands"
@@ -2030,7 +2030,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 6,
         "name": "Ciliary Muscle",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Muscles pulling on the lens to make it thicker for reading close up or thinner to see far.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• The ciliary muscle change the shapes of the lens"
@@ -2038,7 +2038,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       {
         "num": 7,
         "name": "Optic Nerve",
-        "trick": "5th Grade Science Concept",
+        "trick": "",
         "example": "Over a million nerve fibers carry signals from your retina to your brain, which flips the picture right-side up.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• The optic nerve carries the nerve signals to the brain"
@@ -4996,56 +4996,56 @@ class VaultController {
           formula: "Keep Controls Constant • Change 1 Variable",
           explanation: "Test only ONE independent variable at a time. Keep all controlled variables (water, soil, temperature) identical.",
           example: "3 plants receive identical soil and water, but different light exposure.",
-          trick: "Memory Trick: If you change two things at once, you won't know which one caused the result!"
+          trick: "Change one variable at a time."
         },
         {
           name: "Step 4: Collect & Analyze Data",
           formula: "Quantitative Data (Numbers) + Qualitative Data (Observations)",
           explanation: "Record measurements daily using metric tools (rulers, scales, graduated cylinders) and plot into charts.",
           example: "Plant A: 14cm, Plant B: 9cm, Plant C: 4cm after 2 weeks.",
-          trick: "Tip: Repeat experiments multiple times to ensure reliable results!"
+          trick: "Repeat trials for reliable results."
         },
         {
           name: "Step 5: Draw Conclusions & Share",
           formula: "Did the evidence support or refute the hypothesis?",
           explanation: "Synthesize findings. Explain what the data proves, identify experimental errors, and communicate results to peers.",
           example: "Data supported the hypothesis: greater sunlight exposure produced 55% more stem growth.",
-          trick: "Tip: In science, even an incorrect hypothesis teaches you valuable discoveries!"
+          trick: "Compare data to hypothesis."
         }
       ];
     } else {
       document.getElementById("vnote-title").value = "CELL STRUCTURE & SPECIALIZED FUNCTIONS";
       document.getElementById("vnote-category").value = "life";
       document.getElementById("vnote-formula").value = "Cell Theory: All living organisms are composed of one or more cells";
-      document.getElementById("vnote-desc").value = "Exploring the fundamental building blocks of life: plant vs animal cell organelles and their vital jobs.";
+      document.getElementById("vnote-desc").value = "Plant vs animal cell parts.";
       this.architectSquares = [
         {
           name: "Cell Membrane: The Gatekeeper",
           formula: "Selectively Permeable Barrier",
-          explanation: "A flexible outer boundary that controls what enters and exits the cell (nutrients in, waste out).",
-          example: "Like a security guard at school doors letting registered students inside.",
-          trick: "Memory Trick: 'Membrane' means Member Access Only!"
+          explanation: "Thin layer that surrounds the cell. It provides structure and protection and it is semi-permeable.",
+          example: "Water can get in while waste stays out.",
+          trick: "Semi-permeable outer layer"
         },
         {
           name: "Nucleus: The Command Center",
           formula: "Houses DNA & Genetic Instructions",
-          explanation: "The brain of the cell containing hereditary chromosomes that guide all cellular operations and protein manufacturing.",
-          example: "Like City Hall directing municipal services and public construction.",
-          trick: "Memory Trick: Nucleus is the Boss of the Cell!"
+          explanation: "The control center of the cell that directs functions and contains DNA. The nucleolus aids in the production of ribosomes.",
+          example: "Contains DNA for cell growth.",
+          trick: "Directs cell functions and DNA"
         },
         {
           name: "Chloroplast: Solar Energy Converter",
           formula: "6CO₂ + 6H₂O + Sunlight → C₆H₁₂O₆ + 6O₂",
-          explanation: "Plant cell organelle containing green chlorophyll pigments that capture sunlight to manufacture glucose food.",
-          example: "Green leaves acting as microscopic solar panel factories.",
-          trick: "Found in plant cells, NOT animal cells!"
+          explanation: "Convert light energy from the sun into sugars that can be used for energy in a process called photosynthesis.",
+          example: "Used for photosynthesis in leaves.",
+          trick: "Found in plant cells, not animal cells"
         },
         {
           name: "Mitochondria: The Powerhouse",
           formula: "Cellular Respiration (ATP Energy)",
-          explanation: "Breaks down food molecules into usable cellular energy to power all organism activity.",
-          example: "Like the electric power station supplying electricity to city buildings.",
-          trick: "Memory Trick: Mighty Mitochondria makes energy!"
+          explanation: "Nicknamed the powerhouse of the cell because they provide energy for the cell. The site of cellular respiration.",
+          example: "Turns sugar into usable energy.",
+          trick: "Site of cellular respiration"
         }
       ];
     }
@@ -5093,8 +5093,8 @@ class VaultController {
       name: sq.name || `Square #${idx + 1}`,
       formula: sq.formula || formula,
       explanation: sq.explanation || desc,
-      example: sq.example || "Demonstrated in Jeeva's notebook.",
-      trick: sq.trick || "5th Grade Science Concept",
+      example: sq.example || "Class example",
+      trick: sq.trick || "",
       image: sq.image || ""
     }));
 
@@ -5182,7 +5182,7 @@ class VaultController {
             formula: "Definite Shape & Definite Volume",
             explanation: "Particles vibrate in fixed lattice positions. They have the least thermal energy and cannot be easily compressed.",
             example: "Ice cubes, quartz crystals, iron bars.",
-            trick: "Memory Trick: Solids are solid as a rock!"
+            trick: "Definite shape and volume"
           },
           {
             num: 2,
@@ -5190,7 +5190,7 @@ class VaultController {
             formula: "Definite Volume & Indefinite Shape",
             explanation: "Particles slide past one another smoothly. Liquids take the shape of whatever container holds them.",
             example: "Liquid water, juice, vegetable oil.",
-            trick: "Memory Trick: Liquids flow to the bottom!"
+            trick: "Takes container shape"
           },
           {
             num: 3,
@@ -5198,7 +5198,7 @@ class VaultController {
             formula: "Indefinite Shape & Indefinite Volume",
             explanation: "Particles move rapidly in all directions with high kinetic energy, filling the entire volume of any closed container.",
             example: "Water vapor steam, oxygen, nitrogen in our air.",
-            trick: "Memory Trick: Gas spreads fast everywhere!"
+            trick: "Fills any container"
           }
         ]
       };
@@ -7310,10 +7310,10 @@ class ScienceIoApp {
     document.getElementById("btn-pull-cloud-now")?.addEventListener("click", async () => {
       sounds.playClick();
       const btn = document.getElementById("btn-pull-cloud-now");
-      if (btn) btn.textContent = "Pulling from cloud...";
+      if (btn) btn.textContent = "Pulling...";
       await this.fetchCloudNotes();
       sounds.playSuccess();
-      if (btn) btn.textContent = "Pull Latest Notes from Cloud";
+      if (btn) btn.textContent = "Pull";
       alert("Notes refreshed from Cloud Database!");
     });
 
@@ -7905,8 +7905,15 @@ class ScienceIoApp {
 // 3D COVERFLOW CAROUSEL
   buildCardActionsHtml(topic) {
     if (!topic) return "";
+    const firstExp = ((topic.properties && topic.properties[0] && topic.properties[0].explanation) || "")
+      .replace(/[•\r\n]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const rawSnippet = firstExp || (topic.description || "").trim();
+    const snippet = rawSnippet.length > 105 ? rawSnippet.slice(0, 105).replace(/\s+\S*$/, "") + "..." : rawSnippet;
     return `
       <div class="card-buttons-stack">
+        ${snippet ? `<p class="card-worksheet-snippet">${formatBulletText(snippet)}</p>` : ""}
         <button class="card-action-btn primary-action btn-card-view" data-id="${topic.id}">
           Open notes
         </button>
@@ -8144,17 +8151,17 @@ class ScienceIoApp {
         }
       } else {
         card.querySelector(".card-buttons-stack")?.remove();
-      }
-      if (offset === 1) {
-        card.classList.add("pos-right-1");
-      } else if (offset === -1) {
-        card.classList.add("pos-left-1");
-      } else if (offset === 2) {
-        card.classList.add("pos-right-2");
-      } else if (offset === -2) {
-        card.classList.add("pos-left-2");
-      } else {
-        card.classList.add("pos-hidden");
+        if (offset === 1) {
+          card.classList.add("pos-right-1");
+        } else if (offset === -1) {
+          card.classList.add("pos-left-1");
+        } else if (offset === 2) {
+          card.classList.add("pos-right-2");
+        } else if (offset === -2) {
+          card.classList.add("pos-left-2");
+        } else {
+          card.classList.add("pos-hidden");
+        }
       }
     });
 
@@ -12637,10 +12644,10 @@ class ScienceIoApp {
                 cardId: `${t.id || t.title}-${p.num}`,
                 num: p.num,
                 name: p.name || "Concept",
-                formula: p.formula || "Scientific Principle",
-                trick: p.trick || "Memory Trick: Read carefully!",
-                explanation: p.explanation || "Scientific concept overview.",
-                example: p.example || "Real-world science example in nature."
+                formula: p.formula || t.title,
+                trick: p.trick || p.formula || "",
+                explanation: p.explanation || t.description || "",
+                example: p.example || ""
               });
             });
           }
@@ -12655,10 +12662,10 @@ class ScienceIoApp {
               cardId: `${t.id || t.title}-${p.num}`,
               num: p.num,
               name: p.name || "Concept",
-              formula: p.formula || "Scientific Principle",
-              trick: p.trick || "Memory Trick: Read carefully!",
-              explanation: p.explanation || "Scientific concept overview.",
-              example: p.example || "Real-world science example in nature."
+              formula: p.formula || t.title,
+              trick: p.trick || p.formula || "",
+              explanation: p.explanation || t.description || "",
+              example: p.example || ""
             });
           });
         }
@@ -12687,7 +12694,7 @@ class ScienceIoApp {
       if (termEl) termEl.textContent = card.name;
       if (backTitleEl) backTitleEl.textContent = card.name;
       if (formulaEl) formulaEl.textContent = card.formula;
-      if (trickEl) trickEl.textContent = card.trick.startsWith("Memory Trick:") ? `${card.trick}` : `${card.trick}`;
+      if (trickEl) trickEl.textContent = card.trick || card.formula || "";
       if (defEl) defEl.textContent = card.explanation;
       if (exampleEl) {
         exampleEl.innerHTML = `<strong>Real-World Science:</strong> ${card.example}`;
@@ -13021,10 +13028,10 @@ class ScienceIoApp {
       if (catEl) catEl.textContent = (topic.category || "SCIENCE").toUpperCase();
       if (numEl) numEl.textContent = `#${prop.num || 1}`;
       if (titleEl) titleEl.textContent = prop.name || "Concept";
-      if (formulaEl) formulaEl.textContent = prop.formula || "Key Concept Principle";
-      if (descEl) descEl.textContent = prop.explanation || "Scientific concept details and characteristics.";
-      if (trickEl) trickEl.textContent = prop.trick || "Memory Trick: Connect core idea to familiar objects!";
-      if (exampleEl) exampleEl.textContent = prop.example || "Real-world scientific application.";
+      if (formulaEl) formulaEl.textContent = prop.formula || topic.title || "";
+      if (descEl) descEl.textContent = prop.explanation || topic.description || "";
+      if (trickEl) trickEl.textContent = prop.trick || prop.formula || "";
+      if (exampleEl) exampleEl.textContent = prop.example || "";
 
       // Update duel choice buttons
       if (side === "a" && duelChoiceA) duelChoiceA.textContent = `A: ${prop.name}`;
@@ -13955,159 +13962,145 @@ class StudyLookupPanel {
     const systems = {
       respiratory: {
         title: "RESPIRATORY SYSTEM",
-        id: "science-respiratory",
-        coreFormula: "Gas Exchange: O₂ (Inhale) -> Trachea -> Bronchi -> Alveoli (Blood Diffusion) -> CO₂ (Exhale)",
-        description: "How lungs bring oxygen into the blood and remove carbon dioxide.",
+        id: "science-unit-1791126671261",
+        coreFormula: "Nose / Pharynx -> Larynx -> Trachea -> Lungs & Alveoli",
+        description: "How lungs, alveoli, trachea, pharynx, and larynx move air.",
         properties: [
           {
             num: 1,
-            name: "Nose & Trachea (Windpipe)",
-            formula: "Filtration & Main Airway",
-            explanation: "Cilia hairs and mucus filter pathogens and dust, while C-shaped cartilage rings keep the airway wide open.",
-            trick: "Memory Trick: The hollow highway channeling filtered air straight to the chest!"
+            name: "Pharynx & Larynx",
+            formula: "Air & food pathway",
+            explanation: "Muscular passage from the nasal cavity to the larynx. Larynx routes air and food into proper channels.",
+            trick: ""
           },
           {
             num: 2,
-            name: "Bronchi & Bronchioles",
-            formula: "Branching Air Tree",
-            explanation: "Two primary bronchial tubes branch into left and right lungs, dividing into thousands of tiny bronchioles.",
-            trick: "Memory Trick: Think of an upside-down tree with branching air twigs!"
+            name: "Trachea",
+            formula: "Airway tube",
+            explanation: "Connects the larynx with the bronchi.",
+            trick: ""
           },
           {
             num: 3,
-            name: "Alveoli (Air Sacs)",
-            formula: "Microscopic Gas Diffusion",
-            explanation: "Millions of grape-like microscopic air sacs wrapped in capillaries where O₂ enters red blood cells and CO₂ exits.",
-            trick: "Memory Trick: Alveoli = Tiny Air Grapes where oxygen and CO₂ trade places!"
-          },
-          {
-            num: 4,
-            name: "Diaphragm Muscle",
-            formula: "Breathing Engine (Pressure Pump)",
-            explanation: "Dome-shaped muscle beneath lungs. Pulls down to draw air in; pushes up to force air out.",
-            trick: "Memory Trick: Diaphragm down = Inhale; Diaphragm up = Exhale!"
+            name: "Alveoli & Lungs",
+            formula: "Gas exchange",
+            explanation: "Small air sacs where gases are exchanged. Its principal function is to transport oxygen from the atmosphere into the bloodstream and to excrete carbon dioxide from the bloodstream into the atmosphere.",
+            trick: ""
           }
         ],
         takeaways: [
-          "Inhale = Delivers Oxygen (O₂) for mitochondria to make usable cell energy (ATP).",
-          "Exhale = Removes Carbon Dioxide (CO₂) waste produced during cellular respiration.",
-          "Capillaries wrap directly around alveoli to exchange gases via rapid diffusion."
+          "Lungs transport oxygen into the blood and remove carbon dioxide.",
+          "Alveoli are tiny thin-walled air sacs where gases swap."
         ]
       },
       circulatory: {
         title: "CIRCULATORY SYSTEM",
-        id: "science-circulatory",
-        coreFormula: "Internal Transport: Heart Pump -> Arteries (Away) -> Capillaries (Trade) -> Veins (Return)",
-        description: "How the heart and blood vessels carry oxygen and nutrients around the body.",
+        id: "science-unit-1791502958384",
+        coreFormula: "Heart -> Arteries -> Capillaries -> Veins",
+        description: "Arteries, veins, capillaries, and blood cells.",
         properties: [
           {
             num: 1,
-            name: "Heart (Cardiac Pump)",
-            formula: "4-Chambered Muscular Engine",
-            explanation: "Pumps blood through pulmonary and systemic circuits without stopping.",
-            trick: "Memory Trick: 2 Atriums at the top receive blood, 2 Ventricles at the bottom pump it out!"
+            name: "Artery",
+            formula: "Away from heart",
+            explanation: "Largest of all blood vessels. Carries blood away from the heart. Arteries, except those that go to the lungs, are rich in oxygen.",
+            trick: ""
           },
           {
             num: 2,
-            name: "Arteries",
-            formula: "High-Pressure Blood Vessels",
-            explanation: "Carry freshly oxygenated blood AWAY from the heart into bodily tissues.",
-            trick: "Memory Trick: Arteries = AWAY from the heart!"
+            name: "Capilary",
+            formula: "Connects vessels",
+            explanation: "Connects the arteries and the veins. They are tiny in size -- some as thin as one strand of hair.",
+            trick: ""
           },
           {
             num: 3,
-            name: "Capillaries",
-            formula: "Microscopic Diffusion Beds",
-            explanation: "Ultra-thin single-cell vessels where nutrients and gases diffuse into tissues.",
-            trick: "Memory Trick: Capillaries = Connectors & trading posts!"
+            name: "Vein",
+            formula: "Back to heart",
+            explanation: "Carry blood back to the heart. Veins, except those that go to the lungs carry blood with dissolved materials.",
+            trick: ""
           },
           {
             num: 4,
-            name: "Veins",
-            formula: "Low-Pressure One-Way Valved Vessels",
-            explanation: "Return deoxygenated blood back into the heart, using one-way valves.",
-            trick: "Memory Trick: Veins = Visiting back into the heart!"
+            name: "Blood Cells & Platelets",
+            formula: "O2, germs, clots",
+            explanation: "Red blood cells carry oxygen to all parts of the body. White blood cells fight disease and infection. Platelets help stop bleeding by giving off a chemical that helps blood clot.",
+            trick: ""
           }
         ],
         takeaways: [
-          "Arteries travel Away; Veins visit back In.",
-          "Capillaries are so narrow red blood cells travel single file.",
-          "Delivers oxygen and glucose to every living cell."
+          "Blood circulates to transport nutrients and oxygens and carry away waste."
         ]
       },
       digestive: {
         title: "DIGESTIVE SYSTEM",
-        id: "science-digestive",
-        coreFormula: "Nutrient Extraction: Mechanical Chewing + Chemical Enzymes -> Absorption (Villi) -> Elimination",
-        description: "How the stomach and intestines break down food into nutrients.",
+        id: "science-unit-1790995817093",
+        coreFormula: "Mouth -> Esophagus -> Stomach -> Small & Large Intestine",
+        description: "How the stomach, intestines, liver, and pancreas break food down.",
         properties: [
           {
             num: 1,
             name: "Mouth & Esophagus",
-            formula: "Mastication & Peristalsis",
-            explanation: "Teeth physically crush food, salivary enzymes digest starch, and peristalsis squeezes food downward.",
-            trick: "Memory Trick: Peristalsis is the muscular wave pushing food down!"
+            formula: "Chewing + Peristalsis",
+            explanation: "Your mouth has teeth that tear up and chop your food. Your saliva enzymes break it down even more. Esophagus pushes food down to the stomach by Peristalsis.",
+            trick: ""
           },
           {
             num: 2,
             name: "Stomach",
-            formula: "Acid & Churning Tank",
-            explanation: "Hydrochloric acid and enzymes liquefy food into nutrient chyme while destroying pathogens.",
-            trick: "Memory Trick: The acid blender tank liquefying food!"
+            formula: "Acid + churning",
+            explanation: "Smooth Muscles churn and mix the food. Chemicals, like acids, break down the food.",
+            trick: ""
           },
           {
             num: 3,
-            name: "Small Intestine & Villi",
-            formula: "90% Nutrient Absorption Hub",
-            explanation: "Millions of finger-like villi absorb glucose, amino acids, and fats directly into the blood.",
-            trick: "Memory Trick: Small Intestine has HUGE surface area for absorption!"
+            name: "Small Intestine & Large Intestine",
+            formula: "20 ft vs 5 ft",
+            explanation: "Small Intestine is 20 feet long and absorbs nutrients into the blood. Large Intestine is 5 feet long and absorbs water from remaining food.",
+            trick: ""
           },
           {
             num: 4,
-            name: "Large Intestine",
-            formula: "Water Reclamation & Waste Compaction",
-            explanation: "Reabsorbs water and compacts indigestible matter for excretion.",
-            trick: "Memory Trick: The water recycling plant of the body!"
+            name: "Liver, Gall Bladder & Pancreas",
+            formula: "Bile + sugars",
+            explanation: "Liver is a factory for antibodies and bile. Gall Bladder is a storage tank for bile. Pancreas helps you digest food by breaking down sugars.",
+            trick: ""
           }
         ],
         takeaways: [
-          "Digestion is both Mechanical (physical breakdown) and Chemical (enzymes and acid).",
-          "Most nutrients enter the bloodstream in the Small Intestine.",
-          "Supplies fuel for mitochondria to perform cellular respiration."
+          "Mechanical digestion breaks food into smaller pieces; chemical digestion breaks food down into nutrients."
         ]
       },
       nervous: {
         title: "NERVOUS SYSTEM",
-        id: "science-nervous",
-        coreFormula: "Signal Flow: Sensory Receptor -> Central Processor (Brain/Spinal Cord) -> Motor Output",
-        description: "How the brain, spinal cord, and nerves carry signals and control reflexes.",
+        id: "science-unit-1791299610199",
+        coreFormula: "CNS (Brain & Spinal Cord) + PNS",
+        description: "Brain, spinal cord, nerves, and reflexes.",
         properties: [
           {
             num: 1,
-            name: "Brain (Central Command)",
-            formula: "Cerebrum, Cerebellum, Brainstem",
-            explanation: "Directs voluntary movement, processes sensory input, and controls vital functions like heartbeat.",
-            trick: "Memory Trick: The control center running your body!"
+            name: "Brain (Cerebrum, Cerebellum, Brain Stem)",
+            formula: "3 main parts",
+            explanation: "Cerebrum coordinates thinking, learning, five senses, memory and problem solving. Cerebellum helps maintain balance and muscle tone. Brain stem connects brain to the spinal cord.",
+            trick: ""
           },
           {
             num: 2,
             name: "Spinal Cord",
-            formula: "Information Superhighway",
-            explanation: "Connects the brain to peripheral nerves and mediates rapid life-saving reflex arcs.",
-            trick: "Memory Trick: The fiber-optic trunk line running down your back!"
+            formula: "Message bundle",
+            explanation: "Bundle of nerves that runs down the spine to carry messages between the brain and the rest of the body.",
+            trick: ""
           },
           {
             num: 3,
-            name: "Neurons (Nerve Cells)",
-            formula: "Dendrites -> Axon -> Synapse",
-            explanation: "Specialized cells transmitting electrical impulses at over 200 mph.",
-            trick: "Memory Trick: High-speed electrical messengers firing signals!"
+            name: "Neurons",
+            formula: "Impulses",
+            explanation: "Basic functioning units of the nervous system that carry messages called impulses.",
+            trick: ""
           }
         ],
         takeaways: [
-          "Central Nervous System (CNS) = Brain + Spinal Cord.",
-          "Peripheral Nervous System (PNS) = Branching nerves to organs and limbs.",
-          "Reflex arcs trigger movement before signals reach the conscious brain to prevent injury!"
+          "Divided into Central Nervous System (Brain and Spinal Cord) and Peripheral Nervous System."
         ]
       }
     };

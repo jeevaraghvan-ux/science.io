@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=138.0">
+  <link rel="stylesheet" href="styles.css?v=139.0">
   <link rel="stylesheet" href="ios27.css?v=71.0">
   <link rel="icon" type="image/svg+xml" href="logo.svg">
   <link rel="manifest" href="manifest.json">
@@ -1053,27 +1053,27 @@
 
       <div class="publish-hero-icon"><svg viewBox="0 0 16 16" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z"/></svg></div>
       <h2 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 8px; color: #ffffff;">
-        Sync Notes
+        Sync
       </h2>
       <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">
-        Firestore Sync
+        Cloud
       </p>
 
       <div class="publish-meta-badge">
-        <span class="meta-pill-item"><svg class="ui-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 1L2 9h5l-1 6 8-8H9z"/></svg> Firestore</span>
+        <span class="meta-pill-item"><svg class="ui-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 1L2 9h5l-1 6 8-8H9z"/></svg> Sync</span>
         <span>•</span>
-        <span class="meta-pill-item"><svg class="ui-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.5 12.8H6a4.5 4.5 0 1 1 4.4-5.8h1.1a3 3 0 1 1 0 5.8z"/></svg> Saved Units</span>
+        <span class="meta-pill-item"><svg class="ui-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.5 12.8H6a4.5 4.5 0 1 1 4.4-5.8h1.1a3 3 0 1 1 0 5.8z"/></svg> Units</span>
         <span>•</span>
-        <span id="publish-notes-count-summary">0 Notes to Publish</span>
+        <span id="publish-notes-count-summary">0 Units</span>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
         <button class="btn-modal-action primary" id="btn-do-publish-now" style="width: 100%; font-size: 1.05rem; padding: 16px; background: #1d4ed8; border: 1px solid #3b82f6; box-shadow: 0 8px 20px rgba(15, 37, 71, 0.5); color: #fff; font-weight: 800;">
-          <span><svg class="ui-icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z"/></svg> Publish notes</span>
+          <span><svg class="ui-icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z"/></svg> Publish</span>
         </button>
 
         <button class="btn-modal-action secondary" id="btn-pull-cloud-now" style="width: 100%; font-size: 0.9rem;">
-          <span><svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 2.5 15 6.5 11 6.5"/><polyline points="1 13.5 1 9.5 5 9.5"/><path d="M2.3 6A6 6 0 0 1 12.2 3.8L15 6.5M1 9.5l3 2.8A6 6 0 0 0 13.6 10"/></svg> Pull Latest Notes from Cloud</span>
+          <span><svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 2.5 15 6.5 11 6.5"/><polyline points="1 13.5 1 9.5 5 9.5"/><path d="M2.3 6A6 6 0 0 1 12.2 3.8L15 6.5M1 9.5l3 2.8A6 6 0 0 0 13.6 10"/></svg> Pull</span>
         </button>
       </div>
 
@@ -1081,19 +1081,18 @@
 
       <div class="publish-db-id-row" style="flex-direction: column; align-items: stretch; gap: 8px; margin-top: 10px; background: rgba(37, 99, 235, 0.12); padding: 12px; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.32);">
         <div style="font-weight: bold; color: #93c5fd; font-size: 0.85rem; display: flex; align-items: center; justify-content: space-between;">
-          <span><svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5.7 9.7c.9 0 1.6-.7 1.6-1.6 0-.9-.3-1.4-.6-2-.7-1.4-.2-2.7 1.3-4 .4 1.6 1.3 3.2 2.6 4.3 1.3 1 2 2.3 2 3.6a4.7 4.7 0 1 1-9.4 0c0-.8.3-1.5.7-2 0 .9.8 1.7 1.8 1.7z"/></svg> Firebase Config</span>
-          <span id="firebase-status-badge" style="font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.1); color: #aaa;">Not Configured</span>
+          <span><svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5.7 9.7c.9 0 1.6-.7 1.6-1.6 0-.9-.3-1.4-.6-2-.7-1.4-.2-2.7 1.3-4 .4 1.6 1.3 3.2 2.6 4.3 1.3 1 2 2.3 2 3.6a4.7 4.7 0 1 1-9.4 0c0-.8.3-1.5.7-2 0 .9.8 1.7 1.8 1.7z"/></svg> Config</span>
+          <span id="firebase-status-badge" style="font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.1); color: #aaa;">Ready</span>
         </div>
-        <textarea id="firebase-config-input" rows="3" placeholder='Paste your Firebase config object or JSON here:
-{ "apiKey": "...", "projectId": "...", "appId": "..." }' style="font-size: 0.75rem; padding: 6px 10px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; resize: vertical; font-family: monospace;"></textarea>
+        <textarea id="firebase-config-input" rows="3" placeholder="Config JSON" style="font-size: 0.75rem; padding: 6px 10px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; resize: vertical; font-family: monospace;"></textarea>
         <button class="btn-modal-action secondary" id="btn-save-firebase-config" style="padding: 6px 14px; font-size: 0.8rem; background: #1d4ed8; border-color: #3b82f6; color: #fff; font-weight: bold;">
-          <svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5.7 9.7c.9 0 1.6-.7 1.6-1.6 0-.9-.3-1.4-.6-2-.7-1.4-.2-2.7 1.3-4 .4 1.6 1.3 3.2 2.6 4.3 1.3 1 2 2.3 2 3.6a4.7 4.7 0 1 1-9.4 0c0-.8.3-1.5.7-2 0 .9.8 1.7 1.8 1.7z"/></svg> Connect Firebase &amp; Sync
+          <svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5.7 9.7c.9 0 1.6-.7 1.6-1.6 0-.9-.3-1.4-.6-2-.7-1.4-.2-2.7 1.3-4 .4 1.6 1.3 3.2 2.6 4.3 1.3 1 2 2.3 2 3.6a4.7 4.7 0 1 1-9.4 0c0-.8.3-1.5.7-2 0 .9.8 1.7 1.8 1.7z"/></svg> Connect
         </button>
       </div>
 
       <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
         <button class="btn-modal-action secondary" id="btn-download-db-json" style="font-size: 0.8rem; padding: 8px 14px;">
-          <svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10v2.8a1.2 1.2 0 0 1-1.2 1.2H3.2A1.2 1.2 0 0 1 2 12.8V10"/><polyline points="4.8 6.8 8 10 11.2 6.8"/><line x1="8" y1="10" x2="8" y2="2"/></svg> Download database.json
+          <svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10v2.8a1.2 1.2 0 0 1-1.2 1.2H3.2A1.2 1.2 0 0 1 2 12.8V10"/><polyline points="4.8 6.8 8 10 11.2 6.8"/><line x1="8" y1="10" x2="8" y2="2"/></svg> Export JSON
         </button>
       </div>
     </div>
@@ -1140,12 +1139,12 @@
 
           <div class="vault-lock-credentials">
             <h2 class="vault-lock-title">Vault</h2>
-            <p class="vault-lock-subtitle" id="vault-lock-status-msg">Passcode</p>
+            <p class="vault-lock-subtitle" id="vault-lock-status-msg">PIN</p>
 
             <div class="vault-redirect-warning hidden" id="vault-redirect-warning">
               <span class="warning-icon"><svg viewBox="0 0 16 16" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="12" height="7.5" rx="1.4"/><path d="M4.8 7V4.6a3.2 3.2 0 0 1 6.4 0V7"/></svg></span>
               <div class="warning-text">
-                Admin code required
+                Code
               </div>
             </div>
 
@@ -1160,7 +1159,7 @@
               <div class="pin-slot" data-pin-index="6"><span class="pin-dot"></span></div>
             </div>
 
-            <div class="vault-pin-feedback" id="vault-pin-feedback">Enter 7-digit code</div>
+            <div class="vault-pin-feedback" id="vault-pin-feedback">PIN</div>
 
             <!-- Cyber Keypad -->
             <div class="vault-keypad-grid">
@@ -1429,7 +1428,7 @@
     </div>
   </div>
 
-  <script src="published_notes.js?v=67.0"></script>
+  <script src="published_notes.js?v=68.0"></script>
     
   <div id="concept-image-lightbox" class="modal-backdrop hidden" style="z-index: 100000;">
     <div class="lightbox-modal-content">
@@ -1441,6 +1440,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=144.0"></script>
+  <script src="app.js?v=145.0"></script>
 </body>
 </html>
