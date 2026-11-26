@@ -8327,7 +8327,7 @@ class ScienceIoApp {
       tbody.innerHTML = `
         <tr>
           <td colspan="6" style="text-align: center; padding: 36px; color: var(--text-muted);">
-            No skience topics stored yet. Click "Add My Notes" or open the Admin Vault to create your first unit!
+            No units stored yet.
           </td>
         </tr>
       `;
@@ -8340,7 +8340,9 @@ class ScienceIoApp {
       const catDisplay = ((topic.category || "Skience").replace(/science|sk1ence/gi, 'Skience')).toUpperCase();
 
       const rawTblFormula = (topic.coreFormula || "").trim();
-      const tblFormula = (!rawTblFormula || /^(5th Grade Scientific Principle|NO FORMULA)$/i.test(rawTblFormula)) ? (topic.grade || "Grade 5") : rawTblFormula;
+      const firstExp = ((topic.properties && topic.properties[0] && topic.properties[0].explanation) || "").replace(/[•\r\n]+/g, " ").replace(/\s+/g, " ").trim();
+      const shortExp = firstExp.length > 140 ? firstExp.slice(0, 140).replace(/\s+\S*$/, "") + "..." : firstExp;
+      const tblFormula = (!rawTblFormula || /^(5th Grade Scientific Principle|NO FORMULA)$/i.test(rawTblFormula)) ? (shortExp || topic.description || "Grade 5") : rawTblFormula;
       tr.innerHTML = `
         <td><strong>${formatBulletText(topic.title)}</strong></td>
         <td><span class="card-cat-pill">${catDisplay}</span></td>
@@ -9635,10 +9637,10 @@ class ScienceIoApp {
       if (val.includes("fossil")) {
         sounds.playSuccess();
         this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 60);
-        if (fb) fb.textContent = "Nice! A fossil leaves prints of old life in rock.";
+        if (fb) fb.textContent = "Correct — fossil.";
       } else {
         sounds.playClick();
-        if (fb) fb.textContent = "Not quite — think of ancient prints kept in stone.";
+        if (fb) fb.textContent = "Not quite, try again.";
       }
     });
   }
@@ -11184,12 +11186,14 @@ class ScienceIoApp {
       {
         id: "easter-riddle",
         category: "easter",
-        title: "Daily Riddle",
-        sub: "Try today's riddle",
+        title: "Riddle",
+        sub: "Science riddle",
         badge: "QUIZ",
         icon: "help",
-        keywords: "riddle daily quiz trivia question brain teaser",
+        keywords: "riddle quiz trivia question",
         action: () => {
+          const rq = document.getElementById("riddle-question-text");
+          if (rq) rq.textContent = "Old plant or animal prints saved inside rock. What are they?";
           document.getElementById("riddle-modal")?.classList.remove("hidden");
           sounds.playKeypadTap();
         }
@@ -11197,8 +11201,8 @@ class ScienceIoApp {
       {
         id: "easter-lookup",
         category: "easter",
-        title: "Topic & Formula Lookup",
-        sub: "Search 5th grade units, terms, and formulas",
+        title: "Lookup",
+        sub: "Search units and formulas",
         badge: "FIND",
         icon: "bot",
         keywords: "search lookup find notes topics formulas help",
@@ -11264,10 +11268,10 @@ class ScienceIoApp {
 
       // Group commands by category title
       const categoryTitles = {
-        actions: "Quick Actions & Navigation",
-        science: "5th Grade Science Topics",
-        tools: "Tools & Audio Settings",
-        easter: "Easter Eggs & Power Tools"
+        actions: "Actions",
+        science: "Topics",
+        tools: "Tools",
+        easter: "Extras"
       };
 
       let currentCat = null;
@@ -13634,7 +13638,7 @@ class ScienceIoApp {
 
       if (cardCat) cardCat.textContent = (randomTopic.category || "PHYSICAL SCIENCE").toUpperCase();
       if (cardTitle) cardTitle.textContent = prop ? prop.name : randomTopic.title;
-      if (cardDesc) cardDesc.textContent = prop ? prop.explanation : (randomTopic.description || "Key 5th grade idea.");
+      if (cardDesc) cardDesc.textContent = prop ? prop.explanation : (randomTopic.description || "Grade 5 notes");
       if (cardTrick) cardTrick.textContent = prop?.trick ? `${prop.trick}` : `Review ${randomTopic.title}`;
       if (cardFormula) cardFormula.textContent = prop?.formula || randomTopic.coreFormula || "";
 

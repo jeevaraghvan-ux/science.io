@@ -1,7 +1,7 @@
 {
   "name": "skience.io | 5th Grade Science Notes",
   "short_name": "skience.io",
-  "description": "Jeeva's 5th grade science notes, formula solver, and unit study sheets.",
+  "description": "5th grade science notes",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#061121",
