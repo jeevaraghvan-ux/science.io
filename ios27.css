@@ -373,6 +373,7 @@ input:focus, select:focus, textarea:focus {
 
 .study-lookup-panel.hidden {
   opacity: 0;
+  visibility: hidden;
   transform: scale(0.5) translateY(50px);
   pointer-events: none;
 }
@@ -3315,6 +3316,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap,
 
 .study-lookup-panel.hidden {
   opacity: 0;
+  visibility: hidden;
   transform: scale(0.8) translateY(24px);
   pointer-events: none;
 }
