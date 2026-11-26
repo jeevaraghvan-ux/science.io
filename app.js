@@ -7905,26 +7905,17 @@ class ScienceIoApp {
 // 3D COVERFLOW CAROUSEL
   buildCardActionsHtml(topic) {
     if (!topic) return "";
-    const firstExp = ((topic.properties && topic.properties[0] && topic.properties[0].explanation) || "")
-      .replace(/[•\r\n]+/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
-    const rawSnippet = firstExp || (topic.description || "").trim();
-    const snippet = rawSnippet.length > 105 ? rawSnippet.slice(0, 105).replace(/\s+\S*$/, "") + "..." : rawSnippet;
     return `
       <div class="card-buttons-stack">
-        ${snippet ? `<p class="card-worksheet-snippet">${formatBulletText(snippet)}</p>` : ""}
         <button class="card-action-btn primary-action btn-card-view" data-id="${topic.id}">
           Open notes
         </button>
-        <div class="card-dual-actions-row">
-          <button class="card-action-btn btn-card-pdf" data-id="${topic.id}">
-            Study Sheet
-          </button>
-          <button class="card-action-btn btn-card-quiz" data-id="${topic.id}">
-            Quiz
-          </button>
-        </div>
+        <button class="card-action-btn secondary-action btn-card-pdf" data-id="${topic.id}">
+          Study Sheet
+        </button>
+        <button class="card-action-btn secondary-action btn-card-quiz" data-id="${topic.id}">
+          Quiz
+        </button>
         ${topic.redirectUrl ? `
         <button class="card-action-btn btn-card-redirect" style="background: rgba(10, 132, 255, 0.4);" onclick="window.open('${topic.redirectUrl}', '_blank')">
           External Link
@@ -7990,36 +7981,15 @@ class ScienceIoApp {
       card.dataset.id = topic.id;
 
       const glowClass = `glow-${topic.color || "cyan"}`;
-      const sqCount = topic.properties ? topic.properties.length : 1;
-      const rawFormula = (topic.coreFormula || "").trim();
-      const isGenericFormula = !rawFormula || /^(5th Grade Scientific Principle|NO FORMULA)$/i.test(rawFormula);
-      const shownFormula = isGenericFormula ? "" : rawFormula;
-      const hasBulletsOrLines = shownFormula && (shownFormula.includes('•') || shownFormula.includes('\n'));
-      const catDisplay = ((topic.category || "Skience").replace(/science|sk1ence/gi, 'Skience')).toUpperCase();
+      const unitNum = String(idx + 1).padStart(2, "0");
 
       card.innerHTML = `
         <div class="card-glow-layer ${glowClass}"></div>
         
         <div class="card-header-meta">
-          <span class="card-cat-pill">${sqCount} ${sqCount === 1 ? "part" : "parts"}</span>
+          <span class="card-cat-pill">Unit ${unitNum}</span>
           <h3 class="card-topic-title">${formatBulletText(topic.title)}</h3>
         </div>
-
-        ${shownFormula ? `<div class="card-preview-formula ${hasBulletsOrLines ? 'has-bullets' : ''}" title="${shownFormula.replace(/"/g, '&quot;')}">
-          ${formatBulletText(shownFormula)}
-        </div>` : ""}
-
-        ${topic.properties && topic.properties.length > 0 ? `
-          <div class="card-chips-rack">
-            ${topic.properties.map((p, pIdx) => `
-              <span class="organelle-chip" data-id="${topic.id}" data-sq="${p.num}" title="${p.formula}">
-                ${p.num}. ${p.name.replace(/^\d+\.\s*/, '')}
-              </span>
-            `).join('')}
-          </div>
-        ` : ''}
-
-        ${idx === this.carouselIndex ? this.buildCardActionsHtml(topic) : ""}
       `;
 
       card.addEventListener("click", (e) => {
@@ -8118,6 +8088,9 @@ class ScienceIoApp {
     const n = cards.length;
     if (n === 0) return;
 
+    const filtered = this.getFilteredNotes();
+    const maxVisibleSide = n >= 7 ? 3 : (n >= 5 ? 2 : (n >= 3 ? 1 : 0));
+
     cards.forEach((card) => {
       card.style.setProperty("--tilt-x", "0deg");
       card.style.setProperty("--tilt-y", "0deg");
@@ -8126,8 +8099,10 @@ class ScienceIoApp {
         "pos-center",
         "pos-left-1",
         "pos-left-2",
+        "pos-left-3",
         "pos-right-1",
         "pos-right-2",
+        "pos-right-3",
         "pos-hidden",
         "active-center",
         "left-card",
@@ -8142,26 +8117,34 @@ class ScienceIoApp {
       while (offset > n / 2) offset -= n;
       while (offset < -n / 2) offset += n;
 
-      if (offset === 0) {
-        card.classList.add("pos-center");
+      const absOffset = Math.abs(offset);
+      const isVisibleSlot = offset === 0 || absOffset <= maxVisibleSide || (n === 2 && offset === 1);
+
+      if (isVisibleSlot) {
         if (!card.querySelector(".card-buttons-stack")) {
-          const filtered = this.getFilteredNotes();
           const tObj = filtered.find((t) => t.id === card.dataset.id);
           if (tObj) card.insertAdjacentHTML("beforeend", this.buildCardActionsHtml(tObj));
         }
       } else {
         card.querySelector(".card-buttons-stack")?.remove();
-        if (offset === 1) {
-          card.classList.add("pos-right-1");
-        } else if (offset === -1) {
-          card.classList.add("pos-left-1");
-        } else if (offset === 2) {
-          card.classList.add("pos-right-2");
-        } else if (offset === -2) {
-          card.classList.add("pos-left-2");
-        } else {
-          card.classList.add("pos-hidden");
-        }
+      }
+
+      if (offset === 0) {
+        card.classList.add("pos-center");
+      } else if (offset === 1 && (absOffset <= maxVisibleSide || n === 2)) {
+        card.classList.add("pos-right-1");
+      } else if (offset === -1 && absOffset <= maxVisibleSide) {
+        card.classList.add("pos-left-1");
+      } else if (offset === 2 && absOffset <= maxVisibleSide) {
+        card.classList.add("pos-right-2");
+      } else if (offset === -2 && absOffset <= maxVisibleSide) {
+        card.classList.add("pos-left-2");
+      } else if (offset === 3 && absOffset <= maxVisibleSide) {
+        card.classList.add("pos-right-3");
+      } else if (offset === -3 && absOffset <= maxVisibleSide) {
+        card.classList.add("pos-left-3");
+      } else {
+        card.classList.add("pos-hidden");
       }
     });
 

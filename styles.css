@@ -1549,91 +1549,24 @@ html, body {
 .carousel-bracket-frame {
   position: relative;
   width: 100%;
-  max-width: 1100px;
-  min-height: 560px;
+  max-width: 1420px;
+  min-height: 380px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 10px 50px;
-  perspective: 1400px;
+  padding: 8px 56px 14px;
+  perspective: 1450px;
   perspective-origin: center center;
 }
 
-/* Bracket Corners (matching skience.io screenshot) */
+/* Bracket Corners (hidden in clean arc mode) */
 .corner-bracket {
-  position: absolute;
-  width: 52px;
-  height: 52px;
-  pointer-events: none;
-  z-index: 50;
-  box-shadow: none;
-}
-
-.corner-tl {
-  top: 10px;
-  left: 31%;
-  border-top: 2.5px solid rgba(255, 255, 255, 0.85);
-  border-left: 2.5px solid rgba(255, 255, 255, 0.85);
-  border-top-left-radius: 16px;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-}
-
-.corner-tr {
-  top: 10px;
-  right: 31%;
-  border-top: 2.5px solid rgba(255, 255, 255, 0.85);
-  border-right: 2.5px solid rgba(255, 255, 255, 0.85);
-  border-top-right-radius: 16px;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-}
-
-.corner-bl {
-  bottom: 25px;
-  left: 31%;
-  border-bottom: 2.5px solid rgba(255, 255, 255, 0.85);
-  border-left: 2.5px solid rgba(255, 255, 255, 0.85);
-  border-bottom-left-radius: 16px;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-}
-
-.corner-br {
-  bottom: 25px;
-  right: 31%;
-  border-bottom: 2.5px solid rgba(255, 255, 255, 0.85);
-  border-right: 2.5px solid rgba(255, 255, 255, 0.85);
-  border-bottom-right-radius: 16px;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-}
-
-@media (max-width: 1024px) {
-  .corner-tl, .corner-bl { left: 16%; }
-  .corner-tr, .corner-br { right: 16%; }
-}
-@media (max-width: 640px) {
-  .corner-tl, .corner-bl { left: 4%; }
-  .corner-tr, .corner-br { right: 4%; }
+  display: none;
 }
 
 /* Experience Badge above Card */
 .frame-experience-badge {
-  position: absolute;
-  top: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 55;
-  background: rgba(10, 15, 30, 0.82);
-  border: 1.5px solid rgba(56, 189, 248, 0.55);
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3), inset 0 1px 1.5px rgba(255, 255, 255, 0.3);
-  border-radius: 9999px;
-  padding: 7px 18px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
+  display: none;
 }
 
 .badge-sparkle {
@@ -1651,7 +1584,7 @@ html, body {
 .carousel-stage-viewport {
   position: relative;
   width: 100%;
-  height: 560px;
+  height: 375px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1659,15 +1592,7 @@ html, body {
 }
 
 .carousel-stage-viewport::after {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  left: 8%;
-  right: 8%;
-  height: 85px;
-  background: radial-gradient(ellipse at 50% 100%, rgba(56, 189, 248, 0.16) 0%, rgba(99, 102, 241, 0.08) 50%, transparent 80%);
-  pointer-events: none;
-  z-index: 1;
+  display: none;
 }
 
 .carousel-track {
@@ -1680,12 +1605,12 @@ html, body {
   transform-style: preserve-3d;
 }
 
-/* INDIVIDUAL CAROUSEL CARD // CRYSTAL & ASMR SMOOTH TRANSITIONS */
+/* INDIVIDUAL CAROUSEL CARD // COMPACT 7-CARD CURVED ARC */
 .deck-card {
-  position: absolute;
-  width: 335px;
-  height: 480px;
-  border-radius: 28px;
+  position: absolute !important;
+  width: 232px;
+  height: 332px;
+  border-radius: 18px;
   background: rgba(12, 18, 36, 0.92);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -1697,15 +1622,15 @@ html, body {
   backface-visibility: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
-  padding: 34px 22px 26px;
-  text-align: center;
+  padding: 20px 16px 16px;
+  text-align: left;
   user-select: none;
   cursor: pointer;
   /* ASMR Silky Physics Transition (GPU Compositor Optimized) */
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.45s ease;
   overflow: hidden;
   contain: layout;
 }
@@ -1761,128 +1686,123 @@ html, body {
   background: radial-gradient(ellipse at 50% 65%, rgba(99, 102, 241, 0.4) 0%, rgba(67, 56, 202, 0.2) 45%, transparent 75%);
 }
 
-/* 3D Positions in Carousel // Front Coverflow */
+/* 3D Positions in Carousel // 7-Card Curved Arc */
 .deck-card.pos-center {
-  transform: translate3d(0, 0, 85px) scale(1.04) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform: translate3d(0, 0, 48px) scale(1) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
   z-index: 40;
   opacity: 1;
   filter: none;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.06) 30%, rgba(8, 12, 28, 0.55) 75%, rgba(56, 189, 248, 0.15) 100%) !important;
-  backdrop-filter: blur(24px) saturate(190%) brightness(1.08) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(190%) brightness(1.08) !important;
-  border-color: rgba(56, 189, 248, 0.65) !important;
-  border-top-color: rgba(255, 255, 255, 0.95) !important;
-  box-shadow: 
-    0 35px 95px -10px rgba(0, 0, 0, 0.85),
-    0 0 60px rgba(56, 189, 248, 0.35),
-    0 0 30px rgba(99, 102, 241, 0.28),
-    inset 0 2px 3px rgba(255, 255, 255, 0.85),
-    inset 0 0 20px rgba(56, 189, 248, 0.15) !important;
+  background: #0f2647 !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 22px 54px rgba(2, 8, 20, 0.72) !important;
   will-change: transform, opacity;
-  transition: transform 0.12s ease-out, box-shadow 0.25s ease, border-color 0.25s ease;
+  transition: transform 0.25s ease-out, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .deck-card.pos-center:hover {
-  transform: translate3d(0, -8px, 105px) scale(1.065) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
-  border-color: rgba(255, 255, 255, 0.85) !important;
-  box-shadow: 
-    0 45px 110px rgba(0, 0, 0, 0.92),
-    0 0 75px rgba(56, 189, 248, 0.55),
-    0 0 40px rgba(16, 185, 129, 0.35),
-    inset 0 2px 4px rgba(255, 255, 255, 0.95),
-    inset 0 0 25px rgba(56, 189, 248, 0.25) !important;
+  transform: translate3d(0, -4px, 56px) scale(1.015) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  border-color: #60a5fa !important;
 }
 
 /* Dynamic Holographic Laser Sheen & Edge Refraction */
 .deck-card.pos-center::after {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: 
-    radial-gradient(
-      circle 280px at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(255, 255, 255, 0.35) 0%,
-      rgba(56, 189, 248, 0.25) 25%,
-      rgba(16, 185, 129, 0.18) 50%,
-      rgba(168, 85, 247, 0.12) 70%,
-      transparent 85%
-    );
-  opacity: 0;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  transition: opacity 0.22s ease;
-  z-index: 5;
+  display: none;
 }
 
 .deck-card.pos-center:hover::after {
-  opacity: 1;
+  opacity: 0;
 }
 
 .deck-card.pos-left-1 {
-  transform: translate3d(-310px, 0, -30px) rotateY(20deg) scale(0.88);
-  z-index: 25;
-  opacity: 0.6;
+  transform: translate3d(-258px, 0, 0px) rotateY(11deg) scale(0.92);
+  z-index: 30;
+  opacity: 0.78;
   filter: none !important;
   cursor: pointer;
-  background: rgba(12, 17, 34, 0.94) !important;
+  background: #0a1b34 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+  border: 1px solid rgba(59, 130, 246, 0.24) !important;
   will-change: transform, opacity;
 }
 
 .deck-card.pos-left-1:hover {
-  opacity: 0.85;
-  transform: translate3d(-310px, -4px, -20px) rotateY(16deg) scale(0.91);
+  opacity: 0.94;
+  transform: translate3d(-258px, -3px, 8px) rotateY(8deg) scale(0.94);
 }
 
 .deck-card.pos-left-2 {
-  transform: translate3d(-530px, 0, -100px) rotateY(32deg) scale(0.74);
-  z-index: 15;
-  opacity: 0.35;
+  transform: translate3d(-486px, 0, -55px) rotateY(22deg) scale(0.82);
+  z-index: 20;
+  opacity: 0.54;
   filter: none !important;
-  background: rgba(10, 14, 28, 0.94) !important;
+  cursor: pointer;
+  background: #0a1b34 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(59, 130, 246, 0.16) !important;
+  will-change: transform, opacity;
+}
+
+.deck-card.pos-left-3 {
+  transform: translate3d(-668px, 0, -135px) rotateY(34deg) scale(0.7);
+  z-index: 10;
+  opacity: 0.34;
+  filter: none !important;
+  cursor: pointer;
+  background: #08152b !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(59, 130, 246, 0.12) !important;
   will-change: transform, opacity;
 }
 
 .deck-card.pos-right-1 {
-  transform: translate3d(310px, 0, -30px) rotateY(-20deg) scale(0.88);
-  z-index: 25;
-  opacity: 0.6;
+  transform: translate3d(258px, 0, 0px) rotateY(-11deg) scale(0.92);
+  z-index: 30;
+  opacity: 0.78;
   filter: none !important;
   cursor: pointer;
-  background: rgba(12, 17, 34, 0.94) !important;
+  background: #0a1b34 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+  border: 1px solid rgba(59, 130, 246, 0.24) !important;
   will-change: transform, opacity;
 }
 
 .deck-card.pos-right-1:hover {
-  opacity: 0.85;
-  transform: translate3d(310px, -4px, -20px) rotateY(-16deg) scale(0.91);
+  opacity: 0.94;
+  transform: translate3d(258px, -3px, 8px) rotateY(-8deg) scale(0.94);
 }
 
 .deck-card.pos-right-2 {
-  transform: translate3d(530px, 0, -100px) rotateY(-32deg) scale(0.74);
-  z-index: 15;
-  opacity: 0.35;
+  transform: translate3d(486px, 0, -55px) rotateY(-22deg) scale(0.82);
+  z-index: 20;
+  opacity: 0.54;
   filter: none !important;
-  background: rgba(10, 14, 28, 0.94) !important;
+  cursor: pointer;
+  background: #0a1b34 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(59, 130, 246, 0.16) !important;
+  will-change: transform, opacity;
+}
+
+.deck-card.pos-right-3 {
+  transform: translate3d(668px, 0, -135px) rotateY(-34deg) scale(0.7);
+  z-index: 10;
+  opacity: 0.34;
+  filter: none !important;
+  cursor: pointer;
+  background: #08152b !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(59, 130, 246, 0.12) !important;
   will-change: transform, opacity;
 }
 
 .deck-card.pos-hidden {
-  transform: translate3d(0, 0, -320px) scale(0.48);
+  transform: translate3d(0, 0, -320px) scale(0.45);
   opacity: 0;
   pointer-events: none !important;
   z-index: 0;
@@ -1892,22 +1812,32 @@ html, body {
   -webkit-backdrop-filter: none !important;
 }
 
+@media (max-width: 1200px) {
+  .deck-card.pos-left-3, .deck-card.pos-right-3 {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
+  .carousel-bracket-frame {
+    padding: 8px 34px 12px;
+    min-height: 360px;
+  }
   .carousel-stage-viewport {
-    height: 500px;
+    height: 345px;
   }
   .deck-card {
-    width: 300px;
-    height: 460px;
-    padding: 24px 18px 20px;
+    width: 215px;
+    height: 318px;
+    padding: 18px 14px 14px;
   }
   .deck-card.pos-left-1 {
-    transform: translate3d(-190px, 0, -40px) rotateY(18deg) scale(0.82);
-    opacity: 0.4;
+    transform: translate3d(-180px, 0, -25px) rotateY(15deg) scale(0.84);
+    opacity: 0.45;
   }
   .deck-card.pos-right-1 {
-    transform: translate3d(190px, 0, -40px) rotateY(-18deg) scale(0.82);
-    opacity: 0.4;
+    transform: translate3d(180px, 0, -25px) rotateY(-15deg) scale(0.84);
+    opacity: 0.45;
   }
   .deck-card.pos-left-2, .deck-card.pos-right-2 {
     display: none;
@@ -1915,21 +1845,25 @@ html, body {
 }
 
 @media (max-width: 480px) {
+  .carousel-bracket-frame {
+    padding: 6px 26px 10px;
+    min-height: 340px;
+  }
   .carousel-stage-viewport {
-    height: 490px;
+    height: 325px;
   }
   .deck-card {
-    width: 290px;
-    height: 450px;
-    padding: 22px 14px 18px;
+    width: 205px;
+    height: 306px;
+    padding: 16px 14px 14px;
   }
   .deck-card.pos-left-1 {
-    transform: translate3d(-155px, 0, -50px) rotateY(18deg) scale(0.78);
-    opacity: 0.3;
+    transform: translate3d(-145px, 0, -40px) rotateY(16deg) scale(0.8);
+    opacity: 0.35;
   }
   .deck-card.pos-right-1 {
-    transform: translate3d(155px, 0, -50px) rotateY(-18deg) scale(0.78);
-    opacity: 0.3;
+    transform: translate3d(145px, 0, -40px) rotateY(-16deg) scale(0.8);
+    opacity: 0.35;
   }
 }
 
@@ -1939,28 +1873,30 @@ html, body {
   z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 6px;
+  align-items: flex-start;
+  gap: 5px;
+  width: 100%;
 }
 
 .card-cat-pill {
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  color: var(--accent-cyan);
-  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #93c5fd;
+  text-transform: none;
 }
 
 .card-topic-title {
   font-family: var(--font-display);
-  font-size: 1.65rem;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  color: #ffffff;
-  text-transform: uppercase;
-  line-height: 1.15;
-  margin-top: 8px;
-  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #eaf2ff;
+  text-transform: none;
+  line-height: 1.25;
+  margin-top: 2px;
+  text-align: left;
+  text-shadow: none;
 }
 
 .card-preview-formula {
@@ -2000,45 +1936,34 @@ html, body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
   margin-top: auto;
 }
 
-.card-dual-actions-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  width: 100%;
+.deck-card:not(.pos-center) .card-buttons-stack {
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .card-action-btn {
   width: 100%;
-  padding: 12px 14px;
-  border-radius: 16px;
+  padding: 9px 12px;
+  border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.16);
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
   background: rgba(255, 255, 255, 0.05);
   color: #ffffff;
   font-family: var(--font-display);
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: none;
   cursor: pointer;
-  transition: all 0.22s var(--ease-spring);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 1.5px rgba(255, 255, 255, 0.2);
+  transition: all 0.2s var(--ease-spring);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
   text-align: center;
-}
-
-.card-dual-actions-row .card-action-btn {
-  padding: 10px 8px;
-  font-size: 0.74rem;
-  letter-spacing: 0.04em;
-  border-radius: 14px;
 }
 
 .card-action-btn:hover {
@@ -2113,37 +2038,50 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  margin-top: 24px;
+  gap: 16px;
+  margin-top: 6px;
   z-index: 60;
 }
 
+.carousel-bracket-frame .carousel-arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 60;
+}
+
+.carousel-bracket-frame .carousel-arrow-btn.prev-arrow {
+  left: 8px;
+}
+
+.carousel-bracket-frame .carousel-arrow-btn.next-arrow {
+  right: 8px;
+}
+
 .carousel-arrow-btn {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: rgba(18, 12, 28, 0.85);
-  border: 1.5px solid rgba(255, 255, 255, 0.18);
-  color: #ffffff;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #0a1a32;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #eaf2ff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 8px 20px rgba(2, 8, 20, 0.55);
   transition: all 0.2s var(--ease-spring);
 }
 
 .carousel-arrow-btn svg {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
 }
 
 .carousel-arrow-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
-  transform: scale(1.12);
+  background: #1d4ed8;
+  border-color: #60a5fa;
+  transform: translateY(-50%) scale(1.06);
 }
 
 .carousel-dots-indicator {
@@ -13277,17 +13215,17 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   pointer-events: none !important;
 }
 
-/* Optimize center deck card: clean GPU-friendly rendering without mix-blend-mode */
+/* Optimize center deck card: compact curved arc state */
 .deck-card.pos-center {
-  background: rgba(15, 23, 42, 0.92) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.2) !important;
-  transform: translate3d(0, 0, 60px) scale(1.03) !important;
+  background: #0f2647 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 22px 54px rgba(2, 8, 20, 0.72) !important;
+  transform: translate3d(0, 0, 48px) scale(1) !important;
 }
 
 .deck-card.pos-center:hover {
-  transform: translate3d(0, -6px, 65px) scale(1.04) !important;
+  transform: translate3d(0, -4px, 56px) scale(1.015) !important;
 }
 
 .deck-card.pos-center::after,

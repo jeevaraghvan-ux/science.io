@@ -1235,36 +1235,16 @@ body.theme-quantum-void ::selection {
   box-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(6, 182, 212, 0.4), inset 0 1.5px 2px rgba(255, 255, 255, 0.7) !important;
 }
 
-/* MULTI-LAYER 3D Z-DEPTH PARALLAX */
+/* CARD LAYER DEFAULTS */
 .deck-card {
   transform-style: preserve-3d !important;
 }
 
-.deck-card.pos-center .card-header-meta {
-  transform: translateZ(28px);
-  transition: transform 0.25s ease-out;
-}
-
-.deck-card.pos-center .card-topic-title {
-  transform: translateZ(44px);
-  transition: transform 0.25s ease-out;
-  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), 0 0 30px rgba(56, 189, 248, 0.55);
-}
-
-.deck-card.pos-center .card-formula-chip {
-  transform: translateZ(52px);
-  transition: transform 0.25s ease-out;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-}
-
-.deck-card.pos-center .organelles-preview-box {
-  transform: translateZ(32px);
-  transition: transform 0.25s ease-out;
-}
-
+.deck-card.pos-center .card-header-meta,
+.deck-card.pos-center .card-topic-title,
 .deck-card.pos-center .card-buttons-stack {
-  transform: translateZ(48px);
-  transition: transform 0.25s ease-out;
+  transform: none;
+  text-shadow: none;
 }
 
 /* BIOLUMINESCENT ORGANELLE & TERM GLOW */
@@ -1803,7 +1783,6 @@ body.theme-quantum-void .chat-memo-jump-btn {
 
 /* ACTIVE OPTICAL SPECULAR GLINT & PRISM DISPERSION */
 .glass-pill-nav,
-.deck-card.pos-center,
 .vault-bubble-btn,
 .liquid-calc-container,
 .study-lookup-toggle,
@@ -1814,7 +1793,6 @@ body.theme-quantum-void .chat-memo-jump-btn {
 
 /* Real-time Dynamic Light Sweep (follows gyroscope on mobile & mouse on desktop) */
 .glass-pill-nav::before,
-.deck-card.pos-center::before,
 .vault-bubble-btn::before,
 .pill-toggle-container::before {
   content: '';
@@ -2080,20 +2058,21 @@ body.theme-quantum-void .chat-memo-jump-btn {
 }
 
 .card-header-meta {
-  background: rgba(255, 255, 255, 0.08) !important;
+  background: transparent !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
-  border-radius: 9999px !important;
-  padding: 4px 12px !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
 }
 
 .card-topic-title {
-  background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 40%, #c084fc 80%, #ffffff 100%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  text-shadow: 0 0 25px rgba(56, 189, 248, 0.5) !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: #eaf2ff !important;
+  color: #eaf2ff !important;
+  text-shadow: none !important;
 }
 
 .card-formula-chip {
@@ -2137,38 +2116,39 @@ body.theme-quantum-void .chat-memo-jump-btn {
 
 .card-action-btn.btn-card-view,
 .card-action-btn.primary-action {
-  background: linear-gradient(135deg, #00f5d4 0%, #06b6d4 35%, #6366f1 75%, #c084fc 100%) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.7) !important;
-  box-shadow: 0 10px 30px rgba(0, 245, 212, 0.5), 0 0 25px rgba(99, 102, 241, 0.35), inset 0 1.5px 2px rgba(255, 255, 255, 0.8) !important;
+  background: #1d4ed8 !important;
+  border: 1px solid rgba(147, 197, 253, 0.45) !important;
+  box-shadow: 0 6px 16px rgba(2, 8, 20, 0.45) !important;
   color: #ffffff !important;
-  border-radius: 9999px !important;
+  border-radius: 10px !important;
 }
 
 .card-action-btn.btn-card-view:hover,
 .card-action-btn.primary-action:hover {
-  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 35%, #c084fc 70%, #00f5d4 100%) !important;
-  transform: translateY(-2px) scale(1.02) !important;
-  box-shadow: 0 15px 45px rgba(0, 245, 212, 0.7), 0 0 35px rgba(99, 102, 241, 0.6), inset 0 2px 2.5px rgba(255, 255, 255, 0.9) !important;
+  background: #2563eb !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 10px 22px rgba(2, 8, 20, 0.55) !important;
 }
 
 .card-action-btn.btn-card-pdf,
+.card-action-btn.btn-card-quiz,
 .card-action-btn.secondary-action {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(14, 10, 30, 0.4) 100%) !important;
+  background: #0d2240 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.55) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
-  color: #ffffff !important;
-  border-radius: 9999px !important;
+  border: 1px solid rgba(59, 130, 246, 0.25) !important;
+  box-shadow: none !important;
+  color: #dbeafe !important;
+  border-radius: 10px !important;
 }
 
 .card-action-btn.btn-card-pdf:hover,
+.card-action-btn.btn-card-quiz:hover,
 .card-action-btn.secondary-action:hover {
-  background: rgba(255, 255, 255, 0.22) !important;
-  border-color: rgba(56, 189, 248, 0.7) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(6, 182, 212, 0.45) !important;
-  transform: translateY(-2px) !important;
+  background: #14325c !important;
+  border-color: rgba(96, 165, 250, 0.55) !important;
+  box-shadow: none !important;
+  transform: translateY(-1px) !important;
 }
 
 /* 7. Notes Catalog Table View */
@@ -3146,10 +3126,12 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap,
   box-shadow: 0 6px 16px rgba(2, 8, 20, 0.45) !important;
 }
 
-.frame-experience-badge,
 .carousel-arrow-btn {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 10px !important;
   background: #0a1a32 !important;
-  border: 1.5px solid rgba(59, 130, 246, 0.3) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
   box-shadow: 0 10px 24px rgba(2, 8, 20, 0.48) !important;
   color: #eaf2ff !important;
 }
@@ -3158,6 +3140,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap,
   background: #1d4ed8 !important;
   border-color: #60a5fa !important;
   box-shadow: 0 12px 28px rgba(2, 8, 20, 0.58) !important;
+  transform: translateY(-50%) scale(1.06) !important;
 }
 
 .deck-card,
@@ -3165,6 +3148,8 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap,
 .deck-card.pos-right-1,
 .deck-card.pos-left-2,
 .deck-card.pos-right-2,
+.deck-card.pos-left-3,
+.deck-card.pos-right-3,
 .table-card-glass,
 .liquid-calc-container,
 .calc-solver-panel,
@@ -3183,7 +3168,21 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap,
 .deck-card.pos-center {
   background: #0f2647 !important;
   border-color: #2563eb !important;
-  box-shadow: 0 26px 56px rgba(2, 8, 20, 0.72) !important;
+  box-shadow: 0 22px 54px rgba(2, 8, 20, 0.72) !important;
+}
+
+.deck-card:not(.pos-center) .card-cat-pill,
+.deck-card:not(.pos-center) .card-topic-title {
+  color: #9bb4d8 !important;
+  -webkit-text-fill-color: #9bb4d8 !important;
+}
+
+.deck-card:not(.pos-center) .card-action-btn.btn-card-view,
+.deck-card:not(.pos-center) .card-action-btn.primary-action {
+  background: #0d2240 !important;
+  border-color: rgba(59, 130, 246, 0.22) !important;
+  color: #bfd4ee !important;
+  box-shadow: none !important;
 }
 
 .card-topic-title,
@@ -3204,9 +3203,9 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap,
 .calc-grade-tag,
 .table-count,
 .modal-cat-badge {
-  background: rgba(29, 78, 216, 0.22) !important;
+  background: transparent !important;
   border-color: rgba(96, 165, 250, 0.36) !important;
-  color: #bfdbfe !important;
+  color: #93c5fd !important;
   box-shadow: none !important;
 }
 
@@ -3215,7 +3214,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap,
 .calc-btn.action-btn-equals,
 .modal-tab-btn.active {
   background: #1d4ed8 !important;
-  border: 1px solid rgba(147, 197, 253, 0.4) !important;
+  border: 1px solid rgba(147, 197, 253, 0.45) !important;
   box-shadow: 0 6px 16px rgba(2, 8, 20, 0.45) !important;
   color: #ffffff !important;
 }

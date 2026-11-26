@@ -26,8 +26,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=139.0">
-  <link rel="stylesheet" href="ios27.css?v=71.0">
+  <link rel="stylesheet" href="styles.css?v=140.0">
+  <link rel="stylesheet" href="ios27.css?v=72.0">
   <link rel="icon" type="image/svg+xml" href="logo.svg">
   <link rel="manifest" href="manifest.json">
   <script>
@@ -394,15 +394,9 @@
       <!-- CAROUSEL VIEW CONTAINER -->
       <div id="carousel-view" class="carousel-view-active">
         <div class="carousel-bracket-frame" id="carousel-bracket-frame">
-          <!-- TOP CORNERS -->
-          <div class="corner-bracket corner-tl"></div>
-          <div class="corner-bracket corner-tr"></div>
-          
-          <!-- TOP EXPERIENCE BADGE -->
-          <div class="frame-experience-badge">
-            <span class="badge-sparkle"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><polygon points="8 1.5 10 6 14.5 8 10 10 8 14.5 6 10 1.5 8 6 6"/></svg></span>
-            <span>Units &amp; Notes</span>
-          </div>
+          <button class="carousel-arrow-btn prev-arrow" id="carousel-prev-btn" aria-label="Previous card">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="10.5 3.5 5.5 8 10.5 12.5"/></svg>
+          </button>
 
           <!-- 3D CAROUSEL STAGE -->
           <div class="carousel-stage-viewport">
@@ -411,24 +405,16 @@
             </div>
           </div>
 
-          <!-- BOTTOM CORNERS -->
-          <div class="corner-bracket corner-bl"></div>
-          <div class="corner-bracket corner-br"></div>
+          <button class="carousel-arrow-btn next-arrow" id="carousel-next-btn" aria-label="Next card">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="5.5 3.5 10.5 8 5.5 12.5"/></svg>
+          </button>
         </div>
 
         <!-- CAROUSEL CONTROLS -->
         <div class="carousel-navigation-row">
-          <button class="carousel-arrow-btn prev-arrow" id="carousel-prev-btn" aria-label="Previous card">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="10.5 3.5 5.5 8 10.5 12.5"/></svg>
-          </button>
-          
           <div class="carousel-dots-indicator" id="carousel-dots">
             <!-- Dynamic dots -->
           </div>
-
-          <button class="carousel-arrow-btn next-arrow" id="carousel-next-btn" aria-label="Next card">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="5.5 3.5 10.5 8 5.5 12.5"/></svg>
-          </button>
         </div>
       </div>
 
@@ -1440,6 +1426,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=145.0"></script>
+  <script src="app.js?v=146.0"></script>
 </body>
 </html>
