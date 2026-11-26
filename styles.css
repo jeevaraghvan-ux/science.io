@@ -1,9 +1,5 @@
-/* ============================================================
-   math.io  //  Ultra-Vibrant 5th Grade Math Notes Styling
-   Designed with high-fidelity glassmorphism, 3D coverflow,
-   neon psychedelic fluid gradients & customized for Jeeva
-   ============================================================ */
-
+/* skience.io stylesheet */
+
 :root {
   --font-cursive: 'Dancing Script', 'Caveat', cursive, sans-serif;
   --font-serif: 'Instrument Serif', Georgia, serif;
@@ -11,39 +7,39 @@
   --font-display: 'Space Grotesk', sans-serif;
 
   /* Dark Colors: Shades of Blue, Purple & Midnight Black (Ultra-Smooth, Zero-Lag) */
-  --neon-blue: #3b82f6; /* Electric Royal Blue */
-  --neon-blue-glow: rgba(59, 130, 246, 0.55);
-  --neon-purple: #8b5cf6; /* Royal Purple */
-  --neon-purple-glow: rgba(139, 92, 246, 0.55);
-  --neon-coral: #6366f1; /* Deep Indigo */
-  --neon-coral-glow: rgba(99, 102, 241, 0.55);
-  --neon-orange: #7c3aed; /* Deep Royal Violet */
-  --neon-orange-glow: rgba(124, 58, 237, 0.55);
-  --neon-amber: #4f46e5; /* Deep Indigo-Blue */
-  --neon-amber-glow: rgba(79, 70, 229, 0.55);
-  --neon-gold: #93c5fd; /* Soft Icy Blue */
-  --neon-gold-glow: rgba(147, 197, 253, 0.55);
-  --neon-ruby: #a855f7; /* Cosmic Violet */
-  --neon-ruby-glow: rgba(168, 85, 247, 0.55);
-  --neon-violet: #8b5cf6;
-  --neon-indigo: #4338ca;
-  --neon-cyan: #60a5fa;
-  --neon-lime: #4f46e5;
-  --neon-lime-glow: rgba(79, 70, 229, 0.5);
-  --neon-magenta: #9333ea;
+  --accent-blue: #3b82f6; /* Electric Royal Blue */
+  --accent-blue-glow: rgba(59, 130, 246, 0.55);
+  --accent-purple: #8b5cf6; /* Royal Purple */
+  --accent-purple-glow: rgba(139, 92, 246, 0.55);
+  --accent-coral: #6366f1; /* Deep Indigo */
+  --accent-coral-glow: rgba(99, 102, 241, 0.55);
+  --accent-orange: #7c3aed; /* Deep Royal Violet */
+  --accent-orange-glow: rgba(124, 58, 237, 0.55);
+  --accent-amber: #4f46e5; /* Deep Indigo-Blue */
+  --accent-amber-glow: rgba(79, 70, 229, 0.55);
+  --accent-gold: #93c5fd; /* Soft Icy Blue */
+  --accent-gold-glow: rgba(147, 197, 253, 0.55);
+  --accent-ruby: #a855f7; /* Cosmic Violet */
+  --accent-ruby-glow: rgba(168, 85, 247, 0.55);
+  --accent-violet: #8b5cf6;
+  --accent-indigo: #4338ca;
+  --accent-cyan: #60a5fa;
+  --accent-lime: #4f46e5;
+  --accent-lime-glow: rgba(79, 70, 229, 0.5);
+  --accent-magenta: #9333ea;
   --grad-warm-sunset: linear-gradient(135deg, #1e3a8a 0%, #2563eb 35%, #4f46e5 70%, #7c3aed 100%);
   --grad-warm-gold: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
   --grad-tertiary-triad: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 30%, #6366f1 65%, #8b5cf6 100%);
   --grad-tertiary-cool: linear-gradient(135deg, #1e40af 0%, #4338ca 45%, #6b21a8 80%, #1e1b4b 100%);
   --grad-liquid-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 35%, rgba(10, 16, 38, 0.45) 75%, rgba(79, 70, 229, 0.12) 100%);
 
-  /* Apple iOS Pure Liquid Glass Bases */
-  --liquid-glass-lens: blur(28px) saturate(200%) brightness(1.06) contrast(1.02);
+  /* Apple iOS Pure Bases */
+  --panel-lens-lens: blur(28px) saturate(200%) brightness(1.06) contrast(1.02);
   --glass-bg: rgba(10, 16, 38, 0.22);
   --glass-bg-hover: rgba(18, 26, 56, 0.32);
   --glass-card: rgba(8, 14, 34, 0.28);
   --glass-card-border: rgba(255, 255, 255, 0.28);
-  --glass-blur: var(--liquid-glass-lens);
+  --glass-blur: var(--panel-lens-lens);
   --ease-liquid: cubic-bezier(0.16, 1, 0.3, 1);
 
   --text-main: #f8fafc;
@@ -54,7 +50,7 @@
   --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ================= RESET & BASE ================= */
+/* RESET & BASE */
 
 /* Universal SVG UI Icon Support */
 .ui-icon {
@@ -122,7 +118,7 @@ html, body {
   display: none !important;
 }
 
-/* ================= SUPER COOL SKIENCE LETTER ZOOM-OUT OPENING SCREEN ================= */
+/* SUPER COOL SKIENCE LETTER ZOOM-OUT OPENING SCREEN */
 .skience-intro-overlay {
   position: fixed;
   inset: 0;
@@ -145,7 +141,7 @@ html, body {
   transform: scale(1.04);
 }
 
-/* ================= QUANTUM WARP CANVAS & SCI-FI HUD ================= */
+/* WARP CANVAS & SCI-FI HUD */
 .loader-warp-canvas {
   position: absolute;
   inset: 0;
@@ -278,7 +274,7 @@ html, body {
   min-height: 420px;
 }
 
-/* ================= QUANTUM APERTURE CORE ================= */
+/* APERTURE CORE */
 .quantum-aperture-core {
   position: absolute;
   top: 50%;
@@ -393,7 +389,7 @@ html, body {
   to { transform: rotate(-360deg); }
 }
 
-/* Orbiting Quantum Light Bead (Photon Orb) */
+/* Orbiting Light Bead (Photon Orb) */
 .quantum-photon-orbit {
   position: absolute;
   width: 350px;
@@ -452,7 +448,7 @@ html, body {
   }
 }
 
-/* Grand Quantum Singularity Dissolve Flash */
+/* Grand Singularity Dissolve Flash */
 .quantum-aperture-core.portal-warp {
   animation: portalWarpDissolve 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -649,7 +645,7 @@ html, body {
   transform: translateY(-1px);
 }
 
-/* Laser crosshairs on the quantum aperture */
+/* Laser crosshairs on the aperture */
 .quantum-crosshair {
   position: absolute;
   pointer-events: none;
@@ -669,7 +665,7 @@ html, body {
   left: 50%;
 }
 
-/* ================= POST-E RESOLUTION BRANDING ================= */
+/* POST-E RESOLUTION BRANDING */
 .skience-post-resolve {
   position: relative;
   display: flex;
@@ -841,7 +837,7 @@ html, body {
   50% { transform: scale(1.35); filter: drop-shadow(0 0 8px #ff3366); }
 }
 
-/* ================= FLUID COLORFUL AMBIENT BACKGROUND (SCREENSHOT 1) ================= */
+/* FLUID COLORFUL AMBIENT BACKGROUND (SCREENSHOT 1) */
 .ambient-fluid-canvas-wrap {
   position: fixed;
   inset: 0;
@@ -927,7 +923,7 @@ html, body {
   display: none !important;
 }
 
-/* ================= MAIN WRAPPER ================= */
+/* MAIN WRAPPER */
 .main-wrapper {
   position: relative;
   z-index: 1;
@@ -936,7 +932,7 @@ html, body {
   flex-direction: column;
 }
 
-/* ================= FLOATING GLASS PILL NAVIGATION (SCREENSHOT 1 & 2) ================= */
+/* FLOATING GLASS PILL NAVIGATION (SCREENSHOT 1 & 2) */
 .top-nav-container {
   position: fixed;
   top: 50px;
@@ -1140,7 +1136,7 @@ html, body {
   pointer-events: none;
 }
 
-/* ================= HERO SECTION (SCREENSHOT 1) ================= */
+/* HERO SECTION (SCREENSHOT 1) */
 .hero-section {
   min-height: 88vh;
   display: flex;
@@ -1324,11 +1320,11 @@ html, body {
 .cue-dot {
   width: 6px;
   height: 6px;
-  background: var(--neon-lime);
+  background: var(--accent-lime);
   border-radius: 50%;
   position: absolute;
   top: 8px;
-  box-shadow: 0 0 8px var(--neon-lime);
+  box-shadow: 0 0 8px var(--accent-lime);
   animation: scrollDownBob 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
@@ -1345,7 +1341,7 @@ html, body {
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* ================= NOTES SECTION (SCREENSHOT 2) ================= */
+/* NOTES SECTION (SCREENSHOT 2) */
 .notes-section {
   padding: 40px 24px 100px;
   max-width: 1300px;
@@ -1541,7 +1537,7 @@ html, body {
   box-shadow: 0 4px 20px rgba(6, 182, 212, 0.6) !important;
 }
 
-/* ================= 3D COVERFLOW CAROUSEL WITH BRACKET (SCREENSHOT 2) ================= */
+/* 3D COVERFLOW CAROUSEL WITH BRACKET (SCREENSHOT 2) */
 .carousel-view-active {
   width: 100%;
   display: flex;
@@ -1684,7 +1680,7 @@ html, body {
   transform-style: preserve-3d;
 }
 
-/* INDIVIDUAL CAROUSEL CARD  //  CRYSTAL LIQUID GLASS & ASMR SMOOTH TRANSITIONS */
+/* INDIVIDUAL CAROUSEL CARD // CRYSTAL & ASMR SMOOTH TRANSITIONS */
 .deck-card {
   position: absolute;
   width: 335px;
@@ -1727,7 +1723,7 @@ html, body {
   z-index: 1;
 }
 
-/* Card Radial Atmospheric Glow  //  Dark Blue & Purple Palette */
+/* Card Radial Atmospheric Glow // Dark Blue & Purple Palette */
 .card-glow-layer {
   position: absolute;
   inset: 0;
@@ -1765,7 +1761,7 @@ html, body {
   background: radial-gradient(ellipse at 50% 65%, rgba(99, 102, 241, 0.4) 0%, rgba(67, 56, 202, 0.2) 45%, transparent 75%);
 }
 
-/* 3D Positions in Carousel  //  Front Coverflow */
+/* 3D Positions in Carousel // Front Coverflow */
 .deck-card.pos-center {
   transform: translate3d(0, 0, 85px) scale(1.04) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
   z-index: 40;
@@ -1951,7 +1947,7 @@ html, body {
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.16em;
-  color: var(--neon-cyan);
+  color: var(--accent-cyan);
   text-transform: uppercase;
 }
 
@@ -2039,7 +2035,7 @@ html, body {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45), inset 0 1.5px 2px rgba(255, 255, 255, 0.4);
 }
 
-/* 1. VIEW NOTES BUTTON (Transparent Liquid Glass with Cyan / Indigo Ambient Bloom) */
+/* 1. VIEW NOTES BUTTON (Transparent with Cyan / Indigo Ambient Bloom) */
 .card-action-btn.btn-card-view,
 .card-action-btn.primary-action {
   background: linear-gradient(135deg, rgba(6, 182, 212, 0.32) 0%, rgba(99, 102, 241, 0.42) 100%) !important;
@@ -2056,7 +2052,7 @@ html, body {
   box-shadow: 0 10px 30px rgba(6, 182, 212, 0.6), 0 0 25px rgba(99, 102, 241, 0.45), inset 0 1.5px 2px rgba(255, 255, 255, 0.75) !important;
 }
 
-/* 2. SCIENCE SHEET BUTTON (Transparent Liquid Glass Frosted Sheen) */
+/* 2. SCIENCE SHEET BUTTON (Transparent Frosted Sheen) */
 .card-action-btn.btn-card-pdf {
   background: rgba(255, 255, 255, 0.07) !important;
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
@@ -2071,7 +2067,7 @@ html, body {
   box-shadow: 0 8px 25px rgba(168, 85, 247, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.5) !important;
 }
 
-/* 3. PRACTICE QUIZ BUTTON (Transparent Liquid Glass Purple / Teal) */
+/* 3. PRACTICE QUIZ BUTTON (Transparent Purple / Teal) */
 .card-action-btn.btn-card-quiz {
   background: linear-gradient(135deg, rgba(168, 85, 247, 0.22) 0%, rgba(99, 102, 241, 0.26) 100%) !important;
   border: 1px solid rgba(168, 85, 247, 0.35) !important;
@@ -2133,7 +2129,7 @@ html, body {
 
 .carousel-arrow-btn:hover {
   background: rgba(255, 255, 255, 0.18);
-  border-color: var(--neon-cyan);
+  border-color: var(--accent-cyan);
   box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
   transform: scale(1.12);
 }
@@ -2156,11 +2152,11 @@ html, body {
 .dot-indicator.active {
   width: 24px;
   border-radius: 9999px;
-  background: var(--neon-lime);
-  box-shadow: 0 0 10px var(--neon-lime-glow);
+  background: var(--accent-lime);
+  box-shadow: 0 0 10px var(--accent-lime-glow);
 }
 
-/* ================= TABLE VIEW CONTAINER ================= */
+/* TABLE VIEW CONTAINER */
 .table-view-container {
   width: 100%;
   max-width: 1100px;
@@ -2206,7 +2202,7 @@ html, body {
   padding: 4px 12px;
   border-radius: 9999px;
   background: rgba(0, 240, 255, 0.15);
-  color: var(--neon-cyan);
+  color: var(--accent-cyan);
   border: 1px solid rgba(0, 240, 255, 0.3);
 }
 
@@ -2248,7 +2244,7 @@ html, body {
 
 .tbl-formula-code {
   font-family: var(--font-display);
-  color: var(--neon-lime);
+  color: var(--accent-lime);
   background: rgba(0, 0, 0, 0.3);
   padding: 3px 8px;
   border-radius: 6px;
@@ -2310,7 +2306,7 @@ html, body {
   color: #fff;
 }
 
-/* ================= FLOATING HELP & AUTHOR FOOTER (SCREENSHOT 1 & 2) ================= */
+/* FLOATING HELP & AUTHOR FOOTER (SCREENSHOT 1 & 2) */
 .floating-feedback-anchor {
   position: fixed;
   bottom: 26px;
@@ -2386,7 +2382,7 @@ html, body {
 .feedback-bubble-btn:hover {
   transform: scale(1.1);
   background: rgba(168, 85, 247, 0.3);
-  border-color: var(--neon-magenta);
+  border-color: var(--accent-magenta);
   box-shadow: 0 0 25px rgba(255, 42, 133, 0.5);
   color: #fff;
 }
@@ -2441,7 +2437,7 @@ html, body {
 .replay-loader-btn:hover {
   background: rgba(255, 255, 255, 0.15);
   color: #fff;
-  border-color: var(--neon-cyan);
+  border-color: var(--accent-cyan);
 }
 
 .footer-copyright-badge {
@@ -2487,11 +2483,11 @@ html, body {
 .author-name-highlight {
   color: #ffffff;
   text-decoration: underline;
-  text-decoration-color: var(--neon-magenta);
+  text-decoration-color: var(--accent-magenta);
   text-underline-offset: 3px;
 }
 
-/* ================= MODAL BASE & NOTES VIEWER ================= */
+/* MODAL BASE & NOTES VIEWER */
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -2562,7 +2558,7 @@ html, body {
   justify-content: space-between;
 }
 
-/* ================= COLLAPSIBLE NOTES VIEWER HEADER ================= */
+/* COLLAPSIBLE NOTES VIEWER HEADER */
 .notes-detail-window .modal-header {
   padding: 16px 28px 12px;
   display: flex;
@@ -2614,7 +2610,7 @@ html, body {
 .modal-collapse-btn:hover {
   background: rgba(0, 245, 212, 0.22);
   border-color: rgba(0, 245, 212, 0.55);
-  color: var(--neon-cyan);
+  color: var(--accent-cyan);
   transform: translateY(-1px);
   box-shadow: 0 0 14px rgba(0, 245, 212, 0.35);
 }
@@ -2690,7 +2686,7 @@ html, body {
   padding: 4px 12px;
   border-radius: 9999px;
   background: rgba(214, 255, 56, 0.12);
-  color: var(--neon-lime);
+  color: var(--accent-lime);
   border: 1px solid rgba(214, 255, 56, 0.3);
 }
 
@@ -2822,7 +2818,7 @@ html, body {
   background: rgba(14, 9, 22, 0.65);
 }
 
-/* ================= ORGANIZED 5 PROPERTIES GRID ================= */
+/* ORGANIZED 5 PROPERTIES GRID */
 .properties-grid-layout {
   display: flex;
   flex-direction: column;
@@ -2961,7 +2957,7 @@ html, body {
   font-weight: 600;
 }
 
-/* ================= INTERACTIVE VISUALIZERS ================= */
+/* INTERACTIVE VISUALIZERS */
 .interactive-sandbox {
   display: flex;
   flex-direction: column;
@@ -3011,7 +3007,7 @@ html, body {
 .array-cell {
   width: 28px;
   height: 28px;
-  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
   border-radius: 6px;
   box-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
   animation: cellPop 0.3s var(--ease-spring);
@@ -3032,7 +3028,7 @@ html, body {
 }
 
 .array-flip-btn {
-  background: var(--neon-lime);
+  background: var(--accent-lime);
   color: #0b0713;
   font-weight: 800;
   font-size: 0.85rem;
@@ -3040,7 +3036,7 @@ html, body {
   border-radius: 9999px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 0 15px var(--neon-lime-glow);
+  box-shadow: 0 0 15px var(--accent-lime-glow);
   transition: all 0.2s ease;
 }
 
@@ -3059,7 +3055,7 @@ html, body {
 .area-model-box {
   display: flex;
   margin: 20px 0;
-  border: 2px solid var(--neon-cyan);
+  border: 2px solid var(--accent-cyan);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
@@ -3096,7 +3092,7 @@ html, body {
   color: #fff;
 }
 
-/* ================= PRACTICE QUIZ ================= */
+/* PRACTICE QUIZ */
 .modal-quiz-wrapper {
   display: flex;
   flex-direction: column;
@@ -3179,7 +3175,7 @@ html, body {
   border-radius: 8px;
 }
 
-/* ================= MODAL FORM (NEW NOTE & FEEDBACK) ================= */
+/* MODAL FORM (NEW NOTE & FEEDBACK) */
 .new-note-form {
   padding: 8px 28px 28px;
   display: flex;
@@ -3212,7 +3208,7 @@ html, body {
 }
 
 .form-group label .req {
-  color: var(--neon-magenta);
+  color: var(--accent-magenta);
 }
 
 .form-group input, .form-group select, .form-group textarea {
@@ -3228,7 +3224,7 @@ html, body {
 }
 
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-  border-color: var(--neon-cyan);
+  border-color: var(--accent-cyan);
   box-shadow: 0 0 14px rgba(0, 240, 255, 0.25);
 }
 
@@ -3263,7 +3259,7 @@ html, body {
 }
 
 .btn-modal-action.primary {
-  background: linear-gradient(135deg, var(--neon-magenta), var(--neon-purple));
+  background: linear-gradient(135deg, var(--accent-magenta), var(--accent-purple));
   border: none;
   color: #fff;
   box-shadow: 0 0 20px rgba(255, 42, 133, 0.35);
@@ -3274,7 +3270,7 @@ html, body {
   box-shadow: 0 0 28px rgba(255, 42, 133, 0.55);
 }
 
-/* ================= PRINT CHEAT SHEET STYLES ================= */
+/* PRINT CHEAT SHEET STYLES */
 @media print {
   body * {
     visibility: hidden;
@@ -3329,7 +3325,7 @@ html, body {
   z-index: 999999;
 }
 
-/* ================= FLOATING VAULT ANCHOR (BOTTOM CORNER) ================= */
+/* FLOATING VAULT ANCHOR (BOTTOM CORNER) */
 .floating-vault-anchor {
   position: fixed;
   bottom: 26px;
@@ -3425,7 +3421,7 @@ html, body {
   text-shadow: 0 0 10px rgba(255, 183, 3, 0.75);
 }
 
-/* ================= ADMIN SECURITY VAULT MODAL ================= */
+/* ADMIN SECURITY VAULT MODAL */
 .vault-window {
   max-width: 980px;
   max-height: 92vh;
@@ -3491,7 +3487,7 @@ html, body {
   }
 }
 
-/* ================= CREATIVE CYBER-HYDRAULIC VAULT UNLOCKING SYSTEM ================= */
+/* CREATIVE CYBER-HYDRAULIC VAULT UNLOCKING SYSTEM */
 .vault-safe-door {
   position: relative;
   width: 280px;
@@ -3943,7 +3939,7 @@ html, body {
   color: rgba(255, 255, 255, 0.7);
 }
 
-/* ================= APPLE TRUEDEPTH FACE ID BIOMETRICS ================= */
+/* APPLE TRUEDEPTH FACE ID BIOMETRICS */
 .vault-auth-switcher {
   display: flex;
   align-items: center;
@@ -4678,7 +4674,7 @@ html, body {
   margin-left: 6px;
 }
 
-/* ================= VIEW 2: UNLOCKED ADMIN COMMAND DECK ================= */
+/* VIEW 2: UNLOCKED ADMIN COMMAND DECK */
 .admin-deck-header {
   padding: 22px 32px 16px;
   display: flex;
@@ -4836,7 +4832,7 @@ html, body {
   max-height: 65vh;
 }
 
-/* ================= NOTE ARCHITECT & DYNAMIC SQUARES ================= */
+/* NOTE ARCHITECT & DYNAMIC SQUARES */
 .architect-intro-card {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(28, 16, 44, 0.42) 100%);
   backdrop-filter: blur(20px) saturate(190%);
@@ -4929,7 +4925,7 @@ html, body {
   border-radius: 9999px;
   background: rgba(0, 212, 255, 0.15);
   border: 1px solid rgba(0, 212, 255, 0.35);
-  color: var(--neon-cyan);
+  color: var(--accent-cyan);
 }
 
 .squares-instruction-text {
@@ -4996,7 +4992,7 @@ html, body {
   font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.1em;
-  color: var(--neon-cyan);
+  color: var(--accent-cyan);
   background: rgba(0, 212, 255, 0.12);
   padding: 3px 10px;
   border-radius: 6px;
@@ -5038,7 +5034,7 @@ html, body {
   box-shadow: 0 0 25px rgba(6, 182, 212, 0.65) !important;
 }
 
-/* ================= PANEL 2: ADMIN WEB COMMANDS ================= */
+/* PANEL 2: ADMIN WEB COMMANDS */
 .admin-commands-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -5099,7 +5095,7 @@ html, body {
 
 .cmd-exec-btn:hover {
   background: rgba(0, 212, 255, 0.2);
-  border-color: var(--neon-blue);
+  border-color: var(--accent-blue);
 }
 
 .cmd-exec-btn.danger {
@@ -5113,7 +5109,7 @@ html, body {
   color: #fff;
 }
 
-/* ================= PANEL 3: DATABASE MANAGER ================= */
+/* PANEL 3: DATABASE MANAGER */
 .manager-table-wrapper {
   overflow-x: auto;
   background: rgba(20, 14, 34, 0.6);
@@ -5142,7 +5138,7 @@ html, body {
   color: #f8fafc;
 }
 
-/* ================= PANEL 4: SYSTEM TELEMETRY ================= */
+/* PANEL 4: SYSTEM TELEMETRY */
 .telemetry-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -5200,7 +5196,7 @@ html, body {
   }
 }
 
-/* ================= READING ENHANCEMENT BAR (FLASHCARDS & FULLSCREEN) ================= */
+/* READING ENHANCEMENT BAR (FLASHCARDS & FULLSCREEN) */
 .reading-controls-bar {
   background: rgba(15, 23, 42, 0.7);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
@@ -5474,7 +5470,7 @@ html, body {
   letter-spacing: -0.01em;
 }
 
-/* Neon Highlights */
+/* Highlights */
 .neon-highlight {
   border-radius: 3px;
   padding: 1px 3px;
@@ -5730,7 +5726,7 @@ html, body {
   font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif !important;
   font-weight: 500 !important;
 }
-/* ================= CLOUD SYNC & PUBLISH SYSTEM STYLES ================= */
+/* CLOUD SYNC & PUBLISH SYSTEM STYLES */
 .nav-publish-btn {
   display: inline-flex;
   align-items: center;
@@ -5865,7 +5861,7 @@ html, body {
   margin-bottom: 24px;
 }
 
-/* ================= ENHANCED INTERACTIVE PLANT CELL UI ================= */
+/* ENHANCED INTERACTIVE PLANT CELL UI */
 .card-chips-rack {
   display: flex;
   flex-wrap: wrap;
@@ -5958,7 +5954,7 @@ html, body {
 }
 .hud-organelle-formula {
   font-size: 0.8rem;
-  color: var(--neon-cyan);
+  color: var(--accent-cyan);
   font-family: monospace;
   background: rgba(0, 212, 255, 0.1);
   padding: 4px 10px;
@@ -6000,7 +5996,7 @@ html, body {
   text-underline-offset: 3px;
 }
 
-/* ================= BULLET POINT TOOLBAR & DISPLAY STYLES ================= */
+/* BULLET POINT TOOLBAR & DISPLAY STYLES */
 .field-label-row {
   display: flex;
   align-items: center;
@@ -6067,7 +6063,7 @@ html, body {
 }
 
 .bullet-dot {
-  color: var(--neon-cyan, #00d4ff);
+  color: var(--accent-cyan, #00d4ff);
   font-weight: 900;
   font-size: 1.15em;
   line-height: 1;
@@ -6078,7 +6074,7 @@ html, body {
 }
 
 .bullet-num {
-  color: var(--neon-amber, #14b8a6);
+  color: var(--accent-amber, #14b8a6);
   font-weight: 700;
   font-size: 0.9em;
   flex-shrink: 0;
@@ -6135,9 +6131,7 @@ html, body {
   text-transform: none;
 }
 
-/* =========================================================================
-   INTERACTIVE LABS SUITE: MATTER STATES (#6) & MOON PHASES ORBIT (#3)
-   ========================================================================= */
+/* INTERACTIVE LABS SUITE: MATTER STATES (#6) & MOON PHASES ORBIT (#3) */
 
 /* Top Laboratory Navigation Bar in Notes Viewer */
 .interactive-lab-nav {
@@ -6227,7 +6221,7 @@ html, body {
   align-items: center;
 }
 
-/* ================= FEATURE #6: MATTER STATE CHANGES SANDBOX ================= */
+/* FEATURE #6: MATTER STATE CHANGES SANDBOX */
 .matter-sandbox-wrap {
   width: 100%;
   max-width: 680px;
@@ -6561,7 +6555,7 @@ html, body {
   line-height: 1.45;
 }
 
-/* ================= FEATURE #3: MOON PHASES & SOLAR SYSTEM ORBIT ================= */
+/* FEATURE #3: MOON PHASES & SOLAR SYSTEM ORBIT */
 .moon-orbit-wrap {
   width: 100%;
   max-width: 680px;
@@ -6935,7 +6929,7 @@ html, body {
   }
 }
 
-/* ================= LIQUID GLASS SCIENTIFIC FORMULA CALCULATOR ================= */
+/* SCIENTIFIC FORMULA CALCULATOR */
 .calculator-section {
   padding: 60px 24px 120px;
   max-width: 1200px;
@@ -7059,7 +7053,7 @@ html, body {
   font-size: 1.05rem;
 }
 
-/* ================= LIQUID GLASS MACHINE CHASSIS ================= */
+/* MACHINE CHASSIS */
 .liquid-calc-container {
   position: relative;
   max-width: 780px;
@@ -7269,7 +7263,7 @@ html, body {
   color: #ffffff;
 }
 
-/* ================= MIDDLE DECK: HOLOGRAPHIC LIQUID SCREEN ================= */
+/* MIDDLE DECK: HOLOGRAPHIC LIQUID SCREEN */
 .calc-glass-screen {
   position: relative;
   z-index: 2;
@@ -7391,7 +7385,7 @@ html, body {
   flex: 1;
 }
 
-/* ================= LOWER DECK: LIQUID GLASS KEYPAD ================= */
+/* LOWER DECK: KEYPAD */
 .calc-glass-keypad {
   position: relative;
   z-index: 2;
@@ -7413,7 +7407,7 @@ html, body {
   gap: 10px;
 }
 
-/* Crystal Liquid Glass Buttons */
+/* Crystal Buttons */
 .lkey {
   position: relative;
   display: flex;
@@ -7497,7 +7491,7 @@ html, body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 0 16px rgba(56, 189, 248, 0.45);
 }
 
-/* Equals Key (Hero Glowing Liquid Glass Button) */
+/* Equals Key (Hero Glowing Button) */
 .lkey-equals {
   background: linear-gradient(135deg, #059669 0%, #06b6d4 100%);
   border-color: rgba(255, 255, 255, 0.45);
@@ -7603,7 +7597,7 @@ html, body {
   }
 }
 
-/* ================= DEVELOPER PROJECTS SHOWCASE MODAL ================= */
+/* DEVELOPER PROJECTS SHOWCASE MODAL */
 .projects-modal-window {
   max-width: 840px;
   max-height: 90vh;
@@ -7891,7 +7885,7 @@ html, body {
   }
 }
 
-/* ================= BACKGROUND MUSIC & AUDIO STUDIO STYLES ================= */
+/* BACKGROUND MUSIC & AUDIO STUDIO STYLES */
 .nav-icon-btn.music-playing {
   border-color: rgba(168, 85, 247, 0.85) !important;
   box-shadow: 0 0 16px rgba(168, 85, 247, 0.6), inset 0 0 10px rgba(168, 85, 247, 0.35) !important;
@@ -7986,7 +7980,7 @@ html, body {
   font-size: 0.65rem;
   font-weight: 800;
   letter-spacing: 0.08em;
-  color: var(--neon-cyan, #06b6d4);
+  color: var(--accent-cyan, #06b6d4);
   text-transform: uppercase;
 }
 
@@ -8468,8 +8462,8 @@ html, body {
 
 
 
-/* ================= JEEVA RAGHAVAN "ALL ABOUT ME" CYBER-PIXEL MODAL ================= */
-/* ================= DISTINCT SECTION & TAB BACKGROUNDS ================= */
+/* JEEVA RAGHAVAN "ALL ABOUT ME" CYBER-PIXEL MODAL */
+/* DISTINCT SECTION & TAB BACKGROUNDS */
 /* Base body attribute tracking for active tab */
 body[data-active-tab="home"],
 body:not([data-active-tab]) {
@@ -8598,7 +8592,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   border-top: 1px solid rgba(59, 130, 246, 0.2);
 }
 
-/* ================= ME.SKIENCE.IO PORTFOLIO REPLICATION FOR JEEVA RAGHAVAN ================= */
+/* ME.SKIENCE.IO PORTFOLIO REPLICATION FOR JEEVA RAGHAVAN */
 .me-skience-container {
   --me-bg: #0c0d0b;
   --me-surface: #10120e;
@@ -8626,7 +8620,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   position: relative !important;
 }
 
-/* ================= "ALL ABOUT ME" RETRO-CYBER KERNEL BOOT SCREEN ================= */
+/* "ALL ABOUT ME" KERNEL BOOT SCREEN */
 .me-boot-loader {
   position: absolute;
   inset: 0;
@@ -9409,7 +9403,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   align-items: start;
 }
 
-/* ================= REALISTIC macOS TERMINAL (SEQUOIA / SONOMA) ================= */
+/* REALISTIC macOS TERMINAL (SEQUOIA / SONOMA) */
 .terminal {
   background: #14151a;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -9937,7 +9931,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   margin-bottom: 24px;
 }
 
-/* ================= TERMINAL MATRIX RAIN & CUSTOM MUSIC PLAYER ================= */
+/* TERMINAL MATRIX RAIN & CUSTOM MUSIC PLAYER */
 .terminal-matrix-canvas {
   position: absolute;
   top: 0;
@@ -10035,15 +10029,9 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   100% { height: 14px; }
 }
 
-/* ==========================================================================
-   MONOCHROME PRO UPGRADES (v77.0)
-   1. Smoked Obsidian Hairline Shimmer & Specular Bevels
-   2. Magnetic Fluid Cursor & VisionOS Hover Snapping
-   3. Sleek Global Command HUD (Cmd+K / Ctrl+K)
-   4. Monolith Grid & Perspective 3D Tilt Physics
-   ========================================================================== */
 
-/* ---- 1. Top Nav Command HUD Trigger Pill ---- */
+
+/* 1. Top Nav Command HUD Trigger Pill */
 .nav-command-hud-btn {
   display: inline-flex;
   align-items: center;
@@ -10085,7 +10073,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   letter-spacing: 0.02em;
 }
 
-/* ---- 2. Magnetic Fluid Cursor & VisionOS Snapping ---- */
+/* 2. Magnetic Fluid Cursor & VisionOS Snapping */
 @media (pointer: coarse) or (hover: none) {
   .fluid-cursor-dot,
   .fluid-cursor-ring {
@@ -10157,7 +10145,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   }
 }
 
-/* ---- 3. Smoked Obsidian Hairline Shimmer & 3D Tilt ---- */
+/* 3. Smoked Obsidian Hairline Shimmer & 3D Tilt */
 .pro-hairline-card {
   position: relative;
   background: linear-gradient(155deg, rgba(17, 19, 25, 0.88), rgba(9, 10, 14, 0.96)) !important;
@@ -10212,7 +10200,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   transition: transform 0.12s ease-out;
 }
 
-/* ---- 4. Sleek Global Command HUD (Cmd+K / Ctrl+K) ---- */
+/* 4. Sleek Global Command HUD (Cmd+K / Ctrl+K) */
 .command-hud-backdrop {
   position: fixed;
   inset: 0;
@@ -10556,9 +10544,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   }
 }
 
-/* ==========================================================================
-   APPLE PRO "DYNAMIC ISLAND" MORPHING HEADER PILL (v78.0)
-   ========================================================================== */
+/* APPLE PRO "DYNAMIC ISLAND" MORPHING HEADER PILL (v78.0) */
 
 .glass-pill-nav {
   position: relative !important;
@@ -11481,9 +11467,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   }
 }
 
-/* ========================================================
-   1. MAC DYNAMIC ISLAND LIVE STUDY TIMER DECK
-   ======================================================== */
+/* 1. MAC DYNAMIC ISLAND LIVE STUDY TIMER DECK */
 .mac-deck-tabs {
   display: flex;
   align-items: center;
@@ -11619,9 +11603,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   margin-bottom: 12px;
 }
 
-/* ========================================================
-   2. APPLE 3D INTERACTIVE FLASHCARDS (VISIONOS CARD STACK)
-   ======================================================== */
+/* 2. APPLE 3D INTERACTIVE FLASHCARDS (VISIONOS CARD STACK) */
 .apple-flashcards-window {
   max-width: 640px;
   width: 92vw;
@@ -11990,7 +11972,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   border-color: rgba(255, 255, 255, 0.35);
 }
 
-/* ================= APPLE SPLIT VIEW: SCIENCE CONCEPT DUEL & COMPARATOR (STAGE MANAGER) ================= */
+/* APPLE SPLIT VIEW: SCIENCE CONCEPT DUEL & COMPARATOR (STAGE MANAGER) */
 .apple-split-window {
   max-width: 1380px;
   width: 95vw;
@@ -12262,7 +12244,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   color: #ffffff;
 }
 
-/* ================= MOVABLE DRAGGABLE CONCEPT CARDS ================= */
+/* MOVABLE DRAGGABLE CONCEPT CARDS */
 .split-hero-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -12481,7 +12463,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   color: #64748b;
 }
 
-/* ================= CENTER SPLIT DIVIDER & DUEL BRIDGE ================= */
+/* CENTER SPLIT DIVIDER & DUEL BRIDGE */
 .split-divider-bridge {
   width: 240px;
   min-width: 210px;
@@ -12809,7 +12791,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 
 
 
-/* ================= CONCEPT SQUARE DEVICE PICTURE IMPORT & VIEWER ================= */
+/* CONCEPT SQUARE DEVICE PICTURE IMPORT & VIEWER */
 .sq-image-group {
   margin-top: 14px;
   margin-bottom: 8px;
@@ -12817,7 +12799,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 
 .sq-img-hint {
   font-size: 0.75rem;
-  color: var(--neon-cyan, #06b6d4);
+  color: var(--accent-cyan, #06b6d4);
   font-weight: normal;
   margin-left: 6px;
 }
@@ -12992,7 +12974,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   color: #ffffff;
 }
 
-/* ================= NOTES VIEWER: CONCEPT PICTURE CARD ================= */
+/* NOTES VIEWER: CONCEPT PICTURE CARD */
 .prop-image-wrap {
   position: relative;
   margin: 14px 0;
@@ -13056,7 +13038,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   gap: 5px;
 }
 
-/* ================= CONCEPT PICTURE LIGHTBOX ================= */
+/* CONCEPT PICTURE LIGHTBOX */
 #concept-image-lightbox {
   position: fixed;
   inset: 0;
@@ -13153,7 +13135,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 }
 
 
-/* ================= ADMIN COMMAND DECK: STUDENT FEEDBACK LIST ================= */
+/* ADMIN COMMAND DECK: STUDENT FEEDBACK LIST */
 .admin-feedback-list-container {
   display: flex;
   flex-direction: column;
@@ -13271,7 +13253,7 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
   box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
 }
 
-/* ================= PERFORMANCE OVERHAUL OVERRIDES ================= */
+/* PERFORMANCE OVERHAUL OVERRIDES */
 #hero-snow-stars-canvas,
 .hero-snow-stars-canvas,
 .fluid-cursor-dot,
@@ -13327,10 +13309,7 @@ html, body {
   scroll-behavior: smooth;
 }
 
-/* ========================================================
-   APPLE WATCH ACTIVITY RINGS & IOS 18 WIDGET DECK
-   Ultra-fast, zero-lag, hardware-accelerated CSS
-   ======================================================== */
+
 .nav-rings-btn {
   border-color: rgba(250, 17, 79, 0.4) !important;
   box-shadow: 0 0 14px rgba(250, 17, 79, 0.25) !important;

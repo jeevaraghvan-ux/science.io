@@ -26,8 +26,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=137.0">
-  <link rel="stylesheet" href="ios27.css?v=69.0">
+  <link rel="stylesheet" href="styles.css?v=138.0">
+  <link rel="stylesheet" href="ios27.css?v=70.0">
   <link rel="icon" type="image/svg+xml" href="logo.svg">
   <link rel="manifest" href="manifest.json">
   <script>
@@ -69,10 +69,10 @@
       <span class="toast-title" id="toast-music-title">Am I Wrong</span>
     </div>
     <button type="button" class="toast-toggle-btn" id="toast-music-toggle-btn" title="Toggle Music Play/Pause">
-      <span id="toast-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg></span>
+      <span id="toast-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><rect x="3" y="2.5" width="3.5" height="11" rx="1"/><rect x="9.5" y="2.5" width="3.5" height="11" rx="1"/></svg></span>
     </button>
   </div>
-  <!-- ================= INTRO OVERLAY (DISABLED BY DEFAULT) ================= -->
+  
   <div id="loader-screen" class="loader-overlay skience-intro-overlay" style="display: none !important;">
     <canvas id="loader-warp-canvas" class="loader-warp-canvas"></canvas>
     <div class="skience-intro-stage" id="skience-intro-stage">
@@ -89,7 +89,7 @@
     <button class="loader-skip-btn" id="loader-skip-btn" title="Skip to notebook"><span>Skip</span></button>
   </div>
 
-  <!-- ================= FLUID COLORFUL AMBIENT BACKGROUND ================= -->
+  
   <div class="ambient-fluid-canvas-wrap">
     <div class="fluid-blob blob-1"></div>
     <div class="fluid-blob blob-2"></div>
@@ -99,7 +99,7 @@
   </div>
 
   <div id="app" class="main-wrapper">
-    <!-- ================= APPLE PRO DYNAMIC ISLAND (MAC NOTCH & CAPSULE) ================= -->
+    
     <div class="dynamic-island-pod island-idle" id="dynamic-island-pod" role="region" aria-label="Apple Dynamic Island (Click to expand Mac controls)">
       <!-- Main Capsule Pill (Always visible when idle, compact, or notification) -->
       <div class="island-capsule" id="island-capsule">
@@ -108,7 +108,7 @@
           <span class="island-privacy-dot dot-audio hidden" id="island-privacy-audio" title="Audio Stream Active"></span>
           <span class="island-privacy-dot dot-mic hidden" id="island-privacy-mic" title="Voice / TTS Synthesis Active"></span>
           <img class="island-cover-art-mini hidden" id="island-cover-art-mini" alt="Album Art">
-          <span class="island-icon hidden" id="island-icon"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+          <span class="island-icon hidden" id="island-icon"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 1L2 9h5l-1 6 8-8H9z"/></svg></span>
           <div class="island-equalizer hidden" id="island-equalizer" aria-hidden="true">
             <span class="eq-bar bar-1"></span>
             <span class="eq-bar bar-2"></span>
@@ -132,7 +132,7 @@
             <span class="island-battery-pct" id="island-battery-pct">--%</span>
             <div class="island-battery-shell">
               <div class="island-battery-fill" id="island-battery-fill" style="width: 80%;"></div>
-              <span class="island-battery-bolt hidden" id="island-battery-bolt"><svg viewBox="0 0 24 24" width="9" height="9" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+              <span class="island-battery-bolt hidden" id="island-battery-bolt"><svg viewBox="0 0 16 16" width="9" height="9" fill="currentColor"><path d="M9 1L2 9h5l-1 6 8-8H9z"/></svg></span>
             </div>
           </div>
           <div class="island-status-dot" id="island-status-dot" title="System Online"></div>
@@ -147,19 +147,19 @@
         <!-- System Telemetry Bar (Battery & Audio Output) -->
         <div class="mac-system-bar" id="mac-system-bar">
           <div class="mac-sys-badge" id="mac-sys-battery">
-            <span class="sys-battery-icon" id="mac-sys-batt-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="16" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg></span>
+            <span class="sys-battery-icon" id="mac-sys-batt-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="4.5" width="11" height="7" rx="1.2"/><line x1="14.5" y1="7" x2="14.5" y2="9"/></svg></span>
             <span class="sys-battery-text" id="mac-sys-batt-text">Battery: 95%</span>
           </div>
           <div class="mac-sys-badge" id="mac-sys-audio-device" title="Audio Output Device">
-            <span class="sys-audio-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></span>
+            <span class="sys-audio-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12V8a6 6 0 0 1 12 0v4"/><rect x="1.5" y="10" width="3" height="4.5" rx="1"/><rect x="11.5" y="10" width="3" height="4.5" rx="1"/></svg></span>
             <span class="sys-audio-text">Mac Audio • Spatial</span>
           </div>
         </div>
 
         <!-- Deck Mode Switcher Tabs (Music vs Live Study Timer) -->
         <div class="mac-deck-tabs">
-          <button type="button" class="mac-deck-tab active" id="mac-tab-music"><svg class="ui-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Music Deck</button>
-          <button type="button" class="mac-deck-tab" id="mac-tab-timer"><svg class="ui-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Study Timer</button>
+          <button type="button" class="mac-deck-tab active" id="mac-tab-music"><svg class="ui-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 12V3.5l8-1.5v8.5"/><circle cx="4" cy="12" r="2"/><circle cx="12" cy="10.5" r="2"/></svg> Music Deck</button>
+          <button type="button" class="mac-deck-tab" id="mac-tab-timer"><svg class="ui-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><polyline points="8 4.5 8 8 10.5 9.5"/></svg> Study Timer</button>
         </div>
 
         <!-- VIEW A: MUSIC PLAYER -->
@@ -167,7 +167,7 @@
           <div class="mac-deck-top">
             <div class="mac-deck-left">
               <div class="mac-deck-art" id="mac-deck-art" title="Music Stream">
-                <span class="mac-art-icon" id="mac-art-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+                <span class="mac-art-icon" id="mac-art-icon"><svg viewBox="0 0 16 16" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 12V3.5l8-1.5v8.5"/><circle cx="4" cy="12" r="2"/><circle cx="12" cy="10.5" r="2"/></svg></span>
                 <img class="mac-deck-cover-img hidden" id="mac-deck-cover-img" alt="Cover Art">
               </div>
               <div class="mac-deck-info">
@@ -199,16 +199,16 @@
           <!-- Mac Media Playback Controls -->
           <div class="mac-deck-ctrl-row">
             <button type="button" class="mac-ctrl-btn" id="mac-btn-prev" title="Previous / Restart Track">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor"><rect x="3" y="4" width="2" height="8"/><polygon points="6.5 8 13 4 13 12"/></svg>
             </button>
             <button type="button" class="mac-ctrl-btn mac-ctrl-play" id="mac-btn-playpause" title="Play / Pause">
-              <span id="mac-playpause-glyph"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg></span>
+              <span id="mac-playpause-glyph"><svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><rect x="3" y="2.5" width="3.5" height="11" rx="1"/><rect x="9.5" y="2.5" width="3.5" height="11" rx="1"/></svg></span>
             </button>
             <button type="button" class="mac-ctrl-btn" id="mac-btn-next" title="Next Track">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+              <svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor"><polygon points="3 4 9.5 8 3 12"/><rect x="11" y="4" width="2" height="8"/></svg>
             </button>
             <button type="button" class="mac-ctrl-btn" id="mac-btn-mute" title="Toggle Sound / Mute">
-              <span id="mac-mute-glyph"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></span>
+              <span id="mac-mute-glyph"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="7.5 3.5 4 6 1.5 6 1.5 10 4 10 7.5 12.5"/><path d="M10.5 5.5a3.5 3.5 0 0 1 0 5M12.5 3.5a6.5 6.5 0 0 1 0 9"/></svg></span>
             </button>
           </div>
         </div>
@@ -232,10 +232,10 @@
           <div class="mac-timer-ctrls">
             <button type="button" class="mac-ctrl-btn" id="mac-timer-dec" title="-1 Minute">-1m</button>
             <button type="button" class="mac-ctrl-btn mac-ctrl-play" id="mac-timer-toggle" title="Start/Pause Timer">
-              <span id="mac-timer-glyph"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+              <span id="mac-timer-glyph"><svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><polygon points="4 2.5 13.5 8 4 13.5"/></svg></span>
             </button>
             <button type="button" class="mac-ctrl-btn" id="mac-timer-inc" title="+1 Minute">+1m</button>
-            <button type="button" class="mac-ctrl-btn" id="mac-timer-reset" title="Reset Timer"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button>
+            <button type="button" class="mac-ctrl-btn" id="mac-timer-reset" title="Reset Timer"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1.5 2.5 1.5 6.5 5.5 6.5"/><path d="M2.5 10a5.8 5.8 0 1 0 1.4-6L1.5 6.5"/></svg></button>
           </div>
         </div>
 
@@ -243,31 +243,31 @@
         <div class="mac-fast-travel">
           <div class="mac-travel-header">
             <span class="mac-travel-label">QUICK JUMP</span>
-            <span class="mac-travel-sublabel">Direct access to syllabus modules</span>
+            <span class="mac-travel-sublabel">Quick links</span>
           </div>
           <div class="mac-travel-grid">
             <button type="button" class="mac-travel-pill" data-place="notes" title="Jump to Notes">
-              <span class="travel-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+              <span class="travel-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13a1.8 1.8 0 0 1 1.8-1.8H13.5V14.5H4.8A1.8 1.8 0 0 1 3 13V3.2A1.8 1.8 0 0 1 4.8 1.5H13.5V11"/></svg></span>
               <span class="travel-name">Notes</span>
             </button>
             <button type="button" class="mac-travel-pill" data-place="timer" title="Toggle Live Study Timer">
-              <span class="travel-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+              <span class="travel-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><polyline points="8 4.5 8 8 10.5 9.5"/></svg></span>
               <span class="travel-name">Timer</span>
             </button>
             <button type="button" class="mac-travel-pill" data-place="calc" title="Open Calculator">
-              <span class="travel-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/></svg></span>
+              <span class="travel-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="1.5" width="11" height="13" rx="1.5"/><line x1="5" y1="4.5" x2="11" y2="4.5"/><circle cx="5.5" cy="7.5" r=".7"/><circle cx="8" cy="7.5" r=".7"/><circle cx="10.5" cy="7.5" r=".7"/><circle cx="5.5" cy="10" r=".7"/><circle cx="8" cy="10" r=".7"/><line x1="10.5" y1="9.5" x2="10.5" y2="12"/></svg></span>
               <span class="travel-name">Calc</span>
             </button>
             <button type="button" class="mac-travel-pill" data-place="aboutme" title="Open Jeeva's About Me">
-              <span class="travel-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+              <span class="travel-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="4.8" r="2.6"/><path d="M2.8 14a5.2 5.2 0 0 1 10.4 0"/></svg></span>
               <span class="travel-name">About Me</span>
             </button>
             <button type="button" class="mac-travel-pill" data-place="studio" title="Open Music Terminal">
-              <span class="travel-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></span>
+              <span class="travel-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12V8a6 6 0 0 1 12 0v4"/><rect x="1.5" y="10" width="3" height="4.5" rx="1"/><rect x="11.5" y="10" width="3" height="4.5" rx="1"/></svg></span>
               <span class="travel-name">Studio</span>
             </button>
             <button type="button" class="mac-travel-pill" data-place="top" title="Scroll to Top">
-              <span class="travel-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></span>
+              <span class="travel-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="13" x2="8" y2="3"/><polyline points="4 7 8 3 12 7"/></svg></span>
               <span class="travel-name">Top</span>
             </button>
           </div>
@@ -275,103 +275,67 @@
       </div>
     </div>
 
-    <!-- ================= TOP FLOATING NAVIGATION ================= -->
+    
     <header class="top-nav-container">
       <nav class="glass-pill-nav" id="glass-pill-nav" style="max-width: 960px;">
         <div class="nav-left">
           <a href="#hero" class="nav-brand-link" id="nav-brand-logo" aria-label="SCI-NOTES">
             <img src="logo.svg" alt="SCI-NOTES" class="nav-brand-logo-img">
-            <span class="nav-brand-title">SCI-NOTES</span>
+            <span class="nav-brand-title">skience.io</span>
           </a>
         </div>
         
         <div class="nav-center">
           <button class="nav-link active" id="nav-btn-home" data-scroll="hero">
             <span class="nav-idx">01</span>
-            <span class="nav-label">SYLLABUS</span>
+            <span class="nav-label">HOME</span>
             <span class="nav-kbd">⌘1</span>
           </button>
           <button class="nav-link" id="nav-btn-notes" data-scroll="notes-section">
             <span class="nav-idx">02</span>
-            <span class="nav-label">FIELD NOTES</span>
+            <span class="nav-label">NOTES</span>
             <span class="nav-kbd">⌘2</span>
           </button>
           <button class="nav-link" id="nav-btn-calc" data-scroll="calculator-section">
             <span class="nav-idx">03</span>
-            <span class="nav-label">LAB ENGINE</span>
+            <span class="nav-label">CALC</span>
             <span class="nav-kbd">⌘3</span>
           </button>
         </div>
 
         <div class="nav-right" style="gap: 10px;">
           <button class="nav-icon-btn" id="btn-cheat-sheet" title="Print All Science Notes (Ultimate Review Sheet)">
-            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="6 9 6 2 18 2 18 9"></polyline>
-              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-              <rect x="6" y="14" width="12" height="8"></rect>
-            </svg>
+            <svg class="icon-svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6V1.8h8V6M4 12H2.2a1.2 1.2 0 0 1-1.2-1.2V7.2A1.2 1.2 0 0 1 2.2 6h11.6A1.2 1.2 0 0 1 15 7.2v3.6a1.2 1.2 0 0 1-1.2 1.2H12"/><rect x="4" y="9.5" width="8" height="4.7"/></svg>
           </button>
 
           <button class="nav-icon-btn" id="btn-sound-toggle" title="Turn Sound &amp; Background Music On/Off (Next to Printer)">
-            <svg class="icon-svg" id="sound-icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-            </svg>
-            <svg class="icon-svg hidden" id="sound-icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-              <line x1="23" y1="9" x2="17" y2="15"></line>
-              <line x1="17" y1="9" x2="23" y2="15"></line>
-            </svg>
+            <svg class="icon-svg" id="sound-icon-on" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="7.5 3.5 4 6 1.5 6 1.5 10 4 10 7.5 12.5"/><path d="M10.5 5.5a3.5 3.5 0 0 1 0 5M12.5 3.5a6.5 6.5 0 0 1 0 9"/></svg>
+            <svg class="icon-svg hidden" id="sound-icon-off" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="7.5 3.5 4 6 1.5 6 1.5 10 4 10 7.5 12.5"/><line x1="11" y1="6" x2="14.5" y2="10"/><line x1="14.5" y1="6" x2="11" y2="10"/></svg>
           </button>
           
           <button class="nav-icon-btn" id="btn-music-toggle" title="Background Study Music (Am I Wrong)">
-            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 18V5l12-2v13"></path>
-              <circle cx="6" cy="18" r="3"></circle>
-              <circle cx="18" cy="16" r="3"></circle>
-            </svg>
+            <svg class="icon-svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 12V3.5l8-1.5v8.5"/><circle cx="4" cy="12" r="2"/><circle cx="12" cy="10.5" r="2"/></svg>
           </button>
 
           
 
           <button class="nav-icon-btn nav-rings-btn" id="btn-apple-activity-rings" title="Apple Activity Rings & Concept Widget">
-            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="9" stroke="url(#ring-grad-red)" stroke-width="2.2" stroke-linecap="round"></circle>
-              <circle cx="12" cy="12" r="6" stroke="url(#ring-grad-cyan)" stroke-width="2.2" stroke-linecap="round"></circle>
-              <circle cx="12" cy="12" r="3" stroke="url(#ring-grad-gold)" stroke-width="2.2" stroke-linecap="round"></circle>
-              <defs>
-                <linearGradient id="ring-grad-red" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#93c5fd"></stop>
-                  <stop offset="100%" stop-color="#60a5fa"></stop>
-                </linearGradient>
-                <linearGradient id="ring-grad-cyan" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#3b82f6"></stop>
-                  <stop offset="100%" stop-color="#2563eb"></stop>
-                </linearGradient>
-                <linearGradient id="ring-grad-gold" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#bfdbfe"></stop>
-                  <stop offset="100%" stop-color="#3b82f6"></stop>
-                </linearGradient>
-              </defs>
-            </svg>
+            <svg class="icon-svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6" stroke="url(#ring-grad-red)" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="4" stroke="url(#ring-grad-cyan)" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="2" stroke="url(#ring-grad-gold)" stroke-width="1.6" stroke-linecap="round"/><defs><linearGradient id="ring-grad-red" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#93c5fd"/><stop offset="100%" stop-color="#60a5fa"/></linearGradient><linearGradient id="ring-grad-cyan" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#2563eb"/></linearGradient><linearGradient id="ring-grad-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#bfdbfe"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs></svg>
           </button>
 
           <button class="nav-command-hud-btn" id="btn-command-hud" title="Command HUD (⌘K / Ctrl+K)">
-            <svg class="icon-svg hud-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
+            <svg class="icon-svg hud-svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><line x1="14.5" y1="14.5" x2="10.8" y2="10.8"/></svg>
             <span class="hud-kbd-pill">⌘K</span>
           </button>
         </div>
       </nav>
     </header>
 
-    <!-- ================= HERO SECTION ================= -->
+    
     <section id="hero" class="hero-section">
       <canvas id="hero-snow-stars-canvas" class="hero-snow-stars-canvas"></canvas>
       <div class="hero-content">
-        <p class="hero-eyebrow">5TH GRADE SCIENCE NOTES &bull; PHYSICAL, LIFE &amp; EARTH</p>
+        <p class="hero-eyebrow">5th Grade Science &bull; Physical, Life &amp; Earth</p>
 
         <h1 class="hero-headline">
           <span class="hero-script-word">skience,</span>
@@ -379,13 +343,13 @@
         </h1>
         
         <p class="hero-subtext">
-          My 5th grade class notes covering <strong>Physical Science</strong>, <strong>Life Science</strong>, <strong>Earth &amp; Space</strong>, and the <strong>Scientific Method</strong>: key terms, formulas, and quick study sheets.
+          My 5th grade science notes on <strong>Physical Science</strong>, <strong>Life Science</strong>, <strong>Earth &amp; Space</strong>, and the <strong>Scientific Method</strong>.
         </p>
 
         <div class="hero-action-row" style="flex-wrap: wrap; gap: 14px; justify-content: center;">
           <button class="hero-cta-btn" id="hero-explore-btn">
             <span>OPEN 5TH GRADE NOTES</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2.5 8h11M9 4l4.5 4L9 12"/></svg>
           </button>
         </div>
       </div>
@@ -394,11 +358,11 @@
         <div class="cue-pill">
           <div class="cue-dot"></div>
         </div>
-        <span class="cue-text">SCROLL TO DISCOVER</span>
+        <span class="cue-text">SCROLL</span>
       </div>
     </section>
 
-    <!-- ================= NOTES INTERFACE SECTION ================= -->
+    
     <section id="notes-section" class="notes-section">
       <!-- VIEW TOGGLE: CAROUSEL VS TABLE -->
       <div class="view-toggle-bar">
@@ -411,10 +375,7 @@
         <!-- SEARCH & FILTER BAR -->
         <div class="filter-controls-row">
           <div class="search-input-wrap">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
+            <svg class="search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><line x1="14.5" y1="14.5" x2="10.8" y2="10.8"/></svg>
             <input type="text" id="notes-search-input" placeholder="Search skience topics, experiments, properties, keywords..." />
             <button id="search-clear-btn" class="search-clear-btn hidden">&times;</button>
           </div>
@@ -439,7 +400,7 @@
           
           <!-- TOP EXPERIENCE BADGE -->
           <div class="frame-experience-badge">
-            <span class="badge-sparkle"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg></span>
+            <span class="badge-sparkle"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><polygon points="8 1.5 10 6 14.5 8 10 10 8 14.5 6 10 1.5 8 6 6"/></svg></span>
             <span>Browse topics below or switch to table view</span>
           </div>
 
@@ -458,7 +419,7 @@
         <!-- CAROUSEL CONTROLS -->
         <div class="carousel-navigation-row">
           <button class="carousel-arrow-btn prev-arrow" id="carousel-prev-btn" aria-label="Previous card">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="10.5 3.5 5.5 8 10.5 12.5"/></svg>
           </button>
           
           <div class="carousel-dots-indicator" id="carousel-dots">
@@ -466,7 +427,7 @@
           </div>
 
           <button class="carousel-arrow-btn next-arrow" id="carousel-next-btn" aria-label="Next card">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="5.5 3.5 10.5 8 5.5 12.5"/></svg>
           </button>
         </div>
       </div>
@@ -475,7 +436,7 @@
       <div id="table-view" class="table-view-container hidden">
         <div class="table-card-glass">
           <div class="table-header-info">
-            <h3 class="table-title">Grade 5 Scientific Index & Notes Catalog</h3>
+            <h3 class="table-title">All Science Units</h3>
             <span class="table-count" id="table-count-badge">0 Topics</span>
           </div>
           
@@ -500,50 +461,50 @@
       </div>
     </section>
 
-    <!-- ================= LIQUID GLASS SCIENTIFIC FORMULA CALCULATOR ================= -->
+    
     <section id="calculator-section" class="calculator-section">
       <div class="calculator-section-header">
         <div class="calc-badge-row">
-          <span class="calc-badge-glow"><svg class="ui-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0-14 0"/><circle cx="9" cy="9" r="2"/></svg> SCIENCE FORMULA SOLVER</span>
-          <span class="calc-grade-tag">GRADE 5 PHYSICAL SCIENCE</span>
+          <span class="calc-badge-glow"><svg class="ui-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h5.5M2 14.5h12M9.5 14.5a4.5 4.5 0 1 0-9 0"/><circle cx="6" cy="6" r="1.5"/></svg> SCIENCE FORMULA SOLVER</span>
+          <span class="calc-grade-tag">FORMULA TOOL</span>
         </div>
-        <h2 class="calc-main-title">Science Formula Calculator</h2>
+        <h2 class="calc-main-title">Science Calculator</h2>
         <p class="calc-main-subtitle">
-          Plug in numbers for Density, Speed, Force, Work, Kinetic Energy, or Temperature conversions, or switch to the keypad for general math.
+          Solve Density, Speed, Force, Work, Kinetic Energy, or °C/°F conversions.
         </p>
 
         <!-- Liquid Glass Formula Preset Selector -->
         <div class="calc-formula-pills-wrap" id="calc-formula-pills">
           <button type="button" class="calc-pill active" data-formula="density">
-            <span class="pill-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.31L4.69 18.25A2 2 0 0 0 6.4 21h11.2a2 2 0 0 0 1.71-2.75L14 9.31V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/><line x1="14" y1="9.3" x2="10" y2="9.3"/></svg></span>
+            <span class="pill-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 1.5v4.5L3 12.5a1.3 1.3 0 0 0 1.2 1.8h7.6a1.3 1.3 0 0 0 1.2-1.8L9.5 6V1.5M5.5 1.5h5M6.5 6.5h3"/></svg></span>
             <span class="pill-label">Density (D = m/V)</span>
           </button>
           <button type="button" class="calc-pill" data-formula="speed">
-            <span class="pill-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+            <span class="pill-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 1L2 9h5l-1 6 8-8H9z"/></svg></span>
             <span class="pill-label">Speed (s = d/t)</span>
           </button>
           <button type="button" class="calc-pill" data-formula="force">
-            <span class="pill-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg></span>
+            <span class="pill-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z"/></svg></span>
             <span class="pill-label">Force (F = m × a)</span>
           </button>
           <button type="button" class="calc-pill" data-formula="work">
-            <span class="pill-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="16" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg></span>
+            <span class="pill-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="4.5" width="11" height="7" rx="1.2"/><line x1="14.5" y1="7" x2="14.5" y2="9"/></svg></span>
             <span class="pill-label">Work (W = F × d)</span>
           </button>
           <button type="button" class="calc-pill" data-formula="ke">
-            <span class="pill-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(30 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-30 12 12)"/></svg></span>
+            <span class="pill-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="1.4"/><ellipse cx="8" cy="8" rx="6" ry="2.6" transform="rotate(30 8 8)"/><ellipse cx="8" cy="8" rx="6" ry="2.6" transform="rotate(-30 8 8)"/></svg></span>
             <span class="pill-label">Kinetic Energy (½mv²)</span>
           </button>
           <button type="button" class="calc-pill" data-formula="temp">
-            <span class="pill-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></span>
+            <span class="pill-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 9.8V2.5a1.5 1.5 0 0 0-3 0v7.3a3 3 0 1 0 3 0z"/></svg></span>
             <span class="pill-label">Temp (°C / °F)</span>
           </button>
           <button type="button" class="calc-pill" data-formula="photo">
-            <span class="pill-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg></span>
+            <span class="pill-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.5 13.5h7M6.8 13.5c3.5-1.6.5-4.2 2-6.5M6.3 6.2c.8.6 1.2 1.5 1.5 2.5-1.3.3-2.3.3-3.2-.2-.8-.4-1.5-1.3-2-2.8 1.9-.3 3 0 3.7.5zM9.4 4a4.5 4.5 0 0 0-.7 2.6c1.2 0 2.2-.4 2.8-.9.7-.7 1.1-1.5 1.1-3-1.8 0-2.6.6-3.2 1.3z"/></svg></span>
             <span class="pill-label">Photosynthesis</span>
           </button>
           <button type="button" class="calc-pill" data-formula="freeform">
-            <span class="pill-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/></svg></span>
+            <span class="pill-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="1.5" width="11" height="13" rx="1.5"/><line x1="5" y1="4.5" x2="11" y2="4.5"/><line x1="10.5" y1="9" x2="10.5" y2="12"/></svg></span>
             <span class="pill-label">Scientific Keypad</span>
           </button>
         </div>
@@ -572,7 +533,7 @@
 
           <div class="solver-action-row">
             <button type="button" class="solver-exec-btn" id="btn-calc-solve-formula">
-              <span class="exec-btn-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+              <span class="exec-btn-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 1L2 9h5l-1 6 8-8H9z"/></svg></span>
               <span>Calculate Formula</span>
             </button>
             <button type="button" class="solver-reset-btn" id="btn-calc-reset-formula" title="Reset variables">
@@ -602,8 +563,8 @@
 
           <!-- Scientific Insight / Explanation strip -->
           <div class="screen-insight-bar" id="calc-insight-bar">
-            <span class="insight-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"/></svg></span>
-            <span class="insight-text" id="calc-insight-text">Enter Mass (g) and Volume (cm³) to compute density. Water density = 1.0 g/cm³.</span>
+            <span class="insight-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 12h4M6.8 14.5h2.4M8 1.5a4.6 4.6 0 0 0-4.6 4.6c0 1.6.8 3 2 3.8V11a.7.7 0 0 0 .7.7h3.8a.7.7 0 0 0 .7-.7V9.9a4.6 4.6 0 0 0-2.6-8.4z"/></svg></span>
+            <span class="insight-text" id="calc-insight-text">Enter Mass (g) and Volume (cm³) to find density. Water = 1.0 g/cm³.</span>
           </div>
         </div>
 
@@ -632,7 +593,7 @@
           <!-- Standard 4x5 Keypad Grid -->
           <div class="keypad-main-grid">
             <button type="button" class="lkey lkey-clear" data-action="all_clear">AC</button>
-            <button type="button" class="lkey lkey-action" data-action="backspace" aria-label="Backspace"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg></button>
+            <button type="button" class="lkey lkey-action" data-action="backspace" aria-label="Backspace"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 3H5.5L1 8l4.5 5H14a1.2 1.2 0 0 0 1.2-1.2V4.2A1.2 1.2 0 0 0 14 3z"/><line x1="12" y1="6" x2="8" y2="10"/><line x1="8" y1="6" x2="12" y2="10"/></svg></button>
             <button type="button" class="lkey lkey-op" data-val="%">%</button>
             <button type="button" class="lkey lkey-op lkey-op-div" data-val="÷">÷</button>
 
@@ -660,26 +621,22 @@
 
         <!-- History ticker strip -->
         <div class="calc-history-strip" id="calc-history-strip">
-          <div class="history-label"><svg class="ui-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Recent Computations:</div>
+          <div class="history-label"><svg class="ui-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><polyline points="8 4.5 8 8 10.5 9.5"/></svg> Recent:</div>
           <div class="history-tags-scroll" id="calc-history-tags">
-            <span class="history-pill-placeholder">Perform calculations or solve formulas to see history</span>
+            <span class="history-pill-placeholder">Recent calculations show here.</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= FLOATING HELP & AUTHOR FOOTER ================= -->
+    
     <div class="floating-feedback-anchor">
       <div class="feedback-tooltip-pill" id="feedback-tooltip">
         <span>Help us improve.</span>
         <button class="tooltip-close-btn" id="close-tooltip-btn">&times;</button>
       </div>
       <button class="feedback-bubble-btn" id="feedback-bubble-btn" title="Send Feedback or Ask a Skience Question">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-          <line x1="9" y1="10" x2="15" y2="10"></line>
-          <line x1="12" y1="7" x2="12" y2="13"></line>
-        </svg>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10a1.3 1.3 0 0 1-1.3 1.3H4.5L2 14V3.3A1.3 1.3 0 0 1 3.3 2h9.4A1.3 1.3 0 0 1 14 3.3z"/><line x1="6" y1="6.8" x2="10" y2="6.8"/><line x1="8" y1="4.8" x2="8" y2="8.8"/></svg>
       </button>
     </div>
 
@@ -689,7 +646,7 @@
       <div class="footer-left-content">
         <span class="footer-domain">skience.io</span>
         <span class="footer-divider">•</span>
-        <span>5th Grade Interactive Skience Learning Suite</span>
+        <span>5th Grade Science Notes</span>
       </div>
 
       <div class="footer-center-controls">
@@ -703,15 +660,15 @@
 
       <button type="button" class="footer-author" id="author-credit-trigger" title="All About Jeeva Raghavan" style="text-decoration: none; color: inherit; cursor: pointer; border: none; font-family: inherit;">
         <span>made with love by <strong class="author-name-highlight">Jeeva R.</strong></span>
-        <span class="author-projects-badge"><svg class="ui-icon" viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg> All About Me</span>
+        <span class="author-projects-badge"><svg class="ui-icon" viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><polygon points="8 1.5 10 6 14.5 8 10 10 8 14.5 6 10 1.5 8 6 6"/></svg> All About Me</span>
       </button>
     </footer>
   </div>
 
-  <!-- ================= MODAL: JEEVA RAGHAVAN "ALL ABOUT ME" PORTFOLIO (me.skience.io) ================= -->
+  
   <div id="projects-modal" class="modal-backdrop hidden">
     <div class="modal-window about-me-window me-skience-container">
-      <!-- ================= "ALL ABOUT ME" BOOT SCREEN ================= -->
+      
       <div id="me-boot-loader" class="me-boot-loader hidden" title="Click or Press Space to Skip Boot Screen">
         <div class="me-boot-crt-scanlines"></div>
         <div class="me-boot-vignette"></div>
@@ -723,9 +680,9 @@
               <span class="me-boot-dot red"></span>
               <span class="me-boot-dot yellow"></span>
               <span class="me-boot-dot green"></span>
-              <span class="me-boot-title">JEEVA_OS // KERNEL BOOT SEQUENCE v2.6</span>
+              <span class="me-boot-title">profile</span>
             </div>
-            <div class="me-boot-skip-hint">PRESS [SPACE] OR CLICK TO SKIP</div>
+            <div class="me-boot-skip-hint">Click or press Space to skip</div>
           </div>
 
           <!-- Diagnostic Stream & Centerpiece -->
@@ -733,16 +690,16 @@
             <div class="me-boot-logs" id="me-boot-logs"></div>
 
             <div class="me-boot-badge-card" id="me-boot-badge-card">
-              <div class="me-boot-chip-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div>
+              <div class="me-boot-chip-icon"><svg viewBox="0 0 16 16" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="10" height="10" rx="1.2"/><rect x="6" y="6" width="4" height="4"/><path d="M6 1v2M10 1v2M6 13v2M10 13v2M13 6h2M13 10h2M1 6h2M1 10h2"/></svg></div>
               <div class="me-boot-name">JEEVA RAGHAVAN</div>
-              <div class="me-boot-sub">DEVELOPER • MAKING THINGS FOR SKIENCE</div>
+              <div class="me-boot-sub">5th Grade Notes</div>
               
               <div class="me-boot-progress-wrap">
                 <div class="me-boot-progress-bar">
                   <div class="me-boot-progress-fill" id="me-boot-progress-fill"></div>
                 </div>
                 <div class="me-boot-progress-stats">
-                  <span id="me-boot-status-text">LOADING PROFILE...</span>
+                  <span id="me-boot-status-text">Loading...</span>
                   <span id="me-boot-pct-text">0%</span>
                 </div>
               </div>
@@ -750,8 +707,8 @@
           </div>
 
           <div class="me-boot-footer">
-            <span class="me-boot-footer-tag">SYS://ME.SKIENCE.IO</span>
-            <span class="me-boot-footer-mem">GRADE 5 • WEB NOTES</span>
+            <span class="me-boot-footer-tag">me.skience.io</span>
+            <span class="me-boot-footer-mem">grade 5</span>
           </div>
         </div>
       </div>
@@ -813,7 +770,7 @@
               <div class="project-media">
                 <a href="https://skienceisthebest.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Visit Skience">
                   <div class="project-thumb-box skience-thumb">
-                    <span class="thumb-emoji"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0-14 0"/><circle cx="9" cy="9" r="2"/></svg></span>
+                    <span class="thumb-emoji"><svg viewBox="0 0 16 16" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h5.5M2 14.5h12M9.5 14.5a4.5 4.5 0 1 0-9 0"/><circle cx="6" cy="6" r="1.5"/></svg></span>
                     <span class="thumb-label">skience.io</span>
                   </div>
                   <span class="media-visit" aria-hidden="true">
@@ -977,7 +934,7 @@
     </div>
   </div>
 
-  <!-- ================= MODAL: DETAILED SCIENCE NOTES VIEWER ================= -->
+  
   <div id="notes-viewer-modal" class="modal-backdrop hidden">
     <div class="modal-window glass-modal notes-detail-window">
       <div class="modal-header" id="modal-header-collapsible">
@@ -991,7 +948,7 @@
           </div>
           <div class="modal-header-right-actions">
             <button type="button" class="modal-collapse-btn" id="btn-collapse-header" title="Collapse header for more reading space" aria-label="Collapse header">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+              <svg viewBox="0 0 16 16" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 10 8 6 12 10"/></svg>
             </button>
             <button class="modal-close-btn" id="modal-notes-close" title="Close notes">&times;</button>
           </div>
@@ -999,14 +956,14 @@
 
         <div class="modal-title-area" id="modal-title-area">
           <h2 class="modal-topic-title" id="modal-topic-title">Scientific Principles</h2>
-          <p class="modal-topic-desc" id="modal-topic-desc">The fundamental laws and observations for 5th grade scientists.</p>
+          <p class="modal-topic-desc" id="modal-topic-desc">Key terms and examples for this topic.</p>
         </div>
       </div>
 
       <!-- INTERACTIVE TABS INSIDE MODAL (NOTES, VISUAL EXPLORER, QUIZ) -->
       <div class="modal-internal-tabs">
         <button class="modal-tab-btn active" id="modal-tab-notes">Structured Notes</button>
-        <button class="modal-tab-btn" id="modal-tab-practice"><svg class="ui-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Practice Quiz</button>
+        <button class="modal-tab-btn" id="modal-tab-practice"><svg class="ui-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 1L2 9h5l-1 6 8-8H9z"/></svg> Practice Quiz</button>
       </div>
 
       <!-- READING ENHANCEMENT BAR (Fullscreen) -->
@@ -1014,7 +971,7 @@
         <div class="reading-toolbar-row">
           <div class="reading-tool-capsule modes-group">
             <button class="reading-pill-btn" id="btn-zen-mode" title="Distraction-Free Fullscreen Reading">
-              <svg class="ui-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> Fullscreen
+              <svg class="ui-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10 2 14 2 14 6"/><polyline points="6 14 2 14 2 10"/><line x1="14" y1="2" x2="9.5" y2="6.5"/><line x1="2" y1="14" x2="6.5" y2="9.5"/></svg> Fullscreen
             </button>
           </div>
         </div>
@@ -1025,7 +982,7 @@
         <div class="vocab-pop-header">
           <span class="vocab-pop-word" id="vocab-pop-word">Term</span>
           <span class="vocab-pop-pron" id="vocab-pop-pron">pronunciation</span>
-          <button class="vocab-pop-speak-btn" id="vocab-pop-speak-btn" title="Hear Pronunciation"><svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
+          <button class="vocab-pop-speak-btn" id="vocab-pop-speak-btn" title="Hear Pronunciation"><svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="7.5 3.5 4 6 1.5 6 1.5 10 4 10 7.5 12.5"/><path d="M10.5 5.5a3.5 3.5 0 0 1 0 5M12.5 3.5a6.5 6.5 0 0 1 0 9"/></svg></button>
         </div>
         <div class="vocab-pop-def" id="vocab-pop-def">Definition</div>
       </div>
@@ -1050,7 +1007,7 @@
 
       <div class="modal-footer">
         <button class="btn-modal-action secondary" id="modal-print-btn">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6V1.8h8V6M4 12H2.2a1.2 1.2 0 0 1-1.2-1.2V7.2A1.2 1.2 0 0 1 2.2 6h11.6A1.2 1.2 0 0 1 15 7.2v3.6a1.2 1.2 0 0 1-1.2 1.2H12"/><rect x="4" y="9.5" width="8" height="4.7"/></svg>
           Print Skience Sheet
         </button>
         <span class="modal-copyright-protected-badge" style="font-size: 0.82rem; font-weight: 500; color: rgba(255, 255, 255, 0.7); display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; background: rgba(255, 255, 255, 0.08); border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.15);">
@@ -1061,7 +1018,7 @@
     </div>
   </div>
 
-  <!-- ================= DAILY SCIENCE RIDDLE MODAL ================= -->
+  
   <div id="riddle-modal" class="modal-backdrop hidden">
     <div class="modal-window auth-modal-content" style="max-width: 450px; border: 1px solid #2563eb; box-shadow: 0 18px 40px rgba(2, 8, 20, 0.7);">
       <div class="modal-header">
@@ -1074,41 +1031,41 @@
           <input type="text" id="riddle-answer" placeholder="Type your answer..." style="flex: 1; padding: 10px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #fff;" />
           <button id="riddle-submit" class="btn-modal-action primary" style="background: #1d4ed8;">Guess</button>
         </div>
-        <p id="riddle-feedback" style="color: var(--neon-cyan); font-weight: bold;"></p>
+        <p id="riddle-feedback" style="color: var(--accent-cyan); font-weight: bold;"></p>
       </div>
     </div>
   </div>
 
-  <!-- ================= MODAL: PUBLISH ALL NOTES / CLOUD SYNC ================= -->
+  
   <div id="publish-modal" class="modal-backdrop hidden">
     <div class="modal-window glass-modal publish-window">
       <div class="modal-header" style="justify-content: flex-end;">
         <button class="modal-close-btn" id="modal-publish-close">&times;</button>
       </div>
 
-      <div class="publish-hero-icon"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg></div>
+      <div class="publish-hero-icon"><svg viewBox="0 0 16 16" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z"/></svg></div>
       <h2 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 8px; color: #ffffff;">
-        Publish All Notes to Cloud
+        Sync Notes
       </h2>
       <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">
-        Save your notes to Firestore so the same study units show up on your phone, tablet, or laptop.
+        Save notes to Firestore so they load on your phone or laptop.
       </p>
 
       <div class="publish-meta-badge">
-        <span class="meta-pill-item"><svg class="ui-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Cloud Sync</span>
+        <span class="meta-pill-item"><svg class="ui-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 1L2 9h5l-1 6 8-8H9z"/></svg> Firestore</span>
         <span>•</span>
-        <span class="meta-pill-item"><svg class="ui-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg> Multi-Device Access</span>
+        <span class="meta-pill-item"><svg class="ui-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.5 12.8H6a4.5 4.5 0 1 1 4.4-5.8h1.1a3 3 0 1 1 0 5.8z"/></svg> Saved Units</span>
         <span>•</span>
         <span id="publish-notes-count-summary">0 Notes to Publish</span>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
         <button class="btn-modal-action primary" id="btn-do-publish-now" style="width: 100%; font-size: 1.05rem; padding: 16px; background: #1d4ed8; border: 1px solid #3b82f6; box-shadow: 0 8px 20px rgba(15, 37, 71, 0.5); color: #fff; font-weight: 800;">
-          <span><svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg> PUBLISH ALL NOTES NOW</span>
+          <span><svg class="ui-icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z"/></svg> PUBLISH ALL NOTES NOW</span>
         </button>
 
         <button class="btn-modal-action secondary" id="btn-pull-cloud-now" style="width: 100%; font-size: 0.9rem;">
-          <span><svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg> Pull Latest Notes from Cloud</span>
+          <span><svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 2.5 15 6.5 11 6.5"/><polyline points="1 13.5 1 9.5 5 9.5"/><path d="M2.3 6A6 6 0 0 1 12.2 3.8L15 6.5M1 9.5l3 2.8A6 6 0 0 0 13.6 10"/></svg> Pull Latest Notes from Cloud</span>
         </button>
       </div>
 
@@ -1116,25 +1073,25 @@
 
       <div class="publish-db-id-row" style="flex-direction: column; align-items: stretch; gap: 8px; margin-top: 10px; background: rgba(37, 99, 235, 0.12); padding: 12px; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.32);">
         <div style="font-weight: bold; color: #93c5fd; font-size: 0.85rem; display: flex; align-items: center; justify-content: space-between;">
-          <span><svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> Firebase Real-Time Cloud Sync (Firestore)</span>
+          <span><svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5.7 9.7c.9 0 1.6-.7 1.6-1.6 0-.9-.3-1.4-.6-2-.7-1.4-.2-2.7 1.3-4 .4 1.6 1.3 3.2 2.6 4.3 1.3 1 2 2.3 2 3.6a4.7 4.7 0 1 1-9.4 0c0-.8.3-1.5.7-2 0 .9.8 1.7 1.8 1.7z"/></svg> Firebase Config</span>
           <span id="firebase-status-badge" style="font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.1); color: #aaa;">Not Configured</span>
         </div>
         <textarea id="firebase-config-input" rows="3" placeholder='Paste your Firebase config object or JSON here:
 { "apiKey": "...", "projectId": "...", "appId": "..." }' style="font-size: 0.75rem; padding: 6px 10px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; resize: vertical; font-family: monospace;"></textarea>
         <button class="btn-modal-action secondary" id="btn-save-firebase-config" style="padding: 6px 14px; font-size: 0.8rem; background: #1d4ed8; border-color: #3b82f6; color: #fff; font-weight: bold;">
-          <svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> Connect Firebase &amp; Sync
+          <svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5.7 9.7c.9 0 1.6-.7 1.6-1.6 0-.9-.3-1.4-.6-2-.7-1.4-.2-2.7 1.3-4 .4 1.6 1.3 3.2 2.6 4.3 1.3 1 2 2.3 2 3.6a4.7 4.7 0 1 1-9.4 0c0-.8.3-1.5.7-2 0 .9.8 1.7 1.8 1.7z"/></svg> Connect Firebase &amp; Sync
         </button>
       </div>
 
       <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
         <button class="btn-modal-action secondary" id="btn-download-db-json" style="font-size: 0.8rem; padding: 8px 14px;">
-          <svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download database.json
+          <svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10v2.8a1.2 1.2 0 0 1-1.2 1.2H3.2A1.2 1.2 0 0 1 2 12.8V10"/><polyline points="4.8 6.8 8 10 11.2 6.8"/><line x1="8" y1="10" x2="8" y2="2"/></svg> Download database.json
         </button>
       </div>
     </div>
   </div>
 
-  <!-- ================= MODAL: ADMIN SECURITY VAULT ================= -->
+  
   <div id="vault-modal" class="modal-backdrop hidden">
     <div class="modal-window glass-modal vault-window" id="vault-window">
       
@@ -1143,7 +1100,7 @@
         <div class="vault-door-header">
           <div class="vault-badge-secure">
             <span class="secure-beacon"></span>
-            <span>RESTRICTED ACCESS • ADMIN CLEARANCE ONLY</span>
+            <span>ADMIN VAULT</span>
           </div>
           <button class="modal-close-btn" id="vault-lock-close" title="Close Vault">&times;</button>
         </div>
@@ -1168,23 +1125,19 @@
               <div class="dial-laser-cross"></div>
               <div class="dial-spokes"></div>
               <div class="dial-center-lock">
-                <svg viewBox="0 0 24 24" class="dial-lock-icon" id="vault-lock-status-icon">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                  <circle cx="12" cy="16" r="1.5"></circle>
-                </svg>
+                <svg viewBox="0 0 16 16" class="dial-lock-icon" id="vault-lock-status-icon"><rect x="2" y="7" width="12" height="7.5" rx="1.4"/><path d="M4.8 7V4.6a3.2 3.2 0 0 1 6.4 0V7"/><circle cx="8" cy="10.8" r="1"/></svg>
               </div>
             </div>
           </div>
 
           <div class="vault-lock-credentials">
-            <h2 class="vault-lock-title">ADMIN SECURITY VAULT</h2>
-            <p class="vault-lock-subtitle" id="vault-lock-status-msg">Enter 7-Digit Passcode to Access Web Administration &amp; Note Architect</p>
+            <h2 class="vault-lock-title">ADMIN VAULT</h2>
+            <p class="vault-lock-subtitle" id="vault-lock-status-msg">Enter the 7-digit code to add or edit notes.</p>
 
             <div class="vault-redirect-warning hidden" id="vault-redirect-warning">
-              <span class="warning-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+              <span class="warning-icon"><svg viewBox="0 0 16 16" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="12" height="7.5" rx="1.4"/><path d="M4.8 7V4.6a3.2 3.2 0 0 1 6.4 0V7"/></svg></span>
               <div class="warning-text">
-                <strong>Access Restricted:</strong> Notes can <em>ONLY</em> be created inside the Vault. Authenticate with your 7-digit admin passcode to open the Note Architect.
+                Enter the 7-digit code to add or edit notes.
               </div>
             </div>
 
@@ -1214,484 +1167,26 @@
               <button type="button" class="keypad-btn" data-key="9">9</button>
               <button type="button" class="keypad-btn keypad-fn" id="btn-keypad-clear" data-key="clear">CLEAR</button>
               <button type="button" class="keypad-btn" data-key="0">0</button>
-              <button type="button" class="keypad-btn keypad-fn" id="btn-keypad-back" data-key="back" aria-label="Backspace"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg></button>
+              <button type="button" class="keypad-btn keypad-fn" id="btn-keypad-back" data-key="back" aria-label="Backspace"><svg viewBox="0 0 16 16" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 3H5.5L1 8l4.5 5H14a1.2 1.2 0 0 0 1.2-1.2V4.2A1.2 1.2 0 0 0 14 3z"/><line x1="12" y1="6" x2="8" y2="10"/><line x1="8" y1="6" x2="12" y2="10"/></svg></button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- VIEW 2: UNLOCKED ADMIN COMMAND DECK -->
-      <div id="vault-admin-view" class="vault-view-panel hidden">
-        <div class="admin-deck-header">
-          <div class="admin-identity-row">
-            <div class="admin-avatar">
-              <span class="avatar-ring"></span>
-              <span class="avatar-text">JR</span>
-            </div>
-            <div>
-              <div class="admin-title-row">
-                <h2 class="admin-title">ADMIN COMMAND DECK</h2>
-                <span class="admin-clearance-pill">LEVEL 5 SUPERUSER</span>
-              </div>
-              <p class="admin-welcome">Welcome, <strong>Jeeva R.</strong> Full administrative control granted.</p>
-            </div>
-          </div>
-
-          <div class="admin-header-actions">
-            <button type="button" class="vault-publish-btn" id="btn-vault-publish-cloud" title="Publish and sync all notes to cloud database">
-              <span><svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg> Publish All Notes to Cloud</span>
-            </button>
-            <button type="button" class="admin-btn-lock" id="btn-vault-relock" title="Lock the vault and end session">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-              Lock Vault
-            </button>
-            <button type="button" class="modal-close-btn" id="vault-admin-close" title="Exit to website">&times;</button>
-          </div>
-        </div>
-
-        <!-- Admin Navigation Tabs -->
-        <div class="admin-nav-tabs">
-          <button type="button" class="admin-tab-btn active" data-tab="architect" id="admin-tab-architect">
-            <svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg> Note Architect (Add Squares)
-          </button>
-          <button type="button" class="admin-tab-btn" data-tab="commands" id="admin-tab-commands">
-            <svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Admin Web Controls
-          </button>
-          <button type="button" class="admin-tab-btn" data-tab="music" id="admin-tab-music">
-            <svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Background Music Studio
-          </button>
-          <button type="button" class="admin-tab-btn" data-tab="manager" id="admin-tab-manager">
-            <svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Database Manager
-          </button>
-          <button type="button" class="admin-tab-btn" data-tab="telemetry" id="admin-tab-telemetry">
-            <svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> System Telemetry
-          </button>
-          <button type="button" class="admin-tab-btn" data-tab="feedback" id="admin-tab-feedback">
-            <svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Student Feedback (<span id="admin-fb-count">0</span>)
-          </button>
-        </div>
-
-        <div class="admin-deck-content-body">
-          <!-- PANEL 1: NOTE ARCHITECT (WITH DYNAMIC SQUARES BUILDER) -->
-          <div id="panel-admin-architect" class="admin-panel active">
-            <div class="architect-intro-card">
-              <div class="architect-intro-text">
-                <h3>Structured Skience Unit Architect</h3>
-                <p>Create rich units with individual concept squares. Each square renders as a distinct card with its own principle, definition, observations, and lab tips!</p>
-              </div>
-              <div class="architect-quick-templates">
-                <button type="button" class="btn-template-pill" id="btn-template-science-props"><svg class="ui-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Skientific Method Template</button>
-                <button type="button" class="btn-template-pill" id="btn-template-steps"><svg class="ui-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0-14 0"/><circle cx="9" cy="9" r="2"/></svg> Structure &amp; Function Template</button>
-                <button type="button" class="btn-template-pill" id="btn-architect-insert-bullet" style="border-color: var(--neon-cyan); color: var(--neon-cyan);" title="Insert bullet point into active field">• Add Bullet Anywhere</button>
-              </div>
-            </div>
-
-            <form id="vault-note-form" class="vault-note-form">
-              <div class="form-row-2">
-                <div class="form-group">
-                  <div class="field-label-row">
-                    <label for="vnote-title">Unit / Topic Title <span class="req">*</span></label>
-                    <button type="button" class="btn-field-bullet" data-for="vnote-title" title="Insert a bullet point at cursor">+ • Bullet</button>
-                  </div>
-                  <input type="text" id="vnote-title" required placeholder="e.g. STATES OF MATTER & PHASE CHANGES" />
-                </div>
-                <div class="form-group">
-                  <label for="vnote-category">Category / Branch</label>
-                  <select id="vnote-category">
-                    <option value="physical" selected>Physical Skience (Matter, Energy, Force)</option>
-                    <option value="life">Life Skience (Cells, Ecosystems, Plants)</option>
-                    <option value="biology">Biology & Living Systems</option>
-                    <option value="earth">Earth & Space (Planets, Weather, Rocks)</option>
-                    <option value="method">Skientific Method & Experiments</option>
-                    <option value="custom">Custom Skience Unit</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-row-2">
-                <div class="form-group">
-                  <div class="field-label-row">
-                    <label for="vnote-formula">Core Formula / Scientific Law</label>
-                    <button type="button" class="btn-field-bullet" data-for="vnote-formula" title="Insert a bullet point at cursor">+ • Bullet</button>
-                  </div>
-                  <input type="text" id="vnote-formula" placeholder="e.g. Conservation of Mass: Mass cannot be created or destroyed" />
-                </div>
-                <div class="form-group">
-                  <label for="vnote-color">Card Glow Color</label>
-                  <select id="vnote-color">
-                    <option value="blue" selected>Electric Blue</option>
-                    <option value="cyan">Neon Cyan</option>
-                    <option value="teal">Tertiary Teal</option>
-                    <option value="indigo">Tertiary Indigo / Blue-Violet</option>
-                    <option value="purple">Deep Indigo Blue</option>
-                    <option value="plum">Tertiary Plum / Red-Violet</option>
-                    <option value="emerald">Emerald Bio</option>
-                    <option value="amber">Solar Amber</option>
-                    <option value="orange">Solar Orange</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="field-label-row">
-                  <label for="vnote-desc">Unit Summary & Teacher Notes <span class="req">*</span></label>
-                  <button type="button" class="btn-field-bullet" data-for="vnote-desc" title="Insert a bullet point at cursor">+ • Bullet</button>
-                </div>
-                <textarea id="vnote-desc" rows="2" required placeholder="Provide an overview of the unit and what 5th graders will explore..."></textarea>
-              </div>
-
-              <div class="form-group">
-                <label for="vnote-redirect">External Link Redirect (Optional)</label>
-                <input type="url" id="vnote-redirect" placeholder="e.g. https://nasa.gov (Adds a link button next to 'View Notes')" />
-              </div>
-
-              <!-- DYNAMIC SQUARES SECTION (DEFAULT FORMAT) -->
-              <div class="squares-builder-section">
-                <div class="squares-builder-header">
-                  <div class="squares-header-title-box">
-                    <span class="squares-count-badge" id="squares-count-badge">0 Squares Configured</span>
-                    <h4>Individual Squares & Concepts</h4>
-                  </div>
-                  <button type="button" class="btn-add-square" id="btn-add-square">
-                    <span>+ Add Another Concept Square</span>
-                  </button>
-                </div>
-
-                <p class="squares-instruction-text">
-                  Each square below represents an individual card. Add titles, scientific formulas/laws, explanations, and observations:
-                </p>
-
-                <div class="squares-list-container" id="vault-squares-list">
-                  <!-- Dynamically populated squares -->
-                </div>
-
-                <div class="squares-footer-actions">
-                  <button type="button" class="btn-add-square secondary" id="btn-add-square-bottom">
-                    + Add Another Concept Square
-                  </button>
-                </div>
-              </div>
-
-              <div class="form-actions-admin">
-                <button type="button" class="btn-modal-action secondary" id="btn-clear-architect">Clear Form</button>
-                <button type="submit" class="btn-modal-action primary admin-save-btn" id="btn-save-vault-note">
-                  <span><svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg> Publish to Website & Cloud</span>
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <!-- PANEL 2: ADMIN WEB CONTROLS & CLI -->
-          <div id="panel-admin-commands" class="admin-panel hidden">
-            <div class="admin-commands-grid">
-              <div class="admin-cmd-card" style="border-color: var(--neon-cyan);">
-                <div class="cmd-icon-box"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg></div>
-                <h4>Publish All Notes to Cloud</h4>
-                <p>Sync all stored units and squares to the cloud database so any device can view them.</p>
-                <button type="button" class="cmd-exec-btn" id="cmd-btn-quick-publish" style="background: #1d4ed8;">Publish Now</button>
-              </div>
-
-              <div class="admin-cmd-card">
-                <div class="cmd-icon-box"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.31L4.69 18.25A2 2 0 0 0 6.4 21h11.2a2 2 0 0 0 1.71-2.75L14 9.31V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/><line x1="14" y1="9.3" x2="10" y2="9.3"/></svg></div>
-                <h4>Preset: States of Matter</h4>
-                <p>Optionally injects "States of Matter & Phase Changes" with Solid, Liquid, Gas concept squares.</p>
-                <button type="button" class="cmd-exec-btn" id="cmd-btn-preset-matter">Insert Unit</button>
-              </div>
-
-              <div class="cmd-cmd-card admin-cmd-card">
-                <div class="cmd-icon-box"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg></div>
-                <h4>Preset: Photosynthesis & Energy</h4>
-                <p>Optionally injects Plant Energy Flow with Chloroplasts, Glucose, and Oxygen concept squares.</p>
-                <button type="button" class="cmd-exec-btn" id="cmd-btn-preset-photo">Insert Unit</button>
-              </div>
-
-              <div class="admin-cmd-card">
-                <div class="cmd-icon-box"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg></div>
-                <h4>Burst Celebration Confetti</h4>
-                <p>Triggers full-screen physics confetti particle engine across the whole site.</p>
-                <button type="button" class="cmd-exec-btn" id="cmd-btn-confetti">Fire Confetti</button>
-              </div>
-
-              <div class="admin-cmd-card" style="border-color: var(--neon-purple);">
-                <div class="cmd-icon-box"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
-                <h4>Background Music Studio</h4>
-                <p>Upload your own music file, choose study vibes, or adjust global audio for all visitors.</p>
-                <button type="button" class="cmd-exec-btn" id="cmd-btn-open-music-studio" style="background: #1d4ed8; border-color: #3b82f6; color: #fff;">Open Music Studio</button>
-              </div>
-
-              <div class="admin-cmd-card">
-                <div class="cmd-icon-box"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div>
-                <h4>Toggle Sound Effects</h4>
-                <p>Enable or disable synthesized Web Audio ASMR click and swoosh sound effects.</p>
-                <button type="button" class="cmd-exec-btn" id="cmd-btn-toggle-sound">Toggle Audio</button>
-              </div>
-
-              <div class="admin-cmd-card">
-                <div class="cmd-icon-box"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></div>
-                <h4>Export Database (JSON)</h4>
-                <p>Backup all skience units, properties, and custom notes to a downloadable JSON file.</p>
-                <button type="button" class="cmd-exec-btn" id="cmd-btn-export-json">Export JSON</button>
-              </div>
-
-              <div class="admin-cmd-card">
-                <div class="cmd-icon-box"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
-                <h4>Import Database (JSON)</h4>
-                <p>Restore or merge skience units and notes from a JSON backup file.</p>
-                <button type="button" class="cmd-exec-btn" id="cmd-btn-import-json">Import JSON</button>
-                <input type="file" id="admin-file-import" accept=".json" class="hidden" />
-              </div>
-
-              <div class="admin-cmd-card danger">
-                <div class="cmd-icon-box"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
-                <h4>Clear All Notes</h4>
-                <p>Cleans out all stored notes so your skience notebook is completely fresh.</p>
-                <button type="button" class="cmd-exec-btn danger" id="cmd-btn-clear-custom">Clear All</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- PANEL 3: DATABASE MANAGER -->
-          <div id="panel-admin-manager" class="admin-panel hidden">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-              <h4 style="color: #fff; margin: 0;">Stored Units in Database</h4>
-              <button class="vault-publish-btn" id="btn-manager-publish" style="font-size: 0.8rem; padding: 7px 16px;">
-                <span><svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg> Publish All Notes to Cloud</span>
-              </button>
-            </div>
-            <div class="manager-table-wrapper">
-              <table class="admin-data-table">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Branch</th>
-                    <th>Concept Squares</th>
-                    <th>Origin</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="admin-manager-tbody">
-                  <!-- Dynamically populated rows -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- PANEL 4: SYSTEM TELEMETRY -->
-          <div id="panel-admin-telemetry" class="admin-panel hidden">
-            <div class="telemetry-grid">
-              <div class="telem-stat-card">
-                <span class="telem-label">TOTAL SKIENCE UNITS</span>
-                <span class="telem-val" id="telem-topics-count">0</span>
-              </div>
-              <div class="telem-stat-card">
-                <span class="telem-label">TOTAL CONCEPT SQUARES</span>
-                <span class="telem-val" id="telem-squares-count">0</span>
-              </div>
-              <div class="telem-stat-card">
-                <span class="telem-label">CLOUD DB STATUS</span>
-                <span class="telem-val" style="color: #60a5fa; font-size: 1.1rem;">CONNECTED (NO COST)</span>
-              </div>
-              <div class="telem-stat-card">
-                <span class="telem-label">AUTHENTICATED SUPERUSER</span>
-                <span class="telem-val" style="color: var(--neon-cyan);">Jeeva R.</span>
-              </div>
-              <div class="telem-stat-card">
-                <span class="telem-label">SECURITY PROTOCOL</span>
-                <span class="telem-val" style="color: #93c5fd;">SHA-256 ENCRYPTED</span>
-              </div>
-              <div class="telem-stat-card">
-                <span class="telem-label">ASMR AUDIO ENGINE</span>
-                <span class="telem-val" style="color: var(--neon-purple);">ACTIVE</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- PANEL 5: BACKGROUND MUSIC STUDIO -->
-          <div id="panel-admin-music" class="admin-panel hidden">
-            <div class="music-studio-container">
-              <!-- Active Playing Track Glass Card -->
-              <div class="music-active-track-card">
-                <div class="music-active-track-header">
-                  <div class="music-track-meta">
-                    <span class="music-badge" id="admin-music-badge">ACTIVE BACKGROUND MUSIC</span>
-                    <h3 id="admin-music-track-title">Am I Wrong</h3>
-                    <p id="admin-music-source-desc">Playing in background for all visitors during science study sessions</p>
-                  </div>
-                  <div class="music-status-indicator active" id="admin-music-status-indicator">
-                    <span class="status-pulse-dot"></span>
-                    <span id="admin-music-status-text">Playing</span>
-                  </div>
-                </div>
-
-                <!-- Animated Liquid Glass Waveform Visualizer -->
-                <div class="music-waveform-bars" id="music-waveform-bars">
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                  <span class="music-bar"></span>
-                </div>
-
-                <!-- Live Scrub Bar & Times -->
-                <div class="music-progress-wrapper">
-                  <span class="music-time" id="admin-music-curr-time">0:00</span>
-                  <input type="range" class="music-scrubber" id="admin-music-scrubber" min="0" max="100" value="0" />
-                  <span class="music-time" id="admin-music-total-time">4:07</span>
-                </div>
-
-                <!-- Studio Controls Bar -->
-                <div class="music-controls-row">
-                  <div class="music-playback-btns">
-                    <button type="button" class="btn-music-ctrl primary" id="btn-admin-music-playpause" title="Play or Pause">
-                      <span id="admin-playpause-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg></span>
-                      <span id="admin-playpause-text">Pause Music</span>
-                    </button>
-                    <button type="button" class="btn-music-ctrl secondary" id="btn-admin-music-restart" title="Restart from Beginning">
-                      <svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg> Restart Track
-                    </button>
-                  </div>
-
-                  <div class="music-volume-control">
-                    <span><svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Volume</span>
-                    <input type="range" id="admin-music-volume-slider" min="0" max="100" value="40" />
-                    <span id="admin-music-volume-val">40%</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Upload Custom Audio Zone -->
-              <div class="music-upload-section">
-                <div class="music-section-heading">
-                  <h4><svg class="ui-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Upload Custom Background Music</h4>
-                  <p>Upload your own MP3, WAV, OGG, or M4A file here. It will immediately play for anyone visiting the website, and can be stopped anytime by clicking the sound button next to the printer icon.</p>
-                </div>
-
-                <div class="music-dropzone" id="admin-music-dropzone">
-                  <input type="file" id="admin-music-file-input" accept="audio/*" class="hidden" />
-                  <div class="dropzone-content">
-                    <div class="dropzone-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
-                    <h5>Choose an audio file or drag &amp; drop here</h5>
-                    <p class="dropzone-hint">Supports MP3, WAV, OGG, M4A, AAC • Audio is stored and played in background for all students</p>
-                    <button type="button" class="btn-modal-action secondary" id="btn-browse-music-file" style="margin-top: 10px;">
-                      <svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> Select Music File From Computer
-                    </button>
-                    <div id="selected-audio-file-info" class="selected-file-pill hidden">
-                      <span class="pill-icon"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
-                      <span id="selected-audio-name">my-music.mp3</span>
-                      <span id="selected-audio-size" class="pill-size">(5.2 MB)</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="music-upload-actions">
-                  <button type="button" class="btn-modal-action primary" id="btn-save-uploaded-music" disabled>
-                    <span><svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg> Apply &amp; Set as Website Background Music</span>
-                  </button>
-                  <button type="button" class="btn-modal-action secondary" id="btn-reset-default-music" title="Restore original Am I Wrong">
-                    <span><svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Reset to Default Anthem (Am I Wrong)</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Study Vibes Library & Cloud Audio Stream -->
-              <div class="music-presets-section">
-                <div class="music-section-heading">
-                  <h4><svg class="ui-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg> Curated Study Music Vibes &amp; Cloud Audio URL</h4>
-                  <p>Switch between study anthems or paste any direct streaming audio link.</p>
-                </div>
-
-                <div class="music-presets-grid">
-                  <div class="music-preset-card active" data-preset="anthem">
-                    <div class="preset-badge">Default Study Anthem</div>
-                    <div class="preset-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg></div>
-                    <div class="preset-info">
-                      <h5>Am I Wrong</h5>
-                      <span>Official Study Anthem (High Energy)</span>
-                    </div>
-                    <button type="button" class="btn-preset-select" data-track="anthem">Select Track</button>
-                  </div>
-
-                  <div class="music-preset-card" data-preset="lofi">
-                    <div class="preset-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
-                    <div class="preset-info">
-                      <h5>Lofi Chill Study Beats</h5>
-                      <span>Relaxed, smooth, continuous study rhythm</span>
-                    </div>
-                    <button type="button" class="btn-preset-select" data-track="lofi">Select Track</button>
-                  </div>
-
-                  <div class="music-preset-card" data-preset="cosmic">
-                    <div class="preset-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
-                    <div class="preset-info">
-                      <h5>Cosmic Focus Space Drone</h5>
-                      <span>Steady ambient audio for focused reading</span>
-                    </div>
-                    <button type="button" class="btn-preset-select" data-track="cosmic">Select Track</button>
-                  </div>
-
-                  <div class="music-preset-card" data-preset="synthwave">
-                    <div class="preset-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-                    <div class="preset-info">
-                      <h5>Upbeat Study Mix</h5>
-                      <span>Fast tempo track for review sessions</span>
-                    </div>
-                    <button type="button" class="btn-preset-select" data-track="synthwave">Select Track</button>
-                  </div>
-                </div>
-
-                <div class="music-url-direct-row">
-                  <label for="admin-music-direct-url">Direct Audio Stream / Cloud MP3 URL:</label>
-                  <div style="display: flex; gap: 8px; margin-top: 6px;">
-                    <input type="url" id="admin-music-direct-url" placeholder="https://cdn.example.com/audio/study-track.mp3" style="flex: 1; font-size: 0.85rem; padding: 8px 12px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff;" />
-                    <button type="button" class="btn-modal-action secondary" id="btn-apply-music-url" style="white-space: nowrap; font-size: 0.85rem; padding: 8px 16px;">
-                      Apply URL Globally
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- PANEL 6: STUDENT FEEDBACK & REVIEWS FOR JEEVA -->
-          <div id="panel-admin-feedback" class="admin-panel hidden">
-            <div class="architect-intro-card" style="border-color: rgba(56, 189, 248, 0.45);">
-              <div class="architect-intro-text">
-                <h3 style="color: #38bdf8; font-size: 1.25rem;"><svg class="ui-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Student Reviews &amp; Community Ideas</h3>
-                <p>All feedback, topic ideas, and feature requests submitted by students from the "Help Us Improve" modal. Stored in real-time in Supabase cloud database.</p>
-              </div>
-              <div class="architect-quick-templates">
-                <button type="button" class="btn-template-pill" id="btn-refresh-feedback" style="border-color: #38bdf8; color: #38bdf8;">↻ Refresh Feedbacks</button>
-              </div>
-            </div>
-            <div id="admin-feedback-list" class="admin-feedback-list-container">
-              <div class="feedback-empty-state">Loading messages for Jeeva...</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div id="vault-admin-view" class="vault-view-panel hidden"></div>
     </div>
   </div>
 
-  <!-- ================= MODAL: FEEDBACK / HELP US IMPROVE ================= -->
+  
   <div id="feedback-modal" class="modal-backdrop hidden">
     <div class="modal-window glass-modal feedback-window">
       <div class="modal-header">
-        <span class="modal-cat-badge">COMMUNITY SUGGESTIONS</span>
+        <span class="modal-cat-badge">FEEDBACK</span>
         <button class="modal-close-btn" id="modal-feedback-close">&times;</button>
       </div>
       <h2 class="modal-topic-title">Help us improve skience.io</h2>
-      <p class="modal-topic-desc">What 5th grade skience topics or experiment tools should Jeeva add next?</p>
+      <p class="modal-topic-desc">What topic or fix should I add next?</p>
       
       <!-- FORM FOR FEEDBACK & IDEAS (NO SIGN UP / SIGN IN REQUIRED) -->
       <form id="feedback-form" class="new-note-form">
@@ -1710,20 +1205,20 @@
           <textarea id="fb-user-message" rows="4" required placeholder="Write a science topic request, question, or bug report..."></textarea>
         </div>
 
-        <button type="submit" id="btn-submit-feedback" class="btn-modal-action primary" style="width: 100%;">Send Message <svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+        <button type="submit" id="btn-submit-feedback" class="btn-modal-action primary" style="width: 100%;">Send Message <svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="14.5" y1="1.5" x2="7.2" y2="8.8"/><polygon points="14.5 1.5 10 14.5 7.2 8.8 1.5 6"/></svg></button>
         <div style="margin-top: 14px; text-align: center; font-size: 0.82rem; color: rgba(255,255,255,0.65);">
           <span>Or send an email directly to Jeeva: </span>
-          <a href="mailto:jvrghvn0@gmail.com?subject=skience.io%20Suggestion%20for%20Jeeva" style="color: var(--neon-cyan); text-decoration: underline; font-weight: 700;">jvrghvn0@gmail.com</a>
+          <a href="mailto:jvrghvn0@gmail.com?subject=skience.io%20Suggestion%20for%20Jeeva" style="color: var(--accent-cyan); text-decoration: underline; font-weight: 700;">jvrghvn0@gmail.com</a>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- ================= PRINT CHEAT SHEET CONTAINER ================= -->
+  
   <div id="printable-cheat-sheet" class="printable-area hidden">
     <div class="sheet-header">
-      <h1>skience.io  //  5th Grade Ultimate Skience Sheet</h1>
-      <p>5th Grade Skientific Principles & Reference Guide • Made with love by Jeeva R.</p>
+      <h1>skience.io — 5th Grade Study Sheet</h1>
+      <p>Made by Jeeva R.</p>
     </div>
     <div id="printable-content"></div>
   </div>
@@ -1732,20 +1227,20 @@
   <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
 
     
-  <!-- ================= STUDY TOPIC LOOKUP PANEL ================= -->
+  
   <div id="study-lookup-dock" class="study-lookup-dock">
     <div id="study-lookup-panel" class="study-lookup-panel hidden">
       <div class="study-lookup-header">
         <div class="lookup-icon-badge">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <svg viewBox="0 0 16 16" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><line x1="14.5" y1="14.5" x2="10.8" y2="10.8"/></svg>
         </div>
         <div class="lookup-header-text">
-          <h4>TOPIC &amp; FORMULA LOOKUP</h4>
-          <span class="lookup-status" id="study-lookup-status">Grade 5 Notes Index &bull; Ready</span>
+          <h4>FIND A TOPIC</h4>
+          <span class="lookup-status" id="study-lookup-status">Search notes or formulas</span>
         </div>
         <div class="lookup-header-actions">
           <button type="button" id="study-lookup-clear" class="lookup-tool-btn" title="Clear Results">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2 4 14 4"/><path d="M12.5 4v9.2a1.2 1.2 0 0 1-1.2 1.2H4.7a1.2 1.2 0 0 1-1.2-1.2V4m2.2 0V2.6A1.2 1.2 0 0 1 6.9 1.5h2.2a1.2 1.2 0 0 1 1.2 1.2V4"/></svg>
           </button>
           <button id="study-lookup-close" class="modal-close-btn lookup-close-btn" title="Close (Esc)">&times;</button>
         </div>
@@ -1772,38 +1267,33 @@
       <div class="study-lookup-input-area">
         <input type="text" id="study-lookup-input" placeholder="Search units, terms, or formulas..." autocomplete="off" />
         <button id="study-lookup-go" class="study-lookup-go" title="Search (Enter)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><line x1="14.5" y1="1.5" x2="7.2" y2="8.8"/><polygon points="14.5 1.5 10 14.5 7.2 8.8 1.5 6"/></svg>
         </button>
       </div>
     </div>
 
     <button id="study-lookup-toggle" class="study-lookup-toggle" title="Quick Topic &amp; Formula Lookup" aria-label="Open Topic Lookup">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <svg viewBox="0 0 16 16" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7" cy="7" r="5"/><line x1="14.5" y1="14.5" x2="10.8" y2="10.8"/></svg>
     </button>
   </div>
 
 
-  <!-- ================= APPLE ACTIVITY RINGS & DAILY CONCEPT WIDGET ================= -->
+  
   <div id="apple-rings-modal" class="apple-rings-backdrop hidden" aria-modal="true" role="dialog" aria-label="Apple Activity Rings & Study Widget">
     <div class="apple-rings-window" id="apple-rings-window">
       <!-- Widget Top Bar -->
       <div class="apple-rings-header">
         <div class="apple-rings-title-group">
           <div class="apple-rings-app-icon">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-            </svg>
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 1.5v13M11.2 3.5H6.5a2.2 2.2 0 0 0 0 4.4h3a2.2 2.2 0 0 1 0 4.4H4.2"/></svg>
           </div>
           <div>
-            <div class="apple-rings-title">ACTIVITY &amp; WIDGETS</div>
-            <div class="apple-rings-sub">Study Streak • Apple Watch Style</div>
+            <div class="apple-rings-title">STUDY PROGRESS</div>
+            <div class="apple-rings-sub">Streak &amp; topics covered</div>
           </div>
         </div>
         <button type="button" class="apple-rings-close-btn" id="apple-rings-close-btn" title="Close (ESC)">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7"><line x1="12" y1="4" x2="4" y2="12"/><line x1="4" y1="4" x2="12" y2="12"/></svg>
         </button>
       </div>
 
@@ -1822,7 +1312,7 @@
             <circle id="ring-middle" class="ring-active ring-middle" cx="70" cy="70" r="39" stroke-width="12" stroke-linecap="round"></circle>
             <circle id="ring-inner" class="ring-active ring-inner" cx="70" cy="70" r="24" stroke-width="12" stroke-linecap="round"></circle>
           </svg>
-          <div class="rings-center-flair" id="rings-flair-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <div class="rings-center-flair" id="rings-flair-icon"><svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 1L2 9h5l-1 6 8-8H9z"/></svg></div>
         </div>
 
         <!-- Ring Metric Legends -->
@@ -1859,15 +1349,9 @@
       <!-- Interactive 3D Concept Card Flip Widget (iOS 18 Widget) -->
       <div class="apple-concept-widget-wrap">
         <div class="concept-widget-header">
-          <span class="widget-pill-badge">DAILY CONCEPT WIDGET</span>
+          <span class="widget-pill-badge">FLASH REVIEW</span>
           <button type="button" class="concept-shuffle-btn" id="concept-shuffle-btn" title="Shuffle New Concept">
-            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4">
-              <polyline points="16 3 21 3 21 8"></polyline>
-              <line x1="4" y1="20" x2="21" y2="3"></line>
-              <polyline points="21 16 21 21 16 21"></polyline>
-              <line x1="15" y1="15" x2="21" y2="21"></line>
-              <line x1="4" y1="4" x2="9" y2="9"></line>
-            </svg>
+            <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="10.5 2 14 2 14 5.5"/><line x1="2.5" y1="13.5" x2="14" y2="2"/><polyline points="14 10.5 14 14 10.5 14"/><line x1="10" y1="10" x2="14" y2="14"/><line x1="2.5" y1="2.5" x2="6" y2="6"/></svg>
             <span>Next</span>
           </button>
         </div>
@@ -1886,9 +1370,9 @@
             <!-- BACK: Flash Trick + Formula + Jump Button -->
             <div class="concept-face concept-face-back">
               <div class="concept-category-badge back-badge">5TH GRADE MEMORY TRICK</div>
-              <div class="concept-card-trick" id="widget-card-trick"><svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"/></svg> Sunlight + Water + CO₂ = Plant Power Sugar!</div>
+              <div class="concept-card-trick" id="widget-card-trick"><svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 12h4M6.8 14.5h2.4M8 1.5a4.6 4.6 0 0 0-4.6 4.6c0 1.6.8 3 2 3.8V11a.7.7 0 0 0 .7.7h3.8a.7.7 0 0 0 .7-.7V9.9a4.6 4.6 0 0 0-2.6-8.4z"/></svg> Sunlight + Water + CO₂ = Plant Power Sugar!</div>
               <div class="concept-card-formula" id="widget-card-formula">6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂</div>
-              <button type="button" class="concept-jump-btn" id="widget-jump-notes-btn">Open Full Topic Notes →</button>
+              <button type="button" class="concept-jump-btn" id="widget-jump-notes-btn">Open Notes →</button>
             </div>
           </div>
         </div>
@@ -1896,16 +1380,13 @@
     </div>
   </div>
 
-  <!-- ================= SLEEK GLOBAL COMMAND HUD (Cmd+K / Ctrl+K) ================= -->
+  
   <div id="command-hud-modal" class="command-hud-backdrop hidden" aria-modal="true" role="dialog">
     <div class="command-hud-window" id="command-hud-window">
       <!-- Search Input Bar -->
       <div class="command-hud-search-bar">
         <div class="command-hud-search-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7" cy="7" r="5"/><line x1="14.5" y1="14.5" x2="10.8" y2="10.8"/></svg>
         </div>
         <input type="text" id="command-hud-input" class="command-hud-input" placeholder="Type a command, search 5th grade notes, formulas, or tools..." autocomplete="off" spellcheck="false" />
         <div class="command-hud-badges">
@@ -1935,14 +1416,14 @@
           <span class="hud-footer-hint"><kbd class="hud-kbd-mini">ESC</kbd> Close</span>
         </div>
         <div class="command-hud-footer-right">
-          <span class="hud-system-status"><span class="hud-status-led"></span> SKIENCE HUD PRO</span>
+          <span class="hud-system-status"><span class="hud-status-led"></span> Quick Search</span>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="published_notes.js?v=64.0"></script>
-    <!-- ================= MODAL: CONCEPT PICTURE LIGHTBOX ================= -->
+  <script src="published_notes.js?v=65.0"></script>
+    
   <div id="concept-image-lightbox" class="modal-backdrop hidden" style="z-index: 100000;">
     <div class="lightbox-modal-content">
       <button type="button" class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close Lightbox">&times;</button>
@@ -1953,6 +1434,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=139.0"></script>
+  <script src="app.js?v=140.0"></script>
 </body>
 </html>

@@ -202,7 +202,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
       }
     ],
     "coreFormula": "Cells are the basic building blocks of all living things!",
-    "description": "A complete breakdown of plant cell anatomy, specialized organelles (Cell Wall, Chloroplast, Central Vacuole), and cellular machinery."
+    "description": "Parts of a plant cell (cell wall, chloroplast, central vacuole, nucleus) and what each part does."
   },
   {
     "id": "animal-cell-01",

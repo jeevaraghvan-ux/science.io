@@ -1,60 +1,57 @@
-/* ============================================================
-   HIGH-CRAFT VECTOR SVG SYSTEM (ZERO EMOJI RUNTIME)
-   Standardized 24x24 SVG icons with stroke-width 2, round caps
-   ============================================================ */
+/* UI icons (16x16 SVG) */
 const UI_SVG = {
-  play: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
-  pause: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>',
-  stop: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>',
-  prev: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>',
-  next: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>',
-  music: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
-  bolt: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
-  timer: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-  volume: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>',
-  mute: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>',
-  bell: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
-  bellOff: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.66 8.66A6 6 0 0 0 6 8c0 7-3 9-3 9h14M10.3 4.2A6 6 0 0 1 18 8c0 3.3.6 5.3 1.2 6.5"/><line x1="1" y1="1" x2="23" y2="23"/></svg>',
-  battery: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="16" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>',
-  batteryLow: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="16" height="10" rx="2"/><line x1="6" y1="10" x2="6" y2="14"/><line x1="22" y1="11" x2="22" y2="13"/></svg>',
-  headphones: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>',
-  book: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
-  calc: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/></svg>',
-  user: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
-  check: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
-  sparkle: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg>',
-  atom: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(30 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-30 12 12)"/></svg>',
-  flask: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.31L4.69 18.25A2 2 0 0 0 6.4 21h11.2a2 2 0 0 0 1.71-2.75L14 9.31V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/><line x1="14" y1="9.3" x2="10" y2="9.3"/></svg>',
-  lock: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
-  unlock: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>',
-  rocket: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>',
-  bulb: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"/></svg>',
-  microscope: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0-14 0"/><circle cx="9" cy="9" r="2"/></svg>',
-  flame: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
-  cloud: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>',
-  save: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>',
-  sync: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>',
-  folder: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
-  file: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
-  mail: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
-  printer: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>',
-  search: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
-  camera: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>',
-  image: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
-  fullscreen: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>',
-  chart: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
-  trash: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
-  shuffle: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>',
-  cards: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="14" height="14" rx="2"/><path d="M6 3h14a2 2 0 0 1 2 2v14"/></svg>',
-  home: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
-  cosmos: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>',
-  planet: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="7"/><ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(-20 12 12)"/></svg>',
-  wave: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c2.5-4 5.5-4 8 0s5.5 4 8 0 4-2.5 4-2.5"/></svg>',
-  terminal: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>',
-  help: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-  bot: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><line x1="12" y1="7" x2="12" y2="11"/><circle cx="9" cy="16" r="1"/><circle cx="15" cy="16" r="1"/></svg>',
-  link: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
-  sprout: '<svg class="ui-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>'
+  play: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><polygon points="4 2.5 13.5 8 4 13.5"/></svg>',
+  pause: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><rect x="3" y="2.5" width="3.5" height="11" rx="1"/><rect x="9.5" y="2.5" width="3.5" height="11" rx="1"/></svg>',
+  stop: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><rect x="3.5" y="3.5" width="9" height="9" rx="1.2"/></svg>',
+  prev: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><rect x="3" y="4" width="2" height="8"/><polygon points="6.5 8 13 4 13 12"/></svg>',
+  next: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><polygon points="3 4 9.5 8 3 12"/><rect x="11" y="4" width="2" height="8"/></svg>',
+  music: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 12V3.5l8-1.5v8.5"/><circle cx="4" cy="12" r="2"/><circle cx="12" cy="10.5" r="2"/></svg>',
+  bolt: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 1L2 9h5l-1 6 8-8H9z"/></svg>',
+  timer: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><polyline points="8 4.5 8 8 10.5 9.5"/></svg>',
+  volume: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="7.5 3.5 4 6 1.5 6 1.5 10 4 10 7.5 12.5"/><path d="M10.5 5.5a3.5 3.5 0 0 1 0 5M12.5 3.5a6.5 6.5 0 0 1 0 9"/></svg>',
+  mute: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="7.5 3.5 4 6 1.5 6 1.5 10 4 10 7.5 12.5"/><line x1="11" y1="6" x2="14.5" y2="10"/><line x1="14.5" y1="6" x2="11" y2="10"/></svg>',
+  bell: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5.5a4 4 0 0 0-8 0c0 4.5-2 5.8-2 5.8h12s-2-1.3-2-5.8"/><path d="M9.2 13.8a1.3 1.3 0 0 1-2.4 0"/></svg>',
+  bellOff: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5.8 5.8A4 4 0 0 0 4 5.5c0 4.5-2 5.8-2 5.8h9.2M7 2.8A4 4 0 0 1 12 5.5c0 2.2.4 3.5.8 4.3"/><line x1="1.5" y1="1.5" x2="14.5" y2="14.5"/></svg>',
+  battery: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="4.5" width="11" height="7" rx="1.2"/><line x1="14.5" y1="7" x2="14.5" y2="9"/></svg>',
+  batteryLow: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="4.5" width="11" height="7" rx="1.2"/><line x1="4" y1="6.8" x2="4" y2="9.2"/><line x1="14.5" y1="7" x2="14.5" y2="9"/></svg>',
+  headphones: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12V8a6 6 0 0 1 12 0v4"/><rect x="1.5" y="10" width="3" height="4.5" rx="1"/><rect x="11.5" y="10" width="3" height="4.5" rx="1"/></svg>',
+  book: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13a1.8 1.8 0 0 1 1.8-1.8H13.5V14.5H4.8A1.8 1.8 0 0 1 3 13V3.2A1.8 1.8 0 0 1 4.8 1.5H13.5V11"/></svg>',
+  calc: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="1.5" width="11" height="13" rx="1.5"/><line x1="5" y1="4.5" x2="11" y2="4.5"/><circle cx="5.5" cy="7.5" r=".7"/><circle cx="8" cy="7.5" r=".7"/><circle cx="10.5" cy="7.5" r=".7"/><circle cx="5.5" cy="10" r=".7"/><circle cx="8" cy="10" r=".7"/><line x1="10.5" y1="9.5" x2="10.5" y2="12"/></svg>',
+  user: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="4.8" r="2.6"/><path d="M2.8 14a5.2 5.2 0 0 1 10.4 0"/></svg>',
+  check: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="13 4 6 11.5 3 8.5"/></svg>',
+  sparkle: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><polygon points="8 1.5 10 6 14.5 8 10 10 8 14.5 6 10 1.5 8 6 6"/></svg>',
+  atom: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="1.4"/><ellipse cx="8" cy="8" rx="6" ry="2.6" transform="rotate(30 8 8)"/><ellipse cx="8" cy="8" rx="6" ry="2.6" transform="rotate(-30 8 8)"/></svg>',
+  flask: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 1.5v4.5L3 12.5a1.3 1.3 0 0 0 1.2 1.8h7.6a1.3 1.3 0 0 0 1.2-1.8L9.5 6V1.5M5.5 1.5h5M6.5 6.5h3"/></svg>',
+  lock: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="12" height="7.5" rx="1.4"/><path d="M4.8 7V4.6a3.2 3.2 0 0 1 6.4 0V7"/></svg>',
+  unlock: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="12" height="7.5" rx="1.4"/><path d="M4.8 7V4.6a3.2 3.2 0 0 1 6.2-.8"/></svg>',
+  rocket: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z"/></svg>',
+  bulb: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 12h4M6.8 14.5h2.4M8 1.5a4.6 4.6 0 0 0-4.6 4.6c0 1.6.8 3 2 3.8V11a.7.7 0 0 0 .7.7h3.8a.7.7 0 0 0 .7-.7V9.9a4.6 4.6 0 0 0-2.6-8.4z"/></svg>',
+  microscope: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h5.5M2 14.5h12M9.5 14.5a4.5 4.5 0 1 0-9 0"/><circle cx="6" cy="6" r="1.5"/></svg>',
+  flame: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5.7 9.7c.9 0 1.6-.7 1.6-1.6 0-.9-.3-1.4-.6-2-.7-1.4-.2-2.7 1.3-4 .4 1.6 1.3 3.2 2.6 4.3 1.3 1 2 2.3 2 3.6a4.7 4.7 0 1 1-9.4 0c0-.8.3-1.5.7-2 0 .9.8 1.7 1.8 1.7z"/></svg>',
+  cloud: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.5 12.8H6a4.5 4.5 0 1 1 4.4-5.8h1.1a3 3 0 1 1 0 5.8z"/></svg>',
+  save: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12.5 14H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7.5l3 3v8a1 1 0 0 1-1 1z"/><polyline points="11 14 11 8.8 5 8.8 5 14"/><polyline points="5 2 5 5.2 10 5.2"/></svg>',
+  sync: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 2.5 15 6.5 11 6.5"/><polyline points="1 13.5 1 9.5 5 9.5"/><path d="M2.3 6A6 6 0 0 1 12.2 3.8L15 6.5M1 9.5l3 2.8A6 6 0 0 0 13.6 10"/></svg>',
+  folder: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 12.5a1.2 1.2 0 0 1-1.2 1.2H2.7a1.2 1.2 0 0 1-1.2-1.2V3.2A1.2 1.2 0 0 1 2.7 2h3.3l1.3 2h6a1.2 1.2 0 0 1 1.2 1.2z"/></svg>',
+  file: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 1.5H4a1.2 1.2 0 0 0-1.2 1.2v10.6A1.2 1.2 0 0 0 4 14.5h8a1.2 1.2 0 0 0 1.2-1.2V5.2z"/><polyline points="9.5 1.5 9.5 5.2 13.2 5.2"/></svg>',
+  mail: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="3" width="13" height="10" rx="1.2"/><polyline points="14.5 4.2 8 8.8 1.5 4.2"/></svg>',
+  printer: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6V1.8h8V6M4 12H2.2a1.2 1.2 0 0 1-1.2-1.2V7.2A1.2 1.2 0 0 1 2.2 6h11.6A1.2 1.2 0 0 1 15 7.2v3.6a1.2 1.2 0 0 1-1.2 1.2H12"/><rect x="4" y="9.5" width="8" height="4.7"/></svg>',
+  search: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><line x1="14.5" y1="14.5" x2="10.8" y2="10.8"/></svg>',
+  camera: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.8 12.5a1.2 1.2 0 0 1-1.2 1.2H2.4a1.2 1.2 0 0 1-1.2-1.2V5.4a1.2 1.2 0 0 1 1.2-1.2H5l1.2-1.8h3.6L11 4.2h2.6a1.2 1.2 0 0 1 1.2 1.2z"/><circle cx="8" cy="8.8" r="2.5"/></svg>',
+  image: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="1.2"/><circle cx="5.6" cy="5.6" r="1"/><polyline points="14 10 10.6 6.8 3.5 14"/></svg>',
+  fullscreen: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10 2 14 2 14 6"/><polyline points="6 14 2 14 2 10"/><line x1="14" y1="2" x2="9.5" y2="6.5"/><line x1="2" y1="14" x2="6.5" y2="9.5"/></svg>',
+  chart: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="13.5" x2="12" y2="6.5"/><line x1="8" y1="13.5" x2="8" y2="2.5"/><line x1="4" y1="13.5" x2="4" y2="9.5"/></svg>',
+  trash: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2 4 14 4"/><path d="M12.5 4v9.2a1.2 1.2 0 0 1-1.2 1.2H4.7a1.2 1.2 0 0 1-1.2-1.2V4m2.2 0V2.6A1.2 1.2 0 0 1 6.9 1.5h2.2a1.2 1.2 0 0 1 1.2 1.2V4"/></svg>',
+  shuffle: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10.5 2 14 2 14 5.5"/><line x1="2.5" y1="13.5" x2="14" y2="2"/><polyline points="14 10.5 14 14 10.5 14"/><line x1="10" y1="10" x2="14" y2="14"/><line x1="2.5" y1="2.5" x2="6" y2="6"/></svg>',
+  cards: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="4.5" width="9" height="9.5" rx="1.2"/><path d="M4.2 2h9a1.2 1.2 0 0 1 1.2 1.2v9"/></svg>',
+  home: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6.2L8 1.5l6 4.7v7.2a1.2 1.2 0 0 1-1.2 1.2H3.2A1.2 1.2 0 0 1 2 13.4z"/><polyline points="6 14.5 6 8.2 10 8.2 10 14.5"/></svg>',
+  cosmos: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><ellipse cx="8" cy="8" rx="2.8" ry="6.5"/><line x1="1.5" y1="8" x2="14.5" y2="8"/></svg>',
+  planet: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="4.5"/><ellipse cx="8" cy="8" rx="7.2" ry="2.6" transform="rotate(-20 8 8)"/></svg>',
+  wave: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8c1.6-2.5 3.6-2.5 5.2 0s3.6 2.5 5.2 0 2.6-1.6 2.6-1.6"/></svg>',
+  terminal: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2.8 11.2 6.8 7.2 2.8 3.2"/><line x1="8" y1="12.5" x2="13.2" y2="12.5"/></svg>',
+  help: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M6.2 6a2 2 0 0 1 3.8.7c0 1.3-2 2-2 2"/><line x1="8" y1="11.5" x2="8.01" y2="11.5"/></svg>',
+  bot: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="12" height="7" rx="1.2"/><circle cx="8" cy="3.5" r="1.3"/><line x1="8" y1="4.8" x2="8" y2="7"/><circle cx="6" cy="10.5" r=".7"/><circle cx="10" cy="10.5" r=".7"/></svg>',
+  link: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.8 8.8a3.2 3.2 0 0 0 4.8.3l2-2a3.2 3.2 0 0 0-4.5-4.5L8 3.7M9.2 7.2a3.2 3.2 0 0 0-4.8-.3l-2 2a3.2 3.2 0 0 0 4.5 4.5L8 12.3"/></svg>',
+  sprout: '<svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.5 13.5h7M6.8 13.5c3.5-1.6.5-4.2 2-6.5M6.3 6.2c.8.6 1.2 1.5 1.5 2.5-1.3.3-2.3.3-3.2-.2-.8-.4-1.5-1.3-2-2.8 1.9-.3 3 0 3.7.5zM9.4 4a4.5 4.5 0 0 0-.7 2.6c1.2 0 2.2-.4 2.8-.9.7-.7 1.1-1.5 1.1-3-1.8 0-2.6.6-3.2 1.3z"/></svg>'
 };
 
 function getIconSVG(name) {
@@ -119,23 +116,9 @@ function getIconSVG(name) {
   return map[name] || name;
 }
 
-/**
- * science.io  //  5th Grade Science Notes Application
- * Made with love from Jeeva R.
- * 
- * Features:
- * - 3D Coverflow Carousel & Glassmorphism Table View
- * - Physical Science, Life Science, Earth & Space, and Scientific Method
- * - Interactive Science Visualizers (Matter Phase Simulator, Photosynthesis Factory, Variables Lab)
- * - Cross-Device Cloud Database Sync (Zero Credit Drain, 100% Free Forever)
- * - 1-Click "PUBLISH ALL NOTES" across all phones, tablets, and computers
- * - Animated Cyberpunk/Neon High-Tech Science Loading Screen with Replay
- * - Web Audio API synthesized ASMR sound effects
- * - Confetti celebration particle engine
- * - Interactive science.io AI Assistant
- */
+/* skience.io main application */
 
-// ================= CLOUD SYNC CONFIGURATION =================
+// CLOUD SYNC CONFIGURATION
 // 100% Free Forever • Zero Credit Drain • Cross-Device Live Sync
 const CLOUD_SYNC_URL = "https://skienceisthebest.vercel.app/api/sync";
 const DEFAULT_FIREBASE_CONFIG = {
@@ -150,7 +133,7 @@ const DEFAULT_FIREBASE_CONFIG = {
 const DEFAULT_SUPABASE_URL = "https://nidkkbsmptiyixvealum.supabase.co";
 const DEFAULT_SUPABASE_KEY = "sb_publishable_VIbgYVwvFU2bcPJNLWg4Qg_Be4paQ_6";
 
-// ================= INITIAL SCIENCE NOTES DATABASE =================
+// INITIAL SCIENCE NOTES DATABASE
 
 // Pre-populated with the user's Plant Cell unit (10 Concept Squares from worksheet)
 const DEFAULT_SCIENCE_TOPICS = [
@@ -357,7 +340,7 @@ const DEFAULT_SCIENCE_TOPICS = [
       }
     ],
     "coreFormula": "Cells are the basic building blocks of all living things!",
-    "description": "A complete breakdown of plant cell anatomy, specialized organelles (Cell Wall, Chloroplast, Central Vacuole), and cellular machinery."
+    "description": "Parts of a plant cell (cell wall, chloroplast, central vacuole, nucleus) and what each part does."
   },
   {
     "id": "animal-cell-01",
@@ -2070,7 +2053,7 @@ const DEFAULT_SCIENCE_TOPICS = [
 // Default Cloud Database Bucket ID (Hosted on permanent free REST backend)
 const DEFAULT_CLOUD_DB_ID = "ff808181a09d98f701a0f483e327513e";
 
-// ================= UNIVERSAL BULLET POINT FORMATTERS & HELPERS =================
+// UNIVERSAL BULLET POINT FORMATTERS & HELPERS
 function formatBulletText(str) {
   if (!str && str !== 0) return "";
   const raw = String(str);
@@ -2256,7 +2239,7 @@ function enableSmartBulletInput(el) {
   });
 }
 
-// ================= SOUND FX SYSTEM (WEB AUDIO API) =================
+// SOUND FX SYSTEM (WEB AUDIO API)
 class SoundController {
   constructor() {
     this.enabled = true;
@@ -2743,7 +2726,7 @@ class SoundController {
 
 const sounds = new SoundController();
 
-// ================= INDEXEDDB AUDIO STORAGE FOR CUSTOM ADMIN UPLOADS =================
+// INDEXEDDB AUDIO STORAGE FOR CUSTOM ADMIN UPLOADS
 const AudioStorage = {
   dbName: "science_bg_music_db",
   storeName: "audio_tracks",
@@ -2828,11 +2811,11 @@ const AudioStorage = {
   }
 };
 
-// ==========================================
+
 // AUDIO METADATA PARSER (ID3v1, ID3v2, M4A/AAC)
 // Extracts real full song title & artist from audio files
 // eliminating raw track numbers (e.g. "01", "1.mp3") in Dynamic Island
-// ==========================================
+
 const AudioMetadataParser = {
   decodeString(bytes, encoding) {
     if (!bytes || !bytes.length) return "";
@@ -3337,7 +3320,7 @@ const MUSIC_PRESETS = {
   }
 };
 
-// ================= BACKGROUND STUDY MUSIC MANAGER =================
+// BACKGROUND STUDY MUSIC MANAGER
 class BackgroundMusicManager {
   constructor() {
     this.audio = null;
@@ -3353,6 +3336,7 @@ class BackgroundMusicManager {
     this.isMuted = false;
     this.appRef = null;
     this.toastTimeout = null;
+    this._adminUIBound = false;
   }
 
   async init(appRef = null) {
@@ -3491,11 +3475,12 @@ class BackgroundMusicManager {
   }
 
   bindAdminVaultUI() {
-    // Open music studio button in command panel
+    if (this._adminUIBound) return;
+    if (!document.getElementById("btn-admin-music-playpause")) return;
+    this._adminUIBound = true;
     document.getElementById("cmd-btn-open-music-studio")?.addEventListener("click", () => {
-      if (this.appRef && typeof this.appRef.switchTab === "function") {
-        this.appRef.switchTab("music");
-      }
+      const vaultCtrl = (this.appRef && typeof this.appRef.switchTab === "function") ? this.appRef : this.appRef?.vault;
+      vaultCtrl?.switchTab?.("music");
     });
 
     // Play/Pause button in Admin Vault
@@ -4144,7 +4129,7 @@ class BackgroundMusicManager {
 const bgMusic = new BackgroundMusicManager();
 
 
-// ================= CONFETTI CELEBRATION ENGINE =================
+// CONFETTI CELEBRATION ENGINE
 class ConfettiEngine {
   constructor(canvas) {
     this.canvas = canvas;
@@ -4222,7 +4207,7 @@ class ConfettiEngine {
   }
 }
 
-// ================= ADMIN SECURITY VAULT CONTROLLER =================
+// ADMIN SECURITY VAULT CONTROLLER
 class VaultController {
   constructor(app) {
     this.app = app;
@@ -4233,14 +4218,46 @@ class VaultController {
     this.activeTab = "architect";
     this.architectSquares = [];
     this.editingNoteId = null;
+    this._adminMounted = false;
   }
 
   init() {
     this.setupKeypad();
     this.setupVaultTriggers();
+  }
+
+  getAdminViewHTML() {
+    return "\n        <div class=\"admin-deck-header\">\n          <div class=\"admin-identity-row\">\n            <div class=\"admin-avatar\">\n              <span class=\"avatar-ring\"></span>\n              <span class=\"avatar-text\">JR</span>\n            </div>\n            <div>\n              <div class=\"admin-title-row\">\n                <h2 class=\"admin-title\">ADMIN COMMAND DECK</h2>\n                <span class=\"admin-clearance-pill\">LEVEL 5 SUPERUSER</span>\n              </div>\n              <p class=\"admin-welcome\">Welcome, <strong>Jeeva R.</strong> Full administrative control granted.</p>\n            </div>\n          </div>\n\n          <div class=\"admin-header-actions\">\n            <button type=\"button\" class=\"vault-publish-btn\" id=\"btn-vault-publish-cloud\" title=\"Publish and sync all notes to cloud database\">\n              <span><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z\"/></svg> Publish All Notes to Cloud</span>\n            </button>\n            <button type=\"button\" class=\"admin-btn-lock\" id=\"btn-vault-relock\" title=\"Lock the vault and end session\">\n              <svg viewBox=\"0 0 16 16\" width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><rect x=\"2\" y=\"7\" width=\"12\" height=\"7.5\" rx=\"1.4\"/><path d=\"M4.8 7V4.6a3.2 3.2 0 0 1 6.4 0V7\"/></svg>\n              Lock Vault\n            </button>\n            <button type=\"button\" class=\"modal-close-btn\" id=\"vault-admin-close\" title=\"Exit to website\">&times;</button>\n          </div>\n        </div>\n\n        <!-- Admin Navigation Tabs -->\n        <div class=\"admin-nav-tabs\">\n          <button type=\"button\" class=\"admin-tab-btn active\" data-tab=\"architect\" id=\"admin-tab-architect\">\n            <svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><rect x=\"2\" y=\"2\" width=\"12\" height=\"12\" rx=\"1.4\"/><path d=\"M2 6h12M6 14V6\"/></svg> Note Architect (Add Squares)\n          </button>\n          <button type=\"button\" class=\"admin-tab-btn\" data-tab=\"commands\" id=\"admin-tab-commands\">\n            <svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M9 1L2 9h5l-1 6 8-8H9z\"/></svg> Admin Web Controls\n          </button>\n          <button type=\"button\" class=\"admin-tab-btn\" data-tab=\"music\" id=\"admin-tab-music\">\n            <svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M6 12V3.5l8-1.5v8.5\"/><circle cx=\"4\" cy=\"12\" r=\"2\"/><circle cx=\"12\" cy=\"10.5\" r=\"2\"/></svg> Background Music Studio\n          </button>\n          <button type=\"button\" class=\"admin-tab-btn\" data-tab=\"manager\" id=\"admin-tab-manager\">\n            <svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M3 13a1.8 1.8 0 0 1 1.8-1.8H13.5V14.5H4.8A1.8 1.8 0 0 1 3 13V3.2A1.8 1.8 0 0 1 4.8 1.5H13.5V11\"/></svg> Database Manager\n          </button>\n          <button type=\"button\" class=\"admin-tab-btn\" data-tab=\"telemetry\" id=\"admin-tab-telemetry\">\n            <svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><line x1=\"12\" y1=\"13.5\" x2=\"12\" y2=\"6.5\"/><line x1=\"8\" y1=\"13.5\" x2=\"8\" y2=\"2.5\"/><line x1=\"4\" y1=\"13.5\" x2=\"4\" y2=\"9.5\"/></svg> System Telemetry\n          </button>\n          <button type=\"button\" class=\"admin-tab-btn\" data-tab=\"feedback\" id=\"admin-tab-feedback\">\n            <svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><rect x=\"1.5\" y=\"3\" width=\"13\" height=\"10\" rx=\"1.2\"/><polyline points=\"14.5 4.2 8 8.8 1.5 4.2\"/></svg> Student Feedback (<span id=\"admin-fb-count\">0</span>)\n          </button>\n        </div>\n\n        <div class=\"admin-deck-content-body\">\n          <!-- PANEL 1: NOTE ARCHITECT (WITH DYNAMIC SQUARES BUILDER) -->\n          <div id=\"panel-admin-architect\" class=\"admin-panel active\">\n            <div class=\"architect-intro-card\">\n              <div class=\"architect-intro-text\">\n                <h3>Structured Skience Unit Architect</h3>\n                <p>Create rich units with individual concept squares. Each square renders as a distinct card with its own principle, definition, observations, and lab tips!</p>\n              </div>\n              <div class=\"architect-quick-templates\">\n                <button type=\"button\" class=\"btn-template-pill\" id=\"btn-template-science-props\"><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"13\" height=\"13\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M9 1L2 9h5l-1 6 8-8H9z\"/></svg> Skientific Method Template</button>\n                <button type=\"button\" class=\"btn-template-pill\" id=\"btn-template-steps\"><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"13\" height=\"13\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 12h5.5M2 14.5h12M9.5 14.5a4.5 4.5 0 1 0-9 0\"/><circle cx=\"6\" cy=\"6\" r=\"1.5\"/></svg> Structure &amp; Function Template</button>\n                <button type=\"button\" class=\"btn-template-pill\" id=\"btn-architect-insert-bullet\" style=\"border-color: var(--accent-cyan); color: var(--accent-cyan);\" title=\"Insert bullet point into active field\">• Add Bullet Anywhere</button>\n              </div>\n            </div>\n\n            <form id=\"vault-note-form\" class=\"vault-note-form\">\n              <div class=\"form-row-2\">\n                <div class=\"form-group\">\n                  <div class=\"field-label-row\">\n                    <label for=\"vnote-title\">Unit / Topic Title <span class=\"req\">*</span></label>\n                    <button type=\"button\" class=\"btn-field-bullet\" data-for=\"vnote-title\" title=\"Insert a bullet point at cursor\">+ • Bullet</button>\n                  </div>\n                  <input type=\"text\" id=\"vnote-title\" required placeholder=\"e.g. STATES OF MATTER & PHASE CHANGES\" />\n                </div>\n                <div class=\"form-group\">\n                  <label for=\"vnote-category\">Category / Branch</label>\n                  <select id=\"vnote-category\">\n                    <option value=\"physical\" selected>Physical Skience (Matter, Energy, Force)</option>\n                    <option value=\"life\">Life Skience (Cells, Ecosystems, Plants)</option>\n                    <option value=\"biology\">Biology & Living Systems</option>\n                    <option value=\"earth\">Earth & Space (Planets, Weather, Rocks)</option>\n                    <option value=\"method\">Skientific Method & Experiments</option>\n                    <option value=\"custom\">Custom Skience Unit</option>\n                  </select>\n                </div>\n              </div>\n\n              <div class=\"form-row-2\">\n                <div class=\"form-group\">\n                  <div class=\"field-label-row\">\n                    <label for=\"vnote-formula\">Core Formula / Scientific Law</label>\n                    <button type=\"button\" class=\"btn-field-bullet\" data-for=\"vnote-formula\" title=\"Insert a bullet point at cursor\">+ • Bullet</button>\n                  </div>\n                  <input type=\"text\" id=\"vnote-formula\" placeholder=\"e.g. Conservation of Mass: Mass cannot be created or destroyed\" />\n                </div>\n                <div class=\"form-group\">\n                  <label for=\"vnote-color\">Card Glow Color</label>\n                  <select id=\"vnote-color\">\n                    <option value=\"blue\" selected>Electric Blue</option>\n                    <option value=\"cyan\">Neon Cyan</option>\n                    <option value=\"teal\">Tertiary Teal</option>\n                    <option value=\"indigo\">Tertiary Indigo / Blue-Violet</option>\n                    <option value=\"purple\">Deep Indigo Blue</option>\n                    <option value=\"plum\">Tertiary Plum / Red-Violet</option>\n                    <option value=\"emerald\">Emerald Bio</option>\n                    <option value=\"amber\">Solar Amber</option>\n                    <option value=\"orange\">Solar Orange</option>\n                  </select>\n                </div>\n              </div>\n\n              <div class=\"form-group\">\n                <div class=\"field-label-row\">\n                  <label for=\"vnote-desc\">Unit Summary & Teacher Notes <span class=\"req\">*</span></label>\n                  <button type=\"button\" class=\"btn-field-bullet\" data-for=\"vnote-desc\" title=\"Insert a bullet point at cursor\">+ • Bullet</button>\n                </div>\n                <textarea id=\"vnote-desc\" rows=\"2\" required placeholder=\"Provide an overview of the unit and what 5th graders will explore...\"></textarea>\n              </div>\n\n              <div class=\"form-group\">\n                <label for=\"vnote-redirect\">External Link Redirect (Optional)</label>\n                <input type=\"url\" id=\"vnote-redirect\" placeholder=\"e.g. https://nasa.gov (Adds a link button next to 'View Notes')\" />\n              </div>\n\n              <!-- DYNAMIC SQUARES SECTION (DEFAULT FORMAT) -->\n              <div class=\"squares-builder-section\">\n                <div class=\"squares-builder-header\">\n                  <div class=\"squares-header-title-box\">\n                    <span class=\"squares-count-badge\" id=\"squares-count-badge\">0 Squares Configured</span>\n                    <h4>Individual Squares & Concepts</h4>\n                  </div>\n                  <button type=\"button\" class=\"btn-add-square\" id=\"btn-add-square\">\n                    <span>+ Add Another Concept Square</span>\n                  </button>\n                </div>\n\n                <p class=\"squares-instruction-text\">\n                  Each square below represents an individual card. Add titles, scientific formulas/laws, explanations, and observations:\n                </p>\n\n                <div class=\"squares-list-container\" id=\"vault-squares-list\">\n                  <!-- Dynamically populated squares -->\n                </div>\n\n                <div class=\"squares-footer-actions\">\n                  <button type=\"button\" class=\"btn-add-square secondary\" id=\"btn-add-square-bottom\">\n                    + Add Another Concept Square\n                  </button>\n                </div>\n              </div>\n\n              <div class=\"form-actions-admin\">\n                <button type=\"button\" class=\"btn-modal-action secondary\" id=\"btn-clear-architect\">Clear Form</button>\n                <button type=\"submit\" class=\"btn-modal-action primary admin-save-btn\" id=\"btn-save-vault-note\">\n                  <span><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z\"/></svg> Publish to Website & Cloud</span>\n                </button>\n              </div>\n            </form>\n          </div>\n\n          <!-- PANEL 2: ADMIN WEB CONTROLS & CLI -->\n          <div id=\"panel-admin-commands\" class=\"admin-panel hidden\">\n            <div class=\"admin-commands-grid\">\n              <div class=\"admin-cmd-card\" style=\"border-color: var(--accent-cyan);\">\n                <div class=\"cmd-icon-box\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z\"/></svg></div>\n                <h4>Publish All Notes to Cloud</h4>\n                <p>Sync all stored units and squares to the cloud database so any device can view them.</p>\n                <button type=\"button\" class=\"cmd-exec-btn\" id=\"cmd-btn-quick-publish\" style=\"background: #1d4ed8;\">Publish Now</button>\n              </div>\n\n              <div class=\"admin-cmd-card\">\n                <div class=\"cmd-icon-box\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M6.5 1.5v4.5L3 12.5a1.3 1.3 0 0 0 1.2 1.8h7.6a1.3 1.3 0 0 0 1.2-1.8L9.5 6V1.5M5.5 1.5h5M6.5 6.5h3\"/></svg></div>\n                <h4>Preset: States of Matter</h4>\n                <p>Optionally injects \"States of Matter & Phase Changes\" with Solid, Liquid, Gas concept squares.</p>\n                <button type=\"button\" class=\"cmd-exec-btn\" id=\"cmd-btn-preset-matter\">Insert Unit</button>\n              </div>\n\n              <div class=\"cmd-cmd-card admin-cmd-card\">\n                <div class=\"cmd-icon-box\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4.5 13.5h7M6.8 13.5c3.5-1.6.5-4.2 2-6.5M6.3 6.2c.8.6 1.2 1.5 1.5 2.5-1.3.3-2.3.3-3.2-.2-.8-.4-1.5-1.3-2-2.8 1.9-.3 3 0 3.7.5zM9.4 4a4.5 4.5 0 0 0-.7 2.6c1.2 0 2.2-.4 2.8-.9.7-.7 1.1-1.5 1.1-3-1.8 0-2.6.6-3.2 1.3z\"/></svg></div>\n                <h4>Preset: Photosynthesis & Energy</h4>\n                <p>Optionally injects Plant Energy Flow with Chloroplasts, Glucose, and Oxygen concept squares.</p>\n                <button type=\"button\" class=\"cmd-exec-btn\" id=\"cmd-btn-preset-photo\">Insert Unit</button>\n              </div>\n\n              <div class=\"admin-cmd-card\">\n                <div class=\"cmd-icon-box\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><polygon points=\"8 1.5 10 6 14.5 8 10 10 8 14.5 6 10 1.5 8 6 6\"/></svg></div>\n                <h4>Burst Celebration Confetti</h4>\n                <p>Triggers full-screen physics confetti particle engine across the whole site.</p>\n                <button type=\"button\" class=\"cmd-exec-btn\" id=\"cmd-btn-confetti\">Fire Confetti</button>\n              </div>\n\n              <div class=\"admin-cmd-card\" style=\"border-color: var(--accent-purple);\">\n                <div class=\"cmd-icon-box\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M6 12V3.5l8-1.5v8.5\"/><circle cx=\"4\" cy=\"12\" r=\"2\"/><circle cx=\"12\" cy=\"10.5\" r=\"2\"/></svg></div>\n                <h4>Background Music Studio</h4>\n                <p>Upload your own music file, choose study vibes, or adjust global audio for all visitors.</p>\n                <button type=\"button\" class=\"cmd-exec-btn\" id=\"cmd-btn-open-music-studio\" style=\"background: #1d4ed8; border-color: #3b82f6; color: #fff;\">Open Music Studio</button>\n              </div>\n\n              <div class=\"admin-cmd-card\">\n                <div class=\"cmd-icon-box\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><polygon points=\"7.5 3.5 4 6 1.5 6 1.5 10 4 10 7.5 12.5\"/><path d=\"M10.5 5.5a3.5 3.5 0 0 1 0 5M12.5 3.5a6.5 6.5 0 0 1 0 9\"/></svg></div>\n                <h4>Toggle Sound Effects</h4>\n                <p>Enable or disable synthesized Web Audio ASMR click and swoosh sound effects.</p>\n                <button type=\"button\" class=\"cmd-exec-btn\" id=\"cmd-btn-toggle-sound\">Toggle Audio</button>\n              </div>\n\n              <div class=\"admin-cmd-card\">\n                <div class=\"cmd-icon-box\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M12.5 14H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7.5l3 3v8a1 1 0 0 1-1 1z\"/><polyline points=\"11 14 11 8.8 5 8.8 5 14\"/><polyline points=\"5 2 5 5.2 10 5.2\"/></svg></div>\n                <h4>Export Database (JSON)</h4>\n                <p>Backup all skience units, properties, and custom notes to a downloadable JSON file.</p>\n                <button type=\"button\" class=\"cmd-exec-btn\" id=\"cmd-btn-export-json\">Export JSON</button>\n              </div>\n\n              <div class=\"admin-cmd-card\">\n                <div class=\"cmd-icon-box\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M14 10v2.8a1.2 1.2 0 0 1-1.2 1.2H3.2A1.2 1.2 0 0 1 2 12.8V10\"/><polyline points=\"4.8 6.8 8 10 11.2 6.8\"/><line x1=\"8\" y1=\"10\" x2=\"8\" y2=\"2\"/></svg></div>\n                <h4>Import Database (JSON)</h4>\n                <p>Restore or merge skience units and notes from a JSON backup file.</p>\n                <button type=\"button\" class=\"cmd-exec-btn\" id=\"cmd-btn-import-json\">Import JSON</button>\n                <input type=\"file\" id=\"admin-file-import\" accept=\".json\" class=\"hidden\" />\n              </div>\n\n              <div class=\"admin-cmd-card danger\">\n                <div class=\"cmd-icon-box\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><polyline points=\"2 4 14 4\"/><path d=\"M12.5 4v9.2a1.2 1.2 0 0 1-1.2 1.2H4.7a1.2 1.2 0 0 1-1.2-1.2V4m2.2 0V2.6A1.2 1.2 0 0 1 6.9 1.5h2.2a1.2 1.2 0 0 1 1.2 1.2V4\"/></svg></div>\n                <h4>Clear All Notes</h4>\n                <p>Cleans out all stored notes so your skience notebook is completely fresh.</p>\n                <button type=\"button\" class=\"cmd-exec-btn danger\" id=\"cmd-btn-clear-custom\">Clear All</button>\n              </div>\n            </div>\n          </div>\n\n          <!-- PANEL 3: DATABASE MANAGER -->\n          <div id=\"panel-admin-manager\" class=\"admin-panel hidden\">\n            <div style=\"display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;\">\n              <h4 style=\"color: #fff; margin: 0;\">Stored Units in Database</h4>\n              <button class=\"vault-publish-btn\" id=\"btn-manager-publish\" style=\"font-size: 0.8rem; padding: 7px 16px;\">\n                <span><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z\"/></svg> Publish All Notes to Cloud</span>\n              </button>\n            </div>\n            <div class=\"manager-table-wrapper\">\n              <table class=\"admin-data-table\">\n                <thead>\n                  <tr>\n                    <th>Title</th>\n                    <th>Branch</th>\n                    <th>Concept Squares</th>\n                    <th>Origin</th>\n                    <th>Actions</th>\n                  </tr>\n                </thead>\n                <tbody id=\"admin-manager-tbody\">\n                  <!-- Dynamically populated rows -->\n                </tbody>\n              </table>\n            </div>\n          </div>\n\n          <!-- PANEL 4: SITE STATS -->\n          <div id=\"panel-admin-telemetry\" class=\"admin-panel hidden\">\n            <div class=\"telemetry-grid\">\n              <div class=\"telem-stat-card\">\n                <span class=\"telem-label\">TOTAL SKIENCE UNITS</span>\n                <span class=\"telem-val\" id=\"telem-topics-count\">0</span>\n              </div>\n              <div class=\"telem-stat-card\">\n                <span class=\"telem-label\">TOTAL CONCEPT SQUARES</span>\n                <span class=\"telem-val\" id=\"telem-squares-count\">0</span>\n              </div>\n              <div class=\"telem-stat-card\">\n                <span class=\"telem-label\">CLOUD DB STATUS</span>\n                <span class=\"telem-val\" style=\"color: #60a5fa; font-size: 1.1rem;\">CONNECTED (NO COST)</span>\n              </div>\n              <div class=\"telem-stat-card\">\n                <span class=\"telem-label\">AUTHENTICATED SUPERUSER</span>\n                <span class=\"telem-val\" style=\"color: var(--accent-cyan);\">Jeeva R.</span>\n              </div>\n              <div class=\"telem-stat-card\">\n                <span class=\"telem-label\">SECURITY PROTOCOL</span>\n                <span class=\"telem-val\" style=\"color: #93c5fd;\">SHA-256 ENCRYPTED</span>\n              </div>\n              <div class=\"telem-stat-card\">\n                <span class=\"telem-label\">ASMR AUDIO ENGINE</span>\n                <span class=\"telem-val\" style=\"color: var(--accent-purple);\">ACTIVE</span>\n              </div>\n            </div>\n          </div>\n\n          <!-- PANEL 5: BACKGROUND MUSIC STUDIO -->\n          <div id=\"panel-admin-music\" class=\"admin-panel hidden\">\n            <div class=\"music-studio-container\">\n              <!-- Active Playing Track Glass Card -->\n              <div class=\"music-active-track-card\">\n                <div class=\"music-active-track-header\">\n                  <div class=\"music-track-meta\">\n                    <span class=\"music-badge\" id=\"admin-music-badge\">ACTIVE BACKGROUND MUSIC</span>\n                    <h3 id=\"admin-music-track-title\">Am I Wrong</h3>\n                    <p id=\"admin-music-source-desc\">Playing in background for all visitors during science study sessions</p>\n                  </div>\n                  <div class=\"music-status-indicator active\" id=\"admin-music-status-indicator\">\n                    <span class=\"status-pulse-dot\"></span>\n                    <span id=\"admin-music-status-text\">Playing</span>\n                  </div>\n                </div>\n\n                <!-- Animated Liquid Glass Waveform Visualizer -->\n                <div class=\"music-waveform-bars\" id=\"music-waveform-bars\">\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                  <span class=\"music-bar\"></span>\n                </div>\n\n                <!-- Live Scrub Bar & Times -->\n                <div class=\"music-progress-wrapper\">\n                  <span class=\"music-time\" id=\"admin-music-curr-time\">0:00</span>\n                  <input type=\"range\" class=\"music-scrubber\" id=\"admin-music-scrubber\" min=\"0\" max=\"100\" value=\"0\" />\n                  <span class=\"music-time\" id=\"admin-music-total-time\">4:07</span>\n                </div>\n\n                <!-- Studio Controls Bar -->\n                <div class=\"music-controls-row\">\n                  <div class=\"music-playback-btns\">\n                    <button type=\"button\" class=\"btn-music-ctrl primary\" id=\"btn-admin-music-playpause\" title=\"Play or Pause\">\n                      <span id=\"admin-playpause-icon\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"currentColor\"><rect x=\"3\" y=\"2.5\" width=\"3.5\" height=\"11\" rx=\"1\"/><rect x=\"9.5\" y=\"2.5\" width=\"3.5\" height=\"11\" rx=\"1\"/></svg></span>\n                      <span id=\"admin-playpause-text\">Pause Music</span>\n                    </button>\n                    <button type=\"button\" class=\"btn-music-ctrl secondary\" id=\"btn-admin-music-restart\" title=\"Restart from Beginning\">\n                      <svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"currentColor\"><rect x=\"3\" y=\"4\" width=\"2\" height=\"8\"/><polygon points=\"6.5 8 13 4 13 12\"/></svg> Restart Track\n                    </button>\n                  </div>\n\n                  <div class=\"music-volume-control\">\n                    <span><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><polygon points=\"7.5 3.5 4 6 1.5 6 1.5 10 4 10 7.5 12.5\"/><path d=\"M10.5 5.5a3.5 3.5 0 0 1 0 5M12.5 3.5a6.5 6.5 0 0 1 0 9\"/></svg> Volume</span>\n                    <input type=\"range\" id=\"admin-music-volume-slider\" min=\"0\" max=\"100\" value=\"40\" />\n                    <span id=\"admin-music-volume-val\">40%</span>\n                  </div>\n                </div>\n              </div>\n\n              <!-- Upload Custom Audio Zone -->\n              <div class=\"music-upload-section\">\n                <div class=\"music-section-heading\">\n                  <h4><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M14 10v2.8a1.2 1.2 0 0 1-1.2 1.2H3.2A1.2 1.2 0 0 1 2 12.8V10\"/><polyline points=\"11.2 5.2 8 2 4.8 5.2\"/><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"10\"/></svg> Upload Custom Background Music</h4>\n                  <p>Upload your own MP3, WAV, OGG, or M4A file here. It will immediately play for anyone visiting the website, and can be stopped anytime by clicking the sound button next to the printer icon.</p>\n                </div>\n\n                <div class=\"music-dropzone\" id=\"admin-music-dropzone\">\n                  <input type=\"file\" id=\"admin-music-file-input\" accept=\"audio/*\" class=\"hidden\" />\n                  <div class=\"dropzone-content\">\n                    <div class=\"dropzone-icon\"><svg viewBox=\"0 0 16 16\" width=\"32\" height=\"32\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M6 12V3.5l8-1.5v8.5\"/><circle cx=\"4\" cy=\"12\" r=\"2\"/><circle cx=\"12\" cy=\"10.5\" r=\"2\"/></svg></div>\n                    <h5>Choose an audio file or drag &amp; drop here</h5>\n                    <p class=\"dropzone-hint\">Supports MP3, WAV, OGG, M4A, AAC • Audio is stored and played in background for all students</p>\n                    <button type=\"button\" class=\"btn-modal-action secondary\" id=\"btn-browse-music-file\" style=\"margin-top: 10px;\">\n                      <svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M14.5 12.5a1.2 1.2 0 0 1-1.2 1.2H2.7a1.2 1.2 0 0 1-1.2-1.2V3.2A1.2 1.2 0 0 1 2.7 2h3.3l1.3 2h6a1.2 1.2 0 0 1 1.2 1.2z\"/></svg> Select Music File From Computer\n                    </button>\n                    <div id=\"selected-audio-file-info\" class=\"selected-file-pill hidden\">\n                      <span class=\"pill-icon\"><svg viewBox=\"0 0 16 16\" width=\"13\" height=\"13\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M6 12V3.5l8-1.5v8.5\"/><circle cx=\"4\" cy=\"12\" r=\"2\"/><circle cx=\"12\" cy=\"10.5\" r=\"2\"/></svg></span>\n                      <span id=\"selected-audio-name\">my-music.mp3</span>\n                      <span id=\"selected-audio-size\" class=\"pill-size\">(5.2 MB)</span>\n                    </div>\n                  </div>\n                </div>\n\n                <div class=\"music-upload-actions\">\n                  <button type=\"button\" class=\"btn-modal-action primary\" id=\"btn-save-uploaded-music\" disabled>\n                    <span><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z\"/></svg> Apply &amp; Set as Website Background Music</span>\n                  </button>\n                  <button type=\"button\" class=\"btn-modal-action secondary\" id=\"btn-reset-default-music\" title=\"Restore original Am I Wrong\">\n                    <span><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><polyline points=\"1.5 2.5 1.5 6.5 5.5 6.5\"/><path d=\"M2.5 10a5.8 5.8 0 1 0 1.4-6L1.5 6.5\"/></svg> Reset to Default Anthem (Am I Wrong)</span>\n                  </button>\n                </div>\n              </div>\n\n              <!-- Study Vibes Library & Cloud Audio Stream -->\n              <div class=\"music-presets-section\">\n                <div class=\"music-section-heading\">\n                  <h4><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M2 12V8a6 6 0 0 1 12 0v4\"/><rect x=\"1.5\" y=\"10\" width=\"3\" height=\"4.5\" rx=\"1\"/><rect x=\"11.5\" y=\"10\" width=\"3\" height=\"4.5\" rx=\"1\"/></svg> Curated Study Music Vibes &amp; Cloud Audio URL</h4>\n                  <p>Switch between study anthems or paste any direct streaming audio link.</p>\n                </div>\n\n                <div class=\"music-presets-grid\">\n                  <div class=\"music-preset-card active\" data-preset=\"anthem\">\n                    <div class=\"preset-badge\">Default Study Anthem</div>\n                    <div class=\"preset-icon\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"currentColor\"><polygon points=\"8 1.5 10 6 14.5 8 10 10 8 14.5 6 10 1.5 8 6 6\"/></svg></div>\n                    <div class=\"preset-info\">\n                      <h5>Am I Wrong</h5>\n                      <span>Official Study Anthem (High Energy)</span>\n                    </div>\n                    <button type=\"button\" class=\"btn-preset-select\" data-track=\"anthem\">Select Track</button>\n                  </div>\n\n                  <div class=\"music-preset-card\" data-preset=\"lofi\">\n                    <div class=\"preset-icon\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M12 5.5h.7a2.5 2.5 0 0 1 0 5H12M1.5 5.5H12v6a2.5 2.5 0 0 1-2.5 2.5H4a2.5 2.5 0 0 1-2.5-2.5zM4.2 1.5v1.8M6.8 1.5v1.8M9.5 1.5v1.8\"/></svg></div>\n                    <div class=\"preset-info\">\n                      <h5>Lofi Chill Study Beats</h5>\n                      <span>Relaxed, smooth, continuous study rhythm</span>\n                    </div>\n                    <button type=\"button\" class=\"btn-preset-select\" data-track=\"lofi\">Select Track</button>\n                  </div>\n\n                  <div class=\"music-preset-card\" data-preset=\"cosmic\">\n                    <div class=\"preset-icon\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><circle cx=\"8\" cy=\"8\" r=\"6.5\"/><ellipse cx=\"8\" cy=\"8\" rx=\"2.8\" ry=\"6.5\"/><line x1=\"1.5\" y1=\"8\" x2=\"14.5\" y2=\"8\"/></svg></div>\n                    <div class=\"preset-info\">\n                      <h5>Cosmic Focus Space Drone</h5>\n                      <span>Steady ambient audio for focused reading</span>\n                    </div>\n                    <button type=\"button\" class=\"btn-preset-select\" data-track=\"cosmic\">Select Track</button>\n                  </div>\n\n                  <div class=\"music-preset-card\" data-preset=\"synthwave\">\n                    <div class=\"preset-icon\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M9 1L2 9h5l-1 6 8-8H9z\"/></svg></div>\n                    <div class=\"preset-info\">\n                      <h5>Upbeat Study Mix</h5>\n                      <span>Fast tempo track for review sessions</span>\n                    </div>\n                    <button type=\"button\" class=\"btn-preset-select\" data-track=\"synthwave\">Select Track</button>\n                  </div>\n                </div>\n\n                <div class=\"music-url-direct-row\">\n                  <label for=\"admin-music-direct-url\">Direct Audio Stream / Cloud MP3 URL:</label>\n                  <div style=\"display: flex; gap: 8px; margin-top: 6px;\">\n                    <input type=\"url\" id=\"admin-music-direct-url\" placeholder=\"https://cdn.example.com/audio/study-track.mp3\" style=\"flex: 1; font-size: 0.85rem; padding: 8px 12px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff;\" />\n                    <button type=\"button\" class=\"btn-modal-action secondary\" id=\"btn-apply-music-url\" style=\"white-space: nowrap; font-size: 0.85rem; padding: 8px 16px;\">\n                      Apply URL Globally\n                    </button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <!-- PANEL 6: STUDENT FEEDBACK & REVIEWS FOR JEEVA -->\n          <div id=\"panel-admin-feedback\" class=\"admin-panel hidden\">\n            <div class=\"architect-intro-card\" style=\"border-color: rgba(56, 189, 248, 0.45);\">\n              <div class=\"architect-intro-text\">\n                <h3 style=\"color: #38bdf8; font-size: 1.25rem;\"><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><rect x=\"1.5\" y=\"3\" width=\"13\" height=\"10\" rx=\"1.2\"/><polyline points=\"14.5 4.2 8 8.8 1.5 4.2\"/></svg> Student Reviews &amp; Community Ideas</h3>\n                <p>All feedback, topic ideas, and feature requests submitted by students from the \"Help Us Improve\" modal. Stored in real-time in Supabase cloud database.</p>\n              </div>\n              <div class=\"architect-quick-templates\">\n                <button type=\"button\" class=\"btn-template-pill\" id=\"btn-refresh-feedback\" style=\"border-color: #38bdf8; color: #38bdf8;\">↻ Refresh Feedbacks</button>\n              </div>\n            </div>\n            <div id=\"admin-feedback-list\" class=\"admin-feedback-list-container\">\n              <div class=\"feedback-empty-state\">Loading messages for Jeeva...</div>\n            </div>\n          </div>\n        </div>\n      ";
+  }
+
+  ensureAdminViewMounted() {
+    if (this._adminMounted) return;
+    const container = document.getElementById("vault-admin-view");
+    if (!container) return;
+    container.innerHTML = this.getAdminViewHTML();
+    this._adminMounted = true;
+    document.getElementById("vault-admin-close")?.addEventListener("click", () => this.close());
+    document.getElementById("btn-vault-relock")?.addEventListener("click", () => this.relock());
+    document.getElementById("btn-refresh-feedback")?.addEventListener("click", () => {
+      sounds.playClick();
+      this.loadFeedback();
+    });
     this.setupAdminTabs();
     this.setupArchitectForm();
     this.setupAdminCommands();
+    if (typeof bgMusic !== "undefined") {
+      bgMusic.bindAdminVaultUI();
+      bgMusic.updateUI();
+    }
+    document.getElementById("btn-vault-publish-cloud")?.addEventListener("click", () => {
+      sounds.playClick();
+      this.app?.publishAllNotes();
+    });
+    document.getElementById("btn-manager-publish")?.addEventListener("click", () => {
+      sounds.playClick();
+      this.app?.publishAllNotes();
+    });
+    this.app?.updatePublishBadge?.();
   }
 
   setupKeypad() {
@@ -4345,7 +4362,7 @@ class VaultController {
 
     const lockIcon = document.getElementById("vault-lock-status-icon");
     if (lockIcon) {
-      lockIcon.innerHTML = `<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path><circle cx="12" cy="16" r="1.5"></circle>`;
+      lockIcon.innerHTML = `<rect x="2" y="7" width="12" height="7.5" rx="1.4"/><path d="M4.8 7V4.6a3.2 3.2 0 0 1 6.2-.8"/><circle cx="8" cy="10.8" r="1"/>`;
     }
 
     // Dynamic Island Alert for Passcode unlock
@@ -4353,7 +4370,7 @@ class VaultController {
       this.app.dynamicIsland.trigger({
         icon: "unlock",
         title: "Passcode Authenticated",
-        subtitle: "Admin Security Vault Unlocked • Clearance Level 5",
+        subtitle: "Vault Unlocked",
         badge: "VERIFIED",
         actionText: "VAULT",
         duration: 3500
@@ -4365,11 +4382,12 @@ class VaultController {
     this.app.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 80);
 
     setTimeout(() => {
+      this.ensureAdminViewMounted();
       document.getElementById("vault-lock-view")?.classList.add("hidden");
       document.getElementById("vault-admin-view")?.classList.remove("hidden");
       if (safeDoor) safeDoor.classList.remove("unlocking");
       if (lockIcon) {
-        lockIcon.innerHTML = `<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path><circle cx="12" cy="16" r="1.5"></circle>`;
+        lockIcon.innerHTML = `<rect x="2" y="7" width="12" height="7.5" rx="1.4"/><path d="M4.8 7V4.6a3.2 3.2 0 0 1 6.4 0V7"/><circle cx="8" cy="10.8" r="1"/>`;
       }
 
       this.currentPin = "";
@@ -4383,20 +4401,11 @@ class VaultController {
 
   setupVaultTriggers() {
     document.getElementById("vault-lock-close")?.addEventListener("click", () => this.close());
-    document.getElementById("vault-admin-close")?.addEventListener("click", () => this.close());
-
-    document.getElementById("btn-vault-relock")?.addEventListener("click", () => {
-      this.relock();
-    });
-
-    document.getElementById("btn-refresh-feedback")?.addEventListener("click", () => {
-      sounds.playClick();
-      this.loadFeedback();
-    });
   }
 
   requestCreateNote() {
     if (this.isUnlocked) {
+      this.ensureAdminViewMounted();
       this.open();
       this.switchTab("architect");
       const titleInput = document.getElementById("vnote-title");
@@ -4422,6 +4431,7 @@ class VaultController {
     }
 
     if (this.isUnlocked) {
+      this.ensureAdminViewMounted();
       document.getElementById("vault-lock-view")?.classList.add("hidden");
       document.getElementById("vault-admin-view")?.classList.remove("hidden");
       this.updateManagerTable();
@@ -4581,7 +4591,7 @@ class VaultController {
     }).join("");
   }
 
-  // ================= NOTE ARCHITECT LOGIC =================
+// NOTE ARCHITECT LOGIC
   setupArchitectForm() {
     const form = document.getElementById("vault-note-form");
     if (!form) return;
@@ -5161,7 +5171,7 @@ class VaultController {
         grade: "5th Grade",
         badge: "3 Concept Squares",
         coreFormula: "Thermal Energy Changes Matter: Solid ⇄ Liquid ⇄ Gas",
-        description: "How heating and cooling alters molecular motion without changing the substance's chemical identity.",
+        description: "How heating and cooling changes solids, liquids, and gases.",
         isCustom: true,
         properties: [
           {
@@ -5211,7 +5221,7 @@ class VaultController {
         grade: "5th Grade",
         badge: "3 Concept Squares",
         coreFormula: "6CO₂ + 6H₂O + Sunlight → C₆H₁₂O₆ (Sugar) + 6O₂ (Oxygen)",
-        description: "The foundational biochemical process where green plant producers convert solar energy into storable chemical sugar food.",
+        description: "How green plants use sunlight, water, and CO2 to make sugar and oxygen.",
         isCustom: true,
         properties: [
           {
@@ -5326,7 +5336,7 @@ class VaultController {
     });
   }
 
-  // ================= DATABASE MANAGER =================
+// DATABASE MANAGER
   updateManagerTable() {
     const tbody = document.getElementById("admin-manager-tbody");
     if (!tbody) return;
@@ -5461,7 +5471,7 @@ class VaultController {
     sounds.playClick();
   }
 
-  // ================= SYSTEM TELEMETRY =================
+// SYSTEM TELEMETRY
   updateTelemetry() {
     const topEl = document.getElementById("telem-topics-count");
     const sqEl = document.getElementById("telem-squares-count");
@@ -5473,7 +5483,7 @@ class VaultController {
   }
 }
 
-// ================= LIQUID GLASS SCIENTIFIC FORMULA CALCULATOR CONTROLLER =================
+// LIQUID GLASS SCIENTIFIC FORMULA CALCULATOR CONTROLLER
 class LiquidGlassCalculator {
   constructor(app) {
     this.app = app;
@@ -6009,7 +6019,7 @@ function ensurePlantCellUnit(notesList) {
   return list;
 }
 
-// ================= 5TH GRADE SCIENCE VOCABULARY GLOSSARY =================
+// 5TH GRADE SCIENCE VOCABULARY GLOSSARY
 const SCIENCE_VOCAB_GLOSSARY = {
   "chloroplast": { pron: "KLOR-uh-plast", def: "A green plant organelle holding chlorophyll where photosynthesis creates food from sunlight." },
   "chloroplasts": { pron: "KLOR-uh-plasts", def: "Green plant organelles holding chlorophyll where photosynthesis creates food from sunlight." },
@@ -6069,7 +6079,7 @@ function annotateVocabTerms(html) {
   });
 }
 
-// ================= READING ENHANCEMENT SUITE CONTROLLER =================
+// READING ENHANCEMENT SUITE CONTROLLER
 class ReadingEnhancementSuite {
   constructor(app) {
     this.app = app;
@@ -6667,7 +6677,7 @@ class ReadingEnhancementSuite {
     const headerStrip = document.createElement("div");
     headerStrip.style.cssText = "grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; padding: 6px 4px 12px;";
     headerStrip.innerHTML = `
-      <span style="font-size: 0.88rem; font-weight: 700; color: #a5f3fc;"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Interactive 3D Study Flashcards (Tap card to flip)</span>
+      <span style="font-size: 0.88rem; font-weight: 700; color: #a5f3fc;"><svg class="ui-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="4.8" width="13" height="9.2" rx="1.2"/><path d="M10.5 14V3.2a1.2 1.2 0 0 0-1.2-1.2H6.7a1.2 1.2 0 0 0-1.2 1.2V14"/></svg> Interactive 3D Study Flashcards (Tap card to flip)</span>
       <span id="flashcard-progress-pill" style="font-size: 0.78rem; font-weight: 800; padding: 4px 12px; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; border-radius: 999px; color: #6ee7b7;">
         Mastered: ${this.masteredCards.size} / ${(topic.properties || []).length}
       </span>
@@ -6720,7 +6730,7 @@ class ReadingEnhancementSuite {
   }
 }
 
-// ================= BUBBLE CASCADE ENGINE (DEPRECATED & DORMANT FOR ZERO-LAG) =================
+// BUBBLE CASCADE ENGINE (DEPRECATED & DORMANT FOR ZERO-LAG)
 class BubbleCascadeEngine {
   constructor(canvas) {
     this.canvas = canvas;
@@ -6740,7 +6750,7 @@ class BubbleCascadeEngine {
   }
 }
 
-// ================= MAIN SCIENCE.IO APP =================
+// MAIN SCIENCE.IO APP
 class ScienceIoApp {
   constructor() {
     this.readingSuite = new ReadingEnhancementSuite(this);
@@ -6991,7 +7001,7 @@ class ScienceIoApp {
     this.updatePublishBadge();
   }
 
-  // ================= DATABASE SYNC & "PUBLISH ALL NOTES" =================
+// DATABASE SYNC & "PUBLISH ALL NOTES"
   async fetchCloudNotes(silent = false) {
     const cloudDot = document.getElementById("cloud-status-dot");
     const cloudText = document.getElementById("cloud-status-text");
@@ -7489,7 +7499,7 @@ class ScienceIoApp {
     this.confetti = new ConfettiEngine(canvas);
   }
 
-  // ================= SKIENCE QUANTUM LETTER ZOOM-OUT OPENING CONTROLLER =================
+// SKIENCE QUANTUM LETTER ZOOM-OUT OPENING CONTROLLER
   setupLoadingScreen() {
     const loader = document.getElementById("loader-screen");
     if (loader) {
@@ -7860,7 +7870,7 @@ class ScienceIoApp {
     this.setupLoadingScreen();
   }
 
-  // ================= DIGITAL CURSIVE HANDWRITING ANIMATOR =================
+// DIGITAL CURSIVE HANDWRITING ANIMATOR
   playCursiveHandwriting() {
     const svg = document.getElementById("cursive-logo-svg");
     if (!svg) return;
@@ -7871,7 +7881,7 @@ class ScienceIoApp {
     }
   }
 
-  // ================= FILTERED NOTES =================
+// FILTERED NOTES
   getFilteredNotes() {
     return this.notes.filter((item) => {
       const matchCat =
@@ -7890,7 +7900,7 @@ class ScienceIoApp {
     });
   }
 
-  // ================= 3D COVERFLOW CAROUSEL =================
+// 3D COVERFLOW CAROUSEL
   setupCarouselTrack() {
     const track = document.getElementById("carousel-track");
     const dotsContainer = document.getElementById("carousel-dots");
@@ -8281,7 +8291,7 @@ class ScienceIoApp {
     });
   }
 
-  // ================= TABLE VIEW =================
+// TABLE VIEW
   setupTableView() {
     const tbody = document.getElementById("table-body");
     const countBadge = document.getElementById("table-count-badge");
@@ -8336,7 +8346,7 @@ class ScienceIoApp {
     this.vault.updateTelemetry();
   }
 
-  // ================= DETAILED MODAL VIEWER =================
+// DETAILED MODAL VIEWER
   openNotesViewer(topicId, defaultTab = "notes") {
     const topic = this.notes.find((t) => t.id === topicId);
     if (!topic) return;
@@ -8600,7 +8610,7 @@ class ScienceIoApp {
   // Interactive Visualizers in notes removed per specification
   renderModalInteractive(topic) {}
 
-  // ================= PRACTICE QUIZ =================
+// PRACTICE QUIZ
   cleanQuizName(raw) {
     return (raw || '').replace(/^(\d+[\.\-\)]\s*|#\d+\s*)/, '').trim();
   }
@@ -9105,7 +9115,7 @@ class ScienceIoApp {
       } else if (themeName === "theme-quantum-void") {
         btn.style.color = "#a855f7";
       } else {
-        btn.style.color = "var(--neon-cyan)";
+        btn.style.color = "var(--accent-cyan)";
       }
       swatches.forEach(s => s.classList.toggle("active", s.dataset.theme === themeName));
       localStorage.setItem("scienceio_theme_colorway", themeName);
@@ -9620,7 +9630,7 @@ class ScienceIoApp {
     });
   }
 
-  // ================= HOME PAGE BACKGROUND: PITCH BLACK (OPTIMIZED FOR 60FPS) =================
+// HOME PAGE BACKGROUND: PITCH BLACK (OPTIMIZED FOR 60FPS)
   setupHeroSnowAndStars() {
     // Disabled in Full Performance Overhaul: stops heavy canvas loop, shooting stars, and shadowBlur repaints
     const canvas = document.getElementById("hero-snow-stars-canvas");
@@ -9757,7 +9767,7 @@ class ScienceIoApp {
     requestAnimationFrame(render);
   }
 
-  // ================= HERO HEADLINE ROTATOR (3s INTERVAL PER PHRASE) =================
+// HERO HEADLINE ROTATOR (3s INTERVAL PER PHRASE)
   setupHeroHeadlineRotator() {
     const neonWord = document.getElementById("hero-neon-word");
     if (!neonWord) return;
@@ -9803,7 +9813,7 @@ class ScienceIoApp {
     rotateWord();
   }
 
-  // ================= ME.SKIENCE.IO PORTFOLIO & macOS TERMINAL ENGINE =================
+// ME.SKIENCE.IO PORTFOLIO & macOS TERMINAL ENGINE
   setupMeSkiencePortfolio() {
     const emailAddress = "jvrghvn0@gmail.com";
     const ytUrl = "https://youtube.com/@rivals0321";
@@ -10000,7 +10010,7 @@ class ScienceIoApp {
       }
     });
 
-    // ================= "ALL ABOUT ME" RETRO-CYBER KERNEL BOOT LOADER =================
+// "ALL ABOUT ME" RETRO-CYBER KERNEL BOOT LOADER
     const bootLoader = document.getElementById("me-boot-loader");
     const bootLogs = document.getElementById("me-boot-logs");
     const bootFill = document.getElementById("me-boot-progress-fill");
@@ -10064,10 +10074,10 @@ class ScienceIoApp {
       sounds.playKeypadTap();
 
       const logSequence = [
-        { time: 100, text: "HARDWARE INITIALIZED: JEEVA-CORE (ARM64 SEQUOIA)" },
-        { time: 240, text: "LOADING NOTES: /skience" },
-        { time: 380, text: "CODEC: LIQUID_GLASS // CSS_CYBER // NEON_AUDIO" },
-        { time: 520, text: "LINKING NEURAL DEVELOPER INTERFACE..." }
+        { time: 100, text: "STARTING PROFILE..." },
+        { time: 240, text: "LOADING /skience" },
+        { time: 380, text: "AUDIO: READY" },
+        { time: 520, text: "OPENING ABOUT ME..." }
       ];
 
       logSequence.forEach(({ time, text }) => {
@@ -10083,7 +10093,7 @@ class ScienceIoApp {
         if (!isBooting) return;
         if (bootFill) bootFill.style.width = "46%";
         if (bootPct) bootPct.textContent = "46%";
-        if (bootStatus) bootStatus.textContent = "COMPILING SKIENCE REPOSITORY...";
+        if (bootStatus) bootStatus.textContent = "LOADING UNITS...";
         sounds.playKeypadTap();
       }, 550));
 
@@ -10091,7 +10101,7 @@ class ScienceIoApp {
         if (!isBooting) return;
         if (bootFill) bootFill.style.width = "88%";
         if (bootPct) bootPct.textContent = "88%";
-        if (bootStatus) bootStatus.textContent = "SYNCING SCIENCE CURRICULUM...";
+        if (bootStatus) bootStatus.textContent = "ALMOST READY...";
         sounds.playKeypadTap();
       }, 820));
 
@@ -10133,7 +10143,7 @@ class ScienceIoApp {
       playAllAboutMeBootLoader();
     });
 
-    // ================= macOS TERMINAL ENGINE =================
+// macOS TERMINAL ENGINE
     const terminalOutput = document.getElementById("me-terminal-output");
     const terminalForm = document.getElementById("me-terminal-form");
     const terminalInput = document.getElementById("me-terminal-command");
@@ -10756,7 +10766,7 @@ class ScienceIoApp {
     });
   }
 
-  // ================= MONOCHROME PRO UPGRADES =================
+// MONOCHROME PRO UPGRADES
   setupMonochromeProSystem() {
     this.setupMagneticFluidCursor();
     this.setupCommandHud();
@@ -11134,7 +11144,7 @@ class ScienceIoApp {
       {
         id: "easter-boot",
         category: "easter",
-        title: "Replay Retro-Cyber Kernel Boot",
+        title: "Replay Profile Loader",
         sub: "Run Jeeva's diagnostic CRT hardware boot sequence",
         badge: "BOOT",
         icon: "terminal",
@@ -11150,7 +11160,7 @@ class ScienceIoApp {
       {
         id: "easter-confetti",
         category: "easter",
-        title: "Launch Quantum Confetti Burst",
+        title: "Launch Confetti",
         sub: "Trigger luminous particle fireworks across the viewport",
         badge: "BURST",
         icon: "sparkle",
@@ -11234,7 +11244,7 @@ class ScienceIoApp {
       if (filteredCommands.length === 0) {
         resultsContainer.innerHTML = `
           <div class="hud-empty-state">
-            <div class="hud-empty-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+            <div class="hud-empty-icon"><svg viewBox="0 0 16 16" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><line x1="14.5" y1="14.5" x2="10.8" y2="10.8"/></svg></div>
             <p>No commands or science topics found for "${input.value}"</p>
           </div>
         `;
@@ -11406,7 +11416,7 @@ class ScienceIoApp {
     });
   }
 
-  // ================= APPLE PRO "DYNAMIC ISLAND" (MACOS NOTCH DECK & CAPSULE) =================
+// APPLE PRO "DYNAMIC ISLAND" (MACOS NOTCH DECK & CAPSULE)
   setupDynamicIsland() {
     const navPill = document.getElementById("glass-pill-nav");
     const islandPod = document.getElementById("dynamic-island-pod");
@@ -11794,7 +11804,7 @@ class ScienceIoApp {
       }
     };
 
-    // ================= LIVE STUDY ACTIVITY & POMODORO TIMER =================
+// LIVE STUDY ACTIVITY & POMODORO TIMER
     let studyTimerInterval = null;
     let studyTimerSeconds = 1500; // default 25m
     let studyTimerTotal = 1500;
@@ -12305,7 +12315,7 @@ class ScienceIoApp {
       }
     };
 
-    // ================= WIRE SYSTEM EVENTS INTO DYNAMIC ISLAND =================
+// WIRE SYSTEM EVENTS INTO DYNAMIC ISLAND
     // 1. Background Music Events
     const bgAudio = document.getElementById("bg-music-player");
     if (bgAudio) {
@@ -12368,7 +12378,7 @@ class ScienceIoApp {
         triggerIsland({
           icon: "sparkle",
           title: `Theme: ${themeLabel}`,
-          subtitle: "Liquid Glass Surface Recalibrated",
+          subtitle: "Theme Updated",
           badge: "THEME",
           actionText: "NICE",
           duration: 2600
@@ -12381,7 +12391,7 @@ class ScienceIoApp {
       triggerIsland({
         icon: "microscope",
         title: "3D Coverflow Mode",
-        subtitle: "Interactive Science Deck Active",
+        subtitle: "Card View",
         badge: "DECK",
         actionText: "VIEW",
         duration: 2200,
@@ -12395,7 +12405,7 @@ class ScienceIoApp {
       triggerIsland({
         icon: "file",
         title: "Table Catalog View",
-        subtitle: "Grade 5 Scientific Index Active",
+        subtitle: "Table View",
         badge: "TABLE",
         actionText: "VIEW",
         duration: 2200,
@@ -12519,7 +12529,7 @@ class ScienceIoApp {
       triggerIsland({
         icon: "bolt",
         title: "SKIENCE PRO v81.0",
-        subtitle: "Mac Dynamic Island Ready • Tap to Explore",
+        subtitle: "Study notes ready",
         badge: "ONLINE",
         actionText: "EXPLORE",
         duration: 3500,
@@ -12530,7 +12540,7 @@ class ScienceIoApp {
     }, 1500);
   }
 
-  // ================= APPLE 3D INTERACTIVE FLASHCARD DECKS =================
+// APPLE 3D INTERACTIVE FLASHCARD DECKS
   setupAppleFlashcards() {
     const modal = document.getElementById("apple-flashcards-modal");
     const closeBtn = document.getElementById("apple-fc-close-btn");
@@ -12844,7 +12854,7 @@ class ScienceIoApp {
     };
   }
 
-  // ================= APPLE SPLIT VIEW: SCIENCE CONCEPT DUEL & COMPARATOR (STAGE MANAGER) =================
+// APPLE SPLIT VIEW: SCIENCE CONCEPT DUEL & COMPARATOR (STAGE MANAGER)
   setupAppleSplitView() {
     const modal = document.getElementById("apple-split-view-modal");
     const windowEl = document.getElementById("apple-split-window");
@@ -13019,7 +13029,7 @@ class ScienceIoApp {
       if (contrastCatB) contrastCatB.textContent = dataB.prop?.name || "Concept B";
     };
 
-    // ================= MOVABLE DRAG & FREEFORM ENGINE =================
+// MOVABLE DRAG & FREEFORM ENGINE
     const setupDraggableCard = (cardEl, handleEl, coordEl, isCardA) => {
       let isDragging = false;
       let startX = 0;
@@ -13155,7 +13165,7 @@ class ScienceIoApp {
       } catch (_) {}
     });
 
-    // ================= SWAP SIDES =================
+// SWAP SIDES
     const swapSides = () => {
       const uA = unitSelectA.value;
       const cA = conceptSelectA.value;
@@ -13189,7 +13199,7 @@ class ScienceIoApp {
       } catch (_) {}
     });
 
-    // ================= SPLIT RATIO & DRAGGABLE DIVIDER =================
+// SPLIT RATIO & DRAGGABLE DIVIDER
     ratioBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
         ratioBtns.forEach(b => b.classList.remove("active"));
@@ -13235,7 +13245,7 @@ class ScienceIoApp {
       window.addEventListener("pointerup", onUp);
     });
 
-    // ================= MATCHUP PRESETS =================
+// MATCHUP PRESETS
     presetChips.forEach((chip) => {
       chip.addEventListener("click", () => {
         presetChips.forEach(c => c.classList.remove("active"));
@@ -13315,7 +13325,7 @@ class ScienceIoApp {
       });
     });
 
-    // ================= CONCEPT DUEL QUIZ ENGINE =================
+// CONCEPT DUEL QUIZ ENGINE
     const startConceptDuel = () => {
       const dataA = getSelectedProperty("a");
       const dataB = getSelectedProperty("b");
@@ -13399,7 +13409,7 @@ class ScienceIoApp {
       }
     });
 
-    // ================= AUDIO READ ALOUD (TTS) =================
+// AUDIO READ ALOUD (TTS)
     const speakConcept = (side) => {
       const data = getSelectedProperty(side);
       if (!data || !data.prop || typeof window.speechSynthesis === "undefined") return;
@@ -13517,7 +13527,7 @@ class ScienceIoApp {
     };
   }
 
-  // ================= APPLE WATCH ACTIVITY RINGS & IOS 18 WIDGET DECK =================
+// APPLE WATCH ACTIVITY RINGS & IOS 18 WIDGET DECK
   setupAppleActivityRings() {
     const modal = document.getElementById("apple-rings-modal");
     const openBtn = document.getElementById("btn-apple-activity-rings");
@@ -13710,7 +13720,7 @@ class ScienceIoApp {
 }
 
 
-// ================= TOPIC & FORMULA LOOKUP PANEL =================
+// TOPIC & FORMULA LOOKUP PANEL
 class StudyLookupPanel {
   constructor() {
     this.bubble = document.getElementById("study-lookup-toggle");
@@ -13956,7 +13966,7 @@ class StudyLookupPanel {
         title: "RESPIRATORY SYSTEM",
         id: "science-respiratory",
         coreFormula: "Gas Exchange: O₂ (Inhale) -> Trachea -> Bronchi -> Alveoli (Blood Diffusion) -> CO₂ (Exhale)",
-        description: "The vital organ system that brings oxygen into the bloodstream to power cellular mitochondria and expels carbon dioxide waste.",
+        description: "How lungs bring oxygen into the blood and remove carbon dioxide.",
         properties: [
           {
             num: 1,
@@ -13997,7 +14007,7 @@ class StudyLookupPanel {
         title: "CIRCULATORY SYSTEM",
         id: "science-circulatory",
         coreFormula: "Internal Transport: Heart Pump -> Arteries (Away) -> Capillaries (Trade) -> Veins (Return)",
-        description: "The transport network of blood vessels and the muscular heart that distributes oxygen and nutrients to every cell.",
+        description: "How the heart and blood vessels carry oxygen and nutrients around the body.",
         properties: [
           {
             num: 1,
@@ -14038,7 +14048,7 @@ class StudyLookupPanel {
         title: "DIGESTIVE SYSTEM",
         id: "science-digestive",
         coreFormula: "Nutrient Extraction: Mechanical Chewing + Chemical Enzymes -> Absorption (Villi) -> Elimination",
-        description: "Breaks food down physically and chemically into biomolecules that cells convert into ATP fuel.",
+        description: "How the stomach and intestines break down food into nutrients.",
         properties: [
           {
             num: 1,
@@ -14079,7 +14089,7 @@ class StudyLookupPanel {
         title: "NERVOUS SYSTEM",
         id: "science-nervous",
         coreFormula: "Signal Flow: Sensory Receptor -> Central Processor (Brain/Spinal Cord) -> Motor Output",
-        description: "The body's electrochemical network directing conscious thought, automatic vitals, and instant reflexes.",
+        description: "How the brain, spinal cord, and nerves carry signals and control reflexes.",
         properties: [
           {
             num: 1,
@@ -14292,7 +14302,7 @@ class StudyLookupPanel {
       else if (t.includes("calc") || t.includes("formula") || t.includes("density") || t.includes("speed") || t.includes("kinetic") || t.includes("math")) {
         replyHTML = `
           <div class="msg-bubble lookup-bubble">
-            <strong>Liquid Glass Scientific Calculator:</strong><br>
+            <strong>Science Calculator:</strong><br>
             Built right into the page below the notes section!
             <ul style="margin: 6px 0 8px 16px; padding: 0; font-size: 0.85rem; line-height: 1.5;">
               <li><strong>Density:</strong> D = M / V (Mass / Volume)</li>

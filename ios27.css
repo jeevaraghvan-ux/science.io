@@ -1,18 +1,18 @@
-/* ios27.css - VisionOS / iOS 27 Liquid Glass Theme (Dark Blue & Purple Midnight Edition) */
-
+/* ios27 overlay styles */
+
 :root {
   /* Dark Colors: Shades of Blue, Purple & Midnight Black */
-  --neon-blue: #3b82f6; /* Electric Blue */
-  --neon-purple: #8b5cf6; /* Royal Purple */
-  --neon-cyan: #60a5fa; /* Ice Blue */
-  --neon-lime: #4f46e5; /* Deep Indigo */
-  --neon-magenta: #a855f7; /* Cosmic Violet */
-  --neon-orange: #7c3aed; /* Royal Purple */
-  --neon-amber: #4338ca; /* Deep Slate-Blue */
-  --neon-coral: #3b82f6; /* Electric Blue */
-  --neon-gold: #93c5fd; /* Soft Blue */
+  --accent-blue: #3b82f6; /* Electric Blue */
+  --accent-purple: #8b5cf6; /* Royal Purple */
+  --accent-cyan: #60a5fa; /* Ice Blue */
+  --accent-lime: #4f46e5; /* Deep Indigo */
+  --accent-magenta: #a855f7; /* Cosmic Violet */
+  --accent-orange: #7c3aed; /* Royal Purple */
+  --accent-amber: #4338ca; /* Deep Slate-Blue */
+  --accent-coral: #3b82f6; /* Electric Blue */
+  --accent-gold: #93c5fd; /* Soft Blue */
 
-  /* VisionOS Glass Bases (Ultra-Transparent Crystal Liquid Glass) */
+  /* VisionOS Glass Bases (Ultra-Transparent Crystal ) */
   --glass-bg: rgba(10, 16, 38, 0.22);
   --glass-bg-hover: rgba(18, 26, 56, 0.32);
   --glass-card: rgba(8, 14, 34, 0.28);
@@ -67,9 +67,9 @@ body {
   animation: none !important;
 }
 
-/* 2. Glassmorphism for Components - 95% removed, reserved for flagship centerpieces */
+/* 2. for Components - 95% removed, reserved for flagship centerpieces */
 
-/* Flagship Centerpiece 1: Top Nav Pill (Retains true, lightweight liquid glass) */
+/* Flagship Centerpiece 1: Top Nav Pill (Retains true, lightweight ) */
 .glass-pill-nav {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(10, 16, 38, 0.4) 45%, rgba(46, 16, 101, 0.25) 100%) !important;
   backdrop-filter: blur(10px) !important;
@@ -113,7 +113,7 @@ body {
   -webkit-backdrop-filter: none !important;
 }
 
-/* Hero Text - Dark Blue & Royal Purple Neon Glow */
+/* Hero Text - Dark Blue & Royal Purple Glow */
 .hero-neon-word {
   background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 30%, #818cf8 60%, #c084fc 100%) !important;
   -webkit-background-clip: text !important;
@@ -146,7 +146,7 @@ body {
   border-radius: 28px !important;
 }
 
-/* Flagship Centerpiece 2: Note Detail Window (Retains sleek liquid glass) */
+/* Flagship Centerpiece 2: Note Detail Window (Retains sleek ) */
 .notes-detail-window {
   width: 95vw !important;
   max-width: 1220px !important;
@@ -288,13 +288,9 @@ input:focus, select:focus, textarea:focus {
   background: rgba(255, 255, 255, 0.4);
 }
 
-/*
-AI
-CHATBOT
-STYLES
-*/
+/* AI CHATBOT STYLES */
 
-/* ================= AI CHATBOT (LIQUID GLASS THEME) ================= */
+/* AI CHATBOT ( THEME) */
 .study-lookup-dock {
   position: fixed;
   bottom: 105px;
@@ -759,7 +755,7 @@ STYLES
 }
 .study-lookup-go svg { width: 18px; height: 18px; }
 
-/* ================= HOLOGRAPHIC & NEON GLOW UPGRADES ================= */
+/* HOLOGRAPHIC & GLOW UPGRADES */
 .nav-brand-cursive {
   display: inline-flex !important;
   align-items: center !important;
@@ -800,10 +796,10 @@ STYLES
 .typing-dot {
   width: 8px;
   height: 8px;
-  background: var(--neon-magenta);
+  background: var(--accent-magenta);
   border-radius: 50%;
   animation: typingBounce 1.4s infinite ease-in-out both;
-  box-shadow: 0 0 8px var(--neon-magenta);
+  box-shadow: 0 0 8px var(--accent-magenta);
 }
 .typing-dot:nth-child(1) { animation-delay: -0.32s; }
 .typing-dot:nth-child(2) { animation-delay: -0.16s; }
@@ -814,7 +810,7 @@ STYLES
 
 .creator-plaque {
   background: linear-gradient(135deg, rgba(75, 0, 130, 0.4), rgba(10, 132, 255, 0.2));
-  border: 1px solid var(--neon-magenta);
+  border: 1px solid var(--accent-magenta);
   border-radius: 12px;
   padding: 16px;
   box-shadow: 0 0 20px rgba(255, 55, 95, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.1);
@@ -822,7 +818,7 @@ STYLES
   line-height: 1.5;
 }
 .plaque-title {
-  color: var(--neon-magenta);
+  color: var(--accent-magenta);
   font-weight: 900;
   margin-bottom: 8px;
   font-size: 1.1em;
@@ -832,7 +828,7 @@ STYLES
 .chat-action-btn {
   margin-top: 10px;
   background: rgba(10, 132, 255, 0.2);
-  border: 1px solid var(--neon-blue);
+  border: 1px solid var(--accent-blue);
   color: #fff;
   padding: 8px 16px;
   border-radius: 20px;
@@ -842,8 +838,8 @@ STYLES
   display: inline-block;
 }
 .chat-action-btn:hover {
-  background: var(--neon-blue);
-  box-shadow: 0 0 15px var(--neon-blue);
+  background: var(--accent-blue);
+  box-shadow: 0 0 15px var(--accent-blue);
   transform: translateY(-2px);
 }
 
@@ -852,7 +848,7 @@ STYLES
   display: none !important;
 }
 
-/* ================= CINEMATIC MODE (#74) ================= */
+/* CINEMATIC MODE (#74) */
 body.cinematic-mode .top-nav,
 body.cinematic-mode .footer,
 body.cinematic-mode .hero-mega-title,
@@ -876,11 +872,11 @@ body.cinematic-mode .app-main {
 }
 
 
-/* ================= MASTER SPRINT CSS ================= */
+/* MASTER SPRINT CSS */
 /* Ripple (#79) */
 .click-ripple {
   position: fixed; width: 2px; height: 2px;
-  background: transparent; border: 2px solid var(--neon-cyan);
+  background: transparent; border: 2px solid var(--accent-cyan);
   border-radius: 50%; pointer-events: none; z-index: 9999;
   transform: translate(-50%, -50%);
   animation: rippleAnim 0.6s ease-out forwards;
@@ -911,7 +907,7 @@ body.cinematic-mode .app-main {
 /* Math Keyboard (#93) */
 #math-keyboard {
   position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
-  background: rgba(0,0,0,0.8); border: 1px solid var(--neon-magenta);
+  background: rgba(0,0,0,0.8); border: 1px solid var(--accent-magenta);
   padding: 10px; border-radius: 12px; display: flex; gap: 10px; z-index: 10000;
   transition: opacity 0.3s;
 }
@@ -919,7 +915,7 @@ body.cinematic-mode .app-main {
   background: rgba(255,255,255,0.1); border: none; color: #fff;
   padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 1.2rem;
 }
-.mk-btn:hover { background: var(--neon-magenta); }
+.mk-btn:hover { background: var(--accent-magenta); }
 
 /* Reading Enhancement Bar - Clean Solid Bar */
 .reading-controls-bar {
@@ -959,18 +955,18 @@ body.cinematic-mode .app-main {
   box-shadow: 0 0 12px rgba(0, 240, 255, 0.4) !important;
 }
 
-/* ================= 4 DARK LIQUID THEME COLORWAYS (BLUE, PURPLE & BLACK VIBE) ================= */
+/* 4 DARK LIQUID THEME COLORWAYS (BLUE, PURPLE & BLACK VIBE) */
 /* 1. Deep Navy Blue (theme-bio-emerald) */
 body.theme-bio-emerald {
-  --neon-blue: #2563eb;
-  --neon-purple: #4f46e5;
-  --neon-cyan: #60a5fa;
-  --neon-lime: #1d4ed8;
-  --neon-magenta: #3b82f6;
-  --neon-orange: #1e40af;
-  --neon-amber: #1e3a8a;
-  --neon-coral: #93c5fd;
-  --neon-gold: #3b82f6;
+  --accent-blue: #2563eb;
+  --accent-purple: #4f46e5;
+  --accent-cyan: #60a5fa;
+  --accent-lime: #1d4ed8;
+  --accent-magenta: #3b82f6;
+  --accent-orange: #1e40af;
+  --accent-amber: #1e3a8a;
+  --accent-coral: #93c5fd;
+  --accent-gold: #3b82f6;
 }
 
 body.theme-bio-emerald .ambient-fluid-canvas-wrap {
@@ -1040,15 +1036,15 @@ body.theme-bio-emerald ::selection {
 
 /* 2. Royal Purple (theme-solar-flare) */
 body.theme-solar-flare {
-  --neon-blue: #6d28d9;
-  --neon-purple: #8b5cf6;
-  --neon-cyan: #a855f7;
-  --neon-lime: #7c3aed;
-  --neon-magenta: #c084fc;
-  --neon-orange: #581c87;
-  --neon-amber: #4c1d95;
-  --neon-coral: #c084fc;
-  --neon-gold: #a855f7;
+  --accent-blue: #6d28d9;
+  --accent-purple: #8b5cf6;
+  --accent-cyan: #a855f7;
+  --accent-lime: #7c3aed;
+  --accent-magenta: #c084fc;
+  --accent-orange: #581c87;
+  --accent-amber: #4c1d95;
+  --accent-coral: #c084fc;
+  --accent-gold: #a855f7;
 }
 
 body.theme-solar-flare .ambient-fluid-canvas-wrap {
@@ -1116,17 +1112,17 @@ body.theme-solar-flare ::selection {
   background: rgba(124, 58, 237, 0.4) !important;
 }
 
-/* 3. Obsidian Void (theme-quantum-void) */
+/* 3. Obsidian Void (theme--void) */
 body.theme-quantum-void {
-  --neon-blue: #312e81;
-  --neon-purple: #4338ca;
-  --neon-cyan: #6366f1;
-  --neon-lime: #1e1b4b;
-  --neon-magenta: #4f46e5;
-  --neon-orange: #1e1b4b;
-  --neon-amber: #312e81;
-  --neon-coral: #818cf8;
-  --neon-gold: #6366f1;
+  --accent-blue: #312e81;
+  --accent-purple: #4338ca;
+  --accent-cyan: #6366f1;
+  --accent-lime: #1e1b4b;
+  --accent-magenta: #4f46e5;
+  --accent-orange: #1e1b4b;
+  --accent-amber: #312e81;
+  --accent-coral: #818cf8;
+  --accent-gold: #6366f1;
 }
 
 body.theme-quantum-void .ambient-fluid-canvas-wrap {
@@ -1194,13 +1190,13 @@ body.theme-quantum-void ::selection {
   background: rgba(67, 56, 202, 0.4) !important;
 }
 
-/* ================= LIVING AURORA PLASMA BREATHING (GPU-OPTIMIZED STATIC) ================= */
+/* LIVING AURORA PLASMA BREATHING (GPU-OPTIMIZED STATIC) */
 .ambient-fluid-canvas-wrap::before {
   animation: none !important;
   will-change: auto !important;
 }
 
-/* ================= CHROMATIC PRISM EDGE DISPERSION ================= */
+/* CHROMATIC PRISM EDGE DISPERSION */
 .glass-pill-nav, .vault-bubble-btn, .table-card-glass {
   position: relative;
 }
@@ -1231,14 +1227,14 @@ body.theme-quantum-void ::selection {
   opacity: 1;
 }
 
-/* ================= MULTI-CHROMATIC NEON BORDER (PERFORMANCE LOCKED) ================= */
+/* MULTI-CHROMATIC BORDER (PERFORMANCE LOCKED) */
 .deck-card.pos-center {
   animation: none !important;
   border-color: rgba(6, 182, 212, 0.85) !important;
   box-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(6, 182, 212, 0.4), inset 0 1.5px 2px rgba(255, 255, 255, 0.7) !important;
 }
 
-/* ================= MULTI-LAYER 3D Z-DEPTH PARALLAX ================= */
+/* MULTI-LAYER 3D Z-DEPTH PARALLAX */
 .deck-card {
   transform-style: preserve-3d !important;
 }
@@ -1270,7 +1266,7 @@ body.theme-quantum-void ::selection {
   transition: transform 0.25s ease-out;
 }
 
-/* ================= BIOLUMINESCENT ORGANELLE & TERM GLOW ================= */
+/* BIOLUMINESCENT ORGANELLE & TERM GLOW */
 @keyframes bioluminescentPulse {
   0%, 100% {
     text-shadow: 0 0 8px rgba(6, 182, 212, 0.6), 0 0 18px rgba(6, 182, 212, 0.3);
@@ -1288,7 +1284,7 @@ body.theme-quantum-void ::selection {
   border-color: rgba(0, 245, 212, 0.85) !important;
 }
 
-/* ================= VISIONOS THEME COLORWAY POPOVER DOCK ================= */
+/* VISIONOS THEME COLORWAY POPOVER DOCK */
 .theme-picker-wrapper {
   position: relative;
 }
@@ -1350,7 +1346,7 @@ body.theme-quantum-void ::selection {
 
 .theme-swatch-btn.active {
   background: rgba(255, 255, 255, 0.22);
-  border-color: var(--neon-cyan);
+  border-color: var(--accent-cyan);
   box-shadow: 0 0 12px rgba(6, 182, 212, 0.35);
 }
 
@@ -1364,7 +1360,7 @@ body.theme-quantum-void ::selection {
   flex-shrink: 0;
 }
 
-/* ================= SUPERCHARGED FUTURISTIC QUANTUM CORE LOADER ================= */
+/* FUTURISTIC CORE LOADER */
 .loader-emblem {
   position: relative !important;
   width: 175px !important;
@@ -1457,7 +1453,7 @@ body.theme-quantum-void ::selection {
   100% { left: 100%; }
 }
 
-/* ================= ADVANCED LIQUID CHATBOT & MEMORIZATION CARD STYLES ================= */
+/* ADVANCED LIQUID CHATBOT & MEMORIZATION CARD STYLES */
 .study-lookup-toggle {
   animation: none !important;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(6, 182, 212, 0.4) !important;
@@ -1494,7 +1490,7 @@ body.theme-quantum-void ::selection {
   50% { transform: translateY(-6px) scale(1.3); opacity: 1; filter: drop-shadow(0 0 6px #00f5d4); }
 }
 
-/* ================= CHAT MEMORIZATION DOSSIER CARD ================= */
+/* CHAT MEMORIZATION DOSSIER CARD */
 .chat-memo-dossier {
   background: rgba(14, 10, 26, 0.92);
   border: 1.5px solid rgba(0, 245, 212, 0.45);
@@ -1771,9 +1767,9 @@ body.theme-quantum-void .chat-memo-jump-btn {
   box-shadow: 0 4px 12px rgba(0, 245, 212, 0.35);
 }
 
-/* ================= APPLE iOS 26 PURE LIQUID GLASS OPTICAL ENGINE ================= */
+/* APPLE iOS 26 PURE OPTICAL ENGINE */
 
-/* 1. Global iOS 26 Liquid Glass Material Tokens */
+/* 1. Global iOS 26 Material Tokens */
 :root {
   /* Optical lensing coordinates for real-time specular glints */
   --specular-x: 50%;
@@ -1783,8 +1779,8 @@ body.theme-quantum-void .chat-memo-jump-btn {
   --specular-angle: 135deg;
 
   /* Multi-pass optical substrate: 95% reduced, zero milky haze */
-  --liquid-glass-lens: none;
-  --liquid-glass-subtle: none;
+  --panel-lens-lens: none;
+  --panel-lens-subtle: none;
 
   /* Meniscus Specular Bevels */
   --glass-specular-top: rgba(255, 255, 255, 0.7);
@@ -1792,7 +1788,7 @@ body.theme-quantum-void .chat-memo-jump-btn {
   --glass-specular-bottom: rgba(255, 255, 255, 0.15);
   --glass-border-base: rgba(255, 255, 255, 0.25);
 
-  /* Apple Liquid Glass Fills (.regular & .clear variants) */
+  /* Apple Fills (.regular & .clear variants) */
   --glass-acrylic-fill: rgba(10, 16, 38, 0.88);
   --glass-acrylic-fill-clear: rgba(8, 14, 34, 0.75);
   --glass-acrylic-blur: none;
@@ -1804,7 +1800,7 @@ body.theme-quantum-void .chat-memo-jump-btn {
   --spring-liquid: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ================= ACTIVE OPTICAL SPECULAR GLINT & PRISM DISPERSION ================= */
+/* ACTIVE OPTICAL SPECULAR GLINT & PRISM DISPERSION */
 .glass-pill-nav,
 .deck-card.pos-center,
 .vault-bubble-btn,
@@ -2429,7 +2425,7 @@ body.theme-quantum-void .chat-memo-jump-btn {
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5) !important;
 }
 
-/* 11. Theme Overrides for Universal Liquid Glass & Gradients */
+/* 11. Theme Overrides for Universal & Gradients */
 body.theme-bio-emerald .hero-neon-word,
 body.theme-bio-emerald .calc-main-title,
 body.theme-bio-emerald .modal-topic-title,
@@ -2514,9 +2510,7 @@ body.theme-quantum-void .modal-tab-btn.active {
   box-shadow: 0 0 25px rgba(168, 85, 247, 0.6) !important;
 }
 
-/* ==========================================================================
-   INTERACTIVE ANATOMY & SYSTEM VISUALIZERS (LIQUID GLASS v46.0)
-   ========================================================================== */
+/* INTERACTIVE ANATOMY & SYSTEM VISUALIZERS ( v46.0) */
 .diagram-interactive-wrap {
   display: flex;
   flex-direction: column;
@@ -2552,7 +2546,7 @@ body.theme-quantum-void .modal-tab-btn.active {
 
 .diagram-interactive-path:hover,
 .diagram-interactive-path.highlighted {
-  filter: drop-shadow(0 0 8px var(--neon-cyan, #06b6d4));
+  filter: drop-shadow(0 0 8px var(--accent-cyan, #06b6d4));
   stroke-width: 3.5 !important;
   stroke: #ffffff !important;
 }
@@ -2565,7 +2559,7 @@ body.theme-quantum-void .modal-tab-btn.active {
 .diagram-pin-marker:hover,
 .diagram-pin-marker.active {
   transform: scale(1.25);
-  filter: drop-shadow(0 0 10px var(--neon-cyan, #38bdf8));
+  filter: drop-shadow(0 0 10px var(--accent-cyan, #38bdf8));
 }
 
 .diagram-pin-marker circle.pin-base {
@@ -2675,7 +2669,7 @@ body.theme-quantum-void .modal-tab-btn.active {
 
 .diagram-hud-formula {
   font-size: 0.8rem;
-  color: var(--neon-cyan, #06b6d4);
+  color: var(--accent-cyan, #06b6d4);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   background: rgba(6, 182, 212, 0.12);
   padding: 4px 12px;
@@ -2761,19 +2755,17 @@ body.theme-quantum-void .modal-tab-btn.active {
   transform-origin: center;
 }
 
-/* ==========================================================================
-   MONOCHROME DARK BLUE ARCHITECTURE (ALL SHADES OF DEEP NAVY & COBALT)
-   ========================================================================== */
+/* MONOCHROME DARK BLUE ARCHITECTURE (ALL SHADES OF DEEP NAVY & COBALT) */
 :root {
-  --neon-blue: #3b82f6;
-  --neon-purple: #2563eb;
-  --neon-cyan: #60a5fa;
-  --neon-lime: #1d4ed8;
-  --neon-magenta: #3b82f6;
-  --neon-orange: #2563eb;
-  --neon-amber: #60a5fa;
-  --neon-coral: #3b82f6;
-  --neon-gold: #93c5fd;
+  --accent-blue: #3b82f6;
+  --accent-purple: #2563eb;
+  --accent-cyan: #60a5fa;
+  --accent-lime: #1d4ed8;
+  --accent-magenta: #3b82f6;
+  --accent-orange: #2563eb;
+  --accent-amber: #60a5fa;
+  --accent-coral: #3b82f6;
+  --accent-gold: #93c5fd;
   --text-main: #eaf2ff;
   --text-muted: #b8cde8;
   --text-dim: rgba(184, 205, 232, 0.7);
