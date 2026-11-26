@@ -262,7 +262,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Cell Membrane",
         "trick": "Memory Trick: The security gatekeeper of the cell!",
-        "example": "Lets water and minerals into a watered plant while blocking harmful bacteria.",
+        "example": "Think of a screen door. When you water a plant, water can get in, while bad stuff stays out.",
         "formula": "Semi-Permeable Boundary Layer",
         "explanation": "Thin layer that surrounds the cell. It provides structure and protection and it is semi-permeable."
       },
@@ -270,7 +270,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Cytoplasm",
         "trick": "Memory Trick: Cyto = Cell, Plasm = Fluid matrix!",
-        "example": "Gel-like fluid that cushions organelles so sugars and nutrients move around the cell.",
+        "example": "It's the clear jelly filling the cell so the organelles don't just bang into each other.",
         "formula": "Gel-Like Organelle Suspension",
         "explanation": "The fluid in which organelles are suspended. It maintains the pressure inside of the cell."
       },
@@ -278,7 +278,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Mitochondria",
         "trick": "Memory Trick: Mighty Mitochondria = Powerhouse!",
-        "example": "Burns glucose with oxygen to make energy when a plant grows roots or opens flowers.",
+        "example": "Whenever a plant needs energy to grow roots or bloom, mitochondria turn sugar + oxygen into fuel.",
         "formula": "Cellular Respiration: Glucose + O₂ → ATP Energy",
         "explanation": "Nicknamed the powerhouse of the cell because they provide energy for the cell. The site of cellular respiration."
       },
@@ -286,7 +286,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Endoplasmic Reticulum",
         "trick": "Memory Trick: Smooth ER makes smooth lipids and highways!",
-        "example": "Makes fats and oils (like waxy leaf coatings) and carries them where needed.",
+        "example": "You get waxy leaf coatings because Smooth ER makes fats and moves them along tiny tubes.",
         "formula": "Smooth ER: Lipid Synthesis & Transport",
         "explanation": "Smooth endoplasmic reticulum makes lipids (fats), modifies proteins and transports them throughout the cell."
       },
@@ -294,7 +294,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "Golgi Body",
         "trick": "Memory Trick: Golgi = 'Go' deliver the packages!",
-        "example": "Packs proteins into tiny bubbles called vesicles and ships them where the cell needs them.",
+        "example": "After proteins are made, the Golgi body packs them up in bubbles and sends them where the cell needs them.",
         "formula": "Cellular Packaging & Shipping Center",
         "explanation": "Packages proteins and carbohydrates into vesicles for transport outside of the cell."
       },
@@ -302,7 +302,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 6,
         "name": "Nucleus & Nucleolus",
         "trick": "Memory Trick: Nucleus = Brain / Boss of the cell!",
-        "example": "Holds DNA directions for cell growth and division; the nucleolus helps make ribosomes.",
+        "example": "All the cell's DNA sits here. The nucleolus inside helps build ribosomes too.",
         "formula": "Command Center • Genetic DNA Storage",
         "explanation": "The control center of the cell that directs functions and contains DNA. The nucleolus aids in the production of ribosomes."
       },
@@ -310,7 +310,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 7,
         "name": "Rough ER & Ribosomes",
         "trick": "Memory Trick: Ribosomes make Ribs (Proteins)!",
-        "example": "Ribosomes on the rough ER build proteins used to grow and fix cell parts.",
+        "example": "Little ribosomes sit right on the rough ER snapping together proteins for the cell.",
         "formula": "Protein Synthesis Factory",
         "explanation": "Rough endoplasmic reticulum has ribosomes bound to its membranes. Ribosomes are the site of protein synthesis."
       },
@@ -318,7 +318,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 8,
         "name": "Cell Wall",
         "trick": "Memory Trick: Like a fortress wall outside a castle!",
-        "example": "Tough cellulose outer layer that lets tall sunflowers and trees stand upright.",
+        "example": "Plants don't have bones, so their stiff cellulose cell walls are what let sunflowers and trees stand up.",
         "formula": "Rigid Cellulose Outer Shield (Plant Only)",
         "explanation": "Found only in plant cells, cell walls provide extra structure and protection for the cell's internal structures."
       },
@@ -326,7 +326,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 9,
         "name": "Central Vacuole",
         "trick": "Memory Trick: Vacuole is like a giant water reservoir!",
-        "example": "Fills with water after you water a wilted plant, pressing on the cell wall to firm stems.",
+        "example": "Have you noticed a wilted plant stand back up after watering? That's the central vacuole filling up again.",
         "formula": "Water & Nutrient Storage Sac",
         "explanation": "Vacuoles provide storage for materials such as water. A plant cell's vacuole is larger than in an animal cell."
       },
@@ -334,7 +334,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 10,
         "name": "Chloroplast",
         "trick": "Memory Trick: Solar panels of the plant world!",
-        "example": "Green chlorophyll catches sunlight to turn water and carbon dioxide into sugar and oxygen.",
+        "example": "Green chlorophyll inside catches sun rays and mixes them with water + CO2 to make sugar and oxygen.",
         "formula": "Photosynthesis: 6CO₂ + 6H₂O + Sunlight → C₆H₁₂O₆ + 6O₂",
         "explanation": "Convert light energy from the sun into sugars that can be used for energy in a process called photosynthesis."
       }
@@ -380,7 +380,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Cell Membrane",
         "trick": "Remember key scientific terms!",
-        "example": "Lets sugar and oxygen into skin and muscle cells while pushing waste out.",
+        "example": "Your muscle and skin cells let sugar and oxygen pass inside while pushing waste back out.",
         "formula": "Semi-Permeable Boundary",
         "explanation": "Thin layer that surrounds the cell . It provides structure and protection and it is semi-permeable."
       },
@@ -388,7 +388,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Cytoplasm",
         "trick": "Remember key scientific terms!",
-        "example": "Fluid inside the cell that keeps parts cushioned when you run or jump.",
+        "example": "When you're running or jumping, cytoplasm cushions the insides of your cells so parts stay safe.",
         "formula": "Internal Fluid",
         "explanation": "The fluid in which organelles are suspended. It maintains the pressure inside of the cell."
       },
@@ -396,7 +396,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Mitochondria",
         "trick": "Remember key scientific terms!",
-        "example": "Uses food sugar and oxygen from breathing to power muscles during gym class.",
+        "example": "During P.E. when you sprint, your heart and muscle mitochondria burn sugar fast to keep you going.",
         "formula": "Powerhouse of the Cell",
         "explanation": "Nicknamed the powerhouse of the cell because they provide the energy for the cell. The site of cellular respiration."
       },
@@ -404,7 +404,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Endoplasmic Reticulum",
         "trick": "Remember key scientific terms!",
-        "example": "In liver cells, smooth ER helps break down medicines and toxins while making lipids.",
+        "example": "In your liver, smooth ER helps clean out medicines or toxins and makes cell lipids.",
         "formula": "Transport System",
         "explanation": "Smooth endoplasmic reticulum makes lipids (fats), modifies protein and transports them throughout the cell."
       },
@@ -412,7 +412,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "Golgi Body",
         "trick": "Remember key scientific terms!",
-        "example": "Salivary gland cells use the Golgi body to wrap enzymes that help start digesting food.",
+        "example": "Saliva cells use their Golgi body to pack digestive juices into tiny sacs and send them into your mouth.",
         "formula": "Packaging Center",
         "explanation": "Packages proteins and carbohydrates into vesicles for transport outside of the cell."
       },
@@ -420,7 +420,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 6,
         "name": "Nucleus & Nucleolus",
         "trick": "Remember key scientific terms!",
-        "example": "Holds the DNA that sets eye color and hair traits and guides cell jobs.",
+        "example": "Your DNA lives in here — it controls things like your eye color, hair type, and cell growth.",
         "formula": "Control Center & DNA",
         "explanation": "Control center of the cell that directs functions and contains DNA. The nucleolus aids in the production of ribosomes."
       },
@@ -428,7 +428,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 7,
         "name": "Rough ER & Ribosomes",
         "trick": "Remember key scientific terms!",
-        "example": "Ribosomes on rough ER build collagen to heal skin cuts and proteins to fight germs.",
+        "example": "Need new skin over a scrape? Rough ER and ribosomes make proteins like collagen to patch you up.",
         "formula": "Protein Synthesis",
         "explanation": "Rough Endoplasmic Reticulum has ribosomes bound to its membranes. Ribosomes are the site of protein synthesis."
       },
@@ -436,7 +436,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 8,
         "name": "Lysosome",
         "trick": "5th Grade Science Concept",
-        "example": "After white blood cells trap bacteria, lysosomes use enzymes to digest them.",
+        "example": "When white blood cells catch bacteria, lysosomes break the germs down with strong enzymes.",
         "formula": "Digestive System of the Cell",
         "explanation": "The lysosome is the digestive system of the cell. They help to break down waste molecules."
       },
@@ -444,7 +444,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 9,
         "name": "Vacoules & Vesicles",
         "trick": "5th Grade Science Concept",
-        "example": "Small sacs that store water and salts or carry hormones out to the blood.",
+        "example": "Small storage pockets inside animal cells hold water, salt, or molecules waiting to move.",
         "formula": "Cell = Basic Unit of Life",
         "explanation": "Vacoules provide storage for materials such as water. Smaller vesicles move stuff in and out of the cell. "
       },
@@ -452,13 +452,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 10,
         "name": "Centrosome & Centrioles",
         "trick": "5th Grade Science Concept",
-        "example": "When skin cells split to heal a scrape, centrioles pull chromosomes evenly into two cells.",
+        "example": "Right before skin cells divide to heal a cut, centrioles pull copied chromosomes apart evenly.",
         "formula": "Cell = Basic Unit of Life",
         "explanation": "Centrosomes serve as the main microtuble organizing center. Centrioles in the centrosomes help the cell divide during mitosis."
       }
     ],
     "coreFormula": "Cell = Basic Unit of Life",
-    "description": "Parts of an animal cell and what each organelle does.",
+    "description": "Animal cell parts and organelle jobs from class.",
     "redirectUrl": ""
   },
   {
@@ -509,13 +509,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Multicellular Organisms",
         "trick": "Multi = many cells working together to survive!",
-        "example": "In people or oak trees, blood, muscle, and root cells each do different jobs so the whole body survives.",
+        "example": "One single cell couldn't run a human body or an oak tree, so blood, muscle, and root cells split the work.",
         "formula": "an organism made with two or more cells",
         "explanation": "• These organisms are able to be seen with the naked eye\n• These organisms need all parts of themselves to survive\n• Plants belong to the category of autotrophs, meaning self feeders\n• In the kingdom Animalia; Heterotrophic - other feeder, organisms that eat other organisms."
       }
     ],
     "coreFormula": "an organism made of two or more cells",
-    "description": "Living things made of two or more cells working together."
+    "description": "Organisms made of more than one cell."
   },
   {
     "id": "unicellular-organisms-04",
@@ -587,7 +587,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Euglena",
         "trick": "Flagellum whips like a propeller!",
-        "example": "Uses a red eyespot to find sunlight and swims with a whip-like flagellum; makes food in light.",
+        "example": "Has a red eyespot to spot sunlight and swims using its whip-like flagellum. Can make food with light or eat in the dark.",
         "formula": "an organism made of only 1 cell.",
         "explanation": "Move by using  a flagellum (thread like structures that whip around)."
       },
@@ -595,7 +595,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Volvox",
         "trick": "Volvox colonies roll with flagella!",
-        "example": "Hundreds of green algae cells live together in a hollow ball and roll through water.",
+        "example": "Hundreds of green algae cells stick together as a round ball and roll through pond water.",
         "formula": "an organism made of only 1 cell.",
         "explanation": "They move by using a flagellum ( thread like structures that whip around)."
       },
@@ -603,7 +603,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Paramecium",
         "trick": "Cilia paddle like tiny oars!",
-        "example": "Swims fast using hair-like cilia all over its body that also sweep bacteria into its mouth groove.",
+        "example": "Tiny hairs called cilia cover the outside and paddle like little oars to swim and push food in.",
         "formula": "an organism made of only 1 cell.",
         "explanation": "A paramecium moves by cillia (hair like)"
       },
@@ -611,13 +611,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Amoeba",
         "trick": "Pseudopodia means false feet!",
-        "example": "Stretches cytoplasm into pseudopodia (false feet) to crawl and wrap around bacteria to eat.",
+        "example": "It stretches part of its body out like false feet (pseudopodia) to crawl and wrap around bacteria.",
         "formula": "an organism made of only 1 cell.",
         "explanation": "An amoeba moves by projecting out its cytoplasm. These projections are called pseudopodia (false feet)."
       }
     ],
     "coreFormula": "an organism made of only 1 cell.",
-    "description": "Single-celled living things like Amoeba, Bacteria, Euglena, Volvox, and Paramecium."
+    "description": "Single-celled organisms from our worksheet: Amoeba, Bacteria, Euglena, Volvox, Paramecium."
   },
   {
     "id": "science-unit-1790909251250",
@@ -701,7 +701,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Functions of the muscular system",
         "trick": "5th Grade Science Concept",
-        "example": "Shivering in cold weather warms you up because tiny muscle twitches make heat, while posture muscles hold you upright.",
+        "example": "Ever shiver when you're freezing? Rapid tiny muscle twitches actually warm your body up, while posture muscles hold you straight.",
         "formula": "There is no scientific formula",
         "explanation": "Functions of the muscular system are to provide posture, generate heat, and provide movement. "
       },
@@ -709,7 +709,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Skeletal Muscle",
         "trick": "5th Grade Science Concept",
-        "example": "Voluntary muscles you control when kicking a soccer ball or writing with a pencil.",
+        "example": "These are muscles you mean to move, like kicking a soccer ball or holding a pencil.",
         "formula": "No formula",
         "explanation": "A skeletal msucle is a voluntary muscle which means you can control what you do. It is found on one end of a bone. Its function is to give your body power and strength. "
       },
@@ -717,7 +717,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Smooth Muscle",
         "trick": "5th Grade Science Concept",
-        "example": "Moves food through your stomach and intestines on its own even while you sleep.",
+        "example": "Works even while you sleep — smooth muscles keep squeezing food down your stomach and gut automatically.",
         "formula": "NO FORMULA",
         "explanation": "A smooth muscle is a involuntary muscle which means you can't control what you do. This is muscles typically like the heart. Smooth muscles are found in your bladder, stomach, and uterus and in other places."
       },
@@ -725,7 +725,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Cardiac Muscle",
         "trick": "Lab Memory Tip",
-        "example": "Heart muscle squeezes all day and night to keep blood moving without stopping.",
+        "example": "Only found in the heart. Beats over 100,000 times a day without you thinking about it.",
         "formula": "No FORMULA",
         "explanation": "A cardiac muscle is the heart muscle. It is found in the heart. The function is to pump blood out."
       },
@@ -733,7 +733,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "Tendons",
         "trick": "5th Grade Science Concept",
-        "example": "Your Achilles tendon connects calf muscles to your heel so you can run and jump.",
+        "example": "Touch the thick cord above your heel — that Achilles tendon hooks your calf muscle to your heel bone.",
         "formula": "NO FORMULA",
         "explanation": "Tendons are helping for your skeletal muscle to stick to your bones. Their functions is to attach your muscles to your bones."
       },
@@ -741,13 +741,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 6,
         "name": "Biceps v Triceps",
         "trick": "5th Grade Science Concept",
-        "example": "Bending your arm tightens your bicep while your tricep relaxes; straightening switches them.",
+        "example": "Muscles only pull, never push. Bend your arm up and your bicep tightens while your tricep relaxes; switch to straighten.",
         "formula": "NO FORMULA!",
         "explanation": "The bicep is when you contract your muscles and you can see it when you contract it. The function is for to help you pick up simple things. The tricep straightens your elbow. The difference is the triceps straightens the elbow and the biceps contract it. "
       }
     ],
-    "coreFormula": "600+ muscles move bones",
-    "description": "Over 600 muscles help us move by tightening (contracting) and relaxing.",
+    "coreFormula": "5th Grade Scientific Principle",
+    "description": "Over 600 muscles help us move by contracting and pulling on bones.",
     "redirectUrl": ""
   },
   {
@@ -764,7 +764,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "What are Bones Made Of?",
         "trick": "5th Grade Science Concept",
-        "example": "Outer compact bone is hard for jumping, spongy bone keeps weight light, and marrow makes blood cells.",
+        "example": "Hard compact bone on the outside keeps bones from snapping, spongy bone keeps them light, and marrow makes blood cells.",
         "formula": "NO FORMULA",
         "explanation": "Bones are made out of periosteum, compact bone , cancellous bone, and bone marrow."
       },
@@ -772,7 +772,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Cartilage & Ligaments",
         "trick": "5th Grade Science Concept",
-        "example": "Cartilage pads knees so bones do not rub, and ligaments strap bones together at joints.",
+        "example": "In your knees, cartilage pads the ends so bones don't grind, while ligaments tie the bones together.",
         "formula": "No FORMULA",
         "explanation": "Cartilage is soft and flexible and as your growing your bones slowly replaces it. Ligaments are things that hold bones together in the joints, and they are like strong rubber bands."
       },
@@ -780,7 +780,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Types of Joints ",
         "trick": "5th Grade Science Concept",
-        "example": "Elbows and knees swing like hinges, while shoulder ball-and-socket joints move in circles.",
+        "example": "Elbows bend one way like a door hinge, while your shoulder ball-and-socket joint swings all the way around.",
         "formula": "NO FORMULA",
         "explanation": "The hinge joint helps you bend your arms and legs. It also helps you straighten them. The ball-and-socket joint helps you swing your arms and your legs. Synovial fluid is like oiling the valves of a brass instrument; it lets your bones move freely. "
       },
@@ -788,7 +788,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Where is the smallest bone in your body? What is it called? Size?",
         "trick": "5th Grade Science Concept",
-        "example": "The 2-3 mm stirrup bone (stapes) in your ear vibrates to carry sound waves inward.",
+        "example": "Inside your middle ear sits the stapes (stirrup bone), about 2 to 3 mm wide — smaller than a grain of rice!",
         "formula": "NO FORMULA",
         "explanation": "The smallest bone in your body is the stapes, and it is 2 to 3 millimeters long."
       },
@@ -796,13 +796,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "What are the different jobs of the vertebrae?",
         "trick": "5th Grade Science Concept",
-        "example": "33 stacked vertebrae support your upper body, let your back bend, and guard your spinal cord.",
+        "example": "Your spine is 33 stacked bones. Together they hold your upper body up, bend, and protect your spinal cord.",
         "formula": "NO FORMULA",
         "explanation": "Your vertebrae help bend your neck, and they carry the weight of your upper body."
       }
     ],
-    "coreFormula": "Bones, joints & spine",
-    "description": "Bones, joints, cartilage, ligaments, and spine notes.",
+    "coreFormula": "NO FORMULA",
+    "description": "Bones, joints, cartilage, ligaments, and the spine.",
     "redirectUrl": ""
   },
   {
@@ -819,7 +819,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Mouth",
         "trick": "5th Grade Science Concept",
-        "example": "Teeth bite and grind an apple while saliva starts breaking starch down into sugar.",
+        "example": "Front teeth bite off apple chunks, back molars mash them up, and spit starts breaking starch into sugar right away.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Your mouth has teeth that tear up and chop your food. Your saliva enzymes break it down even more."
       },
@@ -827,7 +827,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Esophagus",
         "trick": "5th Grade Science Concept",
-        "example": "Squeezes chewed food down from throat to stomach in muscle waves called peristalsis.",
+        "example": "Muscle waves called peristalsis push swallowed food down to your stomach — it still works even upside down!",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• (Pushes food down to the stomach by Peristalsis)\n• The tube that connects your mouth and the stomach"
       },
@@ -835,7 +835,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Stomach",
         "trick": "5th Grade Science Concept",
-        "example": "Muscle walls mash food with stomach acid, killing germs and breaking down protein.",
+        "example": "Stomach muscles churn food with strong acid that kills germs and starts breaking protein apart.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• (Smooth Muscles churn and mix the food.)\n• Chemicals, like acids, break down the food\n"
       },
@@ -843,7 +843,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Small Intestine",
         "trick": "5th Grade Science Concept",
-        "example": "About 20 feet long; absorbs glucose, vitamins, and minerals into the blood over several hours.",
+        "example": "Around 20 feet coiled up! Most sugar, vitamins, and minerals soak into your blood right here.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "(Tube that is 20 feet long. Food stays in your small intestine for 4 to 8 hours.)\n• Continues to break down food   \n• Absorbs nutrients into the blood\n"
       },
@@ -851,7 +851,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "Large Intestine",
         "trick": "5th Grade Science Concept",
-        "example": "Takes water back out of leftover waste so you stay hydrated and turns the rest solid.",
+        "example": "Soaks water back out of leftover food so you don't get dehydrated and packs waste together.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "(Tube that is 5 feet long. Gets waste from the small intestine. Waste stays for 10 to 12 hours.)\n• Absorbs (soaks up) water from the remaining food\n• Contains bacteria that breaks down food\n"
       },
@@ -859,7 +859,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 6,
         "name": "Rectum",
         "trick": "5th Grade Science Concept",
-        "example": "Holds solid waste at the end of the digestive tract until nerves signal a bathroom trip.",
+        "example": "Holds solid waste at the end until nerves tell your brain it's time to go.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Rectum (Stores waste until it leaves the body through the anus)\n"
       },
@@ -867,7 +867,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 7,
         "name": "Gall Bladder",
         "trick": "5th Grade Science Concept",
-        "example": "Squeezes stored bile into the small intestine to break greasy foods like fries into smaller drops.",
+        "example": "Eat greasy pizza or fries and the gallbladder squirts bile into your small intestine to break up fats.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "(Storage tank for bile - a greenish-yellow liquid, that helps your body break down and use fats. Located under your liver. Shaped like a pear.)\n"
       },
@@ -875,7 +875,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 8,
         "name": "Liver",
         "trick": "5th Grade Science Concept",
-        "example": "Filters toxins out of blood, makes bile, and saves extra sugar for energy later.",
+        "example": "Cleans toxins out of blood, makes bile, and stores extra sugar for energy later.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "(Factory for antibodies and bile. Store vitamins and sugars until your body needs them.)\n"
       },
@@ -883,7 +883,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 9,
         "name": "Pancreas",
         "trick": "5th Grade Science Concept",
-        "example": "Makes enzymes for digestion plus insulin to help sugar enter your cells.",
+        "example": "Makes enzymes to digest food and releases insulin so blood sugar can enter your cells.",
         "formula": "5th Grade Scientific Principle",
         "explanation": " (Helps you digest food by breaking down sugars.)\n"
       },
@@ -891,7 +891,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 10,
         "name": "Summary",
         "trick": "Lab Memory Tip",
-        "example": "First chewing and churning break food into pieces; then acid and enzymes break it down chemically.",
+        "example": "Two steps in our notes: mechanical (chewing/mashing) and chemical (stomach acid and enzymes).",
         "formula": "NO FORMULA",
         "explanation": "• Mechanical digestion breaks food down into smaller pieces   \n• Chemical digestion breaks food down into nutrients "
       },
@@ -899,7 +899,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 11,
         "name": "Role of villi",
         "trick": "5th Grade Science Concept",
-        "example": "Tiny folds lining the small intestine give way more surface area to soak up nutrients fast.",
+        "example": "Little finger-shaped villi cover the small intestine so nutrients absorb way faster.",
         "formula": "NO FORMULA",
         "explanation": "Villi breaks down food into nutrients"
       },
@@ -907,7 +907,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 12,
         "name": "What is gut flora?",
         "trick": "5th Grade Science Concept",
-        "example": "Helpful bacteria living in the gut that digest fiber and make vitamin K.",
+        "example": "Friendly bacteria living in your gut that help break down fiber and make Vitamin K.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Gut flora are bacteria inside your gut. It makes up 30% of your body weight and it helps turn food into nutrients.  "
       },
@@ -915,13 +915,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 13,
         "name": "Who is a gasteroentologist?",
         "trick": "5th Grade Science Concept",
-        "example": "A doctor who checks and treats stomach, intestine, and digestive problems.",
+        "example": "That's the doctor who specializes in stomach, intestine, and digestive tract problems.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Gastroentologists are people that specialize in the digestive system"
       }
     ],
-    "coreFormula": "Turns food into fuel",
-    "description": "How the body digests food and takes out nutrients.",
+    "coreFormula": "5th Grade Scientific Principle",
+    "description": "How the stomach, intestines, liver, and pancreas break food down.",
     "redirectUrl": ""
   },
   {
@@ -938,7 +938,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Urine",
         "trick": "5th Grade Science Concept",
-        "example": "Kidneys clear extra salt, water, and urea from blood; pale yellow usually means good hydration.",
+        "example": "Pale yellow usually means you drank enough water; dark yellow means drink up because kidneys are dumping waste with less water.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Goes into the kidneys' waste products. If your urine is yellow, then you need to drink more liquids and fluids."
       },
@@ -946,7 +946,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Puss",
         "trick": "5th Grade Science Concept",
-        "example": "Thick white fluid in a cut made of dead bacteria, white blood cells, and damaged tissue.",
+        "example": "When a cut gets germs inside, white blood cells fight them off and leave behind pus (dead germs + dead white cells).",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Pus is dead skin cells that form when you get a cut and bacteria get in. Pus is produced from cells."
       },
@@ -954,7 +954,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "CO2",
         "trick": "5th Grade Science Concept",
-        "example": "Waste gas made when cells burn sugar; blood carries it back to the lungs so you breathe it out.",
+        "example": "Cells make CO2 waste after burning sugar, blood carries it back to your lungs, and you breathe it out.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "When you breathe in, it goes through your lungs and you breathe out CO2"
       },
@@ -962,7 +962,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Poop",
         "trick": "5th Grade Science Concept",
-        "example": "Leftover unabsorbed food, bacteria, and water removed from the body in bowel movements.",
+        "example": "Solid leftover food parts your body couldn't absorb plus old gut bacteria.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Takes 24 hours to get rid of. Getting rid of it keeps you healthy."
       },
@@ -970,12 +970,12 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "Fart",
         "trick": "5th Grade Science Concept",
-        "example": "Gas built up in the gut when bacteria break down foods like beans and broccoli.",
+        "example": "Gut bacteria break down beans or broccoli and leave extra nitrogen/methane gas behind.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Farts are caused by bacteria, and they can escape as a burp or a fart."
       }
     ],
-    "coreFormula": "Urine, CO2, pus & stool",
+    "coreFormula": "5th Grade Scientific Principle",
     "description": "Body wastes we get rid of (urine, pus, CO2, poop, gas).",
     "redirectUrl": ""
   },
@@ -993,7 +993,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Mucus",
         "trick": "5th Grade Science Concept",
-        "example": "Sticky mucus in your nose traps dust, pollen, and germs before they get into your lungs.",
+        "example": "Walk past dust or pollen and sticky nose mucus catches the particles before they hit your lungs.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "Mucus protects you by catching any dirt from entering your nose. When you get sick, mucus membranes go overload."
       },
@@ -1001,7 +1001,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Vomit",
         "trick": "5th Grade Science Concept",
-        "example": "Pushes spoiled food or toxins back out of your stomach before they hurt your body.",
+        "example": "If you eat spoiled food, your stomach throws everything back up fast before poison enters your blood.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "When you eat too much food it wants to throw up. You vomit because your body wants to get rid of something."
       },
@@ -1009,7 +1009,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Earwax",
         "trick": "5th Grade Science Concept",
-        "example": "Catches dirt and tiny bugs in the ear canal while keeping skin inside the ear from drying out.",
+        "example": "Sticky earwax traps dust and bugs near your ear opening while keeping the skin inside from drying out.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "Earwax helps you by catching dirt and helps protect  the skin. You shouldn't put Q-tips into the ear canal because Q-tips are used for medicine. (Credit to Clifford for teaching me this)"
       },
@@ -1017,7 +1017,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Tears",
         "trick": "5th Grade Science Concept",
-        "example": "Blinking spreads salty tears across your eye to rinse away specks of dust and germs.",
+        "example": "Every blink spreads salty tears across your eyeball to rinse out dust specks and germs.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "You get tears to help keep your eyes moist and to wash off dirt from your face."
       },
@@ -1025,13 +1025,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "Sweat",
         "trick": "5th Grade Science Concept",
-        "example": "When you play sports in the heat, sweat evaporates from skin and cools your body down.",
+        "example": "Running outside on a hot day? Sweat drops dry off your skin and carry heat away to cool you.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "You sweat to regulate your body temperature"
       }
     ],
     "coreFormula": "It can protect you by keeping germs and dirt out of your body.",
-    "description": "Wastes that help protect your body (mucus, vomit, earwax, tears, sweat).",
+    "description": "Mucus, vomit, earwax, tears, and sweat that protect your body.",
     "redirectUrl": ""
   },
   {
@@ -1048,13 +1048,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Other Excretory Organs",
         "trick": "5th Grade Science Concept",
-        "example": "Lungs breathe out CO2, sweat glands push out salt and water, and the liver filters blood wastes.",
+        "example": "Not just kidneys — your lungs breathe out CO2, sweat pushes out salt, and your liver filters blood wastes.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Lungs remove water vapor and carbon dioxide from the body each time you exhale\n• Skin excretes water and salts when the body is overheated\n• The liver filters blood to remove harmful chemicals and bacteria"
       }
     ],
-    "coreFormula": "Clears cell waste",
-    "description": "Organs that collect and remove cell waste from the body.",
+    "coreFormula": "5th Grade Scientific Principle",
+    "description": "How the body removes wastes from cells.",
     "redirectUrl": ""
   },
   {
@@ -1071,7 +1071,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Kidneys",
         "trick": "5th Grade Science Concept",
-        "example": "Two bean-shaped organs that clean waste out of blood and return clean water.",
+        "example": "Two bean-shaped organs near your lower back that clean your blood over and over all day.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Major organs of the urinary system remove excess water and other waste materials by filtering blood."
       },
@@ -1079,7 +1079,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Nephrons",
         "trick": "5th Grade Science Concept",
-        "example": "Over a million tiny filters in each kidney that keep blood cells in and let waste out.",
+        "example": "About a million microscopic nephron filters inside each kidney keep red blood cells in while straining waste out.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Tiny structures in the kidneys that filter liquid waste from blood to produce urine"
       },
@@ -1087,7 +1087,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Ureters",
         "trick": "5th Grade Science Concept",
-        "example": "Two thin tubes that carry urine down from the kidneys to the bladder.",
+        "example": "Two narrow tubes moving urine drop by drop from kidneys down into the bladder.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Tubes that carry wastes from the kidneys to the urinary bladder."
       },
@@ -1095,7 +1095,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Urinary Bladder",
         "trick": "5th Grade Science Concept",
-        "example": "Stretchy sac that holds urine until nerves tell you it is full.",
+        "example": "Stretchy holding sac that swells up as urine fills it until nerves say it's full.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Muscular organ that stores urine until it passes out of the body"
       },
@@ -1103,13 +1103,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "Urethra",
         "trick": "5th Grade Science Concept",
-        "example": "Tube that carries urine from the bladder out of the body.",
+        "example": "The small tube at the bottom where urine leaves your body.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Tube that opens to release urine out of the body."
       }
     ],
-    "coreFormula": "Kidneys & liquid waste",
-    "description": "Kidneys, nephrons, ureters, bladder, and urethra filtering liquid waste.",
+    "coreFormula": "5th Grade Scientific Principle",
+    "description": "Kidneys, nephrons, ureters, bladder, and urethra.",
     "redirectUrl": ""
   },
   {
@@ -1183,7 +1183,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Alveoli",
         "trick": "5th Grade Science Concept",
-        "example": "Millions of tiny air sacs in the lungs where oxygen enters blood and CO2 leaves.",
+        "example": "Millions of tiny air pockets inside your lungs where fresh oxygen enters your blood and CO2 comes out.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Small air sacs where gases are exchanged"
       },
@@ -1191,7 +1191,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Larynx",
         "trick": "5th Grade Science Concept",
-        "example": "Voice box with vocal cords that vibrate when you talk; the epiglottis blocks food from the windpipe.",
+        "example": "Your voice box vibrates when air passes over vocal cords; the epiglottis flap closes so food stays out of your windpipe.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Routes air and food into proper channels"
       },
@@ -1199,7 +1199,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Pharynx",
         "trick": "5th Grade Science Concept",
-        "example": "Throat hallway where both air on its way to the lungs and food to the esophagus pass through.",
+        "example": "Your throat hallway — both inhaled air and swallowed food pass through here.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Muscular passage from the nasal cavity to the larynx. "
       },
@@ -1207,7 +1207,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Trachea",
         "trick": "5th Grade Science Concept",
-        "example": "Windpipe held open by firm C-shaped cartilage rings so air can flow even when your neck bends.",
+        "example": "Your windpipe has C-shaped cartilage rings holding it open even when you bend your neck.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Connects the larynx with the bronchi"
       },
@@ -1215,13 +1215,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "Lungs",
         "trick": "5th Grade Science Concept",
-        "example": "Spongy lungs expand as your diaphragm drops to pull air in and trade oxygen for carbon dioxide.",
+        "example": "Take a deep breath: your diaphragm drops down, lungs fill with air, and blood grabs oxygen.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "The lung is the essential respiratory organ in air-breathing vertebrates. Its principal function is to transport oxygen from the atmosphere into the bloodstream and to excrete carbon dioxide from the bloodstream into the atmosphere. This exchange of gases is accomplished in the mosaic of specialized cells that form millions of tiny, exceptionally thin-walled air sacs called alveoli."
       }
     ],
-    "coreFormula": "Lungs trade O2 and CO2",
-    "description": "Lungs, alveoli, trachea, pharynx, and larynx breathing and gas exchange.",
+    "coreFormula": "5th Grade Scientific Principle",
+    "description": "How lungs, alveoli, trachea, pharynx, and larynx move air.",
     "redirectUrl": ""
   },
   {
@@ -1251,13 +1251,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Layers of the Skin",
         "trick": "5th Grade Science Concept",
-        "example": "Outer epidermis blocks germs, middle dermis holds blood vessels and nerves, and inner fat insulates.",
+        "example": "Top epidermis blocks germs, middle dermis holds sweat glands and touch nerves, and bottom fat layer pads falls.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Epidermis\n• Dermis\n• Hypodermis"
       }
     ],
-    "coreFormula": "Skin, hair & nails",
-    "description": "Skin, hair, nails, sweat glands, and oil glands keeping the body safe.",
+    "coreFormula": "5th Grade Scientific Principle",
+    "description": "Skin layers, hair, nails, sweat glands, and oil glands.",
     "redirectUrl": ""
   },
   {
@@ -1364,7 +1364,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Homeostasis",
         "trick": "5th Grade Science Concept",
-        "example": "Keeps temperature near 98.6 F and balances blood sugar whether you are cold or running hard.",
+        "example": "Sweating when hot or shivering when cold are both examples of your body keeping internal balance near 98.6 F.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Key to life and failures in homeostasis can lead to disease\n• Keeping things constant\n• Hunger & Thirst are examples\n\n\nHomeostasis includes the regulation of\n\n• oxygen & carbon dioxide levels \n• nutrient & waste product levels\n• water balance\n• body temperature\n"
       },
@@ -1372,7 +1372,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Pituitary Gland",
         "trick": "5th Grade Science Concept",
-        "example": "Small gland below the brain that makes growth hormone and signals other glands.",
+        "example": "Tiny gland at the base of the brain that makes growth hormone and tells other glands when to work.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• This is considered the \"master gland.\"\n• Growth harmonies get produced there and they get sent to other organs"
       },
@@ -1380,7 +1380,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Pineal Gland",
         "trick": "5th Grade Science Concept",
-        "example": "Releases melatonin when it gets dark so you feel sleepy at night.",
+        "example": "Releases melatonin once it gets dark at night so you start feeling sleepy.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Secretes hormones that control the other glands\n• Middle of the Brain\n• Secretes melatonin\n• Helps to regulate when you sleep and when you wake up"
       },
@@ -1388,7 +1388,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Thyroid Gland",
         "trick": "5th Grade Science Concept",
-        "example": "Neck gland that sets how fast cells burn food for energy.",
+        "example": "In your neck — sets how fast or slow your cells burn energy from food.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Front of the lower neck\n• Controls the rate at which our cells burn food to produce energy"
       },
@@ -1396,7 +1396,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "Adrenal Gland",
         "trick": "5th Grade Science Concept",
-        "example": "Releases adrenaline on top of the kidneys when you are scared or sprinting in a race.",
+        "example": "Right before a race or when something scares you, adrenal glands pump adrenaline so your heart beats faster.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Two glands\n• Produces adrenaline\n• Controls the body's response to stress"
       },
@@ -1404,7 +1404,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 6,
         "name": "Reproductive Glands",
         "trick": "5th Grade Science Concept",
-        "example": "Release hormones that drive growth spurts and body changes as you grow up.",
+        "example": "Release hormones that start growth spurts and body changes as kids grow up.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Hormones secreted are called Gonads\n• Produces hormones called androgens, most importantly testosterone"
       },
@@ -1412,7 +1412,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 7,
         "name": "Pancreas",
         "trick": "5th Grade Science Concept",
-        "example": "Releases insulin after meals to let sugar enter cells, and glucagon when blood sugar drops.",
+        "example": "After eating lunch, pancreas insulin helps blood sugar get into cells; between meals glucagon brings blood sugar back up.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Long flat gland\n• Produces insulin and glucagon\n• Helps controls the levels of glucose in the body"
       },
@@ -1420,13 +1420,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 8,
         "name": "Summary",
         "trick": "5th Grade Science Concept",
-        "example": "Glands send hormone signals through blood to guide growth, sleep, energy, and mood.",
+        "example": "Unlike fast electrical nerve signals, hormones travel slower through blood to run growth, sleep, and mood.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "The purpose of the endocrine system is to control body functions. It works with tthe nervous system and the circulatory system. Each gland an organ that makes chemical substances/ hormones in the endocrine system has a different job. Glands are controlled by the hypothalamus which acts like a thermostat."
       }
     ],
-    "coreFormula": "Glands & hormones",
-    "description": "Glands that release hormones into blood to control growth, sleep, and energy.",
+    "coreFormula": "5th Grade Scientific Principle",
+    "description": "Glands and hormones in the bloodstream.",
     "redirectUrl": ""
   },
   {
@@ -1555,7 +1555,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Functions of the nervous system",
         "trick": "5th Grade Science Concept",
-        "example": "Senses heat, touch, and sound and sends fast messages from your brain so you react safely.",
+        "example": "Senses hot, cold, pain, or sound and tells muscles how to react in split seconds.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Recieves info from inside & outside of the body\n• Controls & directs body's functions and responses\n• Helps maintain homeostasis"
       },
@@ -1563,7 +1563,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Divided into 2 parts",
         "trick": "5th Grade Science Concept",
-        "example": "Central Nervous System is the brain and spinal cord; Peripheral Nervous System reaches your limbs.",
+        "example": "Central is brain + spinal cord; Peripheral is all the nerves branching out to arms, legs, and fingers.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Peripheral Nervous System\n• Central Nervous System (Brain and Spinal Cord)"
       },
@@ -1571,7 +1571,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Peripheral nervous system",
         "trick": "5th Grade Science Concept",
-        "example": "Somatic nerves move arms on purpose; autonomic nerves run heartbeat and breathing automatically.",
+        "example": "Waving your hand is voluntary (somatic); your heart beating and breathing automatically is autonomic.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Somatic NS- carries messages between brain & body to control voluntary muscles\n• Autonomic NS- controls organs & involuntary muscles"
       },
@@ -1579,7 +1579,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Central Nervous System: The Spinal Cord ",
         "trick": "5th Grade Science Concept",
-        "example": "Bundle of nerves inside the spine that carries messages fast and triggers quick pull-away reflexes.",
+        "example": "Touch a hot pan and spinal cord nerves yank your hand back fast even before you think about it.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Bundle of nerves that runs down the spine to carry messages between the brain and the rest of the body\n"
       },
@@ -1587,7 +1587,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "Central Nervous System: Nerve cells (neurons)",
         "trick": "5th Grade Science Concept",
-        "example": "Nerve cells catch signals on dendrites, fire down the axon, and pass them to the next neuron.",
+        "example": "Neurons pick up messages on dendrites, zip the electric spark down the axon, and jump the gap to the next nerve.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Basic functioning units of the nervous system that carry messages called impulses"
       },
@@ -1595,7 +1595,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 6,
         "name": "Central Nervous System: The Brain",
         "trick": "5th Grade Science Concept",
-        "example": "Holds billions of neurons for thinking, memories, breathing, balance, and dreaming.",
+        "example": "Has ~100 billion neurons handling thoughts, school memories, breathing, balance, and dreams.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Coordinates body activities made up of approximately 100 billion neurons"
       },
@@ -1603,7 +1603,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 7,
         "name": "The brain is divided into 3 main parts",
         "trick": "5th Grade Science Concept",
-        "example": "Cerebrum handles thinking, Cerebellum handles balance, and Brain Stem runs breathing and heartbeat.",
+        "example": "Three main sections from our notes: Cerebrum (thinking), Cerebellum (balance), and Brain Stem (vitals).",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Cerebrum\n• Cerebellum\n• Brain stem"
       },
@@ -1611,7 +1611,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 8,
         "name": "Cerebrum",
         "trick": "5th Grade Science Concept",
-        "example": "Runs reading, math problem solving, drawing, and remembering faces.",
+        "example": "What you're using right now to read notes, solve math, or remember your friend's name.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Coordinates\n• Thinking and learning\n• Creativity\n• Five Senses\n• Memory and Emotion\n• Problem Solving"
       },
@@ -1619,7 +1619,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 9,
         "name": "Cerebellum",
         "trick": "5th Grade Science Concept",
-        "example": "Keeps you steady when riding a bike, jumping rope, or playing piano.",
+        "example": "Keeps your balance steady when riding a bike, shooting hoops, or playing piano.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Most voluntary muscles movements\n• Helps maintain balance and muscle tone"
       },
@@ -1627,13 +1627,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 10,
         "name": "Brain Stem",
         "trick": "5th Grade Science Concept",
-        "example": "Controls automatic jobs like heartbeat, breathing, and swallowing day and night.",
+        "example": "Connects brain to spinal cord and runs breathing, heartbeat, and swallowing 24/7.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Connects brain to the spinal cord\n• Coordinates involuntary actions"
       }
     ],
-    "coreFormula": "Brain, cord & nerves",
-    "description": "Brain, spinal cord, and nerves sending signals through the body.",
+    "coreFormula": "5th Grade Scientific Principle",
+    "description": "Brain, spinal cord, nerves, and reflexes.",
     "redirectUrl": ""
   },
   {
@@ -1707,7 +1707,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Aorta",
         "trick": "5th Grade Science Concept",
-        "example": "Largest artery leaving the left ventricle to send oxygen-rich blood out to the body.",
+        "example": "Big main artery arching out of the left ventricle to send oxygen-packed blood around the body.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "The main artery in the human body starts from the left ventricle to the stomach"
       },
@@ -1715,7 +1715,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Right Atrium",
         "trick": "5th Grade Science Concept",
-        "example": "Top right chamber where low-oxygen blood enters from the body.",
+        "example": "Top right pocket of the heart where tired, low-oxygen blood comes back in from veins.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Receives blood from all the parts of the body. Blood is high in CO2 and low in oxygen."
       },
@@ -1723,7 +1723,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Right Ventricle",
         "trick": "5th Grade Science Concept",
-        "example": "Bottom right chamber that pumps blood to the lungs to pick up oxygen.",
+        "example": "Bottom right chamber that pushes low-oxygen blood straight over to the lungs.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Pumps blood to the lungs. Blood is high in carbon dioxide and low in oxygen"
       },
@@ -1731,7 +1731,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Left Atrium",
         "trick": "5th Grade Science Concept",
-        "example": "Top left chamber that gets oxygen-rich blood back from the lungs.",
+        "example": "Top left pocket catching fresh oxygen-rich blood coming back from the lungs.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Recieves blood from the lungs. Blood is high in oxygen and low in CO2"
       },
@@ -1739,13 +1739,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "Left Ventricle",
         "trick": "5th Grade Science Concept",
-        "example": "Thick bottom left chamber that squeezes blood out through the aorta to the whole body.",
+        "example": "Strongest, thickest chamber — has to squeeze hard enough to shoot blood all the way from your brain to your toes.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Pumps blood to all parts of the body except the lungs. Blood is high in oxygen and low in CO2"
       }
     ],
-    "coreFormula": "Heart chambers & aorta",
-    "description": "The four chambers of the heart and the aorta pumping blood.",
+    "coreFormula": "5th Grade Scientific Principle",
+    "description": "The four chambers of the heart and aorta.",
     "redirectUrl": ""
   },
   {
@@ -1841,7 +1841,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Artery",
         "trick": "5th Grade Science Concept",
-        "example": "Thick vessels that carry oxygen-rich blood away from the heart with each beat.",
+        "example": "Thick elastic blood vessels carrying oxygen-rich blood away from the heart.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Largest of all blood vessels\n• Carries blood away from the heart\n• Arteries, except those that go to the lungs, are rich in oxygen\n• Carry materials that the cells need\n• "
       },
@@ -1849,7 +1849,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Vein",
         "trick": "5th Grade Science Concept",
-        "example": "Carry low-oxygen blood back to the heart using flap valves so it does not flow backward.",
+        "example": "Bring low-oxygen blood back toward your heart with little one-way flaps so blood doesn't slide backward in your legs.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Carry blood back to the heart\n• Veins, except those that go to the lungs carry blood with dissolved materials\n• Medium sized"
       },
@@ -1857,7 +1857,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Capilary",
         "trick": "5th Grade Science Concept",
-        "example": "Tiny thin-walled vessels only one cell wide where oxygen and food pass into cells.",
+        "example": "Super narrow tubes (only one red blood cell wide!) where oxygen and glucose squeeze into cells.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Connects the arteries and the veins\n• They are tiny in size -- some as thin as one strand of hair\n• Most numerous in your body"
       },
@@ -1865,7 +1865,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Blood vessels",
         "trick": "5th Grade Science Concept",
-        "example": "Tubes stretching throughout your body that move blood from the heart and back.",
+        "example": "All your arteries, veins, and capillaries looping blood from heart to organs and back.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Blood vessels carry blood to and from the heart and other parts of the body\n• Blood circulates throughout the blood vessels to reach all areas of the body. It transports nutrients and oxygens to the heart and carries away waste.\n"
       },
@@ -1873,7 +1873,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "White Blood Cell",
         "trick": "5th Grade Science Concept",
-        "example": "Squeeze toward cuts to swallow and destroy bacteria before an infection starts.",
+        "example": "If germs sneak into a scrape, white blood cells squeeze through capillary walls to swallow and wipe them out.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Fight disease and infection\n• Destroy harmful germs in the body\n• Largest of blood cells"
       },
@@ -1881,7 +1881,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 6,
         "name": "Red Blood Cell",
         "trick": "5th Grade Science Concept",
-        "example": "Filled with hemoglobin to haul oxygen from lungs to cells and bring back CO2.",
+        "example": "Red iron protein (hemoglobin) inside lets red blood cells carry oxygen from lungs and trade it for CO2.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Contains hemoglobin that gives it that red color\n• Most numerous\n• Carries oxygen to all parts of the body\n• Picks up carbon dioide waste from the cells"
       },
@@ -1889,13 +1889,13 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 7,
         "name": "Platelets ",
         "trick": "5th Grade Science Concept",
-        "example": "Stick together over a papercut to form a clot and stop bleeding fast.",
+        "example": "Get a papercut and platelets clump together fast to form a sticky clot so bleeding stops.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Tiny colorless pieces of blood\n• Help stop bleeding by giving off a chemical that helps blood clot\n• Smallest of the blood cells"
       }
     ],
-    "coreFormula": "Blood flow & vessels",
-    "description": "How arteries, veins, capillaries, and blood cells carry oxygen and fight germs.",
+    "coreFormula": "5th Grade Scientific Principle",
+    "description": "Arteries, veins, capillaries, and blood cells.",
     "redirectUrl": ""
   },
   {
@@ -1991,7 +1991,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 1,
         "name": "Cornea",
         "trick": "5th Grade Science Concept",
-        "example": "Clear front layer that shields your eye from dust and bends light inward.",
+        "example": "Clear front window over your eye that blocks dust and starts bending light inward.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Helps the eye focus as light enters"
       },
@@ -1999,7 +1999,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 2,
         "name": "Pupil",
         "trick": "5th Grade Science Concept",
-        "example": "Black opening that widens in a dark movie theater and shrinks outside in bright sun.",
+        "example": "Dark hole in the middle — widens in a dark movie theater and shrinks outside in bright sun.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• It lets light enter the eye\n"
       },
@@ -2007,7 +2007,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 3,
         "name": "Iris",
         "trick": "5th Grade Science Concept",
-        "example": "Colored ring of muscle (blue, brown, or green) that opens or closes the pupil.",
+        "example": "The colored circle (blue, brown, or green) made of tiny muscles that open and shrink the pupil.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• The iris determines how much light should go through the pupil"
       },
@@ -2015,7 +2015,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 4,
         "name": "Lens",
         "trick": "5th Grade Science Concept",
-        "example": "Changes shape when you look from a book in your hands up to a wall clock.",
+        "example": "Look from your notebook up to the classroom clock — your lens flexes instantly to keep both sharp.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Lens job is to focus the light rays at the back of the eyeballs"
       },
@@ -2023,7 +2023,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 5,
         "name": "Retina",
         "trick": "5th Grade Science Concept",
-        "example": "Back layer of eye cells that catch light (upside down) and turn it into nerve signals.",
+        "example": "Back wall of your eyeball covered in rods and cones; light hits it upside-down before turning into signals.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Takes the light and turns it into nerve signals\n• In the retina, the light makes an upside-down and backwards picture.\n• The retina contains light sensitive cells (called rods and cones) that change the picture into messages that your brain understands"
       },
@@ -2031,7 +2031,7 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 6,
         "name": "Ciliary Muscle",
         "trick": "5th Grade Science Concept",
-        "example": "Muscles around the lens that thicken it to read close words or flatten it to see far away.",
+        "example": "Muscles pulling on the lens to make it thicker for reading close up or thinner to see far.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• The ciliary muscle change the shapes of the lens"
       },
@@ -2039,16 +2039,17 @@ const DEFAULT_SCIENCE_TOPICS = [
         "num": 7,
         "name": "Optic Nerve",
         "trick": "5th Grade Science Concept",
-        "example": "Cable of nerves sending eye signals to your brain, which flips the image right-side up.",
+        "example": "Over a million nerve fibers carry signals from your retina to your brain, which flips the picture right-side up.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• The optic nerve carries the nerve signals to the brain"
       }
     ],
-    "coreFormula": "Light focus & sight",
-    "description": "How the cornea, pupil, iris, lens, retina, and optic nerve help us see.",
+    "coreFormula": "5th Grade Scientific Principle",
+    "description": "Parts of the eye: cornea, pupil, iris, lens, retina, and optic nerve.",
     "redirectUrl": ""
   }
 ];
+
 
 
 // Default Cloud Database Bucket ID (Hosted on permanent free REST backend)
@@ -6751,7 +6752,7 @@ class BubbleCascadeEngine {
   }
 }
 
-const LAZY_MODAL_HTML = {"projects":"\n    <div class=\"modal-window about-me-window me-skience-container\">\n      \n      <div id=\"me-boot-loader\" class=\"me-boot-loader hidden\" title=\"Click or Press Space to Skip Boot Screen\">\n        <div class=\"me-boot-crt-scanlines\"></div>\n        <div class=\"me-boot-vignette\"></div>\n        \n        <div class=\"me-boot-terminal\">\n          <!-- Top Bar -->\n          <div class=\"me-boot-header\">\n            <div class=\"me-boot-header-left\">\n              <span class=\"me-boot-dot red\"></span>\n              <span class=\"me-boot-dot yellow\"></span>\n              <span class=\"me-boot-dot green\"></span>\n              <span class=\"me-boot-title\">profile</span>\n            </div>\n            <div class=\"me-boot-skip-hint\">Click or press Space to skip</div>\n          </div>\n\n          <!-- Diagnostic Stream & Centerpiece -->\n          <div class=\"me-boot-content\">\n            <div class=\"me-boot-logs\" id=\"me-boot-logs\"></div>\n\n            <div class=\"me-boot-badge-card\" id=\"me-boot-badge-card\">\n              <div class=\"me-boot-chip-icon\"><svg viewBox=\"0 0 16 16\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><rect x=\"3\" y=\"3\" width=\"10\" height=\"10\" rx=\"1.2\"/><rect x=\"6\" y=\"6\" width=\"4\" height=\"4\"/><path d=\"M6 1v2M10 1v2M6 13v2M10 13v2M13 6h2M13 10h2M1 6h2M1 10h2\"/></svg></div>\n              <div class=\"me-boot-name\">JEEVA RAGHAVAN</div>\n              <div class=\"me-boot-sub\">5th Grade Notes</div>\n              \n              <div class=\"me-boot-progress-wrap\">\n                <div class=\"me-boot-progress-bar\">\n                  <div class=\"me-boot-progress-fill\" id=\"me-boot-progress-fill\"></div>\n                </div>\n                <div class=\"me-boot-progress-stats\">\n                  <span id=\"me-boot-status-text\">Loading...</span>\n                  <span id=\"me-boot-pct-text\">0%</span>\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"me-boot-footer\">\n            <span class=\"me-boot-footer-tag\">me.skience.io</span>\n            <span class=\"me-boot-footer-mem\">grade 5</span>\n          </div>\n        </div>\n      </div>\n\n      <!-- Minimalist Header / Navigation Bar -->\n      <header class=\"me-nav shell\">\n        <a class=\"me-nav-name\" href=\"#me-top\">Jeeva Raghavan</a>\n        <nav class=\"me-nav-links\" aria-label=\"Sections\">\n          <a href=\"#me-projects\">Projects</a>\n          <a href=\"#me-about\">About</a>\n          <a href=\"#me-contact\">Contact</a>\n          <a class=\"me-nav-github\" href=\"https://github.com/jeevaraghvan-ux\" target=\"_blank\" rel=\"noopener noreferrer\">\n            GitHub <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 11L11 5M11 5H6M11 5V10\"/></svg>\n          </a>\n          <a class=\"me-nav-yt\" href=\"https://youtube.com/@rivals0321\" target=\"_blank\" rel=\"noopener noreferrer\">\n            YouTube <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 11L11 5M11 5H6M11 5V10\"/></svg>\n          </a>\n        </nav>\n        <button class=\"modal-close-btn\" id=\"modal-projects-close\" aria-label=\"Close About Me\">&times;</button>\n      </header>\n\n      <div class=\"me-modal-scrollable\">\n        <!-- Hero Section -->\n        <section class=\"me-hero shell\" id=\"me-top\">\n          <div class=\"me-hero-content\">\n            <h1 class=\"me-hero-name\">Jeeva Raghavan</h1>\n            <p class=\"me-hero-line\">\n              Developer.<br />Making Things for\n              <a class=\"accent-green\" href=\"https://skienceisthebest.vercel.app\" target=\"_blank\" rel=\"noopener noreferrer\">skience</a>.\n            </p>\n            <div class=\"me-hero-cta-group\">\n              <a class=\"pixel-button primary\" href=\"#me-projects\">\n                See projects <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M8 3v10M4 9l4 4 4-4\"/></svg>\n              </a>\n            </div>\n            <div class=\"me-hero-socials\">\n              <a href=\"https://github.com/jeevaraghvan-ux\" target=\"_blank\" rel=\"noopener noreferrer\">\n                GitHub <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 11L11 5M11 5H6M11 5V10\"/></svg>\n              </a>\n              <a href=\"https://youtube.com/@rivals0321\" target=\"_blank\" rel=\"noopener noreferrer\">\n                YouTube <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 11L11 5M11 5H6M11 5V10\"/></svg>\n              </a>\n              <a href=\"mailto:jvrghvn0@gmail.com\">\n                Email <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 11L11 5M11 5H6M11 5V10\"/></svg>\n              </a>\n            </div>\n            <div class=\"hero-ground\" aria-hidden=\"true\">\n              <span class=\"hero-ground-fill\"></span>\n            </div>\n          </div>\n        </section>\n\n        <!-- Selected Projects Section -->\n        <section class=\"me-section shell\" id=\"me-projects\">\n          <h2 class=\"me-section-title\">Selected projects</h2>\n          <div class=\"project-grid\">\n            <!-- Project 1: Skience -->\n            <article class=\"project-card\">\n              <div class=\"project-media\">\n                <a href=\"https://skienceisthebest.vercel.app\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Visit Skience\">\n                  <div class=\"project-thumb-box skience-thumb\">\n                    <span class=\"thumb-emoji\"><svg viewBox=\"0 0 16 16\" width=\"28\" height=\"28\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 12h5.5M2 14.5h12M9.5 14.5a4.5 4.5 0 1 0-9 0\"/><circle cx=\"6\" cy=\"6\" r=\"1.5\"/></svg></span>\n                    <span class=\"thumb-label\">skience.io</span>\n                  </div>\n                  <span class=\"media-visit\" aria-hidden=\"true\">\n                    <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 11L11 5M11 5H6M11 5V10\"/></svg>\n                  </span>\n                </a>\n              </div>\n              <h3>Skience</h3>\n              <p>My 5th grade science notes, formulas, and practice quizzes.</p>\n              <p class=\"project-tag\">Built for learning</p>\n              <div class=\"project-actions\">\n                <a class=\"text-link\" href=\"https://skienceisthebest.vercel.app\" target=\"_blank\" rel=\"noopener noreferrer\">\n                  skienceisthebest.vercel.app <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 11L11 5M11 5H6M11 5V10\"/></svg>\n                </a>\n                <button type=\"button\" class=\"outline-button inspect-project\" data-project=\"skience\">\n                  Explore ⤢\n                </button>\n              </div>\n            </article>\n          </div>\n        </section>\n\n        <!-- About Me Section -->\n        <section class=\"me-section shell\" id=\"me-about\">\n          <h2 class=\"me-section-title\">About me</h2>\n          <div class=\"about-grid\">\n            <button type=\"button\" class=\"portrait-button\" id=\"me-portrait-btn\" aria-label=\"Say hello to the pixel builder\">\n              <div class=\"avatar-speech-bubble hidden\" id=\"avatar-speech-bubble\">Hi, player 2!</div>\n              <canvas id=\"me-portrait-canvas\" width=\"96\" height=\"96\" aria-hidden=\"true\"></canvas>\n              <span class=\"portrait-caption\">Click to say hi</span>\n            </button>\n            <div class=\"player-card\">\n              <h3>Jeeva Raghavan</h3>\n              <p>Class: Developer</p>\n              <div class=\"inventory\">\n                <h4>Inventory</h4>\n                <ul>\n                  <li>\n                    <a href=\"https://skienceisthebest.vercel.app\" target=\"_blank\" rel=\"noopener noreferrer\">Skience</a><span>Learning</span>\n                  </li>\n                  <li>\n                    <a href=\"#me-top\">This site</a><span>All lines of code by hands</span>\n                  </li>\n                </ul>\n              </div>\n              <div class=\"special-move\">\n                <h4>What I do</h4>\n                <p>gng I don't know.</p>\n              </div>\n            </div>\n          </div>\n        </section>\n\n        <!-- Contact Section & macOS Terminal -->\n        <section class=\"me-section me-contact-section shell\" id=\"me-contact\">\n          <h2 class=\"me-section-title\">Contact</h2>\n          <div class=\"contact-grid\">\n            <!-- macOS Terminal -->\n            <div class=\"terminal\" id=\"me-mac-terminal\">\n              <div class=\"terminal-bar\">\n                <div class=\"terminal-lights\" aria-label=\"macOS Window Controls\">\n                  <button type=\"button\" class=\"mac-light light-red\" id=\"mac-light-close\" title=\"Close / Clear Terminal\" aria-label=\"Close / Clear\">\n                    <svg viewBox=\"0 0 12 12\" width=\"7\" height=\"7\" stroke=\"currentColor\" stroke-width=\"1.8\" fill=\"none\"><path d=\"M2.5 2.5l7 7M9.5 2.5l-7 7\"/></svg>\n                  </button>\n                  <button type=\"button\" class=\"mac-light light-yellow\" id=\"mac-light-minimize\" title=\"Minimize Window\" aria-label=\"Minimize\">\n                    <svg viewBox=\"0 0 12 12\" width=\"7\" height=\"7\" stroke=\"currentColor\" stroke-width=\"1.8\" fill=\"none\"><path d=\"M2 6h8\"/></svg>\n                  </button>\n                  <button type=\"button\" class=\"mac-light light-green\" id=\"mac-light-zoom\" title=\"Expand / Zoom Window\" aria-label=\"Zoom\">\n                    <svg viewBox=\"0 0 12 12\" width=\"7\" height=\"7\" stroke=\"currentColor\" stroke-width=\"1.6\" fill=\"none\"><path d=\"M2.5 4.5V2.5h2M9.5 7.5v2h-2\"/></svg>\n                  </button>\n                </div>\n                <div class=\"terminal-title\">\n                  <span class=\"terminal-title-icon\" aria-hidden=\"true\">\n                    <svg viewBox=\"0 0 16 16\" width=\"11\" height=\"11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M2 13h12M3 3l5 5-5 5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n                  </span>\n                  <span class=\"terminal-title-text\" id=\"terminal-title-display\">jeeva  //  -zsh  //  80×24</span>\n                </div>\n                <div class=\"terminal-bar-right\">\n                  <span class=\"terminal-shell-badge\">zsh</span>\n                  <button type=\"button\" class=\"terminal-clear\" id=\"me-terminal-clear\" aria-label=\"Clear terminal\" title=\"Clear Terminal (Cmd+K)\">\n                    <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 3l10 10M13 3L3 13\"/></svg>\n                  </button>\n                </div>\n              </div>\n              <div class=\"terminal-body\" id=\"me-terminal-body\" style=\"position: relative;\">\n                <canvas id=\"me-terminal-matrix-canvas\" class=\"terminal-matrix-canvas hidden\"></canvas>\n                <input type=\"file\" id=\"terminal-custom-audio-file\" accept=\"audio/*\" style=\"display: none;\" />\n                <div class=\"terminal-output\" id=\"me-terminal-output\" role=\"log\" aria-live=\"polite\">\n                  <div class=\"terminal-session-header\">Last login: <span id=\"terminal-login-time\">Wed Nov 11 11:39:00</span> on ttys001</div>\n                  <p class=\"terminal-intro-line\">type <span class=\"term-hl\">help</span> or click a button below.</p>\n                </div>\n                <form class=\"terminal-form\" id=\"me-terminal-form\">\n                  <label for=\"me-terminal-command\" class=\"terminal-prompt-label\">\n                    <span class=\"terminal-prompt-user\">guest@jeeva-macbook</span><span class=\"terminal-prompt-colon\">:</span><span class=\"terminal-prompt-dir\">~</span><span class=\"terminal-prompt-symbol\">%</span>\n                  </label>\n                  <div class=\"terminal-input-wrap\">\n                    <input id=\"me-terminal-command\" aria-label=\"Terminal command\" autocomplete=\"off\" spellcheck=\"false\" placeholder=\"type a command\" />\n                    <span class=\"terminal-cursor\" aria-hidden=\"true\"></span>\n                  </div>\n                  <button type=\"submit\" class=\"terminal-submit\" aria-label=\"Run command\" title=\"Execute (Enter)\">\n                    <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg>\n                  </button>\n                </form>\n              </div>\n              <div class=\"terminal-actions\" id=\"me-terminal-actions\">\n                <button type=\"button\" data-command=\"email\"><span class=\"term-key\">⌘1</span> write a note</button>\n                <button type=\"button\" data-command=\"follow\"><span class=\"term-key\">⌘2</span> follow</button>\n                <button type=\"button\" data-command=\"joke\"><span class=\"term-key\">⌘3</span> joke</button>\n                <button type=\"button\" data-command=\"help\"><span class=\"term-key\">⌘4</span> help</button>\n                <button type=\"button\" data-command=\"quote\"><span class=\"term-key\">⌘6</span> quote</button>\n                <button type=\"button\" data-command=\"music\"><span class=\"term-key\">⌘7</span> music</button>\n              </div>\n            </div>\n\n            <!-- Contact Links Side Navigation -->\n            <nav class=\"contact-links\" aria-label=\"Get in touch\">\n              <a class=\"contact-link\" href=\"https://github.com/jeevaraghvan-ux\" target=\"_blank\" rel=\"noopener noreferrer\">\n                <span class=\"contact-link-name\">GitHub</span>\n                <span class=\"contact-link-detail\">@jeevaraghvan-ux</span>\n                <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 11L11 5M11 5H6M11 5V10\"/></svg>\n              </a>\n              <a class=\"contact-link\" href=\"https://youtube.com/@rivals0321\" target=\"_blank\" rel=\"noopener noreferrer\">\n                <span class=\"contact-link-name\">YouTube</span>\n                <span class=\"contact-link-detail\">@rivals0321</span>\n                <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 11L11 5M11 5H6M11 5V10\"/></svg>\n              </a>\n              <a class=\"contact-link\" href=\"mailto:jvrghvn0@gmail.com\">\n                <span class=\"contact-link-name\">Email</span>\n                <span class=\"contact-link-detail contact-email\">jvrghvn0@gmail.com</span>\n                <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 11L11 5M11 5H6M11 5V10\"/></svg>\n              </a>\n            </nav>\n          </div>\n\n          <footer class=\"me-footer\">\n            <p>Made by &copy; <span id=\"me-year\">2026</span> Jeeva Raghavan</p>\n            <button type=\"button\" class=\"replay-intro\" id=\"me-replay-btn\">\n              Replay intro <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M2 8a6 6 0 1 1 1.76 4.24M2 4v4h4\"/></svg>\n            </button>\n          </footer>\n        </section>\n      </div>\n\n      <!-- Project Dialog Modal -->\n      <dialog class=\"project-dialog\" id=\"me-project-dialog\">\n        <div class=\"dialog-bar\">\n          <h2 id=\"me-dialog-title\"></h2>\n          <button type=\"button\" class=\"dialog-close\" id=\"me-dialog-close\" aria-label=\"Close project\">\n            <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 3l10 10M13 3L3 13\"/></svg>\n          </button>\n        </div>\n        <div class=\"dialog-media-preview\" id=\"me-dialog-media\"></div>\n        <p class=\"dialog-description\" id=\"me-dialog-description\"></p>\n        <a class=\"pixel-button primary dialog-link\" id=\"me-dialog-link\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Visit project <svg class=\"icon\" viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 11L11 5M11 5H6M11 5V10\"/></svg>\n        </a>\n      </dialog>\n\n      <!-- Toast Feedback -->\n      <div class=\"me-toast\" id=\"me-toast\" role=\"status\" hidden></div>\n    </div>\n  ","riddle":"\n    <div class=\"modal-window auth-modal-content\" style=\"max-width: 450px; border: 1px solid #2563eb; box-shadow: 0 18px 40px rgba(2, 8, 20, 0.7);\">\n      <div class=\"modal-header\">\n        <h2 class=\"modal-title\" style=\"color: #93c5fd;\">Daily Science Riddle</h2>\n        <button class=\"modal-close\" id=\"riddle-close-btn\">&times;</button>\n      </div>\n      <div class=\"modal-body auth-body\" style=\"padding: 24px; text-align: center;\">\n        <p style=\"font-size: 1.1rem; color: #fff; margin-bottom: 20px;\">I have no bones, just prints left in stone from long ago. What am I?</p>\n        <div style=\"display: flex; gap: 10px; margin-bottom: 20px;\">\n          <input type=\"text\" id=\"riddle-answer\" placeholder=\"Type your answer...\" style=\"flex: 1; padding: 10px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #fff;\" />\n          <button id=\"riddle-submit\" class=\"btn-modal-action primary\" style=\"background: #1d4ed8;\">Guess</button>\n        </div>\n        <p id=\"riddle-feedback\" style=\"color: var(--accent-cyan); font-weight: bold;\"></p>\n      </div>\n    </div>\n  ","feedback":"\n    <div class=\"modal-window glass-modal feedback-window\">\n      <div class=\"modal-header\">\n        <span class=\"modal-cat-badge\">FEEDBACK</span>\n        <button class=\"modal-close-btn\" id=\"modal-feedback-close\">&times;</button>\n      </div>\n      <h2 class=\"modal-topic-title\">Help us improve skience.io</h2>\n      <p class=\"modal-topic-desc\">What topic or fix should I add next?</p>\n      \n      <!-- FORM FOR FEEDBACK & IDEAS (NO SIGN UP / SIGN IN REQUIRED) -->\n      <form id=\"feedback-form\" class=\"new-note-form\">\n        <div class=\"form-group\">\n          <label for=\"fb-user-name\">Your Name or Grade <span style=\"color: var(--text-muted); font-size: 0.8rem; font-weight: normal;\">(Optional)</span></label>\n          <input type=\"text\" id=\"fb-user-name\" placeholder=\"e.g. 5th Grade Skience Scholar\" />\n        </div>\n\n        <div class=\"form-group\">\n          <label for=\"fb-user-email\">Your Email <span style=\"color: var(--text-muted); font-size: 0.8rem; font-weight: normal;\">(Optional, if you want a response from Jeeva)</span></label>\n          <input type=\"email\" id=\"fb-user-email\" placeholder=\"your.name@gmail.com\" />\n        </div>\n        \n        <div class=\"form-group\">\n          <label for=\"fb-user-message\">Your Message or Topic Idea <span class=\"req\">*</span></label>\n          <textarea id=\"fb-user-message\" rows=\"4\" required placeholder=\"Write a science topic request, question, or bug report...\"></textarea>\n        </div>\n\n        <button type=\"submit\" id=\"btn-submit-feedback\" class=\"btn-modal-action primary\" style=\"width: 100%;\">Send Message <svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><line x1=\"14.5\" y1=\"1.5\" x2=\"7.2\" y2=\"8.8\"/><polygon points=\"14.5 1.5 10 14.5 7.2 8.8 1.5 6\"/></svg></button>\n        <div style=\"margin-top: 14px; text-align: center; font-size: 0.82rem; color: rgba(255,255,255,0.65);\">\n          <span>Or send an email directly to Jeeva: </span>\n          <a href=\"mailto:jvrghvn0@gmail.com?subject=skience.io%20Suggestion%20for%20Jeeva\" style=\"color: var(--accent-cyan); text-decoration: underline; font-weight: 700;\">jvrghvn0@gmail.com</a>\n        </div>\n      </form>\n    </div>\n  ","appleRings":"\n    <div class=\"apple-rings-window\" id=\"apple-rings-window\">\n      <!-- Widget Top Bar -->\n      <div class=\"apple-rings-header\">\n        <div class=\"apple-rings-title-group\">\n          <div class=\"apple-rings-app-icon\">\n            <svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><path d=\"M8 1.5v13M11.2 3.5H6.5a2.2 2.2 0 0 0 0 4.4h3a2.2 2.2 0 0 1 0 4.4H4.2\"/></svg>\n          </div>\n          <div>\n            <div class=\"apple-rings-title\">STUDY PROGRESS</div>\n            <div class=\"apple-rings-sub\">Streak &amp; topics covered</div>\n          </div>\n        </div>\n        <button type=\"button\" class=\"apple-rings-close-btn\" id=\"apple-rings-close-btn\" title=\"Close (ESC)\">\n          <svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><line x1=\"12\" y1=\"4\" x2=\"4\" y2=\"12\"/><line x1=\"4\" y1=\"4\" x2=\"12\" y2=\"12\"/></svg>\n        </button>\n      </div>\n\n      <!-- Main Widget Body: Rings on Left, Metrics on Right -->\n      <div class=\"apple-rings-body\">\n        <!-- Triple Concentric Activity Rings SVG -->\n        <div class=\"apple-rings-display\" title=\"Triple Activity Rings\">\n          <svg class=\"rings-svg\" viewBox=\"0 0 140 140\" width=\"140\" height=\"140\">\n            <!-- Background Tracks -->\n            <circle class=\"ring-bg ring-bg-outer\" cx=\"70\" cy=\"70\" r=\"54\" stroke-width=\"12\"></circle>\n            <circle class=\"ring-bg ring-bg-middle\" cx=\"70\" cy=\"70\" r=\"39\" stroke-width=\"12\"></circle>\n            <circle class=\"ring-bg ring-bg-inner\" cx=\"70\" cy=\"70\" r=\"24\" stroke-width=\"12\"></circle>\n\n            <!-- Active Colored Rings (stroke-dashoffset driven) -->\n            <circle id=\"ring-outer\" class=\"ring-active ring-outer\" cx=\"70\" cy=\"70\" r=\"54\" stroke-width=\"12\" stroke-linecap=\"round\"></circle>\n            <circle id=\"ring-middle\" class=\"ring-active ring-middle\" cx=\"70\" cy=\"70\" r=\"39\" stroke-width=\"12\" stroke-linecap=\"round\"></circle>\n            <circle id=\"ring-inner\" class=\"ring-active ring-inner\" cx=\"70\" cy=\"70\" r=\"24\" stroke-width=\"12\" stroke-linecap=\"round\"></circle>\n          </svg>\n          <div class=\"rings-center-flair\" id=\"rings-flair-icon\"><svg viewBox=\"0 0 16 16\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><path d=\"M9 1L2 9h5l-1 6 8-8H9z\"/></svg></div>\n        </div>\n\n        <!-- Ring Metric Legends -->\n        <div class=\"apple-rings-metrics\">\n          <div class=\"ring-metric-row metric-red\">\n            <span class=\"metric-indicator-dot dot-red\"></span>\n            <div class=\"metric-info\">\n              <span class=\"metric-name\">TOPICS EXPLORED</span>\n              <span class=\"metric-val\" id=\"metric-topics-val\">0 / 19</span>\n            </div>\n            <span class=\"metric-pct\" id=\"metric-topics-pct\">0%</span>\n          </div>\n\n          <div class=\"ring-metric-row metric-cyan\">\n            <span class=\"metric-indicator-dot dot-cyan\"></span>\n            <div class=\"metric-info\">\n              <span class=\"metric-name\">CARDS MASTERED</span>\n              <span class=\"metric-val\" id=\"metric-cards-val\">0</span>\n            </div>\n            <span class=\"metric-pct\" id=\"metric-cards-pct\">Active</span>\n          </div>\n\n          <div class=\"ring-metric-row metric-gold\">\n            <span class=\"metric-indicator-dot dot-gold\"></span>\n            <div class=\"metric-info\">\n              <span class=\"metric-name\">PRACTICE STREAK</span>\n              <span class=\"metric-val\" id=\"metric-quiz-val\">0 Solved</span>\n            </div>\n            <span class=\"metric-pct\" id=\"metric-quiz-pct\">Ready</span>\n          </div>\n        </div>\n      </div>\n\n      <!-- Interactive 3D Concept Card Flip Widget (iOS 18 Widget) -->\n      <div class=\"apple-concept-widget-wrap\">\n        <div class=\"concept-widget-header\">\n          <span class=\"widget-pill-badge\">FLASH REVIEW</span>\n          <button type=\"button\" class=\"concept-shuffle-btn\" id=\"concept-shuffle-btn\" title=\"Shuffle New Concept\">\n            <svg viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><polyline points=\"10.5 2 14 2 14 5.5\"/><line x1=\"2.5\" y1=\"13.5\" x2=\"14\" y2=\"2\"/><polyline points=\"14 10.5 14 14 10.5 14\"/><line x1=\"10\" y1=\"10\" x2=\"14\" y2=\"14\"/><line x1=\"2.5\" y1=\"2.5\" x2=\"6\" y2=\"6\"/></svg>\n            <span>Next</span>\n          </button>\n        </div>\n\n        <!-- 3D Flip Card Container -->\n        <div class=\"concept-flip-card\" id=\"concept-flip-card\" role=\"button\" tabindex=\"0\" title=\"Click or tap to flip card\">\n          <div class=\"concept-flip-inner\" id=\"concept-flip-inner\">\n            <!-- FRONT: Title + Law + Explanation -->\n            <div class=\"concept-face concept-face-front\">\n              <div class=\"concept-category-badge\" id=\"widget-card-cat\">PHYSICAL SCIENCE</div>\n              <h4 class=\"concept-card-title\" id=\"widget-card-title\">Photosynthesis</h4>\n              <p class=\"concept-card-desc\" id=\"widget-card-desc\">Plants use light, water, and CO2 to make sugar and oxygen.</p>\n              <div class=\"concept-flip-hint\">Tap to flip for Memory Trick ↻</div>\n            </div>\n\n            <!-- BACK: Flash Trick + Formula + Jump Button -->\n            <div class=\"concept-face concept-face-back\">\n              <div class=\"concept-category-badge back-badge\">5TH GRADE MEMORY TRICK</div>\n              <div class=\"concept-card-trick\" id=\"widget-card-trick\"><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M6 12h4M6.8 14.5h2.4M8 1.5a4.6 4.6 0 0 0-4.6 4.6c0 1.6.8 3 2 3.8V11a.7.7 0 0 0 .7.7h3.8a.7.7 0 0 0 .7-.7V9.9a4.6 4.6 0 0 0-2.6-8.4z\"/></svg> Sunlight + Water + CO₂ = Plant Power Sugar!</div>\n              <div class=\"concept-card-formula\" id=\"widget-card-formula\">6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂</div>\n              <button type=\"button\" class=\"concept-jump-btn\" id=\"widget-jump-notes-btn\">Open Notes →</button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  ","commandHud":"\n    <div class=\"command-hud-window\" id=\"command-hud-window\">\n      <!-- Search Input Bar -->\n      <div class=\"command-hud-search-bar\">\n        <div class=\"command-hud-search-icon\">\n          <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><circle cx=\"7\" cy=\"7\" r=\"5\"/><line x1=\"14.5\" y1=\"14.5\" x2=\"10.8\" y2=\"10.8\"/></svg>\n        </div>\n        <input type=\"text\" id=\"command-hud-input\" class=\"command-hud-input\" placeholder=\"Type a command, search 5th grade notes, formulas, or tools...\" autocomplete=\"off\" spellcheck=\"false\" />\n        <div class=\"command-hud-badges\">\n          <kbd class=\"hud-kbd\" id=\"command-hud-esc-btn\" title=\"Close (ESC)\">ESC</kbd>\n        </div>\n      </div>\n\n      <!-- Quick Category Filter Bar -->\n      <div class=\"command-hud-filter-chips\">\n        <button type=\"button\" class=\"hud-filter-chip active\" data-hud-filter=\"all\">All</button>\n        <button type=\"button\" class=\"hud-filter-chip\" data-hud-filter=\"actions\">Actions</button>\n        <button type=\"button\" class=\"hud-filter-chip\" data-hud-filter=\"science\">Science Topics</button>\n        <button type=\"button\" class=\"hud-filter-chip\" data-hud-filter=\"tools\">Tools &amp; Audio</button>\n        <button type=\"button\" class=\"hud-filter-chip\" data-hud-filter=\"easter\">Easter Eggs</button>\n      </div>\n\n      <!-- Results List Container -->\n      <div class=\"command-hud-results\" id=\"command-hud-results\" role=\"listbox\">\n        <!-- Rendered via JavaScript -->\n      </div>\n\n      <!-- Bottom Hardware Telemetry Footer -->\n      <div class=\"command-hud-footer\">\n        <div class=\"command-hud-footer-left\">\n          <span class=\"hud-footer-hint\"><kbd class=\"hud-kbd-mini\">↑</kbd><kbd class=\"hud-kbd-mini\">↓</kbd> Navigate</span>\n          <span class=\"hud-footer-hint\"><kbd class=\"hud-kbd-mini\">↵</kbd> Run</span>\n          <span class=\"hud-footer-hint\"><kbd class=\"hud-kbd-mini\">ESC</kbd> Close</span>\n        </div>\n        <div class=\"command-hud-footer-right\">\n          <span class=\"hud-system-status\"><span class=\"hud-status-led\"></span> Quick Search</span>\n        </div>\n      </div>\n    </div>\n  "};
+const LAZY_MODAL_HTML = {"riddle":"\n    <div class=\"modal-window auth-modal-content\" style=\"max-width: 450px; border: 1px solid #2563eb; box-shadow: 0 18px 40px rgba(2, 8, 20, 0.7);\">\n      <div class=\"modal-header\">\n        <h2 class=\"modal-title\" style=\"color: #93c5fd;\">Daily Science Riddle</h2>\n        <button class=\"modal-close\" id=\"riddle-close-btn\">&times;</button>\n      </div>\n      <div class=\"modal-body auth-body\" style=\"padding: 24px; text-align: center;\">\n        <p style=\"font-size: 1.1rem; color: #fff; margin-bottom: 20px;\">I have no bones, just prints left in stone from long ago. What am I?</p>\n        <div style=\"display: flex; gap: 10px; margin-bottom: 20px;\">\n          <input type=\"text\" id=\"riddle-answer\" placeholder=\"Type your answer...\" style=\"flex: 1; padding: 10px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #fff;\" />\n          <button id=\"riddle-submit\" class=\"btn-modal-action primary\" style=\"background: #1d4ed8;\">Guess</button>\n        </div>\n        <p id=\"riddle-feedback\" style=\"color: var(--accent-cyan); font-weight: bold;\"></p>\n      </div>\n    </div>\n  ","feedback":"\n    <div class=\"modal-window glass-modal feedback-window\">\n      <div class=\"modal-header\">\n        <span class=\"modal-cat-badge\">FEEDBACK</span>\n        <button class=\"modal-close-btn\" id=\"modal-feedback-close\">&times;</button>\n      </div>\n      <h2 class=\"modal-topic-title\">Help us improve skience.io</h2>\n      <p class=\"modal-topic-desc\">What topic or fix should I add next?</p>\n      \n      <!-- FORM FOR FEEDBACK & IDEAS (NO SIGN UP / SIGN IN REQUIRED) -->\n      <form id=\"feedback-form\" class=\"new-note-form\">\n        <div class=\"form-group\">\n          <label for=\"fb-user-name\">Your Name or Grade <span style=\"color: var(--text-muted); font-size: 0.8rem; font-weight: normal;\">(Optional)</span></label>\n          <input type=\"text\" id=\"fb-user-name\" placeholder=\"e.g. 5th Grade Skience Scholar\" />\n        </div>\n\n        <div class=\"form-group\">\n          <label for=\"fb-user-email\">Your Email <span style=\"color: var(--text-muted); font-size: 0.8rem; font-weight: normal;\">(Optional, if you want a response from Jeeva)</span></label>\n          <input type=\"email\" id=\"fb-user-email\" placeholder=\"your.name@gmail.com\" />\n        </div>\n        \n        <div class=\"form-group\">\n          <label for=\"fb-user-message\">Your Message or Topic Idea <span class=\"req\">*</span></label>\n          <textarea id=\"fb-user-message\" rows=\"4\" required placeholder=\"Write a science topic request, question, or bug report...\"></textarea>\n        </div>\n\n        <button type=\"submit\" id=\"btn-submit-feedback\" class=\"btn-modal-action primary\" style=\"width: 100%;\">Send Message <svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><line x1=\"14.5\" y1=\"1.5\" x2=\"7.2\" y2=\"8.8\"/><polygon points=\"14.5 1.5 10 14.5 7.2 8.8 1.5 6\"/></svg></button>\n        <div style=\"margin-top: 14px; text-align: center; font-size: 0.82rem; color: rgba(255,255,255,0.65);\">\n          <span>Or send an email directly to Jeeva: </span>\n          <a href=\"mailto:jvrghvn0@gmail.com?subject=skience.io%20Suggestion%20for%20Jeeva\" style=\"color: var(--accent-cyan); text-decoration: underline; font-weight: 700;\">jvrghvn0@gmail.com</a>\n        </div>\n      </form>\n    </div>\n  ","appleRings":"\n    <div class=\"apple-rings-window\" id=\"apple-rings-window\">\n      <!-- Widget Top Bar -->\n      <div class=\"apple-rings-header\">\n        <div class=\"apple-rings-title-group\">\n          <div class=\"apple-rings-app-icon\">\n            <svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><path d=\"M8 1.5v13M11.2 3.5H6.5a2.2 2.2 0 0 0 0 4.4h3a2.2 2.2 0 0 1 0 4.4H4.2\"/></svg>\n          </div>\n          <div>\n            <div class=\"apple-rings-title\">STUDY PROGRESS</div>\n            <div class=\"apple-rings-sub\">Streak &amp; topics covered</div>\n          </div>\n        </div>\n        <button type=\"button\" class=\"apple-rings-close-btn\" id=\"apple-rings-close-btn\" title=\"Close (ESC)\">\n          <svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><line x1=\"12\" y1=\"4\" x2=\"4\" y2=\"12\"/><line x1=\"4\" y1=\"4\" x2=\"12\" y2=\"12\"/></svg>\n        </button>\n      </div>\n\n      <!-- Main Widget Body: Rings on Left, Metrics on Right -->\n      <div class=\"apple-rings-body\">\n        <!-- Triple Concentric Activity Rings SVG -->\n        <div class=\"apple-rings-display\" title=\"Triple Activity Rings\">\n          <svg class=\"rings-svg\" viewBox=\"0 0 140 140\" width=\"140\" height=\"140\">\n            <!-- Background Tracks -->\n            <circle class=\"ring-bg ring-bg-outer\" cx=\"70\" cy=\"70\" r=\"54\" stroke-width=\"12\"></circle>\n            <circle class=\"ring-bg ring-bg-middle\" cx=\"70\" cy=\"70\" r=\"39\" stroke-width=\"12\"></circle>\n            <circle class=\"ring-bg ring-bg-inner\" cx=\"70\" cy=\"70\" r=\"24\" stroke-width=\"12\"></circle>\n\n            <!-- Active Colored Rings (stroke-dashoffset driven) -->\n            <circle id=\"ring-outer\" class=\"ring-active ring-outer\" cx=\"70\" cy=\"70\" r=\"54\" stroke-width=\"12\" stroke-linecap=\"round\"></circle>\n            <circle id=\"ring-middle\" class=\"ring-active ring-middle\" cx=\"70\" cy=\"70\" r=\"39\" stroke-width=\"12\" stroke-linecap=\"round\"></circle>\n            <circle id=\"ring-inner\" class=\"ring-active ring-inner\" cx=\"70\" cy=\"70\" r=\"24\" stroke-width=\"12\" stroke-linecap=\"round\"></circle>\n          </svg>\n          <div class=\"rings-center-flair\" id=\"rings-flair-icon\"><svg viewBox=\"0 0 16 16\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><path d=\"M9 1L2 9h5l-1 6 8-8H9z\"/></svg></div>\n        </div>\n\n        <!-- Ring Metric Legends -->\n        <div class=\"apple-rings-metrics\">\n          <div class=\"ring-metric-row metric-red\">\n            <span class=\"metric-indicator-dot dot-red\"></span>\n            <div class=\"metric-info\">\n              <span class=\"metric-name\">TOPICS EXPLORED</span>\n              <span class=\"metric-val\" id=\"metric-topics-val\">0 / 19</span>\n            </div>\n            <span class=\"metric-pct\" id=\"metric-topics-pct\">0%</span>\n          </div>\n\n          <div class=\"ring-metric-row metric-cyan\">\n            <span class=\"metric-indicator-dot dot-cyan\"></span>\n            <div class=\"metric-info\">\n              <span class=\"metric-name\">CARDS MASTERED</span>\n              <span class=\"metric-val\" id=\"metric-cards-val\">0</span>\n            </div>\n            <span class=\"metric-pct\" id=\"metric-cards-pct\">Active</span>\n          </div>\n\n          <div class=\"ring-metric-row metric-gold\">\n            <span class=\"metric-indicator-dot dot-gold\"></span>\n            <div class=\"metric-info\">\n              <span class=\"metric-name\">PRACTICE STREAK</span>\n              <span class=\"metric-val\" id=\"metric-quiz-val\">0 Solved</span>\n            </div>\n            <span class=\"metric-pct\" id=\"metric-quiz-pct\">Ready</span>\n          </div>\n        </div>\n      </div>\n\n      <!-- Interactive 3D Concept Card Flip Widget (iOS 18 Widget) -->\n      <div class=\"apple-concept-widget-wrap\">\n        <div class=\"concept-widget-header\">\n          <span class=\"widget-pill-badge\">FLASH REVIEW</span>\n          <button type=\"button\" class=\"concept-shuffle-btn\" id=\"concept-shuffle-btn\" title=\"Shuffle New Concept\">\n            <svg viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><polyline points=\"10.5 2 14 2 14 5.5\"/><line x1=\"2.5\" y1=\"13.5\" x2=\"14\" y2=\"2\"/><polyline points=\"14 10.5 14 14 10.5 14\"/><line x1=\"10\" y1=\"10\" x2=\"14\" y2=\"14\"/><line x1=\"2.5\" y1=\"2.5\" x2=\"6\" y2=\"6\"/></svg>\n            <span>Next</span>\n          </button>\n        </div>\n\n        <!-- 3D Flip Card Container -->\n        <div class=\"concept-flip-card\" id=\"concept-flip-card\" role=\"button\" tabindex=\"0\" title=\"Click or tap to flip card\">\n          <div class=\"concept-flip-inner\" id=\"concept-flip-inner\">\n            <!-- FRONT: Title + Law + Explanation -->\n            <div class=\"concept-face concept-face-front\">\n              <div class=\"concept-category-badge\" id=\"widget-card-cat\">PHYSICAL SCIENCE</div>\n              <h4 class=\"concept-card-title\" id=\"widget-card-title\">Photosynthesis</h4>\n              <p class=\"concept-card-desc\" id=\"widget-card-desc\">Plants use light, water, and CO2 to make sugar and oxygen.</p>\n              <div class=\"concept-flip-hint\">Tap to flip for Memory Trick ↻</div>\n            </div>\n\n            <!-- BACK: Flash Trick + Formula + Jump Button -->\n            <div class=\"concept-face concept-face-back\">\n              <div class=\"concept-category-badge back-badge\">5TH GRADE MEMORY TRICK</div>\n              <div class=\"concept-card-trick\" id=\"widget-card-trick\"><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M6 12h4M6.8 14.5h2.4M8 1.5a4.6 4.6 0 0 0-4.6 4.6c0 1.6.8 3 2 3.8V11a.7.7 0 0 0 .7.7h3.8a.7.7 0 0 0 .7-.7V9.9a4.6 4.6 0 0 0-2.6-8.4z\"/></svg> Sunlight + Water + CO₂ = Plant Power Sugar!</div>\n              <div class=\"concept-card-formula\" id=\"widget-card-formula\">6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂</div>\n              <button type=\"button\" class=\"concept-jump-btn\" id=\"widget-jump-notes-btn\">Open Notes →</button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  ","commandHud":"\n    <div class=\"command-hud-window\" id=\"command-hud-window\">\n      <!-- Search Input Bar -->\n      <div class=\"command-hud-search-bar\">\n        <div class=\"command-hud-search-icon\">\n          <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><circle cx=\"7\" cy=\"7\" r=\"5\"/><line x1=\"14.5\" y1=\"14.5\" x2=\"10.8\" y2=\"10.8\"/></svg>\n        </div>\n        <input type=\"text\" id=\"command-hud-input\" class=\"command-hud-input\" placeholder=\"Type a command, search 5th grade notes, formulas, or tools...\" autocomplete=\"off\" spellcheck=\"false\" />\n        <div class=\"command-hud-badges\">\n          <kbd class=\"hud-kbd\" id=\"command-hud-esc-btn\" title=\"Close (ESC)\">ESC</kbd>\n        </div>\n      </div>\n\n      <!-- Quick Category Filter Bar -->\n      <div class=\"command-hud-filter-chips\">\n        <button type=\"button\" class=\"hud-filter-chip active\" data-hud-filter=\"all\">All</button>\n        <button type=\"button\" class=\"hud-filter-chip\" data-hud-filter=\"actions\">Actions</button>\n        <button type=\"button\" class=\"hud-filter-chip\" data-hud-filter=\"science\">Science Topics</button>\n        <button type=\"button\" class=\"hud-filter-chip\" data-hud-filter=\"tools\">Tools &amp; Audio</button>\n        <button type=\"button\" class=\"hud-filter-chip\" data-hud-filter=\"easter\">Easter Eggs</button>\n      </div>\n\n      <!-- Results List Container -->\n      <div class=\"command-hud-results\" id=\"command-hud-results\" role=\"listbox\">\n        <!-- Rendered via JavaScript -->\n      </div>\n\n      <!-- Bottom Hardware Telemetry Footer -->\n      <div class=\"command-hud-footer\">\n        <div class=\"command-hud-footer-left\">\n          <span class=\"hud-footer-hint\"><kbd class=\"hud-kbd-mini\">↑</kbd><kbd class=\"hud-kbd-mini\">↓</kbd> Navigate</span>\n          <span class=\"hud-footer-hint\"><kbd class=\"hud-kbd-mini\">↵</kbd> Run</span>\n          <span class=\"hud-footer-hint\"><kbd class=\"hud-kbd-mini\">ESC</kbd> Close</span>\n        </div>\n        <div class=\"command-hud-footer-right\">\n          <span class=\"hud-system-status\"><span class=\"hud-status-led\"></span> Quick Search</span>\n        </div>\n      </div>\n    </div>\n  "};
 
 // MAIN SCIENCE.IO APP
 class ScienceIoApp {
@@ -7966,10 +7967,9 @@ class ScienceIoApp {
 
       const glowClass = `glow-${topic.color || "cyan"}`;
       const sqCount = topic.properties ? topic.properties.length : 1;
-      const cardShortMap = {"science-plant-cell":"Cells build living things","animal-cell-01":"Cell = Basic Unit of Life","multicellular-organisms-03":"Two or more cells","unicellular-organisms-04":"Made of 1 cell","science-unit-1790909251250":"600+ muscles move bones","science-unit-1790994413345":"Bones, joints & spine","science-unit-1790995817093":"Turns food into fuel","science-unit-1791049853454":"Urine, CO2, pus & stool","science-unit-1791055801467":"Keeps germs & dirt out","science-unit-1791057557017":"Clears cell waste","science-unit-1791058004932":"Kidneys & liquid waste","science-unit-1791126671261":"Lungs trade O2 and CO2","science-unit-1791135574244":"Skin, hair & nails","science-unit-1791244354574":"Glands & hormones","science-unit-1791299610199":"Brain, cord & nerves","science-unit-1791502148496":"Heart chambers & aorta","science-unit-1791502958384":"Blood flow & vessels","science-unit-1791828041009":"Light focus & sight"};
       const rawFormula = (topic.coreFormula || "").trim();
       const isGenericFormula = !rawFormula || /^(5th Grade Scientific Principle|NO FORMULA)$/i.test(rawFormula);
-      const shownFormula = isGenericFormula ? (cardShortMap[topic.id] || "") : rawFormula;
+      const shownFormula = isGenericFormula ? "" : rawFormula;
       const hasBulletsOrLines = shownFormula && (shownFormula.includes('•') || shownFormula.includes('\n'));
       const catDisplay = ((topic.category || "Skience").replace(/science|sk1ence/gi, 'Skience')).toUpperCase();
 
@@ -8331,9 +8331,8 @@ class ScienceIoApp {
       const sqCount = topic.properties ? topic.properties.length : 1;
       const catDisplay = ((topic.category || "Skience").replace(/science|sk1ence/gi, 'Skience')).toUpperCase();
 
-      const tblShortMap = {"science-plant-cell":"Cells build living things","animal-cell-01":"Cell = Basic Unit of Life","multicellular-organisms-03":"Two or more cells","unicellular-organisms-04":"Made of 1 cell","science-unit-1790909251250":"600+ muscles move bones","science-unit-1790994413345":"Bones, joints & spine","science-unit-1790995817093":"Turns food into fuel","science-unit-1791049853454":"Urine, CO2, pus & stool","science-unit-1791055801467":"Keeps germs & dirt out","science-unit-1791057557017":"Clears cell waste","science-unit-1791058004932":"Kidneys & liquid waste","science-unit-1791126671261":"Lungs trade O2 and CO2","science-unit-1791135574244":"Skin, hair & nails","science-unit-1791244354574":"Glands & hormones","science-unit-1791299610199":"Brain, cord & nerves","science-unit-1791502148496":"Heart chambers & aorta","science-unit-1791502958384":"Blood flow & vessels","science-unit-1791828041009":"Light focus & sight"};
       const rawTblFormula = (topic.coreFormula || "").trim();
-      const tblFormula = (!rawTblFormula || /^(5th Grade Scientific Principle|NO FORMULA)$/i.test(rawTblFormula)) ? (tblShortMap[topic.id] || topic.grade || "Unit") : rawTblFormula;
+      const tblFormula = (!rawTblFormula || /^(5th Grade Scientific Principle|NO FORMULA)$/i.test(rawTblFormula)) ? (topic.grade || "Grade 5") : rawTblFormula;
       tr.innerHTML = `
         <td><strong>${formatBulletText(topic.title)}</strong></td>
         <td><span class="card-cat-pill">${catDisplay}</span></td>
@@ -9553,7 +9552,6 @@ class ScienceIoApp {
       if (this._projectsMounted) return;
       const modal = document.getElementById("projects-modal");
       if (!modal) return;
-      modal.innerHTML = LAZY_MODAL_HTML.projects;
       this._projectsMounted = true;
       this.setupMeSkiencePortfolio();
       const copyGmailBtn = document.getElementById("btn-copy-gmail");
