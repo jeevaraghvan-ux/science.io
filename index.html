@@ -288,17 +288,17 @@
         <div class="nav-center">
           <button class="nav-link active" id="nav-btn-home" data-scroll="hero">
             <span class="nav-idx">01</span>
-            <span class="nav-label">HOME</span>
+            <span class="nav-label">Home</span>
             <span class="nav-kbd">⌘1</span>
           </button>
           <button class="nav-link" id="nav-btn-notes" data-scroll="notes-section">
             <span class="nav-idx">02</span>
-            <span class="nav-label">NOTES</span>
+            <span class="nav-label">Notes</span>
             <span class="nav-kbd">⌘2</span>
           </button>
           <button class="nav-link" id="nav-btn-calc" data-scroll="calculator-section">
             <span class="nav-idx">03</span>
-            <span class="nav-label">CALC</span>
+            <span class="nav-label">Calc</span>
             <span class="nav-kbd">⌘3</span>
           </button>
         </div>
@@ -335,15 +335,15 @@
     <section id="hero" class="hero-section">
       <canvas id="hero-snow-stars-canvas" class="hero-snow-stars-canvas"></canvas>
       <div class="hero-content">
-        <p class="hero-eyebrow">5th Grade Science</p>
+        <p class="hero-eyebrow">5th grade science</p>
 
         <h1 class="hero-headline">
           <span class="hero-script-word">skience,</span>
-          <span class="hero-neon-word" id="hero-neon-word">CLASS NOTES.</span>
+          <span class="hero-neon-word" id="hero-neon-word">class notes.</span>
         </h1>
         
         <p class="hero-subtext">
-          I put all my 5th grade science notes here so I don't lose my worksheets before a test. Click any unit card below to read the parts, check formulas, or try the quiz questions.
+          I keep my 5th grade science notes here so I don't lose my worksheets before a test. Everything from cell parts and human body systems to formulas we did in class is right down below, and most units have quick quiz questions if you want to check what you know.
         </p>
 
         <div class="hero-action-row" style="flex-wrap: wrap; gap: 14px; justify-content: center;">
@@ -464,10 +464,6 @@
     
     <section id="calculator-section" class="calculator-section">
       <div class="calculator-section-header">
-        <div class="calc-badge-row">
-          <span class="calc-badge-glow"><svg class="ui-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h5.5M2 14.5h12M9.5 14.5a4.5 4.5 0 1 0-9 0"/><circle cx="6" cy="6" r="1.5"/></svg> FORMULAS</span>
-          <span class="calc-grade-tag">GRADE 5</span>
-        </div>
         <h2 class="calc-main-title">Science Calculator</h2>
         <p class="calc-main-subtitle">
           Formulas for class
@@ -532,9 +528,8 @@
           </div>
 
           <div class="solver-action-row">
-            <button type="button" class="solver-exec-btn" id="btn-calc-solve-formula">
+            <button type="button" class="solver-exec-btn" id="btn-calc-solve-formula" title="Calculate" aria-label="Calculate">
               <span class="exec-btn-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 1L2 9h5l-1 6 8-8H9z"/></svg></span>
-              <span>Calculate Formula</span>
             </button>
             <button type="button" class="solver-reset-btn" id="btn-calc-reset-formula" title="Reset variables">
               Reset
@@ -545,10 +540,6 @@
         <!-- Middle Deck: Liquid Glass Holographic Screen -->
         <div class="calc-glass-screen" id="calc-glass-screen">
           <div class="screen-top-meta">
-            <div class="screen-mode-pill">
-              <span class="screen-mode-led"></span>
-              <span id="calc-mode-text">FORMULA SOLVER • DENSITY</span>
-            </div>
             <div class="screen-deg-rad" id="calc-deg-rad-indicator">DEG</div>
           </div>
 
@@ -860,7 +851,7 @@
                 <input type="file" id="terminal-custom-audio-file" accept="audio/*" style="display: none;" />
                 <div class="terminal-output" id="me-terminal-output" role="log" aria-live="polite">
                   <div class="terminal-session-header">Last login: <span id="terminal-login-time">Wed Nov 11 11:39:00</span> on ttys001</div>
-                  <p class="terminal-intro-line">type <span class="term-hl">help</span> or click a button below.</p>
+                  <p class="terminal-intro-line">hi. this is jeeva’s terminal. Type <span class="term-hl">help</span> for commands, or use the dock buttons below.</p>
                 </div>
                 <form class="terminal-form" id="me-terminal-form">
                   <label for="me-terminal-command" class="terminal-prompt-label">
@@ -906,7 +897,7 @@
           </div>
 
           <footer class="me-footer">
-            <p>Made by &copy; <span id="me-year">2026</span> Jeeva Raghavan</p>
+            <p>A little curiosity. A lot of code. &copy; <span id="me-year">2026</span> Jeeva Raghavan</p>
             <button type="button" class="replay-intro" id="me-replay-btn">
               Replay intro <svg class="icon" viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8a6 6 0 1 1 1.76 4.24M2 4v4h4"/></svg>
             </button>
@@ -940,11 +931,11 @@
       <div class="modal-header" id="modal-header-collapsible">
         <div class="modal-header-top-row">
           <div class="modal-header-badge-row">
-            <span class="modal-cat-badge" id="modal-cat-badge">NOTES</span>
+            <span class="modal-cat-badge" id="modal-cat-badge">Notes</span>
             <span class="modal-domain-tag">skience.io / notes</span>
           </div>
           <div class="modal-collapsed-title" id="modal-collapsed-title">
-            <span class="collapsed-title-text" id="collapsed-title-text">Scientific Principles</span>
+            <span class="collapsed-title-text" id="collapsed-title-text">Unit Notes</span>
           </div>
           <div class="modal-header-right-actions">
             <button type="button" class="modal-collapse-btn" id="btn-collapse-header" title="Collapse header for more reading space" aria-label="Collapse header">
@@ -1019,7 +1010,22 @@
   </div>
 
   
-  <div id="riddle-modal" class="modal-backdrop hidden"></div>
+  <div id="riddle-modal" class="modal-backdrop hidden">
+    <div class="modal-window auth-modal-content" style="max-width: 450px; border: 1px solid #2563eb; box-shadow: 0 18px 40px rgba(2, 8, 20, 0.7);">
+      <div class="modal-header">
+        <h2 class="modal-title" style="color: #93c5fd;">Daily Science Riddle</h2>
+        <button class="modal-close" id="riddle-close-btn">&times;</button>
+      </div>
+      <div class="modal-body auth-body" style="padding: 24px; text-align: center;">
+        <p style="font-size: 1.1rem; color: #fff; margin-bottom: 20px;">I have no bones, just prints left in stone from long ago. What am I?</p>
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+          <input type="text" id="riddle-answer" placeholder="Type your answer..." style="flex: 1; padding: 10px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #fff;" />
+          <button id="riddle-submit" class="btn-modal-action primary" style="background: #1d4ed8;">Guess</button>
+        </div>
+        <p id="riddle-feedback" style="color: var(--accent-cyan); font-weight: bold;"></p>
+      </div>
+    </div>
+  </div>
 
   
   <div id="publish-modal" class="modal-backdrop hidden">
@@ -1046,7 +1052,7 @@
 
       <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
         <button class="btn-modal-action primary" id="btn-do-publish-now" style="width: 100%; font-size: 1.05rem; padding: 16px; background: #1d4ed8; border: 1px solid #3b82f6; box-shadow: 0 8px 20px rgba(15, 37, 71, 0.5); color: #fff; font-weight: 800;">
-          <span><svg class="ui-icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z"/></svg> PUBLISH ALL NOTES NOW</span>
+          <span><svg class="ui-icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11c-1 1-1.3 3.3-1.3 3.3s2.3-.3 3.3-1.3m3-2.5L6 8.5A14 14 0 0 1 14.5 1.5c0 2.2-.8 5.2-4 7.5z"/></svg> Publish notes</span>
         </button>
 
         <button class="btn-modal-action secondary" id="btn-pull-cloud-now" style="width: 100%; font-size: 0.9rem;">
@@ -1085,7 +1091,7 @@
         <div class="vault-door-header">
           <div class="vault-badge-secure">
             <span class="secure-beacon"></span>
-            <span>ADMIN VAULT</span>
+            <span>Vault</span>
           </div>
           <button class="modal-close-btn" id="vault-lock-close" title="Close Vault">&times;</button>
         </div>
@@ -1116,7 +1122,7 @@
           </div>
 
           <div class="vault-lock-credentials">
-            <h2 class="vault-lock-title">ADMIN VAULT</h2>
+            <h2 class="vault-lock-title">Vault</h2>
             <p class="vault-lock-subtitle" id="vault-lock-status-msg">Passcode</p>
 
             <div class="vault-redirect-warning hidden" id="vault-redirect-warning">
@@ -1137,7 +1143,7 @@
               <div class="pin-slot" data-pin-index="6"><span class="pin-dot"></span></div>
             </div>
 
-            <div class="vault-pin-feedback" id="vault-pin-feedback">ENTER 7-DIGIT CODE</div>
+            <div class="vault-pin-feedback" id="vault-pin-feedback">Enter 7-digit code</div>
 
             <!-- Cyber Keypad -->
             <div class="vault-keypad-grid">
@@ -1164,7 +1170,40 @@
   </div>
 
   
-  <div id="feedback-modal" class="modal-backdrop hidden"></div>
+  <div id="feedback-modal" class="modal-backdrop hidden">
+    <div class="modal-window glass-modal feedback-window">
+      <div class="modal-header">
+        <span class="modal-cat-badge">Suggestions</span>
+        <button class="modal-close-btn" id="modal-feedback-close">&times;</button>
+      </div>
+      <h2 class="modal-topic-title">Help us improve skience.io</h2>
+      <p class="modal-topic-desc">What 5th grade topic or fix should Jeeva add next?</p>
+      
+      <!-- FORM FOR FEEDBACK & IDEAS (NO SIGN UP / SIGN IN REQUIRED) -->
+      <form id="feedback-form" class="new-note-form">
+        <div class="form-group">
+          <label for="fb-user-name">Your Name or Grade <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(Optional)</span></label>
+          <input type="text" id="fb-user-name" placeholder="e.g. 5th Grade Skience Scholar" />
+        </div>
+
+        <div class="form-group">
+          <label for="fb-user-email">Your Email <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(Optional, if you want a response from Jeeva)</span></label>
+          <input type="email" id="fb-user-email" placeholder="your.name@gmail.com" />
+        </div>
+        
+        <div class="form-group">
+          <label for="fb-user-message">Your Message or Topic Idea <span class="req">*</span></label>
+          <textarea id="fb-user-message" rows="4" required placeholder="Write a science topic request, question, or bug report..."></textarea>
+        </div>
+
+        <button type="submit" id="btn-submit-feedback" class="btn-modal-action primary" style="width: 100%;">Send Message <svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="14.5" y1="1.5" x2="7.2" y2="8.8"/><polygon points="14.5 1.5 10 14.5 7.2 8.8 1.5 6"/></svg></button>
+        <div style="margin-top: 14px; text-align: center; font-size: 0.82rem; color: rgba(255,255,255,0.65);">
+          <span>Or send an email directly to Jeeva: </span>
+          <a href="mailto:jvrghvn0@gmail.com?subject=skience.io%20Suggestion%20for%20Jeeva" style="color: var(--accent-cyan); text-decoration: underline; font-weight: 700;">jvrghvn0@gmail.com</a>
+        </div>
+      </form>
+    </div>
+  </div>
 
   
   <div id="printable-cheat-sheet" class="printable-area hidden">
@@ -1230,10 +1269,148 @@
 
 
   
-  <div id="apple-rings-modal" class="apple-rings-backdrop hidden" aria-modal="true" role="dialog" aria-label="Apple Activity Rings & Study Widget"></div>
+  <div id="apple-rings-modal" class="apple-rings-backdrop hidden" aria-modal="true" role="dialog" aria-label="Activity Rings">
+    <div class="apple-rings-window" id="apple-rings-window">
+      <!-- Widget Top Bar -->
+      <div class="apple-rings-header">
+        <div class="apple-rings-title-group">
+          <div class="apple-rings-app-icon">
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 1.5v13M11.2 3.5H6.5a2.2 2.2 0 0 0 0 4.4h3a2.2 2.2 0 0 1 0 4.4H4.2"/></svg>
+          </div>
+          <div>
+            <div class="apple-rings-title">Study Progress</div>
+            <div class="apple-rings-sub">Study streak</div>
+          </div>
+        </div>
+        <button type="button" class="apple-rings-close-btn" id="apple-rings-close-btn" title="Close (ESC)">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7"><line x1="12" y1="4" x2="4" y2="12"/><line x1="4" y1="4" x2="12" y2="12"/></svg>
+        </button>
+      </div>
+
+      <!-- Main Widget Body: Rings on Left, Metrics on Right -->
+      <div class="apple-rings-body">
+        <!-- Triple Concentric Activity Rings SVG -->
+        <div class="apple-rings-display" title="Triple Activity Rings">
+          <svg class="rings-svg" viewBox="0 0 140 140" width="140" height="140">
+            <!-- Background Tracks -->
+            <circle class="ring-bg ring-bg-outer" cx="70" cy="70" r="54" stroke-width="12"></circle>
+            <circle class="ring-bg ring-bg-middle" cx="70" cy="70" r="39" stroke-width="12"></circle>
+            <circle class="ring-bg ring-bg-inner" cx="70" cy="70" r="24" stroke-width="12"></circle>
+
+            <!-- Active Colored Rings (stroke-dashoffset driven) -->
+            <circle id="ring-outer" class="ring-active ring-outer" cx="70" cy="70" r="54" stroke-width="12" stroke-linecap="round"></circle>
+            <circle id="ring-middle" class="ring-active ring-middle" cx="70" cy="70" r="39" stroke-width="12" stroke-linecap="round"></circle>
+            <circle id="ring-inner" class="ring-active ring-inner" cx="70" cy="70" r="24" stroke-width="12" stroke-linecap="round"></circle>
+          </svg>
+          <div class="rings-center-flair" id="rings-flair-icon"><svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 1L2 9h5l-1 6 8-8H9z"/></svg></div>
+        </div>
+
+        <!-- Ring Metric Legends -->
+        <div class="apple-rings-metrics">
+          <div class="ring-metric-row metric-red">
+            <span class="metric-indicator-dot dot-red"></span>
+            <div class="metric-info">
+              <span class="metric-name">Topics</span>
+              <span class="metric-val" id="metric-topics-val">0 / 19</span>
+            </div>
+            <span class="metric-pct" id="metric-topics-pct">0%</span>
+          </div>
+
+          <div class="ring-metric-row metric-cyan">
+            <span class="metric-indicator-dot dot-cyan"></span>
+            <div class="metric-info">
+              <span class="metric-name">Cards</span>
+              <span class="metric-val" id="metric-cards-val">0</span>
+            </div>
+            <span class="metric-pct" id="metric-cards-pct">Active</span>
+          </div>
+
+          <div class="ring-metric-row metric-gold">
+            <span class="metric-indicator-dot dot-gold"></span>
+            <div class="metric-info">
+              <span class="metric-name">Quiz</span>
+              <span class="metric-val" id="metric-quiz-val">0 Solved</span>
+            </div>
+            <span class="metric-pct" id="metric-quiz-pct">Ready</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive 3D Concept Card Flip Widget (iOS 18 Widget) -->
+      <div class="apple-concept-widget-wrap">
+        <div class="concept-widget-header">
+          <span class="widget-pill-badge">Flashcard</span>
+          <button type="button" class="concept-shuffle-btn" id="concept-shuffle-btn" title="Shuffle New Concept">
+            <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="10.5 2 14 2 14 5.5"/><line x1="2.5" y1="13.5" x2="14" y2="2"/><polyline points="14 10.5 14 14 10.5 14"/><line x1="10" y1="10" x2="14" y2="14"/><line x1="2.5" y1="2.5" x2="6" y2="6"/></svg>
+            <span>Next</span>
+          </button>
+        </div>
+
+        <!-- 3D Flip Card Container -->
+        <div class="concept-flip-card" id="concept-flip-card" role="button" tabindex="0" title="Click or tap to flip card">
+          <div class="concept-flip-inner" id="concept-flip-inner">
+            <!-- FRONT: Title + Law + Explanation -->
+            <div class="concept-face concept-face-front">
+              <div class="concept-category-badge" id="widget-card-cat">Science</div>
+              <h4 class="concept-card-title" id="widget-card-title">Photosynthesis</h4>
+              <p class="concept-card-desc" id="widget-card-desc">Plants use light, water, and CO2 to make sugar and oxygen.</p>
+              <div class="concept-flip-hint">Tap to flip for Memory Trick ↻</div>
+            </div>
+
+            <!-- BACK: Flash Trick + Formula + Jump Button -->
+            <div class="concept-face concept-face-back">
+              <div class="concept-category-badge back-badge">Memory Trick</div>
+              <div class="concept-card-trick" id="widget-card-trick"><svg class="ui-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 12h4M6.8 14.5h2.4M8 1.5a4.6 4.6 0 0 0-4.6 4.6c0 1.6.8 3 2 3.8V11a.7.7 0 0 0 .7.7h3.8a.7.7 0 0 0 .7-.7V9.9a4.6 4.6 0 0 0-2.6-8.4z"/></svg> Sunlight + Water + CO₂ = Plant Power Sugar!</div>
+              <div class="concept-card-formula" id="widget-card-formula">6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂</div>
+              <button type="button" class="concept-jump-btn" id="widget-jump-notes-btn">Open Notes →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   
-  <div id="command-hud-modal" class="command-hud-backdrop hidden" aria-modal="true" role="dialog"></div>
+  <div id="command-hud-modal" class="command-hud-backdrop hidden" aria-modal="true" role="dialog">
+    <div class="command-hud-window" id="command-hud-window">
+      <!-- Search Input Bar -->
+      <div class="command-hud-search-bar">
+        <div class="command-hud-search-icon">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7" cy="7" r="5"/><line x1="14.5" y1="14.5" x2="10.8" y2="10.8"/></svg>
+        </div>
+        <input type="text" id="command-hud-input" class="command-hud-input" placeholder="Type a command, search 5th grade notes, formulas, or tools..." autocomplete="off" spellcheck="false" />
+        <div class="command-hud-badges">
+          <kbd class="hud-kbd" id="command-hud-esc-btn" title="Close (ESC)">ESC</kbd>
+        </div>
+      </div>
+
+      <!-- Quick Category Filter Bar -->
+      <div class="command-hud-filter-chips">
+        <button type="button" class="hud-filter-chip active" data-hud-filter="all">All</button>
+        <button type="button" class="hud-filter-chip" data-hud-filter="actions">Actions</button>
+        <button type="button" class="hud-filter-chip" data-hud-filter="science">Science Topics</button>
+        <button type="button" class="hud-filter-chip" data-hud-filter="tools">Tools &amp; Audio</button>
+        <button type="button" class="hud-filter-chip" data-hud-filter="easter">Easter Eggs</button>
+      </div>
+
+      <!-- Results List Container -->
+      <div class="command-hud-results" id="command-hud-results" role="listbox">
+        <!-- Rendered via JavaScript -->
+      </div>
+
+      <!-- Bottom Hardware Telemetry Footer -->
+      <div class="command-hud-footer">
+        <div class="command-hud-footer-left">
+          <span class="hud-footer-hint"><kbd class="hud-kbd-mini">↑</kbd><kbd class="hud-kbd-mini">↓</kbd> Navigate</span>
+          <span class="hud-footer-hint"><kbd class="hud-kbd-mini">↵</kbd> Run</span>
+          <span class="hud-footer-hint"><kbd class="hud-kbd-mini">ESC</kbd> Close</span>
+        </div>
+        <div class="command-hud-footer-right">
+          <span class="hud-system-status"><span class="hud-status-led"></span> Search</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="published_notes.js?v=67.0"></script>
     
@@ -1247,6 +1424,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=142.0"></script>
+  <script src="app.js?v=143.0"></script>
 </body>
 </html>

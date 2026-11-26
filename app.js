@@ -4318,7 +4318,7 @@ class VaultController {
     const feedback = document.getElementById("vault-pin-feedback");
     if (feedback) {
       if (this.currentPin.length === 0) {
-        feedback.textContent = "ENTER 7-DIGIT CODE";
+        feedback.textContent = "Enter 7-digit code";
         feedback.className = "vault-pin-feedback";
       } else {
         feedback.textContent = `AUTHENTICATING [${this.currentPin.length}/7]`;
@@ -6023,31 +6023,31 @@ function ensurePlantCellUnit(notesList) {
 
 // 5TH GRADE SCIENCE VOCABULARY GLOSSARY
 const SCIENCE_VOCAB_GLOSSARY = {
-  "chloroplast": { pron: "KLOR-uh-plast", def: "A green plant organelle holding chlorophyll where photosynthesis creates food from sunlight." },
-  "chloroplasts": { pron: "KLOR-uh-plasts", def: "Green plant organelles holding chlorophyll where photosynthesis creates food from sunlight." },
-  "photosynthesis": { pron: "foh-toh-SIN-thuh-sis", def: "Process where green plants convert carbon dioxide, water, and solar energy into glucose and oxygen." },
-  "mitochondria": { pron: "my-toe-KON-dree-uh", def: "The powerhouses of the cell that generate cellular energy (ATP) through respiration." },
-  "cytoplasm": { pron: "SY-toe-plaz-um", def: "Jelly-like fluid that fills the cell interior, cushioning and supporting all organelles." },
-  "nucleus": { pron: "NOO-klee-us", def: "The command center of a cell holding genetic DNA instructions and directing cell activities." },
-  "vacuole": { pron: "VAK-yoo-ohl", def: "Storage sac inside cells for water, nutrients, and waste (extra-large in plant cells for structural turgor pressure)." },
-  "vacuoles": { pron: "VAK-yoo-ohls", def: "Storage sacs inside cells for water, nutrients, and cellular waste." },
-  "cell wall": { pron: "sel wawl", def: "Rigid outer cellulose layer providing physical support, protection, and rectangular shape to plant cells." },
-  "cell membrane": { pron: "sel MEM-brayn", def: "Flexible semi-permeable boundary controlling which molecules enter and exit the cell." },
-  "endoplasmic reticulum": { pron: "en-doh-PLAZ-mik reh-TIK-yuh-lum", def: "Intracellular membrane network synthesizing and transporting essential proteins and lipids." },
-  "golgi body": { pron: "GOHL-jee BAH-dee", def: "The cellular shipping department that modifies, packages, and sorts proteins into vesicles." },
-  "ribosome": { pron: "RY-buh-sohm", def: "Microscopic molecular factory that translates genetic code to assemble amino acids into proteins." },
-  "ribosomes": { pron: "RY-buh-sohms", def: "Microscopic molecular factories that assemble amino acids into essential proteins." },
-  "diffusion": { pron: "dih-FYOO-zhun", def: "Movement of particles from an area of higher concentration to lower concentration until balanced." },
-  "osmosis": { pron: "oz-MOH-sis", def: "The spontaneous diffusion of water molecules through a selectively permeable membrane." },
-  "organism": { pron: "OR-guh-niz-um", def: "Any individual living thing (animal, plant, fungus, or microbe) capable of life processes." },
-  "unicellular": { pron: "yoo-nih-SEL-yoo-ler", def: "An organism made of only one single independent cell (e.g., amoeba, paramecium, bacterium)." },
-  "multicellular": { pron: "mul-tee-SEL-yoo-ler", def: "An organism made of many specialized cells organized into tissues, organs, and systems." },
-  "hypothesis": { pron: "hy-POTH-uh-sis", def: "A testable prediction or explanation for an observation, often framed as 'If... then...'." },
-  "variable": { pron: "VAIR-ee-uh-bul", def: "Any factor or condition in an experiment that can be changed, controlled, or measured." },
-  "ecosystem": { pron: "EE-koh-sis-tum", def: "A community of living organisms interacting with non-living environmental factors." },
-  "density": { pron: "DEN-sih-tee", def: "Mass per unit volume of a substance (how tightly matter particles are packed together)." },
-  "evaporation": { pron: "ee-vap-uh-RAY-shun", def: "Phase change where liquid absorbs heat energy and turns into gaseous water vapor." },
-  "condensation": { pron: "kon-den-SAY-shun", def: "Phase change where gaseous vapor cools down and turns back into liquid droplets." }
+  "chloroplast": { pron: "KLOR-uh-plast", def: "Green plant cell part that uses sunlight to make sugar." },
+  "chloroplasts": { pron: "KLOR-uh-plasts", def: "Green plant cell parts that make sugar from sunlight." },
+  "photosynthesis": { pron: "foh-toh-SIN-thuh-sis", def: "How plants turn water, CO2, and light into sugar and oxygen." },
+  "mitochondria": { pron: "my-toe-KON-dree-uh", def: "Breaks down sugar to give the cell energy." },
+  "cytoplasm": { pron: "SY-toe-plaz-um", def: "Jelly inside the cell that holds the parts in place." },
+  "nucleus": { pron: "NOO-klee-us", def: "Holds DNA and controls what the cell does." },
+  "vacuole": { pron: "VAK-yoo-ohl", def: "Stores water, food, and waste in a cell (extra big in plant cells)." },
+  "vacuoles": { pron: "VAK-yoo-ohls", def: "Storage pockets inside cells for water and waste." },
+  "cell wall": { pron: "sel wawl", def: "Stiff outer wall around a plant cell." },
+  "cell membrane": { pron: "sel MEM-brayn", def: "Thin outer layer that lets good things in and keeps bad things out." },
+  "endoplasmic reticulum": { pron: "en-doh-PLAZ-mik reh-TIK-yuh-lum", def: "Tubes inside a cell that make and move fats and proteins." },
+  "golgi body": { pron: "GOHL-jee BAH-dee", def: "Packs proteins into bubbles and sends them out." },
+  "ribosome": { pron: "RY-buh-sohm", def: "Tiny part that builds proteins for the cell." },
+  "ribosomes": { pron: "RY-buh-sohms", def: "Tiny parts that make proteins for the cell." },
+  "diffusion": { pron: "dih-FYOO-zhun", def: "Particles spreading from crowded areas to less crowded ones." },
+  "osmosis": { pron: "oz-MOH-sis", def: "Water moving across a cell membrane." },
+  "organism": { pron: "OR-guh-niz-um", def: "Any living thing." },
+  "unicellular": { pron: "yoo-nih-SEL-yoo-ler", def: "A living thing made of just one cell, like an amoeba." },
+  "multicellular": { pron: "mul-tee-SEL-yoo-ler", def: "A living thing made of many cells." },
+  "hypothesis": { pron: "hy-POTH-uh-sis", def: "A testable guess you can check in an experiment." },
+  "variable": { pron: "VAIR-ee-uh-bul", def: "Something you change or measure in an experiment." },
+  "ecosystem": { pron: "EE-koh-sis-tum", def: "Living things and their nonliving environment together." },
+  "density": { pron: "DEN-sih-tee", def: "How tightly packed the matter in an object is (mass / volume)." },
+  "evaporation": { pron: "ee-vap-uh-RAY-shun", def: "Liquid heating up and turning into gas." },
+  "condensation": { pron: "kon-den-SAY-shun", def: "Gas cooling down and turning into liquid drops." }
 };
 
 function bionicWord(word) {
@@ -6752,8 +6752,6 @@ class BubbleCascadeEngine {
   }
 }
 
-const LAZY_MODAL_HTML = {"riddle":"\n    <div class=\"modal-window auth-modal-content\" style=\"max-width: 450px; border: 1px solid #2563eb; box-shadow: 0 18px 40px rgba(2, 8, 20, 0.7);\">\n      <div class=\"modal-header\">\n        <h2 class=\"modal-title\" style=\"color: #93c5fd;\">Daily Science Riddle</h2>\n        <button class=\"modal-close\" id=\"riddle-close-btn\">&times;</button>\n      </div>\n      <div class=\"modal-body auth-body\" style=\"padding: 24px; text-align: center;\">\n        <p style=\"font-size: 1.1rem; color: #fff; margin-bottom: 20px;\">I have no bones, just prints left in stone from long ago. What am I?</p>\n        <div style=\"display: flex; gap: 10px; margin-bottom: 20px;\">\n          <input type=\"text\" id=\"riddle-answer\" placeholder=\"Type your answer...\" style=\"flex: 1; padding: 10px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #fff;\" />\n          <button id=\"riddle-submit\" class=\"btn-modal-action primary\" style=\"background: #1d4ed8;\">Guess</button>\n        </div>\n        <p id=\"riddle-feedback\" style=\"color: var(--accent-cyan); font-weight: bold;\"></p>\n      </div>\n    </div>\n  ","feedback":"\n    <div class=\"modal-window glass-modal feedback-window\">\n      <div class=\"modal-header\">\n        <span class=\"modal-cat-badge\">FEEDBACK</span>\n        <button class=\"modal-close-btn\" id=\"modal-feedback-close\">&times;</button>\n      </div>\n      <h2 class=\"modal-topic-title\">Help us improve skience.io</h2>\n      <p class=\"modal-topic-desc\">What topic or fix should I add next?</p>\n      \n      <!-- FORM FOR FEEDBACK & IDEAS (NO SIGN UP / SIGN IN REQUIRED) -->\n      <form id=\"feedback-form\" class=\"new-note-form\">\n        <div class=\"form-group\">\n          <label for=\"fb-user-name\">Your Name or Grade <span style=\"color: var(--text-muted); font-size: 0.8rem; font-weight: normal;\">(Optional)</span></label>\n          <input type=\"text\" id=\"fb-user-name\" placeholder=\"e.g. 5th Grade Skience Scholar\" />\n        </div>\n\n        <div class=\"form-group\">\n          <label for=\"fb-user-email\">Your Email <span style=\"color: var(--text-muted); font-size: 0.8rem; font-weight: normal;\">(Optional, if you want a response from Jeeva)</span></label>\n          <input type=\"email\" id=\"fb-user-email\" placeholder=\"your.name@gmail.com\" />\n        </div>\n        \n        <div class=\"form-group\">\n          <label for=\"fb-user-message\">Your Message or Topic Idea <span class=\"req\">*</span></label>\n          <textarea id=\"fb-user-message\" rows=\"4\" required placeholder=\"Write a science topic request, question, or bug report...\"></textarea>\n        </div>\n\n        <button type=\"submit\" id=\"btn-submit-feedback\" class=\"btn-modal-action primary\" style=\"width: 100%;\">Send Message <svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><line x1=\"14.5\" y1=\"1.5\" x2=\"7.2\" y2=\"8.8\"/><polygon points=\"14.5 1.5 10 14.5 7.2 8.8 1.5 6\"/></svg></button>\n        <div style=\"margin-top: 14px; text-align: center; font-size: 0.82rem; color: rgba(255,255,255,0.65);\">\n          <span>Or send an email directly to Jeeva: </span>\n          <a href=\"mailto:jvrghvn0@gmail.com?subject=skience.io%20Suggestion%20for%20Jeeva\" style=\"color: var(--accent-cyan); text-decoration: underline; font-weight: 700;\">jvrghvn0@gmail.com</a>\n        </div>\n      </form>\n    </div>\n  ","appleRings":"\n    <div class=\"apple-rings-window\" id=\"apple-rings-window\">\n      <!-- Widget Top Bar -->\n      <div class=\"apple-rings-header\">\n        <div class=\"apple-rings-title-group\">\n          <div class=\"apple-rings-app-icon\">\n            <svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><path d=\"M8 1.5v13M11.2 3.5H6.5a2.2 2.2 0 0 0 0 4.4h3a2.2 2.2 0 0 1 0 4.4H4.2\"/></svg>\n          </div>\n          <div>\n            <div class=\"apple-rings-title\">STUDY PROGRESS</div>\n            <div class=\"apple-rings-sub\">Streak &amp; topics covered</div>\n          </div>\n        </div>\n        <button type=\"button\" class=\"apple-rings-close-btn\" id=\"apple-rings-close-btn\" title=\"Close (ESC)\">\n          <svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><line x1=\"12\" y1=\"4\" x2=\"4\" y2=\"12\"/><line x1=\"4\" y1=\"4\" x2=\"12\" y2=\"12\"/></svg>\n        </button>\n      </div>\n\n      <!-- Main Widget Body: Rings on Left, Metrics on Right -->\n      <div class=\"apple-rings-body\">\n        <!-- Triple Concentric Activity Rings SVG -->\n        <div class=\"apple-rings-display\" title=\"Triple Activity Rings\">\n          <svg class=\"rings-svg\" viewBox=\"0 0 140 140\" width=\"140\" height=\"140\">\n            <!-- Background Tracks -->\n            <circle class=\"ring-bg ring-bg-outer\" cx=\"70\" cy=\"70\" r=\"54\" stroke-width=\"12\"></circle>\n            <circle class=\"ring-bg ring-bg-middle\" cx=\"70\" cy=\"70\" r=\"39\" stroke-width=\"12\"></circle>\n            <circle class=\"ring-bg ring-bg-inner\" cx=\"70\" cy=\"70\" r=\"24\" stroke-width=\"12\"></circle>\n\n            <!-- Active Colored Rings (stroke-dashoffset driven) -->\n            <circle id=\"ring-outer\" class=\"ring-active ring-outer\" cx=\"70\" cy=\"70\" r=\"54\" stroke-width=\"12\" stroke-linecap=\"round\"></circle>\n            <circle id=\"ring-middle\" class=\"ring-active ring-middle\" cx=\"70\" cy=\"70\" r=\"39\" stroke-width=\"12\" stroke-linecap=\"round\"></circle>\n            <circle id=\"ring-inner\" class=\"ring-active ring-inner\" cx=\"70\" cy=\"70\" r=\"24\" stroke-width=\"12\" stroke-linecap=\"round\"></circle>\n          </svg>\n          <div class=\"rings-center-flair\" id=\"rings-flair-icon\"><svg viewBox=\"0 0 16 16\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><path d=\"M9 1L2 9h5l-1 6 8-8H9z\"/></svg></div>\n        </div>\n\n        <!-- Ring Metric Legends -->\n        <div class=\"apple-rings-metrics\">\n          <div class=\"ring-metric-row metric-red\">\n            <span class=\"metric-indicator-dot dot-red\"></span>\n            <div class=\"metric-info\">\n              <span class=\"metric-name\">TOPICS EXPLORED</span>\n              <span class=\"metric-val\" id=\"metric-topics-val\">0 / 19</span>\n            </div>\n            <span class=\"metric-pct\" id=\"metric-topics-pct\">0%</span>\n          </div>\n\n          <div class=\"ring-metric-row metric-cyan\">\n            <span class=\"metric-indicator-dot dot-cyan\"></span>\n            <div class=\"metric-info\">\n              <span class=\"metric-name\">CARDS MASTERED</span>\n              <span class=\"metric-val\" id=\"metric-cards-val\">0</span>\n            </div>\n            <span class=\"metric-pct\" id=\"metric-cards-pct\">Active</span>\n          </div>\n\n          <div class=\"ring-metric-row metric-gold\">\n            <span class=\"metric-indicator-dot dot-gold\"></span>\n            <div class=\"metric-info\">\n              <span class=\"metric-name\">PRACTICE STREAK</span>\n              <span class=\"metric-val\" id=\"metric-quiz-val\">0 Solved</span>\n            </div>\n            <span class=\"metric-pct\" id=\"metric-quiz-pct\">Ready</span>\n          </div>\n        </div>\n      </div>\n\n      <!-- Interactive 3D Concept Card Flip Widget (iOS 18 Widget) -->\n      <div class=\"apple-concept-widget-wrap\">\n        <div class=\"concept-widget-header\">\n          <span class=\"widget-pill-badge\">FLASH REVIEW</span>\n          <button type=\"button\" class=\"concept-shuffle-btn\" id=\"concept-shuffle-btn\" title=\"Shuffle New Concept\">\n            <svg viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><polyline points=\"10.5 2 14 2 14 5.5\"/><line x1=\"2.5\" y1=\"13.5\" x2=\"14\" y2=\"2\"/><polyline points=\"14 10.5 14 14 10.5 14\"/><line x1=\"10\" y1=\"10\" x2=\"14\" y2=\"14\"/><line x1=\"2.5\" y1=\"2.5\" x2=\"6\" y2=\"6\"/></svg>\n            <span>Next</span>\n          </button>\n        </div>\n\n        <!-- 3D Flip Card Container -->\n        <div class=\"concept-flip-card\" id=\"concept-flip-card\" role=\"button\" tabindex=\"0\" title=\"Click or tap to flip card\">\n          <div class=\"concept-flip-inner\" id=\"concept-flip-inner\">\n            <!-- FRONT: Title + Law + Explanation -->\n            <div class=\"concept-face concept-face-front\">\n              <div class=\"concept-category-badge\" id=\"widget-card-cat\">PHYSICAL SCIENCE</div>\n              <h4 class=\"concept-card-title\" id=\"widget-card-title\">Photosynthesis</h4>\n              <p class=\"concept-card-desc\" id=\"widget-card-desc\">Plants use light, water, and CO2 to make sugar and oxygen.</p>\n              <div class=\"concept-flip-hint\">Tap to flip for Memory Trick ↻</div>\n            </div>\n\n            <!-- BACK: Flash Trick + Formula + Jump Button -->\n            <div class=\"concept-face concept-face-back\">\n              <div class=\"concept-category-badge back-badge\">5TH GRADE MEMORY TRICK</div>\n              <div class=\"concept-card-trick\" id=\"widget-card-trick\"><svg class=\"ui-icon\" viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M6 12h4M6.8 14.5h2.4M8 1.5a4.6 4.6 0 0 0-4.6 4.6c0 1.6.8 3 2 3.8V11a.7.7 0 0 0 .7.7h3.8a.7.7 0 0 0 .7-.7V9.9a4.6 4.6 0 0 0-2.6-8.4z\"/></svg> Sunlight + Water + CO₂ = Plant Power Sugar!</div>\n              <div class=\"concept-card-formula\" id=\"widget-card-formula\">6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂</div>\n              <button type=\"button\" class=\"concept-jump-btn\" id=\"widget-jump-notes-btn\">Open Notes →</button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  ","commandHud":"\n    <div class=\"command-hud-window\" id=\"command-hud-window\">\n      <!-- Search Input Bar -->\n      <div class=\"command-hud-search-bar\">\n        <div class=\"command-hud-search-icon\">\n          <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><circle cx=\"7\" cy=\"7\" r=\"5\"/><line x1=\"14.5\" y1=\"14.5\" x2=\"10.8\" y2=\"10.8\"/></svg>\n        </div>\n        <input type=\"text\" id=\"command-hud-input\" class=\"command-hud-input\" placeholder=\"Type a command, search 5th grade notes, formulas, or tools...\" autocomplete=\"off\" spellcheck=\"false\" />\n        <div class=\"command-hud-badges\">\n          <kbd class=\"hud-kbd\" id=\"command-hud-esc-btn\" title=\"Close (ESC)\">ESC</kbd>\n        </div>\n      </div>\n\n      <!-- Quick Category Filter Bar -->\n      <div class=\"command-hud-filter-chips\">\n        <button type=\"button\" class=\"hud-filter-chip active\" data-hud-filter=\"all\">All</button>\n        <button type=\"button\" class=\"hud-filter-chip\" data-hud-filter=\"actions\">Actions</button>\n        <button type=\"button\" class=\"hud-filter-chip\" data-hud-filter=\"science\">Science Topics</button>\n        <button type=\"button\" class=\"hud-filter-chip\" data-hud-filter=\"tools\">Tools &amp; Audio</button>\n        <button type=\"button\" class=\"hud-filter-chip\" data-hud-filter=\"easter\">Easter Eggs</button>\n      </div>\n\n      <!-- Results List Container -->\n      <div class=\"command-hud-results\" id=\"command-hud-results\" role=\"listbox\">\n        <!-- Rendered via JavaScript -->\n      </div>\n\n      <!-- Bottom Hardware Telemetry Footer -->\n      <div class=\"command-hud-footer\">\n        <div class=\"command-hud-footer-left\">\n          <span class=\"hud-footer-hint\"><kbd class=\"hud-kbd-mini\">↑</kbd><kbd class=\"hud-kbd-mini\">↓</kbd> Navigate</span>\n          <span class=\"hud-footer-hint\"><kbd class=\"hud-kbd-mini\">↵</kbd> Run</span>\n          <span class=\"hud-footer-hint\"><kbd class=\"hud-kbd-mini\">ESC</kbd> Close</span>\n        </div>\n        <div class=\"command-hud-footer-right\">\n          <span class=\"hud-system-status\"><span class=\"hud-status-led\"></span> Quick Search</span>\n        </div>\n      </div>\n    </div>\n  "};
-
 // MAIN SCIENCE.IO APP
 class ScienceIoApp {
   constructor() {
@@ -6789,11 +6787,6 @@ class ScienceIoApp {
     this.activeSimAnimId = null;
     this.moonOrbitAnimId = null;
     this.currentLabType = null;
-    this._projectsMounted = false;
-    this._riddleMounted = false;
-    this._feedbackMounted = false;
-    this._appleRingsMounted = false;
-    this._hudMounted = false;
     this.vault = new VaultController(this);
     this.calculator = new LiquidGlassCalculator(this);
 
@@ -6940,6 +6933,7 @@ class ScienceIoApp {
     this.setupEventListeners();
     this.setupHeroSnowAndStars();
     this.setupHeroHeadlineRotator();
+    this.setupMeSkiencePortfolio();
     this.setupPublishSystem();
     this.readingSuite.init();
     if (this.calculator) this.calculator.init();
@@ -7909,6 +7903,29 @@ class ScienceIoApp {
   }
 
 // 3D COVERFLOW CAROUSEL
+  buildCardActionsHtml(topic) {
+    if (!topic) return "";
+    return `
+      <div class="card-buttons-stack">
+        <button class="card-action-btn primary-action btn-card-view" data-id="${topic.id}">
+          Open notes
+        </button>
+        <div class="card-dual-actions-row">
+          <button class="card-action-btn btn-card-pdf" data-id="${topic.id}">
+            Study Sheet
+          </button>
+          <button class="card-action-btn btn-card-quiz" data-id="${topic.id}">
+            Quiz
+          </button>
+        </div>
+        ${topic.redirectUrl ? `
+        <button class="card-action-btn btn-card-redirect" style="background: rgba(10, 132, 255, 0.4);" onclick="window.open('${topic.redirectUrl}', '_blank')">
+          External Link
+        </button>` : ""}
+      </div>
+    `;
+  }
+
   setupCarouselTrack() {
     const track = document.getElementById("carousel-track");
     const dotsContainer = document.getElementById("carousel-dots");
@@ -7995,23 +8012,7 @@ class ScienceIoApp {
           </div>
         ` : ''}
 
-        <div class="card-buttons-stack">
-          <button class="card-action-btn primary-action btn-card-view" data-id="${topic.id}">
-            Open notes
-          </button>
-          <div class="card-dual-actions-row">
-            <button class="card-action-btn btn-card-pdf" data-id="${topic.id}">
-              Study Sheet
-            </button>
-            <button class="card-action-btn btn-card-quiz" data-id="${topic.id}">
-              Quiz
-            </button>
-          </div>
-          ${topic.redirectUrl ? `
-          <button class="card-action-btn btn-card-redirect" style="background: rgba(10, 132, 255, 0.4);" onclick="window.open('${topic.redirectUrl}', '_blank')">
-            EXTERNAL LINK
-          </button>` : ""}
-        </div>
+        ${idx === this.carouselIndex ? this.buildCardActionsHtml(topic) : ""}
       `;
 
       card.addEventListener("click", (e) => {
@@ -8136,7 +8137,15 @@ class ScienceIoApp {
 
       if (offset === 0) {
         card.classList.add("pos-center");
-      } else if (offset === 1) {
+        if (!card.querySelector(".card-buttons-stack")) {
+          const filtered = this.getFilteredNotes();
+          const tObj = filtered.find((t) => t.id === card.dataset.id);
+          if (tObj) card.insertAdjacentHTML("beforeend", this.buildCardActionsHtml(tObj));
+        }
+      } else {
+        card.querySelector(".card-buttons-stack")?.remove();
+      }
+      if (offset === 1) {
         card.classList.add("pos-right-1");
       } else if (offset === -1) {
         card.classList.add("pos-left-1");
@@ -8251,20 +8260,23 @@ class ScienceIoApp {
   }
 
   attachCardButtonListeners() {
-    document.querySelectorAll(".btn-card-view").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const card = btn.closest(".deck-card");
-        if (card && !card.classList.contains("pos-center")) return;
+    const track = document.getElementById("carousel-track");
+    if (!track || track._delegatedCardsBound) return;
+    track._delegatedCardsBound = true;
+    track.addEventListener("click", (e) => {
+      const card = e.target.closest(".deck-card");
+      if (!card || !card.classList.contains("pos-center")) return;
+
+      const viewBtn = e.target.closest(".btn-card-view");
+      if (viewBtn) {
         e.stopPropagation();
         sounds.playClick();
-        this.openNotesViewer(btn.dataset.id, "notes");
-      });
-    });
+        this.openNotesViewer(viewBtn.dataset.id, "notes");
+        return;
+      }
 
-    document.querySelectorAll(".organelle-chip").forEach((chip) => {
-      chip.addEventListener("click", (e) => {
-        const card = chip.closest(".deck-card");
-        if (card && !card.classList.contains("pos-center")) return;
+      const chip = e.target.closest(".organelle-chip");
+      if (chip) {
         e.stopPropagation();
         sounds.playClick();
         const topicId = chip.dataset.id;
@@ -8278,27 +8290,23 @@ class ScienceIoApp {
             setTimeout(() => targetCard.classList.remove("highlighted"), 1500);
           }
         }, 200);
-      });
-    });
+        return;
+      }
 
-    document.querySelectorAll(".btn-card-pdf").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const card = btn.closest(".deck-card");
-        if (card && !card.classList.contains("pos-center")) return;
+      const pdfBtn = e.target.closest(".btn-card-pdf");
+      if (pdfBtn) {
         e.stopPropagation();
         sounds.playClick();
-        this.printCheatSheet(btn.dataset.id);
-      });
-    });
+        this.printCheatSheet(pdfBtn.dataset.id);
+        return;
+      }
 
-    document.querySelectorAll(".btn-card-quiz").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const card = btn.closest(".deck-card");
-        if (card && !card.classList.contains("pos-center")) return;
+      const quizBtn = e.target.closest(".btn-card-quiz");
+      if (quizBtn) {
         e.stopPropagation();
         sounds.playClick();
-        this.openNotesViewer(btn.dataset.id, "practice");
-      });
+        this.openNotesViewer(quizBtn.dataset.id, "practice");
+      }
     });
   }
 
@@ -9391,19 +9399,23 @@ class ScienceIoApp {
       this.printAllNotes();
     });
 
-    // Feedback Bubble (lazy-mounted)
-    this.ensureFeedbackModalMounted = () => {
-      if (this._feedbackMounted) return;
-      const fbContainer = document.getElementById("feedback-modal");
-      if (!fbContainer) return;
-      fbContainer.innerHTML = LAZY_MODAL_HTML.feedback;
-      this._feedbackMounted = true;
-      document.getElementById("modal-feedback-close")?.addEventListener("click", () => {
-        fbContainer.classList.add("hidden");
+    // Feedback Bubble
+    const fbBubble = document.getElementById("feedback-bubble-btn");
+    const fbModal = document.getElementById("feedback-modal");
+    if (fbBubble && fbModal) {
+      fbBubble.addEventListener("click", () => {
+        sounds.playClick();
+        fbModal.classList.remove("hidden");
       });
-      const fbForm = document.getElementById("feedback-form");
-      if (fbForm) {
-        fbForm.addEventListener("submit", async (e) => {
+    }
+
+    document.getElementById("modal-feedback-close")?.addEventListener("click", () => {
+      fbModal?.classList.add("hidden");
+    });
+
+    const fbForm = document.getElementById("feedback-form");
+    if (fbForm) {
+      fbForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const nameInput = document.getElementById("fb-user-name");
@@ -9527,19 +9539,8 @@ class ScienceIoApp {
             submitBtn.disabled = false;
             submitBtn.textContent = origBtnText;
           }
-          fbContainer?.classList.add("hidden");
+          fbModal?.classList.add("hidden");
         }, 1200);
-      });
-      }
-    };
-
-    const fbBubble = document.getElementById("feedback-bubble-btn");
-    const fbModal = document.getElementById("feedback-modal");
-    if (fbBubble && fbModal) {
-      fbBubble.addEventListener("click", () => {
-        this.ensureFeedbackModalMounted();
-        sounds.playClick();
-        fbModal.classList.remove("hidden");
       });
     }
 
@@ -9548,43 +9549,11 @@ class ScienceIoApp {
       this.replayLoader();
     });
 
-    this.ensureProjectsModalMounted = () => {
-      if (this._projectsMounted) return;
-      const modal = document.getElementById("projects-modal");
-      if (!modal) return;
-      this._projectsMounted = true;
-      this.setupMeSkiencePortfolio();
-      const copyGmailBtn = document.getElementById("btn-copy-gmail");
-      if (copyGmailBtn) {
-        copyGmailBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          navigator.clipboard.writeText("jvrghvn0@gmail.com").then(() => {
-            sounds.playBeep(880, 0.08);
-            const textEl = document.getElementById("copy-email-text");
-            if (textEl) {
-              const original = textEl.textContent;
-              textEl.textContent = "Copied!";
-              setTimeout(() => { textEl.textContent = original; }, 2000);
-            }
-          }).catch(() => { alert("Email: jvrghvn0@gmail.com"); });
-        });
-      }
-      document.getElementById("modal-projects-close")?.addEventListener("click", () => {
-        sounds.playClick();
-        document.getElementById("projects-modal")?.classList.add("hidden");
-      });
-      document.getElementById("project-link-skience")?.addEventListener("click", () => {
-        sounds.playSuccess();
-      });
-    };
-
     const openJeevaProfileModal = (e) => {
       if (e) {
         e.preventDefault();
         e.stopPropagation();
       }
-      this.ensureProjectsModalMounted();
       const modal = document.getElementById("projects-modal");
       if (modal) {
         modal.classList.remove("hidden");
@@ -9600,6 +9569,32 @@ class ScienceIoApp {
       }
     };
     this.openJeevaProfileModal = openJeevaProfileModal;
+
+    const copyGmailBtn = document.getElementById("btn-copy-gmail");
+    if (copyGmailBtn) {
+      copyGmailBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        navigator.clipboard.writeText("jvrghvn0@gmail.com").then(() => {
+          sounds.playBeep(880, 0.08);
+          const textEl = document.getElementById("copy-email-text");
+          if (textEl) {
+            const original = textEl.textContent;
+            textEl.textContent = "Copied!";
+            setTimeout(() => { textEl.textContent = original; }, 2000);
+          }
+        }).catch(() => { alert("Email: jvrghvn0@gmail.com"); });
+      });
+    }
+
+    document.getElementById("modal-projects-close")?.addEventListener("click", () => {
+      sounds.playClick();
+      document.getElementById("projects-modal")?.classList.add("hidden");
+    });
+
+    document.getElementById("project-link-skience")?.addEventListener("click", () => {
+      sounds.playSuccess();
+    });
 
     document.getElementById("author-credit-trigger")?.addEventListener("click", openJeevaProfileModal);
     document.querySelector(".loader-author")?.addEventListener("click", openJeevaProfileModal);
@@ -9629,29 +9624,23 @@ class ScienceIoApp {
       }
     });
 
-    this.ensureRiddleModalMounted = () => {
-      if (this._riddleMounted) return;
-      const riddleModal = document.getElementById("riddle-modal");
-      if (!riddleModal) return;
-      riddleModal.innerHTML = LAZY_MODAL_HTML.riddle;
-      this._riddleMounted = true;
-      document.getElementById("riddle-close-btn")?.addEventListener("click", () => {
-        riddleModal.classList.add("hidden");
-      });
-      document.getElementById("riddle-submit")?.addEventListener("click", () => {
-        const ansInput = document.getElementById("riddle-answer");
-        const fb = document.getElementById("riddle-feedback");
-        const val = (ansInput?.value || "").toLowerCase().trim();
-        if (val.includes("fossil")) {
-          sounds.playSuccess();
-          this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 60);
-          if (fb) fb.textContent = "Nice! A fossil leaves prints of old life in rock.";
-        } else {
-          sounds.playClick();
-          if (fb) fb.textContent = "Not quite — think of ancient prints kept in stone.";
-        }
-      });
-    };
+    const riddleModal = document.getElementById("riddle-modal");
+    document.getElementById("riddle-close-btn")?.addEventListener("click", () => {
+      riddleModal?.classList.add("hidden");
+    });
+    document.getElementById("riddle-submit")?.addEventListener("click", () => {
+      const ansInput = document.getElementById("riddle-answer");
+      const fb = document.getElementById("riddle-feedback");
+      const val = (ansInput?.value || "").toLowerCase().trim();
+      if (val.includes("fossil")) {
+        sounds.playSuccess();
+        this.confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 60);
+        if (fb) fb.textContent = "Nice! A fossil leaves prints of old life in rock.";
+      } else {
+        sounds.playClick();
+        if (fb) fb.textContent = "Not quite — think of ancient prints kept in stone.";
+      }
+    });
   }
 
 // HOME PAGE BACKGROUND: PITCH BLACK (OPTIMIZED FOR 60FPS)
@@ -9797,14 +9786,14 @@ class ScienceIoApp {
     if (!neonWord) return;
 
     const words = [
-      "CLASS NOTES.",
-      "STUDY GUIDE.",
-      "FORMULAS.",
-      "FLASHCARDS.",
-      "LAB NOTES.",
-      "5TH GRADE.",
-      "DIAGRAMS.",
-      "QUIZZES."
+      "class notes.",
+      "study guide.",
+      "formulas.",
+      "flashcards.",
+      "worksheets.",
+      "5th grade.",
+      "diagrams.",
+      "quizzes."
     ];
     let wordIndex = 0;
 
@@ -10951,12 +10940,12 @@ class ScienceIoApp {
 
   setupCommandHud() {
     const modal = document.getElementById("command-hud-modal");
+    const input = document.getElementById("command-hud-input");
+    const resultsContainer = document.getElementById("command-hud-results");
     const triggerBtn = document.getElementById("btn-command-hud");
-    if (!modal) return;
-    let input = null;
-    let resultsContainer = null;
-    let escBtn = null;
-    let filterChips = [];
+    const escBtn = document.getElementById("command-hud-esc-btn");
+    const filterChips = document.querySelectorAll(".hud-filter-chip");
+    if (!modal || !input || !resultsContainer) return;
 
     let activeFilter = "all";
     let selectedIndex = 0;
@@ -10967,8 +10956,8 @@ class ScienceIoApp {
       {
         id: "nav-home",
         category: "actions",
-        title: "Jump to Home",
-        sub: "Scroll to top hero presentation",
+        title: "Top",
+        sub: "Back to top",
         badge: "NAV",
         icon: "home",
         keywords: "home top hero start",
@@ -10980,8 +10969,8 @@ class ScienceIoApp {
       {
         id: "nav-notes",
         category: "actions",
-        title: "5th Grade Notes Carousel",
-        sub: "Explore all science concept cards in 3D coverflow",
+        title: "Notes cards",
+        sub: "View cards",
         badge: "NOTES",
         icon: "book",
         keywords: "notes cards coverflow carousel grade 5",
@@ -10993,8 +10982,8 @@ class ScienceIoApp {
       {
         id: "nav-table",
         category: "actions",
-        title: "Catalog Table View",
-        sub: "Switch to high-density tabular index of science topics",
+        title: "Table view",
+        sub: "List all topics",
         badge: "VIEW",
         icon: "file",
         keywords: "table catalog list switch index",
@@ -11006,8 +10995,8 @@ class ScienceIoApp {
       {
         id: "nav-calc",
         category: "actions",
-        title: "Scientific Calculator & Converter",
-        sub: "Open physical constants, units, and orbital formulas",
+        title: "Calculator",
+        sub: "Formulas & math",
         badge: "CALC",
         icon: "calc",
         keywords: "calculator formulas math units constants physics",
@@ -11019,8 +11008,8 @@ class ScienceIoApp {
       {
         id: "nav-me",
         category: "actions",
-        title: "Jeeva Raghavan  //  All About Me",
-        sub: "Developer portfolio, projects, and macOS terminal",
+        title: "About Me",
+        sub: "Projects & terminal",
         badge: "DEV",
         icon: "bolt",
         keywords: "jeeva about me developer skience portfolio terminal",
@@ -11035,8 +11024,8 @@ class ScienceIoApp {
       {
         id: "nav-cheat-sheet",
         category: "actions",
-        title: "Print Review Cheat Sheet",
-        sub: "Formatted printer-ready comprehensive study sheet",
+        title: "Print sheet",
+        sub: "Print review sheet",
         badge: "PRINT",
         icon: "printer",
         keywords: "print cheat sheet pdf study review paper",
@@ -11049,8 +11038,8 @@ class ScienceIoApp {
       {
         id: "tool-activity-rings",
         category: "tools",
-        title: "Apple Activity Rings & Concept Widget",
-        sub: "Track your 5th-grade study streaks, explored units, and interactive 3D daily concept cards",
+        title: "Study Rings",
+        sub: "Streak & flashcard",
         badge: "RINGS",
         icon: "bolt",
         keywords: "rings activity streak apple watch widget daily concept flip cards progress",
@@ -11063,8 +11052,8 @@ class ScienceIoApp {
       {
         id: "tool-flashcards",
         category: "tools",
-        title: "Apple 3D Interactive Flashcards",
-        sub: "Flip through stacked study flashcards",
+        title: "Flashcards",
+        sub: "Flip cards",
         badge: "CARDS",
         icon: "cards",
         keywords: "flashcards cards 3d flip deck study test practice apple",
@@ -11077,8 +11066,8 @@ class ScienceIoApp {
       {
         id: "tool-split-view",
         category: "tools",
-        title: "Apple Split View: Concept Duel & Comparator",
-        sub: "Side-by-side Stage Manager comparison of any two science concepts with freeform drag",
+        title: "Split View",
+        sub: "Compare two topics",
         badge: "SPLIT",
         icon: "bolt",
         keywords: "split view duel compare stage manager concepts notes apple freeform drag movable",
@@ -11091,8 +11080,8 @@ class ScienceIoApp {
       {
         id: "tool-study-timer",
         category: "tools",
-        title: "Live Study Activity & Pomodoro Timer",
-        sub: "Start 25m focus sprint with Mac Dynamic Island live tracking",
+        title: "Timer",
+        sub: "25m focus timer",
         badge: "TIMER",
         icon: "timer",
         keywords: "timer pomodoro focus sprint countdown break island study",
@@ -11130,8 +11119,8 @@ class ScienceIoApp {
       {
         id: "theme-cyber",
         category: "tools",
-        title: "Theme: Midnight Blue",
-        sub: "Dark navy and cobalt blue palette",
+        title: "Midnight Blue",
+        sub: "Navy theme",
         badge: "THEME",
         icon: "cosmos",
         keywords: "theme cyber midnight blue glass",
@@ -11142,8 +11131,8 @@ class ScienceIoApp {
       {
         id: "theme-void",
         category: "tools",
-        title: "Theme: Obsidian Void",
-        sub: "Stealth monochromatic deep space obsidian black",
+        title: "Obsidian",
+        sub: "Dark theme",
         badge: "THEME",
         icon: "planet",
         keywords: "theme obsidian void black dark stealth monochrome",
@@ -11154,8 +11143,8 @@ class ScienceIoApp {
       {
         id: "theme-emerald",
         category: "tools",
-        title: "Theme: Deep Navy Blue",
-        sub: "Luminous sapphire glass and celestial gradients",
+        title: "Deep Navy",
+        sub: "Blue theme",
         badge: "THEME",
         icon: "wave",
         keywords: "theme navy blue ocean glass",
@@ -11168,13 +11157,12 @@ class ScienceIoApp {
       {
         id: "easter-boot",
         category: "easter",
-        title: "Replay Profile Loader",
-        sub: "Run Jeeva's diagnostic CRT hardware boot sequence",
+        title: "Replay Intro",
+        sub: "Profile loader",
         badge: "BOOT",
         icon: "terminal",
         keywords: "boot kernel crt sequence diagnostic hardware retro",
         action: () => {
-          this.ensureProjectsModalMounted?.();
           const meModal = document.getElementById("projects-modal");
           if (meModal) meModal.classList.remove("hidden");
           this.playAllAboutMeBootLoader?.();
@@ -11183,8 +11171,8 @@ class ScienceIoApp {
       {
         id: "easter-confetti",
         category: "easter",
-        title: "Launch Confetti",
-        sub: "Trigger luminous particle fireworks across the viewport",
+        title: "Confetti",
+        sub: "Pop confetti",
         badge: "BURST",
         icon: "sparkle",
         keywords: "confetti burst celebrate fireworks quantum particles",
@@ -11196,13 +11184,12 @@ class ScienceIoApp {
       {
         id: "easter-riddle",
         category: "easter",
-        title: "Daily Skience Riddle",
-        sub: "Solve today's 5th grade science brain-teaser",
+        title: "Daily Riddle",
+        sub: "Try today's riddle",
         badge: "QUIZ",
         icon: "help",
         keywords: "riddle daily quiz trivia question brain teaser",
         action: () => {
-          this.ensureRiddleModalMounted?.();
           document.getElementById("riddle-modal")?.classList.remove("hidden");
           sounds.playKeypadTap();
         }
@@ -11348,66 +11335,61 @@ class ScienceIoApp {
       cmd.action();
     };
 
-    const ensureCommandHudMounted = () => {
-      if (this._hudMounted) return;
-      modal.innerHTML = LAZY_MODAL_HTML.commandHud;
-      this._hudMounted = true;
-      input = document.getElementById("command-hud-input");
-      resultsContainer = document.getElementById("command-hud-results");
-      escBtn = document.getElementById("command-hud-esc-btn");
-      filterChips = document.querySelectorAll(".hud-filter-chip");
-      filterChips.forEach((chip) => {
-        chip.addEventListener("click", () => {
-          sounds.playKeypadTap();
-          filterChips.forEach((c) => c.classList.remove("active"));
-          chip.classList.add("active");
-          activeFilter = chip.dataset.hudFilter || "all";
-          selectedIndex = 0;
-          filterAndRender();
-          input?.focus();
-        });
-      });
-      input?.addEventListener("input", () => {
-        selectedIndex = 0;
-        filterAndRender();
-      });
-      input?.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowDown") {
-          e.preventDefault();
-          if (filteredCommands.length > 0) {
-            selectedIndex = (selectedIndex + 1) % filteredCommands.length;
-            updateSelectionHighlight();
-            sounds.playKeypadTap();
-          }
-        } else if (e.key === "ArrowUp") {
-          e.preventDefault();
-          if (filteredCommands.length > 0) {
-            selectedIndex = (selectedIndex - 1 + filteredCommands.length) % filteredCommands.length;
-            updateSelectionHighlight();
-            sounds.playKeypadTap();
-          }
-        } else if (e.key === "Enter") {
-          e.preventDefault();
-          executeCommand(selectedIndex);
-        } else if (e.key === "Escape") {
-          e.preventDefault();
-          closeHud();
-        }
-      });
-      escBtn?.addEventListener("click", closeHud);
-    };
-
     const openHud = () => {
-      ensureCommandHudMounted();
       modal.classList.remove("hidden");
-      if (input) input.value = "";
+      input.value = "";
       selectedIndex = 0;
       activeFilter = "all";
       filterChips.forEach((c) => c.classList.toggle("active", c.dataset.hudFilter === "all"));
       sounds.playKeypadTap();
       filterAndRender();
-      setTimeout(() => input?.focus(), 60);
+      setTimeout(() => input.focus(), 60);
     };
+
+    filterChips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        sounds.playKeypadTap();
+        filterChips.forEach((c) => c.classList.remove("active"));
+        chip.classList.add("active");
+        activeFilter = chip.dataset.hudFilter || "all";
+        selectedIndex = 0;
+        filterAndRender();
+        input.focus();
+      });
+    });
+
+    input.addEventListener("input", () => {
+      selectedIndex = 0;
+      filterAndRender();
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        if (filteredCommands.length > 0) {
+          selectedIndex = (selectedIndex + 1) % filteredCommands.length;
+          updateSelectionHighlight();
+          sounds.playKeypadTap();
+        }
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        if (filteredCommands.length > 0) {
+          selectedIndex = (selectedIndex - 1 + filteredCommands.length) % filteredCommands.length;
+          updateSelectionHighlight();
+          sounds.playKeypadTap();
+        }
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        executeCommand(selectedIndex);
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        closeHud();
+      }
+    });
+
+    escBtn?.addEventListener("click", () => {
+      modal.classList.add("hidden");
+    });
 
     const closeHud = () => {
       modal.classList.add("hidden");
@@ -12261,7 +12243,6 @@ class ScienceIoApp {
             document.getElementById("nav-btn-calc")?.click();
             break;
           case "aboutme":
-            this.ensureProjectsModalMounted?.();
             const meModal = document.getElementById("projects-modal");
             if (meModal) {
               meModal.classList.remove("hidden");
@@ -12271,7 +12252,6 @@ class ScienceIoApp {
             }
             break;
           case "studio":
-            this.ensureProjectsModalMounted?.();
             const meStudioModal = document.getElementById("projects-modal");
             if (meStudioModal) {
               meStudioModal.classList.remove("hidden");
@@ -13664,42 +13644,36 @@ class ScienceIoApp {
       } catch (_) {}
     };
 
-    const ensureAppleRingsMounted = () => {
-      if (this._appleRingsMounted) return;
-      modal.innerHTML = LAZY_MODAL_HTML.appleRings;
-      this._appleRingsMounted = true;
-      const closeBtn = document.getElementById("apple-rings-close-btn");
-      const flipCard = document.getElementById("concept-flip-card");
-      const shuffleBtn = document.getElementById("concept-shuffle-btn");
-      const jumpBtn = document.getElementById("widget-jump-notes-btn");
+    const closeBtn = document.getElementById("apple-rings-close-btn");
+    const flipCard = document.getElementById("concept-flip-card");
+    const shuffleBtn = document.getElementById("concept-shuffle-btn");
+    const jumpBtn = document.getElementById("widget-jump-notes-btn");
 
-      closeBtn?.addEventListener("click", () => this.closeAppleActivityRings());
-      flipCard?.addEventListener("click", (e) => {
-        if (e.target.closest("button")) return;
+    closeBtn?.addEventListener("click", () => this.closeAppleActivityRings());
+    flipCard?.addEventListener("click", (e) => {
+      if (e.target.closest("button")) return;
+      flipCard.classList.toggle("flipped");
+      try { if (typeof sounds.playClick === "function") sounds.playClick(); } catch (_) {}
+    });
+    flipCard?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
         flipCard.classList.toggle("flipped");
-        try { if (typeof sounds.playClick === "function") sounds.playClick(); } catch (_) {}
-      });
-      flipCard?.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          flipCard.classList.toggle("flipped");
-        }
-      });
-      shuffleBtn?.addEventListener("click", (e) => {
-        e.stopPropagation();
-        shuffleConceptCard();
-      });
-      jumpBtn?.addEventListener("click", (e) => {
-        e.stopPropagation();
-        this.closeAppleActivityRings();
-        if (currentTopicId && typeof this.openNotesViewer === "function") {
-          this.openNotesViewer(currentTopicId, "notes");
-        }
-      });
-    };
+      }
+    });
+    shuffleBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      shuffleConceptCard();
+    });
+    jumpBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      this.closeAppleActivityRings();
+      if (currentTopicId && typeof this.openNotesViewer === "function") {
+        this.openNotesViewer(currentTopicId, "notes");
+      }
+    });
 
     this.openAppleActivityRings = () => {
-      ensureAppleRingsMounted();
       this.updateAppleActivityRings();
       shuffleConceptCard();
       modal.classList.remove("hidden");
@@ -13716,6 +13690,7 @@ class ScienceIoApp {
     };
 
     openBtn?.addEventListener("click", () => this.openAppleActivityRings());
+    this.updateAppleActivityRings();
     modal.addEventListener("click", (e) => {
       if (e.target === modal) this.closeAppleActivityRings();
     });
