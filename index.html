@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>skience.io  //  5th Grade Skience Notes, Reimagined</title>
-  <meta name="theme-color" content="#0d0f17">
+  <meta name="theme-color" content="#1e293b">
 
   <!-- Open Graph / Discord / LinkedIn / iMessage -->
   <meta property="og:type" content="website">
@@ -27,8 +27,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=133.0">
-  <link rel="stylesheet" href="ios27.css?v=65.0">
+  <link rel="stylesheet" href="styles.css?v=134.0">
+  <link rel="stylesheet" href="ios27.css?v=66.0">
   <link rel="icon" type="image/webp" href="logo.webp">
   <link rel="manifest" href="manifest.json">
   <script>
@@ -446,14 +446,19 @@
     <!-- ================= HERO SECTION ================= -->
     <section id="hero" class="hero-section">
       <canvas id="hero-snow-stars-canvas" class="hero-snow-stars-canvas"></canvas>
-      <div class="hero-content">
+      <div class="hero-content hero-specimen-sheet">
+        <div class="hero-sheet-meta">
+          <span class="sheet-meta-id">SCI-NOTES // GRADE 5 SYLLABUS ARCHIVE</span>
+          <span class="sheet-meta-status">4 DISCIPLINES &bull; STUDY LABS</span>
+        </div>
+
         <h1 class="hero-headline">
           <span class="hero-script-word">skience,</span>
           <span class="hero-neon-word" id="hero-neon-word">REIMAGINED.</span>
         </h1>
         
         <p class="hero-subtext">
-          Master the foundational branches of <strong>Physical Skience</strong>, <strong>Life Skience</strong>, <strong>Earth & Space</strong>, and the <strong>Skientific Method</strong>  //  and effortlessly store and publish your own 5th grade study notes across all your devices in neon splendor.
+          Master the foundational branches of <strong>Physical Skience</strong>, <strong>Life Skience</strong>, <strong>Earth &amp; Space</strong>, and the <strong>Skientific Method</strong> with structured formulas, interactive diagrams, and multi-device study notes.
         </p>
 
         <div class="hero-action-row" style="flex-wrap: wrap; gap: 14px; justify-content: center;">
@@ -463,12 +468,19 @@
           </button>
         </div>
 
-        <div class="hero-scroll-cue" id="hero-scroll-cue">
-          <div class="cue-pill">
-            <div class="cue-dot"></div>
-          </div>
-          <span class="cue-text">SCROLL TO DISCOVER</span>
+        <div class="hero-branch-strip" aria-label="Curriculum disciplines">
+          <a href="#notes-section" class="hero-branch-chip"><span class="chip-swatch swatch-cobalt"></span>01 Physical Skience</a>
+          <a href="#notes-section" class="hero-branch-chip"><span class="chip-swatch swatch-emerald"></span>02 Life Skience</a>
+          <a href="#notes-section" class="hero-branch-chip"><span class="chip-swatch swatch-amber"></span>03 Earth &amp; Space</a>
+          <a href="#notes-section" class="hero-branch-chip"><span class="chip-swatch swatch-plum"></span>04 Skientific Method</a>
         </div>
+      </div>
+
+      <div class="hero-scroll-cue" id="hero-scroll-cue">
+        <div class="cue-pill">
+          <div class="cue-dot"></div>
+        </div>
+        <span class="cue-text">SCROLL TO DISCOVER</span>
       </div>
     </section>
 
@@ -610,7 +622,7 @@
           </button>
           <button type="button" class="calc-pill" data-formula="temp">
             <span class="pill-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></span>
-            <span class="pill-label">Temp (°C ↔ °F)</span>
+            <span class="pill-label">Temp (°C / °F)</span>
           </button>
           <button type="button" class="calc-pill" data-formula="photo">
             <span class="pill-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg></span>
@@ -1297,13 +1309,13 @@
 
             <!-- 7-Digit PIN Slots -->
             <div class="vault-pin-display" id="vault-pin-display">
-              <div class="pin-slot" data-slot="0"><span class="pin-dot"></span></div>
-              <div class="pin-slot" data-slot="1"><span class="pin-dot"></span></div>
-              <div class="pin-slot" data-slot="2"><span class="pin-dot"></span></div>
-              <div class="pin-slot" data-slot="3"><span class="pin-dot"></span></div>
-              <div class="pin-slot" data-slot="4"><span class="pin-dot"></span></div>
-              <div class="pin-slot" data-slot="5"><span class="pin-dot"></span></div>
-              <div class="pin-slot" data-slot="6"><span class="pin-dot"></span></div>
+              <div class="pin-slot" data-pin-index="0"><span class="pin-dot"></span></div>
+              <div class="pin-slot" data-pin-index="1"><span class="pin-dot"></span></div>
+              <div class="pin-slot" data-pin-index="2"><span class="pin-dot"></span></div>
+              <div class="pin-slot" data-pin-index="3"><span class="pin-dot"></span></div>
+              <div class="pin-slot" data-pin-index="4"><span class="pin-dot"></span></div>
+              <div class="pin-slot" data-pin-index="5"><span class="pin-dot"></span></div>
+              <div class="pin-slot" data-pin-index="6"><span class="pin-dot"></span></div>
             </div>
 
             <div class="vault-pin-feedback" id="vault-pin-feedback">ENTER 7-DIGIT CODE</div>
@@ -2080,6 +2092,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=136.0"></script>
+  <script src="app.js?v=137.0"></script>
 </body>
 </html>

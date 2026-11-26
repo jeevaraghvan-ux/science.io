@@ -9999,7 +9999,7 @@ class ScienceIoApp {
         const link = document.getElementById("me-dialog-link");
         if (link) {
           link.href = project.url;
-          link.textContent = `Visit ${project.name} ↗`;
+          link.textContent = `Visit ${project.name}`;
         }
         if (typeof projectDialog.showModal === "function") {
           projectDialog.showModal();
@@ -10670,7 +10670,7 @@ class ScienceIoApp {
 
         case "wforge":
           appendTerminalLine("WFORGE  //  3D Web Printing Studio & Creative Document Platform\n• Custom physical merchandise, rapid prototyping, and automated workflows.\n• Platform URL: https://W3D.base44.app");
-          appendTerminalLink("Visit WForge (W3D.base44.app) ↗", "https://W3D.base44.app");
+          appendTerminalLink("Visit WForge (W3D.base44.app)", "https://W3D.base44.app");
           sounds.playSuccess();
           break;
 

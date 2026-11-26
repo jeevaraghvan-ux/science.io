@@ -76,12 +76,12 @@
 html, body {
   width: 100%;
   min-height: 100%;
-  background-color: #06080d;
+  background-color: #25334d;
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(29, 78, 216, 0.08) 0%, transparent 60%),
-    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-  background-size: 100% 100%, 48px 48px, 48px 48px;
+    radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.14) 0%, transparent 60%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 44px 44px, 44px 44px;
   background-position: center top, -1px -1px, -1px -1px;
   color: var(--text-main);
   font-family: var(--font-sans);
@@ -848,7 +848,7 @@ html, body {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 30%, #0d0a28 0%, #050312 85%);
+  background: radial-gradient(circle at 50% 25%, #2e4061 0%, #25334d 85%);
 }
 
 .fluid-blob {
