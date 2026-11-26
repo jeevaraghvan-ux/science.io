@@ -481,6 +481,8 @@ STYLES
 #ai-chat-input {
   flex: 1;
   background: rgba(255, 255, 255, 0.08);
+}
+
 /* Apple Intelligence Siri Glow Edge */
 .siri-glow-edge {
   position: absolute;
@@ -2762,6 +2764,21 @@ body.theme-quantum-void .modal-tab-btn.active {
 /* ==========================================================================
    OPTION B: DAYLIGHT FIELD-NOTEBOOK HERO + ARCHITECTURAL SLATE BACKDROP
    ========================================================================== */
+body[data-active-tab="home"],
+body:not([data-active-tab]) {
+  background-color: #25334d !important;
+}
+
+body[data-active-tab="home"] .ambient-fluid-canvas-wrap,
+body:not([data-active-tab]) .ambient-fluid-canvas-wrap {
+  background: #25334d !important;
+}
+
+.glass-pill-nav::before,
+.glass-pill-nav::after {
+  display: none !important;
+}
+
 .glass-pill-nav {
   background: rgba(30, 41, 59, 0.9) !important;
   border: 1px solid rgba(203, 213, 225, 0.28) !important;
@@ -2796,19 +2813,27 @@ body.theme-quantum-void .modal-tab-btn.active {
   color: #ffffff !important;
 }
 
-.hero-section {
-  min-height: 86vh !important;
+#hero.hero-section {
+  min-height: 92vh !important;
+  width: 100% !important;
+  background: transparent !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
   gap: 24px !important;
-  padding: 122px 24px 48px !important;
+  padding: 132px 24px 48px !important;
+  text-align: center !important;
 }
 
-.hero-content.hero-specimen-sheet {
+#hero .hero-content.hero-specimen-sheet {
   width: 100%;
-  max-width: 920px;
+  max-width: 880px;
+  margin: 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
   background-color: #f6f3ec;
   background-image:
     linear-gradient(rgba(30, 41, 59, 0.045) 1px, transparent 1px),
@@ -2817,7 +2842,7 @@ body.theme-quantum-void .modal-tab-btn.active {
   border: 1.5px solid #cbd5e1;
   border-top: 5px solid #1e40af;
   border-radius: 24px;
-  padding: 32px 44px 36px;
+  padding: 32px 44px 38px;
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.85);
   color: #0f172a;
   position: relative;
@@ -2906,7 +2931,8 @@ body.theme-quantum-void .modal-tab-btn.active {
 }
 
 .hero-specimen-sheet .hero-action-row {
-  margin-bottom: 24px !important;
+  margin-bottom: 0 !important;
+  justify-content: center !important;
 }
 
 .hero-specimen-sheet .hero-cta-btn {
@@ -2924,48 +2950,12 @@ body.theme-quantum-void .modal-tab-btn.active {
   transform: translateY(-2px) !important;
 }
 
-.hero-branch-strip {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  padding-top: 18px;
-  border-top: 1px solid #ded7c8;
-  width: 100%;
+.hero-scroll-cue {
+  margin: 0 auto !important;
+  align-self: center !important;
+  position: relative;
+  z-index: 2;
 }
-
-.hero-branch-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: #eae4d6;
-  border: 1px solid #d5ccb9;
-  color: #1e293b;
-  font-size: 0.78rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
-}
-
-.hero-branch-chip:hover {
-  background: #e2dac8;
-  border-color: #94a3b8;
-  transform: translateY(-1px);
-}
-
-.chip-swatch {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.swatch-cobalt { background: #1d4ed8; }
-.swatch-emerald { background: #047857; }
-.swatch-amber { background: #b45309; }
-.swatch-plum { background: #6d28d9; }
 
 .hero-scroll-cue .cue-pill {
   background: rgba(30, 41, 59, 0.75) !important;
@@ -3000,11 +2990,11 @@ body.theme-quantum-void .modal-tab-btn.active {
 }
 
 @media (max-width: 640px) {
-  .hero-section {
+  #hero.hero-section {
     padding: 112px 14px 36px !important;
   }
-  .hero-content.hero-specimen-sheet {
-    padding: 22px 18px 24px;
+  #hero .hero-content.hero-specimen-sheet {
+    padding: 22px 18px 26px;
     border-radius: 18px;
   }
 }

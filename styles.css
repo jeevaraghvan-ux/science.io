@@ -8473,7 +8473,7 @@ html, body {
 /* Base body attribute tracking for active tab */
 body[data-active-tab="home"],
 body:not([data-active-tab]) {
-  background-color: #000000 !important;
+  background-color: #25334d !important;
 }
 
 body[data-active-tab="notes"] {
@@ -8496,7 +8496,7 @@ body[data-active-tab="calc"] {
 
 body[data-active-tab="home"] .ambient-fluid-canvas-wrap,
 body:not([data-active-tab]) .ambient-fluid-canvas-wrap {
-  background: #000000 !important;
+  background: #25334d !important;
 }
 
 body[data-active-tab="notes"] .ambient-fluid-canvas-wrap {
@@ -8511,12 +8511,15 @@ body[data-active-tab="calc"] .ambient-fluid-canvas-wrap {
 #hero.hero-section {
   min-height: 100vh !important;
   width: 100%;
-  background: #000000 !important;
+  background: transparent !important;
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 130px 24px 80px;
+  gap: 24px;
+  padding: 130px 24px 60px;
+  text-align: center;
 }
 
 .hero-snow-stars-canvas {
