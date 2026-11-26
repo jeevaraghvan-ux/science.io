@@ -1,16 +1,16 @@
 {
-  "name": "SCI-NOTES  //  Reimagined",
-  "short_name": "SCI-NOTES",
-  "description": "5th Grade Science Notes, Reimagined by Jeeva R.",
+  "name": "skience.io | 5th Grade Science Notes",
+  "short_name": "skience.io",
+  "description": "Jeeva's 5th grade science notes, formula solver, and unit study sheets.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#00F5D4",
+  "background_color": "#061121",
+  "theme_color": "#0c1d36",
   "icons": [
     {
-      "src": "logo.webp",
-      "sizes": "512x512",
-      "type": "image/webp"
+      "src": "logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
     }
   ]
 }

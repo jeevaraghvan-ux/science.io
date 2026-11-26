@@ -1,7 +1,7 @@
 <div align="center">
 
 # 🔬 science.io
-### *5th Grade Science Notes, Reimagined*
+### *5th Grade Science Notes*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 [![GitHub Pages](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-222222?style=for-the-badge&logo=github)](https://pages.github.com/)
@@ -11,7 +11,7 @@
 [![made with love from Jeeva R.](https://img.shields.io/badge/Made%20with-❤️%20from%20Jeeva%20R-ff477e?style=for-the-badge)](#)
 
 <p align="center">
-  <b>A radiant, interactive digital notebook covering 5th Grade Science (Physical Science, Life Science, Earth & Space, and Scientific Inquiry) with structured concept squares, admin security vault, cross-device cloud publishing, and offline database persistence.</b>
+  <b>An interactive class notebook covering 5th Grade Science (Physical Science, Life Science, Earth & Space, and Scientific Inquiry) with structured concept squares, admin security vault, cross-device cloud publishing, and offline database persistence.</b>
 </p>
 
 [🌐 **Live Demo**](https://<your-username>.github.io/science.io/) • [✨ **Features**](#-features) • [☁️ **Cross-Device Sync**](#️-cross-device-notes-database) • [🚀 **Deploy**](#-publishing--hosting) • [💻 **Run Locally**](#-running-locally)

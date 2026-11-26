@@ -164,7 +164,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 6,
         "name": "Nucleus & Nucleolus",
         "trick": "Memory Trick: Nucleus = Brain / Boss of the cell!",
-        "example": "Functions as the master command center and architectural DNA library. For example, its chromosomes store the complete master recipe manual instructing the cell when to grow, repair damage, and divide; meanwhile, the dense nucleolus inside acts like a machine shop assembling ribosomes.",
+        "example": "Acts like the master command center and architectural DNA library. For example, its chromosomes store the complete master recipe manual instructing the cell when to grow, repair damage, and divide; meanwhile, the dense nucleolus inside acts like a machine shop assembling ribosomes.",
         "formula": "Command Center • Genetic DNA Storage",
         "explanation": "The control center of the cell that directs functions and contains DNA. The nucleolus aids in the production of ribosomes."
       },
@@ -258,7 +258,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 3,
         "name": "Mitochondria",
         "trick": "Remember key scientific terms!",
-        "example": "Operates as the cellular powerhouse and energy turbine. For example, during gym class when you sprint, your heart and muscle cell mitochondria consume the sugar from your meals and oxygen from your lungs to generate millions of ATP energy fuel sparks every second.",
+        "example": "Runs as the cellular powerhouse and energy turbine. For example, during gym class when you sprint, your heart and muscle cell mitochondria consume the sugar from your meals and oxygen from your lungs to generate millions of ATP energy fuel sparks every second.",
         "formula": "Powerhouse of the Cell",
         "explanation": "Nicknamed the powerhouse of the cell because they provide the energy for the cell. The site of cellular respiration."
       },
@@ -266,7 +266,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 4,
         "name": "Endoplasmic Reticulum",
         "trick": "Remember key scientific terms!",
-        "example": "Serves as a detoxification laboratory and lipid highway. For example, in liver cells, the smooth ER breaks down medicines, alcohol, and harmful pollutants to detoxify your bloodstream, while also synthesizing essential cell fats, steroids, and cholesterol.",
+        "example": "Acts as a detoxification laboratory and lipid highway. For example, in liver cells, the smooth ER breaks down medicines, alcohol, and harmful pollutants to detoxify your bloodstream, while also synthesizing essential cell fats, steroids, and cholesterol.",
         "formula": "Transport System",
         "explanation": "Smooth endoplasmic reticulum makes lipids (fats), modifies protein and transports them throughout the cell."
       },
@@ -282,7 +282,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 6,
         "name": "Nucleus & Nucleolus",
         "trick": "Remember key scientific terms!",
-        "example": "Functions as the master headquarters holding your genetic code (DNA). For example, it contains your unique hereditary chromosomes that determine eye color, hair type, and instruct white blood cells how to fight germs; the nucleolus inside manufactures ribosome workers.",
+        "example": "Acts like the master headquarters holding your genetic code (DNA). For example, it contains your unique hereditary chromosomes that determine eye color, hair type, and instruct white blood cells how to fight germs; the nucleolus inside manufactures ribosome workers.",
         "formula": "Control Center & DNA",
         "explanation": "Control center of the cell that directs functions and contains DNA. The nucleolus aids in the production of ribosomes."
       },
@@ -473,7 +473,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 4,
         "name": "Amoeba",
         "trick": "Pseudopodia means false feet!",
-        "example": "Functions as a shape-shifting crawler and microscopic predator. For example, when it moves or hunts, it extends its fluid cytoplasm forward into temporary bulging arms called pseudopodia ('false feet') to crawl over rocks, and wraps two pseudopodia arms completely around bacteria to engulf and digest them inside a food vacuole.",
+        "example": "Works like a shape-shifting crawler and microscopic predator. For example, when it moves or hunts, it extends its fluid cytoplasm forward into temporary bulging arms called pseudopodia ('false feet') to crawl over rocks, and wraps two pseudopodia arms completely around bacteria to engulf and digest them inside a food vacuole.",
         "formula": "an organism made of only 1 cell.",
         "explanation": "An amoeba moves by projecting out its cytoplasm. These projections are called pseudopodia (false feet)."
       }
@@ -587,7 +587,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 4,
         "name": "Cardiac Muscle",
         "trick": "Lab Memory Tip",
-        "example": "Functions as an unbreakable, self-beating hydraulic pump. For example, the specialized muscular walls of your heart squeeze and relax over 100,000 times every single day without ever stopping to rest, continuously pushing blood through thousands of miles of blood vessels.",
+        "example": "Works like an unbreakable, self-beating hydraulic pump. For example, the specialized muscular walls of your heart squeeze and relax over 100,000 times every single day without ever stopping to rest, continuously pushing blood through thousands of miles of blood vessels.",
         "formula": "No FORMULA",
         "explanation": "A cardiac muscle is the heart muscle. It is found in the heart. The function is to pump blood out."
       },
@@ -650,7 +650,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 4,
         "name": "Where is the smallest bone in your body? What is it called? Size?",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as an ultra-delicate acoustic amplifier in your middle ear. For example, this tiny 2-to-3-millimeter stirrup-shaped bone vibrates when sound waves hit your eardrum, magnifying sound vibrations and transmitting them directly into the fluid-filled cochlea so your brain can hear whispers and music.",
+        "example": "Works like an tiny, sensitive acoustic amplifier in your middle ear. For example, this tiny 2-to-3-millimeter stirrup-shaped bone vibrates when sound waves hit your eardrum, magnifying sound vibrations and transmitting them directly into the fluid-filled cochlea so your brain can hear whispers and music.",
         "formula": "NO FORMULA",
         "explanation": "The smallest bone in your body is the stapes, and it is 2 to 3 millimeters long."
       },
@@ -658,7 +658,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 5,
         "name": "What are the different jobs of the vertebrae?",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as a flexible armored pillar and protective cable conduit. For example, the 33 stacked ring-shaped bones of your spine support the entire heavy weight of your upper body, bend so you can touch your toes, and form a hollow armored tunnel shielding your delicate spinal cord from injury.",
+        "example": "Works like a flexible armored pillar and protective cable conduit. For example, the 33 stacked ring-shaped bones of your spine support the entire heavy weight of your upper body, bend so you can touch your toes, and form a hollow armored tunnel shielding your delicate spinal cord from injury.",
         "formula": "NO FORMULA",
         "explanation": "Your vertebrae help bend your neck, and they carry the weight of your upper body."
       }
@@ -681,7 +681,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 1,
         "name": "Mouth",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the initial crushing mill and chemical prep kitchen. For example, your sharp incisors slice an apple while molars grind it down, and saliva glands squirt amylase enzymes that instantly start dissolving starches into simple sugars before you even swallow.",
+        "example": "Acts like the initial crushing mill and chemical prep kitchen. For example, your sharp incisors slice an apple while molars grind it down, and saliva glands squirt amylase enzymes that instantly start dissolving starches into simple sugars before you even swallow.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Your mouth has teeth that tear up and chop your food. Your saliva enzymes break it down even more."
       },
@@ -705,7 +705,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 4,
         "name": "Small Intestine",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the master nutrient absorption highway. For example, along its 20-foot winding length, microscopic finger-like projections soak up glucose, vitamins, and minerals directly into your bloodstream over 4 to 8 hours to nourish your cells.",
+        "example": "Acts like the master nutrient absorption highway. For example, along its 20-foot winding length, microscopic finger-like projections soak up glucose, vitamins, and minerals directly into your bloodstream over 4 to 8 hours to nourish your cells.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "(Tube that is 20 feet long. Food stays in your small intestine for 4 to 8 hours.)\n• Continues to break down food   \n• Absorbs nutrients into the blood\n"
       },
@@ -713,7 +713,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 5,
         "name": "Large Intestine",
         "trick": "5th Grade Science Concept",
-        "example": "Operates as a water reclamation and waste compaction facility. For example, as leftover liquid waste moves through over 10 to 12 hours, the large intestine reabsorbs almost all the water back into your body so you don't dehydrate, compacting leftovers into solid waste.",
+        "example": "Works like a water reclamation and waste compaction facility. For example, as leftover liquid waste moves through over 10 to 12 hours, the large intestine reabsorbs almost all the water back into your body so you don't dehydrate, compacting leftovers into solid waste.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "(Tube that is 5 feet long. Gets waste from the small intestine. Waste stays for 10 to 12 hours.)\n• Absorbs (soaks up) water from the remaining food\n• Contains bacteria that breaks down food\n"
       },
@@ -721,7 +721,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 6,
         "name": "Rectum",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as a temporary holding vault with sensory stretch receptors. For example, it stores compacted stool until sensory nerves alert your brain that it is time to visit the bathroom, then coordinates with the anal sphincter to release it cleanly.",
+        "example": "Works like a temporary holding vault with sensory stretch receptors. For example, it stores compacted stool until sensory nerves alert your brain that it is time to visit the bathroom, then coordinates with the anal sphincter to release it cleanly.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Rectum (Stores waste until it leaves the body through the anus)\n"
       },
@@ -745,7 +745,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 9,
         "name": "Pancreas",
         "trick": "5th Grade Science Concept",
-        "example": "Operates as a high-powered enzyme laboratory and blood-sugar regulator. For example, it pumps digestive juices that neutralize stomach acid and produces insulin hormones that unlock your cell doors so glucose sugar can leave the bloodstream and enter your cells.",
+        "example": "Works like a busy digestive organ and blood-sugar regulator. For example, it pumps digestive juices that neutralize stomach acid and produces insulin hormones that unlock your cell doors so glucose sugar can leave the bloodstream and enter your cells.",
         "formula": "5th Grade Scientific Principle",
         "explanation": " (Helps you digest food by breaking down sugars.)\n"
       },
@@ -769,7 +769,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 12,
         "name": "What is gut flora?",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as a bustling community of trillions of helpful friendly bacteria. For example, these microbes digest stubborn fiber that your human enzymes cannot break down, manufacture essential Vitamin K for blood clotting, and fight off dangerous food poisoning germs.",
+        "example": "Works like a bustling community of trillions of helpful friendly bacteria. For example, these microbes digest stubborn fiber that your human enzymes cannot break down, manufacture essential Vitamin K for blood clotting, and fight off dangerous food poisoning germs.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Gut flora are bacteria inside your gut. It makes up 30% of your body weight and it helps turn food into nutrients.  "
       },
@@ -777,7 +777,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 13,
         "name": "Who is a gasteroentologist?",
         "trick": "5th Grade Science Concept",
-        "example": "Operates as a specialized medical detective and physician for the digestive tract. For example, they diagnose and treat stomach ulcers, food allergies, acid reflux, and bowel conditions using cameras and medical tests to keep your gut healthy.",
+        "example": "Works like a specialized medical detective and physician for the digestive tract. For example, they diagnose and treat stomach ulcers, food allergies, acid reflux, and bowel conditions using cameras and medical tests to keep your gut healthy.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Gastroentologists are people that specialize in the digestive system"
       }
@@ -808,7 +808,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 2,
         "name": "Puss",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as an honorable battlefield collection of fallen immune soldiers. For example, when you scrape your knee and bacteria invade, white blood cells rush in and destroy the invaders; the resulting white fluid is made of dead bacteria, spent white blood cells, and damaged tissue cells.",
+        "example": "Works like an honorable battlefield collection of fallen immune soldiers. For example, when you scrape your knee and bacteria invade, white blood cells rush in and destroy the invaders; the resulting white fluid is made of dead bacteria, spent white blood cells, and damaged tissue cells.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Pus is dead skin cells that form when you get a cut and bacteria get in. Pus is produced from cells."
       },
@@ -816,7 +816,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 3,
         "name": "CO2",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as a gaseous combustion exhaust byproduct of cellular respiration. For example, every time your cells burn glucose for energy, carbon dioxide gas builds up in your blood; your bloodstream carries it to your lungs, where you exhale it out into the air with every breath.",
+        "example": "Works like a gaseous combustion exhaust byproduct of cellular respiration. For example, every time your cells burn glucose for energy, carbon dioxide gas builds up in your blood; your bloodstream carries it to your lungs, where you exhale it out into the air with every breath.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "When you breathe in, it goes through your lungs and you breathe out CO2"
       },
@@ -824,7 +824,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 4,
         "name": "Poop",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the elimination of unabsorbed solid food remnants, dead cells, and gut bacteria. For example, getting rid of solid bowel movements every 24 hours prevents toxic buildup and keeps your colon healthy, light, and clear.",
+        "example": "Acts like the elimination of unabsorbed solid food remnants, dead cells, and gut bacteria. For example, getting rid of solid bowel movements every 24 hours prevents toxic buildup and keeps your colon healthy, light, and clear.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Takes 24 hours to get rid of. Getting rid of it keeps you healthy."
       },
@@ -832,7 +832,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 5,
         "name": "Fart",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the natural pressure relief release of intestinal gases. For example, when gut bacteria ferment and digest hard-to-break-down beans and broccoli, harmless gases like nitrogen and methane build up pressure until they safely escape as a burp or a flatulence release.",
+        "example": "Acts like the natural pressure relief release of intestinal gases. For example, when gut bacteria ferment and digest hard-to-break-down beans and broccoli, harmless gases like nitrogen and methane build up pressure until they safely escape as a burp or a flatulence release.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Farts are caused by bacteria, and they can escape as a burp or a fart."
       }
@@ -855,7 +855,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 1,
         "name": "Mucus",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as a sticky, germ-trapping biological flypaper lining your airways. For example, when you inhale dust, soot, or pollen, sticky nasal mucus traps the foreign particles before they can reach your lungs, and sweeps them harmlessly away.",
+        "example": "Works like a sticky, germ-trapping biological flypaper lining your airways. For example, when you inhale dust, soot, or pollen, sticky nasal mucus traps the foreign particles before they can reach your lungs, and sweeps them harmlessly away.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "Mucus protects you by catching any dirt from entering your nose. When you get sick, mucus membranes go overload."
       },
@@ -863,7 +863,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 2,
         "name": "Vomit",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as an emergency biological eject button. For example, if you accidentally swallow spoiled food or a dangerous toxin, your stomach senses the poison and violently reverses peristalsis to forcefully expel the contents before the poison can be absorbed into your blood.",
+        "example": "Works like an emergency biological eject button. For example, if you accidentally swallow spoiled food or a dangerous toxin, your stomach senses the poison and violently reverses peristalsis to forcefully expel the contents before the poison can be absorbed into your blood.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "When you eat too much food it wants to throw up. You vomit because your body wants to get rid of something."
       },
@@ -871,7 +871,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 3,
         "name": "Earwax",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as a waterproof, antimicrobial trap door lining your ear canal. For example, sticky cerumen traps dirt, insects, and fungal spores from reaching your delicate eardrum, while natural antibacterial oils keep the ear canal skin moisturized and germ-free.",
+        "example": "Works like a waterproof, antimicrobial trap door lining your ear canal. For example, sticky cerumen traps dirt, insects, and fungal spores from reaching your delicate eardrum, while natural antibacterial oils keep the ear canal skin moisturized and germ-free.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "Earwax helps you by catching dirt and helps protect  the skin. You shouldn't put Q-tips into the ear canal because Q-tips are used for medicine. (Credit to Clifford for teaching me this)"
       },
@@ -887,7 +887,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 5,
         "name": "Sweat",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as an evaporative cooling air conditioning system. For example, when your body temperature rises during sports on a hot day, sweat glands release droplets of water onto your skin; as the liquid sweat evaporates into the air, it pulls heat away from your skin, cooling you down.",
+        "example": "Works like an evaporative cooling air conditioning system. For example, when your body temperature rises during sports on a hot day, sweat glands release droplets of water onto your skin; as the liquid sweat evaporates into the air, it pulls heat away from your skin, cooling you down.",
         "formula": "It can protect you by keeping germs and dirt out of your body.",
         "explanation": "You sweat to regulate your body temperature"
       }
@@ -910,7 +910,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 1,
         "name": "Other Excretory Organs",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as a multi-organ detox cleanup network working together to flush toxic byproducts. For example, lungs exhale water vapor and carbon dioxide gas, sweat glands in the skin excrete excess salts and heat, and the liver filters harmful chemicals and medications out of the bloodstream.",
+        "example": "Works like a multi-organ detox cleanup network working together to flush toxic byproducts. For example, lungs exhale water vapor and carbon dioxide gas, sweat glands in the skin excrete excess salts and heat, and the liver filters harmful chemicals and medications out of the bloodstream.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Lungs remove water vapor and carbon dioxide from the body each time you exhale\n• Skin excretes water and salts when the body is overheated\n• The liver filters blood to remove harmful chemicals and bacteria"
       }
@@ -957,7 +957,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 4,
         "name": "Urinary Bladder",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as an expandable, stretchy muscular holding tank. For example, its balloon-like elastic walls stretch to comfortably store up to two cups of urine until sensory nerves tell your brain it is time to empty it.",
+        "example": "Works like an expandable, stretchy muscular holding tank. For example, its balloon-like elastic walls stretch to comfortably store up to two cups of urine until sensory nerves tell your brain it is time to empty it.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Muscular organ that stores urine until it passes out of the body"
       },
@@ -965,7 +965,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 5,
         "name": "Urethra",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the final exit pipeline and valve system. For example, a ring of sphincter muscle relaxes to allow stored urine to flow smoothly out of the bladder and leave the body cleanly during urination.",
+        "example": "Acts like the final exit pipeline and valve system. For example, a ring of sphincter muscle relaxes to allow stored urine to flow smoothly out of the bladder and leave the body cleanly during urination.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Tube that opens to release urine out of the body."
       }
@@ -1061,7 +1061,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 3,
         "name": "Pharynx",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as a dual-purpose throat intersection corridor. For example, this muscular hallway guides inhaled air from your nasal cavity down to the larynx, and guides swallowed food from your mouth into the esophagus.",
+        "example": "Works like a dual-purpose throat intersection corridor. For example, this muscular hallway guides inhaled air from your nasal cavity down to the larynx, and guides swallowed food from your mouth into the esophagus.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Muscular passage from the nasal cavity to the larynx. "
       },
@@ -1069,7 +1069,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 4,
         "name": "Trachea",
         "trick": "5th Grade Science Concept",
-        "example": "Operates as a reinforced, non-collapsible windpipe corridor. For example, tough C-shaped rings of cartilage hold your trachea permanently wide open like a vacuum cleaner hose, ensuring air can flow freely into your chest even when your neck bends.",
+        "example": "Works like a reinforced, non-collapsible windpipe corridor. For example, tough C-shaped rings of cartilage hold your trachea permanently wide open like a vacuum cleaner hose, ensuring air can flow freely into your chest even when your neck bends.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Connects the larynx with the bronchi"
       },
@@ -1226,7 +1226,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 1,
         "name": "Homeostasis",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the body's internal balancing thermostat. For example, whether you are in a freezing snowstorm or a hot desert, homeostasis automatically regulates internal body temperature around 98.6°F, balances blood sugar, and signals hunger and thirst to keep you alive and stable.",
+        "example": "Acts like the body's internal balancing thermostat. For example, whether you are in a freezing snowstorm or a hot desert, homeostasis automatically regulates internal body temperature around 98.6°F, balances blood sugar, and signals hunger and thirst to keep you alive and stable.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Key to life and failures in homeostasis can lead to disease\n• Keeping things constant\n• Hunger & Thirst are examples\n\n\nHomeostasis includes the regulation of\n\n• oxygen & carbon dioxide levels \n• nutrient & waste product levels\n• water balance\n• body temperature\n"
       },
@@ -1234,7 +1234,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 2,
         "name": "Pituitary Gland",
         "trick": "5th Grade Science Concept",
-        "example": "Operates as the master endocrine conductor and hormone command center. For example, this pea-sized gland at the base of the brain produces human growth hormone to make your bones grow taller and sends chemical orders to all other hormone glands.",
+        "example": "Runs as the master endocrine conductor and hormone command center. For example, this pea-sized gland at the base of the brain produces human growth hormone to make your bones grow taller and sends chemical orders to all other hormone glands.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• This is considered the \"master gland.\"\n• Growth harmonies get produced there and they get sent to other organs"
       },
@@ -1250,7 +1250,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 4,
         "name": "Thyroid Gland",
         "trick": "5th Grade Science Concept",
-        "example": "Operates as the metabolic throttle and energy speedometer. For example, this butterfly-shaped gland on your neck secretes thyroxine to control how fast your cells burn calories and convert food into active energy versus storing it.",
+        "example": "Runs as the metabolic throttle and energy speedometer. For example, this butterfly-shaped gland on your neck secretes thyroxine to control how fast your cells burn calories and convert food into active energy versus storing it.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Front of the lower neck\n• Controls the rate at which our cells burn food to produce energy"
       },
@@ -1258,7 +1258,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 5,
         "name": "Adrenal Gland",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the emergency adrenaline turbocharger. For example, if you encounter sudden danger or prepare for a race, these glands on top of your kidneys dump adrenaline into your blood, making your heart race, pupils dilate, and muscles surge with instant fight-or-flight power.",
+        "example": "Acts like the emergency adrenaline turbocharger. For example, if you encounter sudden danger or prepare for a race, these glands on top of your kidneys dump adrenaline into your blood, making your heart race, pupils dilate, and muscles surge with instant fight-or-flight power.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Two glands\n• Produces adrenaline\n• Controls the body's response to stress"
       },
@@ -1274,7 +1274,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 7,
         "name": "Pancreas",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as a high-precision chemical blood glucose monitor and dispenser. For example, after eating lunch, it secretes insulin to help cells absorb sugar from the blood; between meals, it secretes glucagon to release stored liver sugar, keeping energy perfectly steady.",
+        "example": "Works like a high-precision chemical blood glucose monitor and dispenser. For example, after eating lunch, it secretes insulin to help cells absorb sugar from the blood; between meals, it secretes glucagon to release stored liver sugar, keeping energy perfectly steady.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Long flat gland\n• Produces insulin and glucagon\n• Helps controls the levels of glucose in the body"
       },
@@ -1282,7 +1282,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 8,
         "name": "Summary",
         "trick": "5th Grade Science Concept",
-        "example": "Operates as a wireless chemical messaging network controlling long-term body processes. For example, while nerves send instant electrical sparks, endocrine glands release slow-acting hormone messengers through the bloodstream to regulate mood, growth, metabolism, and sleep under hypothalamus supervision.",
+        "example": "Works like a wireless chemical messaging network controlling long-term body processes. For example, while nerves send instant electrical sparks, endocrine glands release slow-acting hormone messengers through the bloodstream to regulate mood, growth, metabolism, and sleep under hypothalamus supervision.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "The purpose of the endocrine system is to control body functions. It works with tthe nervous system and the circulatory system. Each gland an organ that makes chemical substances/ hormones in the endocrine system has a different job. Glands are controlled by the hypothalamus which acts like a thermostat."
       }
@@ -1417,7 +1417,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 1,
         "name": "Functions of the nervous system",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the body's master high-speed electrical communication grid. For example, it senses touch, light, and temperature from sensory organs, processes that data in the brain in milliseconds, and fires instant motor commands to keep you balanced, reacting, and safe.",
+        "example": "Acts like the body's master high-speed electrical communication grid. For example, it senses touch, light, and temperature from sensory organs, processes that data in the brain in milliseconds, and fires instant motor commands to keep you balanced, reacting, and safe.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Recieves info from inside & outside of the body\n• Controls & directs body's functions and responses\n• Helps maintain homeostasis"
       },
@@ -1425,7 +1425,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 2,
         "name": "Divided into 2 parts",
         "trick": "5th Grade Science Concept",
-        "example": "Operates as an integrated headquarters and regional dispatch system. For example, the Central Nervous System (brain and spinal cord) analyzes decisions and stores memories, while the Peripheral Nervous System runs nerve cables to every fingertip and toe.",
+        "example": "Works like an integrated headquarters and regional dispatch system. For example, the Central Nervous System (brain and spinal cord) analyzes decisions and stores memories, while the Peripheral Nervous System runs nerve cables to every fingertip and toe.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Peripheral Nervous System\n• Central Nervous System (Brain and Spinal Cord)"
       },
@@ -1441,7 +1441,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 4,
         "name": "Central Nervous System: The Spinal Cord ",
         "trick": "5th Grade Science Concept",
-        "example": "Operates as a high-capacity armored fiber-optic data cable. For example, millions of nerve fibers packed inside your spine transmit electrical signals between your brain and limbs at 250 miles per hour, and coordinate lightning-fast reflexes (like yanking your hand off a hot stove) before pain even reaches the brain!",
+        "example": "Works like a high-capacity armored fiber-optic data cable. For example, millions of nerve fibers packed inside your spine transmit electrical signals between your brain and limbs at 250 miles per hour, and coordinate lightning-fast reflexes (like yanking your hand off a hot stove) before pain even reaches the brain!",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Bundle of nerves that runs down the spine to carry messages between the brain and the rest of the body\n"
       },
@@ -1457,7 +1457,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 6,
         "name": "Central Nervous System: The Brain",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the master biological supercomputer containing 100 billion neurons. For example, it processes every thought, controls breathing, stores childhood memories, coordinates complex sports movements, and generates dreams while you sleep.",
+        "example": "Acts like the master biological supercomputer containing 100 billion neurons. For example, it processes every thought, controls breathing, stores childhood memories, coordinates complex sports movements, and generates dreams while you sleep.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Coordinates body activities made up of approximately 100 billion neurons"
       },
@@ -1473,7 +1473,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 8,
         "name": "Cerebrum",
         "trick": "5th Grade Science Concept",
-        "example": "Operates as the conscious thinking, problem-solving, and sensory processing hub. For example, when you read a book, solve a math problem, create art, or remember your friend's face, your cerebrum's hemispheres are actively firing.",
+        "example": "Runs as the conscious thinking, problem-solving, and sensory processing hub. For example, when you read a book, solve a math problem, create art, or remember your friend's face, your cerebrum's hemispheres are actively firing.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Coordinates\n• Thinking and learning\n• Creativity\n• Five Senses\n• Memory and Emotion\n• Problem Solving"
       },
@@ -1481,7 +1481,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 9,
         "name": "Cerebellum",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the athletic autopilot and balance coordinator. For example, when you ride a bicycle, jump rope, or play piano, the cerebellum fine-tunes your muscle timing and posture so you move smoothly without tripping.",
+        "example": "Acts like the athletic autopilot and balance coordinator. For example, when you ride a bicycle, jump rope, or play piano, the cerebellum fine-tunes your muscle timing and posture so you move smoothly without tripping.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Most voluntary muscles movements\n• Helps maintain balance and muscle tone"
       },
@@ -1489,7 +1489,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 10,
         "name": "Brain Stem",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the unbreakable life-support autopilot. For example, this bridge connecting the brain to the spinal cord regulates involuntary vitals including your heartbeat, lung breathing rhythms, blood pressure, and swallowing reflexes 24 hours a day.",
+        "example": "Acts like the unbreakable life-support autopilot. For example, this bridge connecting the brain to the spinal cord regulates involuntary vitals including your heartbeat, lung breathing rhythms, blood pressure, and swallowing reflexes 24 hours a day.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Connects brain to the spinal cord\n• Coordinates involuntary actions"
       }
@@ -1569,7 +1569,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 1,
         "name": "Aorta",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the superhighway main trunk artery of the entire body. For example, this thick, elastic arch receives high-pressure, oxygen-rich blood freshly pumped from the left ventricle and channels it into branching arterial highways serving the brain, chest, abdomen, and legs.",
+        "example": "Acts like the superhighway main trunk artery of the entire body. For example, this thick, elastic arch receives high-pressure, oxygen-rich blood freshly pumped from the left ventricle and channels it into branching arterial highways serving the brain, chest, abdomen, and legs.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "The main artery in the human body starts from the left ventricle to the stomach"
       },
@@ -1577,7 +1577,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 2,
         "name": "Right Atrium",
         "trick": "5th Grade Science Concept",
-        "example": "Operates as the venous receiving lounge for depleted blood. For example, it collects oxygen-poor, carbon-dioxide-rich dark blood returning from your working muscles and organs through the vena cava veins and funnels it down into the right ventricle.",
+        "example": "Runs as the venous receiving lounge for depleted blood. For example, it collects oxygen-poor, carbon-dioxide-rich dark blood returning from your working muscles and organs through the vena cava veins and funnels it down into the right ventricle.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Receives blood from all the parts of the body. Blood is high in CO2 and low in oxygen."
       },
@@ -1585,7 +1585,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 3,
         "name": "Right Ventricle",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the pulmonary pump sending blood to the lungs. For example, with every heartbeat, its muscular chamber contracts to squeeze oxygen-depleted blood through the pulmonary artery straight into the lungs so it can pick up fresh oxygen.",
+        "example": "Acts like the pulmonary pump sending blood to the lungs. For example, with every heartbeat, its muscular chamber contracts to squeeze oxygen-depleted blood through the pulmonary artery straight into the lungs so it can pick up fresh oxygen.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Pumps blood to the lungs. Blood is high in carbon dioxide and low in oxygen"
       },
@@ -1593,7 +1593,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 4,
         "name": "Left Atrium",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the pulmonary receiving dock for freshly oxygenated blood. For example, it receives bright red, oxygen-rich blood arriving from the lungs via the pulmonary veins and funnels it through the mitral valve into the powerful left ventricle.",
+        "example": "Acts like the pulmonary receiving dock for freshly oxygenated blood. For example, it receives bright red, oxygen-rich blood arriving from the lungs via the pulmonary veins and funnels it through the mitral valve into the powerful left ventricle.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Recieves blood from the lungs. Blood is high in oxygen and low in CO2"
       },
@@ -1601,7 +1601,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 5,
         "name": "Left Ventricle",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the powerhouse muscle engine of the entire circulatory system. For example, with walls three times thicker than any other chamber, it generates immense squeezing force to shoot oxygen-packed blood through the aorta all the way to your brain, toes, and every living cell.",
+        "example": "Acts like the powerhouse muscle engine of the entire circulatory system. For example, with walls three times thicker than any other chamber, it generates immense squeezing force to shoot oxygen-packed blood through the aorta all the way to your brain, toes, and every living cell.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "Pumps blood to all parts of the body except the lungs. Blood is high in oxygen and low in CO2"
       }
@@ -1719,7 +1719,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 3,
         "name": "Capilary",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as ultra-thin microscopic transfer bridges connecting arteries and veins. For example, being only one red blood cell wide with walls as thin as cell membranes, capillaries allow oxygen and glucose to slip directly into body cells while absorbing waste products.",
+        "example": "Functions as microscopic microscopic transfer bridges connecting arteries and veins. For example, being only one red blood cell wide with walls as thin as cell membranes, capillaries allow oxygen and glucose to slip directly into body cells while absorbing waste products.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Connects the arteries and the veins\n• They are tiny in size -- some as thin as one strand of hair\n• Most numerous in your body"
       },
@@ -1735,7 +1735,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 5,
         "name": "White Blood Cell",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the body's armed immune defense force. For example, when bacteria enter a cut, white blood cells squeeze through capillary walls, hunt down the invading germs, and swallow or chemically destroy them so you don't get infected.",
+        "example": "Acts like the body's armed immune defense force. For example, when bacteria enter a cut, white blood cells squeeze through capillary walls, hunt down the invading germs, and swallow or chemically destroy them so you don't get infected.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Fight disease and infection\n• Destroy harmful germs in the body\n• Largest of blood cells"
       },
@@ -1869,7 +1869,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 3,
         "name": "Iris",
         "trick": "5th Grade Science Concept",
-        "example": "Operates as the colorful muscular shutter controlling pupil size. For example, this pigmented ring of smooth muscle (giving eyes their blue, brown, or green color) contracts or expands automatically to regulate the exact amount of light entering the eye.",
+        "example": "Runs as the colorful muscular shutter controlling pupil size. For example, this pigmented ring of smooth muscle (giving eyes their blue, brown, or green color) contracts or expands automatically to regulate the exact amount of light entering the eye.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• The iris determines how much light should go through the pupil"
       },
@@ -1877,7 +1877,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 4,
         "name": "Lens",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as a transparent, flexible zoom lens that fine-tunes image sharpness. For example, when you shift your gaze from a textbook right in front of your face to a clock across the classroom, the lens instantly changes its curvature to focus rays sharply onto the back of the eye.",
+        "example": "Works like a transparent, flexible zoom lens that fine-tunes image sharpness. For example, when you shift your gaze from a textbook right in front of your face to a clock across the classroom, the lens instantly changes its curvature to focus rays sharply onto the back of the eye.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• Lens job is to focus the light rays at the back of the eyeballs"
       },
@@ -1893,7 +1893,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 6,
         "name": "Ciliary Muscle",
         "trick": "5th Grade Science Concept",
-        "example": "Functions as the muscular focus adjuster controlling the lens. For example, when you read small text up close, ciliary muscles contract to make the lens rounder and thicker; when looking at distant stars, they relax to flatten the lens for far vision.",
+        "example": "Acts like the muscular focus adjuster controlling the lens. For example, when you read small text up close, ciliary muscles contract to make the lens rounder and thicker; when looking at distant stars, they relax to flatten the lens for far vision.",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• The ciliary muscle change the shapes of the lens"
       },
@@ -1901,7 +1901,7 @@ window.SCIENCE_IO_PUBLISHED_NOTES = [
         "num": 7,
         "name": "Optic Nerve",
         "trick": "5th Grade Science Concept",
-        "example": "Operates as a high-speed fiber-optic data transmission cable connecting the eye to the brain. For example, over one million nerve fibers bundled together carry the retina's electrical image signals directly to the visual cortex in the back of your brain, which flips the image right-side up so you can see!",
+        "example": "Works like a high-speed fiber-optic data transmission cable connecting the eye to the brain. For example, over one million nerve fibers bundled together carry the retina's electrical image signals directly to the visual cortex in the back of your brain, which flips the image right-side up so you can see!",
         "formula": "5th Grade Scientific Principle",
         "explanation": "• The optic nerve carries the nerve signals to the brain"
       }
